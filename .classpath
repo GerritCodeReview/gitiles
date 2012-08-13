@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/com/google/guava/guava/13.0/guava-13.0.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/com/google/template/soy/2011-22-12/soy-2011-22-12.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/jgit/org/eclipse/jgit/${jgitVersion}/org.eclipse.jgit-${jgitVersion}.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/jgit/org/eclipse/jgit/http/server/${jgitVersion}/org.eclipse.jgit.http.server-${jgitVersion}.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/jgit/org/eclipse/jgit/junit/${jgitVersion}/org.eclipse.jgit.junit-${jgitVersion}.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/tomcat/servlet-api/6.0.29/servlet-api-6.0.29.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/joda-time/joda-time/2.1/joda-time-2.1.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/com/google/code/gson/gson/2.1/gson-2.1.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/mortbay/jetty/jetty/${jettyVersion}/jetty-${jettyVersion}.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
