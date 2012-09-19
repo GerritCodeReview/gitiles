@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "AAAJQX///Y8\u003d",
+        "filename": ".classpath",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAAJQX///o0\u003d",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAJQX///ow\u003d",
         "filename": ".project",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2012-09-19T04:38:10Z",
       "side": 1,
       "message": "Don\u0027t store .project.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///Y4\u003d",
+        "filename": ".project",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAAJQX///ow\u003d",
       "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "AAAJQX///Kk\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done, but that sure played hell with the mvn jetty:run setup. I got it working as long as you don\u0027t mind invoking mvn twice, and don\u0027t mind rebuilding the war to pick up any changes.",
+      "parentUuid": "AAAJQX///n4\u003d",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAJQX///os\u003d",
         "filename": "pom.xml",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2012-09-19T04:38:10Z",
       "side": 1,
       "message": "We prefer https:// URLs.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///Yw\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAAJQX///os\u003d",
       "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "AAAJQX///Y0\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done. Stuck at 7.5.2 due to the comment here that says 7.5.3 requires Maven 3:\nhttp://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin\n\nUnless you want to make this a Maven 3 project, no idea what that would entail.",
+      "parentUuid": "AAAJQX///oU\u003d",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAJQX///og\u003d",
         "filename": "pom.xml",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2012-09-19T04:38:10Z",
       "side": 1,
       "message": "nit: drop blank line",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///Ys\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAAJQX///og\u003d",
       "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "AAAJQX///Yo\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAAJQX///oo\u003d",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAJQX///ok\u003d",
         "filename": "pom.xml",
         "patchSetId": 2
@@ -132,6 +258,24 @@
       "writtenOn": "2012-09-19T04:38:10Z",
       "side": 1,
       "message": "nit: drop blank line",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///Yk\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAAJQX///ok\u003d",
       "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "AAAJQX///Jo\u003d",
+        "filename": "src/main/webapp/WEB-INF/web.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "It turns out \"automatically\" in this case means \"with the system-wide webdefault.xml\", but that doesn\u0027t handle the overlapping GitilesServlet and DefaultServlet mappings correctly. But I see your point that this doesn\u0027t belong in web.xml; so I moved it to a custom webdefault.xml. Slightly better but still ugly.\n\nHopefully someone else can come up with something better based on how this is deployed in a real environment, not the stupid jetty-maven-plugin.",
+      "parentUuid": "AAAJQX///oY\u003d",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAJQX///n8\u003d",
         "filename": "src/main/webapp/WEB-INF/web.xml",
         "patchSetId": 2
@@ -166,6 +328,24 @@
       "writtenOn": "2012-09-19T04:38:10Z",
       "side": 1,
       "message": "Ick. You needed this mapping to work around the /* mapping above.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///YQ\u003d",
+        "filename": "src/main/webapp/WEB-INF/web.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-09-19T22:35:37Z",
+      "side": 1,
+      "message": "Gone.",
+      "parentUuid": "AAAJQX///n8\u003d",
       "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
