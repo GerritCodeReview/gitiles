@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAJQX///o0\u003d",
+        "filename": ".classpath",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "Do not commit .classpath or .project for a maven style project. Mark these .gitignore and let m2eclipse make them on the fly from the pom.xml.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///ow\u003d",
+        "filename": ".project",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "Don\u0027t store .project.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///n4\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "I think you want to do 2 components under a top level component. One to have the gitiles library that can be embedded into products (e.g. Gerrit), and another that has the WAR wrapper to make it a proper server product on its own.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///os\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "We prefer https:// URLs.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///oU\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "Jetty 6 is ancient. Try Jetty 7? http://eclipse.org/jetty/",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///og\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "nit: drop blank line",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///oo\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "\u003cscope\u003eprovided\u003c/scope\u003e, the JAR packaged out of this should not attempt to automatically include the servlet-api because the application loading the JAR is expected to provide that.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///ok\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "nit: drop blank line",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///oY\u003d",
+        "filename": "src/main/webapp/WEB-INF/web.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be in the main web.xml file that the package makes. Its not always available, e.g. a non-Jetty server doesn\u0027t have this. It shouldn\u0027t be necessary either. Files not under WEB-INF are supposed to be served automatically.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQX///n8\u003d",
+        "filename": "src/main/webapp/WEB-INF/web.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-09-19T04:38:10Z",
+      "side": 1,
+      "message": "Ick. You needed this mapping to work around the /* mapping above.",
+      "revId": "cdef541486d1c3cb07d9cf41d7a0bfba64eef4ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
