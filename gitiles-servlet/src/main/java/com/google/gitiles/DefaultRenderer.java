@@ -28,11 +28,11 @@ public class DefaultRenderer extends Renderer {
   private final SoyTofu tofu;
 
   DefaultRenderer() {
-    this("", null);
+    this("", null, "");
   }
 
-  public DefaultRenderer(String staticPrefix, URL customTemplates) {
-    this(ImmutableMap.<String, String> of(), staticPrefix, customTemplates);
+  public DefaultRenderer(String staticPrefix, URL customTemplates, String siteTitle) {
+    this(ImmutableMap.<String, String> of("gitiles.SITE_TITLE", siteTitle), staticPrefix, customTemplates);
   }
 
   public DefaultRenderer(Map<String, String> globals, String staticPrefix, URL customTemplates) {

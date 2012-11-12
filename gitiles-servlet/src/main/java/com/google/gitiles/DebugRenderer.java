@@ -28,7 +28,7 @@ import java.net.URL;
 /** Renderer that reloads Soy templates from the filesystem on every request. */
 public class DebugRenderer extends Renderer {
   public DebugRenderer(String staticPrefix, String customTemplatesFilename,
-      final String soyTemplatesRoot) {
+      final String soyTemplatesRoot, final String siteTitle) {
     super(
         new Function<String, URL>() {
           @Override
@@ -36,7 +36,7 @@ public class DebugRenderer extends Renderer {
             return toFileURL(soyTemplatesRoot + File.separator + name);
           }
         },
-        ImmutableMap.<String, String> of(), staticPrefix,
+        ImmutableMap.<String, String> of("gitiles.SITE_TITLE", siteTitle), staticPrefix,
         toFileURL(customTemplatesFilename));
   }
 

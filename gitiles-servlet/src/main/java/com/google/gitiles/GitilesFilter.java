@@ -285,14 +285,15 @@ class GitilesFilter extends MetaFilter {
     if (renderer == null) {
       String staticPrefix = config.getServletContext().getContextPath() + STATIC_PREFIX;
       String customTemplates = jgitConfig.getString("gitiles", null, "customTemplates");
+      String siteTitle = jgitConfig.getString("gitiles", null, "siteTitle");
       // TODO(dborowitz): Automatically set to true when run with mvn jetty:run.
       if (jgitConfig.getBoolean("gitiles", null, "reloadTemplates", false)) {
         renderer = new DebugRenderer(staticPrefix, customTemplates,
             Joiner.on(File.separatorChar).join(System.getProperty("user.dir"),
                 "gitiles-servlet", "src", "main", "resources",
-                "com", "google", "gitiles", "templates"));
+                "com", "google", "gitiles", "templates"), siteTitle);
       } else {
-        renderer = new DefaultRenderer(staticPrefix, Renderer.toFileURL(customTemplates));
+        renderer = new DefaultRenderer(staticPrefix, Renderer.toFileURL(customTemplates), siteTitle);
       }
     }
     if (urls == null) {
