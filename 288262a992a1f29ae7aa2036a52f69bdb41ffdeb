@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAALfX///8Q\u003d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-11-12T20:50:53Z",
+      "side": 1,
+      "message": "Nit: space after :",
+      "revId": "288262a992a1f29ae7aa2036a52f69bdb41ffdeb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAALfX///8M\u003d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-11-12T20:50:53Z",
+      "side": 1,
+      "message": "Nit: space after :",
+      "revId": "288262a992a1f29ae7aa2036a52f69bdb41ffdeb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAALfX///8I\u003d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-11-12T20:50:53Z",
+      "side": 1,
+      "message": "Please use 2-space indents. As a general rule (as per Soy docs, as I recall), you don\u0027t need to have a level of indentation inside the {template} tag, cf. .header above. That said, in this particular case I can see the argument for it because of the unmatched \u003c/body\u003e in this template.",
+      "revId": "288262a992a1f29ae7aa2036a52f69bdb41ffdeb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
