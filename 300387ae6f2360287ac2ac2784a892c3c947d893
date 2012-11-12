@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "AAALfH////U\u003d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DebugRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-11-12T20:52:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAALfX///8k\u003d",
+      "revId": "300387ae6f2360287ac2ac2784a892c3c947d893",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAALfX///8g\u003d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DebugRenderer.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2012-11-12T20:42:23Z",
       "side": 1,
       "message": "This works, as you saw, but I don\u0027t like that we now have to make sure the keys in the globals maps in both DebugRenderer and DefaultRenderer match.\n\nCan you just add a siteTitle arg to the super constructor that you\u0027re calling? That constructor is already building a new globals map, so it\u0027s not any extra work.",
+      "revId": "300387ae6f2360287ac2ac2784a892c3c947d893",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAALfH////Q\u003d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DebugRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-11-12T20:52:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAALfX///8g\u003d",
       "revId": "300387ae6f2360287ac2ac2784a892c3c947d893",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "AAALfH////c\u003d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-11-12T20:52:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAALfX///8Y\u003d",
+      "revId": "300387ae6f2360287ac2ac2784a892c3c947d893",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAALfX///8c\u003d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2012-11-12T20:42:23Z",
       "side": 1,
       "message": "Please limit to 100 chars.",
+      "revId": "300387ae6f2360287ac2ac2784a892c3c947d893",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAALfH////Y\u003d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-11-12T20:52:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "AAALfX///8c\u003d",
       "revId": "300387ae6f2360287ac2ac2784a892c3c947d893",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
