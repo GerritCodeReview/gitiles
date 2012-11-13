@@ -72,6 +72,15 @@
     </div>
   {/if}
 
+  {if gitiles.SEARCH_QUERY_URL and gitiles.SEARCH_PUBLIC_URL}
+    <div class="search">
+      <form method="get" action="{gitiles.SEARCH_QUERY_URL}">
+        <input type="hidden" name="sitesearch" value="{gitiles.SEARCH_PUBLIC_URL}" />
+        <input type="text" name="q" value="Search this site" />
+      </form>
+    </div>
+  {/if}
+
   {if $breadcrumbs and length($breadcrumbs)}
     <div class="breadcrumbs">
       {foreach $entry in $breadcrumbs}

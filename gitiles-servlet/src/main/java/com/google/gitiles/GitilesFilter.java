@@ -44,6 +44,7 @@ import org.eclipse.jgit.util.FS;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -285,15 +286,20 @@ class GitilesFilter extends MetaFilter {
       String customTemplates = jgitConfig.getString("gitiles", null, "customTemplates");
       String siteTitle = Objects.firstNonNull(jgitConfig.getString("gitiles", null, "siteTitle"),
           "Gitiles");
+      HashMap<String,String> searchParams = new HashMap<String,String>();
+      searchParams.put( "queryUrl", Objects.firstNonNull(
+          jgitConfig.getString("gitiles", "search", "queryUrl"), ""));
+      searchParams.put( "publicUrl", Objects.firstNonNull(
+          jgitConfig.getString("gitiles", "search", "publicUrl"), ""));
       // TODO(dborowitz): Automatically set to true when run with mvn jetty:run.
       if (jgitConfig.getBoolean("gitiles", null, "reloadTemplates", false)) {
         renderer = new DebugRenderer(staticPrefix, customTemplates,
             Joiner.on(File.separatorChar).join(System.getProperty("user.dir"),
                 "gitiles-servlet", "src", "main", "resources",
-                "com", "google", "gitiles", "templates"), siteTitle);
+                "com", "google", "gitiles", "templates"), siteTitle, searchParams);
       } else {
         renderer = new DefaultRenderer(staticPrefix, Renderer.toFileURL(customTemplates),
-            siteTitle);
+            siteTitle, searchParams);
       }
     }
     if (urls == null) {

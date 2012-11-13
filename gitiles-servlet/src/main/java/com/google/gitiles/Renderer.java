@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +66,8 @@ public abstract class Renderer {
   protected ImmutableMap<String, String> globals;
 
   protected Renderer(Function<String, URL> resourceMapper, Map<String, String> globals,
-      String staticPrefix, URL customTemplates, String siteTitle) {
+      String staticPrefix, URL customTemplates, String siteTitle,
+      HashMap<String,String> searchParams) {
     checkNotNull(staticPrefix, "staticPrefix");
     List<URL> allTemplates = Lists.newArrayListWithCapacity(SOY_FILENAMES.size() + 1);
     for (String filename : SOY_FILENAMES) {
@@ -83,6 +85,8 @@ public abstract class Renderer {
       allGlobals.put(e.getKey(), staticPrefix + e.getValue());
     }
     allGlobals.put("gitiles.SITE_TITLE", siteTitle);
+    allGlobals.put("gitiles.SEARCH_QUERY_URL", searchParams.get("queryUrl"));
+    allGlobals.put("gitiles.SEARCH_PUBLIC_URL", searchParams.get("publicUrl"));
     allGlobals.putAll(globals);
     this.globals = ImmutableMap.copyOf(allGlobals);
   }

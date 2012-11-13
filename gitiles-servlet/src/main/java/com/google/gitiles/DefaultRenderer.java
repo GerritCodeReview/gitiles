@@ -21,6 +21,7 @@ import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.tofu.SoyTofu;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /** Renderer that precompiles Soy and uses static precompiled CSS. */
@@ -28,15 +29,17 @@ public class DefaultRenderer extends Renderer {
   private final SoyTofu tofu;
 
   DefaultRenderer() {
-    this("", null, "");
+    this("", null, "", new HashMap<String,String>());
   }
 
-  public DefaultRenderer(String staticPrefix, URL customTemplates, String siteTitle) {
-    this(ImmutableMap.<String, String> of(), staticPrefix, customTemplates, siteTitle);
+  public DefaultRenderer(String staticPrefix, URL customTemplates, String siteTitle,
+      HashMap<String,String> searchParams) {
+    this(ImmutableMap.<String, String> of(), staticPrefix, customTemplates,
+        siteTitle, searchParams);
   }
 
   public DefaultRenderer(Map<String, String> globals, String staticPrefix, URL customTemplates,
-      String siteTitle) {
+      String siteTitle, HashMap<String,String> searchParams) {
     super(
         new Function<String, URL>() {
           @Override
@@ -44,7 +47,7 @@ public class DefaultRenderer extends Renderer {
             return Resources.getResource(Renderer.class, "templates/" + name);
           }
         },
-        globals, staticPrefix, customTemplates, siteTitle);
+        globals, staticPrefix, customTemplates, siteTitle, searchParams);
     SoyFileSet.Builder builder = new SoyFileSet.Builder()
         .setCompileTimeGlobals(this.globals);
     for (URL template : templates) {
