@@ -147,14 +147,8 @@ public class ViewFilter extends AbstractHttpFilter {
       return command;
     } else if (result.getOldRevision() != null) {
       return CMD_DIFF;
-    }
-    Revision rev = result.getRevision();
-    if (rev.getPeeledType() != Constants.OBJ_COMMIT
-        || !path.isEmpty()
-        || result.getRevision().nameIsId()) {
-      return CMD_SHOW;
     } else {
-      return CMD_LOG;
+      return CMD_SHOW;
     }
   }
 }
