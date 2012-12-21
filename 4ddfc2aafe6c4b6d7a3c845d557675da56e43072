@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "NKZlX28s",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-12-21T17:22:34Z",
+      "side": 1,
+      "message": "This walk needs to be released when you are done with it. RevWalks contain native resource handles that leak until the GC comes along and cleans them up, or you call release()",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NKRldC.Y",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-12-21T17:22:34Z",
+      "side": 1,
+      "message": "Its too bad we can\u0027t teach Ref instances to cache this somewhere. E.g. JGit could use a new cache file under $GIT_DIR to map ObjectId to Long, and the DfsRefDatabase could do something special too, so the time is \"instantly\" available upon reading the Ref, and if not then do the peel() step where it becomes available as part of the peeling process inside of the ref database.\n\nThis TimeCache here is fine, I am just thinking a bit more about how to scale this so its less expensive for android.googlesource.com.",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NKblUH8c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-12-21T17:22:34Z",
+      "side": 1,
+      "message": "s/is/as/",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NKVljg6c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-12-21T17:22:34Z",
+      "side": 1,
+      "message": "Use 0 instead? Commits cannot use a negative time, the earliest a commit can be at is 0, the UNIX epoch in ~1970.",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NKXlox4A",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2012-12-21T17:22:34Z",
+      "side": 1,
+      "message": "Use 0?",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
