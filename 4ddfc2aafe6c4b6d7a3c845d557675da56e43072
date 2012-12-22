@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "NKhhK5VQ",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-22T00:12:20Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "NKZlX28s",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "NKRldC.Y",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2012-12-21T17:22:34Z",
       "side": 1,
       "message": "Its too bad we can\u0027t teach Ref instances to cache this somewhere. E.g. JGit could use a new cache file under $GIT_DIR to map ObjectId to Long, and the DfsRefDatabase could do something special too, so the time is \"instantly\" available upon reading the Ref, and if not then do the peel() step where it becomes available as part of the peeling process inside of the ref database.\n\nThis TimeCache here is fine, I am just thinking a bit more about how to scale this so its less expensive for android.googlesource.com.",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NKjhPqWU",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-22T00:12:20Z",
+      "side": 1,
+      "message": "Ack. Perhaps in android.googlesource.com we will increase the cache size at least.",
+      "parentUuid": "NKRldC.Y",
       "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "NKtgzDfQ",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-22T00:12:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "NKblUH8c",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "NKVljg6c",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "NKpg9lcA",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-22T00:12:20Z",
+      "side": 1,
+      "message": "Well, I did initially think commits could have negative times. But I don\u0027t think 0 is right because then refs to objects with no time end up getting sorted by name along with refs to tags/commits that have explicit time 0. So this should really be something \u003c0, at which point MIN_VALUE seems like as good a choice as any.",
+      "parentUuid": "NKVljg6c",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "NKXlox4A",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2012-12-21T17:22:34Z",
       "side": 1,
       "message": "Use 0?",
+      "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NKvgwUek",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-22T00:12:20Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "NKXlox4A",
       "revId": "4ddfc2aafe6c4b6d7a3c845d557675da56e43072",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
