@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "NQqACOhA",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-26T20:39:18Z",
+      "side": 1,
+      "message": "Tab",
+      "revId": "3a3e822ea5b8542678c2827c9f4224e7bd64f0d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NQgAQRlk",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-26T20:39:18Z",
+      "side": 1,
+      "message": "We haven\u0027t been super strict about this but probably this should go in a {msg}",
+      "revId": "3a3e822ea5b8542678c2827c9f4224e7bd64f0d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
