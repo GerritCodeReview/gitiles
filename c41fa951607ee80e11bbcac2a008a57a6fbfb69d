@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "NUjDyCC4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-27T23:18:03Z",
+      "side": 1,
+      "message": "?stay is a complete straw man. Would have liked to use /. but Chrome apparently normalizes that out.",
+      "revId": "c41fa951607ee80e11bbcac2a008a57a6fbfb69d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
