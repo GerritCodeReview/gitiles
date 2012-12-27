@@ -15,11 +15,13 @@
 package com.google.gitiles;
 
 import static com.google.gitiles.RevisionParser.PATH_SPLITTER;
+
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Charsets;
 import com.google.common.base.Objects;
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
@@ -31,6 +33,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.TreeWalk;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -49,6 +52,43 @@ public class TreeSoyData {
    * file instead of as a symlink.
    */
   static final int MAX_SYMLINK_SIZE = 16 << 10;
+
+  public static class Entry {
+    private final FileType type;
+    private final String name;
+    private final ObjectId id;
+
+    public Entry(TreeWalk tw) {
+      this.type = FileType.forEntry(tw);
+      this.name = tw.getNameString();
+      this.id = tw.getObjectId(0);
+    }
+
+    public FileType getType() {
+      return type;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public ObjectId getId() {
+      return id;
+    }
+
+    @Override
+    public String toString() {
+      return Objects.toStringHelper(this)
+          .add("type", type)
+          .add("name", name)
+          .add("id", id)
+          .toString();
+    }
+  }
+
+  public static Entry newEntry(TreeWalk tw) throws MissingObjectException, IOException {
+    return tw.next() ? new Entry(tw) : null;
+  }
 
   static String resolveTargetUrl(GitilesView view, String target) {
     if (target.startsWith("/")) {
@@ -71,10 +111,7 @@ public class TreeSoyData {
     }
 
     path = Files.simplifyPath(view.getTreePath() + "/" + target);
-    return GitilesView.path()
-        .copyFrom(view)
-        .setTreePath(!path.equals(".") ? path : "")
-        .toUrl();
+    return GitilesView.path().copyFrom(view).setTreePath(!path.equals(".") ? path : "").toUrl();
   }
 
   @VisibleForTesting
@@ -96,54 +133,54 @@ public class TreeSoyData {
     this.view = view;
   }
 
-  public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw) throws MissingObjectException,
-         IOException {
-    List<Object> entries = Lists.newArrayList();
+  public Map<String, Object> toSoyData(ObjectId treeId) throws MissingObjectException, IOException {
+    TreeWalk tw = new TreeWalk(rw.getObjectReader());
+    tw.addTree(treeId);
+    tw.setRecursive(false);
+    return toSoyData(treeId, tw);
+  }
+
+  static Iterable<Entry> iterEntries(final TreeWalk tw) {
+    return new Iterable<Entry>() {
+      @Override
+      public Iterator<Entry> iterator() {
+        return new AbstractIterator<Entry>() {
+          @Override
+          protected Entry computeNext() {
+            try {
+              Entry result = newEntry(tw);
+              if (result == null) {
+                endOfData();
+              }
+              return result;
+            } catch (MissingObjectException e) {
+              throw new RuntimeException(e);
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        };
+      }
+    };
+  }
+
+  public Map<String, Object> toSoyData(ObjectId treeId, final TreeWalk tw)
+      throws MissingObjectException, IOException {
+    return toSoyData(treeId, iterEntries(tw));
+  }
+
+  public Map<String, Object> toSoyData(ObjectId treeId, Iterable<Entry> entries)
+      throws MissingObjectException, IOException {
+    List<Object> soyEntries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
-    while (tw.next()) {
-      FileType type = FileType.forEntry(tw);
-      String name = tw.getNameString();
 
-      switch (view.getType()) {
-        case PATH:
-          urlBuilder.setTreePath(view.getTreePath() + "/" + name);
-          break;
-        case REVISION:
-          // Got here from a tag pointing at a tree.
-          urlBuilder.setTreePath(name);
-          break;
-        default:
-          throw new IllegalStateException(String.format(
-              "Cannot render TreeSoyData from %s view", view.getType()));
-      }
-
-      String url = urlBuilder.toUrl();
-      if (type == FileType.TREE) {
-        name += "/";
-        url += "/";
-      }
-      Map<String, String> entry = Maps.newHashMapWithExpectedSize(4);
-      entry.put("type", type.toString());
-      entry.put("name", name);
-      entry.put("url", url);
-      if (type == FileType.SYMLINK) {
-        String target = new String(
-            rw.getObjectReader().open(tw.getObjectId(0)).getCachedBytes(),
-            Charsets.UTF_8);
-        // TODO(dborowitz): Merge Shawn's changes before copying these methods
-        // in.
-        entry.put("targetName", getTargetDisplayName(target));
-        String targetUrl = resolveTargetUrl(view, target);
-        if (targetUrl != null) {
-          entry.put("targetUrl", targetUrl);
-        }
-      }
-      entries.add(entry);
+    for (Entry entry : entries) {
+      soyEntries.add(toSoyData(entry, urlBuilder));
     }
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(3);
     data.put("sha", treeId.name());
-    data.put("entries", entries);
+    data.put("entries", soyEntries);
 
     if (view.getType() == GitilesView.Type.PATH
         && view.getRevision().getPeeledType() == OBJ_COMMIT) {
@@ -153,10 +190,41 @@ public class TreeSoyData {
     return data;
   }
 
-  public Map<String, Object> toSoyData(ObjectId treeId) throws MissingObjectException, IOException {
-    TreeWalk tw = new TreeWalk(rw.getObjectReader());
-    tw.addTree(treeId);
-    tw.setRecursive(false);
-    return toSoyData(treeId, tw);
+  private Map<String, String> toSoyData(Entry entry, GitilesView.Builder urlBuilder)
+      throws MissingObjectException, IOException {
+    switch (view.getType()) {
+      case PATH:
+        urlBuilder.setTreePath(view.getTreePath() + "/" + entry.name);
+        break;
+      case REVISION:
+        // Got here from a tag pointing at a tree.
+        urlBuilder.setTreePath(entry.name);
+        break;
+      default:
+        throw new IllegalStateException(String.format(
+            "Cannot render TreeSoyData from %s view", view.getType()));
+    }
+
+    String name = entry.name;
+    String url = urlBuilder.toUrl();
+    if (entry.type == FileType.TREE) {
+      name += "/";
+      url += "/";
+    }
+    Map<String, String> data = Maps.newHashMapWithExpectedSize(4);
+    data.put("type", entry.type.toString());
+    data.put("name", name);
+    data.put("url", url);
+    if (entry.type == FileType.SYMLINK) {
+      String target = new String(
+          rw.getObjectReader().open(entry.id).getCachedBytes(),
+          Charsets.UTF_8);
+      data.put("targetName", getTargetDisplayName(target));
+      String targetUrl = resolveTargetUrl(view, target);
+      if (targetUrl != null) {
+        data.put("targetUrl", targetUrl);
+      }
+    }
+    return data;
   }
 }
