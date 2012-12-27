@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "NRD7yyS0",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2012-12-27T01:17:49Z",
+      "side": 1,
+      "message": "Put a TODO to use resolveHttpUrl, or don\u0027t bother?",
+      "revId": "e39ce363a1d0cb0b79029d2ca47828056bb27fe5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
