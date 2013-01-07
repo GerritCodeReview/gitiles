@@ -16,6 +16,24 @@
       "revId": "5f7e8b734d02632c277014dc5dcfb06208e8432b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N1I4f22Y",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/RevisionParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-01-07T18:56:22Z",
+      "side": 1,
+      "message": "I could do that, but I\u0027m not sold on it being 400 rather than 404. I always thought 400 was for some malformed syntax in the request, not a semantic error in the URL.\n\nPut another way, one thing this is protecting against is fat-fingering a refname in a URL. Why should some fat-fingers (refs/head/master) cause 404s and others (refs/heads master) cause 400s?",
+      "parentUuid": "N1A4D6xc",
+      "revId": "5f7e8b734d02632c277014dc5dcfb06208e8432b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
