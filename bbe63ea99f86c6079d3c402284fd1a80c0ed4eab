@@ -52,6 +52,24 @@
       "revId": "bbe63ea99f86c6079d3c402284fd1a80c0ed4eab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N1I5E.0o",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-01-07T19:23:05Z",
+      "side": 1,
+      "message": "You\u0027re forgiven since even though you filed the bug you didn\u0027t review the original code :)\n\nFleshed out the change description and fixed the check a bit more.",
+      "parentUuid": "N1E4mk7k",
+      "revId": "bbe63ea99f86c6079d3c402284fd1a80c0ed4eab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
