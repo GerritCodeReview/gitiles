@@ -16,6 +16,24 @@
       "revId": "bbe63ea99f86c6079d3c402284fd1a80c0ed4eab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N1M4Z44I",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-01-07T19:02:29Z",
+      "side": 1,
+      "message": "Like most checkArgument calls, this is a sanity check for the programmer calling this method. This method has an unusual precondition on the parts list, in that its length must have some relation to the parsed path in the URL.\n\nThe problem was that this check was wrong. This was generating IllegalArgumentExceptions on things that should have been valid. See the bug that you filed on our internal bug tracker on the subject :)",
+      "parentUuid": "N1E4N8z0",
+      "revId": "bbe63ea99f86c6079d3c402284fd1a80c0ed4eab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
