@@ -34,6 +34,24 @@
       "revId": "bbe63ea99f86c6079d3c402284fd1a80c0ed4eab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N1E4mk7k",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-01-07T19:12:34Z",
+      "side": 1,
+      "message": "Ah that makes more sense.  It is the opposite of what I was looking for. I filled that bug last week and have flushed my memory since then :)\n\nA description of the following would have helped:\n\"Don\u0027t throw IllegalArgumentException when auto-diving for root paths like \"/+/master/\"",
+      "parentUuid": "N1M4Z44I",
+      "revId": "bbe63ea99f86c6079d3c402284fd1a80c0ed4eab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
