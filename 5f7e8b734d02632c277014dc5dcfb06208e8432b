@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N1A4D6xc",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/RevisionParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-01-07T18:44:42Z",
+      "side": 1,
+      "message": "nit: seems like this should cause a 400 (not a 404). Are you able to differentiate valid syntax?",
+      "revId": "5f7e8b734d02632c277014dc5dcfb06208e8432b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
