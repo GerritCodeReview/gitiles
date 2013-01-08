@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N2Gq7dxM",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-01-08T17:17:44Z",
+      "side": 1,
+      "message": "I usually do this as:\n\n  int l \u003d isHead(left) ? 1 : 0;\n  int r \u003d isHead(right) ? 1 : 0;\n  return r - l;\n\nwhich is much shorter. You could even put the ?: into the isHead method if you rename it to sound less boolean return valuey.",
+      "revId": "25d88e6e2d21cd010866648028cf988f179fb495",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
