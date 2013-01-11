@@ -16,6 +16,24 @@
       "revId": "a0dbf1e74589a5d2d5d879a5138ccf96b96ca613",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OCvg28eE",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-01-11T22:29:11Z",
+      "side": 1,
+      "message": "Oh, I see what you\u0027re saying. I thought initially you were talking about changing the BaseServlet interface to something else. But you\u0027re just saying we should refactor the servlet classes. I agree in principle, but I don\u0027t think it\u0027s particularly important to do now, since it will naturally happen as we go through them to add additional format support. I already did basically this in HostIndexServlet, calling the method getDescriptions().\n\nThat said, there is limit to the commonality of the data structures used by the multiple rendering methods, for two reasons:\n1. The Soy template has a bunch of HTML-only stuff (navigation URLs, page title, etc.), so it may need to be a superset.\n2. Soy only supports List\u003c?\u003e or Map\u003cString, ?\u003e, whereas GSON supports the more idiomatic reflection-based approach used by e.g. RepositoryDescription.\n\nIt\u0027s still something to think about even given these caveats. One step at a time. \n\nAlso, nit: s/servelet/servlet/g :)",
+      "parentUuid": "OCnhDAUU",
+      "revId": "a0dbf1e74589a5d2d5d879a5138ccf96b96ca613",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
