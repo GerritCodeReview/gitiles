@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OCnhDAUU",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2013-01-11T21:57:55Z",
+      "side": 1,
+      "message": "For my money, I would call this doGetHtml() and refactor the data gathering into gatherData(), which could be used by future implementations of LogServelet.doGetJson(), etc.\n\nDitto for other servelet classes.",
+      "revId": "a0dbf1e74589a5d2d5d879a5138ccf96b96ca613",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
