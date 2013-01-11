@@ -16,6 +16,24 @@
       "revId": "ff5e1ea51fac8cf12327a88cc66a7fc7b0e66196",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OCnhq4a4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitDescription.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-01-11T23:28:24Z",
+      "side": 1,
+      "message": "Also, as far as class organization goes, if you plan to be writing a buch of GSON TypeAdapters, I would probably put them all in a com.google.gitiles.server.json package. Also in that package would go a static utility method to construct a Gson instance with all the correct options set on the GsonBuilder (currently in HostIndexServlet or BaseServlet).",
+      "parentUuid": "OCrhAeTI",
+      "revId": "ff5e1ea51fac8cf12327a88cc66a7fc7b0e66196",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
