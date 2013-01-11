@@ -138,9 +138,7 @@ class DevServer {
       fcfg.load();
       cfg = fcfg;
     } else {
-      // TODO(dborowitz): This is not getting outputted, we're probably missing
-      // some logging config.
-      log.info("Config file %s not found, using defaults", cfgFile.getPath());
+      log.info("Config file {} not found, using defaults", cfgFile.getPath());
     }
     this.cfg = cfg;
 
