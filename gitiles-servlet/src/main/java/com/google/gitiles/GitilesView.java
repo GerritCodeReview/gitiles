@@ -204,6 +204,7 @@ public class GitilesView {
         case DIFF:
           this.path = maybeTrimLeadingAndTrailingSlash(checkNotNull(path));
           return this;
+        case REFS:
         case LOG:
           this.path = path != null ? maybeTrimLeadingAndTrailingSlash(path) : null;
           return this;
@@ -347,7 +348,7 @@ public class GitilesView {
     return new Builder(Type.LOG);
   }
 
-  private static String maybeTrimLeadingAndTrailingSlash(String str) {
+  static String maybeTrimLeadingAndTrailingSlash(String str) {
     if (str.startsWith("/")) {
       str = str.substring(1);
     }
@@ -521,6 +522,8 @@ public class GitilesView {
    *     auto-diving into one-entry subtrees.
    */
   public List<Map<String, String>> getBreadcrumbs(List<Boolean> hasSingleTree) {
+    checkArgument(type != Type.REFS || Strings.isNullOrEmpty(path),
+        "breadcrumbs for REFS view with path not supported");
     checkArgument(hasSingleTree == null || type == Type.PATH,
         "hasSingleTree must be null for %s view", type);
     String path = this.path;
@@ -550,7 +553,8 @@ public class GitilesView {
       breadcrumbs.add(breadcrumb(revision.getName(), revision().copyFrom(this)));
     }
     if (path != null) {
-      if (type != Type.LOG) { // The "." breadcrumb would be no different for LOG.
+      if (type != Type.LOG && type != Type.REFS) {
+        // The "." breadcrumb would be no different for LOG or REFS.
         breadcrumbs.add(breadcrumb(".", copyWithPath().setTreePath("")));
       }
       StringBuilder cur = new StringBuilder();
