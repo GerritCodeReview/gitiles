@@ -16,9 +16,11 @@ package com.google.gitiles;
 
 import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.net.HttpHeaders;
@@ -250,5 +252,9 @@ public class FakeHttpServletResponse implements HttpServletResponse {
 
   public String getActualBodyString() {
     return RawParseUtils.decode(getActualBody());
+  }
+
+  public String getHeader(String name) {
+    return Iterables.getFirst(headers.get(checkNotNull(name)), null);
   }
 }
