@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OCrhAeTI",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitDescription.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-01-11T23:24:18Z",
+      "side": 1,
+      "message": "Take a look at org.eclipse.jgit.lib.PersonIdent, which is how JGit represents identities internally. GSON lets you write custom serializers/deserializers for arbitrary Java types, which it calls \"TypeAdapters\". So you could do something like:\n\n  myGsonBuilder.registerTypeAdapter(PersonIdent.class, new TypeAdapter\u003cPersonIdent\u003e() {\n    @Override\n    public PersonIdent read(JsonReader in) {\n      throw new UnsupportedOperationException();\n    }\n\n    @Override\n    public void write(JsonWriter out) {\n      ...\u003csee JsonWriter doc for an example\u003e...\n    }\n  });\n\nIt may even make sense to ditch this class entirely and replace it with a TypeAdapter\u003cRevCommit\u003e, where RevCommit the type that you get out of the RevWalk/LogCommand.",
+      "revId": "ff5e1ea51fac8cf12327a88cc66a7fc7b0e66196",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
