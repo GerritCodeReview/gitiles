@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "OMNIERCI",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitDescription.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-01-12T11:21:51Z",
+      "side": 1,
+      "message": "Should be 2013",
+      "revId": "ff5e1ea51fac8cf12327a88cc66a7fc7b0e66196",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "OCrhAeTI",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitDescription.java",
         "patchSetId": 1
