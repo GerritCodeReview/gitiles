@@ -328,7 +328,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
 
   @Override
   public String getRequestURI() {
-    return null;
+    return contextPath + servletPath + path;
   }
 
   @Override
