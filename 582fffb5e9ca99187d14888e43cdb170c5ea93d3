@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OOqgLWy0",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/FakeHttpServletRequest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-01-15T01:17:10Z",
+      "side": 1,
+      "message": "IIRC getRequestURI does not include the query parameters. To quote the docs \"Returns the part of this request\u0027s URL from the protocol name up to the query string in the first line of the HTTP request.\"",
+      "revId": "582fffb5e9ca99187d14888e43cdb170c5ea93d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OOkgYn34",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/FakeHttpServletResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-01-15T01:17:10Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary. Just write the bytes to actualBody.",
+      "revId": "582fffb5e9ca99187d14888e43cdb170c5ea93d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OOmgdY20",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/FakeHttpServletResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-01-15T01:17:10Z",
+      "side": 1,
+      "message": "This uses the platform default encoding. Which may not be UTF-8. Even though you assert the encoding was set to be UTF-8. So uhm not good. Wrap this into an OutputStreamWriter that explicitly calls for UTF-8 as the encoding.",
+      "revId": "582fffb5e9ca99187d14888e43cdb170c5ea93d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
