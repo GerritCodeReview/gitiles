@@ -105,6 +105,24 @@
       "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Ps2-AkXw",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-02-08T20:10:44Z",
+      "side": 1,
+      "message": "Well, kind of.\nURL of ../foo in repo bar: \"Submodule link to deadbeef of https://gerrit.googlesource.com/foo\"\nURL of ../../foo in repo bar: \"Submodule link to deadbeef of ../../foo\". (I believe but haven\u0027t checked that C Git should also fail to resolve this URL against the remote if this repo is cloned.)\nURL of null: \"Submodule link to deadbeef of a submodule with an unknown URL\"\n\nWe could tweak the template to be more descriptive in the ../../foo case but it just didn\u0027t seem worth it.",
+      "parentUuid": "Ps4-IVac",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
