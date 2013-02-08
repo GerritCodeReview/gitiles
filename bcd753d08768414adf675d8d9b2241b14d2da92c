@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Ps2-XMUs",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-02-08T19:42:15Z",
+      "side": 1,
+      "message": "The docs say:\n\nThis will be the value from the .gitmodules file in the current repository\u0027s working tree.\n\nThe code says:\n\n File modulesFile \u003d new File(repository.getWorkTree(), Constants.DOT_GIT_MODULES);\n\nDo we have access to .gitmodules so we can call setModulesConfig() first and avoid the lazy load?",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Ps4-v9RE",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-02-08T19:42:15Z",
+      "side": 1,
+      "message": "When moduleRepo \u003d\u003d null, that means it was impossible to resolve the path, right? Would it be safe to set modulesUrl to null in that case? (That should make the later code simpler to read, since modulesUrl could be guaranteed not to start with ./ or ../ from here on.) What should happen in that case?",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
