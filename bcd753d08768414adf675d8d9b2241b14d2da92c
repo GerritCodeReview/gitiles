@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "Ps6-NGbY",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-02-08T19:56:45Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "Psy-hKSI",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "Ps4-v9RE",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "It means either the URL from .gitmodules started with / or had too many ..\u0027s in it, which means we can\u0027t sanely resolve it to a URL under the base git URL for the server.\n\nI suppose we could set modulesUrl to null to render the \"unknown URL\" text. I was thinking it would be ok to just use the URL from .gitmodules verbatim in this case, which is the behavior you see here.",
       "parentUuid": "Ps4-v9RE",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Ps4-IVac",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-02-08T19:56:45Z",
+      "side": 1,
+      "message": "Ah, this is used in an error message? In that case, sounds good as is.",
+      "parentUuid": "Ps8-OXbQ",
       "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
