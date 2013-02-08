@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "Psy-hKSI",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-02-08T19:50:27Z",
+      "side": 1,
+      "message": "The docs for getModulesUrl are wrong; the docs for loadModulesConfig are correct. SubmoduleWalk.forPath above calls setRootTree on the walk, which causes loadModulesConfig to take the other branch and not reach the line cited.",
+      "parentUuid": "Ps2-XMUs",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "Ps4-v9RE",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-02-08T19:42:15Z",
       "side": 1,
       "message": "When moduleRepo \u003d\u003d null, that means it was impossible to resolve the path, right? Would it be safe to set modulesUrl to null in that case? (That should make the later code simpler to read, since modulesUrl could be guaranteed not to start with ./ or ../ from here on.) What should happen in that case?",
+      "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Ps8-OXbQ",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-02-08T19:50:27Z",
+      "side": 1,
+      "message": "It means either the URL from .gitmodules started with / or had too many ..\u0027s in it, which means we can\u0027t sanely resolve it to a URL under the base git URL for the server.\n\nI suppose we could set modulesUrl to null to render the \"unknown URL\" text. I was thinking it would be ok to just use the URL from .gitmodules verbatim in this case, which is the behavior you see here.",
+      "parentUuid": "Ps4-v9RE",
       "revId": "bcd753d08768414adf675d8d9b2241b14d2da92c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
