@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Rq3f-8Os",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-03-13T23:45:34Z",
+      "side": 1,
+      "message": "FYI, I found a bug in NameRevCommand that I will fix soon, and to keep gitiles history clean this version will change.",
+      "revId": "77cec7bfbab8d499d18d123e21146753c640a438",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
