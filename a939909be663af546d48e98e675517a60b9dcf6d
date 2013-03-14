@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RqpgQtVw",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-03-14T16:41:15Z",
+      "side": 1,
+      "message": "I am actually fine with this URL. /+describe is inline with the way other git commands show up in a URL for Gitiles.",
+      "revId": "a939909be663af546d48e98e675517a60b9dcf6d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
