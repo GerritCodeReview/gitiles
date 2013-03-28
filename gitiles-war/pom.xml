@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>com.google.gitiles</groupId>
     <artifactId>gitiles-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-rc0</version>
   </parent>
 
   <artifactId>gitiles-war</artifactId>
