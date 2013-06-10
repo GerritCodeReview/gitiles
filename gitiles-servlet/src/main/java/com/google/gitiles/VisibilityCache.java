@@ -23,6 +23,7 @@ import static org.eclipse.jgit.lib.Constants.R_HEADS;
 import static org.eclipse.jgit.lib.Constants.R_TAGS;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -38,11 +39,13 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Throwables;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.Collections2;
 import com.google.common.util.concurrent.ExecutionError;
 
 /** Cache of per-user object visibility. */
@@ -76,11 +79,9 @@ public class VisibilityCache {
 
     @Override
     public String toString() {
-      return Objects.toStringHelper(this)
-        .add("user", user)
-        .add("repositoryName", repositoryName)
-        .add("objectId", objectId)
-        .toString();
+      return Objects.toStringHelper(this).add("user", user)
+          .add("repositoryName", repositoryName)
+          .add("objectId", objectId).toString();
     }
   }
 
@@ -88,8 +89,7 @@ public class VisibilityCache {
   private final boolean topoSort;
 
   public static CacheBuilder<Object, Object> newBuilder() {
-    return CacheBuilder.newBuilder()
-        .maximumSize(1 << 10)
+    return CacheBuilder.newBuilder().maximumSize(1 << 10)
         .expireAfterWrite(30, TimeUnit.MINUTES);
   }
 
@@ -97,7 +97,8 @@ public class VisibilityCache {
     this(topoSort, newBuilder());
   }
 
-  public VisibilityCache(boolean topoSort, CacheBuilder<Object, Object> builder) {
+  public VisibilityCache(boolean topoSort,
+      CacheBuilder<Object, Object> builder) {
     this.cache = builder.build();
     this.topoSort = topoSort;
   }
@@ -106,15 +107,16 @@ public class VisibilityCache {
     return cache;
   }
 
-  boolean isVisible(final Repository repo, final RevWalk walk, GitilesAccess access,
-      final ObjectId id) throws IOException {
+  boolean isVisible(final Repository repo, final RevWalk walk,
+      GitilesAccess access, final ObjectId id,
+      final ObjectId... knownReachable) throws IOException {
     try {
-      return cache.get(
-          new Key(access.getUserKey(), access.getRepositoryName(), id),
-          new Callable<Boolean>() {
+      return cache
+          .get(new Key(access.getUserKey(), access
+              .getRepositoryName(), id), new Callable<Boolean>() {
             @Override
             public Boolean call() throws IOException {
-              return isVisible(repo, walk, id);
+              return isVisible(repo, walk, id, Arrays.asList(knownReachable));
             }
           });
     } catch (ExecutionException e) {
@@ -131,7 +133,8 @@ public class VisibilityCache {
     }
   }
 
-  private boolean isVisible(Repository repo, RevWalk walk, ObjectId id) throws IOException {
+  private boolean isVisible(Repository repo, RevWalk walk, ObjectId id,
+      Collection<ObjectId> knownReachable) throws IOException {
     RevCommit commit;
     try {
       commit = walk.parseCommit(id);
@@ -142,10 +145,12 @@ public class VisibilityCache {
     // If any reference directly points at the requested object, permit display.
     // Common for displays of pending patch sets in Gerrit Code Review, or
     // bookmarks to the commit a tag points at.
-    Collection<Ref> allRefs = repo.getRefDatabase().getRefs(RefDatabase.ALL).values();
+    Collection<Ref> allRefs = repo.getRefDatabase()
+        .getRefs(RefDatabase.ALL).values();
     for (Ref ref : allRefs) {
       ref = repo.getRefDatabase().peel(ref);
-      if (id.equals(ref.getObjectId()) || id.equals(ref.getPeeledObjectId())) {
+      if (id.equals(ref.getObjectId())
+          || id.equals(ref.getPeeledObjectId())) {
         return true;
       }
     }
@@ -153,9 +158,10 @@ public class VisibilityCache {
     // Check heads first under the assumption that most requests are for refs
     // close to a head. Tags tend to be much further back in history and just
     // clutter up the priority queue in the common case.
-    return isReachableFrom(walk, commit, filter(allRefs, refStartsWith(R_HEADS)))
-        || isReachableFrom(walk, commit, filter(allRefs, refStartsWith(R_TAGS)))
-        || isReachableFrom(walk, commit, filter(allRefs, otherRefs()));
+    return isReachableFrom(walk, commit, knownReachable)
+        || isReachableFromRefs(walk, commit, filter(allRefs, refStartsWith(R_HEADS)))
+        || isReachableFromRefs(walk, commit, filter(allRefs, refStartsWith(R_TAGS)))
+        || isReachableFromRefs(walk, commit, filter(allRefs, otherRefs()));
   }
 
   private static Predicate<Ref> refStartsWith(final String prefix) {
@@ -169,12 +175,28 @@ public class VisibilityCache {
 
   @SuppressWarnings("unchecked")
   private static Predicate<Ref> otherRefs() {
-    return not(or(refStartsWith(R_HEADS), refStartsWith(R_TAGS), refStartsWith("refs/changes/")));
+    return not(or(refStartsWith(R_HEADS), refStartsWith(R_TAGS),
+        refStartsWith("refs/changes/")));
   }
 
-  private boolean isReachableFrom(RevWalk walk, RevCommit commit, Collection<Ref> refs)
+  private boolean isReachableFromRefs(RevWalk walk, RevCommit commit,
+      Collection<Ref> refs) throws IOException {
+    return isReachableFrom(walk, commit,
+        Collections2.transform(refs, new Function<Ref, ObjectId>() {
+          @Override
+          public ObjectId apply(Ref ref) {
+            if (ref.getPeeledObjectId() != null) {
+              return ref.getPeeledObjectId();
+            } else {
+              return ref.getObjectId();
+            }
+          }
+        }));
+  }
+
+  private boolean isReachableFrom(RevWalk walk, RevCommit commit, Collection<ObjectId> ids)
       throws IOException {
-    if (refs.isEmpty()) {
+    if (ids.isEmpty()) {
       return false;
     }
     walk.reset();
@@ -182,12 +204,8 @@ public class VisibilityCache {
       walk.sort(RevSort.TOPO);
     }
     walk.markStart(commit);
-    for (Ref ref : refs) {
-      if (ref.getPeeledObjectId() != null) {
-        markUninteresting(walk, ref.getPeeledObjectId());
-      } else {
-        markUninteresting(walk, ref.getObjectId());
-      }
+    for (ObjectId id : ids) {
+      markUninteresting(walk, id);
     }
     // If the commit is reachable from any branch head, it will appear to be
     // uninteresting to the RevWalk and no output will be produced.
