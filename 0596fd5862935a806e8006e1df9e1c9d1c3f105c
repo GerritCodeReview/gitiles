@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d12f50e_f30c9049",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:46:29Z",
+      "side": 1,
+      "message": "I\u0027d use some separators, like:\n\n  Development\n  \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n  ...\n\n  Workflow\n  --------",
+      "revId": "0596fd5862935a806e8006e1df9e1c9d1c3f105c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dad41fd_524c747a",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:46:29Z",
+      "side": 1,
+      "message": "s/git checkout/git repository/g\n\nIt may make more sense to include a \"cd\" in the above workflow.\n\nActually we should probably just change run_dev.sh to treat an argument as a directory to run from. (Currently it\u0027s treated as a path to gitiles.config.)",
+      "revId": "0596fd5862935a806e8006e1df9e1c9d1c3f105c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5dc035bf_232c0a99",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:46:29Z",
+      "side": 1,
+      "message": "Heh, I\u0027d rather just fix this bug than explain how to work around it.",
+      "revId": "0596fd5862935a806e8006e1df9e1c9d1c3f105c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1db23d5c_f1e5a829",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:46:29Z",
+      "side": 1,
+      "message": "Although I still don\u0027t know what\u0027s going on with your import issue, I don\u0027t think this description is accurate.\n\nThe issue with ${workspace_loc:gitiles-parent} is from tools/gitiels-dev.launch that\u0027s included with gitiles. I can work around that.\n\nWhen you say it makes \"x-project references work correctly\", does that mean you were seeing errors other than the one when you tried to launch gitiles-dev?",
+      "revId": "0596fd5862935a806e8006e1df9e1c9d1c3f105c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dad41fd_b28de07f",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:46:29Z",
+      "side": 1,
+      "message": "s/checkout/clone/\n\nYou\u0027re making a specific claim about the cause of this error. I\u0027m still mystified, but my directory is also named gitiles, so I don\u0027t think this is the cause. In any case, it\u0027s a testable claim: have you verified that \"git clone https://gerrit.googlesource.com/gitiles gitiles-parent\" in fact works?",
+      "revId": "0596fd5862935a806e8006e1df9e1c9d1c3f105c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1db23d5c_d1ea24f7",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:46:29Z",
+      "side": 1,
+      "message": "In general there\u0027s no way we would put these in the development instructions. We should fix (or at least work around) the underlying issue.",
+      "revId": "0596fd5862935a806e8006e1df9e1c9d1c3f105c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
