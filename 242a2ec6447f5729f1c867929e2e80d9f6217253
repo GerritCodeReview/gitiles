@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1db23d5c_11cdccb0",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:35:20Z",
+      "side": 1,
+      "message": "Nit: s/commit-message/commit message/",
+      "revId": "242a2ec6447f5729f1c867929e2e80d9f6217253",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dad41fd_92925c9f",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:35:20Z",
+      "side": 1,
+      "message": "Nit: use some sort of indentation or something to distinguish commands from text.",
+      "revId": "242a2ec6447f5729f1c867929e2e80d9f6217253",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1db23d5c_31d0d04c",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:35:20Z",
+      "side": 1,
+      "message": "Nit: indent continued line",
+      "revId": "242a2ec6447f5729f1c867929e2e80d9f6217253",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1db23d5c_71da586c",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:35:20Z",
+      "side": 1,
+      "message": "Nit: s/code-reviews/code reviews/",
+      "revId": "242a2ec6447f5729f1c867929e2e80d9f6217253",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dad41fd_f297688d",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-12T00:35:20Z",
+      "side": 1,
+      "message": "Generally just \"git push origin HEAD:refs/for/master\".",
+      "revId": "242a2ec6447f5729f1c867929e2e80d9f6217253",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
