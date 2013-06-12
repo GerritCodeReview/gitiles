@@ -4,3 +4,39 @@ Gitiles - A simple JGit repository browser
 Gitiles is a simple repository browser for Git repositories, built on JGit. Its
 guiding principle is simplicity: it has no formal access controls, no write
 access, no fancy Javascript, etc.
+
+
+Development
+
+Gitiles requires Maven (http://maven.apache.org/) to build.
+
+sudo apt-get install maven
+
+
+Workflow
+
+mvn compile
+mvn package
+./tools/run_dev.sh
+open http://localhost:8080/ to view/test.
+
+NOTE: run_dev.sh looks for git checkouts in your current working directory.
+If it fails to find a git checkout you may see exceptions like:
+"String index out of range: -1" when trying to load localhost:8080/
+
+
+Eclipse
+
+If you'd like to use Eclipse to edit Gitiles, you will need the m2e
+eclipse plugin (http://eclipse.org/m2e/).
+
+File -> Import -> Maven -> Existing Maven Project
+
+Make sure that imports all 4 projects:
+gitiles-parent, gitiles-dev, gitiles-servlet, gitiles-war
+
+NOTE: m2e will assumes project names match their directory names.
+If you used the default "gitiles" name for your checkout
+you may need to right click on the imported "gitiles" project
+choosing "Refactor -> Rename" and rename it to "gitiles-parent"
+for x-project references to work correctly in Eclipse.
