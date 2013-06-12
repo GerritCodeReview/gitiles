@@ -4,3 +4,64 @@ Gitiles - A simple JGit repository browser
 Gitiles is a simple repository browser for Git repositories, built on JGit. Its
 guiding principle is simplicity: it has no formal access controls, no write
 access, no fancy Javascript, etc.
+
+
+BUILDING
+
+Gitiles requires Maven (http://maven.apache.org/) to build.
+
+sudo apt-get install maven
+
+
+TESTING
+
+mvn compile
+mvn package
+./tools/run_dev.sh
+open http://localhost:8080/ to view/test.
+
+NOTE: run_dev.sh looks for git checkouts in your current working directory.
+If it fails to find a git checkout you may see exceptions like:
+"String index out of range: -1" when trying to load localhost:8080/
+
+
+ECLIPSE
+
+If you'd like to use Eclipse to edit Gitiles, you will need the m2e
+eclipse plugin (http://eclipse.org/m2e/).
+
+File -> Import -> Maven -> Existing Maven Project
+
+Make sure that imports all 4 projects:
+gitiles-parent, gitiles-dev, gitiles-servlet, gitiles-war
+
+NOTE: m2e will assumes project names match their directory names.
+If you used the default "gitiles" name for your checkout
+you may need to right click on the imported "gitiles" project
+choosing "Refactor -> Rename" and rename it to "gitiles-parent"
+for x-project references to work correctly in Eclipse.
+
+
+CODE REVIEW
+
+Gitiles uses Gerrit for code review:
+https://gerrit-review.googlesource.com/
+
+Gitiles uses the "git push" workflow described here:
+http://gerrit.googlecode.com/svn/documentation/2.0/user-upload.html
+With the server https://gerrit.googlesource.com/gitiles
+You'll need a password from: https://gerrit.googlesource.com/new-password
+
+Gerrit depends on "Change-Id" annotations in your commit-message.
+If you try to push a commit without one, it will explain how to
+install the proper git-hook:
+curl -Lo `git rev-parse --git-dir`/hooks/commit-msg \
+https://gerrit-review.googlesource.com/tools/hooks/commit-msg
+chmod +x `git rev-parse --git-dir`/hooks/commit-msg
+
+Before you create your local commit (which you'll push to gerrit)
+you will need to set your email to match your gerrit account:
+git config --local --add user.email foo@bar.com
+
+Normally you'll create code-reviews for pushes to master:
+git push https://gerrit.googlesource.com/gitiles HEAD:refs/for/master
