@@ -242,6 +242,10 @@ class GitilesFilter extends MetaFilter {
         return new LogServlet(renderer, linkifier());
       case DESCRIBE:
         return new DescribeServlet();
+      case TAR:
+        return new ArchiveServlet(ArchiveServlet.Format.TGZ);
+      case ZIP:
+        return new ArchiveServlet(ArchiveServlet.Format.ZIP);
       default:
         throw new IllegalArgumentException("Invalid view type: " + view);
     }

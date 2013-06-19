@@ -33,6 +33,7 @@ import org.eclipse.jgit.revwalk.RevObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,9 @@ public class GitilesView {
     PATH,
     DIFF,
     LOG,
-    DESCRIBE;
+    DESCRIBE,
+    TAR,
+    ZIP;
   }
 
   /** Exception thrown when building a view that is invalid. */
@@ -97,6 +100,8 @@ public class GitilesView {
           path = other.path;
           // Fallthrough.
         case REVISION:
+        case TAR:
+        case ZIP:
           revision = other.revision;
           // Fallthrough.
         case DESCRIBE:
@@ -279,6 +284,10 @@ public class GitilesView {
         case LOG:
           checkLog();
           break;
+        case TAR:
+        case ZIP:
+          checkArchive();
+          break;
       }
       return new GitilesView(type, hostName, servletPath, repositoryName, revision,
           oldRevision, path, params, anchor);
@@ -329,6 +338,10 @@ public class GitilesView {
       checkView(path != null, "missing path on %s view", type);
       checkRevision();
     }
+
+    private void checkArchive() {
+      checkRevision();
+    }
   }
 
   public static Builder hostIndex() {
@@ -361,6 +374,14 @@ public class GitilesView {
 
   public static Builder log() {
     return new Builder(Type.LOG);
+  }
+
+  public static Builder tar() {
+    return new Builder(Type.TAR);
+  }
+
+  public static Builder zip() {
+    return new Builder(Type.ZIP);
   }
 
   static String maybeTrimLeadingAndTrailingSlash(String str) {
@@ -480,6 +501,12 @@ public class GitilesView {
       case REVISION:
         url.append(repositoryName).append("/+/").append(revision.getName());
         break;
+      case TAR:
+        url.append(repositoryName).append("/+tar/").append(revision.getName());
+        break;
+      case ZIP:
+        url.append(repositoryName).append("/+zip/").append(revision.getName());
+        break;
       case PATH:
         url.append(repositoryName).append("/+/").append(revision.getName()).append('/')
             .append(path);
@@ -530,6 +557,8 @@ public class GitilesView {
     return getBreadcrumbs(null);
   }
 
+  private static final EnumSet<Type> NON_HTML_TYPES = EnumSet.of(Type.DESCRIBE, Type.TAR, Type.ZIP);
+
   /**
    * @param hasSingleTree list of booleans, one per path entry in this view's
    *     path excluding the leaf. True entries indicate the tree at that path
@@ -540,8 +569,8 @@ public class GitilesView {
    *     auto-diving into one-entry subtrees.
    */
   public List<Map<String, String>> getBreadcrumbs(List<Boolean> hasSingleTree) {
-    checkArgument(type != Type.DESCRIBE,
-        "breadcrumbs for DESCRIBE view not supported");
+    checkArgument(!NON_HTML_TYPES.contains(type),
+        "breadcrumbs for %s view not supported", type);
     checkArgument(type != Type.REFS || Strings.isNullOrEmpty(path),
         "breadcrumbs for REFS view with path not supported");
     checkArgument(hasSingleTree == null || type == Type.PATH,
