@@ -375,6 +375,40 @@ public class ViewFilterTest extends TestCase {
     assertEquals("", view.getPathPart());
   }
 
+  public void testTar() throws Exception {
+    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    GitilesView view;
+
+    assertNull(getView("/repo/+tar"));
+    assertNull(getView("/repo/+tar/"));
+    assertNull(getView("/repo/+tar/foo..bar"));
+
+    view = getView("/repo/+tar/master");
+    assertEquals(Type.TAR, view.getType());
+    assertEquals("repo", view.getRepositoryName());
+    assertEquals("master", view.getRevision().getName());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals(Revision.NULL, view.getOldRevision());
+    assertNull(view.getPathPart());
+  }
+
+  public void testZip() throws Exception {
+    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    GitilesView view;
+
+    assertNull(getView("/repo/+zip"));
+    assertNull(getView("/repo/+zip/"));
+    assertNull(getView("/repo/+zip/foo..bar"));
+
+    view = getView("/repo/+zip/master");
+    assertEquals(Type.ZIP, view.getType());
+    assertEquals("repo", view.getRepositoryName());
+    assertEquals("master", view.getRevision().getName());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals(Revision.NULL, view.getOldRevision());
+    assertNull(view.getPathPart());
+  }
+
   private GitilesView getView(String pathAndQuery) throws ServletException, IOException {
     final AtomicReference<GitilesView> view = Atomics.newReference();
     HttpServlet testServlet = new HttpServlet() {

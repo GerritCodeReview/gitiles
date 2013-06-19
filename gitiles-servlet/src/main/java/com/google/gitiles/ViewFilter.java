@@ -44,6 +44,8 @@ public class ViewFilter extends AbstractHttpFilter {
   private static final String CMD_LOG = "+log";
   private static final String CMD_REFS = "+refs";
   private static final String CMD_SHOW = "+show";
+  private static final String CMD_TAR = "+tar";
+  private static final String CMD_ZIP = "+zip";
 
   public static GitilesView getView(HttpServletRequest req) {
     return (GitilesView) req.getAttribute(VIEW_ATTIRBUTE);
@@ -139,6 +141,10 @@ public class ViewFilter extends AbstractHttpFilter {
       view = GitilesView.diff().setPathPart(path);
     } else if (CMD_REFS.equals(command)) {
       view = GitilesView.repositoryIndex();
+    } else if (command.equals(CMD_TAR)) {
+      view = GitilesView.tar();
+    } else if (command.equals(CMD_ZIP)) {
+      view = GitilesView.zip();
     } else {
       return null; // Bad command.
     }
