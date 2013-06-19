@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ab4e9dd_fa7ec96f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-06-19T18:13:37Z",
+      "side": 1,
+      "message": "Would it make sense to do /+archive/\u003crevision\u003e.\u003csuffix\u003e with format determined by \u003csuffix\u003e, like github\u0027s https://github.com/gitster/git/archive/fb7dfaa7.zip?\n\nI can see why that currently wouldn\u0027t be convenient, since ArchiveCommand.Format doesn\u0027t expose each format\u0027s mime type, so this is more of an idea for later work.\n\nIt\u0027s also annoying that the archive has its files directly in the toplevel directory (like \"git archive\" without --prefix) instead of following the usual convention for tarballs. If you don\u0027t mind changing the behavior later this sounds fine to me.",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ae52df2_3be4b72e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-06-19T18:13:37Z",
+      "side": 1,
+      "message": "This is working around a deficiency in the ArchiveCommand API --- archive formats should know their mime type. I\u0027ll add a method for that for the next API bump. This workaround makes sense until then.",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ab4e9dd_3ae4c12e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-06-19T18:13:37Z",
+      "side": 1,
+      "message": "Interesting. ArchiveCommand doesn\u0027t allow the same format to be registered twice, which can be problematic if formats get registered again in some code path in the same process. As is this should be safe.\n\nI wonder if ArchiveFormats.registerAll() should be tweaked to work multiple times (keeping a reference count) to let multiple callers use it without being aware of each other.",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ae52df2_5be98305",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-06-19T18:13:37Z",
+      "side": 1,
+      "message": "Would it help if ArchiveCommand threw an exception in setTree() or threw a different exception from call()?",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
