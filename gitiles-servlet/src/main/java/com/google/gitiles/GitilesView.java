@@ -16,6 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.gitiles.GitilesUrls.NAME_ESCAPER;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -187,11 +188,13 @@ public class GitilesView {
         case DIFF:
         case LOG:
           this.oldRevision = checkNotNull(revision);
-          return this;
+          break;
         default:
-          throw new IllegalStateException(
-              String.format("cannot set old revision on %s view", type));
+          checkState(revision == Revision.NULL,
+              "cannot set old revision on %s view", type);
+          break;
       }
+      return this;
     }
 
     public Builder setOldRevision(RevObject obj) {
@@ -211,15 +214,17 @@ public class GitilesView {
         case PATH:
         case DIFF:
           this.path = maybeTrimLeadingAndTrailingSlash(checkNotNull(path));
-          return this;
+          break;
         case DESCRIBE:
         case REFS:
         case LOG:
           this.path = path != null ? maybeTrimLeadingAndTrailingSlash(path) : null;
-          return this;
+          break;
         default:
-          throw new IllegalStateException(String.format("cannot set path on %s view", type));
+          checkState(path == null, "cannot set path on %s view", type);
+          break;
       }
+      return this;
     }
 
     public String getPathPart() {
