@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ae52df2_bbcfe7ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-19T18:30:47Z",
+      "side": 1,
+      "message": "My policy for Gitiles URLs is I tend not to care strongly, but I want to make sure every decision we make is one we are prepared to stick with. So bikeshedding of the URL format now is appreciated :)\n\nAs a URL structure I think I prefer /+archive better anyway, since the +foo part is generally analogous to git-foo. In terms of Gitiles it\u0027s going to make the revision parser a bit more annoying, but I\u0027ll probably survive. (I\u0027ve actually been thinking that needs some refactoring anyway...not sure if this will push me over the edge to actually do it.)\n\nI don\u0027t mind changing the _contents_ of the tarball later, as long as the URL is stable.",
+      "parentUuid": "4ab4e9dd_fa7ec96f",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ae52df2_3be4b72e",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-06-19T18:13:37Z",
       "side": 1,
       "message": "This is working around a deficiency in the ArchiveCommand API --- archive formats should know their mime type. I\u0027ll add a method for that for the next API bump. This workaround makes sense until then.",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ab4e9dd_bacff1ab",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-19T18:30:47Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "6ae52df2_3be4b72e",
       "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4ab4e9dd_9ad22d51",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-19T18:30:47Z",
+      "side": 1,
+      "message": "Sounds like you have any number of diamond dependency problems lurking in ArchiveCommand unless you modify registerAll as you say. For now this is no more or less safe than any other code.",
+      "parentUuid": "4ab4e9dd_3ae4c12e",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ae52df2_5be98305",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2013-06-19T18:13:37Z",
       "side": 1,
       "message": "Would it help if ArchiveCommand threw an exception in setTree() or threw a different exception from call()?",
+      "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ab4e9dd_dadca567",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-19T18:30:47Z",
+      "side": 1,
+      "message": "Yes definitely. I don\u0027t know offhand what the Command convention is for/against parsing objects in pre-call() methods, but from a user perspective, I\u0027d obviously like to fail fast.",
+      "parentUuid": "6ae52df2_5be98305",
       "revId": "15f20f91c1128a11f119b16706f0e6a53da16a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
