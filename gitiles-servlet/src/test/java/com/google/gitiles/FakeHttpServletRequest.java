@@ -19,6 +19,17 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.gitiles.TestGitilesUrls.URLS;
 
+import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Maps;
+
+import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
+
 import java.io.BufferedReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -30,22 +41,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.eclipse.jgit.http.server.ServletUtils;
-import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
-
-import com.google.common.base.Function;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Maps;
+import javax.servlet.http.Part;
 
 /** Simple fake implementation of {@link HttpServletRequest}. */
 public class FakeHttpServletRequest implements HttpServletRequest {
@@ -388,6 +395,66 @@ public class FakeHttpServletRequest implements HttpServletRequest {
 
   @Override
   public boolean isUserInRole(String role) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public ServletContext getServletContext() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public AsyncContext startAsync() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public boolean isAsyncStarted() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public boolean isAsyncSupported() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public AsyncContext getAsyncContext() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public DispatcherType getDispatcherType() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public boolean authenticate(HttpServletResponse response) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void login(String username, String password) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void logout() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Collection<Part> getParts() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Part getPart(String name) {
     throw new UnsupportedOperationException();
   }
 }

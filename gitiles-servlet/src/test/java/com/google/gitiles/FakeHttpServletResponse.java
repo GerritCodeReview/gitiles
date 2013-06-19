@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
@@ -257,5 +258,15 @@ public class FakeHttpServletResponse implements HttpServletResponse {
 
   public String getHeader(String name) {
     return Iterables.getFirst(headers.get(checkNotNull(name)), null);
+  }
+
+  @Override
+  public Collection<String> getHeaders(String name) {
+    return headers.get(checkNotNull(name));
+  }
+
+  @Override
+  public Collection<String> getHeaderNames() {
+    return headers.keySet();
   }
 }
