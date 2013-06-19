@@ -516,6 +516,46 @@ public class GitilesViewTest extends TestCase {
         view.getBreadcrumbs());
   }
 
+  public void testTar() throws Exception {
+    ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
+    GitilesView view = GitilesView.tar()
+        .copyFrom(HOST)
+        .setRepositoryName("foo/bar")
+        .setRevision(Revision.unpeeled("master", id))
+        .build();
+
+    assertEquals("/b", view.getServletPath());
+    assertEquals(Type.TAR, view.getType());
+    assertEquals("host", view.getHostName());
+    assertEquals("foo/bar", view.getRepositoryName());
+    assertEquals(id, view.getRevision().getId());
+    assertEquals("master", view.getRevision().getName());
+    assertEquals(Revision.NULL, view.getOldRevision());
+    assertNull(view.getPathPart());
+    assertTrue(HOST.getParameters().isEmpty());
+    assertEquals("/b/foo/bar/+tar/master", view.toUrl());
+  }
+
+  public void testZip() throws Exception {
+    ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
+    GitilesView view = GitilesView.zip()
+        .copyFrom(HOST)
+        .setRepositoryName("foo/bar")
+        .setRevision(Revision.unpeeled("master", id))
+        .build();
+
+    assertEquals("/b", view.getServletPath());
+    assertEquals(Type.ZIP, view.getType());
+    assertEquals("host", view.getHostName());
+    assertEquals("foo/bar", view.getRepositoryName());
+    assertEquals(id, view.getRevision().getId());
+    assertEquals("master", view.getRevision().getName());
+    assertEquals(Revision.NULL, view.getOldRevision());
+    assertNull(view.getPathPart());
+    assertTrue(HOST.getParameters().isEmpty());
+    assertEquals("/b/foo/bar/+zip/master", view.toUrl());
+  }
+
   public void testEscaping() throws Exception {
     ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
     ObjectId parent = ObjectId.fromString("efab5678efab5678efab5678efab5678efab5678");
