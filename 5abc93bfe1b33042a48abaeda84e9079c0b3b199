@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "0ae9112b_604d5279",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-24T21:20:38Z",
+      "side": 1,
+      "message": "I don\u0027t want to remove consecutive leading and trailing slashes _or_ collapse slashes. If we _just_ removed \u003e1 slash from the beginning/end of the path (i.e. if we used trimFrom), it would be inconsistent with what we do in the middle of the path. By removing \u003c\u003d1 slash (what I do in this change) we are less inconsistent.",
+      "parentUuid": "ca5d39d4_0650da0e",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca5d39d4_8644ca62",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 1
