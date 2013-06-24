@@ -16,6 +16,24 @@
       "revId": "a55017e757aa9844d83eeb47a992c6bd775e3302",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca5d39d4_c66162e9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-24T19:47:48Z",
+      "side": 1,
+      "message": "It is, but this style wins out in Gerrit:\n\n $ ack \u0027\\.\u003c[a-zA-Z, ]+\u003e[a-z]\u0027 | wc -l\n 11\n $ ack \u0027\\.\u003c[a-zA-Z, ]+\u003e [a-z]\u0027 | wc -l\n 31",
+      "parentUuid": "2ae41550_8107ba29",
+      "revId": "a55017e757aa9844d83eeb47a992c6bd775e3302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
