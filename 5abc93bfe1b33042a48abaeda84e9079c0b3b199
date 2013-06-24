@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca5d39d4_462492bb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T18:52:38Z",
+      "side": 1,
+      "message": "nits: how about: trimLeadingAndTrailingSlash\n\nAlso, this is more concise:\n\nreturn CharMatcher.is(\u0027/\u0027).trimFrom(str);",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca5d39d4_8644ca62",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T18:52:38Z",
+      "side": 1,
+      "message": "nit: isEmptyOrSlash",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ae9112b_20218aab",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T18:52:38Z",
+      "side": 1,
+      "message": "it would be nice if you could trim the leading slash here for all commands.",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ae9112b_c00ffe3f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T18:52:38Z",
+      "side": 1,
+      "message": "weird. why doesn\u0027t the result just contain the PathPart instead of this PathStart?",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
