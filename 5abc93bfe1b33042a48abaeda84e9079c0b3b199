@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0ae9112b_005c462f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-24T20:02:06Z",
+      "side": 1,
+      "message": "No, CharMatcher.trimFrom trims any numbers of slashes. There are places where it makes sense (others where it doesn\u0027t) to treat /foo/ and foo the same (hence this method), but we *don\u0027t* want to treat /foo and //foo the same.\n\nThe reason we don\u0027t want to treat /foo and //foo the same is basically that git doesn\u0027t treat foo/bar and foo//bar the same:\n\n $ git cat-file -p HEAD:gitiles-dev/src\n 040000 tree 97c895c413ea8189a05bf11788478aa61f84d154    main\n $ git cat-file -p HEAD:gitiles-dev//src\n fatal: Not a valid object name HEAD:gitiles-dev//src\n\nSo it would be weird for Gitiles to magically collapse multiple slashes at certain points in the path and not at others.",
+      "parentUuid": "ca5d39d4_462492bb",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca5d39d4_8644ca62",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-06-24T18:52:38Z",
       "side": 1,
       "message": "nit: isEmptyOrSlash",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ae9112b_e06042e3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-24T20:02:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca5d39d4_8644ca62",
       "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
