@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ae9112b_601b927d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T19:00:46Z",
+      "side": 1,
+      "message": "nice. ignore my comment in the previous change about this.",
+      "revId": "14e91524beb37be6cba58319d726016c27b2f55a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca5d39d4_462fb291",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T19:00:46Z",
+      "side": 1,
+      "message": "can\u0027t these be null?",
+      "revId": "14e91524beb37be6cba58319d726016c27b2f55a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
