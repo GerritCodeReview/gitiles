@@ -33,6 +33,24 @@
       "revId": "14e91524beb37be6cba58319d726016c27b2f55a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca5d39d4_a660e6e1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-24T20:22:20Z",
+      "side": 1,
+      "message": "oldRevision can be, but not revision. Done.",
+      "parentUuid": "ca5d39d4_462fb291",
+      "revId": "14e91524beb37be6cba58319d726016c27b2f55a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
