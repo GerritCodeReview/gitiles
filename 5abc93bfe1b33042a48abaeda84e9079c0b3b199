@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ca5d39d4_0650da0e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-24T21:12:34Z",
+      "side": 1,
+      "message": "trimFrom only removes consecutive leading and trailing slashes. \n\nCollapsing is a different issue. trimAndCollapseFrom would do what you are describing.\n\nhttp://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/CharMatcher.html#trimFrom(java.lang.CharSequence)",
+      "parentUuid": "0ae9112b_005c462f",
+      "revId": "5abc93bfe1b33042a48abaeda84e9079c0b3b199",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca5d39d4_8644ca62",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 1
