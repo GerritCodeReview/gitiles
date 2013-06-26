@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "ca1b7926_5c42b572",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-26T16:58:15Z",
+      "side": 1,
+      "message": "Thanks. Reverted, if that\u0027s ok with colby.",
+      "parentUuid": "ca1b7926_fc50e13d",
+      "revId": "18a8cff45c19e147e706bc91f7954d7e605279fc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caf29916_41fdb4ed",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paths.java",
         "patchSetId": 5
