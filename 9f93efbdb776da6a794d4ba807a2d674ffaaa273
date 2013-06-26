@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "caf29916_c1f264d2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-26T17:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ead4bd7e_a73acad1",
+      "revId": "9f93efbdb776da6a794d4ba807a2d674ffaaa273",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4aadc9fb_322f3093",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2013-06-26T17:02:32Z",
       "side": 1,
       "message": "nit: Same here. Leave the checks in the switch and do the assignment at the end:\n\nthis.path \u003d path !\u003d null ? maybeTrimLeadingAndTrailingSlash(path) : null;",
+      "revId": "9f93efbdb776da6a794d4ba807a2d674ffaaa273",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "caf29916_01144cfe",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-06-26T17:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aadc9fb_322f3093",
       "revId": "9f93efbdb776da6a794d4ba807a2d674ffaaa273",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
