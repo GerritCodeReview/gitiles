@@ -192,13 +192,12 @@ public class GitilesView {
       switch (type) {
         case DIFF:
         case LOG:
-          this.oldRevision = revision;
           break;
         default:
           checkState(revision == null, "cannot set old revision on %s view", type);
-          this.oldRevision = revision;
           break;
       }
+      this.oldRevision = revision;
       return this;
     }
 
@@ -218,18 +217,15 @@ public class GitilesView {
       switch (type) {
         case PATH:
         case DIFF:
-          this.path = maybeTrimLeadingAndTrailingSlash(checkNotNull(path));
-          break;
         case DESCRIBE:
         case REFS:
         case LOG:
-          this.path = path != null ? maybeTrimLeadingAndTrailingSlash(path) : null;
           break;
         default:
           checkState(path == null, "cannot set path on %s view", type);
-          this.path = path;
           break;
       }
+      this.path = path != null ? maybeTrimLeadingAndTrailingSlash(path) : null;
       return this;
     }
 
