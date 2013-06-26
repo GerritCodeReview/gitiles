@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caf29916_c161c4e9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-26T16:42:24Z",
+      "side": 1,
+      "message": "nit: setArchiveHeaders() or setDownloadHeaders()",
+      "revId": "18a8cff45c19e147e706bc91f7954d7e605279fc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca1b7926_7c6a11f1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-26T16:42:24Z",
+      "side": 1,
+      "message": "should the resulting ObjectId from parseTree be used here?",
+      "revId": "18a8cff45c19e147e706bc91f7954d7e605279fc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "caf29916_41fdb4ed",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paths.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-26T16:42:24Z",
+      "side": 1,
+      "message": "nit: path.length() is extraneous",
+      "revId": "18a8cff45c19e147e706bc91f7954d7e605279fc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
