@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ead4bd7e_a73acad1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-26T17:02:32Z",
+      "side": 1,
+      "message": "nit: it seems to me this should be just before the return at the end of the method.",
+      "revId": "9f93efbdb776da6a794d4ba807a2d674ffaaa273",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4aadc9fb_322f3093",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1002517
+      },
+      "writtenOn": "2013-06-26T17:02:32Z",
+      "side": 1,
+      "message": "nit: Same here. Leave the checks in the switch and do the assignment at the end:\n\nthis.path \u003d path !\u003d null ? maybeTrimLeadingAndTrailingSlash(path) : null;",
+      "revId": "9f93efbdb776da6a794d4ba807a2d674ffaaa273",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
