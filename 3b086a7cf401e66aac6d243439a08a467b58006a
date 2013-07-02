@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a77cc0a4_75ed2842",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2013-07-02T23:09:41Z",
+      "side": 1,
+      "message": "Intended? linkifier was @Nullable before.",
+      "revId": "3b086a7cf401e66aac6d243439a08a467b58006a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
