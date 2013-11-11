@@ -101,10 +101,10 @@ public class GitilesView {
           oldRevision = other.oldRevision;
           // Fallthrough.
         case PATH:
+        case ARCHIVE:
           path = other.path;
           // Fallthrough.
         case REVISION:
-        case ARCHIVE:
           revision = other.revision;
           // Fallthrough.
         case DESCRIBE:
@@ -219,6 +219,7 @@ public class GitilesView {
         case DIFF:
           checkState(path != null, "cannot set null path on %s view", type);
           break;
+        case ARCHIVE:
         case DESCRIBE:
         case REFS:
         case LOG:
