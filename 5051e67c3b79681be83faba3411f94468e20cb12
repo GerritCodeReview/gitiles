@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9efd5175_d2658478",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/GitilesViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-11-11T20:11:18Z",
+      "side": 1,
+      "message": "This was broken, and showed that apparently there were no tests for this.",
+      "revId": "5051e67c3b79681be83faba3411f94468e20cb12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
