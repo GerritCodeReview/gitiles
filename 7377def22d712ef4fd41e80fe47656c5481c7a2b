@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03690a06_35079035",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-11-27T21:39:42Z",
+      "side": 1,
+      "message": "My version (I55dbb9f1) does the same thing btu uses Locale.US so it\u0027s not dependent on environment. But see my concerns on that thread.",
+      "revId": "7377def22d712ef4fd41e80fe47656c5481c7a2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
