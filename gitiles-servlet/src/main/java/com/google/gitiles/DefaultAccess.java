@@ -33,6 +33,7 @@ import org.eclipse.jgit.util.IO;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.Collator;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -99,7 +100,8 @@ public class DefaultAccess implements GitilesAccess {
   @Override
   public Map<String, RepositoryDescription> listRepositories(Set<String> branches)
       throws IOException {
-    Map<String, RepositoryDescription> repos = Maps.newTreeMap();
+    Collator lexicographicOrder = Collator.getInstance();
+    Map<String, RepositoryDescription> repos = Maps.newTreeMap(lexicographicOrder);
     for (Repository repo : scanRepositories(basePath, req)) {
       repos.put(getRepositoryName(repo), buildDescription(repo, branches));
       repo.close();
