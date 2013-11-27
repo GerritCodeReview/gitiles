@@ -16,6 +16,24 @@
       "revId": "41d3da7a31a54efb791bde3cd0bbe88f0da51676",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03690a06_d5f8dcf2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2013-11-27T21:32:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43b942a9_a7114a6b",
+      "revId": "41d3da7a31a54efb791bde3cd0bbe88f0da51676",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
