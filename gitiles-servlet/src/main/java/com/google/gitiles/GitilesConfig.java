@@ -35,12 +35,14 @@ public class GitilesConfig {
 
   public static File defaultFile(FilterConfig filterConfig) {
     String configPath = null;
-    if (filterConfig != null) {
-      configPath = filterConfig.getInitParameter(FILTER_CONFIG_PARAM);
-    }
+    /* Specifying the configuration on commandline should overrule web.xml */
     if (configPath == null) {
       configPath = System.getProperty(PROPERTY_NAME, DEFAULT_PATH);
     }
+    else if (filterConfig != null) {
+      configPath = filterConfig.getInitParameter(FILTER_CONFIG_PARAM);
+    }
+
     return new File(configPath);
   }
 
