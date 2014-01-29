@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32abbe9f_3ef969f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-01-29T22:07:50Z",
+      "side": 1,
+      "message": "I\u0027d prefer this to either say this is fixing the issue, or say what the behavior is after this change.",
+      "revId": "91137a4f7bca78b2e37b06c304793779475590ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32abbe9f_5eec3531",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-01-29T22:07:50Z",
+      "side": 1,
+      "message": "Nit: no newline.",
+      "revId": "91137a4f7bca78b2e37b06c304793779475590ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
