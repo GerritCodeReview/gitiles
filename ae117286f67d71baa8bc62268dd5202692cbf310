@@ -22,6 +22,30 @@
       "revId": "ae117286f67d71baa8bc62268dd5202692cbf310",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12d15a3f_55ec0c31",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BlameServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-01-30T00:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2cda6a7_b4e4804c",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 20,
+        "endChar": 46
+      },
+      "revId": "ae117286f67d71baa8bc62268dd5202692cbf310",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
