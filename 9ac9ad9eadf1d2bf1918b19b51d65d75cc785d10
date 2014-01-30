@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "12d15a3f_f501d822",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BlameServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-01-30T00:24:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2cda6a7_74ef0828",
+      "revId": "9ac9ad9eadf1d2bf1918b19b51d65d75cc785d10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12d15a3f_b5e4804c",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BlameServlet.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-01-29T23:39:27Z",
       "side": 1,
       "message": "Redundant?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 17
+      },
+      "revId": "9ac9ad9eadf1d2bf1918b19b51d65d75cc785d10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12d15a3f_d506dc38",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BlameServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-01-30T00:24:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d15a3f_b5e4804c",
       "range": {
         "startLine": 119,
         "startChar": 4,
