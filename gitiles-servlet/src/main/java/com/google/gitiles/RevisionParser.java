@@ -17,6 +17,8 @@ package com.google.gitiles;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -104,6 +106,14 @@ class RevisionParser {
   }
 
   Result parse(String path) throws IOException {
+    try {
+      path = URLDecoder.decode(path, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      // This URL might be the un-encoded URL with percentage character.
+      // Although, it is strange to have such character in the revision
+      // It's fine to continue with the old path.
+    }
+
     if (path.startsWith("/")) {
       path = path.substring(1);
     }

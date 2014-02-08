@@ -198,6 +198,12 @@ public class RevisionParserTest extends TestCase {
             Revision.NULL,
             ""),
         parser.parse(parent.name() + "^!"));
+    assertEquals(
+        new Result(
+            Revision.peeled("master", commit),
+            Revision.peeled("master^", parent),
+            ""),
+        parser.parse("master%5E%21"));
 
     repo.update("refs/tags/tag", repo.tag("tag", commit));
     assertEquals(
