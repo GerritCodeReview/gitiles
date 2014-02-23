@@ -1,0 +1,48 @@
+include_defs('//bucklets/maven_jar.bucklet')
+
+maven_jar(
+  name = 'guava',
+  id = 'com.google.guava:guava:16.0',
+  sha1 = 'aca09d2e5e8416bf91550e72281958e35460be52',
+)
+
+maven_jar(
+  name = 'soy',
+  id = 'com.google.template:soy:2011-22-12',
+  sha1 = '018c567dd937176a3c4f81623b899cea3fe61458',
+)
+
+maven_jar(
+  name = 'servlet-api-3_1',
+  id = 'org.apache.tomcat:tomcat-servlet-api:8.0.0-RC10',
+  sha1 = '975935b6203073938dfeeb28e4effc3b094c4fc4',
+  exclude = ['META-INF/NOTICE', 'META-INF/LICENSE'],
+)
+
+maven_jar(
+  name = 'log-api',
+  id = 'org.slf4j:slf4j-api:1.6.1',
+  sha1 = '6f3b8a24bf970f17289b234284c94f43eb42f0e4',
+)
+
+maven_jar(
+  name = 'joda-time',
+  id = 'joda-time:joda-time:2.3',
+  sha1 = '56498efd17752898cfcc3868c1b6211a07b12b8f',
+  exclude = [
+    'META-INF/LICENSE.txt',
+    'META-INF/NOTICE.txt',
+  ],
+)
+
+maven_jar(
+  name = 'gson',
+  id = 'com.google.code.gson:gson:2.1',
+  sha1 = '2e66da15851f9f5b5079228f856c2f090ba98c38',
+)
+
+maven_jar(
+  name = 'commons-lang',
+  id = 'org.apache.commons:commons-lang3:3.1',
+  sha1 = '905075e6c80f206bbe6cf1e809d2caa69f420c76',
+)
