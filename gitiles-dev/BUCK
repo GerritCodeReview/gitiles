@@ -1,0 +1,16 @@
+java_library(
+  name = 'dev',
+  srcs = glob(['src/main/java/**/*.java']),
+  deps = [
+    '//gitiles-servlet:servlet',
+    '//lib:guava',
+    '//lib/jgit:jgit',
+    '//lib/jgit:jgit-servlet',
+    '//lib/jetty:server',
+    '//lib/jetty:servlet',
+    '//lib:log-api',
+    '//lib:servlet-api',
+    '//lib:soy',
+  ],
+  visibility = ['PUBLIC'],
+)
