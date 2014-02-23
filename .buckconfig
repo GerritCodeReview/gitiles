@@ -1,0 +1,12 @@
+[alias]
+  gitiles = //:gitiles
+  all = //:all
+
+[buildfile]
+  includes = //bucklets/java7.bucklet
+
+[java]
+  src_roots = java, resources
+
+[project]
+  ignore = .git
