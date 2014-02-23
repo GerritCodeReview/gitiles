@@ -1,0 +1,63 @@
+include_defs('//bucklets/java_library2.bucklet')
+include_defs('//bucklets/java_sources.bucklet')
+include_defs('//bucklets/java_doc.bucklet')
+
+SRCS = glob(['src/main/java/**/*.java'])
+RSRC = glob(['src/main/resources/**/*'])
+DEPS = [
+  '//lib:guava',
+  '//lib:soy',
+  '//lib:log-api',
+  '//lib:joda-time',
+  '//lib:gson',
+  '//lib:commons-lang',
+  '//lib/jgit:jgit',
+  '//lib/jgit:jgit-servlet',
+]
+
+java_library2(
+  name = 'servlet',
+  srcs = SRCS,
+  resources = RSRC,
+  deps = DEPS + [
+    '//lib/jgit:jgit-archive',
+    '//lib/guice:guice',
+  ],
+  compile_deps = ['//lib:servlet-api-3_1'],
+  visibility = ['PUBLIC'],
+)
+
+genrule(
+  name = 'static-resources',
+  cmd = 'mkdir $TMP/+static'
+    + ';cd $TMP/+static'
+    + ';cp -r $SRCDIR/src/main/resources/com/google/gitiles/static/* .'
+    + ';cd $TMP'
+    + ';zip -qr $OUT *',
+  srcs = glob(['src/main/resources/com/google/gitiles/static/**/*']),
+  out = 'static-resources.zip',
+  visibility = ['PUBLIC']
+)
+
+java_sources(
+  name = 'src',
+  srcs = SRCS + RSRC,
+  visibility = ['PUBLIC'],
+)
+
+java_doc(
+  name = 'javadoc',
+  title = 'Gitiles API Documentation',
+  pkg = 'com.google.gitiles',
+  paths = ['gitiles-servlet/src/main/java'],
+  srcs = glob([n + '**/*.java' for n in SRCS]),
+  deps = DEPS + [
+    '//lib/guice:guice_library',
+    '//lib/guice:guice-assistedinject',
+    '//lib/guice:javax-inject',
+    '//lib/guice:jsr305',
+    '//lib/jgit:jgit-archive_library',
+    '//lib:servlet-api-3_1',
+  ],
+  visibility = ['PUBLIC'],
+)
