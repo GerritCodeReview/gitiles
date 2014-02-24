@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f3169d0_8766c6fd",
+        "filename": "BUCK",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-24T15:07:21Z",
+      "side": 1,
+      "message": "Untested, but i think it can be done in more generic fashion:\n\n DEPS \u003d [\n  \u0027//gitiles-servlet:servlet\u0027,\n  \u0027//gitiles-servlet:src\u0027,\n  \u0027//gitiles-servlet:javadoc\u0027,\n  \u0027//gitiles-war:gitiles\u0027,\n ]\n def go():\n  a \u003d []\n  for d in DEPS:\n    n,t \u003d d.split(\u0027:\u0027)\n    a.append(\u0027:\u0027 + t)\n    out \u003d \"%s.%s\" % (n, \u0027war\u0027 if \u0027war\u0027 in n else \u0027jar\u0027)\n    genrule(\n      name \u003d t,\n      cmd \u003d \u0027ln -s $(localtion %s) $OUT\u0027 % d,\n      deps \u003d [d],\n      out \u003d out,\n    )\n  genrule(\n    name \u003d \u0027gitiles\u0027,\n    cmd \u003d \u0027echo done \u003e$OUT\u0027,\n    deps \u003d a,\n    out \u003d genfile(\u0027__fake.gitiles__\u0027),\n  )\n go()",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 1
+      },
+      "revId": "30907198f9e90813505bf4be6490f9439f4c3fba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
