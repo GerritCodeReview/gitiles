@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f37e1c2_e9011521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-24T03:37:12Z",
+      "side": 1,
+      "message": "Until",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "8fa4c378030e77ff3102d0174d39e656b979dd74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f37e1c2_09174966",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-24T03:37:12Z",
+      "side": 1,
+      "message": "Make it a git submodule?",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "8fa4c378030e77ff3102d0174d39e656b979dd74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
