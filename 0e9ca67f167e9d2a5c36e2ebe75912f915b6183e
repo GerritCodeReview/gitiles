@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f3169d0_27bb5aa5",
+        "filename": "gitiles-servlet/BUCK",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-26T22:49:59Z",
+      "side": 1,
+      "message": "We have to specify it this way because of Buck bug: [1].\n\n [1] https://github.com/facebook/buck/issues/90",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 38
+      },
+      "revId": "0e9ca67f167e9d2a5c36e2ebe75912f915b6183e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
