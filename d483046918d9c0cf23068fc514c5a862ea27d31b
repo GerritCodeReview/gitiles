@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f37e1c2_e992f53d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-02-27T23:38:43Z",
+      "side": 1,
+      "message": "We should display author by default. If we want to include committer data we should add the name/email data data from committer as a separate header entry.",
+      "revId": "d483046918d9c0cf23068fc514c5a862ea27d31b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
