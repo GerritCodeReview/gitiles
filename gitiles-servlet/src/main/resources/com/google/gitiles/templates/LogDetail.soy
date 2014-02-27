@@ -81,6 +81,7 @@
  * @param url URL to commit detail page.
  * @param shortMessage short commit message.
  * @param author author information with at least "name" and "relativeTime" keys.
+ * @param commiter commiter information with at least "name" and "relativeTime" keys.
  * @param branches list of branches for this entry, with "name" and "url" keys.
  * @param tags list of tags for this entry, with "name" and "url" keys.
  */
@@ -93,7 +94,7 @@
   {sp}<span class="commit-message">{$shortMessage}</span>
 </a>
 {sp}<span class="author">{msg desc="commit author name"}by {$author.name}{/msg}</span>
-{sp}<span class="time">- {$author.relativeTime}</span>
+{sp}<span class="time">- {$commiter.relativeTime}</span>
 {if length($branches)}
   {foreach $branch in $branches}
     {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>

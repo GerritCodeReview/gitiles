@@ -63,7 +63,7 @@ public class CommitSoyData {
     DETAIL("author", "committer", "sha", "tree", "treeUrl", "parents", "message", "logUrl",
         "archiveUrl", "archiveType"),
     DETAIL_DIFF_TREE(DETAIL, "diffTree"),
-    SHORTLOG("abbrevSha", "url", "shortMessage", "author", "branches", "tags"),
+        SHORTLOG("abbrevSha", "url", "shortMessage", "author", "committer", "branches", "tags"),
     DEFAULT(DETAIL);
 
     private final Set<String> keys;
