@@ -18,6 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
@@ -62,15 +63,23 @@ public class LogServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
   private static final Logger log = LoggerFactory.getLogger(LogServlet.class);
 
+  private static String getTemplateName(GitilesAccess access) throws IOException {
+    return Objects.firstNonNull(
+        access.getConfig().getString("command", "log", "soyTemplate"),
+        "gitiles.logDetail");
+  }
+
   static final String LIMIT_PARAM = "n";
   static final String START_PARAM = "s";
   private static final int DEFAULT_LIMIT = 100;
   private static final int MAX_LIMIT = 10000;
 
+  private final GitilesAccess.Factory accessFactory;
   private final Linkifier linkifier;
 
-  public LogServlet(Renderer renderer, Linkifier linkifier) {
+  public LogServlet(GitilesAccess.Factory accessFactory, Renderer renderer, Linkifier linkifier) {
     super(renderer);
+    this.accessFactory = checkNotNull(accessFactory, "accessFactory");
     this.linkifier = checkNotNull(linkifier, "linkifier");
   }
 
@@ -109,7 +118,7 @@ public class LogServlet extends BaseServlet {
 
       data.put("title", title);
 
-      renderHtml(req, res, "gitiles.logDetail", data);
+      renderHtml(req, res, getTemplateName(accessFactory.forRequest(req)), data);
     } catch (RevWalkException e) {
       log.warn("Error in rev walk", e);
       res.setStatus(SC_INTERNAL_SERVER_ERROR);
