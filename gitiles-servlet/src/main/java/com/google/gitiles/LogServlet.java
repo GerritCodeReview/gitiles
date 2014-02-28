@@ -18,6 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
@@ -68,10 +69,13 @@ public class LogServlet extends BaseServlet {
   private static final int MAX_LIMIT = 10000;
 
   private final Linkifier linkifier;
+  private final String templateName;
 
   public LogServlet(Renderer renderer, Linkifier linkifier) {
     super(renderer);
     this.linkifier = checkNotNull(linkifier, "linkifier");
+    this.templateName = Objects.firstNonNull(
+        cfg.getString("command", "log", "soyTemplate"), "gitiles.logDetail");
   }
 
   @Override
@@ -109,7 +113,7 @@ public class LogServlet extends BaseServlet {
 
       data.put("title", title);
 
-      renderHtml(req, res, "gitiles.logDetail", data);
+      renderHtml(req, res, templateName, data);
     } catch (RevWalkException e) {
       log.warn("Error in rev walk", e);
       res.setStatus(SC_INTERNAL_SERVER_ERROR);
