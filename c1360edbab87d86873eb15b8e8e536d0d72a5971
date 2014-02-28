@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf439932_0bfd7d87",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-02-28T17:17:56Z",
+      "side": 1,
+      "message": "gitiles.logTemplate would be more idiomatic, since usually the second component is free-form.\n\n  String tn \u003d cfg.getString(\"gitiles\", null, \"logTemplate\");\n\nThat would let you put\n\n  [gitiles]\n     logtemplate \u003d foo\n\nin gerrit.config",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
