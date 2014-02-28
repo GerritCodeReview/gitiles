@@ -229,6 +229,24 @@
       "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf439932_4bd4e5fe",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2014-02-28T21:53:47Z",
+      "side": 1,
+      "message": "Yep, works for me running locally.",
+      "parentUuid": "cf439932_0bcadd5a",
+      "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
