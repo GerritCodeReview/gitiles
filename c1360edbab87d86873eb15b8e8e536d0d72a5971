@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c4fb17f_85f3020f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2014-02-28T18:55:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c4fb17f_e5ecf636",
+      "range": {
+        "startLine": 72,
+        "startChar": 23,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf439932_0bfd7d87",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "cf439932_8bb5edd6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2014-02-28T18:55:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf439932_4bf785a7",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c4fb17f_c5e9fa24",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
         "patchSetId": 1
@@ -113,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "cf439932_abbaa9c1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2014-02-28T18:55:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c4fb17f_c5e9fa24",
+      "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf439932_6bf441a2",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
         "patchSetId": 1
@@ -124,6 +190,24 @@
       "writtenOn": "2014-02-28T18:37:45Z",
       "side": 1,
       "message": "This isn\u0027t going to work even in a local dev sever without additional modifications, e.g. including this template in the Renderer.",
+      "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c4fb17f_65000620",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2014-02-28T18:55:27Z",
+      "side": 1,
+      "message": "I guess the onus is on the consumer to make sure the template listed in gitiles.config exists.  For testing, I have this:\n\n[gitiles]\n        customTemplates \u003d /path/to/my/CustomTemplates.soy\n\nBut I\u0027m open to suggestions.",
+      "parentUuid": "cf439932_6bf441a2",
       "revId": "c1360edbab87d86873eb15b8e8e536d0d72a5971",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
