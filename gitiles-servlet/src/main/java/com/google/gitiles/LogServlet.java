@@ -69,10 +69,13 @@ public class LogServlet extends BaseServlet {
   private static final int MAX_LIMIT = 10000;
 
   private final Linkifier linkifier;
+  private final String template_name;
 
   public LogServlet(Config cfg, Renderer renderer, Linkifier linkifier) {
     super(cfg, renderer);
     this.linkifier = checkNotNull(linkifier, "linkifier");
+    String tn = cfg.getString("gitiles", null, "logTemplate");
+    this.template_name = (tn == null) ? "gitiles.logDetail" : tn;
   }
 
   @Override
@@ -110,7 +113,7 @@ public class LogServlet extends BaseServlet {
 
       data.put("title", title);
 
-      renderHtml(req, res, "gitiles.logDetail", data);
+      renderHtml(req, res, template_name, data);
     } catch (RevWalkException e) {
       log.warn("Error in rev walk", e);
       res.setStatus(SC_INTERNAL_SERVER_ERROR);
