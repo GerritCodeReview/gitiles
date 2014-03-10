@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c07cd52_1082643f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-03-10T16:34:36Z",
+      "side": 1,
+      "message": "We should get logDetail worked into this somehow. logDetail for the subsection? Or detailSoyTemplate for the variable?",
+      "range": {
+        "startLine": 68,
+        "startChar": 37,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "63c6430f019dd52ef9bc2688b51fccef3d1eb77c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
