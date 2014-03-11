@@ -22,6 +22,30 @@
       "revId": "63c6430f019dd52ef9bc2688b51fccef3d1eb77c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0cc977_6fb03108",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1012098
+      },
+      "writtenOn": "2014-03-11T20:32:13Z",
+      "side": 1,
+      "message": "I defer to your judgement.  Changing the subsection to \"logDetail\" means there\u0027s not a clean abstraction for \"all the config items that pertain to the \u0027log\u0027 command.\"  Changing the variable name to \"detailSoyTemplate\" is wordy and doesn\u0027t really buy you anything, since the name of the variable still isn\u0027t the same as the name of the template (\"logDetail\").\n\nBut it\u0027s such a nice shed, it would be such a shame to pick the wrong color...",
+      "parentUuid": "7c07cd52_1082643f",
+      "range": {
+        "startLine": 68,
+        "startChar": 37,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "63c6430f019dd52ef9bc2688b51fccef3d1eb77c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
