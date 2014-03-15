@@ -45,7 +45,7 @@ final class HtmlDiffFormatter extends DiffFormatter {
   private static final byte[] LINE_END = "</span>\n".getBytes(Charsets.UTF_8);
 
   private final Renderer renderer;
-  private int fileIndex;
+  private String currPath;
 
   HtmlDiffFormatter(Renderer renderer, OutputStream out) {
     super(out);
@@ -54,8 +54,9 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
   @Override
   public void format(List<? extends DiffEntry> entries) throws IOException {
-    for (fileIndex = 0; fileIndex < entries.size(); fileIndex++) {
-      format(entries.get(fileIndex));
+    for (DiffEntry e : entries) {
+      currPath = e.getNewPath();
+      format(e);
     }
   }
 
@@ -89,7 +90,7 @@ final class HtmlDiffFormatter extends DiffFormatter {
       rest = "";
     }
     getOutputStream().write(renderer.newRenderer("gitiles.diffHeader")
-        .setData(ImmutableMap.of("first", first, "rest", rest, "fileIndex", fileIndex))
+        .setData(ImmutableMap.of("first", first, "rest", rest, "path", currPath))
         .render()
         .getBytes(Charsets.UTF_8));
   }

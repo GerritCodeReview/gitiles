@@ -274,7 +274,7 @@ public class CommitSoyData {
               .setPathPart(e.getOldPath())
               .toUrl());
         }
-        entry.put("diffUrl", diffUrl.setAnchor("F" + result.size()).toUrl());
+        entry.put("diffUrl", diffUrl.setAnchor(e.getNewPath()).toUrl());
         entry.put("changeType", e.getChangeType().toString());
         if (type == COPY || type == RENAME) {
           entry.put("oldPath", e.getOldPath());

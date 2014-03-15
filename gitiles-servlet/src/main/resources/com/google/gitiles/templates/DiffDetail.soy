@@ -39,11 +39,11 @@
  *
  * @param first the first line of the header, with no trailing LF.
  * @param rest remaining lines of the header, if any.
- * @param fileIndex position of the file within the difference.
+ * @param path path to the file
  */
 {template .diffHeader}
 <pre class="diff-header">
-<a name="F{$fileIndex}" class="diff-git">{$first}</a>{\n}
+<a name="{$path}" class="diff-git">{$first}</a>{\n}
 {$rest}
 </pre>
 {/template}
