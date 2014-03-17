@@ -157,7 +157,7 @@ class CommitData {
         result.message = c.getFullMessage();
       }
       if (fs.contains(Field.DIFF_TREE)) {
-        result.diffEntries = computeDiffEntries(repo, view, c);
+        result.diffEntries = computeDiffEntries(repo, c);
       }
 
       return result;
@@ -203,7 +203,7 @@ class CommitData {
       return p;
     }
 
-    private List<DiffEntry> computeDiffEntries(Repository repo, GitilesView view, RevCommit commit)
+    private List<DiffEntry> computeDiffEntries(Repository repo, RevCommit commit)
         throws IOException {
       AbstractTreeIterator oldTree;
       switch (commit.getParentCount()) {
