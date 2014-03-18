@@ -46,6 +46,30 @@
       "revId": "60af12c91271506a5b39372a880f99e1da0d5d42",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cab959f_deba85ea",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-03-18T20:54:29Z",
+      "side": 1,
+      "message": "Ah, looks like it\u0027s the full sha1. Unfortunately the DiffEntry javadoc doesn\u0027t explain that either (it uses AbbreviatedObjectId for the sake of diff entries read from a patch file).",
+      "parentUuid": "5ca689d4_7faa4f9b",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 17
+      },
+      "revId": "60af12c91271506a5b39372a880f99e1da0d5d42",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
