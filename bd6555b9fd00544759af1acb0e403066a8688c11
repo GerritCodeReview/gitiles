@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cab959f_3e404951",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-03-18T03:20:50Z",
+      "side": 1,
+      "message": "But wouldn\u0027t annotating `archiveFormat` as `@Nullable` mean that it can be null, which is the opposite of what `checkNotNull` is asserting?",
+      "parentUuid": "5ca689d4_ff7c1f98",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 59
+      },
+      "revId": "bd6555b9fd00544759af1acb0e403066a8688c11",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ca689d4_df815b3c",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitData.java",
         "patchSetId": 2
