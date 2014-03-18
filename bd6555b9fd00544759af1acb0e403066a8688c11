@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ca689d4_ff7c1f98",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-03-18T00:20:16Z",
+      "side": 1,
+      "message": "(optional) Could take a @Nullable ArchiveFormat to simplify the caller.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 59
+      },
+      "revId": "bd6555b9fd00544759af1acb0e403066a8688c11",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ca689d4_df815b3c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-03-18T00:20:16Z",
+      "side": 1,
+      "message": "It\u0027s odd to see the computation of oldTree and oldRevision broken up like this. Would it make sense to return the list of DiffEntries and the oldRevision at the same time (e.g., in a class)?",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 44
+      },
+      "revId": "bd6555b9fd00544759af1acb0e403066a8688c11",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ca689d4_1f3d83cb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-03-18T00:20:16Z",
+      "side": 1,
+      "message": "Behavior change: if I\u0027m reading this correctly, for a commit with no author line (which is invalid), previously this would segfault and now the author is just skipped in that case.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 28
+      },
+      "revId": "bd6555b9fd00544759af1acb0e403066a8688c11",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cab959f_5e431560",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-03-18T00:20:16Z",
+      "side": 1,
+      "message": "Missing diffUrl.setOldRevision(oldRevision)?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "bd6555b9fd00544759af1acb0e403066a8688c11",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
