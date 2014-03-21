@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0769cb_b72a0894",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-03-21T22:13:23Z",
+      "side": 1,
+      "message": "cd \"$ROOT\" in a subshell?\n\n(\n  cd \"$ROOT\"\n  buck build gitiles-dev:dev\n)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "0415bee70a6c4185a039dc4ab05464b23febc8a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
