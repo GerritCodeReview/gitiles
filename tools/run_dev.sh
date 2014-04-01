@@ -17,14 +17,10 @@
 set -e
 
 ROOT="$(dirname "$0")/.."
+VERSION="$(grep '^  <version>' "$ROOT/pom.xml" | sed 's/\s*<[^>]*>\s*//g')"
 PROPERTIES=
 if [ "x$1" != "x" ]; then
   PROPERTIES="-Dcom.google.gitiles.configPath=$1"
 fi
 
-(
-  cd "$ROOT"
-  buck build gitiles-dev:dev
-)
-
-exec java $PROPERTIES -jar "$ROOT/buck-out/gen/gitiles-dev/dev.jar"
+java $PROPERTIES -jar "$ROOT/gitiles-dev/target/gitiles-dev-$VERSION.jar"
