@@ -109,6 +109,7 @@ public class LogServlet extends BaseServlet {
 
       data.put("title", title);
       GitilesConfig.putVariant(getAccess(req).getConfig(), "logEntry", "logEntryVariant", data);
+      GitilesConfig.putVariant(getAccess(req).getConfig(), "logTimeLabel", "logTimeLabelVariant", data);
 
       renderHtml(req, res, "gitiles.logDetail", data);
     } catch (RevWalkException e) {

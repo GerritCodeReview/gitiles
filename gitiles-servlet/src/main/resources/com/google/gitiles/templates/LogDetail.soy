@@ -97,7 +97,7 @@
   {sp}<span class="commit-message">{$shortMessage}</span>
 </a>
 {sp}<span class="author" title="{$author.email}">{msg desc="commit author name"}by {$author.name}{/msg}</span>
-{sp}<span class="time" title="{$author.time}">- {$author.relativeTime}</span>
+{sp}{delcall gitiles.logTimeLabel variant="$logTimeLabelVariant ?: 'default'" data="all" /}
 {if length($branches)}
   {foreach $branch in $branches}
     {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>
@@ -108,4 +108,14 @@
     {sp}<a href="{$tag.url}" class="tag-label">{$tag.name}</a>
   {/foreach}
 {/if}
+{/deltemplate}
+
+
+/**
+ * Author-based time label for a logEntry.
+ *
+ * @param author author information with at least "time" and "relativeTime" keys.
+ */
+{deltemplate gitiles.logTimeLabel variant="'default'"}
+<span class="time" title="{$author.time}">- {$author.relativeTime}</span>
 {/deltemplate}
