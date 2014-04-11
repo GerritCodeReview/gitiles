@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19198330_3590b082",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-11T17:53:55Z",
+      "side": 0,
+      "message": "Oops, this should have been squashed into a previous change.",
+      "revId": "3088fd64435b2165b6d1a74d3136a6490b7e848c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
