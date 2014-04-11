@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19198330_b57b209e",
+        "filename": "fake_pom_deploy.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-11T17:48:41Z",
+      "side": 1,
+      "message": "VERSION",
+      "range": {
+        "startLine": 5,
+        "startChar": 45,
+        "endLine": 5,
+        "endChar": 52
+      },
+      "revId": "b09387e8b9b199a040e7377430f47820cf47e6ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
