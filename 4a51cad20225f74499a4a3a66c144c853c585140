@@ -16,6 +16,24 @@
       "revId": "4a51cad20225f74499a4a3a66c144c853c585140",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19198330_553e0cc8",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-04-11T15:23:31Z",
+      "side": 1,
+      "message": "That\u0027s actually how I had it at first, but I thought that would be objectionable due to all the code duplication, and wanting to keep our logEntry still similar to the default template if that changes.",
+      "parentUuid": "19198330_d5517c29",
+      "revId": "4a51cad20225f74499a4a3a66c144c853c585140",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
