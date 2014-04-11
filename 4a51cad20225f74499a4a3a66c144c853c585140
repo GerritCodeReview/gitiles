@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19198330_d5517c29",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-11T13:20:36Z",
+      "side": 1,
+      "message": "I don\u0027t really want nested deltemplates. Is it really too much work to duplicate everything but this in a custom logEntry variant?",
+      "revId": "4a51cad20225f74499a4a3a66c144c853c585140",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
