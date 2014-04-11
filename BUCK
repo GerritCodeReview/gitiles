@@ -20,8 +20,9 @@ java_library(
 
 maven_package(
   repository = 'gerrit-maven-repository',
-  url = 'gs://gerrit-maven/release',
+  url = 'gs://gerrit-maven',
   version = GITILES_VERSION,
+  group = 'com.google.gitiles',
   jar = {'gitiles-servlet': '//gitiles-servlet:servlet'},
   src = {'gitiles-servlet': '//gitiles-servlet:src'},
   doc = {'gitiles-servlet': '//gitiles-servlet:javadoc'},
