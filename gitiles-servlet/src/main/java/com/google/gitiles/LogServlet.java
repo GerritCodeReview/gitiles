@@ -64,6 +64,7 @@ public class LogServlet extends BaseServlet {
 
   static final String LIMIT_PARAM = "n";
   static final String START_PARAM = "s";
+  static final String PRETTY_PARAM = "pretty";
   private static final int DEFAULT_LIMIT = 100;
   private static final int MAX_LIMIT = 10000;
 
@@ -86,7 +87,18 @@ public class LogServlet extends BaseServlet {
 
     try {
       GitDateFormatter df = new GitDateFormatter(Format.DEFAULT);
-      Map<String, Object> data = new LogSoyData(req, view).toSoyData(paginator, null, df);
+
+      Map<String, Object> data;
+      // Allow the user to select a logView variant with the "pretty" param.
+      List<String> pretty_values = view.getParameters().get(PRETTY_PARAM);
+      if (pretty_values.isEmpty()) {
+        data = new LogSoyData(req, view).toSoyData(paginator, null, df);
+        GitilesConfig.putVariant(getAccess(req).getConfig(), "logEntry", "logEntryVariant", data);
+      } else {
+        data = new LogSoyData(req, view, true).toSoyData(paginator, null, df);
+        String variant = pretty_values.get(0);
+        data.put("logPrettyVariant", pretty_values.get(0));
+      }
 
       if (!view.getRevision().nameIsId()) {
         List<Map<String, Object>> tags = Lists.newArrayListWithExpectedSize(1);
@@ -108,7 +120,6 @@ public class LogServlet extends BaseServlet {
       }
 
       data.put("title", title);
-      GitilesConfig.putVariant(getAccess(req).getConfig(), "logEntry", "logEntryVariant", data);
 
       renderHtml(req, res, "gitiles.logDetail", data);
     } catch (RevWalkException e) {
