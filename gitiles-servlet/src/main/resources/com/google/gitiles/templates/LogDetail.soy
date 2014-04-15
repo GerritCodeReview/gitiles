@@ -46,6 +46,8 @@
  * List of log entries.
  *
  * @param? logEntryVariant variant name for log entry template.
+ * @param? logPrettyVariant use the "pretty" log entry templates. These templates are potentially
+ *     more verbose, and thus expect a superset of logEntry data.
  * @param entries list of log entries; see .logEntry.
  * @param? nextUrl URL for the next page of results.
  * @param? previousUrl URL for the previous page of results.
@@ -61,8 +63,13 @@
   <ol class="shortlog">
     {foreach $entry in $entries}
       <li{if $previousUrl and isFirst($entry)} class="first"{/if}>
+      {if $logPrettyVariant}
+        {delcall gitiles.logEntryPretty variant="$logPrettyVariant ?: 'full'"
+            data="$entry" /}
+      {else}
         {delcall gitiles.logEntry variant="$logEntryVariant ?: 'default'"
             data="$entry" /}
+      {/if}
       </li>
     {/foreach}
   </ol>
@@ -109,4 +116,131 @@
     {sp}<a href="{$tag.url}" class="tag-label">{$tag.name}</a>
   {/foreach}
 {/if}
+{/deltemplate}
+
+/**
+ * Single verbose log entry, similar to --pretty=full --name-status.
+ *
+ * @param url URL to commit detail page.
+ * @param author author information with at least "name" and "relativeTime" keys.
+ * @param committer committer information with at least "time" and "relativeTime" keys.
+ * @param sha commit SHA-1.
+ * @param message list of commit message parts, where each part contains:
+ *     text: raw text of the part.
+ *     url: optional URL that should be linked to from the part.
+ * @param diffTree list of changed tree entries with the following keys:
+ *     changeType: string matching an org.eclipse.jgit.diff.DiffEntry.ChangeType
+ *         constant.
+ *     path: (new) path of the tree entry.
+ *     oldPath: old path, only for renames and copies.
+ *     url: URL to a detail page for the tree entry.
+ *     diffUrl: URL to a diff page for the tree entry's diff in this commit.
+ * @param branches list of branches for this entry, with "name" and "url" keys.
+ * @param tags list of tags for this entry, with "name" and "url" keys.
+ * @param? logEntryVariant variant name for log entry template.
+ */
+{deltemplate gitiles.logEntryPretty variant="'full'"}
+<table class="git-commit">
+  <tr>
+    <th>{msg desc="Header for commit SHA entry"}commit{/msg}</th>
+    <td class="sha1">
+      <a href="{$url}">{$sha}</a>
+    </td>
+    <td>
+      {if length($branches)}
+        {foreach $branch in $branches}
+          {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>
+        {/foreach}
+      {/if}
+      {if length($tags)}
+        {foreach $tag in $tags}
+          {sp}<a href="{$tag.url}" class="tag-label">{$tag.name}</a>
+        {/foreach}
+      {else}
+        {sp}
+      {/if}
+    </td>
+  </tr>
+  <tr>
+    <th>{msg desc="Header for commit author"}author{/msg}</th>
+    <td>{call .person_ data="$author" /}</td>
+    <td>{$author.time}</td>
+  </tr>
+  <tr>
+    <th>{msg desc="Header for committer"}committer{/msg}</th>
+    <td>{call .person_ data="$committer" /}</td>
+    <td>{$committer.time}</td>
+  </tr>
+</table>
+<pre class="commit-message">
+  {$message}
+</pre>
+
+{if $diffTree and length($diffTree)}
+  <ul class="diff-tree">
+    {foreach $entry in $diffTree}
+      <li class="diff-tree">
+        <a href="{$entry.url}">{$entry.path}</a>
+        {switch $entry.changeType}
+          {case 'ADD'}
+            <span class="add">
+              {msg desc="Text for a new tree entry"}
+                [Added - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'MODIFY'}
+            <span class="modify">
+              {msg desc="Text for a modified tree entry"}
+                [<a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'DELETE'}
+            <span class="delete">
+              {msg desc="Text for a deleted tree entry"}
+                [Deleted - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'RENAME'}
+            <span class="rename">
+              {msg desc="Text for a renamed tree entry"}
+                [Renamed from {$entry.oldPath} - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'COPY'}
+            <span class="copy">
+              {msg desc="Text for a copied tree entry"}
+                [Copied from {$entry.oldPath} - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {default}
+        {/switch}
+      </li>
+    {/foreach}
+  </ul>
+{/if}
+{/deltemplate}
+
+/**
+ * Single log entry, similar to --pretty=oneline.
+ *
+ * @param url URL to commit detail page.
+ * @param author author information with at least "name" and "relativeTime" keys.
+ * @param committer committer information with at least "time" and "relativeTime" keys.
+ * @param sha commit SHA-1.
+ * @param message list of commit message parts, where each part contains:
+ *     text: raw text of the part.
+ *     url: optional URL that should be linked to from the part.
+ * @param diffTree list of changed tree entries with the following keys:
+ *     changeType: string matching an org.eclipse.jgit.diff.DiffEntry.ChangeType
+ *         constant.
+ *     path: (new) path of the tree entry.
+ *     oldPath: old path, only for renames and copies.
+ *     url: URL to a detail page for the tree entry.
+ *     diffUrl: URL to a diff page for the tree entry's diff in this commit.
+ * @param branches list of branches for this entry, with "name" and "url" keys.
+ * @param tags list of tags for this entry, with "name" and "url" keys.
+ * @param? logEntryVariant variant name for log entry template.
+ */
+{deltemplate gitiles.logEntryPretty variant="'oneline'"}
+{delcall gitiles.logEntry variant="$logEntryVariant ?: 'default'" data="all" /}
 {/deltemplate}
