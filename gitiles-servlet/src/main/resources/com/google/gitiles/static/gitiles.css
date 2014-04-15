@@ -196,6 +196,10 @@ ul.diff-tree {
   margin: 0;
   padding: 5px 2em; /* PADDING */
 }
+ul.diff-tree li.diff-tree {
+  border: none;
+  padding: 0;
+}
 ul.diff-tree .add {
   color: #060;
 }
