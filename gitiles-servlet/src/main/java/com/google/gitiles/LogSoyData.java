@@ -34,13 +34,21 @@ import javax.servlet.http.HttpServletRequest;
 public class LogSoyData {
   private static final ImmutableSet<Field> FIELDS = Sets.immutableEnumSet(Field.ABBREV_SHA,
       Field.URL, Field.SHORT_MESSAGE, Field.AUTHOR, Field.COMMITTER, Field.BRANCHES, Field.TAGS);
+  private static final ImmutableSet<Field> VERBOSE_FIELDS = Field.setOf(FIELDS, Field.SHA,
+      Field.MESSAGE, Field.DIFF_TREE);
 
   private final HttpServletRequest req;
   private final GitilesView view;
+  private final boolean verbose;
 
   public LogSoyData(HttpServletRequest req, GitilesView view) {
+    this(req, view, false);
+  }
+
+  public LogSoyData(HttpServletRequest req, GitilesView view, boolean verbose) {
     this.req = req;
     this.view = view;
+    this.verbose = verbose;
   }
 
   public Map<String, Object> toSoyData(RevWalk walk, int limit, @Nullable String revision,
@@ -54,11 +62,17 @@ public class LogSoyData {
 
     List<Map<String, Object>> entries = Lists.newArrayListWithCapacity(paginator.getLimit());
     for (RevCommit c : paginator) {
-      entries.add(new CommitSoyData().toSoyData(req, c, FIELDS, df));
+      if (verbose) {
+        entries.add(new CommitSoyData().setRevWalk(paginator.getWalk()).toSoyData(req, c,
+            VERBOSE_FIELDS, df));
+      } else {
+        entries.add(new CommitSoyData().toSoyData(req, c, FIELDS, df));
+      }
     }
 
     data.put("entries", entries);
     ObjectId next = paginator.getNextStart();
+    // TODO(mmoss): These urls don't include the n or pretty params.
     if (next != null) {
       data.put("nextUrl", copyAndCanonicalize(view, revision)
           .replaceParam(LogServlet.START_PARAM, next.name())
