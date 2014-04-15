@@ -63,6 +63,7 @@ public class LogServlet extends BaseServlet {
 
   static final String LIMIT_PARAM = "n";
   static final String START_PARAM = "s";
+  static final String PRETTY_PARAM = "pretty";
   private static final int DEFAULT_LIMIT = 100;
   private static final int MAX_LIMIT = 10000;
 
@@ -88,6 +89,19 @@ public class LogServlet extends BaseServlet {
       DateFormatter df = new DateFormatter(access, Format.DEFAULT);
       Map<String, Object> data = new LogSoyData(req, view).toSoyData(paginator, null, df);
 
+      // Allow the user to select a logView variant with the "pretty" param.
+      List<String> prettyValues = view.getParameters().get(PRETTY_PARAM);
+      String pretty = "default";
+      if (!prettyValues.isEmpty()) {
+        pretty = prettyValues.get(0);
+      }
+      String variant = access.getConfig().getString("logFormat", pretty, "variant");
+      if (variant != null) {
+        data.put("logEntryVariant", variant);
+      } else {
+        data.put("logEntryVariant", pretty);
+      }
+
       if (!view.getRevision().nameIsId()) {
         List<Map<String, Object>> tags = Lists.newArrayListWithExpectedSize(1);
         for (RevObject o : RevisionServlet.listObjects(paginator.getWalk(), view.getRevision())) {
@@ -108,7 +122,6 @@ public class LogServlet extends BaseServlet {
       }
 
       data.put("title", title);
-      GitilesConfig.putVariant(access.getConfig(), "logEntry", "logEntryVariant", data);
 
       renderHtml(req, res, "gitiles.logDetail", data);
     } catch (RevWalkException e) {
