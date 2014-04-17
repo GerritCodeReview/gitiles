@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a5012bf5_db157358",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-17T19:07:23Z",
+      "side": 1,
+      "message": "Ok, I can do reference interning. Are you still saying use Java serialization though?",
+      "parentUuid": "a5012bf5_fb182f92",
+      "revId": "1ce9f1b467dddaa0eda6a2fdd9048a5fe0247828",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_dc156d58",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-04-17T19:00:08Z",
       "side": 1,
       "message": "Use your getSourcePath() method now that this is no longer simple.",
+      "range": {
+        "startLine": 71,
+        "startChar": 46,
+        "endLine": 71,
+        "endChar": 71
+      },
+      "revId": "1ce9f1b467dddaa0eda6a2fdd9048a5fe0247828",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_9c1fe576",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-17T19:07:23Z",
+      "side": 1,
+      "message": "See method comment: list.paths is null when this method is called from the RegionList constructor.",
+      "parentUuid": "c5045f04_dc156d58",
       "range": {
         "startLine": 71,
         "startChar": 46,
