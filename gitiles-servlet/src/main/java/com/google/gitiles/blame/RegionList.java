@@ -14,6 +14,8 @@
 
 package com.google.gitiles.blame;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -43,14 +45,15 @@ public class RegionList extends ForwardingList<Region> implements Serializable {
   final ImmutableList<String> paths;
   private final ImmutableList<Region> regions;
 
-  public RegionList(BlameResult blame, int lineCount) {
-    if (blame == null) {
-      commits = null;
-      authors = null;
-      paths = null;
-      regions = ImmutableList.of();
-      return;
-    }
+  RegionList() {
+    commits = null;
+    authors = null;
+    paths = null;
+    regions = ImmutableList.of();
+  }
+
+  RegionList(BlameResult blame, int lineCount) {
+    checkNotNull(blame, "blame");
 
     List<ObjectId> commits = Lists.newArrayList();
     List<PersonIdent> authors = Lists.newArrayList();
@@ -111,6 +114,36 @@ public class RegionList extends ForwardingList<Region> implements Serializable {
     this.authors = ImmutableList.copyOf(authors);
     this.paths = ImmutableList.copyOf(paths);
     this.regions = ImmutableList.copyOf(regions);
+  }
+
+  int weigh() {
+    // Weigh based on 64-bit JVM with no compressed oops.
+    int n = immutableListOverhead(commits)
+        + immutableListOverhead(authors)
+        + immutableListOverhead(paths)
+        + immutableListOverhead(regions);
+    n += (16 + 8 + (4 * 4)) * regions.size();
+    n += (20 + 16) * commits.size();
+    for (PersonIdent a : authors) {
+      n += 16 + 8 + 8 + 8 + 4 // header, field pointers
+          + stringWeight(a.getName())
+          + stringWeight(a.getEmailAddress());
+    }
+    for (String p : paths) {
+      n += stringWeight(p);
+    }
+    return n;
+  }
+
+  private static int immutableListOverhead(ImmutableList<?> list) {
+    return 16 + 4 + 4                 // object header, offset, size fields
+        + 8 + 20 + (8 * list.size()); // array pointer, header, elements
+  }
+
+  private static int stringWeight(String s) {
+    // Worst case, assuming no interning or aliasing.
+    return 16 + 4                    // object header, hash field
+        + 8 + 20 + (2 * s.length()); // char array pointer, header, elements
   }
 
   @Override
