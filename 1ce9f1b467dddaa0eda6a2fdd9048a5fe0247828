@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5012bf5_fb182f92",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-17T19:00:08Z",
+      "side": 1,
+      "message": "This is nuts. One reason Java serialization is expensive is every object is tracked in an IdentityHashMap so the stream can store references correctly and recreate them all at read time. E.g. you can serialize a cycle in a graph, and deserialize back that same cycle perfectly fine.\n\nSimple reference interning without using ints will get you the same benefit, and cleaner code, and faster code at runtime once loaded.",
+      "revId": "1ce9f1b467dddaa0eda6a2fdd9048a5fe0247828",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_dc156d58",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-17T19:00:08Z",
+      "side": 1,
+      "message": "Use your getSourcePath() method now that this is no longer simple.",
+      "range": {
+        "startLine": 71,
+        "startChar": 46,
+        "endLine": 71,
+        "endChar": 71
+      },
+      "revId": "1ce9f1b467dddaa0eda6a2fdd9048a5fe0247828",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
