@@ -21,15 +21,17 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.cache.Weigher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import org.eclipse.jgit.blame.BlameGenerator;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Repository;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /** Guava implementation of BlameCache, weighted by number of blame regions. */
@@ -107,7 +109,7 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  private List<Region> loadBlame(Key key) throws IOException {
+  public static List<Region> loadBlame(Key key) throws IOException {
     try {
       BlameGenerator gen = new BlameGenerator(key.repo, key.path);
       BlameResult blame;
@@ -122,16 +124,48 @@ public class BlameCacheImpl implements BlameCache {
       }
       int lineCount = blame.getResultContents().size();
       blame.discardResultContents();
-
-      List<Region> regions = Lists.newArrayList();
-      for (int i = 0; i < lineCount; i++) {
-        if (regions.isEmpty() || !regions.get(regions.size() - 1).growFrom(blame, i)) {
-          regions.add(new Region(blame, i));
-        }
-      }
-      return Collections.unmodifiableList(regions);
+      return loadRegions(blame, lineCount);
     } finally {
       key.repo = null;
     }
+  }
+
+  private static List<Region> loadRegions(BlameResult blame, int lineCount) {
+    Map<ObjectId, ObjectId> commits = Maps.newHashMap();
+    Map<PersonIdent, PersonIdent> authors = Maps.newHashMap();
+
+    List<Region> regions = Lists.newArrayList();
+    for (int i = 0; i < lineCount; i++) {
+      String path = blame.getSourcePath(i);
+      if (path != null) {
+        path = path.intern();
+      }
+
+      ObjectId commit = blame.getSourceCommit(i);
+      if (commit != null) {
+        ObjectId c = commits.get(commit);
+        if (c == null) {
+          commit = commit.copy();
+          commits.put(commit, commit);
+        } else {
+          commit = c;
+        }
+      }
+
+      PersonIdent author = blame.getSourceAuthor(i);
+      if (author != null) {
+        PersonIdent a = authors.get(author);
+        if (a == null) {
+          authors.put(author, author);
+        } else {
+          author = a;
+        }
+      }
+
+      if (regions.isEmpty() || !regions.get(regions.size() - 1).growFrom(blame, i)) {
+        regions.add(new Region(path, commit, author));
+      }
+    }
+    return ImmutableList.copyOf(regions);
   }
 }
