@@ -19,7 +19,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.Weigher;
-import com.google.common.collect.ImmutableList;
 
 import org.eclipse.jgit.blame.BlameGenerator;
 import org.eclipse.jgit.blame.BlameResult;
@@ -27,16 +26,15 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-/** Guava implementation of BlameCache, weighted by number of blame regions. */
+/** Guava implementation of BlameCache, weighted by blame storage size. */
 public class BlameCacheImpl implements BlameCache {
-  public static CacheBuilder<Key, List<Region>> newBuilder() {
-    return CacheBuilder.newBuilder().weigher(new Weigher<Key, List<Region>>() {
+  public static CacheBuilder<Key, RegionList> newBuilder() {
+    return CacheBuilder.newBuilder().weigher(new Weigher<Key, RegionList>() {
       @Override
-      public int weigh(Key key, List<Region> value) {
-        return value.size();
+      public int weigh(Key key, RegionList value) {
+        return value.weigh();
       }
     }).maximumWeight(10 << 10);
   }
@@ -76,27 +74,27 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  private final LoadingCache<Key, List<Region>> cache;
+  private final LoadingCache<Key, RegionList> cache;
 
   public BlameCacheImpl() {
     this(newBuilder());
   }
 
-  public LoadingCache<Key, List<Region>> getCache() {
+  public LoadingCache<Key, RegionList> getCache() {
     return cache;
   }
 
-  public BlameCacheImpl(CacheBuilder<Key, List<Region>> builder) {
-    this.cache = builder.build(new CacheLoader<Key, List<Region>>() {
+  public BlameCacheImpl(CacheBuilder<Key, RegionList> builder) {
+    this.cache = builder.build(new CacheLoader<Key, RegionList>() {
       @Override
-      public List<Region> load(Key key) throws IOException {
+      public RegionList load(Key key) throws IOException {
         return loadBlame(key);
       }
     });
   }
 
   @Override
-  public List<Region> get(Repository repo, ObjectId commitId, String path)
+  public RegionList get(Repository repo, ObjectId commitId, String path)
       throws IOException {
     try {
       return cache.get(new Key(repo, commitId, path));
@@ -105,7 +103,7 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  private List<Region> loadBlame(Key key) throws IOException {
+  private RegionList loadBlame(Key key) throws IOException {
     try {
       BlameGenerator gen = new BlameGenerator(key.repo, key.path);
       BlameResult blame;
@@ -116,7 +114,7 @@ public class BlameCacheImpl implements BlameCache {
         gen.release();
       }
       if (blame == null) {
-        return ImmutableList.of();
+        return new RegionList();
       }
       int lineCount = blame.getResultContents().size();
       blame.discardResultContents();
