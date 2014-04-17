@@ -19,34 +19,23 @@ import com.google.common.base.Objects;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.revwalk.RevCommit;
+
+import java.io.Serializable;
 
 /** Region of the blame of a file. */
-public class Region {
+public class Region implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private final String sourcePath;
   private final ObjectId sourceCommit;
   private final PersonIdent sourceAuthor;
   private int count;
 
-  public Region(BlameResult blame, int start) {
-    this.sourcePath = blame.getSourcePath(start);
-    RevCommit c = blame.getSourceCommit(start);
-    if (c != null) {
-      this.sourceCommit = c.copy();
-      this.sourceAuthor = c.getAuthorIdent();
-    } else {
-      // Unknown source commit due to JGit bug.
-      this.sourceCommit = null;
-      this.sourceAuthor = null;
-    }
+  public Region(String path, ObjectId commit, PersonIdent author) {
+    this.sourcePath = path;
+    this.sourceCommit = commit;
+    this.sourceAuthor = author;
     this.count = 1;
-  }
-
-  public Region(String sourcePath, ObjectId sourceCommit, PersonIdent sourceAuthor, int count) {
-    this.sourcePath = sourcePath;
-    this.sourceCommit = sourceCommit;
-    this.sourceAuthor = sourceAuthor;
-    this.count = count;
   }
 
   public int getCount() {
