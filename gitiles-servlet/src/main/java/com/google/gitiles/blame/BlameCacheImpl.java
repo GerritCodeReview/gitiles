@@ -20,7 +20,6 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.Weigher;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.jgit.blame.BlameGenerator;
 import org.eclipse.jgit.blame.BlameResult;
@@ -28,7 +27,6 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -122,14 +120,7 @@ public class BlameCacheImpl implements BlameCache {
       }
       int lineCount = blame.getResultContents().size();
       blame.discardResultContents();
-
-      List<Region> regions = Lists.newArrayList();
-      for (int i = 0; i < lineCount; i++) {
-        if (regions.isEmpty() || !regions.get(regions.size() - 1).growFrom(blame, i)) {
-          regions.add(new Region(blame, i));
-        }
-      }
-      return Collections.unmodifiableList(regions);
+      return new RegionList(blame, lineCount);
     } finally {
       key.repo = null;
     }
