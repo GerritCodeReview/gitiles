@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5045f04_9c36c5fc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-17T22:47:58Z",
+      "side": 1,
+      "message": "Too bad HashSet doesn\u0027t have a get() method to do this.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 56
+      },
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
