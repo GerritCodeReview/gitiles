@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5012bf5_5b51631d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BlameCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-17T22:40:05Z",
+      "side": 0,
+      "message": "count represents the number of lines?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 22
+      },
+      "revId": "2d910ae4ace1b8e1643f9d884610ae01ae96f95d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
