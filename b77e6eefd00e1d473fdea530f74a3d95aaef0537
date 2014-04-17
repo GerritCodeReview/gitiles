@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5045f04_1c4bd56d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-17T22:41:26Z",
+      "side": 1,
+      "message": "(not about this patch) Visibility",
+      "range": {
+        "startLine": 380,
+        "startChar": 25,
+        "endLine": 380,
+        "endChar": 34
+      },
+      "revId": "b77e6eefd00e1d473fdea530f74a3d95aaef0537",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
