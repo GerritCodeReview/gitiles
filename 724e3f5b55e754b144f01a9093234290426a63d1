@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a5012bf5_1ba19b96",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5045f04_fccee962",
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5012bf5_7ba2df9f",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2014-04-18T18:09:36Z",
       "side": 1,
       "message": "commit.hashCode() should be sufficient. A commit can only have one author.",
+      "range": {
+        "startLine": 141,
+        "startChar": 13,
+        "endLine": 141,
+        "endChar": 45
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5012bf5_fbb5cfd4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5012bf5_7ba2df9f",
       "range": {
         "startLine": 141,
         "startChar": 13,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "c5045f04_dccb2d51",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5045f04_3cc57140",
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5012bf5_5ba723ae",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2014-04-18T18:09:36Z",
       "side": 1,
       "message": "I guess we can do this, but I still contend it isn\u0027t necessary.",
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_bcd86127",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "We already have the string interner so this is one line, and then I don\u0027t have to think about whether the implementation of BlameGenerator does.",
+      "parentUuid": "a5012bf5_5ba723ae",
       "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -123,6 +201,54 @@
     },
     {
       "key": {
+        "uuid": "c5045f04_7ca2d99f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5045f04_9cfec57d",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_5cc03d30",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "This was to be the same width as sourceCommit.name().substring(0, 8). But like you say, it\u0027s not like everything else lines up.\n\nDone.",
+      "parentUuid": "a5012bf5_bbd86727",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_7cbbf9d5",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
         "patchSetId": 5
@@ -134,6 +260,30 @@
       "writtenOn": "2014-04-18T18:09:36Z",
       "side": 1,
       "message": "Why . after the line number?\n\nShould we include count or end? This looks like its just for debugging, so maybe count would also be useful.",
+      "range": {
+        "startLine": 92,
+        "startChar": 42,
+        "endLine": 92,
+        "endChar": 45
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_9cd5a5ef",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T18:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5045f04_7cbbf9d5",
       "range": {
         "startLine": 92,
         "startChar": 42,
