@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a5012bf5_db0453e3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T16:31:13Z",
+      "side": 1,
+      "message": "Given you just convert the blame result to a region list, you may be better off using the incremental stream output from the generator, ie:\n\n  while (blame.next()) {\n    list.add(new Region(...));\n  }\n\nand then sort the Region by result starting line. This avoids the mess that is growBy below.",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_9c36c5fc",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 3
@@ -19,6 +36,64 @@
         "endLine": 134,
         "endChar": 56
       },
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_dc568de3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T16:31:13Z",
+      "side": 1,
+      "message": "Yes, but given that HashSet is built on HashMap it doesn\u0027t really matter. :-)",
+      "parentUuid": "c5045f04_9c36c5fc",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 56
+      },
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5012bf5_3b0e9706",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T16:31:13Z",
+      "side": 1,
+      "message": "Do not do this. The JVM intern string pool is horrible.  *NEVER* use intern. Use your own map.\n\nFWIW BlameGenerator already tries fairly hard to reuse this string across regions. The only time it doesn\u0027t is if two branches both renamed a file concurrently and the follow logic picked up both of those renames. It will have 2 copies of the old file name instead of 1.",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_7c141918",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T16:31:13Z",
+      "side": 1,
+      "message": "This gets you less pooling than you would like. The PersonIdent is essentially unique with the ObjectId for the commit; they come as a pair of values because of the timestamp in the PersonIdent.\n\nBut each PersonIdent has its own unique strings for name and email. Those are very likely to be common across many instances of PersonIdent in this blame run, as often the same people edit the same file.\n\nI think what you really want to pool here is the name and email and remint the PersonIdent around the pooled name and email strings. That gets you _much_ more savings than the pooled paths above.\n\nI also think the ObjectId pooling could be coupled with the PersonIdent pooling. So have Map\u003cObjectId, PooledCommit\u003e where\n\n  class PooledCommit {\n    final ObjectId commit;\n    final PersonIdent author;\n  }",
       "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
