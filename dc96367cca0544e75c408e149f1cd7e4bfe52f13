@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c5045f04_1c13d52e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T17:30:25Z",
+      "side": 1,
+      "message": "A little tricky because in the presence of bugs the BlameGenerator won\u0027t return results for unblamed regions, so we have to fill in the gaps manually.\n\nI also like this because it may also give you the actual RevCommit, which is discarded in the BlameResult. So eventually we could include e.g. summaries in the blame output on hover.",
+      "parentUuid": "a5012bf5_db0453e3",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_9c36c5fc",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 3
@@ -119,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "a5012bf5_3bc57740",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T17:30:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5012bf5_9bfecb7d",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_7c141918",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 3
@@ -130,6 +166,24 @@
       "writtenOn": "2014-04-18T16:31:13Z",
       "side": 1,
       "message": "This gets you less pooling than you would like. The PersonIdent is essentially unique with the ObjectId for the commit; they come as a pair of values because of the timestamp in the PersonIdent.\n\nBut each PersonIdent has its own unique strings for name and email. Those are very likely to be common across many instances of PersonIdent in this blame run, as often the same people edit the same file.\n\nI think what you really want to pool here is the name and email and remint the PersonIdent around the pooled name and email strings. That gets you _much_ more savings than the pooled paths above.\n\nI also think the ObjectId pooling could be coupled with the PersonIdent pooling. So have Map\u003cObjectId, PooledCommit\u003e where\n\n  class PooledCommit {\n    final ObjectId commit;\n    final PersonIdent author;\n  }",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5012bf5_5bc04330",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T17:30:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5045f04_7c141918",
       "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
