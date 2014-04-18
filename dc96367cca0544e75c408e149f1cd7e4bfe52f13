@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a5012bf5_fbceef62",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T17:34:37Z",
+      "side": 1,
+      "message": "One might ask why we don\u0027t omit these from the results. a) I didn\u0027t want to edit the rendering code as a result of this change, and b) since the rendering code would need to skip line for the gaps anyway, we would end up having a similar loop there as the one I added here.",
+      "parentUuid": "c5045f04_1c13d52e",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_9c36c5fc",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 3
