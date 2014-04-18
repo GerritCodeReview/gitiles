@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5012bf5_bbd86727",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-18T18:02:27Z",
+      "side": 1,
+      "message": "yuck. \"unknown \", maybe?\n\nIn the author and path fields below, there doesn\u0027t seem to be a space constraint. Could use a different string literal for those.",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
