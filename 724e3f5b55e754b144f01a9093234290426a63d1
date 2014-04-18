@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "c5045f04_fccee962",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T18:09:36Z",
+      "side": 1,
+      "message": "It is not necessary to override hashCode and equals on this object.",
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5012bf5_7ba2df9f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T18:09:36Z",
+      "side": 1,
+      "message": "commit.hashCode() should be sufficient. A commit can only have one author.",
+      "range": {
+        "startLine": 141,
+        "startChar": 13,
+        "endLine": 141,
+        "endChar": 45
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_3cc57140",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T18:09:36Z",
+      "side": 1,
+      "message": "Equals on commit is sufficient, see above.",
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5012bf5_5ba723ae",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T18:09:36Z",
+      "side": 1,
+      "message": "I guess we can do this, but I still contend it isn\u0027t necessary.",
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5012bf5_bbd86727",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
         "patchSetId": 5
@@ -18,6 +92,53 @@
         "startChar": 18,
         "endLine": 71,
         "endChar": 26
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_9cfec57d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T18:09:36Z",
+      "side": 1,
+      "message": "I\u0027m with Jonathan, I prefer \"\u003cunknown\u003e\" over unknwn. And unknown for the variable over unk.",
+      "parentUuid": "a5012bf5_bbd86727",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_7cbbf9d5",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/Region.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-18T18:09:36Z",
+      "side": 1,
+      "message": "Why . after the line number?\n\nShould we include count or end? This looks like its just for debugging, so maybe count would also be useful.",
+      "range": {
+        "startLine": 92,
+        "startChar": 42,
+        "endLine": 92,
+        "endChar": 45
       },
       "revId": "724e3f5b55e754b144f01a9093234290426a63d1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
