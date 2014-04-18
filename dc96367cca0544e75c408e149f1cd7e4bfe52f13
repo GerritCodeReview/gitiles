@@ -83,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "c5045f04_3c0e9106",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-18T16:33:43Z",
+      "side": 1,
+      "message": "I thought the JVM intern string pool used to be horrible, but in Java 7 interned strings now go in the heap and are garbage collectible.",
+      "parentUuid": "a5012bf5_3b0e9706",
+      "revId": "dc96367cca0544e75c408e149f1cd7e4bfe52f13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5045f04_7c141918",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameCacheImpl.java",
         "patchSetId": 3
