@@ -58,7 +58,11 @@ public enum ArchiveFormat {
   private ArchiveFormat(String mimeType, ArchiveCommand.Format<?> format) {
     this.format = format;
     this.mimeType = mimeType;
-    ArchiveCommand.registerFormat(getShortName(), format);
+    ArchiveCommand.registerFormat(getRegisteredName(), format);
+  }
+
+  String getRegisteredName() {
+    return getShortName();
   }
 
   String getShortName() {
