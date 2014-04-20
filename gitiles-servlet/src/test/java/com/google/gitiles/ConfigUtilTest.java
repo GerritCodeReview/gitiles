@@ -15,13 +15,15 @@
 package com.google.gitiles;
 
 import static com.google.gitiles.ConfigUtil.getDuration;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.eclipse.jgit.lib.Config;
 import org.joda.time.Duration;
+import org.junit.Test;
 
 /** Tests for configuration utilities. */
-public class ConfigUtilTest extends TestCase {
+public class ConfigUtilTest {
+  @Test
   public void testGetDuration() throws Exception {
     Duration def = Duration.standardSeconds(2);
     Config config = new Config();

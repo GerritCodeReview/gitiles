@@ -14,28 +14,33 @@
 
 package com.google.gitiles;
 
-import javax.servlet.http.HttpServletRequest;
-
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.servlet.http.HttpServletRequest;
+
 /** Tests for {@link Linkifier}. */
-public class LinkifierTest extends TestCase {
+public class LinkifierTest {
   private static final HttpServletRequest REQ = FakeHttpServletRequest.newRequest();
 
-  @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
   }
 
-  public void testlinkifyMessageNoMatch() throws Exception {
+  @Test
+  public void LinkifyMessageNoMatch() throws Exception {
     Linkifier l = new Linkifier(TestGitilesUrls.URLS);
     assertEquals(ImmutableList.of(ImmutableMap.of("text", "some message text")),
         l.linkify(FakeHttpServletRequest.newRequest(), "some message text"));
   }
 
-  public void testlinkifyMessageUrl() throws Exception {
+  @Test
+  public void LinkifyMessageUrl() throws Exception {
     Linkifier l = new Linkifier(TestGitilesUrls.URLS);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "http://my/url", "url", "http://my/url")),
@@ -57,7 +62,8 @@ public class LinkifierTest extends TestCase {
         l.linkify(REQ, "foo http://my/url bar http://my/other/url baz"));
   }
 
-  public void testlinkifyMessageChangeIdNoGerrit() throws Exception {
+  @Test
+  public void LinkifyMessageChangeIdNoGerrit() throws Exception {
     Linkifier l = new Linkifier(new GitilesUrls() {
       @Override
       public String getBaseGerritUrl(HttpServletRequest req) {
@@ -82,7 +88,8 @@ public class LinkifierTest extends TestCase {
         l.linkify(REQ, "Change-Id: I0123456789 does not exist"));
   }
 
-  public void testlinkifyMessageChangeId() throws Exception {
+  @Test
+  public void LinkifyMessageChangeId() throws Exception {
     Linkifier l = new Linkifier(TestGitilesUrls.URLS);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "I0123456789",
@@ -101,7 +108,8 @@ public class LinkifierTest extends TestCase {
         l.linkify(REQ, "Change-Id: I0123456789 exists"));
   }
 
-  public void testlinkifyMessageUrlAndChangeId() throws Exception {
+  @Test
+  public void LinkifyMessageUrlAndChangeId() throws Exception {
     Linkifier l = new Linkifier(TestGitilesUrls.URLS);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "http://my/url/I0123456789", "url", "http://my/url/I0123456789"),
@@ -111,7 +119,8 @@ public class LinkifierTest extends TestCase {
         l.linkify(REQ, "http://my/url/I0123456789 is not change I0123456789"));
   }
 
-  public void testLinkifyAmpersand() throws Exception {
+  @Test
+  public void linkifyAmpersand() throws Exception {
     Linkifier l = new Linkifier(TestGitilesUrls.URLS);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "http://my/url?a&b", "url", "http://my/url?a&b")),
