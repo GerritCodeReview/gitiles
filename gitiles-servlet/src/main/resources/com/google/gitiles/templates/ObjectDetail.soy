@@ -235,10 +235,9 @@
   {if $data != null}
     {if $data}
       {if $lang != null}
-        <pre class="git-blob prettyprint linenums lang-{$lang}">{$data}</pre>
-      {else}
-        <pre class="git-blob">{$data}</pre>
+        {let $lang}lang-{$lang}{/let}
       {/if}
+      <pre class="git-blob prettyprint linenums {$lang}">{$data}</pre>
     {else}
       <div class="file-empty">Empty file</div>
     {/if}
