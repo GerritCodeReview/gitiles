@@ -22,6 +22,30 @@
       "revId": "8eb60333617f336b4623f63f010db4392cb1745e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fa9f81_0cdc177f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-22T21:58:36Z",
+      "side": 0,
+      "message": "Yes, I decided not to scroll down to the first file so it\u0027s obvious there\u0027s more than just the file diff on this page. In particular this makes it less work to find the parent [blame] link.\n\nCompare:\n\nhttps://gerrit.googlesource.com/gitiles/+/90d1db9037cc32d7d53ea950309d630a25981fb8%5E%21/gitiles-servlet/src/main/java/com/google/gitiles/CommitData.java\n\nhttps://gerrit.googlesource.com/gitiles/+/90d1db9037cc32d7d53ea950309d630a25981fb8%5E%21/gitiles-servlet/src/main/java/com/google/gitiles/CommitData.java#F0",
+      "parentUuid": "65bf338d_e96ab5b9",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "8eb60333617f336b4623f63f010db4392cb1745e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
