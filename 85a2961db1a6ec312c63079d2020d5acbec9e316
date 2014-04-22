@@ -22,6 +22,30 @@
       "revId": "85a2961db1a6ec312c63079d2020d5acbec9e316",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65bf338d_a9083d44",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlDiffFormatter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-22T00:44:29Z",
+      "side": 1,
+      "message": "Yes, we have the DiffEntry. Not sure if the code to generate \"diff --git ...\"is public, but I\u0027ll take a look.",
+      "parentUuid": "65bf338d_29fd2dd6",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 44
+      },
+      "revId": "85a2961db1a6ec312c63079d2020d5acbec9e316",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
