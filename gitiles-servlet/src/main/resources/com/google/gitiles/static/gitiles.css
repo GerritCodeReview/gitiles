@@ -397,6 +397,13 @@ a.diff-git:hover {
   visibility: visible;
 }
 
+/* Styles for CodeMirror elements. */
+
+.CodeMirror {
+  border: 1px solid black;
+  background-color: #fdfdfd;
+}
+
 /* Override some styles from the default prettify.css. */
 
 /* Line numbers on all lines. */

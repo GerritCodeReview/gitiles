@@ -29,20 +29,9 @@
  *     template from ObjectDetail.soy.
  */
 {template .revisionDetail}
-{if $hasBlob}
-  {call .header}
-    {param title: $title /}
-    {param repositoryName: $repositoryName /}
-    {param menuEntries: $menuEntries /}
-    {param headerVariant: $headerVariant /}
-    {param breadcrumbs: $breadcrumbs /}
-    {param css: [gitiles.PRETTIFY_CSS_URL] /}
-    {param js: [gitiles.PRETTIFY_JS_URL] /}
-    {param onLoad: 'prettyPrint()' /}
-  {/call}
-{else}
-  {call .header data="all" /}
-{/if}
+{call .header data="all"}
+  {param codemirror: $hasBlob /}
+{/call}
 
 {foreach $object in $objects}
   {switch $object.type}

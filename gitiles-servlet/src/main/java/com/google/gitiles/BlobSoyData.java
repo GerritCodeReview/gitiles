@@ -70,9 +70,7 @@ public class BlobSoyData {
     }
 
     data.put("data", content);
-    if (content != null) {
-      data.put("lang", guessPrettifyLang(path, content));
-    } else if (content == null) {
+    if (content == null) {
       data.put("size", Long.toString(loader.getSize()));
     }
     if (path != null && view.getRevision().getPeeledType() == OBJ_COMMIT) {
@@ -80,31 +78,5 @@ public class BlobSoyData {
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
     }
     return data;
-  }
-
-  private static String guessPrettifyLang(String path, String content) {
-    if (content.startsWith("#!/bin/sh") || content.startsWith("#!/bin/bash")) {
-      return "sh";
-    } else if (content.startsWith("#!/usr/bin/perl")) {
-      return "perl";
-    } else if (content.startsWith("#!/usr/bin/python")) {
-      return "py";
-    } else if (path == null) {
-      return null;
-    }
-
-    int slash = path.lastIndexOf('/');
-    int dot = path.lastIndexOf('.');
-    String lang = ((0 < dot) && (slash < dot)) ? path.substring(dot + 1) : null;
-    if ("txt".equalsIgnoreCase(lang)) {
-      return null;
-    } else if ("mk".equalsIgnoreCase(lang)) {
-      return "sh";
-    } else if ("Makefile".equalsIgnoreCase(path)
-        || ((0 < slash) && "Makefile".equalsIgnoreCase(path.substring(slash + 1)))) {
-      return "sh";
-    } else {
-      return lang;
-    }
   }
 }

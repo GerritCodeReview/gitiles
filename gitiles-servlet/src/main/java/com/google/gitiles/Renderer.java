@@ -48,10 +48,15 @@ public abstract class Renderer {
       "RevisionDetail.soy",
       "RepositoryIndex.soy");
 
-  public static final Map<String, String> STATIC_URL_GLOBALS = ImmutableMap.of(
-      "gitiles.CSS_URL", "gitiles.css",
-      "gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css",
-      "gitiles.PRETTIFY_JS_URL", "prettify/prettify.js");
+  public static final Map<String, String> STATIC_URL_GLOBALS =
+      ImmutableMap.<String, String> builder()
+        .put("gitiles.CM_CSS_URL", "codemirror/cm4.css")
+        .put("gitiles.CM_JS_URL", "codemirror/cm4.js")
+        .put("gitiles.CSS_URL", "gitiles.css")
+        .put("gitiles.GITILES_CM_JS_URL", "gitiles_cm.js")
+        .put("gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css")
+        .put("gitiles.PRETTIFY_JS_URL", "prettify/prettify.js")
+        .build();
 
   protected static class FileUrlMapper implements Function<String, URL> {
     private final String prefix;
