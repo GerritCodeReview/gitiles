@@ -44,12 +44,16 @@ java_test(
 
 genrule(
   name = 'static-resources',
-  cmd = 'mkdir $TMP/+static'
-    + ';cd $TMP/+static'
-    + ';cp -r $SRCDIR/src/main/resources/com/google/gitiles/static/* .'
-    + ';cd $TMP'
-    + ';zip -qr $OUT *',
+  cmd = ' && '.join([
+    'mkdir $TMP/+static',
+    'cd $TMP/+static',
+    'cp -r $SRCDIR/src/main/resources/com/google/gitiles/static/* .',
+    'unzip -q $(location //lib/codemirror:codemirror)',
+    'cd $TMP',
+    'zip -qr $OUT *',
+  ]),
   srcs = glob(['src/main/resources/com/google/gitiles/static/**/*']),
+  deps = ['//lib/codemirror:codemirror'],
   out = 'static-resources.zip',
   visibility = ['PUBLIC'],
 )
