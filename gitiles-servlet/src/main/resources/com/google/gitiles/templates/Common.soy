@@ -27,6 +27,7 @@
  * @param? js optional list of Javascript URLs to include.
  * @param? onLoad optional Javascript to execute in the body's onLoad handler.
  *     Warning: not autoescaped.
+ * @param? codemirror whether to load CodeMirror JS and CSS.
  */
 {template .header}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -40,6 +41,11 @@
     {sp}- {msg desc="name of the application"}{gitiles.SITE_TITLE}{/msg}
   </title>
   <link rel="stylesheet" type="text/css" href="//www.google.com/css/go.css" />
+
+  {if $codemirror}
+    <script src="{gitiles.CM_JS_URL}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{gitiles.CM_CSS_URL}" />
+  {/if}
 
   {if $css and length($css)}
     {foreach $url in $css}
