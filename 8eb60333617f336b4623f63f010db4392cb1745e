@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65bf338d_e96ab5b9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-22T21:50:50Z",
+      "side": 0,
+      "message": "Does dropping this make a difference?",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 32
+      },
+      "revId": "8eb60333617f336b4623f63f010db4392cb1745e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
