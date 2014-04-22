@@ -1,0 +1,77 @@
+include_defs('//bucklets/maven_jar.bucklet')
+include_defs('//lib/codemirror/cm4.defs')
+
+VERSION = '4.1'
+SHA1 = 'd0eccb4d77e72234e4c1bcc49d240fceb8337c59'
+TOP = 'codemirror-' + VERSION
+ZIP = TOP + '.zip'
+URL = GERRIT + 'net/codemirror/' + ZIP
+
+genrule(
+  name = 'codemirror',
+  cmd = ' && '.join([
+    'cd $TMP',
+    'unzip -q $SRCDIR/%s %s' % (
+      ZIP,
+      ' '.join(['%s/mode/%s' % (TOP, n) for n in CM4_MODES])),
+    'mkdir codemirror',
+    'cp $SRCDIR/cm4.css codemirror/',
+    'cp $SRCDIR/cm4.js codemirror/',
+    'cp -r $TMP/%s/mode codemirror/' % TOP,
+    'zip -qr $OUT codemirror',
+  ]),
+  srcs = [
+    genfile(ZIP),
+    genfile('cm4.css'),
+    genfile('cm4.js'),
+  ],
+  deps = [
+    ':download',
+    ':css',
+    ':js',
+  ],
+  out = 'codemirror.zip',
+  visibility = ['PUBLIC'],
+)
+
+genrule(
+  name = 'css',
+  cmd = ' && '.join([
+      ':>$OUT',
+      "echo '/** @license' >> $OUT",
+      'unzip -p %s %s/LICENSE >> $OUT' % (ZIP, TOP),
+      "echo '*/' >> $OUT",
+    ] +
+    ['unzip -p %s %s/%s >> $OUT' % (ZIP, TOP, n)
+     for n in CM4_CSS + CM4_THEMES]
+  ),
+  srcs = [genfile(ZIP)],
+  deps = [':download'],
+  out = 'cm4.css',
+)
+
+genrule(
+  name = 'js',
+  cmd = ' && '.join([
+      ':>$OUT',
+      "echo '/** @license' >> $OUT",
+      'unzip -p %s %s/LICENSE >> $OUT' % (ZIP, TOP),
+      "echo '*/' >> $OUT",
+    ] +
+    ['unzip -p %s %s/%s >>$OUT' % (ZIP, TOP, n)
+     for n in CM4_JS]
+  ),
+  srcs = [genfile(ZIP)],
+  deps = [':download'],
+  out = 'cm4.js',
+)
+
+genrule(
+  name = 'download',
+  cmd = '$(exe //bucklets/tools:download_file)' +
+    ' -o $OUT' +
+    ' -u ' + URL +
+    ' -v ' + SHA1,
+  deps = ['//bucklets/tools:download_file'],
+  out = ZIP,
+)
