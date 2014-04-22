@@ -46,6 +46,30 @@
       "revId": "85a2961db1a6ec312c63079d2020d5acbec9e316",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85ba679a_aa082f44",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlDiffFormatter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-22T00:55:00Z",
+      "side": 1,
+      "message": "The code is in the protected method DiffFormatter.formatGitDiffFirstHeaderLine.\n\nI think we basically have to copy/tweak that method here. Fortunately it\u0027s pretty much just \"diff --git \" + quote(\"a/\" + oldPath) + \" \" + quote(\"b/\" + newPath).",
+      "parentUuid": "65bf338d_a9083d44",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 44
+      },
+      "revId": "85a2961db1a6ec312c63079d2020d5acbec9e316",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
