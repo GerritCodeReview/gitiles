@@ -1,0 +1,33 @@
+CM4_CSS = [
+  'lib/codemirror.css',
+]
+
+CM4_THEMES = [
+]
+
+CM4_JS = [
+  'lib/codemirror.js',
+  'keymap/vim.js',
+  'addon/search/searchcursor.js',
+  'addon/search/search.js',
+  'addon/edit/trailingspace.js',
+]
+
+CM4_MODES = [
+  'clike/clike.js',
+  'clojure/clojure.js',
+  'commonlisp/commonlisp.js',
+  'css/css.js',
+  'go/go.js',
+  'groovy/groovy.js',
+  'htmlmixed/htmlmixed.js',
+  'javascript/javascript.js',
+  'perl/perl.js',
+  'properties/properties.js',
+  'python/python.js',
+  'ruby/ruby.js',
+  'shell/shell.js',
+  'sql/sql.js',
+  'velocity/velocity.js',
+  'xml/xml.js',
+]

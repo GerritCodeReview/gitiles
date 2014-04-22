@@ -20,6 +20,7 @@ import com.google.common.base.Objects;
 import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.PathServlet;
+import com.google.gitiles.dev.BuckUtil.BuildFailureException;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
@@ -31,9 +32,9 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.FileResource;
+import org.eclipse.jetty.util.resource.JarResource;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.util.thread.ThreadPool;
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
@@ -44,9 +45,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 class DevServer {
@@ -135,7 +138,7 @@ class DevServer {
   private final Config cfg;
   private final Server httpd;
 
-  DevServer(File cfgFile) throws IOException, ConfigInvalidException {
+  DevServer(File cfgFile) throws Exception {
     sourceRoot = findSourceRoot();
 
     Config cfg = defaultConfig();
@@ -176,9 +179,10 @@ class DevServer {
     return pool;
   }
 
-  private Handler handler() throws IOException {
+  private Handler handler() throws IOException, URISyntaxException {
     ContextHandlerCollection handlers = new ContextHandlerCollection();
-    handlers.addHandler(staticHandler());
+    handlers.addHandler(staticFileHandler());
+    handlers.addHandler(staticJarHandler());
     handlers.addHandler(appHandler());
     return handlers;
   }
@@ -200,7 +204,28 @@ class DevServer {
     return handler;
   }
 
-  private Handler staticHandler() throws IOException {
+  private Handler staticJarHandler() throws MalformedURLException, IOException, URISyntaxException {
+    Path root = sourceRoot.toPath();
+    String target = "//gitiles-servlet:static-resources";
+    try {
+      BuckUtil.build(root, target);
+    } catch (BuildFailureException e) {
+      log.warn("buck build {} failed:\n{}", target, e.why);
+    }
+    ResourceHandler rh = new ResourceHandler();
+    rh.setBaseResource(JarResource.newJarResource(new FileResource(
+        BuckUtil.buckOutGen(root)
+          .resolve("gitiles-servlet")
+          .resolve("static-resources.zip")
+          .toUri().toURL())));
+    rh.setWelcomeFiles(new String[]{});
+    rh.setDirectoriesListed(false);
+    ContextHandler handler = new ContextHandler("/");
+    handler.setHandler(rh);
+    return handler;
+  }
+
+  private Handler staticFileHandler() throws IOException {
     File staticRoot = new File(sourceRoot,
         "gitiles-servlet/src/main/resources/com/google/gitiles/static");
     ResourceHandler rh = new ResourceHandler();

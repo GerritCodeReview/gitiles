@@ -36,9 +36,8 @@
     {param menuEntries: $menuEntries /}
     {param headerVariant: $headerVariant /}
     {param breadcrumbs: $breadcrumbs /}
-    {param css: [gitiles.PRETTIFY_CSS_URL] /}
-    {param js: [gitiles.PRETTIFY_JS_URL] /}
-    {param onLoad: 'prettyPrint()' /}
+    {param css: [gitiles.CM_CSS_URL] /}
+    {param js: [gitiles.CM_JS_URL] /}
   {/call}
 {else}
   {call .header data="all" /}
