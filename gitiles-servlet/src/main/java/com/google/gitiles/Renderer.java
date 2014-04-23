@@ -79,10 +79,11 @@ public abstract class Renderer {
 
   protected ImmutableList<URL> templates;
   protected ImmutableMap<String, String> globals;
+  private String staticPrefix;
 
   protected Renderer(Function<String, URL> resourceMapper, Map<String, String> globals,
       String staticPrefix, Iterable<URL> customTemplates, String siteTitle) {
-    checkNotNull(staticPrefix, "staticPrefix");
+    this.staticPrefix =checkNotNull(staticPrefix, "staticPrefix");
     Iterable<URL> allTemplates = FluentIterable.from(SOY_FILENAMES).transform(resourceMapper);
     templates = ImmutableList.copyOf(Iterables.concat(allTemplates, customTemplates));
 
@@ -93,6 +94,10 @@ public abstract class Renderer {
     allGlobals.put("gitiles.SITE_TITLE", siteTitle);
     allGlobals.putAll(globals);
     this.globals = ImmutableMap.copyOf(allGlobals);
+  }
+
+  public String getStaticPrefix() {
+    return staticPrefix;
   }
 
   public void render(HttpServletResponse res, String templateName) throws IOException {

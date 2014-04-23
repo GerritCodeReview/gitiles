@@ -13,7 +13,7 @@ genrule(
     'cd $TMP',
     'unzip -q $SRCDIR/%s %s' % (
       ZIP,
-      ' '.join(['%s/mode/%s' % (TOP, n) for n in CM4_MODES])),
+      ' '.join(['%s/%s' % (TOP, n) for n in CM4_MODES])),
     'mkdir codemirror',
     'cp $SRCDIR/cm4.css codemirror/',
     'cp $SRCDIR/cm4.js codemirror/',

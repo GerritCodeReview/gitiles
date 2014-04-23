@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.common.collect.Maps;
+import com.google.gitiles.codemirror.Modes;
 
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
@@ -40,10 +41,12 @@ public class BlobSoyData {
    */
   private static final int MAX_FILE_SIZE = 10 << 20;
 
+  private final String staticPrefix;
   private final GitilesView view;
   private final RevWalk walk;
 
-  public BlobSoyData(RevWalk walk, GitilesView view) {
+  public BlobSoyData(String staticPrefix, RevWalk walk, GitilesView view) {
+    this.staticPrefix = staticPrefix;
     this.view = view;
     this.walk = walk;
   }
@@ -59,18 +62,22 @@ public class BlobSoyData {
     data.put("sha", ObjectId.toString(blobId));
 
     ObjectLoader loader = walk.getObjectReader().open(blobId, Constants.OBJ_BLOB);
+    byte[] raw;
     String content;
     try {
-      byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
+      raw = loader.getCachedBytes(MAX_FILE_SIZE);
       content = !RawText.isBinary(raw) ? RawParseUtils.decode(raw) : null;
     } catch (LargeObjectException.OutOfMemory e) {
       throw e;
     } catch (LargeObjectException e) {
+      raw = null;
       content = null;
     }
 
     data.put("data", content);
-    if (content == null) {
+    if (content != null) {
+      data.put("codemirror", Modes.toSoyData(staticPrefix, path, raw));
+    } else {
       data.put("size", Long.toString(loader.getSize()));
     }
     if (path != null && view.getRevision().getPeeledType() == OBJ_COMMIT) {

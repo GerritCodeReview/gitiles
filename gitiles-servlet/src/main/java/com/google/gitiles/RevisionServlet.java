@@ -21,11 +21,14 @@ import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import static org.eclipse.jgit.lib.Constants.OBJ_TAG;
 import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.CommitJsonData.Commit;
+import com.google.template.soy.data.restricted.NullData;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -77,7 +80,7 @@ public class RevisionServlet extends BaseServlet {
       GitDateFormatter df = new GitDateFormatter(Format.DEFAULT);
       List<RevObject> objects = listObjects(walk, view.getRevision());
       List<Map<String, ?>> soyObjects = Lists.newArrayListWithCapacity(objects.size());
-      boolean hasBlob = false;
+      Map<String, ?> codemirrorData = null;
 
       // TODO(sop): Allow caching commits by SHA-1 when no S cookie is sent.
       for (RevObject obj : objects) {
@@ -98,10 +101,17 @@ public class RevisionServlet extends BaseServlet {
                   "data", new TreeSoyData(walk, view).toSoyData(obj)));
               break;
             case OBJ_BLOB:
+              Map<String, Object> objData = Maps.newHashMapWithExpectedSize(3);
+              objData.put("type", Constants.TYPE_BLOB);
+              Map<String, Object> blobData = new BlobSoyData(renderer.getStaticPrefix(), walk, view)
+                  .toSoyData(obj);
+              objData.put("data", blobData);
+              @SuppressWarnings("unchecked")
+              Map<String, ?> cmd = (Map<String, ?>) blobData.get("codemirror");
+              codemirrorData = cmd;
               soyObjects.add(ImmutableMap.of(
                   "type", Constants.TYPE_BLOB,
-                  "data", new BlobSoyData(walk, view).toSoyData(obj)));
-              hasBlob = true;
+                  "data", blobData));
               break;
             case OBJ_TAG:
               soyObjects.add(ImmutableMap.of(
@@ -127,7 +137,7 @@ public class RevisionServlet extends BaseServlet {
       renderHtml(req, res, "gitiles.revisionDetail", ImmutableMap.of(
           "title", view.getRevision().getName(),
           "objects", soyObjects,
-          "hasBlob", hasBlob));
+          "codemirror", Objects.firstNonNull(codemirrorData, NullData.INSTANCE)));
     } finally {
       walk.release();
     }

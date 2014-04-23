@@ -75,7 +75,8 @@ public class BlameServlet extends BaseServlet {
       }
 
       String title = "Blame - " + view.getPathPart();
-      Map<String, ?> blobData = new BlobSoyData(rw, view).toSoyData(view.getPathPart(), blobId);
+      Map<String, ?> blobData = new BlobSoyData(renderer.getStaticPrefix(), rw, view)
+          .toSoyData(view.getPathPart(), blobId);
       if (blobData.get("data") != null) {
         List<Region> regions = cache.get(repo, commit, view.getPathPart());
         if (regions.isEmpty()) {
@@ -86,6 +87,7 @@ public class BlameServlet extends BaseServlet {
         renderHtml(req, res, "gitiles.blameDetail", ImmutableMap.of(
             "title", title,
             "breadcrumbs", view.getBreadcrumbs(),
+            "codemirror", blobData.get("codemirror"),
             "data", blobData,
             "regions", toSoyData(view, rw.getObjectReader(), regions, df)));
       } else {
