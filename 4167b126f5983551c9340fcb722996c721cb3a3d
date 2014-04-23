@@ -51,6 +51,40 @@
       "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "655d735f_39c14f66",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:25:06Z",
+      "side": 1,
+      "message": "Even if you don\u0027t use client side soy, it would be more compact to send the JSON array of the regions and let the client build up the HTML string instead of the server building the entire mess as JS code for the client to eval.\n\nOr have the server template the nodes into a hidden \u003cdiv\u003e and let the client reparent those nodes from the hidden div into the CM4 gutter.",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "655d735f_d96493ed",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:25:06Z",
+      "side": 1,
+      "message": "Is this safe? Does server side soy escape HTML inside JS?",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
