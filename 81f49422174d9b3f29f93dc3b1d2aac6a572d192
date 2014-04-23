@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "655d735f_59d08330",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:41:38Z",
+      "side": 1,
+      "message": "Well, you could have Buck download Rhino and run a JS... yea that is pretty icky. :-)\n\nMaybe just keep the map by hand in a file in the server resources so the server knows which additional mode JS needs to be included as a \u003cscript\u003e tag in the page after the main CM4 lib is loaded?",
+      "parentUuid": "c5fa9f81_ac118375",
+      "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45522f52_986a15b9",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 4
