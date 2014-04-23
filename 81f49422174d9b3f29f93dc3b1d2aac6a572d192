@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "45522f52_38c14966",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:19:49Z",
+      "side": 1,
+      "message": "{$lang} binding is filling in the wrong value for CM4. It isn\u0027t triggering C++ style here for example. Gerrit has a complex mapping tables to get the type right.",
+      "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45522f52_986a15b9",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 4
