@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45206fde_28258bce",
+        "filename": "gitiles-dev/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T14:07:36Z",
+      "side": 1,
+      "message": "It\u0027s a genrule:\n\nhttps://gerrit.googlesource.com/bucklets/+/master/tools/BUCK",
+      "parentUuid": "25253bef_c7365efd",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "2dff0cd74e31840aac6f8319976fd310d704e1dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25253bef_e739e2ef",
         "filename": "lib/codemirror/BUCK",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "45206fde_082a479e",
+        "filename": "lib/codemirror/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T14:07:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25253bef_e739e2ef",
+      "range": {
+        "startLine": 46,
+        "startChar": 24,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "2dff0cd74e31840aac6f8319976fd310d704e1dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25253bef_873c66e1",
         "filename": "lib/codemirror/cm4.defs",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2014-04-23T13:57:30Z",
       "side": 1,
       "message": "Delete this?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "2dff0cd74e31840aac6f8319976fd310d704e1dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45206fde_682f83ae",
+        "filename": "lib/codemirror/cm4.defs",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T14:07:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25253bef_873c66e1",
       "range": {
         "startLine": 5,
         "startChar": 0,
