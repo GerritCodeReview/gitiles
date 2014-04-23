@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "655d735f_992fbb7a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T21:06:22Z",
+      "side": 1,
+      "message": "Reduce the risk of overflowing by switching to ISO date formats instead of relative date formats?\n\nI hate reading \"1 hour ago\" against \"2 years, 3 months, 6 days, 5 hours\" ago. The annotation data is really ragged because of this.",
+      "range": {
+        "startLine": 339,
+        "startChar": 43,
+        "endLine": 339,
+        "endChar": 72
+      },
+      "revId": "05376426ee2a1b89422b4f145e51f2623a3ab83a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45522f52_985695e2",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T21:06:22Z",
+      "side": 1,
+      "message": "Use a textarea like for the blob case.",
+      "revId": "05376426ee2a1b89422b4f145e51f2623a3ab83a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "655d735f_f93cf7b8",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T21:06:22Z",
+      "side": 1,
+      "message": "I don\u0027t think you tried to integrate any of the comments from ps1?",
+      "revId": "05376426ee2a1b89422b4f145e51f2623a3ab83a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
