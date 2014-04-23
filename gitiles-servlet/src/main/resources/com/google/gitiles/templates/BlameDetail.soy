@@ -36,51 +36,45 @@
  */
 {template .blameDetail}
 {if $regions}
-  {call .header}
-    {param title: $title /}
-    {param repositoryName: $repositoryName /}
-    {param menuEntries: $menuEntries /}
-    {param headerVariant: $headerVariant /}
-    {param breadcrumbs: $breadcrumbs /}
-    {param css: [gitiles.PRETTIFY_CSS_URL] /}
-    {param js: [gitiles.PRETTIFY_JS_URL] /}
-    {param onLoad: 'prettyPrint()' /}
+  {call .header data="all"}
+    {param codemirror: true/}
   {/call}
 
-  <table id="blame">
-    <tr>
-      <td>
-        <ul id="regions">
-          {foreach $region in $regions}
-            <li class="line">
-              {if $region.abbrevSha}
-                <a href="{$region.commitUrl}">
-                  <span class="sha1">{$region.abbrevSha}</span>
-                  {sp}<span class="author">{$region.author.name}</span>
-                  {sp}<span class="time">- {$region.author.relativeTime}</span>
-                </a>
-                <div class="regionMenu">
-                  [<a href="{$region.commitUrl}">commit</a>]
-                  {sp}[<a href="{$region.diffUrl}">diff</a>]
-                  {sp}[<a href="{$region.blameUrl}">blame</a>]
-                </div>
-              {else}
-                &nbsp;
-              {/if}
-            </li>
-            {for $i in range($region.count - 1)}
-              <li>&nbsp;</li>
-            {/for}
-          {/foreach}
-        </ul>
-      </td>
-      <td>
-        {call .blobBoxPrettify data="$data" /}
-      </td>
-    </tr>
-  </table>
+  <span id="git-blame"></span>
+  <script type="text/javascript">
+    var cm = CodeMirror(document.getElementById("git-blame"), {lb}
+      value: "{$data.data}",
+      lang: "{$data.lang}",
+      lineNumbers: true,
+      readOnly: true,
+      gutters: ["blameGutter"]
+    {rb});
 
-  </div>
+
+    var div;
+    {let $i: 0 /}
+    {foreach $region in $regions}
+      // TODO(dborowitz): Use client-side Soy rendering instead.
+      div = document.createElement("div");
+      div.className = "blameRegion";
+      div.innerHTML = '
+          <a href="{$region.commitUrl}" class="regionLine"> \
+            <span class="sha1">{$region.abbrevSha}</span> \
+            <span class="author">{$region.author.name}</span> \
+            <span class="time">- {$region.author.relativeTime}</span> \
+          </a> \
+          <div class="regionMenu"> \
+            <span class="regionMenuLinks"> \
+              [<a href="{$region.commitUrl}">commit</a>] \
+              [<a href="{$region.diffUrl}">diff</a>] \
+              [<a href="{$region.blameUrl}">blame</a>] \
+            </span> \
+          </div> \
+          ';
+      cm.setGutterMarker({$i}, "blameGutter", div);
+      {let $i: $i + $region.count /}
+    {/foreach}
+  </script>
 {else}
   {call .header data="all" /}
   {call .blobDetail data="$data" /}
