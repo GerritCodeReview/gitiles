@@ -335,65 +335,47 @@ a.diff-git:hover {
 
 /* Styles for the blame detail template. */
 
-#blame {
-  margin: 0;
-  padding: 0;
+#blame-region-container {
+  display: none;
 }
-#blame td {
-  padding: 0;
+.blameGutter {
+  /* TODO(dborowitz): Can this be dynamic? Clipping on overflow is ugly. */
+  width: 350px;
 }
-#regions {
-  padding-top: 2px;
-  padding-right: 2px;
-  padding-bottom: 5px;
-  padding-left: 2px;
-  white-space: nowrap;
-  list-style-type: none;
-
-  /* Matching pre.git-blob below. */
-  font-family: monospace;
-  font-size: 8pt;
-  border-bottom: #ddd solid 1px; /* BORDER */
-}
-#regions ul {
-  list-style-type: none;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-}
-#blame .time, #blame .sha1 {
-  /* Smaller than SHORTLOG_SMALL_FONT_SIZE to match pre. */
-  font-size: 8pt;
-}
-#blame .author {
-  padding-left: 0px;
-}
-#blame pre.git-blob {
-  border-top: 0;
-}
-
-#regions li {
+.blameRegion {
   position: relative;
+  overflow: hidden;
+  font-family: arial,serif;
+  font-size: 85%;
+  white-space: nowrap;
 }
-#regions li.line:hover {
-  background-color: #eee;
+.blameRegion .sha1 {
+  font-family: monospace;
+  font-size: inherit;
 }
-#regions li .regionMenu {
+.blameRegion .author, .blameRegion .sha1, .blameRegion .time {
+  font-size: inherit;
+}
+.blameRegion .regionLine {
+  overflow-x: hidden;
+  float: left;
+}
+.blameRegion .regionMenu {
   position: absolute;
-  top: 13px;
-  left: 0;
-  visibility: hidden;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
+  float: right;
+  right: 0;
+  /* Fill whole parent so gap in hover when author part is too short. */
+  width: 100%;
+  text-align: right;
 
-  background-color: #eee;
+  visibility: hidden;
   font-size: 8pt;
-  font-family: arial,sans-serif;
-  z-index: 101;
 }
-#regions li:hover .regionMenu {
+.regionMenuLinks {
+  background-color: #f7f7f7;
+  padding-left: 5px;
+}
+.blameRegion:hover .regionMenu {
   visibility: visible;
 }
 
