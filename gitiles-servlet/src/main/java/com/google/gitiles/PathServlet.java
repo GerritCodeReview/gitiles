@@ -356,12 +356,19 @@ public class PathServlet extends BaseServlet {
   private void showFile(HttpServletRequest req, HttpServletResponse res, RevWalk rw, TreeWalk tw,
       List<Boolean> hasSingleTree) throws IOException {
     GitilesView view = ViewFilter.getView(req);
+    FileType type = FileType.forEntry(tw);
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(5);
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
-    renderHtml(req, res, "gitiles.pathDetail", ImmutableMap.of(
-        "title", ViewFilter.getView(req).getPathPart(),
-        "breadcrumbs", view.getBreadcrumbs(hasSingleTree),
-        "type", FileType.forEntry(tw).toString(),
-        "data", new BlobSoyData(rw, view).toSoyData(tw.getPathString(), tw.getObjectId(0))));
+    data.put("title", ViewFilter.getView(req).getPathPart());
+    data.put("breadcrumbs", view.getBreadcrumbs(hasSingleTree));
+    data.put("type", type.toString());
+    Map<String, Object> blobData = new BlobSoyData(renderer.getStaticPrefix(), rw, view)
+        .toSoyData(tw.getPathString(), tw.getObjectId(0));
+    data.put("data", blobData);
+    if (type == FileType.REGULAR_FILE || type == FileType.EXECUTABLE_FILE) {
+      data.put("codemirror", blobData.get("codemirror"));
+    }
+    renderHtml(req, res, "gitiles.pathDetail", data);
   }
 
   private void showSymlink(HttpServletRequest req, HttpServletResponse res, RevWalk rw,

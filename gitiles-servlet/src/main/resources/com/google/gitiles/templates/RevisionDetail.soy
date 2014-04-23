@@ -21,7 +21,6 @@
  * @param? menuEntries menu entries.
  * @param? headerVariant variant name for custom header.
  * @param breadcrumbs breadcrumbs for this page.
- * @param? hasBlob set to true if the revision or its peeled value is a blob.
  * @param objects list of objects encountered when peeling this object. Each
  *     object has a "type" key with one of the
  *     org.eclipse.jgit.lib.Contants.TYPE_* constant strings, and a "data" key
@@ -29,9 +28,7 @@
  *     template from ObjectDetail.soy.
  */
 {template .revisionDetail}
-{call .header data="all"}
-  {param codemirror: $hasBlob /}
-{/call}
+{call .header data="all" /}
 
 {foreach $object in $objects}
   {switch $object.type}
