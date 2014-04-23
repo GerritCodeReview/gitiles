@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25253bef_c7365efd",
+        "filename": "gitiles-dev/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-04-23T13:57:30Z",
+      "side": 1,
+      "message": "This file doesn\u0027t exist yet?",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "2dff0cd74e31840aac6f8319976fd310d704e1dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25253bef_e739e2ef",
+        "filename": "lib/codemirror/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-04-23T13:57:30Z",
+      "side": 1,
+      "message": "Delete this as this is empty?",
+      "range": {
+        "startLine": 46,
+        "startChar": 24,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "2dff0cd74e31840aac6f8319976fd310d704e1dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25253bef_873c66e1",
+        "filename": "lib/codemirror/cm4.defs",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-04-23T13:57:30Z",
+      "side": 1,
+      "message": "Delete this?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "2dff0cd74e31840aac6f8319976fd310d704e1dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
