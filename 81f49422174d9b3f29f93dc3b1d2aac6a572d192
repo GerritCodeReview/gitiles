@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c5fa9f81_ac118375",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T17:38:27Z",
+      "side": 1,
+      "message": "IIUC each mode module defines the mimetypes it provides, so the only reason this is necessary is because of the chicken-and-egg problem of building the map without loading the JS, hence why Gerrit hard-codes it.\n\nA probably-too-clever-for-my-own-good way of generating this map during the build is to load all the modules in a JS program that uses the fully-populated CodeMirror.mimeModes to produce the map as output :)",
+      "parentUuid": "c5fa9f81_2cfe33d6",
+      "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45522f52_986a15b9",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 4
