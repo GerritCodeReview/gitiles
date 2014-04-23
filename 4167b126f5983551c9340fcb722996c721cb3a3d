@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c5fa9f81_ecf42bf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T17:22:28Z",
+      "side": 1,
+      "message": "I wish.\n\nhttp://jsfiddle.net/WX5q4/1/\n\nThe problem is _each_ gutter-elt has z-index 4, which means each gutter-elt is its own stacking context. So setting z-index \u003e 4 on the menu (child of the gutter-elt, remember) stacks it above the gutter-elt it lives in but it\u0027s still equal to the gutter-elts below it. And the CM method to add a gutter marker wraps the element you give it in a gutter-elt; I suppose you could write some JS to move the menu to be a sibling of the gutter-elt, but then you lose the :hover effect without writing additional JS. Ew.\n\nRef:\nhttp://philipwalton.com/articles/what-no-one-told-you-about-z-index/#stacking-contexts",
+      "parentUuid": "45522f52_d8648ded",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "655d735f_996a1bb9",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
         "patchSetId": 1
