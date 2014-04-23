@@ -26,9 +26,7 @@
  *     following keys:
  *       abbrevSha: abbreviated SHA-1 of revision for this line; if missing,
  *           assume blame info is missing.
- *       author: author information with at least "name" and "relativeTime"
- *           keys.
- *       relativeTime: relative time of the revision
+ *       author: author information with at least "name" and "time" keys.
  *       count: line count
  *       blameUrl: URL for a blame of this file at this commit
  *       commitUrl: URL for detail about the commit
@@ -36,51 +34,39 @@
  */
 {template .blameDetail}
 {if $regions}
-  {call .header}
-    {param title: $title /}
-    {param repositoryName: $repositoryName /}
-    {param menuEntries: $menuEntries /}
-    {param headerVariant: $headerVariant /}
-    {param breadcrumbs: $breadcrumbs /}
-    {param css: [gitiles.PRETTIFY_CSS_URL] /}
-    {param js: [gitiles.PRETTIFY_JS_URL] /}
-    {param onLoad: 'prettyPrint()' /}
+  {call .header data="all"}
+    {param codemirror: true/}
   {/call}
 
-  <table id="blame">
-    <tr>
-      <td>
-        <ul id="regions">
-          {foreach $region in $regions}
-            <li class="line">
-              {if $region.abbrevSha}
-                <a href="{$region.commitUrl}">
-                  <span class="sha1">{$region.abbrevSha}</span>
-                  {sp}<span class="author">{$region.author.name}</span>
-                  {sp}<span class="time">- {$region.author.relativeTime}</span>
-                </a>
-                <div class="regionMenu">
-                  [<a href="{$region.commitUrl}">commit</a>]
-                  {sp}[<a href="{$region.diffUrl}">diff</a>]
-                  {sp}[<a href="{$region.blameUrl}">blame</a>]
-                </div>
-              {else}
-                &nbsp;
-              {/if}
-            </li>
-            {for $i in range($region.count - 1)}
-              <li>&nbsp;</li>
-            {/for}
-          {/foreach}
-        </ul>
-      </td>
-      <td>
-        {call .blobBoxPrettify data="$data" /}
-      </td>
-    </tr>
-  </table>
-
+  <textarea id="git-blame" readonly>{$data.data}</textarea>
+  <div id="blame-region-container">
+    // TODO(dborowitz): Use client-side Soy rendering instead.
+    {let $i: 0 /}
+    {foreach $region in $regions}
+      <div id="gutter-{$i}" class="blameRegion">
+        <a href="{$region.commitUrl}" class="regionLine">
+          <span class="sha1">{$region.abbrevSha}</span>
+          {sp}<span class="time">{$region.author.time}</span>
+          {sp}<span class="author">- {$region.author.name}</span>
+        </a>
+        <div class="regionMenu">
+          <span class="regionMenuLinks">
+            [<a href="{$region.commitUrl}">commit</a>]
+            {sp}[<a href="{$region.diffUrl}">diff</a>]
+            {sp}[<a href="{$region.blameUrl}">blame</a>]
+          </span>
+        </div>
+      </div>
+      {let $i: $i + $region.count /}
+    {/foreach}
   </div>
+  </div>
+  <script type="text/javascript">
+    var cm = initCodeMirror("git-blame", {lb}
+      gutters: ["blameGutter"]
+    {rb});
+    addBlameRegions(cm, "blameGutter", "blame-region-container");
+  </script>
 {else}
   {call .header data="all" /}
   {call .blobDetail data="$data" /}

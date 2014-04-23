@@ -63,3 +63,21 @@ function setCmSize(cm) {
   var cmTop = cm.getWrapperElement().getBoundingClientRect().top;
   cm.setSize("100%", winHeight - cmTop - 23);
 }
+
+/**
+ * Add elements to a gutter of a CodeMirror instance.
+ *
+ * @param {CodeMirror} cm CodeMirror instance.
+ * @param {string} gutterId CM gutter identifier.
+ * @param {string} containerId id of a container. Any children with IDs matching
+ *     "gutter-<i>" will be moved to the CM gutter at line <i>.
+ */
+function addBlameRegions(cm, gutterId, containerId) {
+  var cont = document.getElementById(containerId);
+  for (var i = 0; i < cont.children.length; i++) {
+    var c = cont.children[i];
+    if (c.id.substring(0, 7) == "gutter-") {
+      cm.setGutterMarker(parseInt(c.id.substring(7), 10), "blameGutter", c);
+    }
+  }
+}
