@@ -179,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "45206fde_c81f8f75",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T17:43:12Z",
+      "side": 1,
+      "message": "Yeah, exactly what Gerrit is doing IOW :)\n\nhttps://gerrit.googlesource.com/gerrit/+/master/gerrit-gwtui/src/main/java/net/codemirror/mode/mode_map",
+      "parentUuid": "655d735f_59d08330",
+      "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45522f52_986a15b9",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 4
