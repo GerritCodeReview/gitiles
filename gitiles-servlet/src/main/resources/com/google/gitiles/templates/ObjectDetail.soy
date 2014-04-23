@@ -215,6 +215,7 @@
  * @param? logUrl optional URL to a log for this file.
  * @param? blameUrl optional URL to a blame for this file.
  * @param data file data (may be empty), or null for a binary file.
+ * @param? codemirror CodeMirror data.
  * @param? size for binary files only, size in bytes.
  */
 {template .blobDetail}
@@ -231,6 +232,7 @@
  * Preformatted box containing blob contents.
  *
  * @param data file data (may be empty), or null for a binary file.
+ * @param? codemirror CodeMirror data.
  * @param? size for binary files only, size in bytes.
  */
 {template .blobBox}
@@ -238,7 +240,9 @@
     {if $data}
       <textarea id="git-blob" readonly>{$data}</textarea>
       <script type="text/javascript">
-        initCodeMirror("git-blob");
+        initCodeMirror("git-blob" {lb}
+          {if isNonnull($codemirror.mode)}mode: "{$codemirror.mode}"{/if}
+        {rb});
       </script>
     {else}
       <div class="file-empty">Empty file</div>

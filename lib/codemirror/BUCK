@@ -11,9 +11,10 @@ genrule(
   name = 'codemirror',
   cmd = ' && '.join([
     'cd $TMP',
-    'unzip -q $SRCDIR/%s %s' % (
-      ZIP,
-      ' '.join(['%s/mode/%s' % (TOP, n) for n in CM4_MODES])),
+    ('unzip -q $SRCDIR/%s $('
+     'unzip -Z -1 $SRCDIR/%s '
+     r"| grep 'mode/.*\.\(js\|css\)$' "
+     r"| grep -v 'test\.js')") % (ZIP, ZIP),
     'mkdir codemirror',
     'cp $SRCDIR/cm4.css codemirror/',
     'cp $SRCDIR/cm4.js codemirror/',

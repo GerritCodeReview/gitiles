@@ -22,6 +22,7 @@
  * @param? headerVariant variant name for custom header.
  * @param breadcrumbs breadcrumbs for this page.
  * @param data blob data, matching the params for .blobBox.
+ * @param codemirror codemirror configuration for .header.
  * @param? regions for non-binary files, list of blame regions with the
  *     following keys:
  *       abbrevSha: abbreviated SHA-1 of revision for this line; if missing,
@@ -34,9 +35,7 @@
  */
 {template .blameDetail}
 {if $regions}
-  {call .header data="all"}
-    {param codemirror: true/}
-  {/call}
+  {call .header data="all" /}
 
   <textarea id="git-blame" readonly>{$data.data}</textarea>
   <div id="blame-region-container">
@@ -63,7 +62,8 @@
   </div>
   <script type="text/javascript">
     var cm = initCodeMirror("git-blame", {lb}
-      gutters: ["blameGutter"]
+      gutters: ["blameGutter"],
+      {if isNonnull($data.codemirror.mode)}mode: "{$data.codemirror.mode}"{/if}
     {rb});
     addBlameRegions(cm, "blameGutter", "blame-region-container");
   </script>

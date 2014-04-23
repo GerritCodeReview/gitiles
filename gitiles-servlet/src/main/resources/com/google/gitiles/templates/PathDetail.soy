@@ -21,15 +21,14 @@
  * @param? menuEntries menu entries.
  * @param? headerVariant variant name for custom header.
  * @param breadcrumbs breadcrumbs for this page.
+ * @param? codemirror CodeMirror data.
  * @param type path type, matching one of the constant names defined in
  *         org.eclipse.jgit.lib.FileMode.
  * @param data path data, matching the params for one of .treeDetail,
  *     .blobDetail, .symlinkDetail, or .gitlinkDetail as appropriate.
  */
 {template .pathDetail}
-{call .header data="all"}
-  {param codemirror: $type == 'REGULAR_FILE' or $type == 'EXECUTABLE_FILE' /}
-{/call}
+{call .header data="all" /}
 
 {switch $type}
   {case 'TREE'}{call .treeDetail data="$data" /}
