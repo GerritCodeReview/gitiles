@@ -258,33 +258,6 @@
 {/template}
 
 /**
- * Preformatted box containing blob contents.
- *
- * DEPRECATED: uses prettify rather than CodeMirror.
- *
- * @param data file data (may be empty), or null for a binary file.
- * @param? lang prettyprint language extension for text file.
- * @param? size for binary files only, size in bytes.
- */
-{template .blobBoxPrettify}
-  {if $data != null}
-    {if $data}
-      {if $lang}
-        <pre class="git-blob prettyprint linenums lang-{$lang}">{$data}</pre>
-      {else}
-        <pre class="git-blob prettyprint linenums">{$data}</pre>
-      {/if}
-    {else}
-      <div class="file-empty">Empty file</div>
-    {/if}
-  {else}
-    <div class="file-binary">
-      {msg desc="size of binary file in bytes"}{$size}-byte binary file{/msg}
-    </div>
-  {/if}
-{/template}
-
-/**
  * Detailed listing of an annotated tag.
  *
  * @param sha SHA of this tag.

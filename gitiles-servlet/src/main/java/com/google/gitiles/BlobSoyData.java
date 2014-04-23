@@ -71,7 +71,7 @@ public class BlobSoyData {
 
     data.put("data", content);
     if (content != null) {
-      data.put("lang", guessPrettifyLang(path, content));
+      data.put("lang", guessLang(path, content));
     } else if (content == null) {
       data.put("size", Long.toString(loader.getSize()));
     }
@@ -82,7 +82,7 @@ public class BlobSoyData {
     return data;
   }
 
-  private static String guessPrettifyLang(String path, String content) {
+  private static String guessLang(String path, String content) {
     if (content.startsWith("#!/bin/sh") || content.startsWith("#!/bin/bash")) {
       return "sh";
     } else if (content.startsWith("#!/usr/bin/perl")) {
