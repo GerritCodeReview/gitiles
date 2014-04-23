@@ -54,8 +54,6 @@ public abstract class Renderer {
         .put("gitiles.CM_JS_URL", "codemirror/cm4.js")
         .put("gitiles.CSS_URL", "gitiles.css")
         .put("gitiles.GITILES_CM_JS_URL", "gitiles_cm.js")
-        .put("gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css")
-        .put("gitiles.PRETTIFY_JS_URL", "prettify/prettify.js")
         .build();
 
   protected static class FileUrlMapper implements Function<String, URL> {

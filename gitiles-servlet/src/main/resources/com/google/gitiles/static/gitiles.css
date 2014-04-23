@@ -357,14 +357,14 @@ a.diff-git:hover {
   font-size: inherit;
 }
 .blameRegion .regionLine {
-  overflow-x: hidden;
+  overflow: hidden;
   float: left;
 }
 .blameRegion .regionMenu {
   position: absolute;
   float: right;
   right: 0;
-  /* Fill whole parent so gap in hover when author part is too short. */
+  /* Fill whole parent to avoid gap in hover when author part is too short. */
   width: 100%;
   text-align: right;
 
@@ -384,30 +384,4 @@ a.diff-git:hover {
 .CodeMirror {
   border: 1px solid black;
   background-color: #fdfdfd;
-}
-
-/* Override some styles from the default prettify.css. */
-
-/* Line numbers on all lines. */
-li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
-  list-style-type: decimal;
-}
-
-/* Disable alternating line background color. */
-li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
-  background: #fff;
-}
-
-pre.git-blob {
-  border-top: #ddd solid 1px; /* BORDER */
-  border-bottom: #ddd solid 1px; /* BORDER */
-  border-left: none;
-  border-right: none;
-  padding-left: 1em;
-  padding-bottom: 5px;
-  font-family: monospace;
-  font-size: 8pt;
-}
-pre.prettyprint ol {
-  color: grey;
 }
