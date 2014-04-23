@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "45522f52_78cbc185",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:25:22Z",
+      "side": 1,
+      "message": "This should be a div not a span. Its block like with a CM4 instance inside of it.",
+      "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "655d735f_5959a334",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 4
