@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45522f52_d8648ded",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:14:14Z",
+      "side": 1,
+      "message": "The z-index for gutter is 4. You can use z-index:200 to float over everything.",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "655d735f_996a1bb9",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:14:14Z",
+      "side": 1,
+      "message": "This should be overflow:hidden to fix the arrow problem i see on Chrome/Linux.",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
