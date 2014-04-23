@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45206fde_a8117b75",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T01:14:21Z",
+      "side": 1,
+      "message": "This breaks /, since setDirectoriesListed(false) doesn\u0027t prevent this handler from handling /, it just makes it return a 403. I need to reorder the handlers, but just putting the app handler above this static handler is insufficient.",
+      "revId": "af8ee076c185b0cad68ee15e4bce98a7e8fb731b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
