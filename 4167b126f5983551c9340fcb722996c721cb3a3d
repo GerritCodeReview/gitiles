@@ -85,6 +85,24 @@
       "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fa9f81_6cf83be7",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T17:27:43Z",
+      "side": 1,
+      "message": "Good point, almost certainly not. Moot given your suggestions above.",
+      "parentUuid": "655d735f_d96493ed",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
