@@ -16,6 +16,23 @@
       "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45522f52_986a15b9",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-23T17:07:28Z",
+      "side": 1,
+      "message": "I think you also want something like:\n\n  cm.setSize(\"100%\",(document.documentElement.clientHeight-200)+\"px\");\n\nand attach a resizer:\n\n  window.onresize \u003d function(event) {\n    cm.setSize(null,(document.documentElement.clientHeight-200)+\"px\");\n  };",
+      "revId": "81f49422174d9b3f29f93dc3b1d2aac6a572d192",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
