@@ -56,6 +56,24 @@
       "revId": "05376426ee2a1b89422b4f145e51f2623a3ab83a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fa9f81_0c2a579e",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-23T21:07:28Z",
+      "side": 1,
+      "message": "Right, I got sidetracked by filetype detection. In my defense I don\u0027t think I said \"Done\".",
+      "parentUuid": "655d735f_f93cf7b8",
+      "revId": "05376426ee2a1b89422b4f145e51f2623a3ab83a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
