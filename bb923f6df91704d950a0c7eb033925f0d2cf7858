@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25da9b33_9f113376",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles_cm.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-24T16:03:18Z",
+      "side": 1,
+      "message": "Scrolling is still enabled in Chrome/Mac. :-(",
+      "revId": "bb923f6df91704d950a0c7eb033925f0d2cf7858",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05df5724_fe088145",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles_cm.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-24T16:03:18Z",
+      "side": 1,
+      "message": "This isn\u0027t working for me on Chrome/Mac. The CM4 instance is narrower than the window. If I shrink my browser window the browser adds a scrollbar to the bottom of the page instead of to the CM4 instance.",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 19
+      },
+      "revId": "bb923f6df91704d950a0c7eb033925f0d2cf7858",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
