@@ -46,6 +46,46 @@
       "revId": "8d799e4d913a8a266579c3015736c46b874f53ea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05df5724_de0bc53f",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-24T16:01:17Z",
+      "side": 1,
+      "message": "ISO date format like `git blame` uses is more compact:\n\n  2010-07-02 14:52:49 -0700",
+      "revId": "8d799e4d913a8a266579c3015736c46b874f53ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25da9b33_5ff88be6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-24T16:01:17Z",
+      "side": 1,
+      "message": "Why not match git blame and put the author then date?\n\n  \u003cspan class\u003d\"author\"\u003e{$region.author.name}\u003c/span\u003e\n  {sp}\u003cspan class\u003d\"time\"\u003e{$region.author.time}\u003c/span\u003e\n\nand use fixed width for the author field and overflow: hidden. The author will clip on the RHS if its really long.",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 50,
+        "endChar": 65
+      },
+      "revId": "8d799e4d913a8a266579c3015736c46b874f53ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
