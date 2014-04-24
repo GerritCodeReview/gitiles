@@ -39,6 +39,30 @@
       "revId": "bb923f6df91704d950a0c7eb033925f0d2cf7858",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45a30fb3_d0f47cf8",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles_cm.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-24T16:15:16Z",
+      "side": 1,
+      "message": "I\u0027m not sure from your description: does the CM4 instance _look_ the right width? You\u0027re just still getting scrollbars?\n\nThere are other ways the body can overflow, e.g. the page title is apparently nowrap.\n\nI think I can reproduce this but it\u0027s unreliable and feels like a Chrome/OS X bug. Specifically, if I resize slowly beyond the overflow threshold, the scroll bars flicker in and out of existence. Most (but not all!) of the time when I stop resizing, even if the scroll bars happen to be visible, scrolling around on the trackpad does nothing. WTF.",
+      "parentUuid": "05df5724_fe088145",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 19
+      },
+      "revId": "bb923f6df91704d950a0c7eb033925f0d2cf7858",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
