@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "45a30fb3_50e16c36",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-24T15:11:20Z",
+      "side": 1,
+      "message": "I went with a hidden div, since that gives us maximum autoescape goodness, is exactly the same amount of work for the renderer, and compresses well.",
+      "parentUuid": "655d735f_39c14f66",
+      "revId": "4167b126f5983551c9340fcb722996c721cb3a3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "655d735f_d96493ed",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
         "patchSetId": 1
