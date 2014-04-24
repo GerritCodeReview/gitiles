@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25da9b33_1ffe03d6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles_cm.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-24T15:54:25Z",
+      "side": 1,
+      "message": "gutterId? This parameter would otherwise be unused.",
+      "range": {
+        "startLine": 80,
+        "startChar": 58,
+        "endLine": 80,
+        "endChar": 71
+      },
+      "revId": "8d799e4d913a8a266579c3015736c46b874f53ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
