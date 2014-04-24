@@ -26,6 +26,9 @@
 function initCodeMirror(textareaId, opt_opts) {
   document.body.style.overflow = "hidden";
 
+  var ta = document.getElementById(textareaId);
+  ta.style.display = "none";
+
   var opts = opt_opts || {};
   var defaults = {
     lineNumbers: true,
@@ -36,8 +39,19 @@ function initCodeMirror(textareaId, opt_opts) {
       opts[prop] = defaults[prop];
     }
   }
-  var cm = CodeMirror.fromTextArea(document.getElementById(textareaId), opts);
 
+  var delayMode = ta.value.length > (50 >> 10);
+  if (opts.mode && delayMode) {
+    var mode = opts.mode;
+    delete opts.mode;
+
+    window.addEventListener("DOMContentLoaded", function(e) {
+      cm.setOption("mode", mode);
+    });
+  }
+  console.log(opts);
+
+  var cm = CodeMirror.fromTextArea(ta, opts);
   setCmSize(cm);
 
   var resize = function(e) {

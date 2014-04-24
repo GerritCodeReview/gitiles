@@ -37,7 +37,6 @@
 {if $regions}
   {call .header data="all" /}
 
-  <textarea id="git-blame" readonly>{$data.data}</textarea>
   <div id="blame-region-container">
     // TODO(dborowitz): Use client-side Soy rendering instead.
     {let $i: 0 /}
@@ -59,7 +58,7 @@
       {let $i: $i + $region.count /}
     {/foreach}
   </div>
-  </div>
+  <textarea id="git-blame" readonly>{$data.data}</textarea>
   <script type="text/javascript">
     var cm = initCodeMirror("git-blame", {lb}
       gutters: ["blameGutter"],
