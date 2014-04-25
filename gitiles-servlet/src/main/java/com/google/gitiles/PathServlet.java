@@ -16,6 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.gitiles.TreeSoyData.resolveTargetUrl;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
@@ -66,6 +67,7 @@ import javax.servlet.http.HttpServletResponse;
 // TODO(dborowitz): Handle non-UTF-8 names.
 public class PathServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
+  private static final String PLACEHOLDER = "id=\"BLOB_OUTPUT_BLOCK\"";
   private static final Logger log = LoggerFactory.getLogger(PathServlet.class);
 
   /**
@@ -357,11 +359,25 @@ public class PathServlet extends BaseServlet {
       List<Boolean> hasSingleTree) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
-    renderHtml(req, res, "gitiles.pathDetail", ImmutableMap.of(
-        "title", ViewFilter.getView(req).getPathPart(),
-        "breadcrumbs", view.getBreadcrumbs(hasSingleTree),
-        "type", FileType.forEntry(tw).toString(),
-        "data", new BlobSoyData(rw, view).toSoyData(tw.getPathString(), tw.getObjectId(0))));
+    String html = renderer.newRenderer("gitiles.pathDetail")
+        .setData(ImmutableMap.of(
+          "title", ViewFilter.getView(req).getPathPart(),
+          "breadcrumbs", view.getBreadcrumbs(hasSingleTree),
+          "type", FileType.forEntry(tw).toString(),
+          "data", ImmutableMap.of())) // TODO: eliminate
+        .render();
+    int id = html.indexOf(PLACEHOLDER);
+    if (id < 0) {
+      throw new IllegalStateException("Template must contain " + PLACEHOLDER);
+    }
+
+    int lt = html.lastIndexOf('<', id);
+    int gt = html.indexOf('>', id + PLACEHOLDER.length());
+
+    OutputStream out = res.getOutputStream();
+    out.write(html.substring(0, lt).getBytes(UTF_8));
+    new BlobRenderer(renderer, rw, tw.getObjectId(0), tw.getPathString()).render(out);
+    out.write(html.substring(gt + 1).getBytes(UTF_8));
   }
 
   private void showSymlink(HttpServletRequest req, HttpServletResponse res, RevWalk rw,

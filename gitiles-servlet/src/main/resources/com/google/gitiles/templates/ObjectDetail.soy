@@ -211,21 +211,15 @@
 /**
  * Detailed listing of a blob.
  *
- * @param sha SHA of this file's blob.
- * @param? logUrl optional URL to a log for this file.
- * @param? blameUrl optional URL to a blame for this file.
- * @param data file data (may be empty), or null for a binary file.
- * @param? lang prettyprint language extension for text file.
- * @param? size for binary files only, size in bytes.
  */
 {template .blobDetail}
 <div class="sha1">
-  {msg desc="SHA-1 for the file's blob"}blob: {$sha}{/msg}
-  {if $logUrl}{sp}[<a href="{$logUrl}">{msg desc="history for a file"}file history{/msg}</a>]{/if}
-  {if $blameUrl}{sp}[<a href="{$blameUrl}">{msg desc="blame for a file"}blame{/msg}</a>]{/if}
+  // TODO: {msg desc="SHA-1 for the file's blob"}blob: {$sha}{/msg}
+  //{if $logUrl}{sp}[<a href="{$logUrl}">{msg desc="history for a file"}file history{/msg}</a>]{/if}
+  //{if $blameUrl}{sp}[<a href="{$blameUrl}">{msg desc="blame for a file"}blame{/msg}</a>]{/if}
 </div>
 
-{call .blobBox data="all" /}
+<div id="BLOB_OUTPUT_BLOCK" />
 {/template}
 
 /**
@@ -316,4 +310,23 @@
     {if $part.url}<a href="{$part.url}">{$part.text}</a>{else}{$part.text}{/if}
   {/foreach}
 </pre>
+{/template}
+
+
+/**
+ * Rendered form of blob detail list.
+ *
+ * @param lines list of lines, which are lists of span objects with "classes"
+ *     and "text" keys.
+ */
+{template .blobDetail2}
+  <ol class="prettyprint">
+    {foreach $line in $lines}
+      <li>
+        {foreach $span in $line}
+          <span class="{$span.classes}">{$span.text}</span>
+        {/foreach}
+      </li>
+    {/foreach}
+  </ol>
 {/template}
