@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4564ef99_c8d64f60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-26T17:14:00Z",
+      "side": 1,
+      "message": "I actually have to redo these numbers. If you look at where I placed the stopwatch in the code, it\u0027s including the prettify time. It\u0027s more like 100ms for prettify + 150ms for template rendering of the 4500 line file (vs. 100ms + 10ms for the baseline fast implementation).\n\nI\u0027m sure this would be slower on our servers than on my fancy Linux workstation but I\u0027m not so confident in the power of a single core of my MBA :)",
+      "parentUuid": "856a6764_8ae04b35",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "0bb9ef68f416e97fc869994606c467e2bf043d8f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "656f3377_89e05935",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-04-26T16:56:11Z",
       "side": 1,
       "message": "Amazing. So its about 700ms just for the HTML bits and say network RTT for a well connected client. We have no budget left for actual data lookup or computation if you want the overall response time sub 500 ms.\n\nHowever since ViewVC is the benchmark and its response time is about 1200 ms, maybe we do have some budget left for doing real work.",
+      "range": {
+        "startLine": 42,
+        "startChar": 35,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "0bb9ef68f416e97fc869994606c467e2bf043d8f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a57beb35_ebdb1187",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-26T17:14:00Z",
+      "side": 1,
+      "message": "By \"overall response time\" do you mean the time between clicking a link and Chrome finishing rendering? In that case, yeah, if it takes 400ms for Chrome to render once it\u0027s received the last byte, not a lot of headroom to get under 500ms there. But I think for a better picture we would want to actually look at the histogram of times across a real selection of requests. If you\u0027re only looking at sub-500 LOC files we might actually get a significant fraction in under 500ms including rendering.\n\nNot sure where you got 1200ms for ViewVC. This one loads for me in about 200ms:\n\nhttp://src.chromium.org/viewvc/chrome/trunk/src/content/renderer/render_view_impl.cc?revision\u003d254479\n\nAnd takes about the same 400ms for Chrome to render after receiving the last byte. So ViewVC may suck less but overall time is basically comparable: I stand by my statement that the benefit of server-side optimization is bounded.\n\nViewVC also kicks the crap out of us right now because it sets caching headers on the response...we should probably be using an ETag here :).\n\nAnd it still takes them 20s to do the server side of blame and has no caching where we\u0027re currently at 15s cold.",
+      "parentUuid": "656f3377_89e05935",
       "range": {
         "startLine": 42,
         "startChar": 35,
