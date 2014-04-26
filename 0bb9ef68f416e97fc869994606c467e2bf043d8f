@@ -117,6 +117,30 @@
       "revId": "0bb9ef68f416e97fc869994606c467e2bf043d8f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4564ef99_28f28b0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-26T17:28:10Z",
+      "side": 1,
+      "message": "\u003e ViewVC also kicks the crap out of us right now because it sets caching headers on the response...we should probably be using an ETag here :).\n\nI notice you left a comment about setting cache headers when no S cookie is set. I think we can just set an ETag in all cases, but the ETag should probably be hash(sha1, soy templates) so we can pick up template changes. The ETag will only be checked after permissions so I don\u0027t think we need to worry about that.",
+      "parentUuid": "a57beb35_ebdb1187",
+      "range": {
+        "startLine": 42,
+        "startChar": 35,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "0bb9ef68f416e97fc869994606c467e2bf043d8f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
