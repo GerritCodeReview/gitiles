@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "856a6764_8ae04b35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-26T16:56:11Z",
+      "side": 1,
+      "message": "The sad part is this will be slower on our servers and its the entire budget for what we try to hit in response time for most web views. At 250ms just to make pretty HTML we aren\u0027t allowed a single disk read.",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "0bb9ef68f416e97fc869994606c467e2bf043d8f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "656f3377_89e05935",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-26T16:56:11Z",
+      "side": 1,
+      "message": "Amazing. So its about 700ms just for the HTML bits and say network RTT for a well connected client. We have no budget left for actual data lookup or computation if you want the overall response time sub 500 ms.\n\nHowever since ViewVC is the benchmark and its response time is about 1200 ms, maybe we do have some budget left for doing real work.",
+      "range": {
+        "startLine": 42,
+        "startChar": 35,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "0bb9ef68f416e97fc869994606c467e2bf043d8f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
