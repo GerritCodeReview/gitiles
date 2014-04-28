@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "656f3377_693085db",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-28T18:07:47Z",
+      "side": 1,
+      "message": "Rowspan should be possible since we can pass in the count, but I don\u0027t see the advantage of complicating the template code, and I doubt the performance (either compressed size or render time) would be noticeably different.",
+      "parentUuid": "856a6764_aa442f2b",
+      "revId": "18d751058acf7849ca91d3fb618bc63b4acbcb0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "656f3377_493341e9",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "656f3377_093d49b2",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-28T18:07:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "656f3377_493341e9",
+      "revId": "18d751058acf7849ca91d3fb618bc63b4acbcb0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "856a6764_8a3feba6",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2014-04-28T17:47:44Z",
       "side": 1,
       "message": "These links can probably share a column.",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "18d751058acf7849ca91d3fb618bc63b4acbcb0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856a6764_0a545bd8",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-28T18:07:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "856a6764_8a3feba6",
       "range": {
         "startLine": 65,
         "startChar": 10,
