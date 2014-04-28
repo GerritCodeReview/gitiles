@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65b2d35d_51f2b40a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DateFormatterBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-28T22:59:43Z",
+      "side": 1,
+      "message": "This is ugly and I\u0027m open to other alternatives.",
+      "revId": "7adb61504d897c7ecd9956da07dc77177216b434",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
