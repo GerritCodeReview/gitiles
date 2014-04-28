@@ -16,6 +16,24 @@
       "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856a6764_2ae83fc7",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1015975
+      },
+      "writtenOn": "2014-04-28T18:28:31Z",
+      "side": 1,
+      "message": "This change is tested only with gerrit plugin. If it works as standalone service, it may not work as expected.;(\nFor your first question, if I decode entire request, I have to add more code to extract path from decoded request.",
+      "parentUuid": "a57beb35_abe50944",
+      "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
