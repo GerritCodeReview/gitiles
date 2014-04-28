@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -144,7 +145,7 @@ public class ViewFilter extends AbstractHttpFilter {
       return GitilesView.hostIndex();
     }
     String command = getRegexGroup(req, 2);
-    String path = getRegexGroup(req, 3);
+    String path = URLDecoder.decode(getRegexGroup(req, 3), "UTF-8");
 
     if (command.isEmpty()) {
       return parseNoCommand(repoName);
