@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a57beb35_abe50944",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2014-04-28T18:06:48Z",
+      "side": 1,
+      "message": "Just a question: is there a reason to not decode the entire request?  Also, you may find that + in the context of a Gitiles command gets misinterpreted with URLDecoder as a space... or this may also impact a filename with a \"+\" in it.",
+      "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
