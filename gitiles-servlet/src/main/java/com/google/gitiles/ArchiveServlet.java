@@ -40,8 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ArchiveServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
 
-  public ArchiveServlet(GitilesAccess.Factory accessFactory) {
-    super(null, accessFactory);
+  public ArchiveServlet(DateFormatterBuilder dfb, GitilesAccess.Factory accessFactory) {
+    super(null, dfb, accessFactory);
   }
 
   @Override

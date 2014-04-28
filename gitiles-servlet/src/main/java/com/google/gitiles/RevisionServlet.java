@@ -26,6 +26,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.CommitJsonData.Commit;
+import com.google.gitiles.DateFormatterBuilder.DateFormatter;
+import com.google.gitiles.DateFormatterBuilder.Format;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -37,8 +39,6 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevObject;
 import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.GitDateFormatter;
-import org.eclipse.jgit.util.GitDateFormatter.Format;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +62,8 @@ public class RevisionServlet extends BaseServlet {
   private final Linkifier linkifier;
 
   public RevisionServlet(GitilesAccess.Factory accessFactory, Renderer renderer,
-      Linkifier linkifier) {
-    super(renderer, accessFactory);
+      DateFormatterBuilder dfb, Linkifier linkifier) {
+    super(renderer, dfb, accessFactory);
     this.linkifier = checkNotNull(linkifier, "linkifier");
   }
 
@@ -74,7 +74,7 @@ public class RevisionServlet extends BaseServlet {
 
     RevWalk walk = new RevWalk(repo);
     try {
-      GitDateFormatter df = new GitDateFormatter(Format.DEFAULT);
+      DateFormatter df = dateFormatterBuilder.create(Format.DEFAULT);
       List<RevObject> objects = listObjects(walk, view.getRevision());
       List<Map<String, ?>> soyObjects = Lists.newArrayListWithCapacity(objects.size());
       boolean hasBlob = false;
@@ -140,7 +140,7 @@ public class RevisionServlet extends BaseServlet {
 
     RevWalk walk = new RevWalk(repo);
     try {
-      GitDateFormatter df = new GitDateFormatter(Format.DEFAULT);
+      DateFormatter df = dateFormatterBuilder.create(Format.DEFAULT);
       RevObject obj = walk.parseAny(view.getRevision().getId());
       switch (obj.getType()) {
         case OBJ_COMMIT:

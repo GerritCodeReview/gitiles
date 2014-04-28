@@ -108,8 +108,9 @@ public class PathServlet extends BaseServlet {
 
   private final GitilesUrls urls;
 
-  public PathServlet(GitilesAccess.Factory accessFactory, Renderer renderer, GitilesUrls urls) {
-    super(renderer, accessFactory);
+  public PathServlet(GitilesAccess.Factory accessFactory, Renderer renderer,
+      DateFormatterBuilder dfb, GitilesUrls urls) {
+    super(renderer, dfb, accessFactory);
     this.urls = checkNotNull(urls, "urls");
   }
 

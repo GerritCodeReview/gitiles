@@ -20,6 +20,8 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
+import com.google.gitiles.DateFormatterBuilder.DateFormatter;
+import com.google.gitiles.DateFormatterBuilder.Format;
 
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.lib.Constants;
@@ -28,8 +30,6 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevObject;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.GitDateFormatter;
-import org.eclipse.jgit.util.GitDateFormatter.Format;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,8 +48,8 @@ public class RepositoryIndexServlet extends BaseServlet {
   private final TimeCache timeCache;
 
   public RepositoryIndexServlet(GitilesAccess.Factory accessFactory, Renderer renderer,
-      TimeCache timeCache) {
-    super(renderer, accessFactory);
+      DateFormatterBuilder dfb, TimeCache timeCache) {
+    super(renderer, dfb, accessFactory);
     this.timeCache = checkNotNull(timeCache, "timeCache");
   }
 
@@ -74,7 +74,7 @@ public class RepositoryIndexServlet extends BaseServlet {
         if (head.getType() == Constants.OBJ_COMMIT) {
           walk.reset();
           walk.markStart((RevCommit) head);
-          GitDateFormatter df = new GitDateFormatter(Format.DEFAULT);
+          DateFormatter df = dateFormatterBuilder.create(Format.DEFAULT);
           data = new LogSoyData(req, view).toSoyData(walk, LOG_LIMIT, "HEAD", null, df);
         } else {
           // TODO(dborowitz): Handle non-commit or missing HEAD?

@@ -50,8 +50,8 @@ public class RefServlet extends BaseServlet {
   private final TimeCache timeCache;
 
   protected RefServlet(GitilesAccess.Factory accessFactory, Renderer renderer,
-      TimeCache timeCache) {
-    super(renderer, accessFactory);
+      DateFormatterBuilder dfb, TimeCache timeCache) {
+    super(renderer, dfb, accessFactory);
     this.timeCache = checkNotNull(timeCache, "timeCache");
   }
 

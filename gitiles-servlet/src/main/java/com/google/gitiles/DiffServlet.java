@@ -19,6 +19,8 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import com.google.common.base.Charsets;
 import com.google.gitiles.CommitData.Field;
+import com.google.gitiles.DateFormatterBuilder.DateFormatter;
+import com.google.gitiles.DateFormatterBuilder.Format;
 
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -34,8 +36,6 @@ import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.EmptyTreeIterator;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.util.GitDateFormatter;
-import org.eclipse.jgit.util.GitDateFormatter.Format;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -53,9 +53,9 @@ public class DiffServlet extends BaseServlet {
 
   private final Linkifier linkifier;
 
-  public DiffServlet(GitilesAccess.Factory accessFactory, Renderer renderer,
-      Linkifier linkifier) {
-    super(renderer, accessFactory);
+  public DiffServlet(DateFormatterBuilder dfb, GitilesAccess.Factory accessFactory,
+      Renderer renderer, Linkifier linkifier) {
+    super(renderer, dfb, accessFactory);
     this.linkifier = checkNotNull(linkifier, "linkifier");
   }
 
@@ -88,7 +88,7 @@ public class DiffServlet extends BaseServlet {
         if (isFile) {
           fs = Field.setOf(fs, Field.PARENT_BLAME_URL);
         }
-        GitDateFormatter df = new GitDateFormatter(Format.DEFAULT);
+        DateFormatter df = dateFormatterBuilder.create(Format.DEFAULT);
         data.put("commit", new CommitSoyData()
             .setLinkifier(linkifier)
             .setArchiveFormat(getArchiveFormat(getAccess(req)))

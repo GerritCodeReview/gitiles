@@ -55,7 +55,7 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   public static BaseServlet notFoundServlet() {
-    return new BaseServlet(null, null) {
+    return new BaseServlet(null, null, null) {
       private static final long serialVersionUID = 1L;
       @Override
       public void service(HttpServletRequest req, HttpServletResponse res) {
@@ -169,10 +169,13 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   protected final Renderer renderer;
+  protected final DateFormatterBuilder dateFormatterBuilder;
   private final GitilesAccess.Factory accessFactory;
 
-  protected BaseServlet(Renderer renderer, GitilesAccess.Factory accessFactory) {
+  protected BaseServlet(Renderer renderer, DateFormatterBuilder dateFormatterBuilder,
+      GitilesAccess.Factory accessFactory) {
     this.renderer = renderer;
+    this.dateFormatterBuilder = dateFormatterBuilder;
     this.accessFactory = accessFactory;
   }
 

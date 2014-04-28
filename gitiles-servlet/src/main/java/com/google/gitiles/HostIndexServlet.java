@@ -51,8 +51,8 @@ public class HostIndexServlet extends BaseServlet {
   protected final GitilesUrls urls;
 
   public HostIndexServlet(GitilesAccess.Factory accessFactory, Renderer renderer,
-      GitilesUrls urls) {
-    super(renderer, accessFactory);
+      DateFormatterBuilder dfb, GitilesUrls urls) {
+    super(renderer, dfb, accessFactory);
     this.urls = checkNotNull(urls, "urls");
   }
 
