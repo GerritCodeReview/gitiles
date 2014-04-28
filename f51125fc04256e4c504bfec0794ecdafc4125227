@@ -34,6 +34,24 @@
       "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85dfc77e_c2d6e25f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2014-04-28T18:49:10Z",
+      "side": 1,
+      "message": "Okay, makes sense.  As is, I believe the Gitiles plugin should be working properly now (please feel free to test!) -- but I think Dave may have been asking because it makes more sense to apply the fix in the Gitiles layer rather than the Gerrit plugin?  At least, that would be my opinion (have a look at the change I9974756cb6fdcf6efdf2effd62016431ea2d49c1) -- perhaps getRegexGroup would be another place that *could* be checked as well.\n\nIn any case, it seems important that both the Gitiles plugin as well as standalone Gitiles continue to function normally.",
+      "parentUuid": "856a6764_2ae83fc7",
+      "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
