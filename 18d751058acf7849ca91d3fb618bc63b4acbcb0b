@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "856a6764_aa442f2b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-28T17:47:44Z",
+      "side": 1,
+      "message": "I was going to suggest using rowspan but I can see how that is difficult from Soy without making a List of Region that has a List of Lines within that region.",
+      "revId": "18d751058acf7849ca91d3fb618bc63b4acbcb0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "656f3377_493341e9",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-28T17:47:44Z",
+      "side": 1,
+      "message": "I think time should be in its own column.",
+      "revId": "18d751058acf7849ca91d3fb618bc63b4acbcb0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856a6764_8a3feba6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-28T17:47:44Z",
+      "side": 1,
+      "message": "These links can probably share a column.",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "18d751058acf7849ca91d3fb618bc63b4acbcb0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
