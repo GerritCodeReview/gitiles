@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "65b2d35d_b124c0d2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-28T23:34:42Z",
+      "side": 1,
+      "message": "Why does this servlet need the base class to have a formatter? The base class has no Soy rendering support.",
+      "revId": "7adb61504d897c7ecd9956da07dc77177216b434",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65b2d35d_51f2b40a",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DateFormatterBuilder.java",
         "patchSetId": 1
@@ -13,6 +30,23 @@
       "writtenOn": "2014-04-28T22:59:43Z",
       "side": 1,
       "message": "This is ugly and I\u0027m open to other alternatives.",
+      "revId": "7adb61504d897c7ecd9956da07dc77177216b434",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65b2d35d_9129bcac",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-04-28T23:34:42Z",
+      "side": 1,
+      "message": "Confusing? Are you undoing something by mistake?",
       "revId": "7adb61504d897c7ecd9956da07dc77177216b434",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
