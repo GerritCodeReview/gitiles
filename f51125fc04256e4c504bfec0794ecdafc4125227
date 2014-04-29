@@ -52,6 +52,24 @@
       "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6580137a_61f536f1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1015975
+      },
+      "writtenOn": "2014-04-29T06:01:48Z",
+      "side": 1,
+      "message": "As you mentioned, I found that the filename with \u0027+\u0027 in it had problem. But I have no idea ;( URLDecoder has problem and it\u0027s not easy to use URI.getPath() here.\n\nRegarding getRegexGroup(), it is handled by jgit so I cannot find proper place to solve it ;(",
+      "parentUuid": "85dfc77e_c2d6e25f",
+      "revId": "f51125fc04256e4c504bfec0794ecdafc4125227",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
