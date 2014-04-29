@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c598dff7_5c0c9d58",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DiffServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-29T21:30:16Z",
+      "side": 1,
+      "message": "Could also be written as\n\n isFile \u003d showCommit \u0026\u0026 tw !\u003d null \u0026\u0026 isFile(tw);\n\nto avoid a ? foo : false expression.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "e71fb0fd7df2d7c986632cd8c62f2f7af06a7552",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
