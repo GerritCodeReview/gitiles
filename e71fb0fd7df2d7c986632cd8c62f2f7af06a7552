@@ -22,6 +22,30 @@
       "revId": "e71fb0fd7df2d7c986632cd8c62f2f7af06a7552",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c598dff7_dc2eedb0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DiffServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-29T21:35:34Z",
+      "side": 1,
+      "message": "Actually \"showCommit \u0026\u0026\" is not even necessary. That was just there to short-circuit constructing a new TreeWalk in the false case.\n\nIt is true that we are now constructing a redundant TreeWalk. in the !showCommit case. But it\u0027s reusing the same RevWalk and just parsing the root tree one more time, so I\u0027m not worried.\n\nDone.",
+      "parentUuid": "c598dff7_5c0c9d58",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "e71fb0fd7df2d7c986632cd8c62f2f7af06a7552",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
