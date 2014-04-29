@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a595abbe_5b0ca358",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DiffServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-29T21:14:16Z",
+      "side": 1,
+      "message": "Won\u0027t this make a treewalk pointing to the first item under the root of the current commit, instead of pointing to the root itself?\n\nIn other words, if I\u0027m reading this correctly then isFile(tw) would end up as true instead of false if the first entry in alphabetical order happens to be a file.",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 16
+      },
+      "revId": "7e4ad1427673edf35005da280a1bf90230af67ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
