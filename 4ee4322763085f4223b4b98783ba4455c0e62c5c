@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a595abbe_1b193b95",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-04-29T21:43:36Z",
+      "side": 1,
+      "message": "For the sake of load balanced multihomed setups that are not enlightened enough to use PST everywhere I\u0027d prefer not to support this case if no one needs it.",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 67
+      },
+      "revId": "4ee4322763085f4223b4b98783ba4455c0e62c5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
