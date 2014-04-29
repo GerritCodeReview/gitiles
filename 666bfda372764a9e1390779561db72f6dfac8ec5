@@ -107,6 +107,24 @@
       "revId": "666bfda372764a9e1390779561db72f6dfac8ec5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a595abbe_7b379ff9",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-04-29T22:38:14Z",
+      "side": 1,
+      "message": "Yeah, the file listing is one of the primary reasons for adding the long format (again, replacing functionality from corresponding svn tools).",
+      "parentUuid": "a595abbe_9b4b8b6f",
+      "revId": "666bfda372764a9e1390779561db72f6dfac8ec5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
