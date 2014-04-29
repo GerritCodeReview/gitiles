@@ -125,6 +125,24 @@
       "revId": "666bfda372764a9e1390779561db72f6dfac8ec5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c598dff7_9c59c53b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-29T22:46:12Z",
+      "side": 1,
+      "message": "Ok, not a problem, but a) leave to a followup change, and b) don\u0027t call it \"full\".",
+      "parentUuid": "a595abbe_7b379ff9",
+      "revId": "666bfda372764a9e1390779561db72f6dfac8ec5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
