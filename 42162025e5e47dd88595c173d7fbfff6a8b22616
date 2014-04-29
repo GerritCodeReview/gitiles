@@ -22,6 +22,30 @@
       "revId": "42162025e5e47dd88595c173d7fbfff6a8b22616",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c598dff7_9c2465d3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DateFormatterBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-04-29T21:31:16Z",
+      "side": 1,
+      "message": "Consider all the servers Google runs that are silently US/Pacific ;)\n\nIn any case I\u0027d rather just punt, the only user I have lined up right now (Chromium) will be specifying UTC explicitly.",
+      "parentUuid": "a595abbe_db2ef3b0",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 54
+      },
+      "revId": "42162025e5e47dd88595c173d7fbfff6a8b22616",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
