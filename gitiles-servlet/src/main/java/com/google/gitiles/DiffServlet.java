@@ -69,16 +69,23 @@ public class DiffServlet extends BaseServlet {
       boolean showCommit, isFile;
       AbstractTreeIterator oldTree;
       AbstractTreeIterator newTree;
+      TreeWalk tw = newTreeWalk(walk, view);
+      if (tw == null) {
+        res.setStatus(SC_NOT_FOUND);
+        return;
+      }
       try {
         // If we are viewing the diff between a commit and one of its parents,
         // include the commit detail in the rendered page.
         showCommit = isParentOf(walk, view.getOldRevision(), view.getRevision());
-        isFile = showCommit ? isFile(walk, view) : false;
+        isFile = showCommit ? isFile(tw) : false;
         oldTree = getTreeIterator(walk, view.getOldRevision().getId());
         newTree = getTreeIterator(walk, view.getRevision().getId());
       } catch (MissingObjectException | IncorrectObjectTypeException e) {
         res.setStatus(SC_NOT_FOUND);
         return;
+      } finally {
+        tw.release();
       }
 
       Map<String, Object> data = getData(req);
@@ -120,6 +127,19 @@ public class DiffServlet extends BaseServlet {
     }
   }
 
+  private static TreeWalk newTreeWalk(RevWalk walk, GitilesView view) throws IOException {
+    if (view.getPathPart().isEmpty()) {
+      TreeWalk tw = new TreeWalk(walk.getObjectReader());
+      tw.reset(walk.parseTree(view.getRevision().getId()));
+      tw.setRecursive(false);
+      return tw;
+    }
+    return TreeWalk.forPath(
+        walk.getObjectReader(),
+        view.getPathPart(),
+        walk.parseTree(view.getRevision().getId()));
+  }
+
   private static boolean isParentOf(RevWalk walk, Revision oldRevision, Revision newRevision)
       throws MissingObjectException, IncorrectObjectTypeException, IOException {
     RevCommit newCommit = walk.parseCommit(newRevision.getId());
@@ -130,19 +150,8 @@ public class DiffServlet extends BaseServlet {
     }
   }
 
-  private static boolean isFile(RevWalk walk, GitilesView view) throws IOException {
-    if (view.getPathPart().equals("")) {
-      return false;
-    }
-    TreeWalk tw = TreeWalk.forPath(
-        walk.getObjectReader(),
-        view.getPathPart(),
-        walk.parseTree(view.getRevision().getId()));
-    try {
-      return (tw.getRawMode(0) & FileMode.TYPE_FILE) > 0;
-    } finally {
-      tw.release();
-    }
+  private static boolean isFile(TreeWalk tw) {
+    return (tw.getRawMode(0) & FileMode.TYPE_FILE) > 0;
   }
 
   private String[] renderAndSplit(Map<String, Object> data) {
