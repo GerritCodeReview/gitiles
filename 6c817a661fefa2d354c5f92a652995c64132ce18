@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ad620dd_5179340a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-07T20:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ab4fcaf_c8100fe3",
+      "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ab4fcaf_e80dd3c5",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2014-05-07T17:13:20Z",
       "side": 1,
       "message": "Can be private. (START_PARAM is used by LogSoyData.)",
+      "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ad620dd_918d5cde",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-07T20:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ab4fcaf_e80dd3c5",
       "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6ad620dd_f18068a7",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-07T20:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ad620dd_312a7004",
+      "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ad620dd_7130f877",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2014-05-07T17:13:20Z",
       "side": 1,
       "message": "Shorter:\n\n String pretty \u003d Iterables.getFirst(view.getParameters().get(PRETTY_PARAM), \"default\");",
+      "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ad620dd_d183e4b1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-07T20:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ad620dd_7130f877",
       "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6ad620dd_319fd00b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-07T20:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ad620dd_1125ec34",
+      "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ab4fcaf_880a17ab",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogSoyData.java",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2014-05-07T17:13:20Z",
       "side": 1,
       "message": "Factor this out as a constant VERBOSE_FIELDS",
+      "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ad620dd_b18ae0c1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-07T20:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ab4fcaf_880a17ab",
       "revId": "6c817a661fefa2d354c5f92a652995c64132ce18",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
