@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaf73898_2bd61962",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-05-07T23:29:30Z",
+      "side": 1,
+      "message": "setRevWalk is free, you can just do:\n\nSet\u003cField\u003e fs \u003d verbose ? VERBOSE_FIELDS : FIELDS;\nentries.add(new CommitSoyData()\n    .setRevWalk(paginator.getWalk())\n    .toSoyData(req, c, fs, df));",
+      "revId": "01eb43d7232077fc8d619de186c899504ba9d478",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
