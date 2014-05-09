@@ -93,6 +93,13 @@
  * @param committer committer information with at least "time" and "relativeTime" keys.
  * @param branches list of branches for this entry, with "name" and "url" keys.
  * @param tags list of tags for this entry, with "name" and "url" keys.
+ * @param diffTree list of changed tree entries with the following keys:
+ *     changeType: string matching an org.eclipse.jgit.diff.DiffEntry.ChangeType
+ *         constant.
+ *     path: (new) path of the tree entry.
+ *     oldPath: old path, only for renames and copies.
+ *     url: URL to a detail page for the tree entry.
+ *     diffUrl: URL to a diff page for the tree entry's diff in this commit.
  */
 {deltemplate gitiles.logEntry variant="'oneline'"}
 <a href="{$url}">
@@ -131,6 +138,13 @@
  * @param committer committer information with at least "time" and "relativeTime" keys.
  * @param branches list of branches for this entry, with "name" and "url" keys.
  * @param tags list of tags for this entry, with "name" and "url" keys.
+ * @param diffTree list of changed tree entries with the following keys:
+ *     changeType: string matching an org.eclipse.jgit.diff.DiffEntry.ChangeType
+ *         constant.
+ *     path: (new) path of the tree entry.
+ *     oldPath: old path, only for renames and copies.
+ *     url: URL to a detail page for the tree entry.
+ *     diffUrl: URL to a diff page for the tree entry's diff in this commit.
  */
 {deltemplate gitiles.logEntry variant="'default'"}
 {delcall gitiles.logEntry variant="'oneline'" data="all" /}
@@ -151,6 +165,13 @@
  * @param committer committer information with at least "time" and "relativeTime" keys.
  * @param branches list of branches for this entry, with "name" and "url" keys.
  * @param tags list of tags for this entry, with "name" and "url" keys.
+ * @param diffTree list of changed tree entries with the following keys:
+ *     changeType: string matching an org.eclipse.jgit.diff.DiffEntry.ChangeType
+ *         constant.
+ *     path: (new) path of the tree entry.
+ *     oldPath: old path, only for renames and copies.
+ *     url: URL to a detail page for the tree entry.
+ *     diffUrl: URL to a diff page for the tree entry's diff in this commit.
  */
 {deltemplate gitiles.logEntry variant="'full'"}
 <div class="git-commit">
