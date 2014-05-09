@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa6c9848_a3e6da4c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-05-09T18:01:28Z",
+      "side": 1,
+      "message": "Line \u003e100 chars",
+      "revId": "4ee23c2804349235c5467439269bd3dbf4726f7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa6c9848_c3f3d60d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-05-09T18:01:28Z",
+      "side": 1,
+      "message": "Feels verbose to copy/paste this everywhere. I would be ok with:\n\n @param diffTree unused in this variant.\n\n(Ditto the other unused ones but that\u0027s beyond the scope of this change.)",
+      "revId": "4ee23c2804349235c5467439269bd3dbf4726f7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
