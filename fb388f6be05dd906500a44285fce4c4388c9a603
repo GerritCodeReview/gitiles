@@ -16,6 +16,24 @@
       "revId": "fb388f6be05dd906500a44285fce4c4388c9a603",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a75a43d_8e7b7b9a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1015837
+      },
+      "writtenOn": "2014-05-12T21:29:14Z",
+      "side": 1,
+      "message": "Agreed. Enabled hover for just \u0027oneline\u0027 and \u0027default\u0027.",
+      "parentUuid": "ca7e2c25_ecda4b83",
+      "revId": "fb388f6be05dd906500a44285fce4c4388c9a603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
