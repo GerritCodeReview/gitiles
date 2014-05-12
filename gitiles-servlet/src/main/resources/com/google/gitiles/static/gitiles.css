@@ -189,10 +189,6 @@ pre.commit-message, pre.tag-message {
   margin: 0;
 }
 
-ol.log ul.diff-tree {
-  margin-left: 2em;
-  padding: 5px 0 5px 0;
-}
 ul.diff-tree {
   border-top: #ddd solid 1px; /* BORDER */
   font-size: 9pt;
@@ -278,7 +274,14 @@ ol.log > li {
   padding-bottom: 2px;
 }
 ol.full.log > li, ol.fuller.log > li {
+  padding-top: 0;
   padding-bottom: 5px;
+}
+ol.full.log > li:hover, ol.fuller.log > li:hover {
+  background: none;
+}
+ol.full.log .git-commit, ol.fuller.log .git-commit {
+  background: #eee;
 }
 ol.log > li.first {
   border-top: #ddd solid 1px; /* BORDER */
@@ -288,6 +291,10 @@ ol.log > li:hover {
 }
 ol.log span.sha1 {
   font-family: monospace;
+}
+ol.log ul.diff-tree {
+  margin-left: 2em;
+  padding: 5px 0 5px 0;
 }
 .log-nav {
   margin-top: 5px;
