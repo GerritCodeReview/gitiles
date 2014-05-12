@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea713054_2d384de8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-05-12T23:11:51Z",
+      "side": 1,
+      "message": "Please update the commit message to mention the change to commits as well. (Or split that into a separate change, but this is not so large and just changing the commit message is the easier route.)",
+      "revId": "df50acbf091b678e424b47a2786342c256508df5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
