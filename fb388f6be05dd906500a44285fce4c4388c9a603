@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca7e2c25_ecda4b83",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-05-12T21:26:02Z",
+      "side": 1,
+      "message": "I feel like there should be a more specific selector on ol.log below. I think in general we want hover only for a small whitelist of very short pretty formats (maybe just oneline), whereas the number of longer formats is less bounded.",
+      "revId": "fb388f6be05dd906500a44285fce4c4388c9a603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
