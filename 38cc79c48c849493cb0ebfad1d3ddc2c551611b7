@@ -46,6 +46,30 @@
       "revId": "38cc79c48c849493cb0ebfad1d3ddc2c551611b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f5de831_2731fa0f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-05-22T00:53:25Z",
+      "side": 1,
+      "message": "Ok, after reading what ANY_DIFF and RewriteTreeFilter do, it seems they\u0027re more conservative than I thought and in particular they handle the cases I mentioned just fine.",
+      "parentUuid": "df4ef081_65fc86db",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 23
+      },
+      "revId": "38cc79c48c849493cb0ebfad1d3ddc2c551611b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
