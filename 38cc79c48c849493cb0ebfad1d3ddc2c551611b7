@@ -22,6 +22,30 @@
       "revId": "38cc79c48c849493cb0ebfad1d3ddc2c551611b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df4ef081_25f68ef9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/BlameServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-05-22T00:51:46Z",
+      "side": 1,
+      "message": "Yeah as you can see I\u0027m not sure either that this is 100% consistent with blame, hence the sanity check above.\n\nIf it\u0027s had the same content since the root commit then rw.next() should really return the root commit. But no reason I can\u0027t check for null in resolveBlob so this just works (with a warning so we know about it). Null.",
+      "parentUuid": "df4ef081_65fc86db",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 23
+      },
+      "revId": "38cc79c48c849493cb0ebfad1d3ddc2c551611b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
