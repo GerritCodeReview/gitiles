@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04783d6e_560b9442",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-08T18:21:13Z",
+      "side": 1,
+      "message": "jsonData or just data.",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 28
+      },
+      "revId": "b2e0e5d0eb0cd4359ef06a6aae98f41aa0b802f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "644e5958_f1fbc8dd",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-08T18:21:13Z",
+      "side": 1,
+      "message": "The data map used for Soy is not the same as we should output from JSON; it also includes very HTML-specific entries like moreBranchesUrl. I also think the log entries needn\u0027t be returned in the JSON format.\n\nI would just use the existing RepositoryDescription class. Similar to HostIndexServlet, except show all refs in the branches field instead of just a limited set. Or add a refs field for this. I\u0027m a bit undecided.",
+      "revId": "b2e0e5d0eb0cd4359ef06a6aae98f41aa0b802f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
