@@ -38,6 +38,7 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
 
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,19 @@ public class RefServlet extends BaseServlet {
     adv.setDerefTags(true);
     adv.send(refs);
     adv.end();
+  }
+
+  @Override
+  protected void doGetJson(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Map<String, Ref> refs = getRefs(ServletUtils.getRepository(req).getRefDatabase(),
+        view.getPathPart());
+    Map<String, RefJsonData> jsonRefs = new LinkedHashMap<String, RefJsonData>();
+    for (Map.Entry<String, Ref> ref : refs.entrySet()) {
+      jsonRefs.put(ref.getKey(), new RefJsonData(ref.getValue()));
+    }
+    renderJson(req, res, jsonRefs, jsonRefs.getClass());
   }
 
   static List<Map<String, Object>> getBranchesSoyData(HttpServletRequest req, int limit)
@@ -208,5 +222,25 @@ public class RefServlet extends BaseServlet {
     public void end() throws IOException {
       writer.close();
     }
+  }
+
+  private static class RefJsonData {
+    public RefJsonData(Ref ref) {
+      name = ref.getName();
+      objectId = ref.getObjectId().getName();
+      storage = ref.getStorage().toString();
+      if(ref.getPeeledObjectId() != null) {
+        peeledObjectId = ref.getPeeledObjectId().getName();
+      }
+      if (ref.isSymbolic()) {
+        target = ref.getTarget().getName();
+      }
+    }
+
+    public String name;
+    public String objectId;
+    public String peeledObjectId;
+    public String target;
+    public String storage;
   }
 }
