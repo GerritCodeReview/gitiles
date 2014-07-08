@@ -85,6 +85,19 @@ public class RefServlet extends BaseServlet {
     adv.end();
   }
 
+  @Override
+  protected void doGetJson(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Map<String, Ref> refs = getRefs(ServletUtils.getRepository(req).getRefDatabase(),
+        view.getPathPart());
+    Map<String, JsonRef> jsonRefs = Maps.newHashMapWithExpectedSize(refs.size());
+    for (Map.Entry<String, Ref> ref : refs.entrySet()) {
+      jsonRefs.put(ref.getKey(), new JsonRef(ref.getValue()));
+    }
+    renderJson(req, res, jsonRefs, jsonRefs.getClass());
+  }
+
   static List<Map<String, Object>> getBranchesSoyData(HttpServletRequest req, int limit)
       throws IOException {
     RefDatabase refdb = ServletUtils.getRepository(req).getRefDatabase();
@@ -208,5 +221,27 @@ public class RefServlet extends BaseServlet {
     public void end() throws IOException {
       writer.close();
     }
+  }
+
+  private static class JsonRef {
+    public JsonRef(Ref ref) {
+      name = ref.getName();
+      objectId = ref.getObjectId().getName();
+      storage = ref.getStorage().toString();
+
+      try {
+        peeledObjectId = ref.getPeeledObjectId().getName();
+      } catch (java.lang.NullPointerException e) {
+      }
+      if (ref.isSymbolic()) {
+        target = ref.getTarget().getName();
+      }
+    }
+
+    public String name;
+    public String objectId;
+    public String peeledObjectId;
+    public String target;
+    public String storage;
   }
 }
