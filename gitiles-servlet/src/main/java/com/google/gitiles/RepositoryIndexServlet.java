@@ -53,8 +53,14 @@ public class RepositoryIndexServlet extends BaseServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+  protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     renderHtml(req, res, "gitiles.repositoryIndex", buildData(req));
+  }
+
+  @Override
+  protected void doGetJson(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    Map<String, ?> json_data = buildData(req);
+    renderJson(req, res, json_data, json_data.getClass());
   }
 
   @VisibleForTesting
