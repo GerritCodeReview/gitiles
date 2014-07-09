@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7915242e_d911f36f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:44Z",
+      "side": 1,
+      "message": "Update the commit message to indicate you\u0027re modifying RefServlet as well.\n\nExample JSON output would be nice too.",
+      "revId": "276b63093052e36d85582d8d759c7d9b6b8a2ec3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7915242e_b91e3f7e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:44Z",
+      "side": 1,
+      "message": "I don\u0027t think getClass() works, you need to construct a TypeToken.",
+      "revId": "276b63093052e36d85582d8d759c7d9b6b8a2ec3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590a2015_b8075938",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:44Z",
+      "side": 1,
+      "message": "Omit the name, it\u0027s redundant with the key in the enclosing map.",
+      "revId": "276b63093052e36d85582d8d759c7d9b6b8a2ec3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7915242e_991b7b8e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:44Z",
+      "side": 1,
+      "message": "Bikeshed: \"value\"",
+      "revId": "276b63093052e36d85582d8d759c7d9b6b8a2ec3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590a2015_98049534",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:44Z",
+      "side": 1,
+      "message": "Bikeshed: \"peeled\"",
+      "revId": "276b63093052e36d85582d8d759c7d9b6b8a2ec3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7915242e_7948a776",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:44Z",
+      "side": 1,
+      "message": "Storage is an internal detail of the JGit API, not a property inherent to the git object model. Leave this out.",
+      "revId": "276b63093052e36d85582d8d759c7d9b6b8a2ec3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
