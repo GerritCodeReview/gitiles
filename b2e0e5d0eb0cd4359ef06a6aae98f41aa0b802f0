@@ -39,6 +39,48 @@
       "revId": "b2e0e5d0eb0cd4359ef06a6aae98f41aa0b802f0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04783d6e_563d54d6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1014988
+      },
+      "writtenOn": "2014-07-09T15:34:42Z",
+      "side": 1,
+      "message": "Take a look at Patch Set 2.  I think what I actually want is JSON output from the RefServlet.  I don\u0027t care much about the RepositoryIndexServlet JSON output if you\u0027d rather I just remove that.",
+      "parentUuid": "644e5958_f1fbc8dd",
+      "revId": "b2e0e5d0eb0cd4359ef06a6aae98f41aa0b802f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39f64c4a_5fd82b8f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1014988
+      },
+      "writtenOn": "2014-07-09T15:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04783d6e_560b9442",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 28
+      },
+      "revId": "b2e0e5d0eb0cd4359ef06a6aae98f41aa0b802f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
