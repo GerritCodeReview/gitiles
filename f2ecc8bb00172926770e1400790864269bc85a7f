@@ -139,6 +139,24 @@
       "revId": "f2ecc8bb00172926770e1400790864269bc85a7f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590a2015_7821c1bc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-09T23:23:40Z",
+      "side": 1,
+      "message": "I\u0027d just as soon keep it; regardless of actual usefulness, people tend to be surprised when json endpoints don\u0027t exist.",
+      "parentUuid": "39f64c4a_1ff983e5",
+      "revId": "f2ecc8bb00172926770e1400790864269bc85a7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
