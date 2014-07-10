@@ -157,6 +157,24 @@
       "revId": "f2ecc8bb00172926770e1400790864269bc85a7f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9487c79_03e26e37",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1014988
+      },
+      "writtenOn": "2014-07-10T12:50:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "590a2015_7821c1bc",
+      "revId": "f2ecc8bb00172926770e1400790864269bc85a7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
