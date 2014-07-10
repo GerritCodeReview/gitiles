@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7915242e_b994ff7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-10T03:51:44Z",
+      "side": 1,
+      "message": "I\u0027m not set on this, nor on using [start, end) rather than start + count.\n\nMy thought with 1-based is to match the output of \"git blame\". Using regions instead of one entry per line is of course a slight deviation from that but doing so just seemed too wasteful. I could probably be convinced otherwise however.",
+      "revId": "5c621b9f51da38edbd0688ecea0986b428aa8d5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
