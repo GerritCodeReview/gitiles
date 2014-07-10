@@ -63,6 +63,30 @@
       "revId": "5c621b9f51da38edbd0688ecea0986b428aa8d5e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7915242e_19f88b98",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/RegionAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-07-10T21:14:06Z",
+      "side": 1,
+      "message": "Yeah, --porcelain is aimed at line-oriented parsers. Structured formats like json make it possible to do something cleaner.\n\nI don\u0027t particularly care about whether the commit info is included inline (and repeated every time) or in a separate lookup table. What you have now seems fine.",
+      "parentUuid": "7915242e_79e9c7cd",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "5c621b9f51da38edbd0688ecea0986b428aa8d5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
