@@ -39,6 +39,30 @@
       "revId": "5c621b9f51da38edbd0688ecea0986b428aa8d5e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7915242e_79e9c7cd",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/blame/RegionAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-10T21:04:20Z",
+      "side": 1,
+      "message": "What is stored in the Region is just what we display in the HTML view, i.e. just author. We could consider including the committer, but for performance reasons I don\u0027t want to look up all these commits on-demand, and adding it to the Region (and updating googlesource.com\u0027s persistent cache) is beyond the scope of this change.\n\nIn HTML, we output the commit info on the first line of each block, kind of like \"git blame\" (no --porcelain), but less busy. I was just matching that here.\n\nBut for JSON purposes I might be ok with returning commit info separately from the regions. Something like:\n\n {\n   \"commits\": {\n     \"deadbeef\": {\n       \"author\": ...\n     },\n     ...\n   },\n   \"regions\": {...}\n }\n\n?\n\nI don\u0027t like --porcelain --incremental\u0027s approach of interleaving regions and commits. I can see why it\u0027s necessary for --incremental I guess.",
+      "parentUuid": "590a2015_18f88598",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "5c621b9f51da38edbd0688ecea0986b428aa8d5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
