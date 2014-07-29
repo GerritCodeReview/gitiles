@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9610e73f_fa0ee955",
+        "filename": "README",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-07-29T19:53:46Z",
+      "side": 1,
+      "message": "\"git submodule update --init\" would also clone the subprojects, which seems like a better fit for what\u0027s needed here.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "4e7c4a7a854740aeedabc43976bd29a7d10c1c09",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
