@@ -1,0 +1,25 @@
+import os
+import sys
+
+def bucklets(name):
+  d = os.getcwd()
+  while not os.path.lexists(os.path.join(d, '.buckversion')):
+    d = os.path.basename(d)
+
+  bd = os.path.join(d, 'bucklets')
+  if not os.path.isdir(bd):
+    sys.stderr.write(('Missing bucklets directory: %s\n'
+                      'Run `git checkout HEAD bucklets'
+                      '&& git submodule init`') % bd)
+    sys.exit(1)
+
+  if not os.listdir(bd):
+    sys.stderr.write(('Bucklets directory is empty: %s\n'
+                      'Run `git submodule init`') % bd)
+    sys.exit(1)
+
+  if not os.path.isfile(os.path.join(bd, name)):
+    sys.stderr.write('Missing bucklet: %s\n' % bd)
+    sys.exit(1)
+
+  include_defs('//bucklets/%s' % name)
