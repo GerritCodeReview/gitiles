@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9610e73f_9a1a4d88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-29T20:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19a1880c_ae73b767",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "bbcd2f145fdf62a245497cc9dc02b77c599d232b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19a1880c_8e787b45",
         "filename": "bucklets.defs",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-29T20:13:41Z",
       "side": 1,
       "message": "(optional) \u0027include_bucklets(names)\u0027 might make it clearer that this is about including a bucklet instead of defining one.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 20
+      },
+      "revId": "bbcd2f145fdf62a245497cc9dc02b77c599d232b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19a1880c_ce728361",
+        "filename": "bucklets.defs",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-29T20:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19a1880c_8e787b45",
       "range": {
         "startLine": 4,
         "startChar": 0,
@@ -82,6 +130,30 @@
       "writtenOn": "2014-07-29T20:11:37Z",
       "side": 1,
       "message": "I don\u0027t think the \u0027git checkout HEAD bucklets\u0027 should be needed here.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 55
+      },
+      "revId": "bbcd2f145fdf62a245497cc9dc02b77c599d232b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9610e73f_ba1d1184",
+        "filename": "bucklets.defs",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-29T20:23:02Z",
+      "side": 1,
+      "message": "Huh. It is surprising to me that if I do \"rmdir bucklets \u0026\u0026 git submodule update --init\" that it creates the bucklets directory and initializes it as a submodule. I would have expected it to assume that my unstaged rm was an intent to remove the submodule.\n\nGiven that, I\u0027ve merged these cases.",
+      "parentUuid": "19a1880c_4e885310",
       "range": {
         "startLine": 12,
         "startChar": 0,
