@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19a1880c_ce9ba361",
+        "filename": "bucklets.defs",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-07-29T19:59:37Z",
+      "side": 1,
+      "message": "Would `git submodule update --init -- bucklets` be enough?\n\nSwitching to the version of bucklets from HEAD seems orthogonal.\n\nUnfortunately `git checkout --recurse-submodules bucklets`, requires a newer version of git than most people have.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "7c3a128cf991b5e656d5b70c569bd90f7417e5d0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19a1880c_2e8187ee",
+        "filename": "bucklets.defs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-07-29T19:59:37Z",
+      "side": 1,
+      "message": "Likewise. Could be merged with the previous case (\u0027Bucklets directory is missing or empty:\u0027)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 55
+      },
+      "revId": "7c3a128cf991b5e656d5b70c569bd90f7417e5d0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
