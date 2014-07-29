@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9610e73f_9a05ad32",
+        "filename": "bucklets.defs",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-29T20:09:15Z",
+      "side": 1,
+      "message": "This branch is if for some reason the bucklets directory does not exist. If that is the case, and this file does exist, then something is messed up, but at least HEAD is probably pointing to a commit that has bucklets.\n\nThis was to avoid Python throwing an OSError from os.listdir if the directory doesn\u0027t exist. But maybe that case is counterfactual enough to not worry about.",
+      "parentUuid": "19a1880c_ce9ba361",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "7c3a128cf991b5e656d5b70c569bd90f7417e5d0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19a1880c_2e8187ee",
         "filename": "bucklets.defs",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-29T19:59:37Z",
       "side": 1,
       "message": "Likewise. Could be merged with the previous case (\u0027Bucklets directory is missing or empty:\u0027)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 55
+      },
+      "revId": "7c3a128cf991b5e656d5b70c569bd90f7417e5d0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9610e73f_5a25d5c8",
+        "filename": "bucklets.defs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-29T20:09:15Z",
+      "side": 1,
+      "message": "I would prefer simpler instructions for the most common case.\n\nChanged to `git submodule update --init` and frankly I have no problem updating any hypothetical non-bucklets submodules by accident.",
+      "parentUuid": "19a1880c_2e8187ee",
       "range": {
         "startLine": 18,
         "startChar": 0,
