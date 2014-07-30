@@ -1,4 +1,4 @@
-include_bucklets(['maven_jar.bucklet'])
+include_bucklets(['maven_jar'])
 
 VERS = '8.1.7.v20120910'
 EXCLUDE = ['about.html']

@@ -1,4 +1,4 @@
-include_bucklets(['maven_jar.bucklet'])
+include_bucklets(['maven_jar'])
 
 maven_jar(
   name = 'guava',

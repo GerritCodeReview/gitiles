@@ -1,4 +1,4 @@
-include_bucklets(['war.bucklet'])
+include_bucklets(['war'])
 
 war(
   name = 'gitiles',

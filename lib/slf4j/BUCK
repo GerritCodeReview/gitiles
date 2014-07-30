@@ -1,4 +1,4 @@
-include_bucklets(['maven_jar.bucklet'])
+include_bucklets(['maven_jar'])
 
 VERS = '1.6.1'
 
