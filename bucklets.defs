@@ -13,8 +13,8 @@ def include_bucklets(names):
     sys.exit(1)
 
   for name in names:
-    path = os.path.join(bd, name)
+    path = os.path.join(bd, name + '.bucklet')
     if not os.path.isfile(path):
       sys.stderr.write('Missing bucklet: %s\n' % path)
       sys.exit(1)
-    include_defs('//bucklets/%s' % name)
+    include_defs('//bucklets/%s.bucklet' % name)

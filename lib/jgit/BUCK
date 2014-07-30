@@ -1,4 +1,4 @@
-include_bucklets(['maven_jar.bucklet'])
+include_bucklets(['maven_jar'])
 
 REPO = GERRIT
 VERS = '3.3.2.201404171909-r.128-g79448bc'
