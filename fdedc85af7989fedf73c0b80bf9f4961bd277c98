@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9610e73f_da6fa5c4",
+        "filename": ".buckconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-07-30T04:45:21Z",
+      "side": 1,
+      "message": "Should we just include all of the bucklets here instead? We could then move the bucklets directory check to the top level in bucklets.defs to maintain the nice error message behavior.\n\nArguably it\u0027s a performance hit if you try to build a target that doesn\u0027t require the bucklets but end up loading them anyway. But for a project like gitiles which is tiny and every rule requires loading at least one bucklet it seems like that would be negligible.",
+      "revId": "fdedc85af7989fedf73c0b80bf9f4961bd277c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
