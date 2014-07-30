@@ -16,6 +16,24 @@
       "revId": "fdedc85af7989fedf73c0b80bf9f4961bd277c98",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7969a4a1_79624765",
+        "filename": ".buckconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-07-30T05:55:31Z",
+      "side": 1,
+      "message": "Done in [1].\n\n [1] https://gerrit-review.googlesource.com/58892",
+      "parentUuid": "9610e73f_da6fa5c4",
+      "revId": "fdedc85af7989fedf73c0b80bf9f4961bd277c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
