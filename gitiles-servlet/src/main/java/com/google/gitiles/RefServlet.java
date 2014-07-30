@@ -225,7 +225,7 @@ public class RefServlet extends BaseServlet {
     }
   }
 
-  private static class RefJsonData {
+  static class RefJsonData {
     public RefJsonData(Ref ref) {
       value = ref.getObjectId().getName();
       if(ref.getPeeledObjectId() != null) {
@@ -236,8 +236,8 @@ public class RefServlet extends BaseServlet {
       }
     }
 
-    public String value;
-    public String peeled;
-    public String target;
+    String value;
+    String peeled;
+    String target;
   }
 }
