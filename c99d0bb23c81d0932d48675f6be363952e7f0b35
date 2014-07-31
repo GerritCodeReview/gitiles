@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d64b3f72_44d74e61",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-07-31T22:52:43Z",
+      "side": 1,
+      "message": "Just have our container wrap OutputStream in the ServletResponse and check this property during getOutputStream().",
+      "revId": "c99d0bb23c81d0932d48675f6be363952e7f0b35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
