@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9358f970_7af29901",
+        "filename": ".watchmanconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-08-21T13:50:35Z",
+      "side": 1,
+      "message": "As pointed out in [1]. this is not needed.\n\n [1] https://github.com/facebook/buck/issues/183",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 3
+      },
+      "revId": "dd94f61123a0e62f042b113b83901f4f2c7dbc4e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
