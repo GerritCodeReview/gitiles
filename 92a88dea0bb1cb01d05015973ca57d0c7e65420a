@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9358f970_9a132d75",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-08-21T18:25:07Z",
+      "side": 1,
+      "message": "`which java` produces here:\n\n  /usr/bin/java\n\nand this gives us:\n\n  $ ls -all /usr/bin/java\n  /usr/bin/java -\u003e   /etc/alternatives/java\n\nand this\n\n  $ ls -all /etc/alternatives/java\n /etc/alternatives/java -\u003e /usr/lib64/jvm/jre-1.7.0-openjdk/bin/java\n\nSo what i am trying to say it would be suffcient to just say: Java 7 is required. Without providing (non portable way) how the user is going to figure that out.",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "92a88dea0bb1cb01d05015973ca57d0c7e65420a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
