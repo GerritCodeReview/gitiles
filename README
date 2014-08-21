@@ -20,6 +20,10 @@ Gitiles requires Buck (http://facebook.github.io/buck/) to build.
   git submodule update --init
   buck build all
 
+If you get build errors about a missing JDK, or compile errors due to Java 7
+features, make sure your `which java`, `which javac`, and `which javadoc` all
+point to a JDK7 installation.
+
 
 TESTING
 
