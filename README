@@ -15,10 +15,15 @@ Gitiles requires Buck (http://facebook.github.io/buck/) to build.
   git clone https://github.com/facebook/buck.git
   cd buck
   ant
-  sudo ln -s ${PWD}/bin/buck /usr/bin/buck
+  sudo ln -s ${PWD}/bin/buck{,d} /usr/bin/
   cd /path/to/gitiles
   git submodule update --init
   buck build all
+
+If you get build errors about a missing JDK, or compile errors due to Java 7
+features, make sure your `which java`, `which javac`, and `which javadoc` all
+point to a JDK7 installation. You may need to run `buckd kill` to get buck to
+pick up the new binaries.
 
 
 TESTING
