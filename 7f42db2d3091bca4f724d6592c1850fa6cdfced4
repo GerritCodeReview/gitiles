@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3edb5ca_8de12135",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-08-22T00:38:19Z",
+      "side": 1,
+      "message": "Here is where you should set the RevFilter.\n\nI\u0027m like 90% sure it will just work if you have a RevFilter in conjunction with a TreeFilter.",
+      "revId": "7f42db2d3091bca4f724d6592c1850fa6cdfced4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3f7bd98_2bd1f969",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paginator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-08-22T00:38:19Z",
+      "side": 1,
+      "message": "You don\u0027t need to pass this in. Just call setRevFilter on the RevWalk. This will avoid the need to complicate next().\n\nI\u0027m a little surprised there isn\u0027t already an author filter in JGit, but it should be easy enough to implement.",
+      "revId": "7f42db2d3091bca4f724d6592c1850fa6cdfced4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3f7bd98_0bd6bd61",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paginator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-08-22T00:38:19Z",
+      "side": 1,
+      "message": "Not applicable given the above but FYI: I would just use com.google.common.base.Predicate for this.",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 18
+      },
+      "revId": "7f42db2d3091bca4f724d6592c1850fa6cdfced4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3edb5ca_4de0d930",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paginator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-08-22T00:38:19Z",
+      "side": 1,
+      "message": "Trailing whitespace in this file.",
+      "revId": "7f42db2d3091bca4f724d6592c1850fa6cdfced4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3edb5ca_ade4dd44",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PaginatorFilters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-08-22T00:38:19Z",
+      "side": 1,
+      "message": "git log --author is a regex according to git-log(1)\n\nJava\u0027s built-in regex engine has pathological behavior that can lead to DoS when used on untrusted inputs (as it is here). I think there is a port of re2 floating around somewhere which would be safe.\n\nI don\u0027t think supporting re2 needs to block this review.",
+      "revId": "7f42db2d3091bca4f724d6592c1850fa6cdfced4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3f7bd98_6bdb018a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-08-22T00:38:19Z",
+      "side": 1,
+      "message": "Don\u0027t bother on the repo index.",
+      "revId": "7f42db2d3091bca4f724d6592c1850fa6cdfced4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
