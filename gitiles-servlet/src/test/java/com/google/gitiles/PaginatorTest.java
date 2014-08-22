@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.gitiles.PaginatorFilters.everything;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -54,7 +55,7 @@ public class PaginatorTest {
   public void oneResult() throws Exception {
     List<RevCommit> commits = linearCommits(1);
     walk.markStart(commits.get(0));
-    Paginator p = new Paginator(walk, 10, null);
+    Paginator p = new Paginator(walk, 10, null, everything());
     assertEquals(
         ImmutableList.of(commits.get(0)),
         ImmutableList.copyOf(p));
@@ -66,7 +67,7 @@ public class PaginatorTest {
   public void lessThanOnePage() throws Exception {
     List<RevCommit> commits = linearCommits(3);
     walk.markStart(commits.get(2));
-    Paginator p = new Paginator(walk, 10, null);
+    Paginator p = new Paginator(walk, 10, null, everything());
     assertEquals(
         ImmutableList.of(
           commits.get(2),
@@ -81,7 +82,7 @@ public class PaginatorTest {
   public void exactlyOnePage() throws Exception {
     List<RevCommit> commits = linearCommits(3);
     walk.markStart(commits.get(2));
-    Paginator p = new Paginator(walk, 3, null);
+    Paginator p = new Paginator(walk, 3, null, everything());
     assertEquals(
         ImmutableList.of(
           commits.get(2),
@@ -96,7 +97,7 @@ public class PaginatorTest {
   public void moreThanOnePage() throws Exception {
     List<RevCommit> commits = linearCommits(5);
     walk.markStart(commits.get(4));
-    Paginator p = new Paginator(walk, 3, null);
+    Paginator p = new Paginator(walk, 3, null, everything());
     assertEquals(
         ImmutableList.of(
           commits.get(4),
@@ -111,7 +112,7 @@ public class PaginatorTest {
   public void start() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 3, commits.get(9));
+    Paginator p = new Paginator(walk, 3, commits.get(9), everything());
     assertEquals(
         ImmutableList.of(
             commits.get(9),
@@ -126,7 +127,7 @@ public class PaginatorTest {
   public void noStartCommit() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 3, null);
+    Paginator p = new Paginator(walk, 3, null, everything());
     assertEquals(
         ImmutableList.of(
             commits.get(9),
@@ -141,7 +142,7 @@ public class PaginatorTest {
   public void lessThanOnePageIn() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 3, commits.get(8));
+    Paginator p = new Paginator(walk, 3, commits.get(8), everything());
     assertEquals(
         ImmutableList.of(
             commits.get(8),
@@ -156,7 +157,7 @@ public class PaginatorTest {
   public void atLeastOnePageIn() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 3, commits.get(7));
+    Paginator p = new Paginator(walk, 3, commits.get(7), everything());
     assertEquals(
         ImmutableList.of(
             commits.get(7),
@@ -171,7 +172,7 @@ public class PaginatorTest {
   public void end() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 3, commits.get(2));
+    Paginator p = new Paginator(walk, 3, commits.get(2), everything());
     assertEquals(
         ImmutableList.of(
             commits.get(2),
@@ -186,7 +187,7 @@ public class PaginatorTest {
   public void onePastEnd() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 3, commits.get(1));
+    Paginator p = new Paginator(walk, 3, commits.get(1), everything());
     assertEquals(
         ImmutableList.of(
             commits.get(1),
@@ -200,7 +201,7 @@ public class PaginatorTest {
   public void manyPastEnd() throws Exception {
     List<RevCommit> commits = linearCommits(10);
     walk.markStart(commits.get(9));
-    Paginator p = new Paginator(walk, 5, commits.get(1));
+    Paginator p = new Paginator(walk, 5, commits.get(1), everything());
     assertEquals(
         ImmutableList.of(
             commits.get(1),
@@ -208,6 +209,27 @@ public class PaginatorTest {
         ImmutableList.copyOf(p));
     assertEquals(commits.get(6), p.getPreviousStart());
     assertNull(p.getNextStart());
+  }
+
+  @Test
+  public void filter() throws Exception {
+    // Configuration: 10 commits, starting at index 7, limited to 3
+    // results, but only accepting RevCommits that have an even index.
+    final List<RevCommit> commits = linearCommits(10);
+    walk.markStart(commits.get(7));
+    Paginator p = new Paginator(walk, 3, null, new Paginator.Filter() {
+      @Override public boolean accept(RevCommit commit) {
+        return commits.indexOf(commit) % 2 == 0;
+      }
+    });
+    assertEquals(
+        ImmutableList.of(
+            commits.get(6),
+            commits.get(4),
+            commits.get(2)),
+        ImmutableList.copyOf(p));
+    assertNull(p.getPreviousStart());
+    assertEquals(commits.get(1), p.getNextStart());
   }
 
   private List<RevCommit> linearCommits(int n) throws Exception {

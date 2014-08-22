@@ -238,7 +238,8 @@ public class LogServlet extends BaseServlet {
       return null;
     }
 
-    return new Paginator(walk, getLimit(view), start.orNull());
+    return new Paginator(walk, getLimit(view), start.orNull(),
+        PaginatorFilters.fromQuery(view.getParameters()));
   }
 
   private static int getLimit(GitilesView view) {
