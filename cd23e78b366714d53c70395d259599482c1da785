@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3edb5ca_cdeb2911",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-08-22T01:27:23Z",
+      "side": 1,
+      "message": "nit: subject should be a single line, max 70 chars, separated from the body by a blank line.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "cd23e78b366714d53c70395d259599482c1da785",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3edb5ca_2df8ede1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PaginatorFilters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-08-22T01:27:23Z",
+      "side": 1,
+      "message": "Missing license/copyright header.",
+      "revId": "cd23e78b366714d53c70395d259599482c1da785",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
