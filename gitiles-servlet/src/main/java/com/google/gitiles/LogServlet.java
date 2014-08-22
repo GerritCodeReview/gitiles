@@ -208,9 +208,12 @@ public class LogServlet extends BaseServlet {
     }
     if (!Strings.isNullOrEmpty(view.getPathPart())) {
       walk.setRewriteParents(false);
-      walk.setTreeFilter(AndTreeFilter.create(
-          PathFilterGroup.createFromStrings(view.getPathPart()),
+      walk.setTreeFilter(AndTreeFilter.create(PathFilterGroup.createFromStrings(view.getPathPart()),
           TreeFilter.ANY_DIFF));
+    }
+    String filterByAuthor = Iterables.getFirst(view.getParameters().get("author"), null);
+    if (filterByAuthor != null) {
+      walk.setRevFilter(new AuthorRevFilter(filterByAuthor));
     }
     return walk;
   }
