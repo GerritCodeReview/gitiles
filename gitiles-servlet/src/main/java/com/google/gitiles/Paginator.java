@@ -45,10 +45,22 @@ import javax.annotation.Nullable;
  * "c0ffee".
  */
 class Paginator implements Iterable<RevCommit> {
+  
+  /**
+   * An interface for filtering {@link RevCommit}s while paginating. For example, can be used to
+   * restrict pagination to specific authors.
+   *
+   * @see PaginatorFilters
+   */
+  public interface Filter {
+    boolean accept(RevCommit revCommit);
+  }
+  
   private final RevWalk walk;
   private final int limit;
+  private final Filter filter;
   private final ObjectId prevStart;
-
+  
   private RevCommit first;
   private boolean done;
   private int n;
@@ -61,13 +73,15 @@ class Paginator implements Iterable<RevCommit> {
    * @param limit page size.
    * @param start commit at which to start the walk, or null to start at the
    *     beginning.
+   * @param filter a {@link Filter} to use for {@link RevCommit}s. Only commits which are accepted
+   *     by {@link Filter#accept} will be included in the pagination.
    */
-  Paginator(RevWalk walk, int limit, @Nullable ObjectId start) throws MissingObjectException,
+  Paginator(RevWalk walk, int limit, @Nullable ObjectId start, Filter filter) throws MissingObjectException,
       IncorrectObjectTypeException, IOException {
     this.walk = checkNotNull(walk, "walk");
     checkArgument(limit > 0, "limit must be positive: %s", limit);
     this.limit = limit;
-
+    this.filter = filter;
 
     Deque<ObjectId> prevBuffer = new ArrayDeque<ObjectId>(start != null ? limit : 0);
     while (true) {
@@ -97,23 +111,28 @@ class Paginator implements Iterable<RevCommit> {
    * @throws IncorrectObjectTypeException See {@link RevWalk#next()}.
    * @throws IOException See {@link RevWalk#next()}.
    */
-  public RevCommit next() throws MissingObjectException, IncorrectObjectTypeException,
+  private RevCommit next() throws MissingObjectException, IncorrectObjectTypeException,
       IOException {
-    if (done) {
-      return null;
-    }
-    RevCommit commit;
-    if (first != null) {
-      commit = first;
-      first = null;
-    } else {
-      commit = walk.next();
-    }
-    if (++n == limit) {
-      nextStart = walk.next();
-      done = true;
-    } else if (commit == null) {
-      done = true;
+    RevCommit commit = null;
+    while (commit == null && !done) {
+      if (first != null) {
+        commit = first;
+        first = null;
+      } else {
+        commit = walk.next();
+      }
+      if (commit == null) {
+        done = true;
+        break;
+      }
+      if (!filter.accept(commit)) {
+        commit = null;
+        continue;
+      }
+      if (++n == limit) {
+        nextStart = walk.next();
+        done = true;
+      }
     }
     return commit;
   }

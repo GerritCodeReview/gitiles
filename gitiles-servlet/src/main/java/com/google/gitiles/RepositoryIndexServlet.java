@@ -73,7 +73,8 @@ public class RepositoryIndexServlet extends BaseServlet {
         if (head.getType() == Constants.OBJ_COMMIT) {
           walk.reset();
           walk.markStart((RevCommit) head);
-          paginator = new Paginator(walk, LOG_LIMIT, null);
+          paginator = new Paginator(walk, LOG_LIMIT, null,
+              PaginatorFilters.fromQuery(view.getParameters()));
         }
       }
       if (!data.containsKey("entries")) {
