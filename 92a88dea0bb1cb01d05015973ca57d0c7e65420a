@@ -46,6 +46,30 @@
       "revId": "92a88dea0bb1cb01d05015973ca57d0c7e65420a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3edb5ca_6d44b562",
+        "filename": "README",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2014-08-22T21:37:19Z",
+      "side": 1,
+      "message": "i agree, these command don\u0027t give version info at all.  Maybe adding some additional info on how to find version info would be acceptable otherwise I agree with David O.",
+      "parentUuid": "9358f970_9a132d75",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "92a88dea0bb1cb01d05015973ca57d0c7e65420a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
