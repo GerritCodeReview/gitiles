@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3109d96_632de2b2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1016902
+      },
+      "writtenOn": "2014-08-23T00:03:31Z",
+      "side": 1,
+      "message": "Accidental reformat (Eclipse). Will revert for next patch.",
+      "range": {
+        "startLine": 211,
+        "startChar": 11,
+        "endLine": 211,
+        "endChar": 24
+      },
+      "revId": "a7989b8d62d933f6427db36eac28334373f38328",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
