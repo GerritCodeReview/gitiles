@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d313519f_c41dbe81",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/AuthorRevFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1016902
+      },
+      "writtenOn": "2014-08-25T20:33:31Z",
+      "side": 1,
+      "message": "I fixed this comment in the next revision.",
+      "revId": "f6f6a7282a7415e49497e11e79a71e88f68da6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
