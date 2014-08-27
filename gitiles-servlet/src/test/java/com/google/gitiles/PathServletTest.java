@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+
 import static org.junit.Assert.assertEquals;
 
 import com.google.common.collect.ImmutableList;
