@@ -15,7 +15,9 @@
 package com.google.gitiles;
 
 import static com.google.common.collect.Iterables.getOnlyElement;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
