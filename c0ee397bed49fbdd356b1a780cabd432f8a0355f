@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d065072b_74daa885",
+        "filename": ".watchmanconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-09-07T17:20:49Z",
+      "side": 1,
+      "message": "Hmm. We are providing setup.sh in bucklets to set up this file (and .buckversion). So what\u0027s the point to add it? I sought that we are going to delete .buckversion instead and add both files to .gitignore?",
+      "revId": "c0ee397bed49fbdd356b1a780cabd432f8a0355f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
