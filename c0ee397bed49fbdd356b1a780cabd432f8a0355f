@@ -16,6 +16,24 @@
       "revId": "c0ee397bed49fbdd356b1a780cabd432f8a0355f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d065072b_d4ec5c9b",
+        "filename": "bucklets",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-09T07:31:25Z",
+      "side": 0,
+      "message": "Yeah, I think this was interactive rebase failing to do a recursive checkout, followed by a subsequent \"git commit -a\" picking up a submodule change. Or something.\n\nDone.",
+      "parentUuid": "705d3b5f_d91c9385",
+      "revId": "c0ee397bed49fbdd356b1a780cabd432f8a0355f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d065072b_14209432",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/AuthorRevFilter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-09T07:31:25Z",
+      "side": 1,
+      "message": "Thanks for the pointer, changed the comment to refer to --fixed-strings.\n\nI don\u0027t think we need to be pedantic when this behavior changes.",
+      "parentUuid": "705d3b5f_394b0f76",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 46
+      },
+      "revId": "f0e57e5e4b18bf160dc53c21cd3dadae6afebe1c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9058ef70_9a120d71",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/AuthorRevFilterTest.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-08T21:23:23Z",
       "side": 1,
       "message": "email\n\nWhat is an email name?",
+      "range": {
+        "startLine": 72,
+        "startChar": 64,
+        "endLine": 72,
+        "endChar": 69
+      },
+      "revId": "f0e57e5e4b18bf160dc53c21cd3dadae6afebe1c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d065072b_741588d4",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/AuthorRevFilterTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-09T07:31:25Z",
+      "side": 1,
+      "message": "name -\u003e local part\n\nDone.",
+      "parentUuid": "9058ef70_9a120d71",
       "range": {
         "startLine": 72,
         "startChar": 64,
