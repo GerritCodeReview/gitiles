@@ -16,6 +16,24 @@
       "revId": "b3f6ffa51235d23aab24487aa4097606415896dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90e54f1e_92d4dc28",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-17T23:27:05Z",
+      "side": 1,
+      "message": "This one is called in LogServlet, it\u0027s necessary to wrap the OutputStream returned by startRenderStreamingHtml. Of course anybody shoot themselves in the foot with \"new OutputStreamWriter(res.getOutputStream())\", we can only do so much.",
+      "parentUuid": "b0dfb355_ab2be99d",
+      "revId": "b3f6ffa51235d23aab24487aa4097606415896dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
