@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "706ffb76_69cde569",
+        "filename": "bucklets.defs",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-09-22T05:01:25Z",
+      "side": 1,
+      "message": "There is also get_base_path() method out there:\n\n  @provide_for_build\n  def get_base_path(build_env\u003dNone):\n    \"\"\"Get the base path to the build file that was initially evaluated.\n\n    This function is intended to be used from within a build defs file that\n    likely contains macros that could be called from any build file.\n    Such macros may need to know the base path of the file in which they\n    are defining new build rules.\n\n    Returns: a string, such as \"java/com/facebook\". Note there is no\n             trailing slash. The return value will be \"\" if called from\n             the build file in the root of the project.\n    \"\"\"\n    return build_env[\u0027BASE\u0027]\n\nBut apparently it doesn\u0027t work from build files that were sourced in buildfiles.include section:\n\n$ buck build all\nUsing buckd.\nTraceback (most recent call last):\n  File \"/home/davido/projects/gitiles/.buckd/tmp/buck_run.Taidv6hoZs/buck1518375645531127981.py\", line 1145, in \u003cmodule\u003e\n    main()\n  File \"/home/davido/projects/gitiles/.buckd/tmp/buck_run.Taidv6hoZs/buck1518375645531127981.py\", line 555, in main\n    options.strip_none)\n  File \"/home/davido/projects/gitiles/.buckd/tmp/buck_run.Taidv6hoZs/buck1518375645531127981.py\", line 438, in __init__\n    include_defs(include, build_env)\n  File \"/home/davido/projects/gitiles/.buckd/tmp/buck_run.Taidv6hoZs/buck1518375645531127981.py\", line 380, in include_defs\n    execfile(include_file, build_env[\u0027BUILD_FILE_SYMBOL_TABLE\u0027])\n  File \"/home/davido/projects/gitiles/bucklets.defs\", line 4, in \u003cmodule\u003e\n    d \u003d get_base_path()\n  File \"/home/davido/projects/gitiles/.buckd/tmp/buck_run.Taidv6hoZs/buck1518375645531127981.py\", line 85, in invoke\n    return self.func(*args, **updated_kwargs)\n  File \"/home/davido/projects/gitiles/.buckd/tmp/buck_run.Taidv6hoZs/buck1518375645531127981.py\", line 396, in get_base_path\n    return build_env[\u0027BASE\u0027]\nKeyError: \u0027BASE\u0027",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "c767ae514d020e831bf68e08c42d11d17f92e34c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
