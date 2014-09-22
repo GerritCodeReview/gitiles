@@ -2,7 +2,7 @@ import os
 import sys
 
 d = os.getcwd()
-while not os.path.lexists(os.path.join(d, '.buckversion')):
+while not os.path.exists(os.path.join(d, '.buckconfig')):
   d = os.path.dirname(d)
 
 bd = os.path.join(d, 'bucklets')
