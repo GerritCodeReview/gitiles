@@ -16,6 +16,24 @@
       "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b07b3336_4bdd85f0",
+        "filename": "bucklets.defs",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-09-22T21:09:01Z",
+      "side": 1,
+      "message": "In patch set number one i did just that:\n\n\n while not os.path.lexists(os.path.join(d, \u0027.buckversion\u0027)) \\\n    and d !\u003d \"/\":\n  d \u003d os.path.dirname(d)\n\n if d \u003d\u003d \"/\":\n   sys.stderr.write(\u0027.buckversion file is missing\u0027)\n   sys.exit(1)\n\nBut then changed my mind.",
+      "parentUuid": "30902399_afd43928",
+      "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
