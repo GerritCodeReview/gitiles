@@ -2,8 +2,13 @@ import os
 import sys
 
 d = os.getcwd()
-while not os.path.lexists(os.path.join(d, '.buckversion')):
+while not os.path.lexists(os.path.join(d, '.buckversion')) \
+    and d != "/":
   d = os.path.dirname(d)
+
+if d == "/":
+  sys.stderr.write('.buckversion file is missing')
+  sys.exit(1)
 
 bd = os.path.join(d, 'bucklets')
 if not os.path.isdir(bd) or not os.listdir(bd):
