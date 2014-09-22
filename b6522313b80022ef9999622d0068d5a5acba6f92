@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "706ffb76_89c5b948",
+        "filename": "bucklets.defs",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-09-22T04:32:48Z",
+      "side": 1,
+      "message": "As pointed out in [1], this code loops forever, when there is no .buckversion file exists.\n\n [1] https://github.com/facebook/buck/issues/199",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "b6522313b80022ef9999622d0068d5a5acba6f92",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
