@@ -34,6 +34,24 @@
       "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1075df3d_ceae63b8",
+        "filename": "bucklets.defs",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-22T21:12:03Z",
+      "side": 1,
+      "message": "I don\u0027t see how this patch set is a better solution. There is still a potential infinite loop.\n\nAlso if you follow the link there are a couple of slightly-more-portable suggestions for how to detect the FS root.",
+      "parentUuid": "b07b3336_4bdd85f0",
+      "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
