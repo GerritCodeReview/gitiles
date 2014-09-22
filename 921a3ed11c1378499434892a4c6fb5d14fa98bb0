@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30902399_afd43928",
+        "filename": "bucklets.defs",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-22T16:39:00Z",
+      "side": 1,
+      "message": "This may always exist in a properly-configured project, but it\u0027s still an infinite loop if the project is missing this file.\n\nBetter would be to detect when we\u0027ve hit the root of the filesystem[1] and give a nice error message.\n\n[1] http://stackoverflow.com/questions/9823143/check-if-a-directory-is-a-file-system-root",
+      "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
