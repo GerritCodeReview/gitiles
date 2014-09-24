@@ -52,6 +52,24 @@
       "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b095f3be_9bc54b7b",
+        "filename": "bucklets.defs",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-09-24T21:57:10Z",
+      "side": 1,
+      "message": "Did it the right way in [1]. When this PR is going to be accepted (in some form) we can just say:\n\n d \u003d get_dir_name()\n\nand we are done.\n\n [1] https://github.com/facebook/buck/pull/201",
+      "parentUuid": "1075df3d_ceae63b8",
+      "revId": "921a3ed11c1378499434892a4c6fb5d14fa98bb0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
