@@ -21,16 +21,14 @@
  * @param? menuEntries menu entries.
  * @param? headerVariant variant name for custom header.
  * @param breadcrumbs breadcrumbs for this page.
+ * @param? viewCSS optional URL to view-modifying CSS.
+ * @param? linkTarget if supplied, the default link target.
  * @param branches list of branch objects with url, name, and isHead keys.
  * @param tags list of tag objects with url and name keys.
  */
 {template .refsDetail}
-{call .header}
+{call .header data="all" }
   {param title: 'Refs' /}
-  {param repositoryName: $repositoryName /}
-  {param menuEntries: $menuEntries /}
-  {param headerVariant: $headerVariant /}
-  {param breadcrumbs: $breadcrumbs /}
 {/call}
 
 {if length($branches)}

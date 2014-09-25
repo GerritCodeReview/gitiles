@@ -88,6 +88,7 @@ public abstract class Renderer {
 
   protected ImmutableList<URL> templates;
   protected ImmutableMap<String, String> globals;
+  protected String staticPrefix;
 
   protected Renderer(Function<String, URL> resourceMapper, Map<String, String> globals,
       String staticPrefix, Iterable<URL> customTemplates, String siteTitle) {
@@ -102,6 +103,7 @@ public abstract class Renderer {
     allGlobals.put("gitiles.SITE_TITLE", siteTitle);
     allGlobals.putAll(globals);
     this.globals = ImmutableMap.copyOf(allGlobals);
+    this.staticPrefix = staticPrefix;
   }
 
   void render(HttpServletResponse res, String templateName, Map<String, ?> soyData)
@@ -161,4 +163,8 @@ public abstract class Renderer {
   }
 
   protected abstract SoyTofu getTofu();
+
+  public String getStaticPrefix() {
+    return staticPrefix;
+  }
 }
