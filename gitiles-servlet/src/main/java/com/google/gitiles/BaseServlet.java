@@ -51,6 +51,7 @@ public abstract class BaseServlet extends HttpServlet {
   private static final String ACCESS_ATTRIBUTE = BaseServlet.class.getName() + "/GitilesAccess";
   private static final String DATA_ATTRIBUTE = BaseServlet.class.getName() + "/Data";
   private static final String STREAMING_ATTRIBUTE = BaseServlet.class.getName() + "/Streaming";
+  private static final String HTML_VIEW_TYPE_ATTRIBUTE = BaseServlet.class.getName() + "/HtmlViewType";
 
   static void setNotCacheable(HttpServletResponse res) {
     res.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, max-age=0, must-revalidate");
@@ -111,6 +112,14 @@ public abstract class BaseServlet extends HttpServlet {
     }
     switch (format) {
       case HTML:
+        // Load the view type before processing; if it's invalid, return immediately.
+        try {
+          getHtmlViewType(req);
+        } catch (IllegalArgumentException err) {
+          res.sendError(SC_BAD_REQUEST);
+          return;
+        }
+
         doGetHtml(req, res);
         break;
       case TEXT:
@@ -226,6 +235,8 @@ public abstract class BaseServlet extends HttpServlet {
 
   private Map<String, ?> startHtmlResponse(HttpServletRequest req, HttpServletResponse res,
       Map<String, ?> soyData) throws IOException {
+    HtmlViewType viewType = getHtmlViewType(req);
+
     res.setContentType(FormatType.HTML.getMimeType());
     res.setCharacterEncoding(UTF_8.name());
     setCacheHeaders(res);
@@ -234,6 +245,17 @@ public abstract class BaseServlet extends HttpServlet {
 
     GitilesConfig.putVariant(
         getAccess(req).getConfig(), "customHeader", "headerVariant", allData);
+    if (viewType != null) {
+      String viewCSS = viewType.getCSSPath();
+      if (viewCSS != null) {
+        allData.put("viewCSS", renderer.getStaticPrefix() + viewCSS);
+      }
+
+      Map<String, String> templateVars = viewType.getTemplateVars();
+      if (templateVars != null) {
+        allData.putAll(templateVars);
+      }
+    }
     allData.putAll(soyData);
     GitilesView view = ViewFilter.getView(req);
     if (!allData.containsKey("repositoryName") && view.getRepositoryName() != null) {
@@ -334,6 +356,27 @@ public abstract class BaseServlet extends HttpServlet {
       req.setAttribute(ACCESS_ATTRIBUTE, access);
     }
     return access;
+  }
+
+  /**
+   * Load the HTML view type from the request.
+   *
+   * If a view type is specified, it will be retained in the request's {@link HTML_VIEW_TYPE_ATTRIBUTE}
+   * attribute.
+   *
+   * @param req in-progress request.
+   * @return the specified {@link HtmlViewType}, or <b>null</b> if no view type is specified.
+   * @throws IllegalArgumentException if an invalid view type is specified.
+   */
+  protected HtmlViewType getHtmlViewType(HttpServletRequest req) {
+    HtmlViewType viewType = (HtmlViewType)req.getAttribute(HTML_VIEW_TYPE_ATTRIBUTE);
+    if (viewType == null) {
+      viewType = HtmlViewType.getHtmlViewType(req);
+      if (viewType != null) {
+        req.setAttribute(HTML_VIEW_TYPE_ATTRIBUTE, viewType);
+      }
+    }
+    return viewType;
   }
 
   protected void setCacheHeaders(HttpServletResponse res) {
