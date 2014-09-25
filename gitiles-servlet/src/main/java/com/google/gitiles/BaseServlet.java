@@ -111,6 +111,14 @@ public abstract class BaseServlet extends HttpServlet {
     }
     switch (format) {
       case HTML:
+        // Load the view type before processing; if it's invalid, return immediately.
+        try {
+          HtmlViewType.getHtmlViewType(req);
+        } catch (IllegalArgumentException err) {
+          res.sendError(SC_BAD_REQUEST);
+          return;
+        }
+
         doGetHtml(req, res);
         break;
       case TEXT:
@@ -226,6 +234,8 @@ public abstract class BaseServlet extends HttpServlet {
 
   private Map<String, ?> startHtmlResponse(HttpServletRequest req, HttpServletResponse res,
       Map<String, ?> soyData) throws IOException {
+    HtmlViewType viewType = HtmlViewType.getHtmlViewType(req);
+
     res.setContentType(FormatType.HTML.getMimeType());
     res.setCharacterEncoding(UTF_8.name());
     setCacheHeaders(res);
@@ -234,6 +244,14 @@ public abstract class BaseServlet extends HttpServlet {
 
     GitilesConfig.putVariant(
         getAccess(req).getConfig(), "customHeader", "headerVariant", allData);
+    if (viewType != null) {
+      String viewCss = viewType.getCSSPath();
+      if (viewCss != null) {
+        allData.put("viewCss", renderer.getStaticPrefix() + viewCss);
+      }
+
+      allData.putAll(viewType.getTemplateVars());
+    }
     allData.putAll(soyData);
     GitilesView view = ViewFilter.getView(req);
     if (!allData.containsKey("repositoryName") && view.getRepositoryName() != null) {

@@ -19,16 +19,16 @@
  * @param hostName host name.
  * @param? menuEntries menu entries.
  * @param? headerVariant variant name for custom header.
+ * @param? viewCss optional URL to view-modifying CSS.
+ * @param? linkTarget if supplied, the default link target.
  * @param baseUrl base URL for repositories.
  * @param repositories list of repository description maps with name, cloneUrl,
  *     and optional description values.
  */
 {template .hostIndex}
-{call .header}
+{call .header data="all"}
   {param title: $hostName ? $hostName + ' Git repositories' : 'Git repositories' /}
-  {param menuEntries: $menuEntries /}
   {param breadcrumbs: null /}
-  {param headerVariant: $headerVariant /}
 {/call}
 
 {if length($repositories)}

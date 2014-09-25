@@ -23,6 +23,8 @@
  *     "url" keys.
  * @param? headerVariant variant name for custom header.
  * @param breadcrumbs navigation breadcrumbs for this page.
+ * @param? viewCss optional URL to view-modifying CSS.
+ * @param? linkTarget if supplied, the default link target.
  * @param? css optional list of CSS URLs to include.
  * @param? js optional list of Javascript URLs to include.
  */
@@ -48,10 +50,19 @@
   // party stylesheets (e.g. prettify).
   <link rel="stylesheet" type="text/css" href="{gitiles.CSS_URL}" />
 
+  // Add optional view CSS
+  {if $viewCss}
+    <link rel="stylesheet" type="text/css" href="{$viewCss}" />
+  {/if}
+
   {if $js and length($js)}
     {foreach $url in $js}
       <script src="{$url}" type="text/javascript"></script>
     {/foreach}
+  {/if}
+
+  {if $linkTarget}
+    <base target="{$linkTarget}" />
   {/if}
 </head>
 <body>
