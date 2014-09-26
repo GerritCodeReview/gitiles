@@ -46,6 +46,30 @@
       "revId": "2298cefe7286140ae3fc92f64274f50be1785d40",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a15f0c_8e451b32",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Revision.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-09-26T16:47:35Z",
+      "side": 1,
+      "message": "Thanks. Looks sane - sorry for the thinko.",
+      "parentUuid": "10a15f0c_4e3333e1",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 29
+      },
+      "revId": "2298cefe7286140ae3fc92f64274f50be1785d40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
