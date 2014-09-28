@@ -24,6 +24,7 @@ import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.google.common.io.BaseEncoding;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.DateFormatter.Format;
@@ -33,6 +34,7 @@ import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevObject;
@@ -42,6 +44,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -130,6 +134,19 @@ public class RevisionServlet extends BaseServlet {
           "hasBlob", hasBlob));
     } finally {
       walk.release();
+    }
+  }
+
+  @Override
+  protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Repository repo = ServletUtils.getRepository(req);
+    ObjectReader reader = repo.newObjectReader();
+    try (Writer writer = startRenderText(req, res);
+        OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+      reader.open(view.getRevision().getId()).copyTo(out);
+    } finally {
+      reader.release();
     }
   }
 
