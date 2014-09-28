@@ -24,6 +24,7 @@ import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.google.common.io.BaseEncoding;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.DateFormatter.Format;
@@ -42,6 +43,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -128,6 +131,31 @@ public class RevisionServlet extends BaseServlet {
           "title", view.getRevision().getName(),
           "objects", soyObjects,
           "hasBlob", hasBlob));
+    } finally {
+      walk.release();
+    }
+  }
+
+  @Override
+  protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Repository repo = ServletUtils.getRepository(req);
+
+    RevWalk walk = new RevWalk(repo);
+    try {
+      RevObject obj = walk.parseAny(view.getRevision().getId());
+      switch (obj.getType()) {
+        case OBJ_COMMIT:
+          try (Writer writer = startRenderText(req, res);
+              OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+            out.write(((RevCommit)obj).getRawBuffer());
+          }
+          break;
+        default:
+          // TODO(dborowitz): Support showing other types.
+          res.setStatus(SC_NOT_FOUND);
+          break;
+      }
     } finally {
       walk.release();
     }
