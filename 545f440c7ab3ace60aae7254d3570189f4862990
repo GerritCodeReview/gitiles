@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a15f0c_8ea99b81",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-29T15:27:45Z",
+      "side": 1,
+      "message": "This materializes the whole object, don\u0027t do that. Open the ObjectId using an ObjectReader, open a stream on the ObjectLoader, and copy to the output with ByteStreams.copy or similar.",
+      "range": {
+        "startLine": 151,
+        "startChar": 39,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "545f440c7ab3ace60aae7254d3570189f4862990",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a15f0c_ee9e5f57",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-29T15:27:45Z",
+      "side": 1,
+      "message": "This TODO is in the JSON case because we actually have to define a JSON format for other types first. For raw data it should be trivial to copy any type of object, and the suggestions I\u0027ve given above don\u0027t depend on type.",
+      "revId": "545f440c7ab3ace60aae7254d3570189f4862990",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
