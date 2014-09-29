@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a15f0c_0e7f6b2e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-29T21:19:58Z",
+      "side": 1,
+      "message": "This check should be moved outside the try. I believe opening an OutputStream on the response may have the side effect of committing the response, after which it\u0027s not allowed to change the status code.\n\n(This may be implementation-defined in the servlet container, or I may be misremembering, but either way it\u0027s better to short-circuit ASAP.)\n\nUnfortunately this means another level of try block, but what can you do.",
+      "revId": "403caa7064067b9e65a9046970c92c396e7adca2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a15f0c_2e8227f6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-09-29T21:19:58Z",
+      "side": 1,
+      "message": "Followed up in person: we need to deal with trees like we do in PathServlet; this is good for now.",
+      "revId": "403caa7064067b9e65a9046970c92c396e7adca2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
