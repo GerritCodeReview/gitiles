@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f09dabd4_ad129d2d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1015882
+      },
+      "writtenOn": "2014-09-29T19:37:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09dabd4_6de8b5c6",
+      "revId": "96dc4d57be873c0b24372bf4ba22d13575c41dec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a15f0c_ae8d7729",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2014-09-29T18:27:58Z",
       "side": 1,
       "message": "Skip this whole case, we can output non-commit objects just fine.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 5
+      },
+      "revId": "96dc4d57be873c0b24372bf4ba22d13575c41dec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a15f0c_ee977f33",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1015882
+      },
+      "writtenOn": "2014-09-29T19:37:21Z",
+      "side": 1,
+      "message": "Ok, I did that, but I can\u0027t get it to serve any other object types (I just get a 404). How should I test it?",
+      "parentUuid": "10a15f0c_ae8d7729",
       "range": {
         "startLine": 147,
         "startChar": 4,
