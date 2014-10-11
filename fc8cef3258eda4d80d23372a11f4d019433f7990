@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f00e8cb4_ca48638c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1015882
+      },
+      "writtenOn": "2014-10-11T03:59:20Z",
+      "side": 1,
+      "message": "Not sure if this MODE_HEADER constant should move, or if so, where it should move to.\n\nIt\u0027s also possible that this mode type is wrong (since 160000 is used in trees for gitlinks/submodules). In that case, maybe I should add an X-Gitiles-Object-Type header to this and also PathServlet?",
+      "range": {
+        "startLine": 151,
+        "startChar": 36,
+        "endLine": 151,
+        "endChar": 47
+      },
+      "revId": "fc8cef3258eda4d80d23372a11f4d019433f7990",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
