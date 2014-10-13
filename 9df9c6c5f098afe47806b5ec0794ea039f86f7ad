@@ -22,6 +22,53 @@
       "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f00e8cb4_aa4bef74",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-10-13T21:50:12Z",
+      "side": 1,
+      "message": "The answer to \"Why does JGit do this unidiomatic thing?\" is almost always \"performance.\" (Sometimes it\u0027s \"Java 1.5 support.\")\n\nIn this case I\u0027m guessing it\u0027s because a 4 byte int is smaller than an 8-byte pointer (without CompressedOops). Parse a few million objects and it adds up.",
+      "parentUuid": "302ae414_74e04829",
+      "range": {
+        "startLine": 209,
+        "startChar": 60,
+        "endLine": 209,
+        "endChar": 63
+      },
+      "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f00e8cb4_ca56231f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-10-13T21:50:12Z",
+      "side": 1,
+      "message": "objType or (better) type.",
+      "range": {
+        "startLine": 209,
+        "startChar": 64,
+        "endLine": 209,
+        "endChar": 72
+      },
+      "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
