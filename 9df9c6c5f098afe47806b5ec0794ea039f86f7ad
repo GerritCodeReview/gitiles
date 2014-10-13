@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "302ae414_74e04829",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1015882
+      },
+      "writtenOn": "2014-10-13T21:29:29Z",
+      "side": 1,
+      "message": "This is a bit sad, but this seems to be the type used by jgit for the object type... it seems like this should have been an enum, but isn\u0027t?",
+      "range": {
+        "startLine": 209,
+        "startChar": 60,
+        "endLine": 209,
+        "endChar": 63
+      },
+      "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
