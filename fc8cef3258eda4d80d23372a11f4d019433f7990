@@ -22,6 +22,30 @@
       "revId": "fc8cef3258eda4d80d23372a11f4d019433f7990",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "302ae414_d4cefcbe",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RevisionServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-10-13T18:12:39Z",
+      "side": 1,
+      "message": "I think X-Gitiles-Object-Type.\n\nLeaving the common code in PathServlet is fine for now, there are TODOs below about finding a better place so it will probably end up in the same place there.\n\n(It may have been a mistake to put the mode header in tree responses; it\u0027s really only meaningful for blobs, where it distinguishes the executable bit.)",
+      "parentUuid": "f00e8cb4_ca48638c",
+      "range": {
+        "startLine": 151,
+        "startChar": 36,
+        "endLine": 151,
+        "endChar": 47
+      },
+      "revId": "fc8cef3258eda4d80d23372a11f4d019433f7990",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
