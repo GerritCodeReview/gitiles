@@ -69,6 +69,54 @@
       "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "302ae414_34ead009",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1015882
+      },
+      "writtenOn": "2014-10-13T22:19:56Z",
+      "side": 1,
+      "message": "Done! (with the power of in-line edits!)",
+      "parentUuid": "f00e8cb4_ca56231f",
+      "range": {
+        "startLine": 209,
+        "startChar": 64,
+        "endLine": 209,
+        "endChar": 72
+      },
+      "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f00e8cb4_6a661710",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1015882
+      },
+      "writtenOn": "2014-10-13T22:19:56Z",
+      "side": 1,
+      "message": "Yeah I figured... That\u0027s a bummer that it\u0027s an 8-byte pointer, though now that I think about it, it makes sense (of course it\u0027s a pointer! it\u0027s java! :p)",
+      "parentUuid": "f00e8cb4_aa4bef74",
+      "range": {
+        "startLine": 209,
+        "startChar": 60,
+        "endLine": 209,
+        "endChar": 63
+      },
+      "revId": "9df9c6c5f098afe47806b5ec0794ea039f86f7ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
