@@ -34,6 +34,24 @@
       "revId": "5675e619ef516bb675ba13f40d8daffe21eff73b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b53fa6b4_70f7b0f2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-10-21T22:11:45Z",
+      "side": 1,
+      "message": "This is my fault. Some but not all of my tools respect this convention. Periodically I just go through and \"Organize imports\" on the whole project in Eclipse to fix up all my crap. I do the same thing in Gerrit too.",
+      "parentUuid": "d515fa2f_19f64bf3",
+      "revId": "5675e619ef516bb675ba13f40d8daffe21eff73b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
