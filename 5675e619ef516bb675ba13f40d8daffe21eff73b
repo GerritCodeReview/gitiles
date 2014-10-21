@@ -16,6 +16,24 @@
       "revId": "5675e619ef516bb675ba13f40d8daffe21eff73b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d515fa2f_19f64bf3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1017247
+      },
+      "writtenOn": "2014-10-21T22:07:49Z",
+      "side": 1,
+      "message": "Ahh, the existing code suffers from mixed conventions, e.g.\nhttps://gerrit.googlesource.com/gitiles/+/master/gitiles-servlet/src/main/java/com/google/gitiles/GitwebRedirectFilter.java\n\nDone in several places, including some cleanup of prior formatting errors.",
+      "parentUuid": "d037c8c1_a9a47dc1",
+      "revId": "5675e619ef516bb675ba13f40d8daffe21eff73b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
