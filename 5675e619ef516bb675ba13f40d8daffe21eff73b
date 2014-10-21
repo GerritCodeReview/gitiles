@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d037c8c1_a9a47dc1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-10-21T21:48:14Z",
+      "side": 1,
+      "message": "No blank lines between top-level packages of static imports. Follows the Google Java Style Guide[1] and you can have Eclipse do it for you if you import tools/gitiles.importorder.\n\n[1] https://google-styleguide.googlecode.com/svn/trunk/javaguide.html#s3.3.3-import-ordering-and-spacing",
+      "revId": "5675e619ef516bb675ba13f40d8daffe21eff73b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
