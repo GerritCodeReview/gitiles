@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
+import org.eclipse.jgit.lib.Config;
 import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,14 +30,16 @@ public class LinkifierTest {
 
   @Test
   public void linkifyMessageNoMatch() throws Exception {
-    Linkifier l = new Linkifier(TestGitilesUrls.URLS);
+    Config config = new Config();
+    Linkifier l = new Linkifier(TestGitilesUrls.URLS, config);
     assertEquals(ImmutableList.of(ImmutableMap.of("text", "some message text")),
         l.linkify(FakeHttpServletRequest.newRequest(), "some message text"));
   }
 
   @Test
   public void linkifyMessageUrl() throws Exception {
-    Linkifier l = new Linkifier(TestGitilesUrls.URLS);
+    Config config = new Config();
+    Linkifier l = new Linkifier(TestGitilesUrls.URLS, config);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "http://my/url", "url", "http://my/url")),
         l.linkify(REQ, "http://my/url"));
@@ -59,6 +62,7 @@ public class LinkifierTest {
 
   @Test
   public void linkifyMessageChangeIdNoGerrit() throws Exception {
+    Config config = new Config();
     Linkifier l = new Linkifier(new GitilesUrls() {
       @Override
       public String getBaseGerritUrl(HttpServletRequest req) {
@@ -74,7 +78,7 @@ public class LinkifierTest {
       public String getBaseGitUrl(HttpServletRequest req) {
         throw new UnsupportedOperationException();
       }
-    });
+    }, config);
     assertEquals(ImmutableList.of(ImmutableMap.of("text", "I0123456789")),
         l.linkify(REQ, "I0123456789"));
     assertEquals(ImmutableList.of(ImmutableMap.of("text", "Change-Id: I0123456789")),
@@ -85,7 +89,14 @@ public class LinkifierTest {
 
   @Test
   public void linkifyMessageChangeId() throws Exception {
-    Linkifier l = new Linkifier(TestGitilesUrls.URLS);
+    Config config = new Config();
+    config.setString("commentlink", "bugzilla", "match", "(bug\\s+#?)(\\d+)");
+    config.setString("commentlink", "bugzilla", "link", "http://bugs.example.com/show_bug.cgi?id=$2");
+    
+    config.setString("commentlink", "tracker", "match", "([Bb]ug:\\s+)(\\d+)");
+    config.setString("commentlink", "tracker", "html", "$1<a href=\"http://trak.example.com/$2\">$2</a>");
+        
+    Linkifier l = new Linkifier(TestGitilesUrls.URLS, config);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "I0123456789",
           "url", "http://test-host-review/foo/#/q/I0123456789,n,z")),
@@ -105,7 +116,8 @@ public class LinkifierTest {
 
   @Test
   public void linkifyMessageUrlAndChangeId() throws Exception {
-    Linkifier l = new Linkifier(TestGitilesUrls.URLS);
+    Config config = new Config();
+    Linkifier l = new Linkifier(TestGitilesUrls.URLS, config);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "http://my/url/I0123456789", "url", "http://my/url/I0123456789"),
         ImmutableMap.of("text", " is not change "),
@@ -116,7 +128,8 @@ public class LinkifierTest {
 
   @Test
   public void linkifyAmpersand() throws Exception {
-    Linkifier l = new Linkifier(TestGitilesUrls.URLS);
+    Config config = new Config();
+    Linkifier l = new Linkifier(TestGitilesUrls.URLS, config);
     assertEquals(ImmutableList.of(
         ImmutableMap.of("text", "http://my/url?a&b", "url", "http://my/url?a&b")),
         l.linkify(REQ, "http://my/url?a&b"));
