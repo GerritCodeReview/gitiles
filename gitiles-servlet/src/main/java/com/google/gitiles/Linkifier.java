@@ -14,14 +14,20 @@
 
 package com.google.gitiles;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
+import org.eclipse.jgit.lib.Config;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,71 +35,88 @@ import javax.servlet.http.HttpServletRequest;
 
 /** Linkifier for blocks of text such as commit message descriptions. */
 public class Linkifier {
-  private static final Pattern LINK_PATTERN;
+  static private final String COMMENTLINK = "commentlink";
+  static private final String REGEXP_HTTP_CHANGE_ID;
+  static private final Pattern HTTP_URL_PATTERN;
+  static private final Pattern CHANGE_ID_PATTERN;
 
   static {
     // HTTP URL regex adapted from com.google.gwtexpui.safehtml.client.SafeHtml.
-    String part = "(?:" +
-        "[a-zA-Z0-9$_.+!*',%;:@=?#/~<>-]" +
-        "|&(?!lt;|gt;)" +
-        ")";
-    String httpUrl = "https?://" +
-        part + "{2,}" +
-        "(?:[(]" + part + "*" + "[)])*" +
-        part + "*";
-    String changeId = "\\bI[0-9a-f]{8,40}\\b";
-    LINK_PATTERN = Pattern.compile(Joiner.on("|").join(
-        "(" + httpUrl + ")",
-        "(" + changeId + ")"));
+    String httpPart = "(?:" + "[a-zA-Z0-9$_.+!*',%;:@=?#/~<>-]" + "|&(?!lt;|gt;)" + ")";
+    String httpPattern = "https?://" + httpPart + "{2,}" + "(?:[(]"
+                         + httpPart + "*" + "[)])*" + httpPart + "*";
+    String changeIdPattern = "\\bI[0-9a-f]{8,40}\\b";
+    HTTP_URL_PATTERN = Pattern.compile(httpPattern);
+    CHANGE_ID_PATTERN = Pattern.compile(changeIdPattern);
+    REGEXP_HTTP_CHANGE_ID = "(" + httpPattern + ")|(" + changeIdPattern + ")";
   }
 
   private final GitilesUrls urls;
+  private List<CommentLinkInfo> commentLinks;
+  static private Pattern allPattern;
 
-  public Linkifier(GitilesUrls urls) {
+  public Linkifier(GitilesUrls urls, Config config) {
     this.urls = checkNotNull(urls, "urls");
+    String regexp = REGEXP_HTTP_CHANGE_ID;
+
+    List<CommentLinkInfo> list = new ArrayList<CommentLinkInfo>();
+    list.add(new CommentLinkInfo("StandardHtmlLinks", HTTP_URL_PATTERN, "", ""));
+    Set<String> subsections = config.getSubsections(COMMENTLINK);
+    for (String subsection : subsections) {
+      String match = config.getString("commentlink", subsection, "match");
+      String link = config.getString("commentlink", subsection, "link");
+      String html = config.getString("commentlink", subsection, "html");
+      checkArgument(!Strings.isNullOrEmpty(match), "invalid commentlink.%s.match", subsection);
+      try {
+        Pattern compiledPattern = Pattern.compile(match);
+        list.add(new CommentLinkInfo(subsection, compiledPattern, link, html));
+        regexp += "|(" + match + ")";
+      } catch (RuntimeException err) {
+        System.err.println("Ommiting commentlink " + subsection);
+      }
+    }
+    this.commentLinks = Collections.unmodifiableList(list);
+    try {
+      allPattern = Pattern.compile(regexp);
+    } catch (RuntimeException err) {
+      System.err.println("Could not compile all commentlinks as a whole");
+    }
   }
 
   public List<Map<String, String>> linkify(HttpServletRequest req, String message) {
+    // Because we're relying on 'req' as a dynamic parameter, we need to construct
+    // the CommentLinkInfo for ChangeIds on the fly
     String baseGerritUrl = urls.getBaseGerritUrl(req);
+    CommentLinkInfo changeIds =
+        new CommentLinkInfo("ChangeIdLinks", CHANGE_ID_PATTERN, baseGerritUrl + "#/q/$2,n,z", "");
+
+    List<CommentLinkInfo> operationalCommentLinks = new ArrayList<CommentLinkInfo>(commentLinks);
+
+    operationalCommentLinks.add(changeIds);
+
     List<Map<String, String>> parsed = Lists.newArrayList();
-    Matcher m = LINK_PATTERN.matcher(message);
-    int last = 0;
-    while (m.find()) {
-      addText(parsed, message.substring(last, m.start()));
-      if (m.group(1) != null) {
-        // Bare URL.
-        parsed.add(link(m.group(1), m.group(1)));
-      } else if (m.group(2) != null) {
-        if (baseGerritUrl != null) {
-          // Gerrit Change-Id.
-          parsed.add(link(m.group(2), baseGerritUrl + "#/q/" + m.group(2) + ",n,z"));
-        } else {
-          addText(parsed, m.group(2));
+    parsed.add(ImmutableMap.of("text", message));
+    for (int index = 0; index < parsed.size(); index++) {
+      Map<String, String> piece = parsed.get(index);
+      if (piece.get("url") == null) {
+        String text = piece.get("text");
+        Matcher m = allPattern.matcher(text);
+        if (m.find()) {
+          // go through the individual regexps now for replacement
+          for (CommentLinkInfo clp : operationalCommentLinks) {
+            List<Map<String, String>> resultingReplacement = clp.replace(piece.get("text"));
+            if (resultingReplacement != null) {
+              parsed.remove(index);
+              for (Map<String, String> it : resultingReplacement) {
+                parsed.add(index, it);
+                index++;
+              }
+            }
+          }
         }
       }
-      last = m.end();
     }
-    addText(parsed, message.substring(last));
     return parsed;
   }
 
-  private static Map<String, String> link(String text, String url) {
-    return ImmutableMap.of("text", text, "url", url);
-  }
-
-  private static void addText(List<Map<String, String>> parts, String text) {
-    if (text.isEmpty()) {
-      return;
-    }
-    if (parts.isEmpty()) {
-      parts.add(ImmutableMap.of("text", text));
-    } else {
-      Map<String, String> old = parts.get(parts.size() - 1);
-      if (!old.containsKey("url")) {
-        parts.set(parts.size() - 1, ImmutableMap.of("text", old.get("text") + text));
-      } else {
-        parts.add(ImmutableMap.of("text", text));
-      }
-    }
-  }
 }
