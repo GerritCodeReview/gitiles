@@ -118,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "35fc96c4_c46e1ef1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:19Z",
+      "side": 1,
+      "message": "Looks like you can still just drop it?",
+      "parentUuid": "15f952d6_e3cd92c2",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c8ce75_16599cff",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
         "patchSetId": 1
@@ -595,6 +613,24 @@
     },
     {
       "key": {
+        "uuid": "15f952d6_23884a43",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:19Z",
+      "side": 1,
+      "message": "Oh good, that\u0027s exactly what I was guessing below.\n\nIt still doesn\u0027t handle backreferences in the pattern correctly but what can you do.",
+      "parentUuid": "35fc96c4_842a66a2",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55d66a40_2d05cd34",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -746,6 +782,24 @@
       "side": 1,
       "message": "Later on we have operate on the index, i.e. remove the item at the specified index and insert a bunch of other items instead at that position.\n\nHow would I do that when using \nfor (Map\u003cString, String\u003e piece : parsed)\n?",
       "parentUuid": "75c8ce75_16befc8c",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_c4573e1b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:19Z",
+      "side": 1,
+      "message": "Sorry, yes, missed that you were using the index.",
+      "parentUuid": "15f952d6_a3d79a52",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
