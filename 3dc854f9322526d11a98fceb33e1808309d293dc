@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35fc96c4_24ecd222",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ViewFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1017917
+      },
+      "writtenOn": "2014-11-05T00:35:10Z",
+      "side": 1,
+      "message": "Missing @Test annotation, you\u0027ll want to fix before merging downstream - this will trigger an error-prone build error.",
+      "range": {
+        "startLine": 452,
+        "startChar": 2,
+        "endLine": 452,
+        "endChar": 8
+      },
+      "revId": "3dc854f9322526d11a98fceb33e1808309d293dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
