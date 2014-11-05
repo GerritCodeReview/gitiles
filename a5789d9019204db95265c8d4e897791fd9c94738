@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "35fc96c4_e4cd9ac2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55d66a40_cdfbe9da",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c8ce75_36ecd8a0",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
         "patchSetId": 1
@@ -82,6 +100,24 @@
     },
     {
       "key": {
+        "uuid": "15f952d6_e3cd92c2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55d66a40_adf09df7",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c8ce75_16599cff",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
         "patchSetId": 1
@@ -93,6 +129,24 @@
       "writtenOn": "2014-11-04T22:22:54Z",
       "side": 1,
       "message": "Trim all trailing whitespace.",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_c4d29e64",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_16599cff",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -225,6 +279,42 @@
     },
     {
       "key": {
+        "uuid": "15f952d6_c3d29664",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_765810f9",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_0402f62c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_964ccc3b",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95daa231_dfdbbbf8",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -236,6 +326,24 @@
       "writtenOn": "2014-11-04T22:22:54Z",
       "side": 1,
       "message": "This should stay in a static block, as it\u0027s unused outside the block.\n\n static {\n   String foo \u003d \"x\";\n   String bar \u003d \"y\";\n }\n\nis not the same as\n\n static String foo \u003d \"x\";\n static String foo \u003d \"y\";\n\nstatic{} is used to define a block of code that is run as part of static initialization of the class. Within that block, any newly declared variables are local, and are not accessible from outside the block. The old static block was to assign LINK_PATTERN which was defined outside the block.",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_e41b5a97",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95daa231_dfdbbbf8",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -259,6 +367,24 @@
         "endLine": 39,
         "endChar": 29
       },
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_c4205ec8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55dcaa2f_fd6a4786",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -299,6 +425,24 @@
         "endLine": 42,
         "endChar": 30
       },
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_a4d7a252",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95daa231_ffd87ffe",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -351,6 +495,24 @@
     },
     {
       "key": {
+        "uuid": "35fc96c4_a42562d6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_d6464419",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55d66a40_0d02112d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -374,6 +536,24 @@
     },
     {
       "key": {
+        "uuid": "15f952d6_832a5ea2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55d66a40_0d02112d",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55d66a40_4d08194d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -391,6 +571,24 @@
         "endLine": 63,
         "endChar": 14
       },
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_842a66a2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Actually I read the gerrit code for the commentlinks and there we iterate over the text just once checking with on huge regular expression. On matches of the huge regexp we try regexps  for all individual commentlinks to see which commentlink config fits in. Using the exact regexp as provided in the config makes the referencing to groups within that regexp easy.",
+      "parentUuid": "55d66a40_4d08194d",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -443,6 +641,24 @@
     },
     {
       "key": {
+        "uuid": "15f952d6_63108271",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_f6434006",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c8ce75_f6d8a0fe",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -454,6 +670,24 @@
       "writtenOn": "2014-11-04T22:22:54Z",
       "side": 1,
       "message": "Not thread-safe; the Linkifier is a singleton shared by all servlets across all requests.\n\nMake mCommentLinks an ImmutableList and either copy that plus  changeIds into a new list, or use Iterables.concat or something.",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_430d8653",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_f6d8a0fe",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -500,6 +734,24 @@
     },
     {
       "key": {
+        "uuid": "15f952d6_a3d79a52",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Later on we have operate on the index, i.e. remove the item at the specified index and insert a bunch of other items instead at that position.\n\nHow would I do that when using \nfor (Map\u003cString, String\u003e piece : parsed)\n?",
+      "parentUuid": "75c8ce75_16befc8c",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c8ce75_d6dba4f8",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -517,6 +769,24 @@
     },
     {
       "key": {
+        "uuid": "35fc96c4_84dca675",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_d6dba4f8",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c8ce75_16e7dcc0",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 1
@@ -528,6 +798,24 @@
       "writtenOn": "2014-11-04T22:22:54Z",
       "side": 1,
       "message": "Also not threadsafe.",
+      "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_64108a71",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-05T18:56:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c8ce75_16e7dcc0",
       "revId": "a5789d9019204db95265c8d4e897791fd9c94738",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
