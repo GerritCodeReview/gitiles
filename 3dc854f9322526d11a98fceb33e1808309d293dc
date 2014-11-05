@@ -22,6 +22,30 @@
       "revId": "3dc854f9322526d11a98fceb33e1808309d293dc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_83f5bee7",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ViewFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T00:43:53Z",
+      "side": 1,
+      "message": "See the next change in the series (\"related changes\" tab on the change screen).",
+      "parentUuid": "35fc96c4_24ecd222",
+      "range": {
+        "startLine": 452,
+        "startChar": 2,
+        "endLine": 452,
+        "endChar": 8
+      },
+      "revId": "3dc854f9322526d11a98fceb33e1808309d293dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
