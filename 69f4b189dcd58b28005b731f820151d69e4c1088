@@ -1,0 +1,347 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35fc96c4_0430b608",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 8
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_e4691aeb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Optional: you could leave the constructor that takes a string.",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_e36912eb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Could just call this pattern to match the field name.",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_a47322db",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Why the change? \"private static\" is the correct ordering:\n\nhttps://google-styleguide.googlecode.com/svn/trunk/javaguide.html#s4.8.7-modifiers",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_447b4eb0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "After my comments below, if you eliminate REGEXP_HTTP_CHANGE_ID, then you can just put this assignment inline with the declaration above rather than in this static block.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 57
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_83781eb6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "private final",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_0485562b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Not static.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 8
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_847826b6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "new ArrayList\u003c\u003e",
+      "range": {
+        "startLine": 62,
+        "startChar": 33,
+        "endLine": 62,
+        "endChar": 63
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_a3731adb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Repeated string concatenation in Java may be expensive, as strings are immutable. Instead, store all your regexps in a list, then join them. That way you can also skip setting up the REGEXP_HTTP_CHANGE_ID constant too.\n\n List\u003cString\u003e patterns \u003d new ArrayList\u003c\u003e();\n patterns.add(HTTP_URL_PATTERN.pattern());\n patterns.add(CHANGE_ID_PATTERN.pattern());\n ...\n allPattern \u003d Pattern.compile(\u0027(\u0027 + Joiner.on(\u0027)|(\u0027).join(pattern) + \u0027)\u0027);",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_647e4aa2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Letting the PatternSyntaxException propagate is fine. It means an invalid config prevents the server from starting, which I think is fine behavior.",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_c36e16f1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Same as above, don\u0027t catch this.",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_24885243",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "\u003c\u003e",
+      "range": {
+        "startLine": 93,
+        "startChar": 65,
+        "endLine": 93,
+        "endChar": 82
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_637e42a2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Nit: Start comments with a capital letter, and end with a period.",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_e4523a2d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "cli instead of clp?",
+      "range": {
+        "startLine": 106,
+        "startChar": 31,
+        "endLine": 106,
+        "endChar": 34
+      },
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_64676a0c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Given that you\u0027re doing this by calling clp.replace(), I think you don\u0027t need to enclose each portion of the giant regex in ().\n\nIIRC the purpose of that was so you could check for a non-null group in the matcher. (Which might not actually number nested groups correctly, it\u0027s possible Gerrit is broken here too.)",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35fc96c4_84514628",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Each of these remove/add operations is potentially O(n). I\u0027d rather spend O(n) extra space and just make a new output list that you copy/insert elements into.",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15f952d6_437b46b0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2014-11-05T22:34:16Z",
+      "side": 1,
+      "message": "Unnecessary blank line.",
+      "revId": "69f4b189dcd58b28005b731f820151d69e4c1088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
