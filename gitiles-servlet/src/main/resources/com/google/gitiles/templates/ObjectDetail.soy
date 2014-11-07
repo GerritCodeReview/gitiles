@@ -322,6 +322,7 @@
 <pre class="{$className}">
   {foreach $part in $message}
     {if $part.url}<a href="{$part.url}">{$part.text}</a>{else}{$part.text}{/if}
+    {if $part.html}{$part.html}{/if}
   {/foreach}
 </pre>
 {/template}
