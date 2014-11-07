@@ -311,17 +311,21 @@
 {/template}
 
 /**
- * Preformatted message, possibly containing hyperlinks.
+ * Preformatted message, possibly containing hyperlinks and user html.
  *
  * @param className CSS class name for <pre> block.
  * @param message list of message parts, where each part contains:
  *     text: raw text of the part.
  *     url: optional URL that should be linked to from the part.
+ *     html: optional raw html, which will be used instead of the text and url.
  */
 {template .message_ private="true"}
 <pre class="{$className}">
   {foreach $part in $message}
-    {if $part.url}<a href="{$part.url}">{$part.text}</a>{else}{$part.text}{/if}
+    {if $part.html}{$part.html}
+    {elseif $part.url}<a href="{$part.url}">{$part.text}</a>
+    {else}{$part.text}
+    {/if}
   {/foreach}
 </pre>
 {/template}
