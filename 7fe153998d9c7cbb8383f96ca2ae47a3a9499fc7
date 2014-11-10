@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75260e9e_6630ee0a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-11-10T17:02:36Z",
+      "side": 1,
+      "message": "Something went horribly wrong, this file is 1 line long.",
+      "revId": "7fe153998d9c7cbb8383f96ca2ae47a3a9499fc7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
