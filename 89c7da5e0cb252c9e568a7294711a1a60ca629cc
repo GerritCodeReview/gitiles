@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a9edf22_5bcdc3c3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-10T20:29:17Z",
+      "side": 1,
+      "message": "(optional) Could use\n\n ImmutableMap.\u003cString, Object\u003e of(...",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 73
+      },
+      "revId": "89c7da5e0cb252c9e568a7294711a1a60ca629cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75260e9e_66854e2b",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LinkifierTest.java",
         "patchSetId": 6
