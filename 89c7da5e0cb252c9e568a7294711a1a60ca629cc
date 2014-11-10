@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75260e9e_66854e2b",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LinkifierTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-10T20:24:48Z",
+      "side": 1,
+      "message": "(nit) trailing whitespace [and likewise below]",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "89c7da5e0cb252c9e568a7294711a1a60ca629cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa1e35e_5ccdbdc3",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LinkifierTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-10T20:24:48Z",
+      "side": 1,
+      "message": "Might be nice to add a test for the case we discussed:\n\n [commentlink \"buglink\"]\n  match \u003d bug (\\d+)\n  html \u003d http://bugs/$1\n\n [commentlink \"featurelink\"]\n  match \u003d feature (\\d+)\n  html \u003d http://features/$1\n\n commit message:\n\n  feature 1\n  bug 2",
+      "revId": "89c7da5e0cb252c9e568a7294711a1a60ca629cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
