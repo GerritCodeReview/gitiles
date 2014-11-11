@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a77bfc2_732460db",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-11T01:41:19Z",
+      "side": 1,
+      "message": "(thinking out loud, not suggesting any particular change)\nThere are some semantic differences here from GWT\u0027s javascript-inspired RegExp.replace:\n\n* gwt has $\u0026 to insert the entire string and $$ to insert a literal dollar sign\n* gwt replacement is not recursive. Even if there is a $ in one of the capture groups, no further expansion happens\n* gwt captures $\u003cnumber\u003e greedily, so $10 means the 10th capture group instead of the 1st followed by a 0\n\nI\u0027d be tempted to scan:\n\n StringBuilder builder \u003d new StringBuilder();\n int pos \u003d 0;\n while (pos !\u003d -1 \u0026\u0026 pos \u003c link.length()) {\n   int dollarPos \u003d link.indexOf(\"$\", pos);\n   if (dollarPos \u003d\u003d -1 || dollarPos \u003d\u003d link.length()-1) {\n     break;\n   }\n   builder.append(link.substring(pos, dollarPos));\n\n   char next \u003d link.charAt(dollar + 1);\n   if (next \u003d\u003d \u0027$\u0027) {\n     builder.append(\"$\");\n     pos \u003d dollarPos + 2;\n   } else if (next \u003d\u003d \u0027\u0026\u0027) {\n     builder.append(input);\n     pos \u003d dollarPos + 2;\n   } else if (next \u003d\u003d \u0027`\u0027 || next \u003d\u003d \u0027\\\u0027\u0027) {\n     ... complain ...\n   } else if (\u00270\u0027 \u003c\u003d next \u0026\u0026 next \u003c\u003d \u00279\u0027) {\n     ... grab number, append match, ...\n   } else {\n     builder.append(\"$\" + next);\n     pos \u003d dollarPos + 2;\n   }\n }\n builder.append(link.substring(pos));\n addLink(..., builder.toString());\n\nOr, simpler, to rely on the support for capturing groups in Matcher.replaceAll (just m.replaceAll(link)).",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 9
+      },
+      "revId": "53158c248e110ae63690302b77570f7a8df2d87f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa1e35e_7cf999e0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-11T01:41:19Z",
+      "side": 1,
+      "message": "Gitiles uses slf4j for logging.\n\n import org.slf4j.Logger;\n import org.slf4j.LoggerFactory;\n\n public class ... {\n  private static final Logger log \u003d LoggerFactory.getLogger(Linkifier.class);\n\n  ...\n    log.warn(...)",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "53158c248e110ae63690302b77570f7a8df2d87f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
