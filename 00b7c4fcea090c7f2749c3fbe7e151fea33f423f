@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a77bfc2_f3ddd06e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-11T00:40:55Z",
+      "side": 1,
+      "message": "(optional) could decrease nesting by negating the condition:\n\n if (parsed.get(index).get(\"url\") !\u003d null) {\n   continue;\n }\n ...\n\nLikewise below with the \u0027if (m.find())\u0027 below.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 49
+      },
+      "revId": "00b7c4fcea090c7f2749c3fbe7e151fea33f423f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a77bfc2_93ea5c0a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-11T00:40:55Z",
+      "side": 1,
+      "message": "Likewise: this could be\n\n  if (parsed.get(index).get(\"url\") !\u003d null) {\n    break;\n  }",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 55
+      },
+      "revId": "00b7c4fcea090c7f2749c3fbe7e151fea33f423f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
