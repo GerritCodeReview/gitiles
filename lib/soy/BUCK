@@ -2,7 +2,10 @@ maven_jar(
   name = 'soy',
   id = 'com.google.template:soy:e74fcfa284a1e31d42ac93e53cb84a71f638c70b',
   sha1 = '1c75a007218f29d6124c46c8b18f4158cba4839c',
-  deps = [ ':icu4j' ],
+  deps = [
+    ':jsr305',
+    ':icu4j',
+  ],
   repository = GERRIT,
 )
 
@@ -10,4 +13,11 @@ maven_jar(
   name = 'icu4j',
   id = 'com.ibm.icu:icu4j:51.1',
   sha1 = '8ce396c4aed83c0c3de9158dc72c834fd283d5a4',
+)
+
+maven_jar(
+  name = 'jsr305',
+  id = 'com.google.code.findbugs:jsr305:3.0.0',
+  sha1 = '5871fb60dc68d67da54a663c3fd636a10a532948',
+  attach_source = False,
 )

@@ -9,6 +9,7 @@ DEPS = [
   '//lib/jgit:jgit',
   '//lib/jgit:jgit-servlet',
   '//lib/slf4j:slf4j-api',
+  '//lib/soy:jsr305',
   '//lib/soy:soy',
 ]
 
@@ -67,7 +68,6 @@ java_doc(
     '//lib/guice:guice_library',
     '//lib/guice:guice-assistedinject',
     '//lib/guice:javax-inject',
-    '//lib/guice:jsr305',
     '//lib/jgit:jgit-archive_library',
     '//lib:servlet-api_2_5',
   ],
