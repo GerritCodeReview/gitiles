@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac2171f_8d01c12b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-12T05:37:40Z",
+      "side": 1,
+      "message": "Could this be replaced by something like\n\n String s \u003d pattern.matcher(m.group(0)).replaceAll(link);\n addLink(parsed, m.group(0), s);\n\n?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "01d7b66b4188ac06b822878311be75ef8e225f5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac2171f_adfefdc2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-12T05:37:40Z",
+      "side": 1,
+      "message": "Why the renaming and rewrapping? These lines in the preimage are slightly easier to read.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 70
+      },
+      "revId": "01d7b66b4188ac06b822878311be75ef8e225f5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ae00fb1_af191999",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-12T05:37:40Z",
+      "side": 1,
+      "message": "(style) Google java style avoids \u0027if\u0027 bodies on the same line as the condition (https://google-styleguide.googlecode.com/svn/trunk/javaguide.html#s4.1.1-braces-always-used).",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 33
+      },
+      "revId": "01d7b66b4188ac06b822878311be75ef8e225f5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
