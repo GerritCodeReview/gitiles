@@ -355,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "1a633f29_134b8c89",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_f31c108b",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 53
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba079351_301fa885",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 11
@@ -366,6 +390,30 @@
       "writtenOn": "2014-11-13T23:18:34Z",
       "side": 1,
       "message": "This is checking an argument, but it\u0027s not so much an assertion about the caller using the API correctly. Maybe we want to log instead in this case:\n\n if (Strings.isNullOrEmpty(match)) {\n   log.warn(...);\n   continue;\n }",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_b039d8f8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba079351_301fa885",
       "range": {
         "startLine": 84,
         "startChar": 6,
@@ -448,6 +496,30 @@
     },
     {
       "key": {
+        "uuid": "ba079351_90365404",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba079351_102424da",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 63
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a633f29_d3fe34c4",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 11
@@ -459,6 +531,30 @@
       "writtenOn": "2014-11-13T23:18:34Z",
       "side": 1,
       "message": "Would be clearer as a sentence --- e.g., \"No need to apply more rules if this is already a link.\"",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 65
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_f0336012",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_d3fe34c4",
       "range": {
         "startLine": 121,
         "startChar": 0,
@@ -530,6 +626,30 @@
       "side": 1,
       "message": "Looks good. Could eliminate another line:\n\n parsed.remove(index);\n parsed.addAll(index, cli.linkify(text));",
       "parentUuid": "ba079351_104b8489",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_73400062",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_d3191499",
       "range": {
         "startLine": 127,
         "startChar": 0,
