@@ -252,6 +252,29 @@
       "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_900f7450",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LinkifierTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:22:53Z",
+      "side": 1,
+      "message": "Nice.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 61
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
