@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a633f29_73ee401d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "Please add a javadoc comment about what this class is for and how it is meant to be used. E.g.,\n\n /**\n  * Converts commit message text to soy data in accordance with\n  * a commentlink rule.\n  * \u003cp\u003e\n  * Example:\n  * \u003cpre\u003e\n  *  new CommentLinkInfo(\n  *      Pattern.compile(\"bug \\d+\"),\n  *      \"http://bugs/$1\")\n  *    .replace(\"do something nice\\n\\nbug 5\")\n  * \u003c/pre\u003e\n  * \u003cp\u003e\n  * returns a list of soy data objects:\n  * \u003cpre\u003e\n  * ImmutableList.of(\n  *   ImmutableMap.of(\"text\", \"do something nice\\n\\n\"),\n  *   ImmutableMap.of(\"text\", \"bug 5\", \"url\", \"http://bugs/5\")\n  * )\n  * \u003c/pre\u003e\n  */",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_9304bc3c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "(nit, optional) I\u0027d just say Pattern match, String link",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_b3073840",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "(optional) This is analagous to what Linkifier.linkify does. Maybe call it linkify() too?",
+      "range": {
+        "startLine": 34,
+        "startChar": 35,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_d0fe1cc4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "(optional) It might makes sense to combine these statements. (no strong opinion either way --- just thought I should mention it since I suggested the original code in a comment)",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_f001a02a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "Could make an immutable copy so callers don\u0027t learn to rely on it being mutable:\n\n return ImmutableList.copyOf(parsed);",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_53f344ff",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "Please put the \u0027if\u0027 body on a separate line, surrounded by braces:\n\n if (html !\u003d null) {\n   log.warn(...)",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 53
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_301fa885",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "This is checking an argument, but it\u0027s not so much an assertion about the caller using the API correctly. Maybe we want to log instead in this case:\n\n if (Strings.isNullOrEmpty(match)) {\n   log.warn(...);\n   continue;\n }",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 19
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_f301b02a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "stray debugging statement",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 60
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_102424da",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "Comment restates what the code says. A blank line instead might work better.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 63
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_d3fe34c4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "Would be clearer as a sentence --- e.g., \"No need to apply more rules if this is already a link.\"",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 65
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_331fa885",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:18:34Z",
+      "side": 1,
+      "message": "Is resultingReplacement ever null?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
