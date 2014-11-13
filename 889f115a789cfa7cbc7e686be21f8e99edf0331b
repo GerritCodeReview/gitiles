@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba079351_702930b2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_73ee401d",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a633f29_9304bc3c",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2014-11-13T23:18:34Z",
       "side": 1,
       "message": "(nit, optional) I\u0027d just say Pattern match, String link",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_502eacbb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_9304bc3c",
       "range": {
         "startLine": 29,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ba079351_b0127874",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_b3073840",
+      "range": {
+        "startLine": 34,
+        "startChar": 35,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba079351_d0fe1cc4",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2014-11-13T23:18:34Z",
       "side": 1,
       "message": "(optional) It might makes sense to combine these statements. (no strong opinion either way --- just thought I should mention it since I suggested the original code in a comment)",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_732920b2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "The addLink is actually just moved from Linkifier.java to here. That\u0027s why I kept it that way and did not change it and added functionality in there.",
+      "parentUuid": "ba079351_d0fe1cc4",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ba079351_d019fc98",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba079351_f001a02a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a633f29_53f344ff",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
         "patchSetId": 11
@@ -128,6 +248,30 @@
       "writtenOn": "2014-11-13T23:18:34Z",
       "side": 1,
       "message": "Please put the \u0027if\u0027 body on a separate line, surrounded by braces:\n\n if (html !\u003d null) {\n   log.warn(...)",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 53
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_30468881",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "The eclipse autoformatting still doesn\u0027t exactly do what I meant it to do. Done.",
+      "parentUuid": "1a633f29_53f344ff",
       "range": {
         "startLine": 81,
         "startChar": 0,
@@ -174,6 +318,30 @@
       "writtenOn": "2014-11-13T23:18:34Z",
       "side": 1,
       "message": "stray debugging statement",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 60
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_532ea4bb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a633f29_f301b02a",
       "range": {
         "startLine": 102,
         "startChar": 0,
@@ -255,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "ba079351_104b8489",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "No, it is not. I\u0027ll drop the condition.",
+      "parentUuid": "1a633f29_331fa885",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba079351_900f7450",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LinkifierTest.java",
         "patchSetId": 11
@@ -266,6 +458,30 @@
       "writtenOn": "2014-11-13T23:22:53Z",
       "side": 1,
       "message": "Nice.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 61
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_70401062",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LinkifierTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2014-11-13T23:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba079351_900f7450",
       "range": {
         "startLine": 115,
         "startChar": 0,
