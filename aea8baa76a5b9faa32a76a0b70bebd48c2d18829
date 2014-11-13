@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a633f29_d330f408",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:52:26Z",
+      "side": 1,
+      "message": "checkNotNull(pattern), too?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 27
+      },
+      "revId": "aea8baa76a5b9faa32a76a0b70bebd48c2d18829",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_f3337012",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:52:26Z",
+      "side": 1,
+      "message": "What happens if match is missing or empty? Does it do something sensible when trying to match against an empty pattern, or should such commentlink rules be skipped (e.g., with a \u0027continue;\u0027 statement here)?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 7
+      },
+      "revId": "aea8baa76a5b9faa32a76a0b70bebd48c2d18829",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_306968ed",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:52:26Z",
+      "side": 1,
+      "message": "Might be worth a \u0027continue;\u0027 statement in the \u0027html !\u003d null\u0027 case, too, so that this case would never be hit.\n\nThen this could do the analagous thing to handling of missing match:\n\n if (link \u003d\u003d null) {\n   log.warn(\"missing commentlink.%s.link\", subsection);\n   continue;\n }",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 25
+      },
+      "revId": "aea8baa76a5b9faa32a76a0b70bebd48c2d18829",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
