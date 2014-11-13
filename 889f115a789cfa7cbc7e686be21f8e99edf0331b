@@ -143,6 +143,29 @@
     },
     {
       "key": {
+        "uuid": "1a633f29_930f9c50",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:37:37Z",
+      "side": 1,
+      "message": "Can link be null? Life is simpler if that\u0027s the caller\u0027s responsibility (and the constructor can check:\n\n this.pattern \u003d checkNotNull(pattern);\n this.link \u003d checkNotNull(link);\n\n).",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba079351_d0fe1cc4",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
         "patchSetId": 11
@@ -178,6 +201,30 @@
       "side": 1,
       "message": "The addLink is actually just moved from Linkifier.java to here. That\u0027s why I kept it that way and did not change it and added functionality in there.",
       "parentUuid": "ba079351_d0fe1cc4",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba079351_50450c70",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommentLinkInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:37:37Z",
+      "side": 1,
+      "message": "I mean something like\n\n String text \u003d m.group(0);\n addLink(parsed, text, pattern.matcher(text).replaceAll(link));\n\nBut what you have here is fine, too.",
+      "parentUuid": "1a633f29_732920b2",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -272,6 +319,30 @@
       "side": 1,
       "message": "The eclipse autoformatting still doesn\u0027t exactly do what I meant it to do. Done.",
       "parentUuid": "1a633f29_53f344ff",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 53
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_f31c108b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:37:37Z",
+      "side": 1,
+      "message": "I think the braces should get it working (and they\u0027re required in google style anyway).",
+      "parentUuid": "ba079351_30468881",
       "range": {
         "startLine": 81,
         "startChar": 0,
@@ -435,6 +506,30 @@
       "side": 1,
       "message": "No, it is not. I\u0027ll drop the condition.",
       "parentUuid": "1a633f29_331fa885",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "889f115a789cfa7cbc7e686be21f8e99edf0331b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a633f29_d3191499",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Linkifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2014-11-13T23:37:37Z",
+      "side": 1,
+      "message": "Looks good. Could eliminate another line:\n\n parsed.remove(index);\n parsed.addAll(index, cli.linkify(text));",
+      "parentUuid": "ba079351_104b8489",
       "range": {
         "startLine": 127,
         "startChar": 0,
