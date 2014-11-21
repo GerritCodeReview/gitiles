@@ -48,7 +48,8 @@ public interface GitilesAccess {
    * @throws IOException if an error occurred.
    */
   public Map<String, RepositoryDescription> listRepositories(Set<String> branches)
-      throws ServiceNotEnabledException, ServiceNotAuthorizedException, IOException;
+      throws ServiceNotEnabledException, ServiceNotAuthorizedException,
+      IOException, Exception;
 
   /**
    * @return an opaque object that uniquely identifies the end-user making the

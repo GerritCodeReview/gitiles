@@ -16,6 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -83,6 +84,11 @@ public class HostIndexServlet extends BaseServlet {
       String name = urls.getHostName(req);
       log.warn("Cannot scan repositories" + (name != null ? " for " + name : ""), err);
       res.sendError(SC_SERVICE_UNAVAILABLE);
+      return null;
+    } catch (Exception ex) {
+      String name = urls.getHostName(req);
+      log.warn("Unable to access repositories" + (name != null ? " for " + name : ""), ex);
+      res.sendError(SC_INTERNAL_SERVER_ERROR);
       return null;
     }
     return descs;
