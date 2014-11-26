@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7faeed66_8648ca26",
+        "filename": "lib/junit/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-11-26T16:40:04Z",
+      "side": 1,
+      "message": "I see your intent also to sort it here, but we ususally first list the main jar and then list its dependencies below.",
+      "revId": "854e0b730048daabb9e4d6213655c5a1f16e2de0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
