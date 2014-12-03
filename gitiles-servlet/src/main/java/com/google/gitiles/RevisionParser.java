@@ -129,7 +129,7 @@ class RevisionParser {
           if (dots == 0 || firstParent == 0) {
             return null;
           } else if (dots > 0) {
-            b.append(part.substring(0, dots));
+            b.append(part, 0, dots);
             String oldName = b.toString();
             if (!isValidRevision(oldName)) {
               return null;
@@ -146,7 +146,7 @@ class RevisionParser {
             if (firstParent != part.length() - 2) {
               return null;
             }
-            b.append(part.substring(0, part.length() - 2));
+            b.append(part, 0, part.length() - 2);
             String name = b.toString();
             if (!isValidRevision(name)) {
               return null;
@@ -206,9 +206,7 @@ class RevisionParser {
     } catch (AmbiguousObjectException e) {
       // TODO(dborowitz): Render a helpful disambiguation page.
       return null;
-    } catch (RevisionSyntaxException e) {
-      return null;
-    } catch (MissingObjectException e) {
+    } catch (RevisionSyntaxException | MissingObjectException e) {
       return null;
     }
   }
@@ -217,7 +215,7 @@ class RevisionParser {
     // Disallow some uncommon but valid revision expressions that either we
     // don't support or we represent differently in our URLs.
     return revision.indexOf(':') < 0
-        && revision.indexOf("^{") < 0
+        && !revision.contains("^{")
         && revision.indexOf('@') < 0;
   }
 
