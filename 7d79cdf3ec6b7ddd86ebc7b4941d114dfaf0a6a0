@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81698876_c7c95ebb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-12-20T13:33:28Z",
+      "side": 1,
+      "message": "Gerrit is on 3.5.1.201410131835-r now, should we update to that here too?",
+      "revId": "7d79cdf3ec6b7ddd86ebc7b4941d114dfaf0a6a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
