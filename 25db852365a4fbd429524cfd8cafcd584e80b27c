@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c169c0a3_5993c367",
+        "filename": "bucklets",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-12-26T22:58:00Z",
+      "side": 1,
+      "message": "Why are we changing bucklets as part of this change? Seems like you had the wrong version checked out?",
+      "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c169c0a3_f9a3b7b2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-12-26T22:58:00Z",
+      "side": 1,
+      "message": "This is redundant code. Both BaseServlet and HtmlViewType are using their own request attributes to track the value from the request. Only one is necessary.",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 51
+      },
+      "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c169c0a3_19994b88",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlViewType.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-12-26T22:58:00Z",
+      "side": 1,
+      "message": "add final keyword",
+      "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
