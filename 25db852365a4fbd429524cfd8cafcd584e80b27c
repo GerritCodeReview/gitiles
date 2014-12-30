@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "813188d3_2796fa58",
+        "filename": "bucklets",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015548
+      },
+      "writtenOn": "2014-12-30T03:10:25Z",
+      "side": 1,
+      "message": "Ack, must have accidentally done a recursive update.",
+      "parentUuid": "c169c0a3_5993c367",
+      "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c169c0a3_f9a3b7b2",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
         "patchSetId": 5
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "813188d3_4793ee67",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1015548
+      },
+      "writtenOn": "2014-12-30T03:10:25Z",
+      "side": 1,
+      "message": "Ew, I don\u0027t know how this happened, but I expect some bleeding during code massaging.",
+      "parentUuid": "c169c0a3_f9a3b7b2",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 51
+      },
+      "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c169c0a3_19994b88",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlViewType.java",
         "patchSetId": 5
@@ -53,6 +95,24 @@
       "writtenOn": "2014-12-26T22:58:00Z",
       "side": 1,
       "message": "add final keyword",
+      "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e149644e_b206a010",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlViewType.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015548
+      },
+      "writtenOn": "2014-12-30T03:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c169c0a3_19994b88",
       "revId": "25db852365a4fbd429524cfd8cafcd584e80b27c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
