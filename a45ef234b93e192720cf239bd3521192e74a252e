@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c169c0a3_597ca321",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-12-30T18:08:12Z",
+      "side": 1,
+      "message": "Unused attribute, you can safely delete this.",
+      "revId": "a45ef234b93e192720cf239bd3521192e74a252e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
