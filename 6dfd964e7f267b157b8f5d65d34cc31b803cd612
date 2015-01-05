@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c169c0a3_fc556516",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlViewType.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-01-05T17:17:53Z",
+      "side": 1,
+      "message": "Nit: wrap comment blocks at 80 chars.\n\n(And yes, code lines at 100 chars. Don\u0027t ask me where we picked up this silly convention...)",
+      "revId": "6dfd964e7f267b157b8f5d65d34cc31b803cd612",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c169c0a3_dc50a129",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HtmlViewType.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-01-05T17:17:53Z",
+      "side": 1,
+      "message": "I would make this return ImmutableMap to emphasize its immutability.",
+      "revId": "6dfd964e7f267b157b8f5d65d34cc31b803cd612",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c169c0a3_3c68bdd4",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-01-05T17:17:53Z",
+      "side": 1,
+      "message": "Nit: viewCss",
+      "range": {
+        "startLine": 24,
+        "startChar": 11,
+        "endLine": 24,
+        "endChar": 18
+      },
+      "revId": "6dfd964e7f267b157b8f5d65d34cc31b803cd612",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "813188d3_67bb9242",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-01-05T17:17:53Z",
+      "side": 1,
+      "message": "Sigh, someday we should clean these up so not every detail page requires every arg in the docs. But today is not that day.",
+      "revId": "6dfd964e7f267b157b8f5d65d34cc31b803cd612",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
