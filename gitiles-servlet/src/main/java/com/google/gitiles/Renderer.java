@@ -50,6 +50,7 @@ public abstract class Renderer {
       "BlameDetail.soy",
       "Common.soy",
       "DiffDetail.soy",
+      "Doc.soy",
       "HostIndex.soy",
       "LogDetail.soy",
       "ObjectDetail.soy",
@@ -60,6 +61,7 @@ public abstract class Renderer {
 
   public static final Map<String, String> STATIC_URL_GLOBALS = ImmutableMap.of(
       "gitiles.CSS_URL", "gitiles.css",
+      "gitiles.DOC_CSS_URL", "doc.css",
       "gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css");
 
   protected static class FileUrlMapper implements Function<String, URL> {
