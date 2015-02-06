@@ -50,6 +50,7 @@ public abstract class Renderer {
       "BlameDetail.soy",
       "Common.soy",
       "DiffDetail.soy",
+      "Doc.soy",
       "HostIndex.soy",
       "LogDetail.soy",
       "ObjectDetail.soy",
@@ -60,6 +61,7 @@ public abstract class Renderer {
 
   public static final Map<String, String> STATIC_URL_GLOBALS = ImmutableMap.of(
       "gitiles.CSS_URL", "gitiles.css",
+      "gitiles.DOC_CSS_URL", "doc.css",
       "gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css");
 
   protected static class FileUrlMapper implements Function<String, URL> {
@@ -104,11 +106,15 @@ public abstract class Renderer {
     this.globals = ImmutableMap.copyOf(allGlobals);
   }
 
+  public String render(String templateName, Map<String, ?> soyData) {
+    return newRenderer(templateName).setData(soyData).render();
+  }
+
   void render(HttpServletResponse res, String templateName, Map<String, ?> soyData)
       throws IOException {
     res.setContentType("text/html");
     res.setCharacterEncoding("UTF-8");
-    byte[] data = newRenderer(templateName).setData(soyData).render().getBytes(UTF_8);
+    byte[] data = render(templateName, soyData).getBytes(UTF_8);
     res.setContentLength(data.length);
     res.getOutputStream().write(data);
   }
