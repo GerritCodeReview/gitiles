@@ -20,15 +20,11 @@ import org.pegdown.Parser;
 import org.pegdown.PegDownProcessor;
 import org.pegdown.ast.Node;
 import org.pegdown.plugins.BlockPluginParser;
+import org.pegdown.plugins.PegDownPlugins;
 
 import java.util.List;
 
-/**
- * Additional markdown extensions known to Gitiles.
- * <p>
- * {@code [TOC]} as a stand-alone block will insert a table of contents
- * for the current document.
- */
+/** Parses Gitiles extensions to markdown. */
 class GitilesMarkdown extends Parser implements BlockPluginParser {
   private PegDownProcessor parser;
 
@@ -38,7 +34,8 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
 
   @Override
   public Rule[] blockPluginRules() {
-    return new Rule[]{
+    return new Rule[] {
+        cols(),
         note(),
         toc(),
     };
@@ -68,12 +65,30 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
         sequence(string("aside"), push(match())));
   }
 
+  public Rule cols() {
+    StringBuilderVar body = new StringBuilderVar();
+    return NodeSequence(
+        colsTag(), Newline(),
+        oneOrMore(
+            testNot(colsTag(), Newline()),
+            Line(body)),
+        colsTag(), Newline(),
+        push(new ColsNode(parse(body))));
+  }
+
+  public Rule colsTag() {
+    return string("|||---|||");
+  }
+
   public List<Node> parse(StringBuilderVar body) {
     // The pegdown code doesn't provide enough visibility to directly
     // use its existing parsing rules. Recurse manually for inner text
     // parsing within a block.
     if (parser == null) {
-      parser = new PegDownProcessor(MarkdownHelper.MD_OPTIONS);
+      PegDownPlugins plugins = new PegDownPlugins.Builder()
+        .withPlugin(GitilesMarkdown.class)
+        .build();
+      parser = new PegDownProcessor(MarkdownHelper.MD_OPTIONS, plugins);
     }
     return parser.parseMarkdown(body.getChars()).getChildren();
   }
