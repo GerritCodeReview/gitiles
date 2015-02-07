@@ -38,6 +38,7 @@ public class HtmlFormatter extends ToHtmlSerializer {
 
     toc = new TocSerializer();
     plugins.add(toc);
+    plugins.add(new DivSerializer());
   }
 
   /** Render the document AST to blessed as safe HTML. */
