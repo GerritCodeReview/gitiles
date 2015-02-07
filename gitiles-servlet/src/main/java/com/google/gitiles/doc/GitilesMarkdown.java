@@ -15,8 +15,13 @@
 package com.google.gitiles.doc;
 
 import org.parboiled.Rule;
+import org.parboiled.support.StringBuilderVar;
 import org.pegdown.Parser;
+import org.pegdown.PegDownProcessor;
+import org.pegdown.ast.Node;
 import org.pegdown.plugins.BlockPluginParser;
+
+import java.util.List;
 
 /**
  * Additional markdown extensions known to Gitiles.
@@ -25,18 +30,51 @@ import org.pegdown.plugins.BlockPluginParser;
  * for the current document.
  */
 class GitilesMarkdown extends Parser implements BlockPluginParser {
+  private PegDownProcessor parser;
+
   GitilesMarkdown() {
     super(MarkdownHelper.MD_OPTIONS, 2000L, DefaultParseRunnerProvider);
   }
 
   @Override
   public Rule[] blockPluginRules() {
-    return new Rule[]{ toc() };
+    return new Rule[]{
+        note(),
+        toc(),
+    };
   }
 
   public Rule toc() {
     return NodeSequence(
         string("[TOC]"),
         push(new TocNode()));
+  }
+
+  public Rule note() {
+    StringBuilderVar body = new StringBuilderVar();
+    return NodeSequence(
+        string("***"), Sp(), typeOfNote(), Newline(),
+        oneOrMore(
+          testNot(string("***"), Newline()),
+          Line(body)),
+        string("***"), Newline(),
+        push(new DivNode(popAsString(), parse(body))));
+  }
+
+  public Rule typeOfNote() {
+    return firstOf(
+        sequence(string("note"), push(match())),
+        sequence(string("promo"), push(match())),
+        sequence(string("aside"), push(match())));
+  }
+
+  public List<Node> parse(StringBuilderVar body) {
+    // The pegdown code doesn't provide enough visibility to directly
+    // use its existing parsing rules. Recurse manually for inner text
+    // parsing within a block.
+    if (parser == null) {
+      parser = new PegDownProcessor(MarkdownHelper.MD_OPTIONS);
+    }
+    return parser.parseMarkdown(body.getChars()).getChildren();
   }
 }
