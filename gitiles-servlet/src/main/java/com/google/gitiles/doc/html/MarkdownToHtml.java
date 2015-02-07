@@ -18,6 +18,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.gitiles.doc.MarkdownHelper.getInnerText;
 
 import com.google.gitiles.GitilesView;
+import com.google.gitiles.doc.DivNode;
 import com.google.gitiles.doc.TocNode;
 import com.google.template.soy.data.SanitizedContent;
 
@@ -94,6 +95,12 @@ public class MarkdownToHtml extends HtmlBuilder implements Visitor {
 
   public void visit(@SuppressWarnings("unused") TocNode node) {
     toc.format();
+  }
+
+  public void visit(DivNode node) {
+    open("div").attribute("class", node.getStyleName());
+    visitChildren(node);
+    close("div");
   }
 
   @Override
