@@ -18,6 +18,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.gitiles.doc.MarkdownHelper.getInnerText;
 
 import com.google.common.base.Function;
+import com.google.gitiles.doc.ColsNode;
 import com.google.gitiles.doc.DivNode;
 import com.google.gitiles.doc.TocNode;
 import com.google.gitiles.doc.Visitor;
@@ -102,6 +103,26 @@ public class MarkdownToHtml extends HtmlBuilder implements Visitor {
   public void visit(DivNode node) {
     open("div").attribute("class", node.getStyleName());
     visitChildren(node);
+    close("div");
+  }
+
+  @Override
+  public void visit(ColsNode node) {
+    open("div").attribute("class", "cols");
+    boolean open = false;
+    for (Node n : node.getChildren()) {
+      if (n instanceof HeaderNode || n instanceof DivNode) {
+        if (open) {
+          close("div");
+        }
+        open("div").attribute("class", "col-3");
+        open = true;
+      }
+      n.accept(this);
+    }
+    if (open) {
+      close("div");
+    }
     close("div");
   }
 
