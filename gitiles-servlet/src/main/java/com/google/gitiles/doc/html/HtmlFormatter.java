@@ -38,6 +38,7 @@ public class HtmlFormatter extends ToHtmlSerializer {
 
     toc = new TocSerializer();
     plugins.add(toc);
+    plugins.add(new ColsSerializer());
     plugins.add(new DivSerializer());
   }
 
