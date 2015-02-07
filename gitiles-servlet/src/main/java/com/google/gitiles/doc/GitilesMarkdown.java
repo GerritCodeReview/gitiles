@@ -40,6 +40,7 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
     return new Rule[]{
         toc(),
         note(),
+        cols(),
     };
   }
 
@@ -67,6 +68,21 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
         sequence(string("note"), push(DivNode.Style.NOTE)),
         sequence(string("promo"), push(DivNode.Style.PROMO)),
         sequence(string("aside"), push(DivNode.Style.ASIDE)));
+  }
+
+  public Rule cols() {
+    StringBuilderVar body = new StringBuilderVar();
+    return NodeSequence(
+        colsTag(), Newline(),
+        oneOrMore(
+            testNot(colsTag(), Newline()),
+            Line(body)),
+        colsTag(), Newline(),
+        push(new ColsNode(parse(body).getChildren())));
+  }
+
+  public Rule colsTag() {
+    return string("|||---|||");
   }
 
   public Rule whitespace() {
