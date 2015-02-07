@@ -14,7 +14,6 @@
 
 package com.google.gitiles.doc;
 
-import org.parboiled.BaseParser;
 import org.parboiled.Rule;
 import org.parboiled.support.StringBuilderVar;
 import org.pegdown.Parser;
@@ -41,6 +40,7 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
     return new Rule[]{
         toc(),
         note(),
+        cols(),
     };
   }
 
@@ -56,8 +56,7 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
         string("***"), whitespace(), typeOfNote(), Newline(),
         oneOrMore(
           testNot(string("***"), Newline()),
-          BaseParser.ANY,
-          body.append(matchedChar())),
+          Line(body)),
         string("***"), Newline(),
         push(new DivNode(
             (DivNode.Style) pop(),
@@ -69,6 +68,21 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
         sequence(string("note"), push(DivNode.Style.NOTE)),
         sequence(string("promo"), push(DivNode.Style.PROMO)),
         sequence(string("aside"), push(DivNode.Style.ASIDE)));
+  }
+
+  public Rule cols() {
+    StringBuilderVar body = new StringBuilderVar();
+    return NodeSequence(
+        colsTag(), Newline(),
+        oneOrMore(
+            testNot(colsTag(), Newline()),
+            Line(body)),
+        colsTag(), Newline(),
+        push(new ColsNode(parse(body).getChildren())));
+  }
+
+  public Rule colsTag() {
+    return string("|||---|||");
   }
 
   public Rule whitespace() {
