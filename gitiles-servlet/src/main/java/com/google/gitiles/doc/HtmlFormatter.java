@@ -25,7 +25,9 @@ class HtmlFormatter extends ToHtmlSerializer {
   private final TocSerializer toc;
 
   HtmlFormatter(LinkRenderer linkRenderer, TocSerializer toc) {
-    super(linkRenderer, ImmutableList.<ToHtmlSerializerPlugin> of(toc));
+    super(linkRenderer, ImmutableList.<ToHtmlSerializerPlugin> of(
+        toc,
+        new DivSerializer()));
     this.toc = toc;
   }
 

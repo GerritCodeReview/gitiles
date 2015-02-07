@@ -14,8 +14,12 @@
 
 package com.google.gitiles.doc;
 
+import org.parboiled.BaseParser;
 import org.parboiled.Rule;
+import org.parboiled.support.StringBuilderVar;
 import org.pegdown.Parser;
+import org.pegdown.PegDownProcessor;
+import org.pegdown.ast.RootNode;
 import org.pegdown.plugins.BlockPluginParser;
 
 /**
@@ -25,18 +29,56 @@ import org.pegdown.plugins.BlockPluginParser;
  * for the current document.
  */
 class GitilesMarkdown extends Parser implements BlockPluginParser {
+  private final PegDownProcessor parser;
+
   GitilesMarkdown() {
     super(MarkdownHelper.MD_OPTIONS, 2000L, DefaultParseRunnerProvider);
+    parser = new PegDownProcessor(MarkdownHelper.MD_OPTIONS);
   }
 
   @Override
   public Rule[] blockPluginRules() {
-    return new Rule[]{ toc() };
+    return new Rule[]{
+        toc(),
+        note(),
+    };
   }
 
   public Rule toc() {
     return NodeSequence(
         string("[TOC]"),
         push(new TocNode()));
+  }
+
+  public Rule note() {
+    StringBuilderVar body = new StringBuilderVar();
+    return NodeSequence(
+        string("***"), whitespace(), typeOfNote(), Newline(),
+        oneOrMore(
+          testNot(string("***"), Newline()),
+          BaseParser.ANY,
+          body.append(matchedChar())),
+        string("***"), Newline(),
+        push(new DivNode(
+            (DivNode.Style) pop(),
+            parse(body).getChildren())));
+  }
+
+  public Rule typeOfNote() {
+    return firstOf(
+        sequence(string("note"), push(DivNode.Style.NOTE)),
+        sequence(string("promo"), push(DivNode.Style.PROMO)),
+        sequence(string("aside"), push(DivNode.Style.ASIDE)));
+  }
+
+  public Rule whitespace() {
+    return zeroOrMore(anyOf(" \t"));
+  }
+
+  public RootNode parse(StringBuilderVar body) {
+    // The pegdown code doesn't provide enough visibility to directly
+    // use its existing parsing rules. Recurse manually for inner text
+    // parsing within a block.
+    return parser.parseMarkdown(body.getChars());
   }
 }
