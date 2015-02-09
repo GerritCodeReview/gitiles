@@ -45,6 +45,30 @@
       "revId": "014435e971c41ef9557235677252941ea3edde2f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ccee4a3_f44af869",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitLinkRenderer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-09T00:51:39Z",
+      "side": 1,
+      "message": "I don\u0027t think so. The parser probably assumes missing URLs are invalid links, e.g. \"[foo]()\" is not a valid URL reference in markdown and probably turns into literal text instead of trying to be a hyperlink with no destination URL.",
+      "parentUuid": "1ccee4a3_5473ecd0",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 20
+      },
+      "revId": "014435e971c41ef9557235677252941ea3edde2f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
