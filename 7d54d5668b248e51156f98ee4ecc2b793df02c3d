@@ -1,0 +1,266 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cbad4ec_f89f91fa",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Please add tests for this functionality to ViewFilterTest.",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_d8a4cd53",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Configurable in the Config perhaps?",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_b8a9192a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Constant up by index.md",
+      "range": {
+        "startLine": 94,
+        "startChar": 44,
+        "endLine": 94,
+        "endChar": 55
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_57f52c52",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "More informative logging in this error case? Or do we assume the pegdown parser has already logged one?",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_98ae552e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Factor this out above the first use on l. 95.",
+      "range": {
+        "startLine": 118,
+        "startChar": 38,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_5891ddea",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Also include the SHA-1 of the CSS file or something, otherwise it won\u0027t be possible to tweak without bumping the gen.\n\nPossibly also the markdownDoc Soy template file as well.\n\nI vaguely recall this might be why we punted on using ETags more thoroughly for other views...",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_7894a1dc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "My brain doesn\u0027t like the extra allocs here. You could do this with a StringBuilder with barely more code. \n\n(Ok, there are still a lot of allocs involved for the name strings and whatnot, this is certainly premature optimization :)",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_3702b8ae",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Use HttpHeaders constants.",
+      "range": {
+        "startLine": 138,
+        "startChar": 22,
+        "endLine": 138,
+        "endChar": 31
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_f888b1bb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "The way it works elsewhere in gitiles, if you\u0027re viewing /+foo/master/path, relative links will be to /+bar/master. For example:\n\nhttps://gerrit.googlesource.com/gitiles/+/master/BUCK\n\nthe nav links at the top are to\n\nhttps://gerrit.googlesource.com/gitiles/+log/master/BUCK\n\netc. Yes they are not 100% guaranteed stable.",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_f72c4043",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/HtmlFormatter.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "I would have thought something like this would be built-in. *shrug*",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_d7313c9d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Maybe add a comment that SUPPRESS_ALL_HTML is because we may be hosting repositories with arbitrary unreviewed untrusted user-generated content. Might be obvious but can\u0027t hurt to hammer it home.",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_389e29fb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Comment on why this is safe?",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_189b650b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/TocSerializer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Don\u0027t bother with indenting and newlines. Soy is just going to postprocess them out anyway.",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_b726c85f",
+        "filename": "lib/BUCK",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:47:21Z",
+      "side": 1,
+      "message": "Limit visibility to the library of which this is a dependency?",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
