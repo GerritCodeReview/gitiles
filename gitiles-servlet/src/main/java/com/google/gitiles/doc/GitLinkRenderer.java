@@ -77,7 +77,7 @@ class GitLinkRenderer extends LinkRenderer {
   }
 
   Rendering renderLink(String url, String title, String text) {
-    if (isMarkdownUrl(url)) {
+    if (isAbsoluteMarkdown(url)) {
       url = getMarkdownUrl(url);
     }
 
@@ -128,7 +128,7 @@ class GitLinkRenderer extends LinkRenderer {
     return IMAGE_DATA.getValueFilter().matcher(url).find();
   }
 
-  static boolean isMarkdownUrl(String url) {
+  static boolean isAbsoluteMarkdown(String url) {
     return url.length() > 2
         && url.endsWith(".md")
         && url.charAt(0) == '/' && url.charAt(1) != '/';

@@ -160,6 +160,7 @@ public class DocServlet extends BaseServlet {
         view.getPathPart());
 
     Map<String, Object> data = new HashMap<>();
+    fmt.populateBanner(data, nav);
     data.put("pageTitle", title);
     data.put("sourceUrl", GitilesView.path().copyFrom(view).toUrl());
     data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
