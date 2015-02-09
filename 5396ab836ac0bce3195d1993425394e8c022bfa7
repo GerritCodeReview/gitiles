@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cbad4ec_988775a8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DivNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:50:41Z",
+      "side": 1,
+      "message": "Why not just make this a freeform identifier that corresponds directly to a CSS class, rather than a whitelist of styles?\n\nThat way if we allow customizing the CSS later (and this is exactly the sort of thing Chrome would want), you can add new supported note styles with a minimum of fuss.",
+      "revId": "5396ab836ac0bce3195d1993425394e8c022bfa7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
