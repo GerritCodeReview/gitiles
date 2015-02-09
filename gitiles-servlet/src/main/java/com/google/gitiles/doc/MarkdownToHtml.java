@@ -17,13 +17,16 @@ package com.google.gitiles.doc;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.gitiles.doc.MarkdownUtil.getInnerText;
 
+import com.google.common.base.Strings;
 import com.google.gitiles.GitilesView;
+import com.google.gitiles.PrettifyCache;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
 
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.util.StringUtils;
+import org.pegdown.Printer;
 import org.pegdown.ast.AbbreviationNode;
 import org.pegdown.ast.AutoLinkNode;
 import org.pegdown.ast.BlockQuoteNode;
@@ -63,6 +66,12 @@ import org.pegdown.ast.TextNode;
 import org.pegdown.ast.VerbatimNode;
 import org.pegdown.ast.WikiLinkNode;
 
+import java.util.List;
+
+import prettify.PrettifyParser;
+import prettify.parser.Prettify;
+import syntaxhighlight.ParseResult;
+
 /**
  * Formats parsed markdown AST into HTML.
  * <p>
@@ -78,6 +87,7 @@ public class MarkdownToHtml implements Visitor {
   private boolean readme;
   private TableState table;
   private boolean outputNamedAnchor = true;
+  private PrettifyCache.Parser prettify;
 
   public MarkdownToHtml(GitilesView view, Config cfg) {
     this.view = view;
@@ -101,7 +111,14 @@ public class MarkdownToHtml implements Visitor {
     }
 
     toc.setRoot(node);
-    node.accept(this);
+    try {
+      node.accept(this);
+    } finally {
+      if (prettify != null) {
+        prettify.close();
+        prettify = null;
+      }
+    }
     return html.toSoy();
   }
 
@@ -235,16 +252,53 @@ public class MarkdownToHtml implements Visitor {
 
   @Override
   public void visit(VerbatimNode node) {
-    html.open("pre").attribute("class", "code");
+    String lang = node.getType();
     String text = node.getText();
+
+    // print HTML breaks for all initial newlines
+    html.open("pre").attribute("class", "code");
     while (text.startsWith("\n")) {
       html.open("br");
       text = text.substring(1);
     }
     html.appendAndEscape(text);
+
+    List<ParseResult> parsed = parse(lang, text);
+    if (parsed != null) {
+      int last = 0;
+      for (ParseResult r : parsed) {
+        write(printer, null, text, last, r.getOffset());
+        last = r.getOffset() + r.getLength();
+        write(printer, r.getStyleKeysString(), text, r.getOffset(), last);
+      }
+      if (last < text.length()) {
+        write(printer, null, text, last, text.length());
+      }
+    } else {
+      printer.printEncoded(text);
+    }
     html.close("pre");
   }
 
+  private static void write(Printer printer, String classes,
+      String s, int start, int end) {
+    if (end - start > 0) {
+      if (Strings.isNullOrEmpty(classes)) {
+        classes = Prettify.PR_PLAIN;
+      }
+      printer.print("<span class=\"").print(classes).print("\">");
+      printer.printEncoded(s.substring(start, end));
+      printer.print("</span>");
+    }
+  }
+
+  private static List<ParseResult> parse(String lang, String text) {
+    try {
+      return new PrettifyParser().parse(lang, text);
+    } catch (StackOverflowError e) {
+      return null;
+    }
+  }
   @Override
   public void visit(CodeNode node) {
     wrapText("code", node);
