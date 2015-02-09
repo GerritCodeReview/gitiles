@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcb1100e_dbb4d305",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/PrettifySerializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-09T08:28:36Z",
+      "side": 1,
+      "message": "This is very very slow. A page with 20 sh blocks takes an extra 800ms to render with prettify on each verbatim block.\n\n* default: 221 ms\n* prettify: 1040 ms\n\n:(\n\nMakes me think we shouldn\u0027t do this.",
+      "revId": "84a1a650104720e396c40c7f5388211753bd55bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
