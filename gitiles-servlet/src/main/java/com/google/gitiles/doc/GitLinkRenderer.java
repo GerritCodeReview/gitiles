@@ -111,7 +111,7 @@ class GitLinkRenderer extends LinkRenderer {
     if ((url.startsWith("http:") || url.startsWith("https:"))
         && VALID_URL.matcher(url).find()) {
       src = url;
-    } else if (IMAGE_DATA_URL.matcher(url).matches()) {
+    } else if (isImageDataUrl(url)) {
       src = url;
     } else {
       // Insert a known bad image the browser cannot display.
@@ -123,6 +123,10 @@ class GitLinkRenderer extends LinkRenderer {
       r = r.withAttribute("title", encode(title));
     }
     return r;
+  }
+
+  static boolean isImageDataUrl(String url) {
+    return IMAGE_DATA_URL.matcher(url).matches();
   }
 
   private static final Pattern IMAGE_DATA_URL = Pattern.compile(

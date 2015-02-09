@@ -20,6 +20,7 @@ import static org.pegdown.Extensions.SUPPRESS_ALL_HTML;
 import static org.pegdown.Extensions.WIKILINKS;
 
 import com.google.gitiles.GitilesView;
+import com.google.template.soy.shared.restricted.Sanitizers;
 
 import org.pegdown.PegDownProcessor;
 import org.pegdown.ast.HeaderNode;
@@ -97,7 +98,13 @@ class MarkdownHelper {
       String key = TocSerializer.getText(r);
       String url = r.getUrl();
       if ("logo".equalsIgnoreCase(key)) {
-        data.put("logoUrl", url);
+        Object src;
+        if (GitLinkRenderer.isImageDataUrl(url)) {
+          src = Sanitizers.filterImageDataUri(url);
+        } else {
+          src = url;
+        }
+        data.put("logoUrl", src);
       } else if ("home".equalsIgnoreCase(key)) {
         if (GitLinkRenderer.isMarkdown(url)) {
           url = links.getMarkdownUrl(url);
