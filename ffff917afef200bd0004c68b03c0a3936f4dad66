@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cbad4ec_787dc102",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitilesMarkdown.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:53:52Z",
+      "side": 1,
+      "message": "Optional: squash into commit where this was introduced",
+      "revId": "ffff917afef200bd0004c68b03c0a3936f4dad66",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_f751e0a9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitilesMarkdown.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:53:52Z",
+      "side": 1,
+      "message": "I don\u0027t pretend to understand Pegdown, but why this change?",
+      "revId": "ffff917afef200bd0004c68b03c0a3936f4dad66",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
