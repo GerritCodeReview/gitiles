@@ -16,6 +16,24 @@
       "revId": "84a1a650104720e396c40c7f5388211753bd55bc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_b807d990",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/PrettifySerializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T19:03:10Z",
+      "side": 1,
+      "message": "Yeah, I am ok with tabling this until we rip out prettify and replace it with something that sucks less.",
+      "parentUuid": "fcb1100e_dbb4d305",
+      "revId": "84a1a650104720e396c40c7f5388211753bd55bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
