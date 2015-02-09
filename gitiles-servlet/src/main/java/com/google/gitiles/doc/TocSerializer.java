@@ -20,6 +20,7 @@ import org.pegdown.Printer;
 import org.pegdown.ast.HeaderNode;
 import org.pegdown.ast.Node;
 import org.pegdown.ast.RootNode;
+import org.pegdown.ast.SuperNode;
 import org.pegdown.ast.TextNode;
 import org.pegdown.ast.Visitor;
 import org.pegdown.plugins.ToHtmlSerializerPlugin;
@@ -147,10 +148,13 @@ class TocSerializer implements ToHtmlSerializerPlugin {
     return b.toString();
   }
 
-  static String getText(HeaderNode h) {
+  static String getText(Node h) {
     List<Node> ch = h.getChildren();
     if (ch == null || ch.isEmpty()) {
       return null;
+    }
+    if (ch.size() == 1 && ch.get(0) instanceof SuperNode) {
+      return getText(ch.get(0));
     }
 
     StringBuilder b = new StringBuilder();
