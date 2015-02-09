@@ -160,6 +160,7 @@ public class DocServlet extends BaseServlet {
         view.getPathPart());
 
     Map<String, Object> data = new HashMap<>();
+    fmt.populateBanner(data, nav);
     data.put("breadcrumbs", null);
     data.put("repositoryName", null);
     data.put("title", title);
