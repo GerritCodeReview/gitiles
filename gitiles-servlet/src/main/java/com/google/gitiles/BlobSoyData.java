@@ -34,13 +34,12 @@ import org.eclipse.jgit.util.RawParseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import prettify.PrettifyParser;
-import prettify.parser.Prettify;
-import syntaxhighlight.ParseResult;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import prettify.parser.Prettify;
+import syntaxhighlight.ParseResult;
 
 /** Soy data converter for git blobs. */
 public class BlobSoyData {
@@ -122,7 +121,7 @@ public class BlobSoyData {
 
   private List<ParseResult> parse(String path, String content) {
     try {
-      return new PrettifyParser().parse(extension(path, content), content);
+      return PrettifyCache.getParser().parse(extension(path, content), content);
     } catch (StackOverflowError e) {
       // TODO(dborowitz): Aaagh. Make prettify use RE2. Or replace it something
       // else. Or something.
