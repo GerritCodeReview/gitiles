@@ -21,6 +21,7 @@ import com.google.gitiles.GitilesView;
 
 import org.pegdown.LinkRenderer;
 import org.pegdown.ast.ExpLinkNode;
+import org.pegdown.ast.RefLinkNode;
 
 /** Resolves {@code [foo](/path/to.md)} as relative to repository root. */
 class GitLinkRenderer extends LinkRenderer {
@@ -32,19 +33,36 @@ class GitLinkRenderer extends LinkRenderer {
 
   @Override
   public Rendering render(ExpLinkNode node, String text) {
-    String url = node.url;
-    if (url.length() > 2
-        && url.endsWith(".md")
-        && url.charAt(0) == '/' && url.charAt(1) != '/') {
-      url = GitilesView.doc().copyFrom(view)
-          .setPathPart(url.substring(1))
-          .toUrl();
+    return render(node.url, node.title, text);
+  }
+
+  @Override
+  public Rendering render(RefLinkNode node, String url,
+      String title, String text) {
+    return render(url, title, text);
+  }
+
+  private Rendering render(String url, String title, String text) {
+    if (isMarkdown(url)) {
+      url = getMarkdownUrl(url);
     }
 
     Rendering r = new Rendering(url, text);
-    if (!Strings.isNullOrEmpty(node.title)) {
-      r = r.withAttribute("title", encode(node.title));
+    if (!Strings.isNullOrEmpty(title)) {
+      r = r.withAttribute("title", encode(title));
     }
     return r;
+  }
+
+  boolean isMarkdown(String url) {
+    return url.length() > 2
+        && url.endsWith(".md")
+        && url.charAt(0) == '/' && url.charAt(1) != '/';
+  }
+
+  String getMarkdownUrl(String url) {
+    return GitilesView.doc().copyFrom(view)
+        .setPathPart(url.substring(1))
+        .toUrl();
   }
 }

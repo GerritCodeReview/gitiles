@@ -27,10 +27,13 @@ import com.google.template.soy.data.UnsafeSanitizedContentOrdainer;
 import org.pegdown.PegDownProcessor;
 import org.pegdown.ast.HeaderNode;
 import org.pegdown.ast.Node;
+import org.pegdown.ast.ReferenceNode;
 import org.pegdown.ast.RootNode;
 import org.pegdown.plugins.PegDownPlugins;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 class MarkdownHelper {
   static final int MD_OPTIONS = (ALL | SUPPRESS_ALL_HTML)
@@ -77,5 +80,36 @@ class MarkdownHelper {
       }
     }
     return null;
+  }
+
+  void populateBanner(Map<String, Object> data, RootNode nav) {
+    data.put("siteTitle", null);
+    data.put("logoUrl", null);
+    data.put("homeUrl", null);
+
+    for (Iterator<Node> i = nav.getChildren().iterator(); i.hasNext();) {
+      Node n = i.next();
+      if (n instanceof HeaderNode) {
+        HeaderNode h = (HeaderNode) n;
+        if (h.getLevel() == 1) {
+          data.put("siteTitle", TocSerializer.getText(h));
+          i.remove();
+          break;
+        }
+      }
+    }
+
+    for (ReferenceNode r : nav.getReferences()) {
+      String key = TocSerializer.getText(r);
+      String url = r.getUrl();
+      if ("logo".equalsIgnoreCase(key)) {
+        data.put("logoUrl", url);
+      } else if ("home".equalsIgnoreCase(key)) {
+        if (links.isMarkdown(url)) {
+          url = links.getMarkdownUrl(url);
+        }
+        data.put("homeUrl", url);
+      }
+    }
   }
 }
