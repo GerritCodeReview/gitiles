@@ -46,4 +46,19 @@ class HtmlFormatter extends ToHtmlSerializer {
     visitChildren(node);
     printer.print('<').print('/').print(tag).print('>');
   }
+
+  @Override
+  protected void printImageTag(LinkRenderer.Rendering rendering) {
+      printer.print("<img");
+      printAttribute("src", rendering.href);
+      printAttribute("alt", rendering.text);
+      for (LinkRenderer.Attribute attr : rendering.attributes) {
+          printAttribute(attr.name, attr.value);
+      }
+      printer.print(" />");
+  }
+
+  private void printAttribute(String n, String v) {
+    printer.print(' ').print(n).print('=').print('"').print(v).print('"');
+  }
 }

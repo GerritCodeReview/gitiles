@@ -105,7 +105,7 @@ class MarkdownHelper {
       if ("logo".equalsIgnoreCase(key)) {
         data.put("logoUrl", url);
       } else if ("home".equalsIgnoreCase(key)) {
-        if (links.isMarkdown(url)) {
+        if (GitLinkRenderer.isMarkdown(url)) {
           url = links.getMarkdownUrl(url);
         }
         data.put("homeUrl", url);
