@@ -28,7 +28,7 @@ class ColsSerializer implements ToHtmlSerializerPlugin {
       printer.println().print("<div class=\"cols\">").indent(2);
       boolean open = false;
       for (Node n : cols.getChildren()) {
-        if (n instanceof HeaderNode) {
+        if (n instanceof HeaderNode || n instanceof DivNode) {
           if (open) {
             printer.print("</div>");
           }

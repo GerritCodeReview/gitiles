@@ -18,26 +18,23 @@ import org.parboiled.Rule;
 import org.parboiled.support.StringBuilderVar;
 import org.pegdown.Parser;
 import org.pegdown.PegDownProcessor;
-import org.pegdown.ast.RootNode;
+import org.pegdown.ast.Node;
 import org.pegdown.plugins.BlockPluginParser;
+import org.pegdown.plugins.PegDownPlugins;
 
-/**
- * Additional markdown extensions known to Gitiles.
- * <p>
- * {@code [TOC]} as a stand-alone block will insert a table of contents
- * for the current document.
- */
+import java.util.List;
+
+/** Parses Gitiles extensions to markdown. */
 class GitilesMarkdown extends Parser implements BlockPluginParser {
-  private final PegDownProcessor parser;
+  private PegDownProcessor parser;
 
   GitilesMarkdown() {
     super(MarkdownHelper.MD_OPTIONS, 2000L, DefaultParseRunnerProvider);
-    parser = new PegDownProcessor(MarkdownHelper.MD_OPTIONS);
   }
 
   @Override
   public Rule[] blockPluginRules() {
-    return new Rule[]{
+    return new Rule[] {
         toc(),
         note(),
         cols(),
@@ -53,14 +50,12 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
   public Rule note() {
     StringBuilderVar body = new StringBuilderVar();
     return NodeSequence(
-        string("***"), whitespace(), typeOfNote(), Newline(),
+        string("***"), Sp(), typeOfNote(), Newline(),
         oneOrMore(
           testNot(string("***"), Newline()),
           Line(body)),
         string("***"), Newline(),
-        push(new DivNode(
-            (DivNode.Style) pop(),
-            parse(body).getChildren())));
+        push(new DivNode((DivNode.Style) pop(), parse(body))));
   }
 
   public Rule typeOfNote() {
@@ -78,21 +73,23 @@ class GitilesMarkdown extends Parser implements BlockPluginParser {
             testNot(colsTag(), Newline()),
             Line(body)),
         colsTag(), Newline(),
-        push(new ColsNode(parse(body).getChildren())));
+        push(new ColsNode(parse(body))));
   }
 
   public Rule colsTag() {
     return string("|||---|||");
   }
 
-  public Rule whitespace() {
-    return zeroOrMore(anyOf(" \t"));
-  }
-
-  public RootNode parse(StringBuilderVar body) {
+  public List<Node> parse(StringBuilderVar body) {
     // The pegdown code doesn't provide enough visibility to directly
     // use its existing parsing rules. Recurse manually for inner text
     // parsing within a block.
-    return parser.parseMarkdown(body.getChars());
+    if (parser == null) {
+      PegDownPlugins plugins = new PegDownPlugins.Builder()
+        .withPlugin(GitilesMarkdown.class)
+        .build();
+      parser = new PegDownProcessor(MarkdownHelper.MD_OPTIONS, plugins);
+    }
+    return parser.parseMarkdown(body.getChars()).getChildren();
   }
 }

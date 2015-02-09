@@ -184,9 +184,9 @@ th {
   background: #f9f9f9;
   border-color: #f2f2f2;
 }
-.note p:first-child,
-.promo p:first-child,
-.aside p:first-child {
+.note :first-child,
+.promo :first-child,
+.aside :first-child {
   margin-top: 0;
 }
 .note p:last-child,
