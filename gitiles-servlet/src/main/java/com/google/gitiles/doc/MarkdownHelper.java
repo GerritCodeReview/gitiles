@@ -19,14 +19,18 @@ import static org.pegdown.Extensions.HARDWRAPS;
 import static org.pegdown.Extensions.SUPPRESS_ALL_HTML;
 
 import com.google.gitiles.GitilesView;
+import com.google.template.soy.shared.restricted.Sanitizers;
 
 import org.pegdown.PegDownProcessor;
 import org.pegdown.ast.HeaderNode;
 import org.pegdown.ast.Node;
+import org.pegdown.ast.ReferenceNode;
 import org.pegdown.ast.RootNode;
 import org.pegdown.plugins.PegDownPlugins;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 class MarkdownHelper {
   // SUPPRESS_ALL_HTML is enabled to permit hosting arbitrary user content
@@ -72,5 +76,42 @@ class MarkdownHelper {
       }
     }
     return null;
+  }
+
+  void populateBanner(Map<String, Object> data, RootNode nav) {
+    data.put("siteTitle", null);
+    data.put("logoUrl", null);
+    data.put("homeUrl", null);
+
+    for (Iterator<Node> i = nav.getChildren().iterator(); i.hasNext();) {
+      Node n = i.next();
+      if (n instanceof HeaderNode) {
+        HeaderNode h = (HeaderNode) n;
+        if (h.getLevel() == 1) {
+          data.put("siteTitle", TocSerializer.getText(h));
+          i.remove();
+          break;
+        }
+      }
+    }
+
+    for (ReferenceNode r : nav.getReferences()) {
+      String key = TocSerializer.getText(r);
+      String url = r.getUrl();
+      if ("logo".equalsIgnoreCase(key)) {
+        Object src;
+        if (GitLinkRenderer.isImageDataUrl(url)) {
+          src = Sanitizers.filterImageDataUri(url);
+        } else {
+          src = url;
+        }
+        data.put("logoUrl", src);
+      } else if ("home".equalsIgnoreCase(key)) {
+        if (GitLinkRenderer.isMarkdownUrl(url)) {
+          url = links.getMarkdownUrl(url);
+        }
+        data.put("homeUrl", url);
+      }
+    }
   }
 }

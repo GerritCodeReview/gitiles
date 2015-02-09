@@ -19,6 +19,9 @@
 /**
  * Documentation page rendered from markdown.
  *
+ * @param? siteTitle title from navbar.md.
+ * @param? logoUrl url of image logo.
+ * @param? homeUrl url to jump to top of site.
  * @param title of the documentation page.
  * @param sourceUrl url for source view of the page.
  * @param logUrl url for log history of page.
@@ -34,6 +37,19 @@
   <link rel="stylesheet" type="text/css" href="{gitiles.DOC_CSS_URL}" />
 </head>
 <body>
+  {if $siteTitle}
+    <div class="banner" role="banner">
+      <div class="nav-aux">
+        <h1>
+          {if $homeUrl}<a href="{$homeUrl}">{/if}
+          {if $logoUrl}<img src="{$logoUrl}" alt="project logo" />{/if}
+          {$siteTitle}
+          {if $homeUrl}</a>{/if}
+        </h1>
+        <h2>{$title}</h2>
+      </div>
+    </div>
+  {/if}
   {if $navbarHtml}
     <div class="nav" role="navigation">
     <div class="nav-aux">
