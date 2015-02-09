@@ -14,6 +14,7 @@
 
 package com.google.gitiles.doc;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
@@ -23,12 +24,14 @@ import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 import static org.eclipse.jgit.lib.FileMode.TYPE_FILE;
 import static org.eclipse.jgit.lib.FileMode.TYPE_MASK;
 import static org.eclipse.jgit.lib.FileMode.TYPE_TREE;
+import static org.eclipse.jgit.util.HttpSupport.ENCODING_GZIP;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.BaseServlet;
+import com.google.gitiles.FormatType;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.Renderer;
@@ -50,11 +53,13 @@ import org.pegdown.ast.RootNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -156,8 +161,6 @@ public class DocServlet extends BaseServlet {
     data.put("breadcrumbs", null);
     data.put("repositoryName", null);
     data.put("title", title);
-    data.put("navbarHtml", fmt.renderHTML(nav));
-    data.put("bodyHtml", fmt.renderHTML(doc));
     data.put("sourceUrl", GitilesView.path()
         .copyFrom(view)
         .setRevision(view.getRevision().getId().getName())
@@ -170,7 +173,35 @@ public class DocServlet extends BaseServlet {
         .copyFrom(view)
         .setRevision(view.getRevision().getId().getName())
         .toUrl());
-    renderHtml(req, res, "gitiles.markdownDoc", data);
+
+    data.put("navbarHtml", nav != null ? "{{navbarHtml}}" : null);
+    data.put("bodyHtml", "{{bodyHtml}}");
+
+    String page = renderer.render("gitiles.markdownDoc", data);
+    page = insertRenderedMarkdown(page, "{{navbarHtml}}", fmt, nav);
+    page = insertRenderedMarkdown(page, "{{bodyHtml}}", fmt, doc);
+
+    byte[] raw = page.getBytes(UTF_8);
+    res.setContentType(FormatType.HTML.getMimeType());
+    res.setCharacterEncoding(UTF_8.name());
+    setCacheHeaders(res);
+    if (acceptsGzipEncoding(req)) {
+      res.setHeader(HttpHeaders.CONTENT_ENCODING, "gzip");
+      raw = gzip(raw);
+    }
+    res.setContentLength(raw.length);
+    res.setStatus(HttpServletResponse.SC_OK);
+    res.getOutputStream().write(raw);
+  }
+
+  private String insertRenderedMarkdown(String page, String marker,
+      MarkdownHelper fmt, RootNode node) {
+    int p = page.indexOf(marker);
+    if (p > 0) {
+      String html = fmt.renderHTML(node);
+      return page.substring(0, p) + html + page.substring(p + marker.length());
+    }
+    return page;
   }
 
   private RootNode parseFile(GitilesView view, MarkdownHelper fmt, SourceFile md) {
@@ -240,6 +271,31 @@ public class DocServlet extends BaseServlet {
       default:
         return null;
     }
+  }
+
+  private static boolean acceptsGzipEncoding(HttpServletRequest req) {
+    String accepts = req.getHeader(HttpHeaders.ACCEPT_ENCODING);
+    if (accepts == null) {
+      return false;
+    }
+    for (int b = 0; b < accepts.length();) {
+      int comma = accepts.indexOf(',', b);
+      int e = 0 <= comma ? comma : accepts.length();
+      String term = accepts.substring(b, e).trim();
+      if (term.equals(ENCODING_GZIP)) {
+        return true;
+      }
+      b = e + 1;
+    }
+    return false;
+  }
+
+  private static byte[] gzip(byte[] raw) throws IOException {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    try (GZIPOutputStream gz = new GZIPOutputStream(out)) {
+      gz.write(raw);
+    }
+    return out.toByteArray();
   }
 
   private static class SourceFile {

@@ -20,9 +20,6 @@ import static org.pegdown.Extensions.SUPPRESS_ALL_HTML;
 import static org.pegdown.Extensions.WIKILINKS;
 
 import com.google.gitiles.GitilesView;
-import com.google.template.soy.data.SanitizedContent;
-import com.google.template.soy.data.SanitizedContent.ContentKind;
-import com.google.template.soy.data.UnsafeSanitizedContentOrdainer;
 
 import org.pegdown.PegDownProcessor;
 import org.pegdown.ast.HeaderNode;
@@ -53,14 +50,11 @@ class MarkdownHelper {
         .parseMarkdown(md.toCharArray());
   }
 
-  SanitizedContent renderHTML(RootNode root)  {
+  String renderHTML(RootNode root)  {
     if (root == null) {
       return null;
     }
-
-    return UnsafeSanitizedContentOrdainer.ordainAsSafe(
-        new HtmlFormatter(links, new TocSerializer(root, 3)).toHtml(root),
-        ContentKind.HTML);
+    return new HtmlFormatter(links, new TocSerializer(root, 3)).toHtml(root);
   }
 
   String getTitle(Node root) {
