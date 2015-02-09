@@ -74,6 +74,11 @@ public class DocServlet extends BaseServlet {
   @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res)
       throws IOException {
+    if (!getAccess(req).getConfig().getBoolean("gitiles", "renderMarkdown", true)) {
+      res.setStatus(SC_NOT_FOUND);
+      return;
+    }
+
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
     RevWalk rw = new RevWalk(repo);
