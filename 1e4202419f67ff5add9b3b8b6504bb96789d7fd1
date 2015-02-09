@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cbad4ec_781261d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T19:06:34Z",
+      "side": 1,
+      "message": "allow XOR permit, take your pick",
+      "range": {
+        "startLine": 7,
+        "startChar": 10,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "1e4202419f67ff5add9b3b8b6504bb96789d7fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfe0de_7766f090",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T19:06:34Z",
+      "side": 1,
+      "message": "I guess I don\u0027t follow the motivation for this change. What\u0027s wrong with linking to ftp://foo if you want? Is it a security thing, or just because Markdown is like plain text the false positive rate is expected to be higher?",
+      "revId": "1e4202419f67ff5add9b3b8b6504bb96789d7fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbad4ec_580f9da5",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitLinkRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T19:06:34Z",
+      "side": 1,
+      "message": "Tests for this regexp, please.",
+      "revId": "1e4202419f67ff5add9b3b8b6504bb96789d7fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
