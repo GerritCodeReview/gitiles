@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cbad4ec_d88dedc9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T18:48:19Z",
+      "side": 1,
+      "message": "I commented earlier that some other things might be configurable. In which case I would make this markdown.render rather than gitiles.renderMarkdown.",
+      "revId": "3b191b2b4a1fd82775020e5aa8f04f6eb6cf33cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
