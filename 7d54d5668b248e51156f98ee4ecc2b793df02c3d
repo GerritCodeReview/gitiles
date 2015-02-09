@@ -156,6 +156,23 @@
     },
     {
       "key": {
+        "uuid": "9cbad4ec_f8fd5110",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-09T19:00:15Z",
+      "side": 1,
+      "message": "Renderer populates a global gitiles.SITE_TITLE with a configurable title used for every page; see Renderer.java and Common.soy.\n\nI agree the title should be in some way configurable by Markdown, but I\u0027m inclined to always append \"- SITE_TITLE\" like we do for other pages.",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_f888b1bb",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 10
