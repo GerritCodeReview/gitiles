@@ -14,6 +14,7 @@
 
 package com.google.gitiles.doc.html;
 
+import com.google.gitiles.GitilesView;
 import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.data.SanitizedContent.ContentKind;
 import com.google.template.soy.data.UnsafeSanitizedContentOrdainer;
@@ -32,8 +33,8 @@ import java.util.ArrayList;
 public class HtmlFormatter extends ToHtmlSerializer {
   private final TocSerializer toc;
 
-  public HtmlFormatter() {
-    super(new GitLinkRenderer(), new ArrayList<ToHtmlSerializerPlugin>());
+  public HtmlFormatter(GitilesView view) {
+    super(new GitLinkRenderer(view), new ArrayList<ToHtmlSerializerPlugin>());
 
     toc = new TocSerializer();
     plugins.add(toc);
