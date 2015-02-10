@@ -17,6 +17,7 @@ package com.google.gitiles.doc.html;
 import static org.pegdown.FastEncoder.encode;
 
 import com.google.common.base.Strings;
+import com.google.gitiles.GitilesView;
 import com.google.template.soy.shared.restricted.EscapingConventions;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
@@ -36,6 +37,12 @@ class GitLinkRenderer extends LinkRenderer {
 
   private static final FilterImageDataUri IMAGE_DATA =
       EscapingConventions.FilterImageDataUri.INSTANCE;
+
+  private final GitilesView view;
+
+  GitLinkRenderer(GitilesView view) {
+    this.view = view;
+  }
 
   @Override
   public Rendering render(ExpLinkNode node, String textEscaped) {
@@ -63,7 +70,7 @@ class GitLinkRenderer extends LinkRenderer {
 
   private Rendering renderLink(String url, String title, String textEscaped) {
     if (isAbsoluteMarkdown(url)) {
-      url = "#zSoyTodoz";
+      url = GitilesView.doc().copyFrom(view).setPathPart(url).toUrl();
     }
 
     String href;
