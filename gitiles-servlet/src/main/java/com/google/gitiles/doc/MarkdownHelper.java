@@ -21,18 +21,24 @@ import static org.pegdown.Extensions.SUPPRESS_ALL_HTML;
 import com.google.common.base.Strings;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.doc.DocServlet.SourceFile;
+import com.google.gitiles.doc.html.GitLinkRenderer;
+import com.google.template.soy.shared.restricted.Sanitizers;
 
 import org.pegdown.ParsingTimeoutException;
 import org.pegdown.PegDownProcessor;
 import org.pegdown.ast.HeaderNode;
 import org.pegdown.ast.Node;
+import org.pegdown.ast.ReferenceNode;
 import org.pegdown.ast.RootNode;
 import org.pegdown.ast.TextNode;
 import org.pegdown.plugins.PegDownPlugins;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class MarkdownHelper {
   private static final Logger log = LoggerFactory.getLogger(MarkdownHelper.class);
@@ -111,6 +117,49 @@ public class MarkdownHelper {
       }
     }
     return null;
+  }
+
+  static Map<String, Object> banner(GitilesView view, RootNode nav) {
+    Map<String, Object> data = new HashMap<>();
+    data.put("siteTitle", null);
+    data.put("logoUrl", null);
+    data.put("homeUrl", null);
+
+    if (nav == null) {
+      return data;
+    }
+
+    for (Iterator<Node> i = nav.getChildren().iterator(); i.hasNext();) {
+      Node n = i.next();
+      if (n instanceof HeaderNode) {
+        HeaderNode h = (HeaderNode) n;
+        if (h.getLevel() == 1) {
+          data.put("siteTitle", getInnerText(h));
+          i.remove();
+          break;
+        }
+      }
+    }
+
+    for (ReferenceNode r : nav.getReferences()) {
+      String key = getInnerText(r);
+      String url = r.getUrl();
+      if ("logo".equalsIgnoreCase(key)) {
+        Object src;
+        if (GitLinkRenderer.isImageDataUrl(url)) {
+          src = Sanitizers.filterImageDataUri(url);
+        } else {
+          src = url;
+        }
+        data.put("logoUrl", src);
+      } else if ("home".equalsIgnoreCase(key)) {
+        if (GitLinkRenderer.isAbsoluteMarkdown(url)) {
+          url = GitilesView.doc().copyFrom(view).setPathPart(url).toUrl();
+        }
+        data.put("homeUrl", url);
+      }
+    }
+    return data;
   }
 
   private MarkdownHelper() {
