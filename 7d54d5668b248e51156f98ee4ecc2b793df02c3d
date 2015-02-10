@@ -236,6 +236,24 @@
     },
     {
       "key": {
+        "uuid": "d1ad17fe_b2c4c098",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:29:42Z",
+      "side": 1,
+      "message": "It should be possible to get a URL pointing to the Doc.soy template, from which you can hash the file contents at startup. That would make it impossible to forget to bump the gen.\n\nRight now Renderer records a List\u003cURL\u003e but it could easily be a Map\u003cString, URL\u003e with \"Foo.soy\" as the key.",
+      "parentUuid": "1ccee4a3_541f6c57",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_7894a1dc",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 10
@@ -347,6 +365,24 @@
       "side": 1,
       "message": "This is the page title, not the SITE_TITLE. In a later commit I add siteTitle as a separate property coming from navbar.md.\n\nDo you want me to call it -PAGE_TITLE?",
       "parentUuid": "9cbad4ec_f8fd5110",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1b2635a_b1c4c098",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:29:42Z",
+      "side": 1,
+      "message": "I do prefer pageTitle, thanks.",
+      "parentUuid": "fcb1100e_fbdb0f27",
       "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
