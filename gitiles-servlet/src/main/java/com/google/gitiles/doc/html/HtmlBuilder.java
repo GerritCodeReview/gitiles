@@ -23,6 +23,7 @@ import com.google.gitiles.doc.MarkdownHelper;
 import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.data.SanitizedContent.ContentKind;
 import com.google.template.soy.data.UnsafeSanitizedContentOrdainer;
+import com.google.gitiles.GitilesView;
 import com.google.template.soy.shared.restricted.EscapingConventions;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
@@ -52,11 +53,13 @@ public abstract class HtmlBuilder {
   static final FilterImageDataUri IMAGE_DATA =
       EscapingConventions.FilterImageDataUri.INSTANCE;
 
+  private final GitilesView view;
   private final StringBuilder htmlBuf;
   private final Appendable textBuf;
   private String tag;
 
-  HtmlBuilder() {
+  HtmlBuilder(GitilesView view) {
+    this.view = view;
     htmlBuf = new StringBuilder();
     textBuf = EscapingConventions.EscapeHtml.INSTANCE.escape(htmlBuf);
   }
@@ -102,7 +105,7 @@ public abstract class HtmlBuilder {
 
   private String anchorHref(String val) {
     if (MarkdownHelper.isAbsolutePathToMarkdown(val)) {
-      val = "#zSoyTodoz";
+      val = GitilesView.doc().copyFrom(view).setPathPart(val).build().toUrl();
     }
     if (URI.getValueFilter().matcher(val).find()) {
       return URI.escape(val);
