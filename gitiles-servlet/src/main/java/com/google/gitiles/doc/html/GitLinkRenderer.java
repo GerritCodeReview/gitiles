@@ -31,7 +31,7 @@ import org.pegdown.ast.RefLinkNode;
 import org.pegdown.ast.WikiLinkNode;
 
 /** Sanitizes URLs by applying Soy's URI functions to them. */
-class GitLinkRenderer extends LinkRenderer {
+public class GitLinkRenderer extends LinkRenderer {
   private static final FilterNormalizeUri URI =
       EscapingConventions.FilterNormalizeUri.INSTANCE;
 
