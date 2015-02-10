@@ -53,6 +53,10 @@ public abstract class HtmlBuilder {
   static final FilterImageDataUri IMAGE_DATA =
       EscapingConventions.FilterImageDataUri.INSTANCE;
 
+  public static boolean isImageDataUrl(String url) {
+    return IMAGE_DATA.getValueFilter().matcher(url).find();
+  }
+
   private final GitilesView view;
   private final StringBuilder htmlBuf;
   private final Appendable textBuf;
