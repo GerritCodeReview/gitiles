@@ -164,6 +164,7 @@ public class DocServlet extends BaseServlet {
   private void showDoc(HttpServletRequest req, HttpServletResponse res,
       final GitilesView view, RootNode nav, RootNode doc) throws IOException {
     Map<String, Object> data = new HashMap<>();
+    data.putAll(Navbar.banner(view, nav));
     data.put("pageTitle", MoreObjects.firstNonNull(
         MarkdownHelper.getTitle(doc),
         view.getPathPart()));
