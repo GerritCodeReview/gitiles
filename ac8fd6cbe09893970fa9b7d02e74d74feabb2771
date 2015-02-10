@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11ab2ff1_ecbcabea",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Renderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T23:44:59Z",
+      "side": 1,
+      "message": "You can let Guava do more of the work:\n\n Hasher h \u003d Hashing.sha1().newHasher();\n try (InputStream is \u003d u.openStream();\n     OutputStream os \u003d Funnels.asOutputStream(h)) {\n   ByteStreams.copy(is, os);\n }\n return h.hash();",
+      "revId": "ac8fd6cbe09893970fa9b7d02e74d74feabb2771",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
