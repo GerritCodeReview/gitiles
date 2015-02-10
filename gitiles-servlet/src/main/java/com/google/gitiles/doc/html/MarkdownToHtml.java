@@ -17,6 +17,7 @@ package com.google.gitiles.doc.html;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.gitiles.doc.MarkdownHelper.getInnerText;
 
+import com.google.gitiles.GitilesView;
 import com.google.gitiles.doc.TocNode;
 import com.google.gitiles.doc.Visitor;
 import com.google.template.soy.data.SanitizedContent;
@@ -69,6 +70,10 @@ public class MarkdownToHtml extends HtmlBuilder implements Visitor {
   private final ReferenceMap references = new ReferenceMap();
   private final TocFormatter toc = new TocFormatter(this, 3);
   private TableState table;
+
+  public MarkdownToHtml(GitilesView view) {
+    super(view);
+  }
 
   /** Render the document AST to sanitized HTML. */
   public SanitizedContent toSoyHtml(RootNode node) {
