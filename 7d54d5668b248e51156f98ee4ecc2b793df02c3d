@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "fcb1100e_5b48c34c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbad4ec_d8a4cd53",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_b8a9192a",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 10
@@ -47,6 +65,30 @@
       "writtenOn": "2015-02-09T18:47:21Z",
       "side": 1,
       "message": "Constant up by index.md",
+      "range": {
+        "startLine": 94,
+        "startChar": 44,
+        "endLine": 94,
+        "endChar": 55
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb1100e_7b4b7f4b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbad4ec_b8a9192a",
       "range": {
         "startLine": 94,
         "startChar": 44,
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_941ce465",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "parseFile() is our own method below. It already logged on the two failure paths as much detail as we have on hand. There isn\u0027t much point in logging more.",
+      "parentUuid": "7cbfe0de_57f52c52",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_98ae552e",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 10
@@ -87,6 +147,30 @@
       "writtenOn": "2015-02-09T18:47:21Z",
       "side": 1,
       "message": "Factor this out above the first use on l. 95.",
+      "range": {
+        "startLine": 118,
+        "startChar": 38,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ccee4a3_742268a5",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbad4ec_98ae552e",
       "range": {
         "startLine": 118,
         "startChar": 38,
@@ -116,6 +200,24 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_541f6c57",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "The CSS is not inlined into the document. Its loaded/checked on every request by the browser.\n\nThe Soy is inlined, but should cause a GEN bump.",
+      "parentUuid": "9cbad4ec_5891ddea",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_7894a1dc",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 10
@@ -127,6 +229,24 @@
       "writtenOn": "2015-02-09T18:47:21Z",
       "side": 1,
       "message": "My brain doesn\u0027t like the extra allocs here. You could do this with a StringBuilder with barely more code. \n\n(Ok, there are still a lot of allocs involved for the name strings and whatnot, this is certainly premature optimization :)",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ccee4a3_342cf092",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbad4ec_7894a1dc",
       "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -156,6 +276,30 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_1429f482",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cbfe0de_3702b8ae",
+      "range": {
+        "startLine": 138,
+        "startChar": 22,
+        "endLine": 138,
+        "endChar": 31
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_f8fd5110",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 10
@@ -167,6 +311,24 @@
       "writtenOn": "2015-02-09T19:00:15Z",
       "side": 1,
       "message": "Renderer populates a global gitiles.SITE_TITLE with a configurable title used for every page; see Renderer.java and Common.soy.\n\nI agree the title should be in some way configurable by Markdown, but I\u0027m inclined to always append \"- SITE_TITLE\" like we do for other pages.",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb1100e_fbdb0f27",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "This is the page title, not the SITE_TITLE. In a later commit I add siteTitle as a separate property coming from navbar.md.\n\nDo you want me to call it -PAGE_TITLE?",
+      "parentUuid": "9cbad4ec_f8fd5110",
       "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -190,6 +352,24 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_d43b7cca",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbad4ec_f888b1bb",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cbfe0de_f72c4043",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/HtmlFormatter.java",
         "patchSetId": 10
@@ -201,6 +381,24 @@
       "writtenOn": "2015-02-09T18:47:21Z",
       "side": 1,
       "message": "I would have thought something like this would be built-in. *shrug*",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb1100e_9b352bd8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/HtmlFormatter.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "The base class does the same thing, combining \"h\" with the level. Unfortunately its not in a helper method that I can just invoke.\n\nI had to override the base class to supply the id attribute for the toc. And that mean I had to implement the tag generation myself.",
+      "parentUuid": "7cbfe0de_f72c4043",
       "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -224,6 +422,24 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_94be24e0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cbfe0de_d7313c9d",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_389e29fb",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownHelper.java",
         "patchSetId": 10
@@ -235,6 +451,24 @@
       "writtenOn": "2015-02-09T18:47:21Z",
       "side": 1,
       "message": "Comment on why this is safe?",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ccee4a3_b417e042",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownHelper.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Rewritten. Please see the new version.",
+      "parentUuid": "9cbad4ec_389e29fb",
       "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -264,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_b4b920fc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/TocSerializer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Actually Soy leaves them in. They are quite visible in view-source in Chrome. So its sort of worthwhile to do the indent handling.",
+      "parentUuid": "9cbad4ec_189b650b",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cbfe0de_b726c85f",
         "filename": "lib/BUCK",
         "patchSetId": 10
@@ -275,6 +533,24 @@
       "writtenOn": "2015-02-09T18:47:21Z",
       "side": 1,
       "message": "Limit visibility to the library of which this is a dependency?",
+      "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb1100e_fb98af8d",
+        "filename": "lib/BUCK",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cbfe0de_b726c85f",
       "revId": "7d54d5668b248e51156f98ee4ecc2b793df02c3d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
