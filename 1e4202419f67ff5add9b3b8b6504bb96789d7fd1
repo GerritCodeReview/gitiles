@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1ccee4a3_1484541e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T00:52:38Z",
+      "side": 1,
+      "message": "ftp:// is weird. Who uses ftp:// anymore?\n\nNotably Soy rejects ftp:// URLs. So we do too.",
+      "parentUuid": "7cbfe0de_7766f090",
+      "revId": "1e4202419f67ff5add9b3b8b6504bb96789d7fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbad4ec_580f9da5",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitLinkRenderer.java",
         "patchSetId": 1
@@ -53,6 +71,24 @@
       "writtenOn": "2015-02-09T19:06:34Z",
       "side": 1,
       "message": "Tests for this regexp, please.",
+      "revId": "1e4202419f67ff5add9b3b8b6504bb96789d7fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb1100e_fb366fe4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitLinkRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T00:52:38Z",
+      "side": 1,
+      "message": "Moved to using an existing regex from Soy, but added tests to ensure Soy is doing what Soy promises to do.",
+      "parentUuid": "9cbad4ec_580f9da5",
       "revId": "1e4202419f67ff5add9b3b8b6504bb96789d7fd1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
