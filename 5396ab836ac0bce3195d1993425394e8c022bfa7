@@ -16,6 +16,24 @@
       "revId": "5396ab836ac0bce3195d1993425394e8c022bfa7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb1100e_bbe587e6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DivNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-10T01:13:30Z",
+      "side": 1,
+      "message": "Done.\n\nI don\u0027t want the parser matching everything, as that might allow someone to pick a class we don\u0027t want applied somewhere.\n\nLets be a bit more strict about it and require the class name to match in the parser to a name we know we put into the CSS.",
+      "parentUuid": "9cbad4ec_988775a8",
+      "revId": "5396ab836ac0bce3195d1993425394e8c022bfa7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
