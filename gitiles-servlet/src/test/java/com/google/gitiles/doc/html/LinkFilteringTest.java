@@ -35,7 +35,7 @@ public class LinkFilteringTest {
 
   @Before
   public void setUp() {
-    links = new GitLinkRenderer();
+    links = new GitLinkRenderer(null);
   }
 
   @Test
