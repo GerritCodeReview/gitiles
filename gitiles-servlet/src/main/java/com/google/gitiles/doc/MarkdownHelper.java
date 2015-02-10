@@ -14,14 +14,69 @@
 
 package com.google.gitiles.doc;
 
-import com.google.common.base.Strings;
+import static org.pegdown.Extensions.ALL;
+import static org.pegdown.Extensions.HARDWRAPS;
+import static org.pegdown.Extensions.SUPPRESS_ALL_HTML;
 
+import com.google.common.base.Strings;
+import com.google.gitiles.GitilesView;
+import com.google.gitiles.doc.DocServlet.SourceFile;
+
+import org.pegdown.ParsingTimeoutException;
+import org.pegdown.PegDownProcessor;
+import org.pegdown.ast.HeaderNode;
 import org.pegdown.ast.Node;
+import org.pegdown.ast.RootNode;
 import org.pegdown.ast.TextNode;
+import org.pegdown.plugins.PegDownPlugins;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class MarkdownHelper {
+  private static final Logger log = LoggerFactory.getLogger(MarkdownHelper.class);
+
+  // SUPPRESS_ALL_HTML is enabled to permit hosting arbitrary user content
+  // while avoiding XSS style HTML, CSS and JavaScript injection attacks.
+  //
+  // HARDWRAPS is disabled to permit line wrapping within paragraphs to
+  // make the source file easier to read in 80 column terminals without
+  // this impacting the rendered formatting.
+  static final int MD_OPTIONS = (ALL | SUPPRESS_ALL_HTML) & ~(HARDWRAPS);
+
+  static RootNode parseMarkdown(String markdownSource) {
+    PegDownPlugins plugins = new PegDownPlugins.Builder()
+        .withPlugin(GitilesMarkdown.class)
+        .build();
+    return new PegDownProcessor(MD_OPTIONS, plugins)
+        .parseMarkdown(markdownSource.toCharArray());
+  }
+
+  static RootNode parseFile(GitilesView view, SourceFile md) {
+    if (md == null) {
+      return null;
+    }
+
+    RootNode docTree;
+    try {
+      docTree = MarkdownHelper.parseMarkdown(md.text);
+    } catch (ParsingTimeoutException e) {
+      log.error("timeout rendering {}/{} at {}",
+          view.getRepositoryName(),
+          md.path,
+          view.getRevision().getName());
+      return null;
+    }
+    if (docTree == null) {
+      log.error("cannot parse {}/{} at {}",
+          view.getRepositoryName(),
+          md.path,
+          view.getRevision().getName());
+    }
+    return docTree;
+  }
+
   /** Combine child nodes as string; this must be escaped for HTML. */
   public static String getInnerText(Node h) {
     List<Node> ch = h.getChildren();
@@ -36,6 +91,26 @@ public class MarkdownHelper {
       }
     }
     return Strings.emptyToNull(b.toString().trim());
+  }
+
+  static String getTitle(Node root) {
+    if (root instanceof HeaderNode) {
+      HeaderNode h = (HeaderNode) root;
+      if (h.getLevel() == 1) {
+        return getInnerText(h);
+      }
+    }
+
+    List<Node> ch = root.getChildren();
+    if (ch != null) {
+      for (Node n : ch) {
+        String title = getTitle(n);
+        if (title != null) {
+          return title;
+        }
+      }
+    }
+    return null;
   }
 
   private MarkdownHelper() {
