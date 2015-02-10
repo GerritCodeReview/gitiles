@@ -17,6 +17,7 @@ package com.google.gitiles.doc.html;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 
+import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.gitiles.doc.MarkdownHelper;
@@ -52,11 +53,13 @@ public abstract class HtmlBuilder {
   static final FilterImageDataUri IMAGE_DATA =
       EscapingConventions.FilterImageDataUri.INSTANCE;
 
+  private final Function<String, String> pathResolver;
   private final StringBuilder htmlBuf;
   private final Appendable textBuf;
   private String tag;
 
-  HtmlBuilder() {
+  HtmlBuilder(Function<String, String> resolver) {
+    pathResolver = resolver;
     htmlBuf = new StringBuilder();
     textBuf = EscapingConventions.EscapeHtml.INSTANCE.escape(htmlBuf);
   }
@@ -102,7 +105,7 @@ public abstract class HtmlBuilder {
 
   private String anchorHref(String val) {
     if (MarkdownHelper.isAbsolutePathToMarkdown(val)) {
-      val = "#zSoyTodoz";
+      val = pathResolver.apply(val);
     }
     if (URI.getValueFilter().matcher(val).find()) {
       return URI.escape(val);
