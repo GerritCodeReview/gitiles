@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91b71f4c_b0c4b898",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "Can the rendered navbar HTML contain this string? That would be problematic. Safer would be to split the rendered string up into chunks on these placeholders before interpolating either of them.",
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1ad17fe_92c9bcb2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "This is also constructing several intermediate strings you don\u0027t need. If you use my suggestion above to split the page before interpolation, you can write out the chunks independently without reassembling them.",
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91b71f4c_90c9b4b2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "I don\u0027t think we do this elsewhere do we? Seems like it should be on all servlets or none, not just doc servlets. You could factor that out of this change.\n\n(IIRC for googlesource.com gzip encoding is provided by a reverse proxy.)",
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91b71f4c_f0ce40b6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitLinkRenderer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "Seems like it\u0027s doing a fair bit more than this.\n\nThe class javadoc is probably also a good place to mention that we are mimicking (and in some cases using) Soy\u0027s URI and image sanitization checks.",
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91b71f4c_d0d33c5a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Doc.soy",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "Heh, above you just said this is the h1 title.\n\nI think you may want to append \" - SITE_TITLE\" here regardless. If you name your Markdown doc \"My Documentation\", we want https://foo.googlesource.com/bar/+doc/master/index.md to say \"My Documentation - Git at Google\"",
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11ab2ff1_acc46398",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/LinkFilteringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "These test cases came from Soy? Might be nice to link to their origin, so we can backport more as necessary.",
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11ab2ff1_8cc9a7b2",
+        "filename": "lib/BUCK",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-10T19:26:47Z",
+      "side": 1,
+      "message": "Trailing whitespace",
+      "range": {
+        "startLine": 71,
+        "startChar": 32,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "fe60ba1b4b7449dd36d9c9330f7b58d6621070a6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
