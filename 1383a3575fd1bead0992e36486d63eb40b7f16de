@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "912c7f7c_288b2b36",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-11T22:02:54Z",
+      "side": 1,
+      "message": "Maybe true for the allow sections. But a href and img src we have to run through a function, which is more than just a Multimap lookup.",
+      "parentUuid": "b137c3c2_e9467564",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b137c3c2_095ca931",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
         "patchSetId": 8
@@ -136,6 +154,24 @@
       "writtenOn": "2015-02-11T21:25:00Z",
       "side": 1,
       "message": "What about \u0026# entities?",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_a938fdce",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-11T22:02:54Z",
+      "side": 1,
+      "message": "Denied right now. These are only hard coded entities we have put into the formatter like \u0026nbsp; because there is a specific nbsp AST node created by pegdown\u0027s parser.\n\nThis is never called for a user supplied entity. Its only called for entities we have hand-written support for in MarkdownToHtml because there are AST nodes that correspond to them from the parser.",
+      "parentUuid": "b137c3c2_095ca931",
       "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
