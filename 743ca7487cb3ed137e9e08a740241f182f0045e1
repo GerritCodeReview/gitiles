@@ -16,6 +16,24 @@
       "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_492b0180",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-11T22:00:36Z",
+      "side": 1,
+      "message": "No. Elements are created by MarkdownToHtml using hard coded element names. IAE is thrown if we developers wrote something incorrectly into MarkdownToHtml.\n\nHTML that appears in the source document we parsed is flat out discarded and never makes it to HtmlBuilder. So bad input will not cause IAE.\n\nIAE should never be thrown. Unless we wrote code wrong in MarkdownToHtml. Hence it really is a \"never gonna happen except when it does\" sort of thing.",
+      "parentUuid": "b137c3c2_29a40dce",
+      "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
