@@ -51,6 +51,24 @@
       "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912c7f7c_880c173a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-11T22:03:45Z",
+      "side": 1,
+      "message": "Answered in the other CL; but they can\u0027t appear here so we don\u0027t have to allow them here.\n\nThis method only accepts hand-written entities that we have hard coded into the HTML formatter to match up with AST nodes the parser creates.",
+      "parentUuid": "b137c3c2_6928c582",
+      "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
