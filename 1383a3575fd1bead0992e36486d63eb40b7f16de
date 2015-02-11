@@ -1,0 +1,231 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "912c7f7c_e8467364",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownHelper.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "Optional: I think \"MarkdownUtil\" would be following the pattern better for a collection of static utility methods.",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_c9bc51eb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "I think the key point is this is more restricted than the builder that comes with Pegdown.",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_e9467564",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "I would maybe have done this with an ImmutableSetMultimap of tags to allowed attributes, but this is fine too.",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_095ca931",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "What about \u0026# entities?",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_29596d42",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/MarkdownToHtml.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "This reads a little odd to me, I would have thought it would be just a pre block, or maybe pre with a class. If you\u0027re just copying existing Pegdown behavior that\u0027s fine.",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912c7f7c_085ca731",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/MarkdownToHtml.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "I guess the syntax does not admit nested tables? Otherwise you would need a stack rather than a single last table reference.",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_4956a111",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/MarkdownToHtml.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "Must be in table.",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_69536520",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/MarkdownToHtml.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "This one doesn\u0027t though, right?",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_89b25915",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/MarkdownToHtml.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "Could probably factor out checkInTable(node)",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912c7f7c_28596b42",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/ReferenceMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "So the main benefit here is stripping whitespace, is that right? Can you document an example and why this is desirable?",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_a9b71d04",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/TableState.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "Optional nit: blank line after this.",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912c7f7c_48569f11",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/TocFormatter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "What about titles that collapse to the same thing?\n\nI don\u0027t think this is purely hypothetical. idFromTitle(\"C++\") and idFromTitle(\"C#\") are both \"C_\".",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912c7f7c_68536320",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/TocFormatter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:25:00Z",
+      "side": 1,
+      "message": "It\u0027s a little weird that \"Foo + Bar\" becomes \"Foo-Bar\" but \"Foo+Bar\" becomes \"Foo_Bar\". But weird is fine I guess. (Less fine is the ambiguity I pointed out above.)",
+      "revId": "1383a3575fd1bead0992e36486d63eb40b7f16de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
