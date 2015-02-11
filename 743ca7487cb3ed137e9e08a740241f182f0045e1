@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b137c3c2_29a40dce",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:29:30Z",
+      "side": 1,
+      "message": "In what situations would these get passed to callers? Such elements would get stripped out earlier in the parsing process if they showed up in UGC, is that the case? If so, then I think IAE is ok behavior.\n\nIf passing unsafe UGC to the parser produces IAE, I think that\u0027s not what we want, we don\u0027t want HTTP 500 on those responses. A custom exception type or return value that the handler can catch would be better, that way we can say something like \"this document could not be rendered due to unsafe HTML\".",
+      "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
