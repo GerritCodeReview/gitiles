@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b137c3c2_69ae05b0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:38:01Z",
+      "side": 1,
+      "message": "Optional: blank line after this.",
+      "revId": "3d43e50e3475bd161475606a8668dc19681c7114",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912c7f7c_e8c11356",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:38:01Z",
+      "side": 1,
+      "message": "Optional:\n\n renderer.getTemplateHash(SOY_FILE).writeBytesTo(b, 0, b.length);\n h.putBytes(b);",
+      "revId": "3d43e50e3475bd161475606a8668dc19681c7114",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b137c3c2_e998358a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-11T21:38:01Z",
+      "side": 1,
+      "message": "Except for returning null instead of throwing IncorrectObjectTypeException (and not parsing the tree, which you do later anyway) this is basically the same as rw.parseTree(view.getRevision().getId()). I would be ok with catching that exception above to generate a 404.",
+      "revId": "3d43e50e3475bd161475606a8668dc19681c7114",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
