@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "165885e4_247b92a5",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-12T21:16:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1616c500_94f1c4f4",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1616c500_d4eb3c00",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2015-02-12T18:57:39Z",
       "side": 1,
       "message": "Tests for this behavior.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_94438468",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-12T21:16:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1616c500_d4eb3c00",
       "revId": "27c31d827348b1c61e46191513f666bbe6534212",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "165885e4_c4487e76",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-12T21:16:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1616c500_f4e6383a",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "165885e4_24115278",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 1
@@ -81,6 +135,24 @@
       "writtenOn": "2015-02-12T18:57:39Z",
       "side": 1,
       "message": "Move this block into parseShowCommand. And add tests.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165885e4_a4478261",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-12T21:16:24Z",
+      "side": 1,
+      "message": "No. If I put this into parseShowCommand() then both /+show/ and /+/ show the rendered markdown and it becomes impossible to view the source.\n\nThe intent of this commit is /+/foo.md renders the file while /+show/foo.md shows the prettified markdown source.",
+      "parentUuid": "165885e4_24115278",
       "revId": "27c31d827348b1c61e46191513f666bbe6534212",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
