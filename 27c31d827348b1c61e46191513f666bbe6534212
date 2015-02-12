@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1616c500_54df2c5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T18:57:39Z",
+      "side": 1,
+      "message": "Viewing on /+/ is what we do for everything else. You saw the code: parseAutoCommand just looks at the rest of the URL to decide which kind of view to return. Whereas for +foo you always get the foo view.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_94f1c4f4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T18:57:39Z",
+      "side": 1,
+      "message": "Instead of special-casing SHOW why not just make PathServlet the default for SHOW?\n\nWe could even rename it to ShowServlet if that makes you feel better.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_d4eb3c00",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T18:57:39Z",
+      "side": 1,
+      "message": "Tests for this behavior.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_f4e6383a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T18:57:39Z",
+      "side": 1,
+      "message": "Do the inverse of what we do when parsing here: use /+/ instead of /+doc/ if the path ends with .md.\n\nAnd tests for this behavior.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165885e4_24115278",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T18:57:39Z",
+      "side": 1,
+      "message": "Move this block into parseShowCommand. And add tests.",
+      "revId": "27c31d827348b1c61e46191513f666bbe6534212",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
