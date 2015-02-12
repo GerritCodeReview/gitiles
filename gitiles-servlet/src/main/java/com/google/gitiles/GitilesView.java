@@ -61,6 +61,7 @@ public class GitilesView {
     REFS,
     REVISION,
     PATH,
+    SHOW,
     DIFF,
     LOG,
     DESCRIBE,
@@ -108,6 +109,7 @@ public class GitilesView {
         case DOC:
         case ARCHIVE:
         case BLAME:
+        case SHOW:
           path = other.path;
           // Fallthrough.
         case REVISION:
@@ -227,6 +229,7 @@ public class GitilesView {
       switch (type) {
         case PATH:
         case DIFF:
+        case SHOW:
           checkState(path != null, "cannot set null path on %s view", type);
           break;
         case BLAME:
@@ -312,6 +315,7 @@ public class GitilesView {
           checkRevision();
           break;
         case PATH:
+        case SHOW:
           checkPath();
           break;
         case DIFF:
@@ -415,6 +419,10 @@ public class GitilesView {
 
   public static Builder path() {
     return new Builder(Type.PATH);
+  }
+
+  public static Builder show() {
+    return new Builder(Type.SHOW);
   }
 
   public static Builder diff() {
@@ -597,6 +605,10 @@ public class GitilesView {
       case PATH:
         url.append(repositoryName).append("/+/").append(revision.getName()).append('/')
             .append(path);
+        break;
+      case SHOW:
+        url.append(repositoryName).append("/+show/").append(revision.getName())
+            .append('/').append(path);
         break;
       case DIFF:
         url.append(repositoryName).append("/+/");

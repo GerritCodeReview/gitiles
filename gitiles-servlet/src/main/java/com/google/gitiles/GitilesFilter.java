@@ -134,7 +134,8 @@ class GitilesFilter extends MetaFilter {
       this.filters = LinkedListMultimap.create(filters);
       this.servlets = ImmutableMap.copyOf(servlets);
       for (GitilesView.Type type : GitilesView.Type.values()) {
-        checkState(servlets.containsKey(type), "Missing handler for view %s", type);
+        checkState(type == GitilesView.Type.SHOW
+            || servlets.containsKey(type), "Missing handler for view %s", type);
       }
     }
 
@@ -205,7 +206,7 @@ class GitilesFilter extends MetaFilter {
     setDefaultFields(config);
 
     for (GitilesView.Type type : GitilesView.Type.values()) {
-      if (!servlets.containsKey(type)) {
+      if (!servlets.containsKey(type) && type != GitilesView.Type.SHOW) {
         servlets.put(type, getDefaultHandler(type));
       }
     }
