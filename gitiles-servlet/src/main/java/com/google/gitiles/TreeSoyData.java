@@ -22,11 +22,20 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gitiles.PathServlet.FileType;
+import com.google.gitiles.doc.GitilesMarkdown;
+import com.google.gitiles.doc.MarkdownToHtml;
+import com.google.template.soy.data.SanitizedContent;
 
+import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.treewalk.TreeWalk;
+import org.eclipse.jgit.util.RawParseUtils;
+import org.pegdown.ast.RootNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +43,8 @@ import java.util.Map;
 
 /** Soy data converter for git trees. */
 public class TreeSoyData {
+  private static final Logger log = LoggerFactory.getLogger(TreeSoyData.class);
+
   /**
    * Number of characters to display for a symlink target. Targets longer than
    * this are abbreviated for display in a tree listing.
@@ -46,6 +57,9 @@ public class TreeSoyData {
    * file instead of as a symlink.
    */
   static final int MAX_SYMLINK_SIZE = 16 << 10;
+
+  /** Default markdown file to render within the tree view. */
+  private static final String README_MD = "README.md";
 
   static String resolveTargetUrl(GitilesView view, String target) {
     String resolved = Paths.simplifyPathUpToRoot(target, view.getPathPart());
@@ -85,6 +99,7 @@ public class TreeSoyData {
 
   public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw) throws MissingObjectException,
          IOException {
+    ObjectId readmeId = null;
     List<Object> entries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
     while (tw.next()) {
@@ -122,6 +137,8 @@ public class TreeSoyData {
         if (targetUrl != null) {
           entry.put("targetUrl", targetUrl);
         }
+      } else if (type == FileType.REGULAR_FILE && name.equals(README_MD)) {
+        readmeId = tw.getObjectId(0);
       }
       entries.add(entry);
     }
@@ -141,6 +158,10 @@ public class TreeSoyData {
       data.put("archiveType", archiveFormat.getShortName());
     }
 
+    if (readmeId != null) {
+      data.put("readmeHtml", render(readmeId));
+    }
+
     return data;
   }
 
@@ -149,5 +170,21 @@ public class TreeSoyData {
     tw.addTree(treeId);
     tw.setRecursive(false);
     return toSoyData(treeId, tw);
+  }
+
+  private SanitizedContent render(ObjectId readmeId) {
+    try {
+      byte[] raw = reader.open(readmeId, Constants.OBJ_BLOB).getCachedBytes();
+      String md = RawParseUtils.decode(raw);
+      RootNode root = GitilesMarkdown.parseFile(view, README_MD, md);
+      if (root == null) {
+        return null;
+      }
+      return new MarkdownToHtml(view).toSoyHtml(root);
+    } catch (LargeObjectException | IOException e) {
+      log.error(String.format("error rendering %s/%s/%s",
+          view.getRepositoryName(), view.getPathPart(), README_MD), e);
+      return null;
+    }
   }
 }
