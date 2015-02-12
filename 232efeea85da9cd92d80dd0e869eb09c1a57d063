@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1616c500_3401d035",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T19:00:42Z",
+      "side": 1,
+      "message": "Do we have to be case sensitive?",
+      "revId": "232efeea85da9cd92d80dd0e869eb09c1a57d063",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165885e4_e4433a67",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T19:00:42Z",
+      "side": 1,
+      "message": "Use the same size limit that we enforce in DocServlet",
+      "revId": "232efeea85da9cd92d80dd0e869eb09c1a57d063",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_14fe54bd",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-12T19:00:42Z",
+      "side": 1,
+      "message": "Would it make sense to copy more of doc.css in here?\n\nAlternatively, you could modify ObjectDetail.soy to include doc.css in the header if the readme content exists.",
+      "revId": "232efeea85da9cd92d80dd0e869eb09c1a57d063",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
