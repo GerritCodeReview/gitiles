@@ -46,6 +46,30 @@
       "revId": "9c5806ffdd69c1e1bc5cd1779fbe09bd01f4dd4d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6dfcd7d_22c50e10",
+        "filename": "gitiles-war/src/main/webapp/WEB-INF/web.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-02-13T22:57:52Z",
+      "side": 1,
+      "message": "Back in 2013 it was indeed fixed in the original patch:\n\n* https://code.google.com/p/gitiles/issues/attachmentText?id\u003d34\u0026aid\u003d340000000\u0026name\u003d0002-Set-route-for-static-contents.patch\u0026token\u003dABZ6GAcLwMuEfq9CZ2YW0ZpdJTL8hjq67Q%3A1423853638318\n\n*Sigh*",
+      "parentUuid": "165885e4_049f763d",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "9c5806ffdd69c1e1bc5cd1779fbe09bd01f4dd4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
