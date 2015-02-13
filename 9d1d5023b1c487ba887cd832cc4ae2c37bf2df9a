@@ -34,6 +34,24 @@
       "revId": "9d1d5023b1c487ba887cd832cc4ae2c37bf2df9a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_9410a44b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-13T18:55:51Z",
+      "side": 1,
+      "message": "No. Only revision and tree view pages need it. But I couldn\u0027t quickly figure out where in Gitiles I can shove the conditional through into this header template.",
+      "parentUuid": "165885e4_c4a71ea8",
+      "revId": "9d1d5023b1c487ba887cd832cc4ae2c37bf2df9a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
