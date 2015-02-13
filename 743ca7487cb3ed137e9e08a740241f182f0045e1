@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "f67bf134_cb9ad582",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2015-02-13T04:23:20Z",
+      "side": 1,
+      "message": "CID 29319 (#1 of 1): EC: Comparing incompatible types for equality (FB.EC_UNRELATED_TYPES)\n1. defect: Call to com.google.common.collect.ImmutableSet\u003cjava.lang.String\u003e.equals(String).\n\nfrom coverity scan.\nIn com.​google.​gitiles.​doc.​html.​HtmlBuilder.​close(java.​lang.​String): This method calls equals(Object) on two references of different class types with no common subclasses. \n\nI am not entirely sure what that means, just pointing out the new error.\nIt\u0027s claimed to be medium impact, addressing correctness. From looking at the code I\u0027d guess it\u0027s a false positive.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 79
+      },
+      "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b137c3c2_6928c582",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
         "patchSetId": 1
