@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "165885e4_a40542f3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-13T18:34:34Z",
+      "side": 1,
+      "message": "There is a gitiles.canonicalHostName option respected by the default configuration. Would it make sense to always allow iframes from that hostname? Or is that not something an admin would always want?",
+      "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165885e4_44fb2e7f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-13T18:34:34Z",
+      "side": 1,
+      "message": "pt?\n\nTurns out there are quite a few units.\n\nhttp://www.w3schools.com/cssref/css_units.asp",
+      "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1616c500_148c9449",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-13T18:34:34Z",
+      "side": 1,
+      "message": "// after these?\n\nAlso just startsWith(\"//\")?",
+      "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
