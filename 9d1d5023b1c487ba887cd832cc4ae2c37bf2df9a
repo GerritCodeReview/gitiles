@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1616c500_f442b852",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-13T00:47:40Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary to include on every page is it?\n\nYou should be able to conditionally include it in the css list param in .pathDetail from PathDetail.soy only if $readmeHtml is defined.",
+      "revId": "9d1d5023b1c487ba887cd832cc4ae2c37bf2df9a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
