@@ -32,6 +32,7 @@ import com.google.gitiles.DateFormatter.Format;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -76,6 +77,7 @@ public class RevisionServlet extends BaseServlet {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
     GitilesAccess access = getAccess(req);
+    Config cfg = getAccess(req).getConfig();
 
     RevWalk walk = new RevWalk(repo);
     try {
@@ -100,7 +102,7 @@ public class RevisionServlet extends BaseServlet {
             case OBJ_TREE:
               soyObjects.add(ImmutableMap.of(
                   "type", Constants.TYPE_TREE,
-                  "data", new TreeSoyData(walk.getObjectReader(), view).toSoyData(obj)));
+                  "data", new TreeSoyData(walk.getObjectReader(), view, cfg).toSoyData(obj)));
               break;
             case OBJ_BLOB:
               soyObjects.add(ImmutableMap.of(
