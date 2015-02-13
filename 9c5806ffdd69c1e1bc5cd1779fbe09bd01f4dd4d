@@ -22,6 +22,30 @@
       "revId": "9c5806ffdd69c1e1bc5cd1779fbe09bd01f4dd4d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165885e4_049f763d",
+        "filename": "gitiles-war/src/main/webapp/WEB-INF/web.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-13T22:48:15Z",
+      "side": 1,
+      "message": "Good catch, yeah, this is definitely a duplicate block.",
+      "parentUuid": "d6dfcd7d_425772bf",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "9c5806ffdd69c1e1bc5cd1779fbe09bd01f4dd4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
