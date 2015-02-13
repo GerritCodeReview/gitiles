@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f67bf134_4b8fc540",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-13T05:38:51Z",
+      "side": 1,
+      "message": "Thanks Stefan, Coverity is correct, this is a common bug and I fell into it. I will send a fix commit shortly.",
+      "parentUuid": "f67bf134_cb9ad582",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 79
+      },
+      "revId": "743ca7487cb3ed137e9e08a740241f182f0045e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b137c3c2_6928c582",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
         "patchSetId": 1
