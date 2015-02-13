@@ -32,6 +32,7 @@ import com.google.gitiles.DateFormatter.Format;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -76,6 +77,7 @@ public class RevisionServlet extends BaseServlet {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
     GitilesAccess access = getAccess(req);
+    Config cfg = getAccess(req).getConfig();
 
     RevWalk walk = new RevWalk(repo);
     try {
@@ -83,6 +85,7 @@ public class RevisionServlet extends BaseServlet {
       List<RevObject> objects = listObjects(walk, view.getRevision());
       List<Map<String, ?>> soyObjects = Lists.newArrayListWithCapacity(objects.size());
       boolean hasBlob = false;
+      boolean hasReadme = false;
 
       // TODO(sop): Allow caching commits by SHA-1 when no S cookie is sent.
       for (RevObject obj : objects) {
@@ -98,9 +101,13 @@ public class RevisionServlet extends BaseServlet {
                       .toSoyData(req, (RevCommit) obj, COMMIT_SOY_FIELDS, df)));
               break;
             case OBJ_TREE:
+              Map<String, Object> tree =
+                  new TreeSoyData(walk.getObjectReader(), view, cfg)
+                      .toSoyData(obj);
               soyObjects.add(ImmutableMap.of(
                   "type", Constants.TYPE_TREE,
-                  "data", new TreeSoyData(walk.getObjectReader(), view).toSoyData(obj)));
+                  "data", tree));
+              hasReadme = tree.containsKey("readmeHtml");
               break;
             case OBJ_BLOB:
               soyObjects.add(ImmutableMap.of(
@@ -132,7 +139,8 @@ public class RevisionServlet extends BaseServlet {
       renderHtml(req, res, "gitiles.revisionDetail", ImmutableMap.of(
           "title", view.getRevision().getName(),
           "objects", soyObjects,
-          "hasBlob", hasBlob));
+          "hasBlob", hasBlob,
+          "hasReadme", hasReadme));
     } finally {
       walk.release();
     }
