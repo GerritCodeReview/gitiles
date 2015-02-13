@@ -152,6 +152,11 @@ html.doc-page, .doc {
 .doc img {
   border: 0;
 }
+.doc iframe {
+  border: 0;
+  min-width: 100px;
+  min-height: 30px;
+}
 
 .doc pre {
   border: 1px solid silver;

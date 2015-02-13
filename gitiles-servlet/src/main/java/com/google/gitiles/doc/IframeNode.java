@@ -14,9 +14,32 @@
 
 package com.google.gitiles.doc;
 
-public interface Visitor extends org.pegdown.ast.Visitor {
-  void visit(ColsNode node);
-  void visit(DivNode node);
-  void visit(IframeNode node);
-  void visit(TocNode node);
+import com.google.common.base.Strings;
+
+import org.pegdown.ast.AbstractNode;
+import org.pegdown.ast.Node;
+
+import java.util.Collections;
+import java.util.List;
+
+class IframeNode extends AbstractNode {
+  final String src;
+  final String height;
+  final String width;
+
+  IframeNode(String src, String height, String width) {
+    this.src = src;
+    this.height = Strings.emptyToNull(height);
+    this.width = Strings.emptyToNull(width);
+  }
+
+  @Override
+  public void accept(org.pegdown.ast.Visitor visitor) {
+    ((Visitor) visitor).visit(this);
+  }
+
+  @Override
+  public List<Node> getChildren() {
+    return Collections.emptyList();
+  }
 }
