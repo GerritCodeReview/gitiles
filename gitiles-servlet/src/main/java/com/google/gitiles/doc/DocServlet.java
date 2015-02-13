@@ -130,8 +130,15 @@ public class DocServlet extends BaseServlet {
         }
       }
 
+      int imageLimit = cfg.getInt("markdown", "imageLimit", 256 << 10);
+      ImageLoader img = null;
+      if (imageLimit > 0) {
+        img = new ImageLoader(rw.getObjectReader(), view,
+            root, srcmd.path, imageLimit);
+      }
+
       res.setHeader(HttpHeaders.ETAG, curEtag);
-      showDoc(req, res, view, nav, doc);
+      showDoc(req, res, view, img, nav, doc);
     } finally {
       rw.release();
     }
@@ -164,9 +171,10 @@ public class DocServlet extends BaseServlet {
   }
 
   private void showDoc(HttpServletRequest req, HttpServletResponse res,
-      GitilesView view, RootNode nav, RootNode doc) throws IOException {
+      GitilesView view, ImageLoader img,
+      RootNode nav, RootNode doc) throws IOException {
     Map<String, Object> data = new HashMap<>();
-    data.putAll(Navbar.bannerSoyData(view, nav));
+    data.putAll(Navbar.bannerSoyData(view, img, nav));
     data.put("pageTitle", MoreObjects.firstNonNull(
         MarkdownUtil.getTitle(doc),
         view.getPathPart()));
@@ -174,7 +182,7 @@ public class DocServlet extends BaseServlet {
     data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
     data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
     data.put("navbarHtml", new MarkdownToHtml(view).toSoyHtml(nav));
-    data.put("bodyHtml", new MarkdownToHtml(view).toSoyHtml(doc));
+    data.put("bodyHtml", new MarkdownToHtml(view).setImageLoader(img).toSoyHtml(doc));
 
     String page = renderer.render(SOY_TEMPLATE, data);
     byte[] raw = page.getBytes(UTF_8);
