@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f67bf134_6bb961c4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-14T06:19:01Z",
+      "side": 1,
+      "message": "To be honest I didn\u0027t consider iframe\u0027ing gitiles or other content from the same origin back into the documentation view. This was all about pulling in panels from other servers like a build scheduler on a different machine.\n\nI think we should just start with this simple case of nothing allowed by default and see how often admins need to include the same host and if that makes more sense as a future default.",
+      "parentUuid": "165885e4_a40542f3",
+      "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "165885e4_44fb2e7f",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f67bf134_0bc69d3b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-14T06:19:01Z",
+      "side": 1,
+      "message": "No. I only wanted to px and % supported here. em and pt and so on are all variable based on the container font. The view port could change dramatically if something changed about the font in the documentation in the future.\n\nMost panes will either set a specific pixel dimension that fits the content, or width\u003d\"100%\" or width\u003d\"75%\" to layout.\n\npt/em/etc. for iframe is just weird.",
+      "parentUuid": "165885e4_44fb2e7f",
+      "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1616c500_148c9449",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2015-02-13T18:34:34Z",
       "side": 1,
       "message": "// after these?\n\nAlso just startsWith(\"//\")?",
+      "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7669c173_c7a71ea8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-14T06:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1616c500_148c9449",
       "revId": "ee13d6e015af44e24d082f9ba1844d7295d05037",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
