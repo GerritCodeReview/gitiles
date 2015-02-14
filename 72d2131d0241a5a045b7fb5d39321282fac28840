@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7669c173_87b126e3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/ImageLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-14T06:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1616c500_b40b2020",
+      "revId": "72d2131d0241a5a045b7fb5d39321282fac28840",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1616c500_54860c2b",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/Navbar.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-02-13T18:41:24Z",
       "side": 1,
       "message": "In another change you introduced a helper method for this.",
+      "revId": "72d2131d0241a5a045b7fb5d39321282fac28840",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7669c173_a7b6aad6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/Navbar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-14T06:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1616c500_54860c2b",
       "revId": "72d2131d0241a5a045b7fb5d39321282fac28840",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
