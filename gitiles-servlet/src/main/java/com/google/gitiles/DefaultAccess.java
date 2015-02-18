@@ -17,9 +17,7 @@ package com.google.gitiles;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.CharMatcher;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Queues;
 
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -34,13 +32,18 @@ import org.eclipse.jgit.util.IO;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,43 +64,39 @@ public class DefaultAccess implements GitilesAccess {
   private static final Collator US_COLLATOR = Collator.getInstance(Locale.US);
 
   public static class Factory implements GitilesAccess.Factory {
-    private final File basePath;
-    private final String canonicalBasePath;
+    private final Path basePath;
     private final String baseGitUrl;
     private final Config baseConfig;
     private final FileResolver<HttpServletRequest> resolver;
 
-    Factory(File basePath, String baseGitUrl, Config baseConfig,
-        FileResolver<HttpServletRequest> resolver) throws IOException {
+    Factory(Path basePath, String baseGitUrl, Config baseConfig,
+        FileResolver<HttpServletRequest> resolver) {
       this.basePath = checkNotNull(basePath, "basePath");
       this.baseGitUrl = checkNotNull(baseGitUrl, "baseGitUrl");
       this.baseConfig = checkNotNull(baseConfig, "baseConfig");
       this.resolver = checkNotNull(resolver, "resolver");
-      this.canonicalBasePath = basePath.getCanonicalPath();
     }
 
     @Override
     public GitilesAccess forRequest(HttpServletRequest req) {
-      return newAccess(basePath, canonicalBasePath, baseGitUrl, resolver, req);
+      return newAccess(basePath, baseGitUrl, resolver, req);
     }
 
-    protected DefaultAccess newAccess(File basePath, String canonicalBasePath, String baseGitUrl,
+    protected DefaultAccess newAccess(Path basePath, String baseGitUrl,
         FileResolver<HttpServletRequest> resolver, HttpServletRequest req) {
-      return new DefaultAccess(basePath, canonicalBasePath, baseGitUrl, baseConfig, resolver, req);
+      return new DefaultAccess(basePath, baseGitUrl, baseConfig, resolver, req);
     }
   }
 
-  protected final File basePath;
-  protected final String canonicalBasePath;
+  protected final Path basePath;
   protected final String baseGitUrl;
   protected final Config baseConfig;
   protected final FileResolver<HttpServletRequest> resolver;
   protected final HttpServletRequest req;
 
-  protected DefaultAccess(File basePath, String canonicalBasePath, String baseGitUrl,
-      Config baseConfig, FileResolver<HttpServletRequest> resolver, HttpServletRequest req) {
+  private DefaultAccess(Path basePath, String baseGitUrl, Config baseConfig,
+      FileResolver<HttpServletRequest> resolver, HttpServletRequest req) {
     this.basePath = checkNotNull(basePath, "basePath");
-    this.canonicalBasePath = checkNotNull(canonicalBasePath, "canonicalBasePath");
     this.baseGitUrl = checkNotNull(baseGitUrl, "baseGitUrl");
     this.baseConfig = checkNotNull(baseConfig, "baseConfig");
     this.resolver = checkNotNull(resolver, "resolver");
@@ -146,28 +145,11 @@ public class DefaultAccess implements GitilesAccess {
   }
 
   private String getRelativePath(Repository repo) {
-    String path = repo.isBare() ? repo.getDirectory().getPath() : repo.getDirectory().getParent();
-    if (repo.isBare()) {
-      path = repo.getDirectory().getPath();
-      if (path.endsWith(".git")) {
-        path = path.substring(0, path.length() - 4);
-      }
-    } else {
-      path = repo.getDirectory().getParent();
+    Path p = repo.getDirectory().getAbsoluteFile().toPath();
+    if (!repo.isBare()) {
+      p = p.getParent();
     }
-    return getRelativePath(path);
-  }
-
-  private String getRelativePath(String path) {
-    String base = basePath.getPath();
-    if (path.startsWith(base)) {
-      return path.substring(base.length() + 1);
-    }
-    if (path.startsWith(canonicalBasePath)) {
-      return path.substring(canonicalBasePath.length() + 1);
-    }
-    throw new IllegalStateException(String.format(
-          "Repository path %s is outside base path %s", path, base));
+    return basePath.relativize(p).toString();
   }
 
   private String loadDescriptionText(Repository repo) throws IOException {
@@ -219,28 +201,32 @@ public class DefaultAccess implements GitilesAccess {
     return "refs/heads/" + name;
   }
 
-  private Collection<Repository> scanRepositories(final File basePath, final HttpServletRequest req)
+  private Collection<Repository> scanRepositories(final Path basePath, final HttpServletRequest req)
       throws IOException {
-    List<Repository> repos = Lists.newArrayList();
-    Queue<File> todo = Queues.newArrayDeque();
-    File[] baseFiles = basePath.listFiles();
-    if (baseFiles == null) {
-      throw new IOException("base path is not a directory: " + basePath.getPath());
+    if (!Files.isDirectory(basePath)) {
+      throw new IOException("base path is not a directory: " + basePath);
     }
-    Collections.addAll(todo, baseFiles);
-    while (!todo.isEmpty()) {
-      File file = todo.remove();
-      try {
-        repos.add(resolver.open(req, getRelativePath(file.getPath())));
-      } catch (RepositoryNotFoundException e) {
-        File[] children = file.listFiles();
-        if (children != null) {
-          Collections.addAll(todo, children);
+    final List<Repository> repos = new ArrayList<>();
+    Files.walkFileTree(basePath, new SimpleFileVisitor<Path>() {
+      @Override
+      public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+          throws IOException {
+        if (dir.equals(basePath)) {
+          return FileVisitResult.CONTINUE;
         }
-      } catch (ServiceNotEnabledException e) {
-        throw new IOException(e);
+        System.out.println("Visiting " + dir);
+        try {
+          String p = basePath.relativize(dir).toString();
+          System.out.println("Attempting to resolve " + p);
+          repos.add(resolver.open(req, p));
+          return FileVisitResult.SKIP_SUBTREE;
+        } catch (RepositoryNotFoundException e) {
+          return FileVisitResult.CONTINUE;
+        } catch (ServiceNotEnabledException e) {
+          throw new IOException(e);
+        }
       }
-    }
+    });
     return repos;
   }
 }

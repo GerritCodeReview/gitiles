@@ -48,6 +48,7 @@ import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
@@ -292,7 +293,9 @@ class GitilesFilter extends MetaFilter {
       public Repository open(HttpServletRequest req, String name)
           throws RepositoryNotFoundException, ServiceNotAuthorizedException,
           ServiceNotEnabledException, ServiceMayNotContinueException {
-        return resolver.open(req, ViewFilter.trimLeadingSlash(getRegexGroup(req, 1)));
+        String r = ViewFilter.trimLeadingSlash(getRegexGroup(req, 1));
+        System.out.format("Resolving %s relatively\n", r);
+        return resolver.open(req, r);
       }
     };
   }
@@ -361,6 +364,7 @@ class GitilesFilter extends MetaFilter {
       FileResolver<HttpServletRequest> fileResolver;
       if (resolver == null) {
         fileResolver = new FileResolver<>(new File(basePath), exportAll);
+        System.out.println("Resolver's base path: " + basePath.toString());
         resolver = wrapResolver(fileResolver);
       } else if (resolver instanceof FileResolver) {
         fileResolver = (FileResolver<HttpServletRequest>) resolver;
@@ -369,15 +373,11 @@ class GitilesFilter extends MetaFilter {
       }
       if (accessFactory == null) {
         checkState(fileResolver != null, "need a FileResolver when GitilesAccess.Factory not set");
-        try {
         accessFactory = new DefaultAccess.Factory(
-            new File(basePath),
+            Paths.get(basePath),
             getBaseGitUrl(config),
             config,
             fileResolver);
-        } catch (IOException e) {
-          throw new ServletException(e);
-        }
       }
     }
   }
