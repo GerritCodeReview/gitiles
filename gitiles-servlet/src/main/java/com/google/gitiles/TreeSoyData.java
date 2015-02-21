@@ -175,7 +175,7 @@ public class TreeSoyData {
   }
 
   /** True if the file is the default markdown file to render in tree view. */
-  private static boolean isReadmeFile(String name) {
+  static boolean isReadmeFile(String name) {
     return name.equalsIgnoreCase("README.md");
   }
 

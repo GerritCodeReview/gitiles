@@ -427,6 +427,9 @@ ol.prettyprint, #blame {
   font-size: 9pt;
   padding-top: 5px; /* VPADDING */
 }
+.repository-index-doc {
+  margin-left: 200px;
+}
 .doc {
   border-bottom: #ddd solid 1px; /* BORDER */
 }
