@@ -151,6 +151,24 @@
       "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "082a2214_3481702c",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-02-23T21:26:22Z",
+      "side": 1,
+      "message": "It\u0027s like a language except when it\u0027s not.",
+      "parentUuid": "08fce2c3_042436ce",
+      "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
