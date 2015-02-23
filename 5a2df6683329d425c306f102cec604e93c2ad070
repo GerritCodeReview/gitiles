@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "08fce2c3_442a2e9f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-23T21:14:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "082a2214_9432c41a",
+      "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08fce2c3_44010e2d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-02-23T17:47:03Z",
       "side": 1,
       "message": "Use separately named constants.",
+      "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "082a2214_7477e8b8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-23T21:14:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08fce2c3_44010e2d",
       "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "08fce2c3_242732d7",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RepositoryIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-23T21:14:33Z",
+      "side": 1,
+      "message": "Yes, done.",
+      "parentUuid": "08fce2c3_240e125d",
+      "range": {
+        "startLine": 143,
+        "startChar": 13,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08fdc2e8_bcc1418d",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
         "patchSetId": 2
@@ -70,6 +130,24 @@
       "writtenOn": "2015-02-23T17:47:03Z",
       "side": 1,
       "message": "Can you push this if into the call block just around the param(s) that differ?",
+      "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08fce2c3_042436ce",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-02-23T21:14:33Z",
+      "side": 1,
+      "message": "No. Soy crashes with an error:\n\n   In file /Users/sop/git/gitiles/gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy, template gitiles.repositoryIndex: Encountered \" \"if\" \"if \"\" at line 40, column 4.\nWas expecting:\n    \u003cCMD_NAME_END_ANY_CALL\u003e ...",
+      "parentUuid": "08fdc2e8_bcc1418d",
       "revId": "5a2df6683329d425c306f102cec604e93c2ad070",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
