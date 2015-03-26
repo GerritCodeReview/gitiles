@@ -37,6 +37,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -92,6 +93,7 @@ public class RepositoryIndexServlet extends BaseServlet {
       }
       List<Map<String, Object>> branches = RefServlet.getBranchesSoyData(req, REF_LIMIT);
 
+      data.put("cloneHost", URI.create(desc.cloneUrl).getHost());
       data.put("cloneUrl", desc.cloneUrl);
       data.put("mirroredFromUrl", Strings.nullToEmpty(desc.mirroredFromUrl));
       data.put("description", Strings.nullToEmpty(desc.description));

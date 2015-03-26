@@ -25,6 +25,8 @@
  * @param breadcrumbs navigation breadcrumbs for this page.
  * @param? css optional list of CSS URLs to include.
  * @param? js optional list of Javascript URLs to include.
+ * @param? goImportPrefix full host name of the service.
+ * @param? goImportUrl url for go get to clone the repository.
  */
 {template .header}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -38,6 +40,9 @@
     {sp}- {msg desc="name of the application"}{gitiles.SITE_TITLE}{/msg}
   </title>
   <link rel="stylesheet" type="text/css" href="//www.google.com/css/go.css" />
+  {if $goImportUrl}
+    <meta name="go-import" content="{$goImportPrefix} git {$goImportUrl}">
+  {/if}
 
   {if $css and length($css)}
     {foreach $url in $css}

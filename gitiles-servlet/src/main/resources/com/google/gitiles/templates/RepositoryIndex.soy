@@ -20,6 +20,7 @@
  * @param? menuEntries menu entries.
  * @param? headerVariant variant name for custom header.
  * @param breadcrumbs breadcrumbs for this page.
+ * @param cloneHost hostname from the cloneUrl.
  * @param cloneUrl clone URL for this repository.
  * @param description description text of the repository.
  * @param? mirroredFromUrl URL this repository is mirrored from.
@@ -38,6 +39,8 @@
     {param menuEntries: $menuEntries /}
     {param headerVariant: $headerVariant /}
     {param breadcrumbs: $breadcrumbs /}
+    {param goImportPrefix: $cloneHost /}
+    {param goImportUrl: $cloneUrl /}
     {param css: [gitiles.DOC_CSS_URL] /}
   {/call}
 {else}
@@ -47,6 +50,8 @@
     {param menuEntries: $menuEntries /}
     {param headerVariant: $headerVariant /}
     {param breadcrumbs: $breadcrumbs /}
+    {param goImportPrefix: $cloneHost /}
+    {param goImportUrl: $cloneUrl /}
   {/call}
 {/if}
 

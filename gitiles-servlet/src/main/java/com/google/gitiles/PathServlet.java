@@ -59,6 +59,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -419,6 +420,9 @@ public class PathServlet extends BaseServlet {
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Config cfg = getAccess(req).getConfig();
+    GitilesAccess access = getAccess(req);
+    RepositoryDescription desc = access.getRepositoryDescription();
+
     List<String> autodive = view.getParameters().get(AUTODIVE_PARAM);
     if (autodive.size() != 1 || !NO_AUTODIVE_VALUE.equals(autodive.get(0))) {
       byte[] path = Constants.encode(view.getPathPart());
@@ -441,14 +445,18 @@ public class PathServlet extends BaseServlet {
         return;
       }
     }
+
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(7);
+    data.put("goImportPrefix", URI.create(desc.cloneUrl).getHost());
+    data.put("goImportUrl", desc.cloneUrl);
+    data.put("title", !view.getPathPart().isEmpty() ? view.getPathPart() : "/");
+    data.put("breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree));
+    data.put("type", FileType.TREE.toString());
+    data.put("data", new TreeSoyData(wr.getObjectReader(), view, cfg, wr.root)
+        .setArchiveFormat(getArchiveFormat(getAccess(req)))
+        .toSoyData(wr.id, wr.tw));
     // TODO(sop): Allow caching trees by SHA-1 when no S cookie is sent.
-    renderHtml(req, res, "gitiles.pathDetail", ImmutableMap.of(
-        "title", !view.getPathPart().isEmpty() ? view.getPathPart() : "/",
-        "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-        "type", FileType.TREE.toString(),
-        "data", new TreeSoyData(wr.getObjectReader(), view, cfg, wr.root)
-            .setArchiveFormat(getArchiveFormat(getAccess(req)))
-            .toSoyData(wr.id, wr.tw)));
+    renderHtml(req, res, "gitiles.pathDetail", data);
   }
 
   private CanonicalTreeParser getOnlyChildSubtree(ObjectReader reader, ObjectId id, byte[] prefix)
