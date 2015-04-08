@@ -258,6 +258,35 @@ public class ViewFilterTest {
   }
 
   @Test
+  public void raw() throws Exception {
+    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    repo.branch("refs/heads/stable").commit().create();
+    GitilesView view;
+
+    view = getView("/repo/+raw/master/");
+    assertEquals(Type.RAW, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("", view.getPathPart());
+
+    view = getView("/repo/+raw/master/foo");
+    assertEquals(Type.RAW, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo", view.getPathPart());
+
+    view = getView("/repo/+raw/master/foo/");
+    assertEquals(Type.RAW, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo", view.getPathPart());
+
+    view = getView("/repo/+raw/master/foo/bar");
+    assertEquals(Type.RAW, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo/bar", view.getPathPart());
+
+    assertNull(getView("/repo/+raw/stable..master/foo"));
+  }
+
+  @Test
   public void doc() throws Exception {
     RevCommit master = repo.branch("refs/heads/master").commit().create();
     repo.branch("refs/heads/stable").commit().create();
@@ -501,13 +530,13 @@ public class ViewFilterTest {
   }
 
   private String getRedirectUrl(String pathAndQuery) throws ServletException, IOException {
-    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result result = TestViewFilter.servicePathAndQuery(repo, pathAndQuery);
     assertEquals(302, result.getResponse().getStatus());
     return result.getResponse().getHeader(HttpHeaders.LOCATION);
   }
 
   private GitilesView getView(String pathAndQuery) throws ServletException, IOException {
-    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result result = TestViewFilter.servicePathAndQuery(repo, pathAndQuery);
     FakeHttpServletResponse resp = result.getResponse();
     assertTrue("expected non-redirect status, got " + resp.getStatus(),
         resp.getStatus() < 300 || resp.getStatus() >= 400);

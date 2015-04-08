@@ -61,6 +61,7 @@ public class GitilesView {
     REFS,
     REVISION,
     PATH,
+    RAW,
     SHOW,
     DIFF,
     LOG,
@@ -85,6 +86,7 @@ public class GitilesView {
     private final ListMultimap<String, String> params = LinkedListMultimap.create();
 
     private String hostName;
+    private String hostNameInPath;
     private String servletPath;
     private String repositoryName;
     private Revision revision = Revision.NULL;
@@ -106,6 +108,7 @@ public class GitilesView {
           oldRevision = other.oldRevision;
           // Fallthrough.
         case PATH:
+        case RAW:
         case DOC:
         case ARCHIVE:
         case BLAME:
@@ -139,6 +142,11 @@ public class GitilesView {
 
     public Builder setHostName(String hostName) {
       this.hostName = checkNotNull(hostName);
+      return this;
+    }
+
+    public Builder setHostNameInPath(String hostNameInPath) {
+      this.hostNameInPath = checkNotNull(hostNameInPath);
       return this;
     }
 
@@ -228,6 +236,7 @@ public class GitilesView {
     public Builder setPathPart(String path) {
       switch (type) {
         case PATH:
+        case RAW:
         case DIFF:
         case SHOW:
           checkState(path != null, "cannot set null path on %s view", type);
@@ -315,6 +324,7 @@ public class GitilesView {
           checkRevision();
           break;
         case PATH:
+        case RAW:
         case SHOW:
           checkPath();
           break;
@@ -334,7 +344,7 @@ public class GitilesView {
           checkDoc();
           break;
       }
-      return new GitilesView(type, hostName, servletPath, repositoryName, revision,
+      return new GitilesView(type, hostName, hostNameInPath, servletPath, repositoryName, revision,
           oldRevision, path, extension, params, anchor);
     }
 
@@ -421,6 +431,10 @@ public class GitilesView {
     return new Builder(Type.PATH);
   }
 
+  public static Builder raw() {
+    return new Builder(Type.RAW);
+  }
+
   public static Builder show() {
     return new Builder(Type.SHOW);
   }
@@ -454,6 +468,7 @@ public class GitilesView {
 
   private final Type type;
   private final String hostName;
+  private final String hostNameInPath;
   private final String servletPath;
   private final String repositoryName;
   private final Revision revision;
@@ -465,6 +480,7 @@ public class GitilesView {
 
   private GitilesView(Type type,
       String hostName,
+      String hostNameInPath,
       String servletPath,
       String repositoryName,
       Revision revision,
@@ -475,6 +491,7 @@ public class GitilesView {
       String anchor) {
     this.type = type;
     this.hostName = hostName;
+    this.hostNameInPath = hostNameInPath;
     this.servletPath = servletPath;
     this.repositoryName = repositoryName;
     this.revision = firstNonNull(revision, Revision.NULL);
@@ -495,6 +512,10 @@ public class GitilesView {
 
   public String getHostName() {
     return hostName;
+  }
+
+  public String getHostNameInPath() {
+    return hostNameInPath;
   }
 
   public String getServletPath() {
@@ -604,6 +625,13 @@ public class GitilesView {
         break;
       case PATH:
         url.append(repositoryName).append("/+/").append(revision.getName()).append('/')
+            .append(path);
+        break;
+      case RAW:
+        if (hostNameInPath != null) {
+          url.append(hostNameInPath).append('/');
+        }
+        url.append(repositoryName).append("/+raw/").append(revision.getName()).append('/')
             .append(path);
         break;
       case SHOW:

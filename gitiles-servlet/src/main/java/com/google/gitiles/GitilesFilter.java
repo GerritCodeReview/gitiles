@@ -171,6 +171,7 @@ class GitilesFilter extends MetaFilter {
   private TimeCache timeCache;
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
+  private MimeTypeFinder mimeTypeFinder;
   private boolean initialized;
 
   GitilesFilter() {
@@ -185,7 +186,8 @@ class GitilesFilter extends MetaFilter {
       VisibilityCache visibilityCache,
       TimeCache timeCache,
       BlameCache blameCache,
-      GitwebRedirectFilter gitwebRedirect) {
+      GitwebRedirectFilter gitwebRedirect,
+      MimeTypeFinder mimeTypeFinder) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
     this.urls = urls;
@@ -194,6 +196,7 @@ class GitilesFilter extends MetaFilter {
     this.timeCache = timeCache;
     this.blameCache = blameCache;
     this.gitwebRedirect = gitwebRedirect;
+    this.mimeTypeFinder = mimeTypeFinder;
     if (resolver != null) {
       this.resolver = wrapResolver(resolver);
     }
@@ -210,6 +213,7 @@ class GitilesFilter extends MetaFilter {
       }
     }
 
+    Filter rawFilter = new RawFilter(accessFactory);
     Filter repositoryFilter = new RepositoryFilter(resolver);
     Filter viewFilter = new ViewFilter(accessFactory, urls, visibilityCache);
     Filter dispatchFilter = new DispatchFilter(filters, servlets);
@@ -226,6 +230,7 @@ class GitilesFilter extends MetaFilter {
         .through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
+        .through(rawFilter)
         .through(repositoryFilter)
         .through(viewFilter)
         .through(dispatchFilter);
@@ -247,6 +252,8 @@ class GitilesFilter extends MetaFilter {
       case SHOW:
       case PATH:
         return new PathServlet(accessFactory, renderer, urls);
+      case RAW:
+        return new RawServlet(accessFactory, urls, mimeTypeFinder);
       case DIFF:
         return new DiffServlet(accessFactory, renderer, linkifier());
       case LOG:

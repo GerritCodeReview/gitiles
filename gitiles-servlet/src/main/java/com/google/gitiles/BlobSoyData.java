@@ -26,6 +26,7 @@ import com.google.template.soy.data.SoyMapData;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -56,10 +57,12 @@ public class BlobSoyData {
 
   private final GitilesView view;
   private final ObjectReader reader;
+  private final Config cfg;
 
-  public BlobSoyData(ObjectReader reader, GitilesView view) {
+  public BlobSoyData(ObjectReader reader, GitilesView view, Config cfg) {
     this.reader = reader;
     this.view = view;
+    this.cfg = cfg;
   }
 
   public Map<String, Object> toSoyData(ObjectId blobId)
@@ -96,6 +99,11 @@ public class BlobSoyData {
       data.put("fileUrl", GitilesView.path().copyFrom(view).toUrl());
       data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
+
+      final String hostname = RawServlet.rawFileHostName(cfg);
+      if (!Strings.isNullOrEmpty(hostname)) {
+        data.put("rawUrl", GitilesView.raw().copyFrom(view).toUrl());
+      }
     }
     return data;
   }

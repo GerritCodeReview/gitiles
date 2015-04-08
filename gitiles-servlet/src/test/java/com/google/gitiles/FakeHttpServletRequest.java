@@ -86,6 +86,14 @@ public class FakeHttpServletRequest implements HttpServletRequest {
     headers = LinkedListMultimap.create();
   }
 
+  public void setHostName(String hostName) {
+    this.hostName = hostName;
+  }
+
+  public void setServerPort(int port) {
+    this.port = port;
+  }
+
   @Override
   public Object getAttribute(String name) {
     return attributes.get(name);

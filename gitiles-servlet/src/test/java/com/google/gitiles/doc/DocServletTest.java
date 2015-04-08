@@ -134,7 +134,7 @@ public class DocServletTest {
   }
 
   private TestViewFilter.Result service(String pathAndQuery) throws Exception {
-    TestViewFilter.Result res = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result res = TestViewFilter.servicePathAndQuery(repo, pathAndQuery);
     assertEquals(200, res.getResponse().getStatus());
     assertEquals(GitilesView.Type.DOC, res.getView().getType());
     servlet.service(res.getRequest(), res.getResponse());

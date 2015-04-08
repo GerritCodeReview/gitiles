@@ -27,6 +27,7 @@ import org.eclipse.jgit.http.server.glue.MetaFilter;
 import org.eclipse.jgit.http.server.glue.MetaServlet;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.junit.TestRepository;
+import org.eclipse.jgit.lib.Config;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
@@ -62,35 +63,6 @@ public class TestViewFilter {
     }
   }
 
-  public static Result service(TestRepository<? extends DfsRepository> repo, String pathAndQuery)
-      throws IOException, ServletException {
-    TestServlet servlet = new TestServlet();
-    ViewFilter vf = new ViewFilter(
-        new TestGitilesAccess(repo.getRepository()),
-        TestGitilesUrls.URLS,
-        new VisibilityCache(false));
-    MetaFilter mf = new MetaFilter();
-
-    for (Pattern p : ImmutableList.of(ROOT_REGEX, REPO_REGEX, REPO_PATH_REGEX)) {
-      mf.serveRegex(p)
-          .through(vf)
-          .with(servlet);
-    }
-
-    FakeHttpServletRequest req = newRequest(repo, pathAndQuery);
-    req.setAttribute(ServletUtils.ATTRIBUTE_REPOSITORY, repo.getRepository());
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    dummyServlet(mf).service(req, res);
-    if (servlet.view != null) {
-      ViewFilter.setView(req, servlet.view);
-      if (servlet.view.getRepositoryName() != null) {
-        assertEquals(repo.getRepository().getDescription().getRepositoryName(),
-            servlet.view.getRepositoryName());
-      }
-    }
-    return new Result(servlet.view, req, res);
-  }
-
   private static class TestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -103,7 +75,7 @@ public class TestViewFilter {
     }
   }
 
-  private static FakeHttpServletRequest newRequest(TestRepository<? extends DfsRepository> repo,
+  public static FakeHttpServletRequest newRequest(TestRepository<? extends DfsRepository> repo,
       String pathAndQuery) {
     FakeHttpServletRequest req = FakeHttpServletRequest.newRequest(repo.getRepository());
     int q = pathAndQuery.indexOf('?');
@@ -122,6 +94,83 @@ public class TestViewFilter {
     };
   }
 
-  private TestViewFilter() {
+  public static class Builder {
+    private TestRepository<? extends DfsRepository> repo;
+    private Config cfg;
+    private FakeHttpServletRequest req;
+    private boolean checkRepositoryName = true;
+
+    public Builder(TestRepository<? extends DfsRepository> repo) {
+      this.repo = repo;
+    }
+
+    public Builder setConfig(Config cfg) {
+      this.cfg = cfg;
+      return this;
+    }
+
+    public Builder setPathAndQuery(String pathAndQuery) {
+      req = newRequest(repo, pathAndQuery);
+      return this;
+    }
+
+    public Builder setRequest(FakeHttpServletRequest req) {
+      this.req = req;
+      return this;
+    }
+
+    public Builder setCheckRepositoryName(boolean checkRepositoryName) {
+      this.checkRepositoryName = checkRepositoryName;
+      return this;
+    }
+
+    public Result service() throws IOException, ServletException {
+      return TestViewFilter.service(repo, req, cfg, checkRepositoryName);
+    }
+  }
+
+  public static Result servicePathAndQuery(TestRepository<? extends DfsRepository> repo,
+      String pathAndQuery) throws IOException, ServletException {
+    return new Builder(repo).setPathAndQuery(pathAndQuery).service();
+  }
+
+  public static Result serviceRequest(TestRepository<? extends DfsRepository> repo,
+      FakeHttpServletRequest req) throws IOException, ServletException {
+    return new Builder(repo).setRequest(req).service();
+  }
+
+  public static Result service(TestRepository<? extends DfsRepository> repo,
+      FakeHttpServletRequest req, Config cfg, boolean checkRepositoryName)
+          throws IOException, ServletException {
+    TestServlet servlet = new TestServlet();
+    TestGitilesAccess access = new TestGitilesAccess(repo.getRepository());
+    ViewFilter vf = new ViewFilter(
+        access,
+        TestGitilesUrls.URLS,
+        new VisibilityCache(false));
+    MetaFilter mf = new MetaFilter();
+
+    if (cfg != null) {
+      access.setConfig(cfg);
+    }
+
+    for (Pattern p : ImmutableList.of(ROOT_REGEX, REPO_REGEX, REPO_PATH_REGEX)) {
+      mf.serveRegex(p)
+          .through(new RawFilter(access))
+          .through(vf)
+          .with(servlet);
+    }
+
+    req.setAttribute(ServletUtils.ATTRIBUTE_REPOSITORY, repo.getRepository());
+    FakeHttpServletResponse res = new FakeHttpServletResponse();
+    dummyServlet(mf).service(req, res);
+    if (servlet.view != null) {
+      ViewFilter.setView(req, servlet.view);
+      if (servlet.view.getRepositoryName() != null && checkRepositoryName) {
+        assertEquals(repo.getRepository().getDescription().getRepositoryName(),
+            servlet.view.getRepositoryName());
+      }
+    }
+    return new Result(servlet.view, req, res);
   }
 }

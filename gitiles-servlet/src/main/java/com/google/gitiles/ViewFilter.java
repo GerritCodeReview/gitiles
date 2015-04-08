@@ -52,6 +52,7 @@ public class ViewFilter extends AbstractHttpFilter {
   private static final String CMD_LOG = "+log";
   private static final String CMD_REFS = "+refs";
   private static final String CMD_SHOW = "+show";
+  private static final String CMD_RAW = "+raw";
   private static final String CMD_DOC = "+doc";
 
   public static GitilesView getView(HttpServletRequest req) {
@@ -63,12 +64,25 @@ public class ViewFilter extends AbstractHttpFilter {
     return checkNotNull(groups)[groupId].getPathInfo();
   }
 
+  static void setRegexGroup(HttpServletRequest req, int groupId, String value) {
+    WrappedRequest[] groups = (WrappedRequest[]) req.getAttribute(REGEX_GROUPS_ATTRIBUTE);
+    groups[groupId] = new WrappedRequest(req, req.getServletPath(), value);
+    req.setAttribute(REGEX_GROUPS_ATTRIBUTE, groups);
+  }
+
   static void setView(HttpServletRequest req, GitilesView view) {
     req.setAttribute(VIEW_ATTRIBUTE, view);
   }
 
   static String trimLeadingSlash(String str) {
     return checkLeadingSlash(str).substring(1);
+  }
+
+  static String maybeTrimLeadingSlash(String str) {
+    if (str.startsWith("/")) {
+      return trimLeadingSlash(str);
+    }
+    return str;
   }
 
   private static String checkLeadingSlash(String str) {
@@ -106,6 +120,11 @@ public class ViewFilter extends AbstractHttpFilter {
     if (view == null) {
       res.setStatus(SC_NOT_FOUND);
       return;
+    }
+
+    String hostInPath = RawFilter.getHostInPath(req);
+    if (hostInPath != null) {
+      view.setHostNameInPath(hostInPath);
     }
 
     @SuppressWarnings("unchecked")
@@ -165,6 +184,8 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseRefsCommand(repoName, path);
     } else if (command.equals(CMD_SHOW)) {
       return parseShowCommand(req, repoName, path);
+    } else if (command.equals(CMD_RAW)) {
+      return parseRawCommand(req, repoName, path);
     } else if (command.equals(CMD_DOC)) {
       return parseDocCommand(req, repoName, path);
     } else {
@@ -307,6 +328,25 @@ public class ViewFilter extends AbstractHttpFilter {
         .setRevision(result.getRevision())
         .setPathPart(result.getPath());
     }
+  }
+
+  private GitilesView.Builder parseRawCommand(
+      HttpServletRequest req, String repoName, String path) throws IOException {
+    return parseRawCommand(repoName, parseRevision(req, path));
+  }
+
+  private GitilesView.Builder parseRawCommand(String repoName, RevisionParser.Result result) {
+    if (result == null || result.getOldRevision() != null) {
+      return null;
+    }
+    if (result.getPath().isEmpty()) {
+      return null;
+    }
+
+    return GitilesView.raw()
+        .setRepositoryName(repoName)
+        .setRevision(result.getRevision())
+        .setPathPart(result.getPath());
   }
 
   private GitilesView.Builder parseDocCommand(
