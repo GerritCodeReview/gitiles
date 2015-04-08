@@ -89,14 +89,14 @@ public class PathServlet extends BaseServlet {
   static final String AUTODIVE_PARAM = "autodive";
   static final String NO_AUTODIVE_VALUE = "0";
 
-  static enum FileType {
+  public static enum FileType {
     TREE(FileMode.TREE),
     SYMLINK(FileMode.SYMLINK),
     REGULAR_FILE(FileMode.REGULAR_FILE),
     EXECUTABLE_FILE(FileMode.EXECUTABLE_FILE),
     GITLINK(FileMode.GITLINK);
 
-    private final FileMode mode;
+    public final FileMode mode;
 
     private FileType(FileMode mode) {
       this.mode = mode;
@@ -356,8 +356,8 @@ public class PathServlet extends BaseServlet {
    * Unlike {@link TreeWalk} itself, supports positioning at the root tree.
    * Includes information to help the auto-dive routine as well.
    */
-  private static class WalkResult {
-    private static WalkResult forPath(RevWalk rw, GitilesView view) throws IOException {
+  public static class WalkResult {
+    static WalkResult forPath(RevWalk rw, GitilesView view) throws IOException {
       RevTree root = getRoot(view, rw);
       String path = view.getPathPart();
       TreeWalk tw = new TreeWalk(rw.getObjectReader());
@@ -389,12 +389,12 @@ public class PathServlet extends BaseServlet {
       return null;
     }
 
-    private final TreeWalk tw;
-    private final String path;
-    private final RevTree root;
-    private final ObjectId id;
-    private final FileType type;
-    private final List<Boolean> hasSingleTree;
+    final TreeWalk tw;
+    final String path;
+    final RevTree root;
+    final ObjectId id;
+    final FileType type;
+    final List<Boolean> hasSingleTree;
 
     private WalkResult(TreeWalk tw, String path, RevTree root, ObjectId objectId, FileType type,
         List<Boolean> hasSingleTree) {
@@ -406,11 +406,11 @@ public class PathServlet extends BaseServlet {
       this.hasSingleTree = hasSingleTree;
     }
 
-    private ObjectReader getObjectReader() {
+    ObjectReader getObjectReader() {
       return tw.getObjectReader();
     }
 
-    private void release() {
+    void release() {
       tw.release();
     }
   }
@@ -464,7 +464,9 @@ public class PathServlet extends BaseServlet {
   private void showFile(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view)
+    Config cfg = getAccess(req).getConfig();
+
+    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view, cfg)
         .toSoyData(wr.path, wr.id);
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(req, res, "gitiles.pathDetail", ImmutableMap.of(

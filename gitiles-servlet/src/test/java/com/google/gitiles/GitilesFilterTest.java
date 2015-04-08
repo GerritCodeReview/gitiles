@@ -14,6 +14,7 @@
 
 package com.google.gitiles;
 
+import static com.google.gitiles.GitilesFilter.RAW_CONTENT_REGEX;
 import static com.google.gitiles.GitilesFilter.REPO_PATH_REGEX;
 import static com.google.gitiles.GitilesFilter.REPO_REGEX;
 import static com.google.gitiles.GitilesFilter.ROOT_REGEX;
@@ -47,17 +48,19 @@ public class GitilesFilterTest {
     assertTrue(m.matches());
     assertEquals("/", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/", m.group(2));
-    assertEquals("", m.group(3));
+    assertEquals("", m.group(2));
+    assertEquals("/", m.group(3));
     assertEquals("", m.group(4));
+    assertEquals("", m.group(5));
 
     m = ROOT_REGEX.matcher("//");
     assertTrue(m.matches());
     assertEquals("//", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/", m.group(2));
-    assertEquals("", m.group(3));
+    assertEquals("", m.group(2));
+    assertEquals("/", m.group(3));
     assertEquals("", m.group(4));
+    assertEquals("", m.group(5));
   }
 
   @Test
@@ -79,33 +82,37 @@ public class GitilesFilterTest {
     assertTrue(m.matches());
     assertEquals("/foo", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("", m.group(3));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
     assertEquals("", m.group(4));
+    assertEquals("", m.group(5));
 
     m = REPO_REGEX.matcher("/foo/");
     assertTrue(m.matches());
     assertEquals("/foo/", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("", m.group(3));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
     assertEquals("", m.group(4));
+    assertEquals("", m.group(5));
 
     m = REPO_REGEX.matcher("/foo/bar");
     assertTrue(m.matches());
     assertEquals("/foo/bar", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo/bar", m.group(2));
-    assertEquals("", m.group(3));
+    assertEquals("", m.group(2));
+    assertEquals("/foo/bar", m.group(3));
     assertEquals("", m.group(4));
+    assertEquals("", m.group(5));
 
     m = REPO_REGEX.matcher("/foo/bar+baz");
     assertTrue(m.matches());
     assertEquals("/foo/bar+baz", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo/bar+baz", m.group(2));
-    assertEquals("", m.group(3));
+    assertEquals("", m.group(2));
+    assertEquals("/foo/bar+baz", m.group(3));
     assertEquals("", m.group(4));
+    assertEquals("", m.group(5));
   }
 
   @Test
@@ -125,56 +132,128 @@ public class GitilesFilterTest {
     assertTrue(m.matches());
     assertEquals("/foo/+", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+", m.group(3));
-    assertEquals("", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+", m.group(4));
+    assertEquals("", m.group(5));
 
     m = REPO_PATH_REGEX.matcher("/foo/+/");
     assertTrue(m.matches());
     assertEquals("/foo/+/", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+", m.group(3));
-    assertEquals("/", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+", m.group(4));
+    assertEquals("/", m.group(5));
 
     m = REPO_PATH_REGEX.matcher("/foo/+/bar/baz");
     assertTrue(m.matches());
     assertEquals("/foo/+/bar/baz", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+", m.group(3));
-    assertEquals("/bar/baz", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+", m.group(4));
+    assertEquals("/bar/baz", m.group(5));
 
     m = REPO_PATH_REGEX.matcher("/foo/+/bar/baz/");
     assertTrue(m.matches());
     assertEquals("/foo/+/bar/baz/", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+", m.group(3));
-    assertEquals("/bar/baz/", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+", m.group(4));
+    assertEquals("/bar/baz/", m.group(5));
 
     m = REPO_PATH_REGEX.matcher("/foo/+/bar baz");
     assertTrue(m.matches());
     assertEquals("/foo/+/bar baz", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+", m.group(3));
-    assertEquals("/bar baz", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+", m.group(4));
+    assertEquals("/bar baz", m.group(5));
 
     m = REPO_PATH_REGEX.matcher("/foo/+/bar/+/baz");
     assertTrue(m.matches());
     assertEquals("/foo/+/bar/+/baz", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+", m.group(3));
-    assertEquals("/bar/+/baz", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+", m.group(4));
+    assertEquals("/bar/+/baz", m.group(5));
 
     m = REPO_PATH_REGEX.matcher("/foo/+bar/baz");
     assertTrue(m.matches());
     assertEquals("/foo/+bar/baz", m.group(0));
     assertEquals(m.group(0), m.group(1));
-    assertEquals("/foo", m.group(2));
-    assertEquals("+bar", m.group(3));
-    assertEquals("/baz", m.group(4));
+    assertEquals("", m.group(2));
+    assertEquals("/foo", m.group(3));
+    assertEquals("+bar", m.group(4));
+    assertEquals("/baz", m.group(5));
+  }
+
+  @Test
+  public void rawContentUrls() throws Exception {
+    assertFalse(RAW_CONTENT_REGEX.matcher("").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("//").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/ ").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/ /").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/ /bar").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/bar").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/bar+baz").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/+").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/foo/+/bar").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/host/repo/+").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/host/repo/+/path").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/host/repo/+raw").matches());
+    assertFalse(RAW_CONTENT_REGEX.matcher("/host/repo/+raw/path").matches());
+    Matcher m;
+
+    m = RAW_CONTENT_REGEX.matcher("/host/repo/+rawc");
+    assertTrue(m.matches());
+    assertEquals("/host/repo/+rawc", m.group(0));
+    assertEquals(m.group(0), m.group(1));
+    assertEquals("/host", m.group(2));
+    assertEquals("/repo", m.group(3));
+    assertEquals("+rawc", m.group(4));
+    assertEquals("", m.group(5));
+
+    m = RAW_CONTENT_REGEX.matcher("/host/repo/+rawc/");
+    assertTrue(m.matches());
+    assertEquals("/host/repo/+rawc/", m.group(0));
+    assertEquals(m.group(0), m.group(1));
+    assertEquals("/host", m.group(2));
+    assertEquals("/repo", m.group(3));
+    assertEquals("+rawc", m.group(4));
+    assertEquals("/", m.group(5));
+
+    m = RAW_CONTENT_REGEX.matcher("/host/repo/+rawc/foo/bar");
+    assertTrue(m.matches());
+    assertEquals("/host/repo/+rawc/foo/bar", m.group(0));
+    assertEquals(m.group(0), m.group(1));
+    assertEquals("/host", m.group(2));
+    assertEquals("/repo", m.group(3));
+    assertEquals("+rawc", m.group(4));
+    assertEquals("/foo/bar", m.group(5));
+
+    m = RAW_CONTENT_REGEX.matcher("/host/repo/+rawc/foo/bar/");
+    assertTrue(m.matches());
+    assertEquals("/host/repo/+rawc/foo/bar/", m.group(0));
+    assertEquals(m.group(0), m.group(1));
+    assertEquals("/host", m.group(2));
+    assertEquals("/repo", m.group(3));
+    assertEquals("+rawc", m.group(4));
+    assertEquals("/foo/bar/", m.group(5));
+
+    m = RAW_CONTENT_REGEX.matcher("/host/re/po/+rawc/foo/bar/");
+    assertTrue(m.matches());
+    assertEquals("/host/re/po/+rawc/foo/bar/", m.group(0));
+    assertEquals(m.group(0), m.group(1));
+    assertEquals("/host", m.group(2));
+    assertEquals("/re/po", m.group(3));
+    assertEquals("+rawc", m.group(4));
+    assertEquals("/foo/bar/", m.group(5));
   }
 }

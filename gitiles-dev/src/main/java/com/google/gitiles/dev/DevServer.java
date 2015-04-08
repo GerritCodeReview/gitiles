@@ -192,7 +192,8 @@ class DevServer {
             new File(sourceRoot, "gitiles-servlet/src/main/resources/com/google/gitiles/templates")
                 .getPath(),
             firstNonNull(cfg.getString("gitiles", null, "siteTitle"), "Gitiles")),
-        null, null, null, null, null, null, null);
+        null, null, null, null, null, null, null,
+        new JettyMimeTypeFinder());
 
     ServletContextHandler handler = new ServletContextHandler();
     handler.setContextPath("");

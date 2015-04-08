@@ -29,9 +29,14 @@ import javax.servlet.http.HttpServletRequest;
 /** Gitiles access for testing. */
 public class TestGitilesAccess implements GitilesAccess.Factory {
   private final DfsRepository repo;
+  private Config cfg;
 
   public TestGitilesAccess(DfsRepository repo) {
     this.repo = checkNotNull(repo);
+  }
+
+  public void setConfig(Config cfg) {
+    this.cfg = cfg;
   }
 
   @Override
@@ -69,6 +74,9 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
 
       @Override
       public Config getConfig() {
+        if (cfg != null) {
+          return cfg;
+        }
         return new Config();
       }
     };

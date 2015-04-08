@@ -258,6 +258,70 @@ public class ViewFilterTest {
   }
 
   @Test
+  public void rawRedirect() throws Exception {
+    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    repo.branch("refs/heads/stable").commit().create();
+    GitilesView view;
+
+    view = getView("/repo/+raw/master/");
+    assertEquals(Type.RAW_REDIRECT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("", view.getPathPart());
+
+    view = getView("/repo/+raw/master/foo");
+    assertEquals(Type.RAW_REDIRECT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo", view.getPathPart());
+
+    view = getView("/repo/+raw/master/foo/");
+    assertEquals(Type.RAW_REDIRECT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo", view.getPathPart());
+
+    view = getView("/repo/+raw/master/foo/bar");
+    assertEquals(Type.RAW_REDIRECT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo/bar", view.getPathPart());
+
+    assertNull(getView("/repo/+raw/stable..master/foo"));
+  }
+
+  @Test
+  public void rawContent() throws Exception {
+    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    repo.branch("refs/heads/stable").commit().create();
+    GitilesView view;
+
+    view = getView("/host/repo/+rawc/master/");
+    assertEquals(Type.RAW_CONTENT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("", view.getPathPart());
+    assertEquals("host", view.getHostName());
+    assertEquals("repo", view.getRepositoryName());
+
+    view = getView("/host/repo/+rawc/master/foo");
+    assertEquals(Type.RAW_CONTENT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo", view.getPathPart());
+    assertEquals("host", view.getHostName());
+    assertEquals("repo", view.getRepositoryName());
+
+    view = getView("/host/repo/+rawc/master/foo/");
+    assertEquals(Type.RAW_CONTENT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo", view.getPathPart());
+    assertEquals("host", view.getHostName());
+    assertEquals("repo", view.getRepositoryName());
+
+    view = getView("/host/repo/+rawc/master/foo/bar");
+    assertEquals(Type.RAW_CONTENT, view.getType());
+    assertEquals(master, view.getRevision().getId());
+    assertEquals("foo/bar", view.getPathPart());
+    assertEquals("host", view.getHostName());
+    assertEquals("repo", view.getRepositoryName());
+  }
+
+  @Test
   public void doc() throws Exception {
     RevCommit master = repo.branch("refs/heads/master").commit().create();
     repo.branch("refs/heads/stable").commit().create();
