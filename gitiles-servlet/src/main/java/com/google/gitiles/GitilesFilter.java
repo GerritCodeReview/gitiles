@@ -73,12 +73,14 @@ class GitilesFilter extends MetaFilter {
   // The following regexes have the following capture groups:
   // 1. The whole string, which causes RegexPipeline to set REGEX_GROUPS but
   //    not otherwise modify the original request.
-  // 2. The repository name part, before /<CMD>.
-  // 3. The command, <CMD>, with no slashes and beginning with +. Commands have
+  // 2. The host name part, for views where the host name is embedded in the
+  //    URL (currently only raw file content requests).
+  // 3. The repository name part, before /<CMD>.
+  // 4. The command, <CMD>, with no slashes and beginning with +. Commands have
   //    names analogous to (but not exactly the same as) git command names, such
   //    as "+log" and "+show". The bare command "+" maps to one of the other
   //    commands based on the revision/path, and may change over time.
-  // 4. The revision/path part, after /<CMD> (called just "path" below). This is
+  // 5. The revision/path part, after /<CMD> (called just "path" below). This is
   //    split into a revision and a path by RevisionParser.
 
   private static final String CMD = "\\+[a-z0-9-]*";
@@ -87,9 +89,10 @@ class GitilesFilter extends MetaFilter {
   static final Pattern ROOT_REGEX = Pattern.compile(""
       + "^(      " // 1. Everything
       + "  /*    " // Excess slashes
-      + "  (/)   " // 2. Repo name (just slash)
-      + "  ()    " // 3. Command
-      + "  ()    " // 4. Path
+      + "  ()    " // 2. Host name
+      + "  (/)   " // 3. Repo name (just slash)
+      + "  ()    " // 4. Command
+      + "  ()    " // 5. Path
       + ")$      ",
       Pattern.COMMENTS);
 
@@ -97,7 +100,8 @@ class GitilesFilter extends MetaFilter {
   static final Pattern REPO_REGEX = Pattern.compile(""
       + "^(                     " // 1. Everything
       + "  /*                   " // Excess slashes
-      + "  (                    " // 2. Repo name
+      + "  ()                   " // 2. Host name
+      + "  (                    " // 3. Repo name
       + "   /                   " // Leading slash
       + "   (?:.(?!             " // Anything, as long as it's not followed by...
       + "        /" + CMD + "/  " // the special "/<CMD>/" separator,
@@ -105,21 +109,41 @@ class GitilesFilter extends MetaFilter {
       + "        ))*?           "
       + "  )                    "
       + "  /*                   " // Trailing slashes
-      + "  ()                   " // 3. Command
-      + "  ()                   " // 4. Path
+      + "  ()                   " // 4. Command
+      + "  ()                   " // 5. Path
       + ")$                     ",
+      Pattern.COMMENTS);
+
+  @VisibleForTesting
+  static final Pattern RAW_CONTENT_REGEX = Pattern.compile(""
+      + "^(              " // 1. Everything
+      + "  /*            " // Excess slashes
+      + "  (             " // 2. Host name
+      + "   /            " // Leading slash
+      + "   [^/]+?       " // Anything except a slash, non-greedy
+      + "  )             "
+      + "  (             " // 3. Repo name
+      + "   /            " // Leading slash
+      + "   .+?          " // Anything, non-greedy
+      + "  )             "
+      + "  /(\\+rawc)    " // 4. Command
+      + "  (             " // 5. Path
+      + "   (?:/.*)?     " // Slash path, or nothing.
+      + "  )             "
+      + ")$              ",
       Pattern.COMMENTS);
 
   @VisibleForTesting
   static final Pattern REPO_PATH_REGEX = Pattern.compile(""
       + "^(              " // 1. Everything
       + "  /*            " // Excess slashes
-      + "  (             " // 2. Repo name
+      + "  ()            " // 2. Host name
+      + "  (             " // 3. Repo name
       + "   /            " // Leading slash
       + "   .*?          " // Anything, non-greedy
       + "  )             "
-      + "  /(" + CMD + ")" // 3. Command
-      + "  (             " // 4. Path
+      + "  /(" + CMD + ")" // 4. Command
+      + "  (             " // 5. Path
       + "   (?:/.*)?     " // Slash path, or nothing.
       + "  )             "
       + ")$              ",
@@ -171,6 +195,7 @@ class GitilesFilter extends MetaFilter {
   private TimeCache timeCache;
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
+  private MimeTypeFinder mimeTypeFinder;
   private boolean initialized;
 
   GitilesFilter() {
@@ -185,7 +210,8 @@ class GitilesFilter extends MetaFilter {
       VisibilityCache visibilityCache,
       TimeCache timeCache,
       BlameCache blameCache,
-      GitwebRedirectFilter gitwebRedirect) {
+      GitwebRedirectFilter gitwebRedirect,
+      MimeTypeFinder mimeTypeFinder) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
     this.urls = urls;
@@ -194,6 +220,7 @@ class GitilesFilter extends MetaFilter {
     this.timeCache = timeCache;
     this.blameCache = blameCache;
     this.gitwebRedirect = gitwebRedirect;
+    this.mimeTypeFinder = mimeTypeFinder;
     if (resolver != null) {
       this.resolver = wrapResolver(resolver);
     }
@@ -225,6 +252,11 @@ class GitilesFilter extends MetaFilter {
         .through(viewFilter)
         .through(dispatchFilter);
 
+    serveRegex(RAW_CONTENT_REGEX)
+        .through(repositoryFilter)
+        .through(viewFilter)
+        .through(dispatchFilter);
+
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
         .through(viewFilter)
@@ -247,6 +279,10 @@ class GitilesFilter extends MetaFilter {
       case SHOW:
       case PATH:
         return new PathServlet(accessFactory, renderer, urls);
+      case RAW_REDIRECT:
+        return new RawRedirectServlet(accessFactory, urls);
+      case RAW_CONTENT:
+        return new RawContentServlet(accessFactory, mimeTypeFinder);
       case DIFF:
         return new DiffServlet(accessFactory, renderer, linkifier());
       case LOG:
@@ -292,7 +328,7 @@ class GitilesFilter extends MetaFilter {
       public Repository open(HttpServletRequest req, String name)
           throws RepositoryNotFoundException, ServiceNotAuthorizedException,
           ServiceNotEnabledException, ServiceMayNotContinueException {
-        return resolver.open(req, ViewFilter.trimLeadingSlash(getRegexGroup(req, 1)));
+        return resolver.open(req, ViewFilter.trimLeadingSlash(getRegexGroup(req, 2)));
       }
     };
   }

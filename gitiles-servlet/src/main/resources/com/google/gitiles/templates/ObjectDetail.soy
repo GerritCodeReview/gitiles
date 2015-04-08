@@ -220,6 +220,7 @@
  *
  * @param sha SHA of this file's blob.
  * @param? fileUrl optional URL to a detail view of this file.
+ * @param? rawUrl optional URL to a raw view of this file.
  * @param? logUrl optional URL to a log for this file.
  * @param? blameUrl optional URL to a blame for this file.
  * @param? docUrl optional URL to view rendered file.
@@ -228,6 +229,7 @@
 <div class="sha1">
   {msg desc="SHA-1 for the file's blob"}blob: {$sha}{/msg}
   {if $fileUrl}{sp}[<a href="{$fileUrl}">{msg desc="detail view of a file"}file{/msg}</a>]{/if}
+  {if $rawUrl}{sp}[<a href="{$rawUrl}">{msg desc="raw view of a file"}raw{/msg}</a>]{/if}
   {if $logUrl}{sp}[<a href="{$logUrl}">{msg desc="history for a file"}log{/msg}</a>]{/if}
   {if $blameUrl}{sp}[<a href="{$blameUrl}">{msg desc="blame for a file"}blame{/msg}</a>]{/if}
   {if $docUrl}{sp}[<a href="{$docUrl}">{msg desc="view rendered file"}view{/msg}</a>]{/if}
@@ -239,6 +241,7 @@
  *
  * @param sha SHA of this file's blob.
  * @param? logUrl optional URL to a log for this file.
+ * @param? rawUrl optional URL to a raw view of this file.
  * @param? blameUrl optional URL to a blame for this file.
  * @param lines lines (may be empty), or null for a binary file. Each line
  *     is a list of entries with "classes" and "text" fields for pretty-printed

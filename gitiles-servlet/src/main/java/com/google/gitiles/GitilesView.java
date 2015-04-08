@@ -61,6 +61,8 @@ public class GitilesView {
     REFS,
     REVISION,
     PATH,
+    RAW_REDIRECT,
+    RAW_CONTENT,
     SHOW,
     DIFF,
     LOG,
@@ -106,6 +108,8 @@ public class GitilesView {
           oldRevision = other.oldRevision;
           // Fallthrough.
         case PATH:
+        case RAW_REDIRECT:
+        case RAW_CONTENT:
         case DOC:
         case ARCHIVE:
         case BLAME:
@@ -228,6 +232,8 @@ public class GitilesView {
     public Builder setPathPart(String path) {
       switch (type) {
         case PATH:
+        case RAW_REDIRECT:
+        case RAW_CONTENT:
         case DIFF:
         case SHOW:
           checkState(path != null, "cannot set null path on %s view", type);
@@ -315,6 +321,8 @@ public class GitilesView {
           checkRevision();
           break;
         case PATH:
+        case RAW_REDIRECT:
+        case RAW_CONTENT:
         case SHOW:
           checkPath();
           break;
@@ -419,6 +427,14 @@ public class GitilesView {
 
   public static Builder path() {
     return new Builder(Type.PATH);
+  }
+
+  public static Builder rawRedirect() {
+    return new Builder(Type.RAW_REDIRECT);
+  }
+
+  public static Builder rawContent() {
+    return new Builder(Type.RAW_CONTENT);
   }
 
   public static Builder show() {
@@ -605,6 +621,14 @@ public class GitilesView {
       case PATH:
         url.append(repositoryName).append("/+/").append(revision.getName()).append('/')
             .append(path);
+        break;
+      case RAW_REDIRECT:
+        url.append(repositoryName).append("/+raw/").append(revision.getName()).append('/')
+            .append(path);
+        break;
+      case RAW_CONTENT:
+        url.append(hostName).append('/').append(repositoryName).append("/+rawc/")
+            .append(revision.getName()).append('/').append(path);
         break;
       case SHOW:
         url.append(repositoryName).append("/+show/").append(revision.getName())
