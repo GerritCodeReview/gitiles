@@ -37,6 +37,7 @@ import com.google.template.soy.data.SoyMapData;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
@@ -73,6 +74,7 @@ public class BlameServlet extends BaseServlet {
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
+    Config cfg = getAccess(req).getConfig();
 
     RevWalk rw = new RevWalk(repo);
     try {
@@ -83,7 +85,7 @@ public class BlameServlet extends BaseServlet {
       }
 
       String title = "Blame - " + view.getPathPart();
-      Map<String, ?> blobData = new BlobSoyData(rw.getObjectReader(), view)
+      Map<String, ?> blobData = new BlobSoyData(rw.getObjectReader(), view, cfg)
           .toSoyData(view.getPathPart(), result.blobId);
       if (blobData.get("lines") != null) {
         DateFormatter df = new DateFormatter(access, Format.ISO);

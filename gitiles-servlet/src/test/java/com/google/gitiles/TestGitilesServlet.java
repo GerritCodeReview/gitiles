@@ -70,7 +70,7 @@ public class TestGitilesServlet {
                 }
                 return repo.getRepository();
               }
-            }, null, null, null, gitwebRedirect);
+            }, null, null, null, gitwebRedirect, null);
 
     servlet.init(new ServletConfig() {
       @Override

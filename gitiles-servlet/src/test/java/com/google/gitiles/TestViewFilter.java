@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.gitiles.GitilesFilter.RAW_CONTENT_REGEX;
 import static com.google.gitiles.GitilesFilter.REPO_PATH_REGEX;
 import static com.google.gitiles.GitilesFilter.REPO_REGEX;
 import static com.google.gitiles.GitilesFilter.ROOT_REGEX;
@@ -62,8 +63,8 @@ public class TestViewFilter {
     }
   }
 
-  public static Result service(TestRepository<? extends DfsRepository> repo, String pathAndQuery)
-      throws IOException, ServletException {
+  public static Result serviceRequest(TestRepository<? extends DfsRepository> repo,
+      FakeHttpServletRequest req) throws IOException, ServletException {
     TestServlet servlet = new TestServlet();
     ViewFilter vf = new ViewFilter(
         new TestGitilesAccess(repo.getRepository()),
@@ -71,13 +72,12 @@ public class TestViewFilter {
         new VisibilityCache(false));
     MetaFilter mf = new MetaFilter();
 
-    for (Pattern p : ImmutableList.of(ROOT_REGEX, REPO_REGEX, REPO_PATH_REGEX)) {
+    for (Pattern p : ImmutableList.of(ROOT_REGEX, REPO_REGEX, RAW_CONTENT_REGEX, REPO_PATH_REGEX)) {
       mf.serveRegex(p)
           .through(vf)
           .with(servlet);
     }
 
-    FakeHttpServletRequest req = newRequest(repo, pathAndQuery);
     req.setAttribute(ServletUtils.ATTRIBUTE_REPOSITORY, repo.getRepository());
     FakeHttpServletResponse res = new FakeHttpServletResponse();
     dummyServlet(mf).service(req, res);
@@ -89,6 +89,11 @@ public class TestViewFilter {
       }
     }
     return new Result(servlet.view, req, res);
+  }
+
+  public static Result service(TestRepository<? extends DfsRepository> repo,
+      String pathAndQuery) throws IOException, ServletException {
+    return serviceRequest(repo, newRequest(repo, pathAndQuery));
   }
 
   private static class TestServlet extends HttpServlet {
@@ -103,7 +108,7 @@ public class TestViewFilter {
     }
   }
 
-  private static FakeHttpServletRequest newRequest(TestRepository<? extends DfsRepository> repo,
+  public static FakeHttpServletRequest newRequest(TestRepository<? extends DfsRepository> repo,
       String pathAndQuery) {
     FakeHttpServletRequest req = FakeHttpServletRequest.newRequest(repo.getRepository());
     int q = pathAndQuery.indexOf('?');

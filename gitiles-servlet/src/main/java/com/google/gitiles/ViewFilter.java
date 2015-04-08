@@ -52,6 +52,8 @@ public class ViewFilter extends AbstractHttpFilter {
   private static final String CMD_LOG = "+log";
   private static final String CMD_REFS = "+refs";
   private static final String CMD_SHOW = "+show";
+  private static final String CMD_RAW = "+raw";
+  private static final String CMD_RAW_CONTENT = "+rawc";
   private static final String CMD_DOC = "+doc";
 
   public static GitilesView getView(HttpServletRequest req) {
@@ -69,6 +71,13 @@ public class ViewFilter extends AbstractHttpFilter {
 
   static String trimLeadingSlash(String str) {
     return checkLeadingSlash(str).substring(1);
+  }
+
+  static String maybeTrimLeadingSlash(String str) {
+    if (str.startsWith("/")) {
+      return trimLeadingSlash(str);
+    }
+    return str;
   }
 
   private static String checkLeadingSlash(String str) {
@@ -108,10 +117,13 @@ public class ViewFilter extends AbstractHttpFilter {
       return;
     }
 
+    if (view.getHostName() == null) {
+      view.setHostName(urls.getHostName(req));
+    }
+
     @SuppressWarnings("unchecked")
     Map<String, String[]> params = req.getParameterMap();
-    view.setHostName(urls.getHostName(req))
-        .setServletPath(req.getContextPath() + req.getServletPath())
+    view.setServletPath(req.getContextPath() + req.getServletPath())
         .putAllParams(params);
     if (normalize(view, res)) {
       return;
@@ -140,12 +152,13 @@ public class ViewFilter extends AbstractHttpFilter {
   }
 
   private GitilesView.Builder parse(HttpServletRequest req) throws IOException {
-    String repoName = trimLeadingSlash(getRegexGroup(req, 1));
+    String host = maybeTrimLeadingSlash(getRegexGroup(req, 1));
+    String repoName = trimLeadingSlash(getRegexGroup(req, 2));
     if (repoName.isEmpty()) {
       return GitilesView.hostIndex();
     }
-    String command = getRegexGroup(req, 2);
-    String path = getRegexGroup(req, 3);
+    String command = getRegexGroup(req, 3);
+    String path = getRegexGroup(req, 4);
 
     if (command.isEmpty()) {
       return parseNoCommand(repoName);
@@ -165,6 +178,10 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseRefsCommand(repoName, path);
     } else if (command.equals(CMD_SHOW)) {
       return parseShowCommand(req, repoName, path);
+    } else if (command.equals(CMD_RAW)) {
+      return parseRawRedirectCommand(req, repoName, path);
+    } else if (command.equals(CMD_RAW_CONTENT)) {
+      return parseRawContentCommand(req, host, repoName, path);
     } else if (command.equals(CMD_DOC)) {
       return parseDocCommand(req, repoName, path);
     } else {
@@ -307,6 +324,47 @@ public class ViewFilter extends AbstractHttpFilter {
         .setRevision(result.getRevision())
         .setPathPart(result.getPath());
     }
+  }
+
+  private GitilesView.Builder parseRawRedirectCommand(
+      HttpServletRequest req, String repoName, String path) throws IOException {
+    return parseRawRedirectCommand(repoName, parseRevision(req, path));
+  }
+
+  private GitilesView.Builder parseRawRedirectCommand(
+      String repoName, RevisionParser.Result result) {
+    if (result == null || result.getOldRevision() != null) {
+      return null;
+    }
+    if (result.getPath().isEmpty()) {
+      return null;
+    }
+
+    return GitilesView.rawRedirect()
+        .setRepositoryName(repoName)
+        .setRevision(result.getRevision())
+        .setPathPart(result.getPath());
+  }
+
+  private GitilesView.Builder parseRawContentCommand(
+      HttpServletRequest req, String host, String repoName, String path) throws IOException {
+    return parseRawContentCommand(repoName, host, parseRevision(req, path));
+  }
+
+  private GitilesView.Builder parseRawContentCommand(
+      String repoName, String host, RevisionParser.Result result) {
+    if (result == null || result.getOldRevision() != null) {
+      return null;
+    }
+    if (result.getPath().isEmpty()) {
+      return null;
+    }
+
+    return GitilesView.rawContent()
+        .setHostName(host)
+        .setRepositoryName(repoName)
+        .setRevision(result.getRevision())
+        .setPathPart(result.getPath());
   }
 
   private GitilesView.Builder parseDocCommand(

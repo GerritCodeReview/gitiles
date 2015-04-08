@@ -113,7 +113,7 @@ public class RevisionServlet extends BaseServlet {
             case OBJ_BLOB:
               soyObjects.add(ImmutableMap.of(
                   "type", Constants.TYPE_BLOB,
-                  "data", new BlobSoyData(walk.getObjectReader(), view).toSoyData(obj)));
+                  "data", new BlobSoyData(walk.getObjectReader(), view, cfg).toSoyData(obj)));
               hasBlob = true;
               break;
             case OBJ_TAG:
