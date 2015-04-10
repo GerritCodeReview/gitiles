@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3730293_55f1cce1",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/JettyMimeTypeFinder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-04-10T09:01:38Z",
+      "side": 1,
+      "message": "Missing license/copyright header.",
+      "revId": "8f92eeffa3904429fb63420701730686c7f7bdd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83727e8f_14f754da",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultMimeTypeFinder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-04-10T09:01:38Z",
+      "side": 1,
+      "message": "Missing header.",
+      "revId": "8f92eeffa3904429fb63420701730686c7f7bdd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3730293_75eec800",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/MimeTypeFinder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-04-10T09:01:38Z",
+      "side": 1,
+      "message": "Missing header.",
+      "revId": "8f92eeffa3904429fb63420701730686c7f7bdd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83727e8f_34f450d3",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/RawContentServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-04-10T09:01:38Z",
+      "side": 1,
+      "message": "Missing header.",
+      "revId": "8f92eeffa3904429fb63420701730686c7f7bdd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3730293_9507e44e",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/RawRedirectServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-04-10T09:01:38Z",
+      "side": 1,
+      "message": "Missing header.",
+      "revId": "8f92eeffa3904429fb63420701730686c7f7bdd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
