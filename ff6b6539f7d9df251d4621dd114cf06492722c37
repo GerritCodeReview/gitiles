@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3062faee_89d31953",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "Wrong javadoc",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702e3292_abd6c942",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "Strings.isNullOrEmpty(hostname)",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3062faee_29daed65",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "As of recent versions of JGit, RevWalk implements AutoCloseable so this could be:\n\n try (RevWalk rw \u003d new RevWalk(repo))\n\nIf this doesn\u0027t work, then Gitiles doesn\u0027t have a new enough version of JGit in its dependencies. You don\u0027t need to fix this now; whenever it gets upgraded, this is a tiny slice of the global cleanup that will happen eventually.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702e3292_8bd30d53",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "Might make sense to set X-Gitiles-Path-Mode here like we do in PathServlet.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3062faee_69e0e513",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "The ObjectReader should be able to give you the file size to put in a Content-Length header.\n\nYou don\u0027t need to do it now, but eventually we could implement range request support in this servlet.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702e3292_6be0e113",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "This could be an HTML error, I think.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3062faee_49e52122",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "Log the exception.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3062faee_89eaf9ec",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawRedirectServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "I know this is just in the Location header but it would feel a little weird to see a URL with :80 or :443 in it.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3062faee_e9fe15ab",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-04-13T21:38:55Z",
+      "side": 1,
+      "message": "I\u0027m not clear on why these need to be two separate commands. Why not have the following:\n\n* http://foo.com/repo/+raw/master/foo/bar -\u003e 302\n* http://raw.foo.com/repo/+raw/master/foo/bar -\u003e raw content\n\nYou\u0027d map both commands to RawServlet, and alter the implementation based only on the server name.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
