@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "702e3292_8b866de4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3062faee_89d31953",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "702e3292_abd6c942",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2015-04-13T21:38:55Z",
       "side": 1,
       "message": "Strings.isNullOrEmpty(hostname)",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702e3292_6b67c1d5",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "702e3292_abd6c942",
       "range": {
         "startLine": 52,
         "startChar": 8,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "702e3292_4b6c05b8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Cool!  It looks like the JGit version is too old though.",
+      "parentUuid": "3062faee_29daed65",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "702e3292_8bd30d53",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2015-04-13T21:38:55Z",
       "side": 1,
       "message": "Might make sense to set X-Gitiles-Path-Mode here like we do in PathServlet.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702e3292_0b76fd83",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "702e3292_8bd30d53",
       "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "702e3292_cb57d5e0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3062faee_69e0e513",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "702e3292_6be0e113",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
         "patchSetId": 3
@@ -104,6 +200,24 @@
       "writtenOn": "2015-04-13T21:38:55Z",
       "side": 1,
       "message": "This could be an HTML error, I think.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3062faee_49ce4136",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "702e3292_6be0e113",
       "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "3062faee_29d30dda",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3062faee_49e52122",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3062faee_89eaf9ec",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawRedirectServlet.java",
         "patchSetId": 3
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "3062faee_a9e6ddb0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawRedirectServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3062faee_89eaf9ec",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3062faee_e9fe15ab",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 3
@@ -155,6 +305,24 @@
       "writtenOn": "2015-04-13T21:38:55Z",
       "side": 1,
       "message": "I\u0027m not clear on why these need to be two separate commands. Why not have the following:\n\n* http://foo.com/repo/+raw/master/foo/bar -\u003e 302\n* http://raw.foo.com/repo/+raw/master/foo/bar -\u003e raw content\n\nYou\u0027d map both commands to RawServlet, and alter the implementation based only on the server name.",
+      "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0c0aa16_4db9990d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1019717
+      },
+      "writtenOn": "2015-04-17T15:43:00Z",
+      "side": 1,
+      "message": "It made the path matching a bit easier because otherwise the host/ part would get matched as part of the repo name.  I\u0027ve done it a different way now and added a RawFilter that takes the host name out of the path if the request was made on the raw hostname.",
+      "parentUuid": "3062faee_e9fe15ab",
       "revId": "ff6b6539f7d9df251d4621dd114cf06492722c37",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
