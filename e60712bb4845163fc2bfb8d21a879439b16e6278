@@ -22,6 +22,30 @@
       "revId": "e60712bb4845163fc2bfb8d21a879439b16e6278",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "794c6014_9b250be6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-10T23:04:58Z",
+      "side": 1,
+      "message": "To get URLs correct. Some code in the markdown rendering creates links to markdown using doc(). Which would use the wrong path prefixes by including repository and branch names. We don\u0027t want those if we are in a ROOTED_DOC context.",
+      "parentUuid": "591ddcf5_7af6f9d0",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 7
+      },
+      "revId": "e60712bb4845163fc2bfb8d21a879439b16e6278",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
