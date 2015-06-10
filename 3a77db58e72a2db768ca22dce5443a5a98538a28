@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "591ddcf5_bac57180",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2015-06-10T15:49:47Z",
+      "side": 1,
+      "message": "How is -docroot any special we need to treat it here? Would it be possible to have the docroot configuration as part of the config file (does gitiles have a config file)?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "3a77db58e72a2db768ca22dce5443a5a98538a28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
