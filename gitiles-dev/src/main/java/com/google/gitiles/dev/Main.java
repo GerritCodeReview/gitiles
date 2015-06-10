@@ -16,8 +16,14 @@ package com.google.gitiles.dev;
 
 import com.google.gitiles.GitilesConfig;
 
+import java.io.File;
+
 public class Main {
   public static void main(String[] args) throws Exception {
-    new DevServer(GitilesConfig.defaultFile()).start();
+    DevServer srv = new DevServer(GitilesConfig.defaultFile());
+    if (args.length == 3 && "-docroot".equals(args[0])) {
+      srv.setDocRoot(new File(args[1]), args[2]);
+    }
+    srv.start();
   }
 }
