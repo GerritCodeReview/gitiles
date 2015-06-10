@@ -22,6 +22,30 @@
       "revId": "3a77db58e72a2db768ca22dce5443a5a98538a28",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "591ddcf5_daddc555",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-10T17:36:47Z",
+      "side": 1,
+      "message": "Good idea. Moved this to a configuration setting, gitiles.docroot.gitdir.",
+      "parentUuid": "591ddcf5_bac57180",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "3a77db58e72a2db768ca22dce5443a5a98538a28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
