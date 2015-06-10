@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "794c6014_7b1d9f96",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-10T23:50:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure a subsection makes sense here, why not just gitiles.docroot?",
+      "range": {
+        "startLine": 211,
+        "startChar": 46,
+        "endLine": 211,
+        "endChar": 56
+      },
+      "revId": "e60712bb4845163fc2bfb8d21a879439b16e6278",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "591ddcf5_3a008132",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-10T23:50:10Z",
+      "side": 1,
+      "message": "So if you set this config parameter, your gitiles servlet isn\u0027t a regular gitiles servlet, just a static content host for a single branch of the configured repo? Makes sense I guess.",
+      "revId": "e60712bb4845163fc2bfb8d21a879439b16e6278",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "591ddcf5_7af6f9d0",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
         "patchSetId": 4
@@ -43,6 +83,23 @@
         "endLine": 104,
         "endChar": 7
       },
+      "revId": "e60712bb4845163fc2bfb8d21a879439b16e6278",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "794c6014_5b20e3d1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RootedDocServlet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-10T23:50:10Z",
+      "side": 1,
+      "message": "!(obj instanceof RevCommit)?",
       "revId": "e60712bb4845163fc2bfb8d21a879439b16e6278",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
