@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "794c6014_db52b33c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-11T13:20:36Z",
+      "side": 1,
+      "message": "Mention something about the configuration for standalone Gitiles servers as well.",
+      "revId": "f78437c1e5036c53735f8854e25ab226aa096b4b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
