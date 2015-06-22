@@ -67,11 +67,10 @@ class TocFormatter {
         return null;
       }
 
-      id = idFromTitle(title);
-      if (ids.values().contains(id)) {
-        id = String.format("%s-%x",
-            id,
-            Hashing.md5().hashString(id, StandardCharsets.UTF_8).asInt());
+      String cleanTitle = idFromTitle(title);
+      id = cleanTitle;
+      for (int cnt = 2; ids.values().contains(id); cnt++) {
+        id = String.format("%s-%d", cleanTitle, cnt);
       }
       ids.put(header, id);
     }
