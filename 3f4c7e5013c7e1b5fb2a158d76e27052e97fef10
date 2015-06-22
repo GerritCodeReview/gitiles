@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe3cb6f3_5f0d0b3e",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Doc.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-22T19:35:32Z",
+      "side": 1,
+      "message": "What is the provenance of this snippet?",
+      "revId": "3f4c7e5013c7e1b5fb2a158d76e27052e97fef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
