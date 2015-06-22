@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fe3cb6f3_1f56e3d8",
+        "filename": "Documentation/markdown.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-22T23:38:24Z",
+      "side": 1,
+      "message": "Correct we will create\n\n  \u003ca name\u003d\"live-examples\"\u003e\u003ch2\u003eExamples\u003c/h2\u003e\u003c/a\u003e\n\nThe advantage is the anchor is at the start of the header rather than the end. For a very long header that wraps the line in the browser, jumping to the anchor will jump to the start of the header rather than the end of the header. This is useful to the reader as its awkward to see the page rendered with a partial section header at the top of the window on a very long document with a very long entry.\n\nThis may not be common in documentation but consider a FAQ page that uses [TOC] to build an auto table of frequently asked questions and auto-linking to those entries later in the document. If the document is long and some of those questions are long, this anchor approach is more reader friendly.\n\nThe reason most markdown processors just insert it at the text position is because its work to go back and muck with the AST from the parser. Here we have already done most of the effort necessary to figure out what the correct name should be for this section header so its virtually free to reorder the node.",
+      "parentUuid": "fe3cb6f3_5ff4eb81",
+      "revId": "d17ecaeb88c5a17a0b13778b4f6e2df1d44b868b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de43727f_1ed1cdf7",
         "filename": "Documentation/markdown.md",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-22T22:50:17Z",
       "side": 1,
       "message": "Also, Do you still auto-generate name tags or ids for headers that aren\u0027t explicitly annotated? I think we would want that to keep working if possible.",
+      "revId": "d17ecaeb88c5a17a0b13778b4f6e2df1d44b868b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe3cb6f3_7f4baf2c",
+        "filename": "Documentation/markdown.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-22T23:38:24Z",
+      "side": 1,
+      "message": "Yes, we still auto-generate a name for headers that did not have an explicit name associated with them.",
+      "parentUuid": "de43727f_1ed1cdf7",
       "revId": "d17ecaeb88c5a17a0b13778b4f6e2df1d44b868b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
