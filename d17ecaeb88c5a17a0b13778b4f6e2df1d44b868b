@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "be679e30_75358806",
+        "filename": "Documentation/markdown.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1019413
+      },
+      "writtenOn": "2015-06-23T02:22:56Z",
+      "side": 1,
+      "message": "I agree that you\u0027d usually want the name to be at the beginning of the heading, but it seems to me that the obvious way to do that (as an author) would be to put tag where I wanted it to be, e.g.\n\n## \u003ca name\u003d\"live-examples\"\u003e\u003c/a\u003eExamples\n\nand in doing so this keeps things consistent with how HTML usually works. Having the tag move in the document seems like it might be kinda confusing (though I\u0027m sure I\u0027d get over it quickly enough).\n\nAlso, I don\u0027t think other Markdown processors would do what you\u0027re doing, and it seems like consistency is a bigger win here.\n\nAs far as the {#live-examples} variant goes, that\u0027s not standard anything (it looks more like an annotation), so I\u0027d be fine w/ that one wrapping the tag.\n\nDoes that make sense?",
+      "parentUuid": "fe3cb6f3_1f56e3d8",
+      "revId": "d17ecaeb88c5a17a0b13778b4f6e2df1d44b868b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de43727f_1ed1cdf7",
         "filename": "Documentation/markdown.md",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Yes, we still auto-generate a name for headers that did not have an explicit name associated with them.",
       "parentUuid": "de43727f_1ed1cdf7",
+      "revId": "d17ecaeb88c5a17a0b13778b4f6e2df1d44b868b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de6c5217_b693a864",
+        "filename": "Documentation/markdown.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1019413
+      },
+      "writtenOn": "2015-06-23T02:22:56Z",
+      "side": 1,
+      "message": "Does it make sense to document how the names are generated, so that people can build cross-references without having to reverse engineer them?",
+      "parentUuid": "fe3cb6f3_7f4baf2c",
       "revId": "d17ecaeb88c5a17a0b13778b4f6e2df1d44b868b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
