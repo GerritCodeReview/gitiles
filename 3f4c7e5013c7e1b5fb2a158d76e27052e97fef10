@@ -34,6 +34,24 @@
       "revId": "3f4c7e5013c7e1b5fb2a158d76e27052e97fef10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de43727f_3e5129e1",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Doc.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-23T00:03:31Z",
+      "side": 1,
+      "message": "Please link to it here.\n\nIf it weren\u0027t Google-authored I believe it would also need an Apache license header in a JS comment that gets passed to the client. I would probably put it just to be safe, but *shrug*",
+      "parentUuid": "de43727f_5e887526",
+      "revId": "3f4c7e5013c7e1b5fb2a158d76e27052e97fef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
