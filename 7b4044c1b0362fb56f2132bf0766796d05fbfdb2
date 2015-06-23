@@ -16,6 +16,24 @@
       "revId": "7b4044c1b0362fb56f2132bf0766796d05fbfdb2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3eb80ed4_39404f59",
+        "filename": "Documentation/markdown.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-23T23:44:09Z",
+      "side": 1,
+      "message": "Yes. It was also about the fact that most of these languages are well known but these two were vague and weird. At least to me. So I added links for llvm and rd.",
+      "parentUuid": "3eb80ed4_f96c17fd",
+      "revId": "7b4044c1b0362fb56f2132bf0766796d05fbfdb2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
