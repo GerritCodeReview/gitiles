@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3eb80ed4_39092f65",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PrettifyCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-23T21:54:42Z",
+      "side": 1,
+      "message": "At this point this is not even a cache. Why not just.\n\n public class ThreadSafePrettifyParser extends PrettifyParser {\n   public static final ThreadSafePrettifyParser INSTANCE \u003d new ThreadSafePrettifyParser();\n\n   private ThreadSafePrettifyParser() {\n     prettify \u003d new Prettify() {...};\n   }\n }",
+      "revId": "6975975276ecd6cfe49aa0d767e8a5b55668c574",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
