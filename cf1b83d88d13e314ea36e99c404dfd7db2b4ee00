@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3eb80ed4_79de474f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PrettifyCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-23T21:10:50Z",
+      "side": 1,
+      "message": "This should be configurable somehow, in case we find that 4 is too much contention in production.",
+      "revId": "cf1b83d88d13e314ea36e99c404dfd7db2b4ee00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de6c5217_56885426",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
         "patchSetId": 3
