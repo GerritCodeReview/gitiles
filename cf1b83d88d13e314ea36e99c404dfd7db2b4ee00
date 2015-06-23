@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de6c5217_56885426",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-06-23T07:01:29Z",
+      "side": 1,
+      "message": "drive by: log an error, so you can see code snippets that cause errors?",
+      "range": {
+        "startLine": 305,
+        "startChar": 6,
+        "endLine": 305,
+        "endChar": 12
+      },
+      "revId": "cf1b83d88d13e314ea36e99c404dfd7db2b4ee00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
