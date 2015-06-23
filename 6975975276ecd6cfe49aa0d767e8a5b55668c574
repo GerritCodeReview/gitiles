@@ -16,6 +16,24 @@
       "revId": "6975975276ecd6cfe49aa0d767e8a5b55668c574",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3eb80ed4_7913a796",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PrettifyCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-23T21:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3eb80ed4_39092f65",
+      "revId": "6975975276ecd6cfe49aa0d767e8a5b55668c574",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
