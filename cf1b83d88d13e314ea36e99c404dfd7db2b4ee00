@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3eb80ed4_b9effff8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PrettifyCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-23T21:16:41Z",
+      "side": 1,
+      "message": "We don\u0027t block if there isn\u0027t one available, we just make a new one for the request. Which is the current status quo without this change.\n\nThe configurable aspect would be controlling how much RAM we consume on these idle Prettify instances.",
+      "parentUuid": "3eb80ed4_79de474f",
+      "revId": "cf1b83d88d13e314ea36e99c404dfd7db2b4ee00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de6c5217_56885426",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
         "patchSetId": 3
