@@ -169,6 +169,30 @@ html.doc-page, .doc {
 .doc a:visited { color: #7759ae; }
 .doc a:hover { text-decoration: underline; }
 
+.doc a.h {
+  display: inline-block;
+  width: 1.5em;
+  margin-left: -1.5em;
+  color: #444;
+}
+.doc a.h:focus {
+  outline: none;
+}
+.doc a.h i {
+  color: #245dc1;
+  font-weight: normal;
+  display: inline-block;
+  width: 1.5em;
+}
+.doc h1:hover a.h i:before,
+.doc h2:hover a.h i:before,
+.doc h3:hover a.h i:before,
+.doc h4:hover a.h i:before,
+.doc h5:hover a.h i:before,
+.doc h6:hover a.h i:before {
+  content: '\1f517';
+}
+
 .doc ul, .doc ol {
   margin: 10px 10px 10px 30px;
   padding: 0;
