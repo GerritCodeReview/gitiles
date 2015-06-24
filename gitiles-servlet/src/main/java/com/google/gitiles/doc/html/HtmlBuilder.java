@@ -47,7 +47,7 @@ public final class HtmlBuilder {
       "ol", "ul", "li", "dl", "dd", "dt",
       "del", "em", "strong", "code", "br", "hr",
       "table", "thead", "tbody", "caption", "tr", "th", "td",
-      "iframe", "span"
+      "iframe", "span", "i"
   );
 
   private static final ImmutableSet<String> ALLOWED_ATTRIBUTES = ImmutableSet.of(
