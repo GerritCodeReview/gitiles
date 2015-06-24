@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dedff221_5e0ed56d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-24T02:36:36Z",
+      "side": 1,
+      "message": "Sure but here I really don\u0027t care. We just need an element we can put content before that is within the \u003ca\u003e tag.\n\nMaterial Design recommends using \u003ci\u003e for an icon, probably because its short to type and icon starts with i.\n\nAn early version of this used \u003cspan\u003e but I switched to \u003ci\u003e while experimenting with Material Design icon library. I backed out most of that experiment and stuck with the basic Unicode character.\n\nChanged to the less confusing span.",
+      "parentUuid": "dedff221_7ede314f",
+      "revId": "423533fd7606e029565656cb0470a1f5e8672203",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dedff221_5ed97564",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-24T00:44:53Z",
       "side": 1,
       "message": "Comment what this entity is?",
+      "revId": "423533fd7606e029565656cb0470a1f5e8672203",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5eb5c2d8_9af78dcd",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-06-24T02:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dedff221_5ed97564",
       "revId": "423533fd7606e029565656cb0470a1f5e8672203",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
