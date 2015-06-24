@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dedff221_7ede314f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-24T00:44:53Z",
+      "side": 1,
+      "message": "Isn\u0027t the new html hotness to use \u003cem\u003e?",
+      "revId": "423533fd7606e029565656cb0470a1f5e8672203",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dedff221_5ed97564",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-06-24T00:44:53Z",
+      "side": 1,
+      "message": "Comment what this entity is?",
+      "revId": "423533fd7606e029565656cb0470a1f5e8672203",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
