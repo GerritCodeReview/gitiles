@@ -17,12 +17,14 @@ package com.google.gitiles.doc;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.gitiles.doc.MarkdownUtil.getInnerText;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.ThreadSafePrettifyParser;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
+import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
 
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.util.StringUtils;
@@ -372,22 +374,48 @@ public class MarkdownToHtml implements Visitor {
   private String href(String url) {
     if (HtmlBuilder.isValidHttpUri(url)) {
       return url;
-    }
-    if (MarkdownUtil.isAbsolutePathToMarkdown(url)) {
+    } else if (MarkdownUtil.isAbsolutePathToMarkdown(url)) {
       return GitilesView.doc().copyFrom(view).setPathPart(url).build().toUrl();
+    } else if (url.startsWith("/")) {
+      return GitilesView.show().copyFrom(view).setPathPart(url).build().toUrl();
+    } else if (!url.startsWith("../") && !url.startsWith("./")) {
+      return url;
     }
-    if (readme && !url.startsWith("../") && !url.startsWith("./")) {
-      String dir = "";
-      if (view.getPathPart() != null && view.getPathPart().endsWith("/")) {
-        dir = view.getPathPart();
-      } else if (view.getPathPart() != null) {
-        dir = view.getPathPart() + '/';
+
+    String dir = MoreObjects.firstNonNull(view.getPathPart(), "");
+    if (!readme) {
+      int slash = dir.lastIndexOf('/');
+      dir = slash < 0 ? "" : dir.substring(0, slash);
+    }
+    while (!url.isEmpty()) {
+      if (url.startsWith("./")) {
+        url = url.substring(2);
+      } else if (url.startsWith("../")) {
+        if (dir.isEmpty()) {
+          return FilterNormalizeUri.INSTANCE.getInnocuousOutput();
+        }
+        url = url.substring(3);
+
+        int slash = dir.lastIndexOf('/');
+        if (slash >= 0) {
+          dir = dir.substring(0, slash);
+        } else {
+          dir = "";
+          break;
+        }
+      } else {
+        break;
       }
-      return GitilesView.path().copyFrom(view)
-          .setPathPart(dir + url)
-          .build().toUrl();
     }
-    return url;
+
+    if (url.isEmpty()) {
+      return FilterNormalizeUri.INSTANCE.getInnocuousOutput();
+    }
+
+    GitilesView.Builder dest = url.endsWith(".md")
+        ? GitilesView.doc()
+        : GitilesView.show();
+    return dest.copyFrom(view).setPathPart(dir + url).build().toUrl();
   }
 
   @Override
