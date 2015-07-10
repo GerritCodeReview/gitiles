@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98667235_7433c821",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-07-10T23:42:13Z",
+      "side": 1,
+      "message": "Optional: Strings.nullToEmpty(view.getPathPart())",
+      "revId": "4a50840c1529c8749b6758452de17fb70affd03a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b867b630_15a7f4c9",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-07-10T23:42:13Z",
+      "side": 1,
+      "message": "Test for absolute link as well?",
+      "revId": "4a50840c1529c8749b6758452de17fb70affd03a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
