@@ -96,7 +96,7 @@ public class PathServlet extends BaseServlet {
     EXECUTABLE_FILE(FileMode.EXECUTABLE_FILE),
     GITLINK(FileMode.GITLINK);
 
-    private final FileMode mode;
+    final FileMode mode;
 
     private FileType(FileMode mode) {
       this.mode = mode;
@@ -335,8 +335,8 @@ public class PathServlet extends BaseServlet {
    * Unlike {@link TreeWalk} itself, supports positioning at the root tree.
    * Includes information to help the auto-dive routine as well.
    */
-  private static class WalkResult implements AutoCloseable {
-    private static WalkResult forPath(RevWalk rw, GitilesView view) throws IOException {
+  static class WalkResult implements AutoCloseable {
+    static WalkResult forPath(RevWalk rw, GitilesView view) throws IOException {
       RevTree root = getRoot(view, rw);
       String path = view.getPathPart();
       TreeWalk tw = new TreeWalk(rw.getObjectReader());
@@ -371,8 +371,8 @@ public class PathServlet extends BaseServlet {
     private final TreeWalk tw;
     private final String path;
     private final RevTree root;
-    private final ObjectId id;
-    private final FileType type;
+    final ObjectId id;
+    final FileType type;
     private final List<Boolean> hasSingleTree;
 
     private WalkResult(TreeWalk tw, String path, RevTree root, ObjectId objectId, FileType type,
@@ -395,7 +395,7 @@ public class PathServlet extends BaseServlet {
     }
   }
 
-  private void showTree(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
+  void showTree(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Config cfg = getAccess(req).getConfig();
