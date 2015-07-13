@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8c8ea77_b6ed4805",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1020857
+      },
+      "writtenOn": "2015-07-13T16:01:04Z",
+      "side": 1,
+      "message": "this is only setting the URI host as the import prefix?  I don\u0027t think that\u0027s right... it should also include the path the represents the root of the git repo.  So for gerrit itself, this would result in:\n\n\u003cmeta name\u003d\"go-import\" content\u003d\"gerrit.googlesource.com git https://gerrit.googlesource.com/gerrit\"\u003e\n\nwhen what you really want is\n\n\u003cmeta name\u003d\"go-import\" content\u003d\"gerrit.googlesource.com/gerrit git https://gerrit.googlesource.com/gerrit\"\u003e\n\nOr maybe I\u0027m misreading this?  (a test case would probably be helpful)",
+      "range": {
+        "startLine": 450,
+        "startChar": 4,
+        "endLine": 450,
+        "endChar": 8
+      },
+      "revId": "ecc7cefc726df5dccef299d465136d6ab0285e4b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
