@@ -16,6 +16,24 @@
       "revId": "7f1d8f14736f1f1a1d0e087e9d587ca72d78ae52",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "449b398d_61c19677",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/CommitSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1006454
+      },
+      "writtenOn": "2015-08-17T17:47:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24a2c5bf_40ce8ea7",
+      "revId": "7f1d8f14736f1f1a1d0e087e9d587ca72d78ae52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
