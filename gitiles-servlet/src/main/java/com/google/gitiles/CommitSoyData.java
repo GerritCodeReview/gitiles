@@ -56,6 +56,7 @@ public class CommitSoyData {
 
   private Linkifier linkifier;
   private RevWalk walk;
+  private CommitData.Builder cdb;
   private ArchiveFormat archiveFormat;
 
   CommitSoyData setLinkifier(@Nullable Linkifier linkifier) {
@@ -76,10 +77,11 @@ public class CommitSoyData {
   Map<String, Object> toSoyData(HttpServletRequest req, RevCommit c, Set<Field> fs,
       DateFormatter df) throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    CommitData cd = new CommitData.Builder()
-        .setRevWalk(walk)
-        .setArchiveFormat(archiveFormat)
-        .build(req, c, fs);
+    if (cdb == null) {
+      cdb = new CommitData.Builder();
+    }
+
+    CommitData cd = cdb.setRevWalk(walk).setArchiveFormat(archiveFormat).build(req, c, fs);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(fs.size());
     if (cd.author != null) {
