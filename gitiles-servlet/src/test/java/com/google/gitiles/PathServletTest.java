@@ -16,11 +16,16 @@ package com.google.gitiles;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import com.google.common.io.BaseEncoding;
 import com.google.gitiles.TreeJsonData.Tree;
+import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
+
+import junit.framework.Assert;
 
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
@@ -49,6 +54,37 @@ public class PathServletTest extends ServletTest {
     List<Map<String, ?>> entries = getTreeEntries(data);
     assertEquals(1, entries.size());
     assertEquals("foo", entries.get(0).get("name"));
+  }
+
+  @Test
+  public void rootTreeHtmlWithReadme() throws Exception {
+    repo.branch("master").commit()
+        .add("README.md", "[foo](foo.md) [bar](/bar.md)")
+        .create();
+
+    Map<String, ?> data = buildData("/repo/+/master/");
+    SanitizedContent html = (SanitizedContent) getBlobData(data).get("readmeHtml");
+    assertTrue(html.getContent().contains("<a href=\"/b/repo/+/master/foo.md\">foo</a>"));
+    assertTrue(html.getContent().contains("<a href=\"/b/repo/+/master/bar.md\">bar</a>"));
+  }
+
+  @Test
+  public void rootTreeHtmlWithoutTrailingSlashWithReadme() throws Exception {
+    repo.branch("master").commit()
+        .add("README.md", "[foo](foo.md) [bar](/bar.md)")
+        .create();
+
+    Map<String, ?> data = buildData("/repo/+/master");
+    SanitizedContent html = null;
+    for (Map<String, ?> obj : (List<Map<String, ?>>)data.get("objects")) {
+      if (obj.get("type") == "tree") {
+        html = (SanitizedContent) getBlobData(obj).get("readmeHtml");
+      }
+    }
+
+    assertNotNull(html);
+    assertTrue(html.getContent().contains("<a href=\"/b/repo/+/master/foo.md\">foo</a>"));
+    assertTrue(html.getContent().contains("<a href=\"/b/repo/+/master/bar.md\">bar</a>"));
   }
 
   @Test
