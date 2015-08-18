@@ -149,7 +149,7 @@ public class DocServletTest {
         .create();
 
     String html = buildHtml("/repo/+doc/master/A/B/README.md");
-    assertTrue(html.contains("<a href=\"/b/repo/+show/master/C\">c</a>"));
+    assertTrue(html.contains("<a href=\"../../C\">c</a>"));
   }
 
   @Test
