@@ -78,10 +78,16 @@ public final class HtmlBuilder {
   private final StringBuilder htmlBuf;
   private final Appendable textBuf;
   private String tag;
+  private boolean filterUrls;
 
-  public HtmlBuilder() {
+  public HtmlBuilder(boolean filterUrls) {
     htmlBuf = new StringBuilder();
     textBuf = EscapeHtml.INSTANCE.escape(htmlBuf);
+    this.filterUrls = filterUrls;
+  }
+
+  public HtmlBuilder() {
+    this(true);
   }
 
   /** Begin a new HTML tag. */
@@ -133,7 +139,7 @@ public final class HtmlBuilder {
   }
 
   private String anchorHref(String val) {
-    if (URI.getValueFilter().matcher(val).find()) {
+    if (!filterUrls || URI.getValueFilter().matcher(val).find()) {
       return URI.escape(val);
     }
     return URI.getInnocuousOutput();
