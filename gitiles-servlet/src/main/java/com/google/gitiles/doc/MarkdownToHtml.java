@@ -78,7 +78,7 @@ import syntaxhighlight.ParseResult;
  */
 public class MarkdownToHtml implements Visitor {
   private final ReferenceMap references = new ReferenceMap();
-  private final HtmlBuilder html = new HtmlBuilder();
+  private final HtmlBuilder html = new HtmlBuilder(false);
   private final TocFormatter toc = new TocFormatter(html, 3);
   private final GitilesView view;
   private final Config cfg;
@@ -377,15 +377,12 @@ public class MarkdownToHtml implements Visitor {
       return GitilesView.doc().copyFrom(view).setPathPart(url).build().toUrl();
     } else if (url.startsWith("/")) {
       return GitilesView.show().copyFrom(view).setPathPart(url).build().toUrl();
-    } else if (!url.startsWith("../") && !url.startsWith("./")) {
+    } else if (!readme) {
       return url;
     }
 
+    // TODO(nodir): use java.net.URI
     String dir = Strings.nullToEmpty(view.getPathPart());
-    if (!readme) {
-      int slash = dir.lastIndexOf('/');
-      dir = slash < 0 ? "" : dir.substring(0, slash);
-    }
     while (!url.isEmpty()) {
       if (url.startsWith("./")) {
         url = url.substring(2);
