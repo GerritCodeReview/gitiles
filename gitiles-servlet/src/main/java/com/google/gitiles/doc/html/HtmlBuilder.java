@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +27,8 @@ import com.google.template.soy.shared.restricted.EscapingConventions.FilterImage
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 /**
@@ -41,33 +43,47 @@ import java.util.regex.Pattern;
  * {@code https://}, and for image src {@code data:image/*;base64,...}.
  */
 public final class HtmlBuilder {
-  private static final ImmutableSet<String> ALLOWED_TAGS = ImmutableSet.of(
-      "h1", "h2", "h3", "h4", "h5", "h6",
-      "a", "div", "img", "p", "blockquote", "pre",
-      "ol", "ul", "li", "dl", "dd", "dt",
-      "del", "em", "strong", "code", "br", "hr",
-      "table", "thead", "tbody", "caption", "tr", "th", "td",
-      "iframe", "span"
-  );
+  private static final ImmutableSet<String> ALLOWED_TAGS =
+      ImmutableSet.of("h1", "h2", "h3", "h4", "h5", "h6", "a", "div", "img",
+          "p", "blockquote", "pre", "ol", "ul", "li", "dl", "dd", "dt", "del",
+          "em", "strong", "code", "br", "hr", "table", "thead", "tbody",
+          "caption", "tr", "th", "td", "iframe", "span");
 
-  private static final ImmutableSet<String> ALLOWED_ATTRIBUTES = ImmutableSet.of(
-      "id", "class", "role");
+  private static final ImmutableSet<String> ALLOWED_ATTRIBUTES =
+      ImmutableSet.of("id", "class", "role");
 
-  private static final ImmutableSet<String> SELF_CLOSING_TAGS = ImmutableSet.of(
-      "img", "br", "hr");
+  private static final ImmutableSet<String> SELF_CLOSING_TAGS =
+      ImmutableSet.of("img", "br", "hr");
 
   private static final FilterNormalizeUri URI = FilterNormalizeUri.INSTANCE;
-  private static final FilterImageDataUri IMAGE_DATA = FilterImageDataUri.INSTANCE;
+  private static final FilterImageDataUri IMAGE_DATA =
+      FilterImageDataUri.INSTANCE;
 
   public static boolean isValidCssDimension(String val) {
     return val != null && val.matches("(?:[1-9][0-9]*px|100%|[1-9][0-9]?%)");
   }
 
+  public static boolean isValidHttpUri(URI val) {
+    return (val.getScheme() == "https" || val.getScheme() == "http"
+        || val.toString().startsWith("//")
+            && URI.getValueFilter().matcher(val.toString()).find());
+  }
+
   public static boolean isValidHttpUri(String val) {
-    return (val.startsWith("https://")
-        || val.startsWith("http://")
-        || val.startsWith("//"))
-        && URI.getValueFilter().matcher(val).find();
+    try {
+      return isValidHttpUri(new URI(val));
+    } catch (URISyntaxException ex) {
+      return false;
+    }
+  }
+
+  /** Returns java.net.URI if {@code val} is a valid HTTP URL */
+  public static URI tryParseAsUri(String val) {
+    try {
+      return new URI(val);
+    } catch (URISyntaxException ex) {
+      return null;
+    }
   }
 
   /** Check if URL is valid for {@code <img src="data:image/*;base64,...">}. */
@@ -78,15 +94,22 @@ public final class HtmlBuilder {
   private final StringBuilder htmlBuf;
   private final Appendable textBuf;
   private String tag;
+  private boolean filterUrls;
 
-  public HtmlBuilder() {
+  public HtmlBuilder(boolean filterUrls) {
     htmlBuf = new StringBuilder();
     textBuf = EscapeHtml.INSTANCE.escape(htmlBuf);
+    this.filterUrls = filterUrls;
+  }
+
+  public HtmlBuilder() {
+    this(true);
   }
 
   /** Begin a new HTML tag. */
   public HtmlBuilder open(String tagName) {
-    checkArgument(ALLOWED_TAGS.contains(tagName), "invalid HTML tag %s", tagName);
+    checkArgument(ALLOWED_TAGS.contains(tagName), "invalid HTML tag %s",
+        tagName);
     finishActiveTag();
     htmlBuf.append('<').append(tagName);
     tag = tagName;
@@ -106,7 +129,8 @@ public final class HtmlBuilder {
         return this;
       }
       val = URI.escape(val);
-    } else if (("height".equals(att) || "width".equals(att)) && "iframe".equals(tag)) {
+    } else if (("height".equals(att) || "width".equals(att))
+        && "iframe".equals(tag)) {
       val = isValidCssDimension(val) ? val : "250px";
     } else if ("alt".equals(att) && "img".equals(tag)) {
       // allow
@@ -119,7 +143,8 @@ public final class HtmlBuilder {
       // allow
     } else {
       checkState(tag != null, "tag must be pending");
-      checkArgument(ALLOWED_ATTRIBUTES.contains(att), "invalid attribute %s", att);
+      checkArgument(ALLOWED_ATTRIBUTES.contains(att), "invalid attribute %s",
+          att);
     }
 
     try {
@@ -133,7 +158,7 @@ public final class HtmlBuilder {
   }
 
   private String anchorHref(String val) {
-    if (URI.getValueFilter().matcher(val).find()) {
+      if (!filterUrls || URI.getValueFilter().matcher(val).find()) {
       return URI.escape(val);
     }
     return URI.getInnocuousOutput();
@@ -186,7 +211,8 @@ public final class HtmlBuilder {
 
   /** Append constant entity reference like {@code &nbsp;}. */
   public void entity(String entity) {
-    checkArgument(HTML_ENTITY.matcher(entity).matches(), "invalid entity %s", entity);
+    checkArgument(HTML_ENTITY.matcher(entity).matches(), "invalid entity %s",
+        entity);
     finishActiveTag();
     htmlBuf.append(entity);
   }
@@ -194,8 +220,7 @@ public final class HtmlBuilder {
   /** Bless the current content as HTML. */
   public SanitizedContent toSoy() {
     finishActiveTag();
-    return UnsafeSanitizedContentOrdainer.ordainAsSafe(
-        htmlBuf.toString(),
+    return UnsafeSanitizedContentOrdainer.ordainAsSafe(htmlBuf.toString(),
         ContentKind.HTML);
   }
 }

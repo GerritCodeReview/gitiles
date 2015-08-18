@@ -145,11 +145,12 @@ public class DocServletTest {
   @Test
   public void relativeLink() throws Exception {
     repo.branch("master").commit()
-        .add("A/B/README.md", "[c](../../C)")
+        .add("A/B/README.md", "[c](../C) [c2](../../C2)")
         .create();
 
     String html = buildHtml("/repo/+doc/master/A/B/README.md");
-    assertTrue(html.contains("<a href=\"/b/repo/+show/master/C\">c</a>"));
+    assertTrue(html.contains("<a href=\"../C\">c</a>"));
+    assertTrue(html.contains("<a href=\"../../C2\">c2</a>"));
   }
 
   @Test
