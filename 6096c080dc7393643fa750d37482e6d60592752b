@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84e451f8_1b2b7bb9",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-19T04:23:04Z",
+      "side": 1,
+      "message": "What is the max line length in this project? I found lines over 80 characters so I was not sure",
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
