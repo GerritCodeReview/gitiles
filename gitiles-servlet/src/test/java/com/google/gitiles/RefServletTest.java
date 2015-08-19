@@ -21,21 +21,14 @@ import static org.junit.Assert.assertTrue;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.net.HttpHeaders;
 import com.google.gitiles.RefServlet.RefJsonData;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
-import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
-import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
-import org.eclipse.jgit.junit.TestRepository;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -48,17 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /** Tests for {@link Linkifier}. */
 @RunWith(JUnit4.class)
-public class RefServletTest {
-  private TestRepository<DfsRepository> repo;
-  private GitilesServlet servlet;
-
-  @Before
-  public void setUp() throws Exception {
-    DfsRepository r = new InMemoryRepository(new DfsRepositoryDescription("test"));
-    repo = new TestRepository<>(r);
-    servlet = TestGitilesServlet.create(repo);
-  }
-
+public class RefServletTest extends ServletTest {
   private void setUpSimpleRefs() throws Exception {
     RevCommit commit = repo.branch("refs/heads/master").commit().create();
     repo.update("refs/heads/branch", commit);
@@ -75,27 +58,17 @@ public class RefServletTest {
     assertTrue(Repository.isValidRefName(evilRefName));
     repo.branch(evilRefName).commit().create();
 
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs/evil");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
-
+    String text = serveText("/repo/+refs/evil").getActualBodyString();
     assertEquals(
         id(evilRefName) + " refs/evil/&lt;script&gt;window.close();&lt;/script&gt;/&amp;foo\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void getRefsTextAll() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     assertEquals(
         id("HEAD") + " HEAD\n"
         + id("refs/heads/branch") + " refs/heads/branch\n"
@@ -103,19 +76,14 @@ public class RefServletTest {
         + id("refs/tags/atag") + " refs/tags/atag\n"
         + peeled("refs/tags/atag") + " refs/tags/atag^{}\n"
         + id("refs/tags/ctag") + " refs/tags/ctag\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void getRefsTextAllTrailingSlash() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs/").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     assertEquals(
         id("HEAD") + " HEAD\n"
         + id("refs/heads/branch") + " refs/heads/branch\n"
@@ -123,90 +91,65 @@ public class RefServletTest {
         + id("refs/tags/atag") + " refs/tags/atag\n"
         + peeled("refs/tags/atag") + " refs/tags/atag^{}\n"
         + id("refs/tags/ctag") + " refs/tags/ctag\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void getRefsHeadsText() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs/heads");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs/heads").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     assertEquals(
         id("refs/heads/branch") + " refs/heads/branch\n"
         + id("refs/heads/master") + " refs/heads/master\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void getRefsHeadsTextTrailingSlash() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs/heads/");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs/heads/").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     assertEquals(
         id("refs/heads/branch") + " refs/heads/branch\n"
         + id("refs/heads/master") + " refs/heads/master\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void noHeadText() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs/HEAD");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs/HEAD").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     // /+refs/foo means refs/foo(/*), so this is empty.
-    assertEquals("", res.getActualBodyString());
+    assertEquals("", text);
   }
 
   @Test
   public void singleHeadText() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs/heads/master");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs/heads/master").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     assertEquals(
         id("refs/heads/master") + " refs/heads/master\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void singlePeeledTagText() throws Exception {
     setUpSimpleRefs();
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo("/test/+refs/tags/atag");
-    req.setQueryString("format=TEXT");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
+    String text = serveText("/repo/+refs/tags/atag").getActualBodyString();
 
-    assertEquals(200, res.getStatus());
     assertEquals(
         id("refs/tags/atag") + " refs/tags/atag\n"
         + peeled("refs/tags/atag") + " refs/tags/atag^{}\n",
-        res.getActualBodyString());
+        text);
   }
 
   @Test
   public void getRefsJsonAll() throws Exception {
     setUpSimpleRefs();
-    Map<String, RefJsonData> result = buildJson("/test/+refs");
+    Map<String, RefJsonData> result = serveRefJson("/repo/+refs");
     List<String> keys = ImmutableList.copyOf(result.keySet());
     assertEquals(ImmutableList.of(
           "HEAD",
@@ -245,7 +188,7 @@ public class RefServletTest {
   @Test
   public void getRefsHeadsJson() throws Exception {
     setUpSimpleRefs();
-    Map<String, RefJsonData> result = buildJson("/test/+refs/heads");
+    Map<String, RefJsonData> result = serveRefJson("/repo/+refs/heads");
     List<String> keys = ImmutableList.copyOf(result.keySet());
     assertEquals(ImmutableList.of(
           "branch",
@@ -263,19 +206,10 @@ public class RefServletTest {
     assertNull(master.target);
   }
 
-  private Map<String, RefJsonData> buildJson(String path) throws Exception {
-    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
-    req.setPathInfo(path);
-    req.setQueryString("format=JSON");
-    FakeHttpServletResponse res = new FakeHttpServletResponse();
-    servlet.service(req, res);
-
-    assertEquals(200, res.getStatus());
-    assertEquals("application/json", res.getHeader(HttpHeaders.CONTENT_TYPE));
-    String body = res.getActualBodyString();
-    String magic = ")]}'\n";
-    assertEquals(magic, body.substring(0, magic.length()));
-    return new Gson().fromJson(body.substring(magic.length()), new TypeToken<Map<String, RefJsonData>>() {}.getType());
+  private Map<String, RefJsonData> serveRefJson(String path) throws Exception {
+    return serveJson(
+        path,
+        new TypeToken<Map<String, RefJsonData>>() {}.getType());
   }
 
   @Test
