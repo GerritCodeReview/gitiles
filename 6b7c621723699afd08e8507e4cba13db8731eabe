@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4e955d1_5c0c1d7a",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/TestViewFilter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-19T04:23:04Z",
+      "side": 0,
+      "message": "req already has repo attr, it is set by newRequest",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 78
+      },
+      "revId": "6b7c621723699afd08e8507e4cba13db8731eabe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
