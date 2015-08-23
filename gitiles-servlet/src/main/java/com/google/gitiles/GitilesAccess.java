@@ -39,6 +39,7 @@ public interface GitilesAccess {
   /**
    * List repositories on the host.
    *
+   * @param prefix repository base path to list.
    * @param branches branches to list along with each repository.
    * @return map of repository names to descriptions.
    * @throws ServiceNotEnabledException to trigger an HTTP 403 Forbidden
@@ -47,8 +48,9 @@ public interface GitilesAccess {
    *     (matching behavior in {@link org.eclipse.jgit.http.server.RepositoryFilter}).
    * @throws IOException if an error occurred.
    */
-  public Map<String, RepositoryDescription> listRepositories(Set<String> branches)
-      throws ServiceNotEnabledException, ServiceNotAuthorizedException, IOException;
+  public Map<String, RepositoryDescription> listRepositories(String prefix,
+      Set<String> branches) throws ServiceNotEnabledException,
+      ServiceNotAuthorizedException, IOException;
 
   /**
    * @return an opaque object that uniquely identifies the end-user making the

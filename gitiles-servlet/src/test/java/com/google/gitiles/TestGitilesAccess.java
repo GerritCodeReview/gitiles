@@ -38,7 +38,8 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
   public GitilesAccess forRequest(final HttpServletRequest req) {
     return new GitilesAccess() {
       @Override
-      public Map<String, RepositoryDescription> listRepositories(Set<String> branches) {
+      public Map<String, RepositoryDescription> listRepositories(String prefix,
+          Set<String> branches) {
         if (branches != null && !branches.isEmpty()) {
           throw new UnsupportedOperationException("branches set not yet supported");
         }

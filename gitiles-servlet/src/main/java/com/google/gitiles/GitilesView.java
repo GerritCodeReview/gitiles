@@ -23,7 +23,9 @@ import static com.google.gitiles.GitilesUrls.NAME_ESCAPER;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects.ToStringHelper;
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -162,14 +164,8 @@ public class GitilesView {
     }
 
     public Builder setRepositoryName(String repositoryName) {
-      switch (type) {
-        case HOST_INDEX:
-          throw new IllegalStateException(String.format(
-              "cannot set repository name on %s view", type));
-        default:
-          this.repositoryName = checkNotNull(repositoryName);
-          return this;
-      }
+        this.repositoryName = checkNotNull(repositoryName);
+        return this;
     }
 
     public String getRepositoryName() {
@@ -714,7 +710,13 @@ public class GitilesView {
     ImmutableList.Builder<Map<String, String>> breadcrumbs = ImmutableList.builder();
     breadcrumbs.add(breadcrumb(hostName, hostIndex().copyFrom(this)));
     if (repositoryName != null) {
-      breadcrumbs.add(breadcrumb(repositoryName, repositoryIndex().copyFrom(this)));
+      List<String> parts = Splitter.on('/').splitToList(repositoryName);
+      for (int i = 0; i < parts.size(); i++) {
+        String s = Joiner.on('/').join(parts.subList(0, i + 1));
+        breadcrumbs.add(breadcrumb(
+            parts.get(i),
+            repositoryIndex().copyFrom(this).setRepositoryName(s)));
+      }
     }
     if (type == Type.DIFF) {
       // TODO(dborowitz): Tweak the breadcrumbs template to allow us to render

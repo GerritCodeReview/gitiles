@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
@@ -105,11 +106,19 @@ public class DefaultAccess implements GitilesAccess {
   }
 
   @Override
-  public Map<String, RepositoryDescription> listRepositories(Set<String> branches)
-      throws IOException {
+  public Map<String, RepositoryDescription> listRepositories(String prefix,
+      Set<String> branches) throws IOException {
+    // TODO(sop) take advantage of prefix to narrow scan of repositories.
+    prefix = Strings.emptyToNull(prefix);
+    if (prefix != null && !prefix.endsWith("/")) {
+      prefix += '/';
+    }
     Map<String, RepositoryDescription> repos = Maps.newTreeMap(US_COLLATOR);
     for (Repository repo : scanRepositories(basePath, req)) {
-      repos.put(getRepositoryName(repo), buildDescription(repo, branches));
+      String name = getRepositoryName(repo);
+      if (prefix == null || name.startsWith(prefix)) {
+        repos.put(name, buildDescription(repo, branches));
+      }
       repo.close();
     }
     return repos;
