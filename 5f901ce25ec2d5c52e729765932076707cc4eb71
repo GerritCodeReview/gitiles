@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04d4e17b_677292d7",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Not sure if this is the correct line break",
+      "range": {
+        "startLine": 46,
+        "startChar": 49,
+        "endLine": 47,
+        "endChar": 6
+      },
+      "revId": "5f901ce25ec2d5c52e729765932076707cc4eb71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
