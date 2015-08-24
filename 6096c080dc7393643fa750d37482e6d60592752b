@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "04d4e17b_47fdcea1",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "647cbd57_22edeeff",
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84bff131_83069e5a",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "24d1e58c_081c879b",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84bff131_83069e5a",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "647cbd57_42eaf2e8",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
         "patchSetId": 6
@@ -53,6 +95,30 @@
       "writtenOn": "2015-08-24T16:48:13Z",
       "side": 1,
       "message": "Optional: inline if it fits under 100 chars on the next line.",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d4e17b_a72acab2",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Didn\u0027t fit 100 chars. Inlined anyway because \"r\" variable name is not good and \"repo\" is already reserved",
+      "parentUuid": "647cbd57_42eaf2e8",
       "range": {
         "startLine": 24,
         "startChar": 18,
@@ -146,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "24d1e58c_48167f7d",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Yeah, I was thinking about it too. Done.",
+      "parentUuid": "647cbd57_62e7f61f",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 68
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d4e17b_c729bebe",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84bff131_e30b1261",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "647cbd57_82e4fa1a",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
         "patchSetId": 6
@@ -157,6 +271,30 @@
       "writtenOn": "2015-08-24T16:48:13Z",
       "side": 1,
       "message": "SC_OK",
+      "range": {
+        "startLine": 70,
+        "startChar": 54,
+        "endLine": 70,
+        "endChar": 57
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d4e17b_071c769b",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "647cbd57_82e4fa1a",
       "range": {
         "startLine": 70,
         "startChar": 54,
@@ -192,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "24d1e58c_a853bb42",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "647cbd57_a201fe46",
+      "range": {
+        "startLine": 76,
+        "startChar": 54,
+        "endLine": 76,
+        "endChar": 57
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "647cbd57_c206025c",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
         "patchSetId": 6
@@ -203,6 +365,30 @@
       "writtenOn": "2015-08-24T16:48:13Z",
       "side": 1,
       "message": "SC_NOT_FOUND",
+      "range": {
+        "startLine": 93,
+        "startChar": 24,
+        "endLine": 93,
+        "endChar": 27
+      },
+      "revId": "6096c080dc7393643fa750d37482e6d60592752b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24d1e58c_e85db34c",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1016062
+      },
+      "writtenOn": "2015-08-24T22:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "647cbd57_c206025c",
       "range": {
         "startLine": 93,
         "startChar": 24,
