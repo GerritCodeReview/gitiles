@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84bff131_c3bed6fa",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesAccess.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-08-26T17:05:07Z",
+      "side": 1,
+      "message": "Document that an implicit / is added.",
+      "revId": "1f3f604d4adc437d05c0ba31bdcf15f956c0d862",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84bff131_43de66fc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-08-26T17:05:07Z",
+      "side": 1,
+      "message": "It would be nice to have some tests for this behavior, but since we don\u0027t already its probably not worth the effort to do right at this moment.",
+      "revId": "1f3f604d4adc437d05c0ba31bdcf15f956c0d862",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
