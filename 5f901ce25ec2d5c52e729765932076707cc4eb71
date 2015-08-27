@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "647cbd57_c272828a",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-08-27T17:38:04Z",
+      "side": 1,
+      "message": "2015",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "5f901ce25ec2d5c52e729765932076707cc4eb71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04d4e17b_677292d7",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
         "patchSetId": 10
@@ -13,6 +36,30 @@
       "writtenOn": "2015-08-24T22:24:18Z",
       "side": 1,
       "message": "Not sure if this is the correct line break",
+      "range": {
+        "startLine": 46,
+        "startChar": 49,
+        "endLine": 47,
+        "endChar": 6
+      },
+      "revId": "5f901ce25ec2d5c52e729765932076707cc4eb71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "647cbd57_02b54ae7",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-08-27T17:38:04Z",
+      "side": 1,
+      "message": "Yes, this is fine. You could probably join the throws line and stay under 100 chars, not a big deal though.",
+      "parentUuid": "04d4e17b_677292d7",
       "range": {
         "startLine": 46,
         "startChar": 49,
