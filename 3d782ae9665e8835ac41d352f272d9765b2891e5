@@ -16,6 +16,24 @@
       "revId": "3d782ae9665e8835ac41d352f272d9765b2891e5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d4e17b_47230e33",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-08-27T17:52:21Z",
+      "side": 0,
+      "message": "The HOST_INDEX view type is used to route requests to the HostIndexServlet so we can display a list of repositories instead of a REPOSITORY_INDEX.\n\nSo yes, I found this necessary to get the HTTP filter stack to run the correct servlet and show the results I wanted, e.g. a list of repositories under https://gerrit.googlesource.com/plugins/ instead of 404.\n\nAnother way to do this would be to add a new field setRepositoryPrefix  that is only accepted on HOST_INDEX.",
+      "parentUuid": "44da59aa_c9d71133",
+      "revId": "3d782ae9665e8835ac41d352f272d9765b2891e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
