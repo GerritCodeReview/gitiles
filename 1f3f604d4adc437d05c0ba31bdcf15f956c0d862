@@ -69,6 +69,24 @@
       "revId": "1f3f604d4adc437d05c0ba31bdcf15f956c0d862",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "647cbd57_02562ad8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-08-27T17:57:42Z",
+      "side": 1,
+      "message": "Agreed, we want this.\n\n(In related news David Pursehouse also just filed https://code.google.com/p/gitiles/issues/detail?id\u003d84 for pagination. Slightly different use cases.)",
+      "parentUuid": "24d1e58c_48583fcf",
+      "revId": "1f3f604d4adc437d05c0ba31bdcf15f956c0d862",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
