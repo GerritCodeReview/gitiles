@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e43d0da0_aeb4771e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-08-28T23:16:14Z",
+      "side": 1,
+      "message": "It occurs to me that this whole bit could be simplified using nio\u0027s Files.walkFileTree, but I guess this pretty much follows the existing example so that\u0027s fine.",
+      "revId": "c709c4cbcfd106cd928fc93db5e0b88bc2e7e5f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
