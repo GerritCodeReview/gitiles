@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "045781ea_2fc16978",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2015-08-28T17:28:42Z",
+      "side": 1,
+      "message": "To put this in the imperative mood and make the behavior change more obvious:\n\n Warn on and skip invalid commentlink.*.match regex",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "04e1d2c4ad1d73c065ef1da63154ac078e8baf92",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
