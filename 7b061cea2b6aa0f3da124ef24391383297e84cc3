@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84f3721a_befc99ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-09T23:18:11Z",
+      "side": 1,
+      "message": "Can you give a few more details about major issues with our style? Certainly a lot of whitespace changes, those are easy enough to mimic as we\u0027re writing new styles. But any other general guidelines we should follow?\n\nOr maybe a pointer to a publicly-available body of advice (a la https://google.github.io/styleguide/javaguide.html)?",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64ee7e38_5de11b02",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-09T23:18:11Z",
+      "side": 1,
+      "message": "What was wrong with the link symbol? Do we not like unicode?",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64ee7e38_7de4d713",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-09T23:18:11Z",
+      "side": 1,
+      "message": "Why did the ones on l. 190 above get line breaks, but these didn\u0027t?",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84f3721a_9e01dd47",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-09T23:18:11Z",
+      "side": 1,
+      "message": "One thing currently broken about this box is the overflow if you have really long ref names. ISTR I played with it for like 5 minutes and couldn\u0027t figure it out, but maybe it\u0027s obvious to you. If not, don\u0027t worry about it.",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84f3721a_fe06215b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/gitiles.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-09T23:18:11Z",
+      "side": 1,
+      "message": "I personally think this looks fine, but it\u0027s conceivable some people might not like the text size increase. Probably I don\u0027t care though.\n\n(Slight aside, Chrome devs will _definitely_ complain if we increase the font size in the blame view in such a way that the non-code portion becomes much wider, but it looks like you haven\u0027t done that.)",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84f3721a_5ee11502",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/HostIndex.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-09T23:18:11Z",
+      "side": 1,
+      "message": "This still feels like more \"instructions\" than \"title\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 24,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
