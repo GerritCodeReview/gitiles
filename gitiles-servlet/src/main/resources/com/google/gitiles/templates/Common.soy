@@ -27,8 +27,8 @@
  * @param? js optional list of Javascript URLs to include.
  */
 {template .header}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>
     {$title}
@@ -37,20 +37,20 @@
     {/if}
     {sp}- {msg desc="name of the application"}{gitiles.SITE_TITLE}{/msg}
   </title>
-  <link rel="stylesheet" type="text/css" href="//www.google.com/css/go.css" />
+  <link rel="stylesheet" type="text/css" href="//www.google.com/css/go.css">
 
   {if $css and length($css)}
     {foreach $url in $css}
-      <link rel="stylesheet" type="text/css" href="{$url}" />
+      <link rel="stylesheet" type="text/css" href="{$url}">
     {/foreach}
   {/if}
   // Include default CSS after custom CSS so it can override defaults in third-
   // party stylesheets (e.g. prettify).
-  <link rel="stylesheet" type="text/css" href="{gitiles.CSS_URL}" />
+  <link rel="stylesheet" type="text/css" href="{gitiles.CSS_URL}">
 
   {if $js and length($js)}
     {foreach $url in $js}
-      <script src="{$url}" type="text/javascript"></script>
+      <script src="{$url}"></script>
     {/foreach}
   {/if}
 </head>
@@ -89,16 +89,16 @@
  * Default custom header implementation for Gitiles.
  */
 {deltemplate gitiles.customHeader variant="'default'"}
-<h1>{msg desc="short name of the application"}{gitiles.SITE_TITLE}{/msg}</h1>
+<header>{msg desc="short name of the application"}{gitiles.SITE_TITLE}{/msg}</header>
 {/deltemplate}
 
 /**
  * Standard footer.
  */
 {template .footer}
-  <div class="footer">
+  <footer>
       Powered by <a href="https://code.google.com/p/gitiles/">Gitiles</a>
-  </div>
+  </footer>
 </body>
 </html>
 {/template}

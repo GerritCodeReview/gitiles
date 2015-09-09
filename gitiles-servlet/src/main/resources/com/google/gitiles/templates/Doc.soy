@@ -28,8 +28,8 @@
  * @param bodyHtml safe html to embed into the body of the page.
  */
 {template .markdownDoc}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html class="doc-page">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>
     {if $siteTitle}{$siteTitle} -{sp}{/if}
@@ -54,27 +54,26 @@
   {/if}
   {if $navbarHtml}
     <div class="nav" role="navigation">
-    <div class="nav-aux">
-      {$navbarHtml}
-    </div>
+      <div class="nav-aux">
+        {$navbarHtml}
+      </div>
     </div>
   {/if}
   <div class="doc">
     {$bodyHtml}
   </div>
-  <div class="footer-break"></div>
-  <div class="footer-line">
-    <div class="nav-aux">
+  <footer>
+    <div class="footer-aux">
       <ul>
-      {if $sourceUrl}<li><a href="{$sourceUrl}">{msg desc="text for the source link"}source{/msg}</a></li>{/if}
-      {if $logUrl}<li><a href="{$logUrl}">{msg desc="text for the log link"}log{/msg}</a></li>{/if}
-      {if $blameUrl}<li><a href="{$blameUrl}">{msg desc="text for the blame link"}blame{/msg}</a></li>{/if}
+        {if $sourceUrl}<li><a href="{$sourceUrl}">{msg desc="text for the source link"}source{/msg}</a></li>{/if}
+        {if $logUrl}<li><a href="{$logUrl}">{msg desc="text for the log link"}log{/msg}</a></li>{/if}
+        {if $blameUrl}<li><a href="{$blameUrl}">{msg desc="text for the blame link"}blame{/msg}</a></li>{/if}
       </ul>
       <div class="gitiles-att">
-      Powered by <a href="https://code.google.com/p/gitiles/">Gitiles</a>
+        Powered by <a href="https://code.google.com/p/gitiles/">Gitiles</a>
       </div>
     </div>
-  </div>
+  </footer>
   {if $analyticsId}
     /* From https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
     <script>

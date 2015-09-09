@@ -63,11 +63,11 @@
   </div>
 {/if}
 
-<textarea rows="1" cols="150" class="clone-line"
-  onclick="this.focus();this.select();"
-  readonly="readonly">
-    git clone {$cloneUrl}
-</textarea>
+<div class="clone">
+  <div class="clone-title">Clone this repo:</div>
+  <input type="text" class="clone-line" onclick="this.focus();this.select();"
+         readonly="readonly" value="git clone {$cloneUrl}">
+</div>
 
 {if $hasLog and (length($branches) or length($tags))}
   <div class="repository-shortlog-wrapper">

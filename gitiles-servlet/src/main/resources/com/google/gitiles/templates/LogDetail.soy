@@ -112,15 +112,11 @@
  * @param diffTree unused in this variant.
  */
 {deltemplate gitiles.logEntry variant="'oneline'"}
-<a href="{$url}">
-  <span class="sha1">{$abbrevSha}</span>
-  // nbsp instad of CSS padding/margin because those cause a break in the
-  // underline.
-  &nbsp;
-  {sp}<span>{$shortMessage}</span>
+<a href="{$url}" class="sha1">{$abbrevSha}</a>
+  {sp}<a href="{$url}">{$shortMessage}</a>
 </a>
 {sp}<span class="author" title="{$author.email}">{msg desc="commit author name"}by {$author.name}{/msg}</span>
-{sp}<span class="time" title="{$author.time}">- {$author.relativeTime}</span>
+{sp}<span class="time" title="{$author.time}">· {$author.relativeTime}</span>
 {if length($branches)}
   {foreach $branch in $branches}
     {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>

@@ -35,20 +35,21 @@
 
 {if length($repositories)}
   {if not $breadcrumbs}
-    <h2>
+    <div class="available-repos">
       {msg desc="Git repositories available on the host"}
         {$hostName} Git repositories
       {/msg}
-    </h2>
-  {else}
-    <br />
+    </div>
   {/if}
 
-  <div class="instructions">
+  <div class="clone">
     {msg desc="description on how to use this repository"}
-    To clone one of these repositories, install{sp}
-    <a href="http://www.git-scm.com/">git</a>, and run:
-    <pre>git clone {$baseUrl}{$prefix}<em>name</em></pre>
+      <div class="clone-title">
+        To clone one of these repositories, install{sp}
+        <a href="http://www.git-scm.com/">git</a>, and run:
+      </div>
+      <pre>git clone {$baseUrl}{$prefix}<em>name</em></pre>
+    </div>
     {/msg}
   </div>
 
