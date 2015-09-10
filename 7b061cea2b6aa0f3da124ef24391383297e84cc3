@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "64ee7e38_1dee73ee",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-10T14:44:22Z",
+      "side": 1,
+      "message": "Fair enough, though I\u0027m not completely sold on \u0027#\u0027. I wonder if there is a simple unencumbered link icon like the one on https://google.github.io/styleguide/javaguide.html that we can reuse.",
+      "parentUuid": "24f806fa_dbbd33ef",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64ee7e38_7de4d713",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
         "patchSetId": 1
