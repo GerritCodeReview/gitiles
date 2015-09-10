@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "24f806fa_dbbd33ef",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-10T14:42:33Z",
+      "side": 1,
+      "message": "The unicode representations were different depending on platform, with the Mac version looking cartoony. Unicode is 👍but this fit the visual aesthetic and looks the same on any platform.",
+      "parentUuid": "64ee7e38_5de11b02",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64ee7e38_7de4d713",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2015-09-09T23:18:11Z",
       "side": 1,
       "message": "Why did the ones on l. 190 above get line breaks, but these didn\u0027t?",
+      "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64ee7e38_dd0b6b63",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-10T14:42:33Z",
+      "side": 1,
+      "message": "typically this style should only be used in special cases. Since these are all affecting the same property, it reads a bit easier. The stuff on L 190 above is changing different properties.",
+      "parentUuid": "64ee7e38_7de4d713",
       "revId": "7b061cea2b6aa0f3da124ef24391383297e84cc3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
