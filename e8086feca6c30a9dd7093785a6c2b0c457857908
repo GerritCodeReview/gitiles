@@ -105,6 +105,23 @@
     },
     {
       "key": {
+        "uuid": "c4d00a8b_68fb83b0",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T22:02:26Z",
+      "side": 1,
+      "message": "Spacing between the header (not the nav, the bit with the breadcrumbs) and this ol appears to be less than spacing between entries within this ol, that seems wrong.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_48e15f02",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
         "patchSetId": 5
@@ -116,6 +133,46 @@
       "writtenOn": "2015-09-15T21:50:40Z",
       "side": 1,
       "message": "Don\u0027t let me forget when we get this up and running on googlesource.com to convert our existing users of custom template variants.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_28f18bd0",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T22:02:26Z",
+      "side": 1,
+      "message": "* Does this have to be monospace? The SHA-1, I get, but the file/log/blame views maybe not.\n* There seems to be less left-padding on this div than top/bottom-padding, not sure if that is intentional.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_08ee47ee",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T22:02:26Z",
+      "side": 1,
+      "message": "Along the same lines, I think of a \"[link]\" as a \"component\" in the sense meant by SUITCSS. It is a little odd that [link]s in various places aren\u0027t consistently styled, e.g. this one and the one in the commit metadata is monospace, whereas [diff] in the file list is not.",
+      "range": {
+        "startLine": 235,
+        "startChar": 19,
+        "endLine": 235,
+        "endChar": 90
+      },
       "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
