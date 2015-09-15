@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "c4d00a8b_e806535b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:58:04Z",
+      "side": 1,
+      "message": "Tangential: This now says \".json\" for JSON, but we don\u0027t actually set the header to give it a .json extension.",
+      "parentUuid": "c4d00a8b_08e7671a",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d98eb5_69fb85b0",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
         "patchSetId": 5
@@ -98,6 +116,23 @@
       "writtenOn": "2015-09-15T21:50:40Z",
       "side": 1,
       "message": "Don\u0027t let me forget when we get this up and running on googlesource.com to convert our existing users of custom template variants.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_c80b8f63",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:58:04Z",
+      "side": 1,
+      "message": "So, the whole \"prettyprint\" thing is back from when we were doing client-side rendering with https://github.com/google/code-prettify, which actually depended on that specific class name. I think you can probably drop it.",
       "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
