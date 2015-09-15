@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4d00a8b_88019747",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 0,
+      "message": "So, what this is doing is when you say ?pretty\u003dfull in the URL, you end up with a different bunch of data in each of the \u003cli\u003es, so you need to change the padding of each one of them slightly. Maybe to be more SUITCSS-y we should prepend \"u-\" to this, but I feel like it\u0027s necessary. Then again I haven\u0027t looked at the ?pretty\u003dfull rendered yet to see whether this is still necessary.",
+      "revId": "9be60227c5caf4eb767ac868aeab33d10904d365",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}

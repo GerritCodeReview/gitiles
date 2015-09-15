@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4d98eb5_09ee49ee",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 1,
+      "message": "In our local Java style we use 4-space indentation rather than aligning.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_28ea2be4",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 1,
+      "message": "If I\u0027m reading http://caniuse.com/#feat\u003dflexbox correctly then this doesn\u0027t work with IE9 (possibly IE10) and earlier? I\u0027m not sure that\u0027s ok, but I\u0027ll ask around.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_08e7671a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 1,
+      "message": "Any thoughts about choosing a snazzier monospace font like you did with Open Sans?",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4d98eb5_69fb85b0",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 1,
+      "message": "Do Header/Footer not fall under Common.soy?",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_68e42314",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 1,
+      "message": "I don\u0027t quite follow why there is a nested div here instead of having the styles on Site-footer.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_48e15f02",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-15T21:50:40Z",
+      "side": 1,
+      "message": "Don\u0027t let me forget when we get this up and running on googlesource.com to convert our existing users of custom template variants.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
