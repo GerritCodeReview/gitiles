@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09115b42_9a3fed79",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:41:59Z",
+      "side": 1,
+      "message": "Maybe these two could move into u-lineNum so we get them in blame too? If we have the vertical border we could probably also drop the \u0027.\u0027 in blame view.",
+      "range": {
+        "startLine": 371,
+        "startChar": 2,
+        "endLine": 372,
+        "endChar": 14
+      },
+      "revId": "bbcc4274313afeba1c5ad85f346d5bc7e0998494",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d7827f_2a217f66",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 7
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:41:59Z",
+      "side": 1,
+      "message": "So IIUC, using CSS content as opposed to actual HTML content prevents said content from being copied? I\u0027m learning lots of stuff here.",
+      "revId": "bbcc4274313afeba1c5ad85f346d5bc7e0998494",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
