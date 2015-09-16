@@ -16,6 +16,24 @@
       "revId": "c9fb9507d274a81629dbf54edde5ab6943b60ade",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89970b02_5efcd5ab",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T21:44:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89970b02_bee15905",
+      "revId": "c9fb9507d274a81629dbf54edde5ab6943b60ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
