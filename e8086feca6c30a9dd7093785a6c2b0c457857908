@@ -319,6 +319,24 @@
     },
     {
       "key": {
+        "uuid": "09115b42_ba42b103",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T16:54:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09115b42_3a4fc132",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_48e15f02",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
         "patchSetId": 5
