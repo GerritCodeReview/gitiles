@@ -422,7 +422,7 @@ lang-xq.js: Copyright (C) 2011 Patrick Wied
    limitations under the License.
 
 
-Apache Icons embedded in main/webapp/+static/gitiles.css
+Apache Icons embedded in main/webapp/+static/base.css
 ========================================================
 Public Domain Icons
 
