@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9904f0a_1fb883fc",
+        "filename": "COPYING",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2015-09-16T21:08:18Z",
+      "side": 1,
+      "message": "This appears to be out of date since I9e78b66ac01e619ae84cd255d3e2638274c8e5bd (though the Tango icons are also public domain).\n\nHere\u0027s the current COPYING file: http://cgit.freedesktop.org/tango/tango-icon-library/plain/COPYING.PublicDomain",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 53
+      },
+      "revId": "1522e4ee1092927c5997f149e8e2516b09573d64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
