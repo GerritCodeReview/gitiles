@@ -89,6 +89,9 @@ ul, ol {
   background: #eee;
   flex: none;
 }
+.Site-header--withNavbar {
+  background: #fff;
+}
 .Site-content {
   flex: 1 0 auto;
   padding: 20px;
@@ -105,6 +108,30 @@ ul, ol {
   align-items: center;
   display: flex;
   padding: 20px;
+}
+.Site-header--withNavbar .Header {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.Header-title,
+.Header-image {
+  display: flex;
+}
+.Header-anchor {
+  color: #666;
+  font-size: 32px;
+  font-weight: 300;
+  text-decoration: none;
+}
+.Header-anchorLogo {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.Header-nav {
+  background: #eee;
+  padding: 15px 0;
 }
 .Header-title {
   flex: 1;
