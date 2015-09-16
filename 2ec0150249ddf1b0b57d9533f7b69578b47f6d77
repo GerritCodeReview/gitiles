@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9904f0a_3f2467ef",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T21:46:30Z",
+      "side": 1,
+      "message": "white-space: nowrap",
+      "revId": "2ec0150249ddf1b0b57d9533f7b69578b47f6d77",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
