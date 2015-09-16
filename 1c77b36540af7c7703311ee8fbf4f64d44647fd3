@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09115b42_da45650f",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 6
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:21:30Z",
+      "side": 1,
+      "message": "Not sure why, but there appears to be a big gap between leftCol and rightCol: http://i.imgur.com/hiOjrfj.png\n\nChrome specifically requested a small font and spacing here to maximize the amount of code displayed without having to scroll horizontally.",
+      "revId": "1c77b36540af7c7703311ee8fbf4f64d44647fd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
