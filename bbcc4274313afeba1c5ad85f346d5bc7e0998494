@@ -81,6 +81,24 @@
       "revId": "bbcc4274313afeba1c5ad85f346d5bc7e0998494",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09115b42_fa8dc9b6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 7
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T17:02:21Z",
+      "side": 1,
+      "message": "I think that\u0027s a fine tradeoff. As you\u0027ve no doubt noticed we try to do as much server-side as possible in gitiles, but a simple onclick handler I can live with.",
+      "parentUuid": "09115b42_3a846194",
+      "revId": "bbcc4274313afeba1c5ad85f346d5bc7e0998494",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
