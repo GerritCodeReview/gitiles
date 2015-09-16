@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4d00a8b_e81db3a3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d98eb5_09ee49ee",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_28ea2be4",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
         "patchSetId": 5
@@ -71,6 +89,42 @@
     },
     {
       "key": {
+        "uuid": "c4d00a8b_c8226fe3",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "initial feedback was to specify monospace because some devs set their own user-agent stylesheet to override it to their own preference. I have thought about it but didn\u0027t want to let the CL get too out of hand.",
+      "parentUuid": "c4d00a8b_08e7671a",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_28186bb0",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d00a8b_e806535b",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d98eb5_69fb85b0",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
         "patchSetId": 5
@@ -82,6 +136,24 @@
       "writtenOn": "2015-09-15T21:50:40Z",
       "side": 1,
       "message": "Do Header/Footer not fall under Common.soy?",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_0815a776",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d98eb5_69fb85b0",
       "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "e4d98eb5_69126590",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d00a8b_48f83fb2",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_68e42314",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
         "patchSetId": 5
@@ -122,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "e4d98eb5_490fa164",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "This is a method of separating the site layout from the header and footer internal layouts without needing to preface it with Site-footer-blah. For instance, if we wanted to make the footer the same width as the fixed-width container, it\u0027s a simple change in the Header class, but if it was only Site-header, we\u0027d need to create a wrapper to make sure the footer background extended the entire width of the page.",
+      "parentUuid": "c4d00a8b_68e42314",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_68fb83b0",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
         "patchSetId": 5
@@ -133,6 +241,24 @@
       "writtenOn": "2015-09-15T22:02:26Z",
       "side": 1,
       "message": "Spacing between the header (not the nav, the bit with the breadcrumbs) and this ol appears to be less than spacing between entries within this ol, that seems wrong.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4d98eb5_a94a9d99",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "i\u0027m not following",
+      "parentUuid": "c4d00a8b_68fb83b0",
       "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -173,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "09115b42_9a26cd7b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "the less padding on the left is intentional, yes. always room for iteration.",
+      "parentUuid": "c4d00a8b_28f18bd0",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_08ee47ee",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 5
@@ -196,6 +340,30 @@
     },
     {
       "key": {
+        "uuid": "09115b42_ba29914d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "agreed. would prefer to do in a separate change so that this one doesn\u0027t get larger than it already is if that\u0027s alright with you :)",
+      "parentUuid": "c4d00a8b_08ee47ee",
+      "range": {
+        "startLine": 235,
+        "startChar": 19,
+        "endLine": 235,
+        "endChar": 90
+      },
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_c80b8f63",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 5
@@ -207,6 +375,24 @@
       "writtenOn": "2015-09-15T21:58:04Z",
       "side": 1,
       "message": "So, the whole \"prettyprint\" thing is back from when we were doing client-side rendering with https://github.com/google/code-prettify, which actually depended on that specific class name. I think you can probably drop it.",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d7827f_8a318bbd",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2015-09-16T15:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d00a8b_c80b8f63",
       "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
