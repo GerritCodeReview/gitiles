@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "04d7827f_ea3647b1",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:16:04Z",
+      "side": 1,
+      "message": "Sure, launch and iterate.",
+      "parentUuid": "c4d00a8b_c8226fe3",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4d98eb5_69fb85b0",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
         "patchSetId": 5
@@ -230,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "09115b42_5a5a75f4",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:16:04Z",
+      "side": 1,
+      "message": "Thanks for the explanation.",
+      "parentUuid": "e4d98eb5_490fa164",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d00a8b_68fb83b0",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
         "patchSetId": 5
@@ -259,6 +295,24 @@
       "side": 1,
       "message": "i\u0027m not following",
       "parentUuid": "c4d00a8b_68fb83b0",
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09115b42_3a4fc132",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:16:04Z",
+      "side": 1,
+      "message": "http://imgur.com/W6eRlYa\n\nI think spacing A should be noticeably larger than spacing B",
+      "parentUuid": "e4d98eb5_a94a9d99",
       "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -352,6 +406,30 @@
       "side": 1,
       "message": "agreed. would prefer to do in a separate change so that this one doesn\u0027t get larger than it already is if that\u0027s alright with you :)",
       "parentUuid": "c4d00a8b_08ee47ee",
+      "range": {
+        "startLine": 235,
+        "startChar": 19,
+        "endLine": 235,
+        "endChar": 90
+      },
+      "revId": "e8086feca6c30a9dd7093785a6c2b0c457857908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09115b42_1a54fdc4",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T16:16:04Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "09115b42_ba29914d",
       "range": {
         "startLine": 235,
         "startChar": 19,
