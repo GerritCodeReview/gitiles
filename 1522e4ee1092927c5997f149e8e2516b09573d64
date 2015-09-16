@@ -46,6 +46,30 @@
       "revId": "1522e4ee1092927c5997f149e8e2516b09573d64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9904f0a_7fdc2f4f",
+        "filename": "COPYING",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-09-16T21:18:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9904f0a_dfc1bb6b",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 53
+      },
+      "revId": "1522e4ee1092927c5997f149e8e2516b09573d64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
