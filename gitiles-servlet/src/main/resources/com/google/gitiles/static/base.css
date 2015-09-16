@@ -464,44 +464,38 @@ ul, ol {
 /* BlameDetail.soy */
 
 .Blame {
+  border-collapse: collapse;
+  font-size: 8pt;
   margin: 10px 0;
-}
-.Blame-region {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-.Blame-leftCol {
-  font-size: 8pt;
-  width: 375px;
-}
-.Blame-rightCol {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-size: 8pt;
-}
-.Blame-sha1,
-.Blame-author,
-.Blame-time,
-.Blame-regionLink {
-  display: inline-block;
-  font-size: 8pt;
-}
-.Blame-lineNum {
-  margin-right: 10px;
-  min-width: 3.5em;
-  padding-right: 8px;
-  text-align: right;
-}
-.Blame-lineNum:hover {
-  text-decoration: underline;
+  width: 100%;
 }
 .Blame-region--bg1 {
   background: #fff;
 }
 .Blame-region--bg2 {
   background: #f1f2f3;
+}
+.Blame-sha1,
+.Blame-author,
+.Blame-time,
+.Blame-regionLink {
+  font-size: 8pt;
+  padding: 0 3px;
+}
+.Blame-regionLink {
+  text-align: right;
+}
+.Blame-lineNum .u-lineNum{
+  margin-right: 10px;
+  min-width: none;
+  padding: 0 8px;
+  text-align: right;
+}
+.Blame-lineNum:hover {
+  text-decoration: underline;
+}
+.Blame-lineContent {
+  font-size: 9pt;
 }
 
 /* DiffDetail.soy */
