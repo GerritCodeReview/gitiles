@@ -377,7 +377,7 @@ public class MarkdownToHtml implements Visitor {
       return GitilesView.doc().copyFrom(view).setPathPart(url).build().toUrl();
     } else if (url.startsWith("/")) {
       return GitilesView.show().copyFrom(view).setPathPart(url).build().toUrl();
-    } else if (!url.startsWith("../") && !url.startsWith("./")) {
+    } else if (!readme && !url.startsWith("../") && !url.startsWith("./")) {
       return url;
     }
 
@@ -410,11 +410,10 @@ public class MarkdownToHtml implements Visitor {
     if (url.isEmpty()) {
       return FilterNormalizeUri.INSTANCE.getInnocuousOutput();
     }
-
     GitilesView.Builder dest = url.endsWith(".md")
         ? GitilesView.doc()
         : GitilesView.show();
-    return dest.copyFrom(view).setPathPart(dir + url).build().toUrl();
+    return dest.copyFrom(view).setPathPart(dir + "/" + url).build().toUrl();
   }
 
   @Override
