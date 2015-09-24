@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae42154a_eff2a1d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2015-09-24T17:32:48Z",
+      "side": 1,
+      "message": "Could you give an example of the kind of link this will fix (either in the commit message or in DocServletTests.java)?",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "5d0576e4bea822383ebc4b84c87911d5cc889ecd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae42154a_0f0e0577",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2015-09-24T17:32:48Z",
+      "side": 1,
+      "message": "Style: this usually would be written as\n\n Bug: 82\n Change-Id: I9efb277b7b373d5d7ba6336fec0ea1db1dcc89b0\n\n(or \u0027Issue: 82\u0027). E.g., see https://gerrit-review.googlesource.com/60313",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "5d0576e4bea822383ebc4b84c87911d5cc889ecd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
