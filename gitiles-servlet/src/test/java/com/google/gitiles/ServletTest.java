@@ -20,6 +20,8 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.common.net.HttpHeaders;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.Gson;
 
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
@@ -97,6 +99,10 @@ public class ServletTest {
     String magic = ")]}'\n";
     assertThat(body).startsWith(magic);
     return body.substring(magic.length());
+  }
+
+  protected JsonElement buildJson(String path) throws Exception {
+    return new JsonParser().parse(buildJsonRaw(path));
   }
 
   protected <T> T buildJson(String path, Class<T> classOfT) throws Exception {
