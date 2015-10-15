@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1911ba42_dab1e519",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-15T12:11:14Z",
+      "side": 1,
+      "message": "Java variable names are camelCase.",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 22
+      },
+      "revId": "d61fc17ad61ee5b865e209cf92fc5603ead8c636",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1911ba42_babe31e8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-15T12:11:14Z",
+      "side": 1,
+      "message": "Why is \"default\" the default? Is \u0026name-status\u003ddefault supposed to have some meaning?",
+      "range": {
+        "startLine": 152,
+        "startChar": 89,
+        "endLine": 152,
+        "endChar": 90
+      },
+      "revId": "d61fc17ad61ee5b865e209cf92fc5603ead8c636",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39003eef_dbb1f319",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-15T12:11:14Z",
+      "side": 1,
+      "message": "You should support both:\n\n \u0026name-status\u003d1\n \u0026name-status\n\nI forget exactly what params.get returns in the latter case.",
+      "range": {
+        "startLine": 153,
+        "startChar": 27,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "d61fc17ad61ee5b865e209cf92fc5603ead8c636",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
