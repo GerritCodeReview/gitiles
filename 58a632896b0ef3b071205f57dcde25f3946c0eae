@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d92002e1_88875713",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1022152
+      },
+      "writtenOn": "2015-10-16T15:08:02Z",
+      "side": 1,
+      "message": "I\u0027m confused why this passes even for treeDiffLog.\n\nDo I need some further magic similar to repo.getRevWalk().parseBody(commit)?",
+      "revId": "58a632896b0ef3b071205f57dcde25f3946c0eae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
