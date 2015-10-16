@@ -16,6 +16,41 @@
       "revId": "2fe9ec1abdb7b40891b96f7d213467f7aca5db9d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b90a6e5b_cfd2fd2e",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-16T13:57:19Z",
+      "side": 1,
+      "message": "Quirk of JGit. You need to do:\n\n repo.getRevWalk().parseBody(commit);",
+      "parentUuid": "f92946cb_a98a1d1b",
+      "revId": "2fe9ec1abdb7b40891b96f7d213467f7aca5db9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b90a6e5b_2ff3c9cf",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-16T13:57:19Z",
+      "side": 1,
+      "message": "Check the actual values:\n\n .isEqualTo(commit.getTree().name())\n\nand so on.",
+      "revId": "2fe9ec1abdb7b40891b96f7d213467f7aca5db9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
