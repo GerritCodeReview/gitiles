@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "d9dba204_10aba4b0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-16T13:57:19Z",
+      "side": 1,
+      "message": "\"default\" has a specific meaning for pretty. Maybe use null to avoid this confusion?\n\nThen your next line has to be:\n\n if (\"1\".equals(nameStatus) || \"\".equals(nameStatus))\n\nto avoid NPE",
+      "parentUuid": "99520a22_e63f5eee",
+      "range": {
+        "startLine": 152,
+        "startChar": 89,
+        "endLine": 152,
+        "endChar": 90
+      },
+      "revId": "d61fc17ad61ee5b865e209cf92fc5603ead8c636",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39003eef_dbb1f319",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
         "patchSetId": 1
