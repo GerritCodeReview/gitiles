@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "b90a6e5b_6ffdd198",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-16T13:58:34Z",
+      "side": 1,
+      "message": "I don\u0027t care much one way of the other but there are a couple of alternative ways you can do this:\n\n * repo.branch(\"HEAD\") instead of master\n * buildJson(\"/repo/+log/master\") to avoid having to link HEAD",
+      "revId": "2fe9ec1abdb7b40891b96f7d213467f7aca5db9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b90a6e5b_2ff3c9cf",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
         "patchSetId": 4
