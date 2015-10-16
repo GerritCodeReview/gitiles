@@ -16,6 +16,24 @@
       "revId": "58a632896b0ef3b071205f57dcde25f3946c0eae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b90a6e5b_cf04bd57",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-16T15:11:32Z",
+      "side": 1,
+      "message": "This sounds like a logic bug, I would recommend stepping through LogServlet in a debugger.",
+      "parentUuid": "d92002e1_88875713",
+      "revId": "58a632896b0ef3b071205f57dcde25f3946c0eae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
