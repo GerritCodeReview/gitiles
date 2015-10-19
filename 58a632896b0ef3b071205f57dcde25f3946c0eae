@@ -34,6 +34,24 @@
       "revId": "58a632896b0ef3b071205f57dcde25f3946c0eae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9e9e22c_002606ee",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1022152
+      },
+      "writtenOn": "2015-10-19T14:02:48Z",
+      "side": 1,
+      "message": "It turns out the code wasn\u0027t deserializing JSON the way I expected. I had to specify FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES.",
+      "parentUuid": "b90a6e5b_cf04bd57",
+      "revId": "58a632896b0ef3b071205f57dcde25f3946c0eae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
