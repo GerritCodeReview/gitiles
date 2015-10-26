@@ -38,7 +38,7 @@ public class LogServletTest extends ServletTest {
     RevCommit commit = repo.branch("HEAD").commit().create();
     repo.getRevWalk().parseBody(commit);
 
-    Log log = buildJson("/repo/+log", LOG.getType(), "");
+    Log log = buildJson("/repo/+log", LOG, "");
     assertThat(log.log).hasSize(1);
     verifyJsonCommit(log.log.get(0), commit);
     assertThat(log.log.get(0).treeDiff).isNull();
@@ -53,7 +53,7 @@ public class LogServletTest extends ServletTest {
     repo.getRevWalk().parseBody(c1);
     repo.getRevWalk().parseBody(c2);
 
-    Log log = buildJson("/repo/+log/master", LOG.getType(), "&name-status=1");
+    Log log = buildJson("/repo/+log/master", LOG, "&name-status=1");
     assertThat(log.log).hasSize(2);
 
     Commit jc2 = log.log.get(0);
