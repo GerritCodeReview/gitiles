@@ -70,6 +70,24 @@
       "revId": "1e381de1e906e6726e10c828c4f1ae672904174b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6bdd594_491bc1ba",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1021863
+      },
+      "writtenOn": "2015-10-26T20:38:35Z",
+      "side": 1,
+      "message": "It stands out by nature of it breaking the visual rhythm of both views. the brackets and smaller font size also help.",
+      "parentUuid": "f6bdd594_a9ecbde9",
+      "revId": "1e381de1e906e6726e10c828c4f1ae672904174b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
