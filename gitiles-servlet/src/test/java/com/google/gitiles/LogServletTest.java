@@ -71,6 +71,31 @@ public class LogServletTest extends ServletTest {
     assertThat(jc1.treeDiff.get(0).newPath).isEqualTo("foo");
   }
 
+  @Test
+  public void follow() throws Exception {
+    String contents = "contents";
+    RevCommit c1 = repo.branch("master")
+        .commit()
+        .add("foo", contents)
+        .create();
+    RevCommit c2 = repo.branch("master")
+        .commit()
+        .rm("foo")
+        .add("bar", contents)
+        .create();
+    repo.getRevWalk().parseBody(c1);
+    repo.getRevWalk().parseBody(c2);
+
+    Log log = buildJson(LOG, "/repo/+log/master/bar");
+    assertThat(log.log).hasSize(1);
+    verifyJsonCommit(log.log.get(0), c2);
+
+    log = buildJson(LOG, "/repo/+log/master/bar", "follow=1");
+    assertThat(log.log).hasSize(2);
+    verifyJsonCommit(log.log.get(0), c2);
+    verifyJsonCommit(log.log.get(1), c1);
+  }
+
   private void verifyJsonCommit(Commit jsonCommit, RevCommit commit) throws Exception {
     GitilesAccess access = new TestGitilesAccess(repo.getRepository()).forRequest(null);
     DateFormatter df = new DateFormatter(access, Format.DEFAULT);
