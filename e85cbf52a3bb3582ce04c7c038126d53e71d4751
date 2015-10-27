@@ -26,6 +26,30 @@
     },
     {
       "key": {
+        "uuid": "f6bdd594_a9059d53",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-27T13:19:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a9e55d_a5a61e81",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "e85cbf52a3bb3582ce04c7c038126d53e71d4751",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56a8615b_448c0e0c",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2015-10-27T09:55:18Z",
       "side": 1,
       "message": "Same naming suggestion as above (log -\u003e response).",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 11
+      },
+      "revId": "e85cbf52a3bb3582ce04c7c038126d53e71d4751",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6bdd594_4944218d",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-27T13:19:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56a8615b_448c0e0c",
       "range": {
         "startLine": 56,
         "startChar": 8,
