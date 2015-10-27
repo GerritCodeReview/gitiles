@@ -3,6 +3,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "36de8d5b_8baeedbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-10-27T14:15:46Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 9,
+        "startChar": 58,
+        "endLine": 9,
+        "endChar": 62
+      },
+      "revId": "cf6ac5cd7b045ae6bb69b1caaed9920ce6b277cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36de8d5b_6bb4e10a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-10-27T14:15:46Z",
+      "side": 1,
+      "message": "The other way is to run the rename detection twice after you get a commit back. Its less fun that way. :)",
+      "range": {
+        "startLine": 9,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "cf6ac5cd7b045ae6bb69b1caaed9920ce6b277cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d608d1ad_c8a4efe1",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paginator.java",
         "patchSetId": 6
@@ -32,6 +78,24 @@
       "side": 1,
       "message": "Oh I know what I was thinking. We don\u0027t have the commit available in the callback. So this is still dumb, but the RenameWatcher interface forces us to do it this way. Will add a comment.",
       "parentUuid": "d608d1ad_c8a4efe1",
+      "revId": "cf6ac5cd7b045ae6bb69b1caaed9920ce6b277cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f61155d4_69b4e50a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paginator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2015-10-27T14:15:46Z",
+      "side": 1,
+      "message": "Right, the RenameCallback stuff was written by a contributor. It should have also passed RevCommit but does not. :-(",
+      "parentUuid": "d608d1ad_88aef7bb",
       "revId": "cf6ac5cd7b045ae6bb69b1caaed9920ce6b277cd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
