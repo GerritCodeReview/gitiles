@@ -17,6 +17,24 @@
       "revId": "cf6ac5cd7b045ae6bb69b1caaed9920ce6b277cd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d608d1ad_88aef7bb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Paginator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2015-10-27T14:10:41Z",
+      "side": 1,
+      "message": "Oh I know what I was thinking. We don\u0027t have the commit available in the callback. So this is still dumb, but the RenameWatcher interface forces us to do it this way. Will add a comment.",
+      "parentUuid": "d608d1ad_c8a4efe1",
+      "revId": "cf6ac5cd7b045ae6bb69b1caaed9920ce6b277cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
