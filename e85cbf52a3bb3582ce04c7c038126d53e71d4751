@@ -1,4 +1,51 @@
 {
   "pushCert": "certificate version 0.1\npusher Dave Borowitz \u003cdborowitz@google.com\u003e 1445888452 -0400\nnonce AFd3BxvdIb18fF0iar4quQwrnF4L9iwHhX27KgnLpwDPwKII//eNP9YdsqhdR4l20GOiw+hVoAxw\n\n0000000000000000000000000000000000000000 1e381de1e906e6726e10c828c4f1ae672904174b refs/for/master\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQIcBAABAgAGBQJWLoHEAAoJEF/XxZqaEoiMZ5oQAN0IRhWMiaRy8/TMVgAYePEH\nBVkmiH/zQYuOdk4IxiVDlqYxtfYGaI3dLzKzE2lxteRW5weOnXR+gSWOiZqzNs5B\nMYFFvxjttZwJIUrJ32SaGHLJQIUN4Nk1sIwJNMRDTwRpTqhogbD4uG9gOkyQOWaG\nW/i1JYMJTJcklr1ksQ88VzDSz5UvWTgYlj5ij0xCBFmGtr1A02qDWBKcIHwRodvq\nDbIL1a7HSjPQxMM3/oF+KLz5sXqCd1gnbAZNeClMc8BkixUiWLJB2iCWocQTHu8+\n/OCzAXh5Dmh4Zy7uvphEX0DgL5u804+sIYiDzr2nrxOrp9uEkr2z5SjN0lZKGlrt\nnbd0AWhrYx8bgLx76kv88UTqG28FKYajHmN+5caHtaQejByjaDPdkK60/89ElSfj\npdLek0/3Jh3zhBLBj1j0ThN4l3S+CIoo6fTT6RlFnEx+75bVyyBt2HlLiX8v+/VS\n0X9X5lp/WIOnBSlFf3zEnwAe18nI11eUjC8XFrQJEjVVM/DOC4dT+ksuGf/7noBz\no+ZbPbmREkWvZzoFz02WwZgBal5GUTqySLMK7EjNx7AJZ3k/V7JG32Nu75i5rdP4\nzjQfVmCwNz8t2s58Ru662Kt7VhXwoAUA6/CpLTgR7PSahCYvlwoFuOGMpL/P6xw0\nLy7YbCQe0r1Ersd/02yC\n\u003dES3H\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "76a9e55d_a5a61e81",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1022152
+      },
+      "writtenOn": "2015-10-27T09:55:18Z",
+      "side": 1,
+      "message": "nit: how about naming this \"response\" or similar instead? \"log.log\" below looks a bit weird.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "e85cbf52a3bb3582ce04c7c038126d53e71d4751",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56a8615b_448c0e0c",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1022152
+      },
+      "writtenOn": "2015-10-27T09:55:18Z",
+      "side": 1,
+      "message": "Same naming suggestion as above (log -\u003e response).",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 11
+      },
+      "revId": "e85cbf52a3bb3582ce04c7c038126d53e71d4751",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
 }
