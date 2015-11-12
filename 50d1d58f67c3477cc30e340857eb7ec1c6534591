@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b203791_1814098d",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-11-12T20:38:01Z",
+      "side": 1,
+      "message": "[Optional] Use zip_file() instead. It\u0027s shorter, less messy and would have the nice effect, that all binary artifacts are available in one single zip file:\n\n  zip_file(\n    name \u003d \u0027all\u0027,\n    srcs \u003d [\u0027:\u0027 + e for e in a],\n  )\n\nAfter executing new rule:\n\n  $ buck build all\n  $ buck targets --show_output all\n  //:all buck-out/gen/all.zip\n  $ unzip -t buck-out/gen/all.zip\n  Archive:  buck-out/gen/all.zip\n    testing: dev.jar                  OK\n    testing: gitiles.war              OK\n    testing: javadoc.jar              OK\n    testing: servlet.jar              OK\n    testing: src.jar                  OK\n  No errors detected in compressed data of buck-out/gen/all.zip.",
+      "revId": "50d1d58f67c3477cc30e340857eb7ec1c6534591",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
