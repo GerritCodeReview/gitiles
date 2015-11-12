@@ -41,8 +41,8 @@ def b():
 
   genrule(
     name = 'all',
-    cmd = 'echo done >$OUT',
-    deps = [':' + e for e in a],
+    cmd = 'rm -f $OUT; ' + '&& '.join(
+        'echo $(location :%s) >> $OUT' % e for e in a),
     out = '__fake.gitiles__',
   )
 
