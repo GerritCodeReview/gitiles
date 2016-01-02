@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
@@ -101,6 +102,37 @@ public class HostIndexServlet extends BaseServlet {
             .copyFrom(view)
             .setRepositoryName(desc.name)
             .toUrl());
+  }
+
+  @Override
+  protected void doHead(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    FormatType format = getFormat(req);
+    if (format == null) {
+      res.sendError(SC_BAD_REQUEST);
+      return;
+    }
+
+    GitilesView view = ViewFilter.getView(req);
+    String prefix = view.getRepositoryPrefix();
+    if (prefix != null) {
+      Map<String, RepositoryDescription> descs =
+          list(req, res, prefix, Collections.<String> emptySet());
+      if (descs == null) {
+        return;
+      }
+    }
+    switch (format) {
+      case HTML:
+      case JSON:
+      case TEXT:
+        res.setStatus(HttpServletResponse.SC_OK);
+        res.setContentType(format.getMimeType());
+        break;
+      default:
+        res.sendError(SC_BAD_REQUEST);
+        break;
+    }
   }
 
   @Override

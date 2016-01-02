@@ -102,15 +102,10 @@ public abstract class BaseServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res)
       throws IOException, ServletException {
-    FormatType format;
-    try {
-      format = FormatType.getFormatType(req);
-    } catch (IllegalArgumentException err) {
+    FormatType format = getFormat(req);
+    if (format == null) {
       res.sendError(SC_BAD_REQUEST);
       return;
-    }
-    if (format == DEFAULT) {
-      format = getDefaultFormat(req);
     }
     switch (format) {
       case HTML:
@@ -126,6 +121,19 @@ public abstract class BaseServlet extends HttpServlet {
         res.sendError(SC_BAD_REQUEST);
         break;
     }
+  }
+
+  protected FormatType getFormat(HttpServletRequest req) {
+    FormatType format;
+    try {
+      format = FormatType.getFormatType(req);
+    } catch (IllegalArgumentException err) {
+      return null;
+    }
+    if (format == DEFAULT) {
+      return getDefaultFormat(req);
+    }
+    return format;
   }
 
   /**

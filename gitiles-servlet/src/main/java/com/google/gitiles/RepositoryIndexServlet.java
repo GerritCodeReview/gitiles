@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -57,6 +58,28 @@ public class RepositoryIndexServlet extends BaseServlet {
       TimeCache timeCache) {
     super(renderer, accessFactory);
     this.timeCache = checkNotNull(timeCache, "timeCache");
+  }
+
+  @Override
+  protected void doHead(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    // If the repository didn't exist a prior filter would have 404 replied.
+    FormatType format = getFormat(req);
+    if (format == null) {
+      res.sendError(SC_BAD_REQUEST);
+      return;
+    }
+    switch (format) {
+      case HTML:
+      case JSON:
+        res.setStatus(HttpServletResponse.SC_OK);
+        res.setContentType(format.getMimeType());
+        break;
+      case TEXT:
+        default:
+        res.sendError(SC_BAD_REQUEST);
+        break;
+    }
   }
 
   @Override
