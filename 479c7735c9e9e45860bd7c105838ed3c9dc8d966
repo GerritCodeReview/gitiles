@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eac16b6d_9a0e4d7f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-01-05T16:26:58Z",
+      "side": 1,
+      "message": "Maybe a more idiomatic way would be to have getFormatType return Optional\u003cFormatType\u003e (which can use Enums.getIfPresent in its implementation)",
+      "revId": "479c7735c9e9e45860bd7c105838ed3c9dc8d966",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
