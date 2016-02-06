@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11b19c0d_db92933e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-02-06T06:52:06Z",
+      "side": 1,
+      "message": "The bug can be referenced in the footer:\n\n Bug: Issue 64\n\nand it\u0027ll be automatically hyperlinked.",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "2e0fd0b8d7db8f2162a6e5ee10b782b863f37075",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
