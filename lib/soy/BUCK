@@ -1,7 +1,7 @@
 maven_jar(
   name = 'soy',
-  id = 'com.google.template:soy:2015-04-10',
-  sha1 = 'f2a260c0eafbc5756ccec546efd2ffd5b0a583cb',
+  id = 'com.google.template:soy:2016-01-12',
+  sha1 = 'adadc37aecf1042de7c9c6a6eb8f34719500ed69',
   deps = [
     ':icu4j',
     '//lib:jsr305',
