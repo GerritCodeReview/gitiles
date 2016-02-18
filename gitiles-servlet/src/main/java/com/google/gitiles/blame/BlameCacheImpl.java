@@ -25,6 +25,7 @@ import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 import org.eclipse.jgit.blame.BlameGenerator;
 import org.eclipse.jgit.lib.ObjectId;
@@ -41,11 +42,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 /** Guava implementation of BlameCache, weighted by number of blame regions. */
 public class BlameCacheImpl implements BlameCache {
+  // TODO(mgiuca): This is the commit "C" from the GitHyperBlameLineMotionTest test suite.
+  public static final ObjectId ignoreCommit =
+      ObjectId.fromString("b8346a66a6140fa8afb51aacff303b96eb016f16");
+
   public static CacheBuilder<Key, List<Region>> defaultBuilder() {
     return weigher(CacheBuilder.newBuilder()).maximumWeight(10 << 10);
   }
@@ -123,6 +129,69 @@ public class BlameCacheImpl implements BlameCache {
 
   @Override
   public List<Region> get(Repository repo, ObjectId commitId, String path)
+      throws IOException {
+    // TODO(mgiuca): The ignore list should be passed in.
+    Set<ObjectId> ignored = Sets.newHashSet();
+    ignored.add(ignoreCommit);
+    return hyperBlame(repo, ignored, commitId, path);
+  }
+
+  public List<Region> hyperBlame(
+      Repository repo, Set<ObjectId> ignored, ObjectId commitId, String path) throws IOException {
+    List<Region> blame = getNonHyperBlame(repo, commitId, path);
+
+    List<Region> hyper_blame = Lists.newArrayList();
+
+    for (Region region : blame) {
+      // If a region references an ignored commit, blame that commit's parent repeatedly until we
+      // find a non-ignored commit.
+      while (ignored.contains(region.getSourceCommit())) {
+        if (region.getPreviousCommit() == null) {
+          // You can't ignore the commit that added this file.
+          break;
+        }
+
+        ObjectId previouscommit = region.getPreviousCommit();
+        String previousfilename = region.getPreviousPath();
+        List<Region> parent_blame = getNonHyperBlame(repo, previouscommit, previousfilename);
+
+        if (parent_blame.size() == 0) {
+          // The previous version of this file was empty, therefore, you can't ignore this commit.
+          break;
+        }
+
+        // line.lineno_then is the line number in question at line.commit.
+        // TODO(mgiuca): This will be incorrect if region.commit added or removed lines. Translate
+        // that line number so that it refers to the position of the same line on previouscommit.
+        int lineno_previous = region.getStartThen();
+        //logging.debug("ignore commit %s on line p%d/t%d/n%d",
+        //              region.commit.commithash, lineno_previous, region.lineno_then,
+        //              region.lineno_now);
+
+        // Get the line at lineno_previous in the parent commit.
+        assert lineno_previous > 0;
+        Region newline;
+        if (lineno_previous < parent_blame.size()) {
+          newline = parent_blame.get(lineno_previous - 1);
+        } else {
+          // lineno_previous is a guess, so it may be past the end of the file. Just grab the last
+          // line in the file.
+          newline = parent_blame.get(parent_blame.size() - 1);
+        }
+
+        // Replace the commit and lineno_then, but not the lineno_now or context.
+        //logging.debug("    replacing with %r", newline);
+        region = new Region(newline.getSourcePath(), newline.getSourceCommit(),
+            newline.getSourceAuthor(), lineno_previous, lineno_previous);
+      }
+
+      hyper_blame.add(region);
+    }
+
+    return hyper_blame;
+  }
+
+  public List<Region> getNonHyperBlame(Repository repo, ObjectId commitId, String path)
       throws IOException {
     try {
       Key key = new Key(commitId, path);

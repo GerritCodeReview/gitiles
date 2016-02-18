@@ -31,6 +31,9 @@ public class Region implements Serializable, Comparable<Region> {
   private final int count;
   private transient int start;
 
+  // TODO(mgiuca): Add a "boolean skipped" field, that records whether this region was skipped by
+  // hyperBlame.
+
   public Region(String path, ObjectId commit, PersonIdent author, int start, int end) {
     checkArgument((path != null && commit != null && author != null)
         || (path == null && commit == null && author == null),
@@ -54,6 +57,11 @@ public class Region implements Serializable, Comparable<Region> {
     return start + count;
   }
 
+  int getStartThen() {
+    // TODO(mgiuca): Implement this.
+    return start;
+  }
+
   public int getCount() {
     return count;
   }
@@ -68,6 +76,16 @@ public class Region implements Serializable, Comparable<Region> {
 
   public PersonIdent getSourceAuthor() {
     return sourceAuthor;
+  }
+
+  public String getPreviousPath() {
+    // TODO(mgiuca): Implement this.
+    return null;
+  }
+
+  public ObjectId getPreviousCommit() {
+    // TODO(mgiuca): Implement this.
+    return null;
   }
 
   @Override
