@@ -44,7 +44,9 @@ public class BlameServletTest extends ServletTest {
     String contents1 = "foo\n";
     String contents2 = "foo\ncontents\n";
     RevCommit c1 = repo.update("master", repo.commit().add("foo", contents1));
+    String c1Time = currentTimeFormatted();
     RevCommit c2 = repo.update("master", repo.commit().tick(10).parent(c1).add("foo", contents2));
+    String c2Time = currentTimeFormatted();
 
     Map<String, List<RegionJsonData>> result = getBlameJson("/repo/+blame/" + c2.name() + "/foo");
     assertThat(Iterables.getOnlyElement(result.keySet())).isEqualTo("regions");
@@ -58,7 +60,7 @@ public class BlameServletTest extends ServletTest {
     assertThat(r1.commit).isEqualTo(c1.name());
     assertThat(r1.author.name).isEqualTo("J. Author");
     assertThat(r1.author.email).isEqualTo("jauthor@example.com");
-    assertThat(r1.author.time).isEqualTo("2009-03-13 17:29:48 -0330");
+    assertThat(r1.author.time).isEqualTo(c1Time);
 
     RegionJsonData r2 = regions.get(1);
     assertThat(r2.start).isEqualTo(2);
@@ -67,7 +69,7 @@ public class BlameServletTest extends ServletTest {
     assertThat(r2.commit).isEqualTo(c2.name());
     assertThat(r2.author.name).isEqualTo("J. Author");
     assertThat(r2.author.email).isEqualTo("jauthor@example.com");
-    assertThat(r2.author.time).isEqualTo("2009-03-13 17:29:58 -0330");
+    assertThat(r2.author.time).isEqualTo(c2Time);
   }
 
   private Map<String, List<RegionJsonData>> getBlameJson(String path) throws Exception {
