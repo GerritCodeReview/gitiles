@@ -142,6 +142,30 @@
       "revId": "b29edf4c898a669a95f0fbaa598a590bfd95e848",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc2a2213_54a8aca3",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/blame/BlameServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2016-03-23T17:21:58Z",
+      "side": 1,
+      "message": "The workaround fix is not to rely on the TestRepository.CommitBuilder auto-generated author, since that exposes the initialization problems that produce a different timezone.\n\nI changed the names here to make it clear that the auto-generated author is not being used.",
+      "parentUuid": "bc1d0af9_9a9d0d82",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "b29edf4c898a669a95f0fbaa598a590bfd95e848",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
