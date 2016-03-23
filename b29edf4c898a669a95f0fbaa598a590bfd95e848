@@ -118,6 +118,30 @@
       "revId": "b29edf4c898a669a95f0fbaa598a590bfd95e848",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc1d0af9_9a9d0d82",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/blame/BlameServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2016-03-23T15:43:01Z",
+      "side": 1,
+      "message": "(I\u0027m asking because when a change designed to make tests pass makes other changes, it becomes harder to see which change was the fix.)",
+      "parentUuid": "9c37666b_615f3647",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "b29edf4c898a669a95f0fbaa598a590bfd95e848",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
