@@ -26,6 +26,30 @@
     },
     {
       "key": {
+        "uuid": "bc1d0af9_da938576",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/ServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2016-03-23T15:36:24Z",
+      "side": 1,
+      "message": "Whoops, no, the nested constructing isn\u0027t accomplishing anything. Fixed.",
+      "parentUuid": "9c37666b_21804ee6",
+      "range": {
+        "startLine": 135,
+        "startChar": 20,
+        "endLine": 135,
+        "endChar": 52
+      },
+      "revId": "b29edf4c898a669a95f0fbaa598a590bfd95e848",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c37666b_e16a66f0",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/blame/BlameServletTest.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2016-03-23T15:04:11Z",
       "side": 1,
       "message": "Unrelated change?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "b29edf4c898a669a95f0fbaa598a590bfd95e848",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc1d0af9_fa98c992",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/blame/BlameServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2016-03-23T15:36:24Z",
+      "side": 1,
+      "message": "No, these fields are used below to manually set the author below.\n\nJGit\u0027s TestRepository code has static initialization that uses a separate MockSystemReader class, and somehow the default author created in the TestRepository.CommitBuilder code has a different idea about its timezone, which is what failed in patch set 1 here. That is odd to me, and I\u0027ll need to debug it on the JGit side.\n\nManually setting the author gets around that problem, which allows this test to pass with the current JGit version. In fixing the JGit side I\u0027ll make equivalent constants public there so the strings aren\u0027t duplicated here (as they were before this change).",
+      "parentUuid": "9c37666b_e16a66f0",
       "range": {
         "startLine": 35,
         "startChar": 0,
