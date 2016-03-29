@@ -45,6 +45,9 @@
       <link rel="stylesheet" type="text/css" href="{$url}">
     {/foreach}
   {/if}
+<!-- additional header data -->
+  {delcall gitiles.customHeadPart variant="$headerVariant ?: 'default'" /}
+
 </head>
 <body class="Site">
   <header class="Site-header">
@@ -82,6 +85,15 @@
         </div>
       {/if}
 {/template}
+
+/**
+ * Default (empty) custom head part
+ *
+ * this can be used to include per-project css/js by
+ * providing custom variants.
+ */
+{deltemplate gitiles.customHeadPart variant="'default'"}
+{/deltemplate}
 
 /**
  * Default custom header implementation for Gitiles.
