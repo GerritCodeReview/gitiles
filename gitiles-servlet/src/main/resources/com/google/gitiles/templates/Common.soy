@@ -45,6 +45,8 @@
       <link rel="stylesheet" type="text/css" href="{$url}">
     {/foreach}
   {/if}
+  {delcall gitiles.customHeadTagPart variant="$headerVariant ?: 'default'" /}
+
 </head>
 <body class="Site">
   <header class="Site-header">
@@ -84,6 +86,15 @@
 {/template}
 
 /**
+ * Default (empty) custom head tag part
+ *
+ * this can be used to include per-project css/js by
+ * providing custom variants.
+ */
+{deltemplate gitiles.customHeadTagPart variant="'default'"}
+{/deltemplate}
+
+/**
  * Default custom header implementation for Gitiles.
  */
 {deltemplate gitiles.customHeader variant="'default'"}
@@ -94,25 +105,54 @@
 
 /**
  * Standard footer.
+ *
+ * @param? headerVariant variant name for custom header.
  */
 {template .footer}
     </div> <!-- Container -->
   </div> <!-- Site-content -->
   <footer class="Site-footer">
     <div class="Footer">
+      {delcall gitiles.customFooterTagStart variant="$headerVariant ?: 'default'" /}
       <span class="Footer-poweredBy">
         Powered by <a href="https://code.google.com/p/gitiles/">Gitiles</a>
       </span>
+      {delcall gitiles.customFooterTagCenter variant="$headerVariant ?: 'default'" /}
       <span class="Footer-formats">
         <a class="u-monospace Footer-formatsItem" href="?format=TEXT">{msg desc="text format"}txt{/msg}</a>
         {sp}
         <a class="u-monospace Footer-formatsItem" href="?format=JSON">{msg desc="JSON format"}json{/msg}</a>
       </span>
     </div>
+      {delcall gitiles.customFooterTagEnd variant="$headerVariant ?: 'default'" /}
   </footer>
 </body>
 </html>
 {/template}
+
+/**
+ * Default custom footer tag (start) implementation for Gitiles.
+ *
+ * This is rendered inside the footer tag before the standard footer content.
+ */
+{deltemplate gitiles.customFooterTagStart variant="'default'"}
+{/deltemplate}
+
+/**
+ * Default custom footer tag (center) implementation for Gitiles.
+ *
+ * This is rendered inside the footer tag between the standard footer content
+ * ('Powered by' and 'Formats').
+ */
+{deltemplate gitiles.customFooterTagCenter variant="'default'"}
+{/deltemplate}
+
+/**
+ * Default custom footer tag (end) implementation for Gitiles.
+ * This is rendered inside the footer tag after the standard footer content.
+ */
+{deltemplate gitiles.customFooterTagEnd variant="'default'"}
+{/deltemplate}
 
 /**
  * Placeholder for streaming rendering.

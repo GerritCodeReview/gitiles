@@ -62,5 +62,8 @@
     {/foreach}
   </div>
 {/if}
-{call .footer /}
+
+{call .footer}
+    {param headerVariant: $headerVariant /}
+{/call}
 {/template}

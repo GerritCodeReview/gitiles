@@ -90,7 +90,9 @@
   {call .tags_ data="all" /}
 {/if}
 
-{call .footer /}
+{call .footer}
+    {param headerVariant: $headerVariant /}
+{/call}
 {/template}
 
 /**
