@@ -19,14 +19,14 @@ set -e
 ROOT="$(dirname "$0")/.."
 PROPERTIES=
 if [ "x$1" != "x" ]; then
-  PROPERTIES="-Dcom.google.gitiles.configPath=$1"
+  PROPERTIES="--jvm_flag=-Dcom.google.gitiles.configPath=$1"
 fi
 
-PROPERTIES="$PROPERTIES -Dcom.google.gitiles.sourcePath=$ROOT"
+PROPERTIES="$PROPERTIES --jvm_flag=-Dcom.google.gitiles.sourcePath=$ROOT"
 
 (
   cd "$ROOT"
-  buck build gitiles-dev:dev
+  bazel build gitiles-dev:dev_deploy.jar
 )
 
-exec java $PROPERTIES -jar "$ROOT/buck-out/gen/gitiles-dev/dev.jar"
+sh $ROOT/bazel-bin/gitiles-dev/dev --singlejar $PROPERTIES
