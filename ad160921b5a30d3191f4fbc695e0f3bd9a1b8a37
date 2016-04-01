@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae8790d0_c1f322b1",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-04-01T14:43:04Z",
+      "side": 1,
+      "message": "I\u0027m not actually recommending this, but if you wanted this to work on Windows you would do .resolve(\"gitiles-servlet\").resolve(\"src\").resolve...\n\nI doubt Gitiles works on Windows anyway :)",
+      "revId": "ad160921b5a30d3191f4fbc695e0f3bd9a1b8a37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
