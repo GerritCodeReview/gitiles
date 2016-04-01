@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae8790d0_4108727a",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-04-01T13:53:51Z",
+      "side": 1,
+      "message": "This fixes the problem I was having:\n\n findSourceRoot().toRealPath().toFile()\n\nMy source root includes a symlink, which Jetty doesn\u0027t like. It\u0027s possible to programmatically configure Jetty to allow these[1], but I think it\u0027s probably best to leave it disabled at the Jetty level and just canonicalize here.\n\n[1] http://www.eclipse.org/jetty/documentation/current/serving-aliased-files.html",
+      "revId": "3185c0d34e22fd10fb137d9eb531ee2bff1a5061",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
