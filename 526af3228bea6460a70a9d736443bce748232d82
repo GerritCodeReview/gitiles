@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ed09ce3_8c9b072e",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "Emacs backup files? ;)",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 2
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef294a8_8ec11b00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "Why? I think it can co-exist with Buck driven build?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ed09ce3_ac984331",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "Nit: No trailing point on subject line.",
+      "range": {
+        "startLine": 7,
+        "startChar": 49,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef294a8_eebedf81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "Why this file is not part of this change, when it only has this static content?",
+      "range": {
+        "startLine": 12,
+        "startChar": 43,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef294a8_cebb2390",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "What\u0027s about IDE (Eclipse) integration? What about publishing the artifact to Maven Repository, what is done with buck build api_install? For this you would need Javadocs and sources. in addition to final artifact.",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef294a8_0e836bcb",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "How staging works here? One of the most important features, that Shawn implemented in Buck driven build in Gerrit (from the beginning on), and is still missing (in fact makes it unusable) in Buck\u0027s native `buck fetch` command implementation: [1], is the fact, that under these circumstances, the re-fetching of Maven artifacts takes place:\n\n* wipe out the cache and buck-out directries\n* upgrade Buck version\n\nI would never accept any build toolchain (for daily use) with this drawback.\n\n* [1] https://github.com/facebook/buck/issues/602",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef294a8_2e7e2789",
+        "filename": "lib/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-04T18:37:14Z",
+      "side": 1,
+      "message": "This (and other exports in this file) is way too verbose. I would expect that the native maven_jar (or a custom one, say maven_jar2) would handle both, fetching and exporting at once, with the optional list of dependencies, so instead of:\n\n  maven_jar(\n    name \u003d \u0027grappa\u0027,\n    artifact \u003d \u0027com.github.parboiled1:grappa:1.0.4\u0027,\n    sha1 \u003d \u0027ad4b44b9c305dad7aa1e680d4b5c8eec9c4fd6f5\u0027,\n  )\n  maven_jar(\n    name \u003d \u0027pegdown\u0027,\n    artifact \u003d \u0027org.pegdown:pegdown:1.4.2\u0027,\n    sha1 \u003d \u0027d96db502ed832df867ff5d918f05b51ba3879ea7\u0027,\n  )\n  java_library(\n    name \u003d \"pegdown\",\n    exports \u003d [\n        \"@pegdown//jar\",\n        \":grappa\",\n    ],\n  )\n\nI would expect to be able to say:\n\n  maven_jar(\n    name \u003d \u0027grappa\u0027,\n    artifact \u003d \u0027com.github.parboiled1:grappa:1.0.4\u0027,\n    sha1 \u003d \u0027ad4b44b9c305dad7aa1e680d4b5c8eec9c4fd6f5\u0027,\n  )\n  maven_jar2(\n    name \u003d \u0027pegdown\u0027,\n    artifact \u003d \u0027org.pegdown:pegdown:1.4.2\u0027,\n    sha1 \u003d \u0027d96db502ed832df867ff5d918f05b51ba3879ea7\u0027,\n    deps \u003d [:grappa],\n  )\n\nAlso note, that in gerrit we have \"license\", \"unsign\", \"strip\" etc. in custom maven_jar() rule.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
