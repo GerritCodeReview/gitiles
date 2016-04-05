@@ -146,6 +146,24 @@
     },
     {
       "key": {
+        "uuid": "2e89e03a_2de56df2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-05T01:14:19Z",
+      "side": 1,
+      "message": "No I was totally wrong. Buck still doesn\u0027t have native Eclipse support as of now :(",
+      "parentUuid": "4ef294a8_cebb2390",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_0e836bcb",
         "filename": "WORKSPACE",
         "patchSetId": 1
