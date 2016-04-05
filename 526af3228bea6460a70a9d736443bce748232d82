@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "4e8e1443_eec51f59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-05T01:11:40Z",
+      "side": 1,
+      "message": "Interesting. Besides being able to use the same build system internally at Google and externally, what\u0027s the benefit of this change? Is Bazel faster than Buck externally?",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_8ec11b00",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -105,6 +122,24 @@
       "writtenOn": "2016-04-04T18:37:14Z",
       "side": 1,
       "message": "What\u0027s about IDE (Eclipse) integration? What about publishing the artifact to Maven Repository, what is done with buck build api_install? For this you would need Javadocs and sources. in addition to final artifact.",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e8e1443_0ee0abe1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-05T01:11:40Z",
+      "side": 1,
+      "message": "An interface for IDE integration is on Bazel\u0027s roadmap for 0.3: http://bazel.io/roadmap.html.\n\nAs an aside, Gitiles\u0027 bucklets/tools/eclipse.py and Gerrit\u0027s tools/eclipse/project.py should probably go away now that Buck supports Eclipse: https://buckbuild.com/contributing/development.html.",
+      "parentUuid": "4ef294a8_cebb2390",
       "revId": "526af3228bea6460a70a9d736443bce748232d82",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
