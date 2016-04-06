@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "4e8e1443_2e100737",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-06T19:39:03Z",
+      "side": 1,
+      "message": "Thanks for the thorough explanation! Those are all convincing advantages. A couple more questions:\n1. Do we plan to use TypeScript / JavaScript for new functionality? I think Gitiles is static and the code base currently doesn\u0027t have any JavaScript file.\n\n2. Besides TypeScript, have you considered alternatives like GWT or Closure-style JavaScript? Gitiles is mostly written in Java and I\u0027ve had good experience developing Gerrit in GWT / Java. As for Closure, it has much better support for minification and the Bazel rules for Closure are mostly ready at https://github.com/bazelbuild/rules_closure. Gitiles is already using Closure (Soy) Templates so going with Closure seems more natural than using TypeScript.\n\n3. Adding Grok / Kythe support would be a huge plus. I\u0027ve always thought about integrating it with Gerrit but Kythe wasn\u0027t open sourced until recently. Looking forward to a prototype!\n\n4. Apparently I don\u0027t know that CodeSearch was open sourced. How was it possible without Grok / Kythe?",
+      "parentUuid": "ce83e41b_0a533bbe",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_8ec11b00",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
