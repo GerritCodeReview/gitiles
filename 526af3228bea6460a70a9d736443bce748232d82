@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "ee926865_abc78981",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:57:39Z",
+      "side": 1,
+      "message": "yep :)",
+      "parentUuid": "0ed09ce3_8c9b072e",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e8e1443_eec51f59",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +54,24 @@
       "writtenOn": "2016-04-05T01:11:40Z",
       "side": 1,
       "message": "Interesting. Besides being able to use the same build system internally at Google and externally, what\u0027s the benefit of this change? Is Bazel faster than Buck externally?",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce83e41b_0a533bbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:57:39Z",
+      "side": 1,
+      "message": "There are a couple of advantages:\n\n* Bazel has much better isolation of subprocesses: each action is run in a sandbox. This provides better correctness guarantees, and should do away with the need to run \"buck clean\".\n\n* The test caching is a little more advanced. In particular, --no-results-cache should not be necessary for Bazel (failures aren\u0027t cached).\n\n* Bazel comes with Errorprone built in, http://errorprone.info/bugpatterns\n\n* Bazel has extensible rules (see eg.: https://github.com/bazelbuild/rules_scala).  In particular, we have been talking a little about using TypeScript instead of plain JavaScript. With bazel, it is easy to add support for TypeScript (there are google internal rules which should take little effort to open up.)\n\n* Bazel has support for annotating the build, in particular, for driving Kythe indexers.\nSince I\u0027m looking at how Kythe (kythe.io) could be integrated with gitiles, it seems fitting to \"dogfood\" that with gitiles.\n\n(if you don\u0027t know what Kythe is, try going to https://code.google.com/p/chromium/codesearch#chromium/src/base/strings/nullable_string16.h and clicking on any identifier to get a feel for things.)",
+      "parentUuid": "4e8e1443_eec51f59",
       "revId": "526af3228bea6460a70a9d736443bce748232d82",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ee926865_cbc4d57f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:57:39Z",
+      "side": 1,
+      "message": "Yes, it can. I didn\u0027t think it\u0027s polished enough to be submitted though.",
+      "parentUuid": "4ef294a8_8ec11b00",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_eebedf81",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -99,6 +153,30 @@
       "writtenOn": "2016-04-04T18:37:14Z",
       "side": 1,
       "message": "Why this file is not part of this change, when it only has this static content?",
+      "range": {
+        "startLine": 12,
+        "startChar": 43,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce83e41b_ea4427f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:57:39Z",
+      "side": 1,
+      "message": "It\u0027s something that should be fixed on the bazel side (it might already be; not sure.)",
+      "parentUuid": "4ef294a8_eebedf81",
       "range": {
         "startLine": 12,
         "startChar": 43,
@@ -187,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "ee926865_ebc1916c",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:57:39Z",
+      "side": 1,
+      "message": "Yes, this works. I just checked.",
+      "parentUuid": "4ef294a8_0e836bcb",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_2e7e2789",
         "filename": "lib/BUILD",
         "patchSetId": 1
@@ -204,6 +300,24 @@
         "endLine": 28,
         "endChar": 1
       },
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee926865_0b9c1d9b",
+        "filename": "lib/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:57:39Z",
+      "side": 1,
+      "message": "maven_jar can only appear in /WORKSPACE (so all maven jars are named \"@my_jar_name//jar:jar\"). \n\nWhat you want is currently not implemented, and I think it might be impossible for infrastructural reasons, but I\u0027ll check.\n \nYou could instead try to write your own maven_jar using a genrule, but you\u0027d have to pass special options, because the sandbox wouldn\u0027t let you contact the network, and you\u0027d get the caching problem that Buck has.\n\nWith the current setup, you could edit lib/BUILD to do                   \n\n  java_library( name \u003d \"pegdown\",\n     srcs \u003d glob([\"pegdown/**/*.java\"]),\n     deps \u003d [ \":grappa\" ])\n\nif you want to use a local checkout of pegdown.",
+      "parentUuid": "4ef294a8_2e7e2789",
       "revId": "526af3228bea6460a70a9d736443bce748232d82",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
