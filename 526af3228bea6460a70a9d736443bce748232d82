@@ -242,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "ee926865_4ba625e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-06T16:58:50Z",
+      "side": 1,
+      "message": "I\u0027ll have a look at publishing to Maven. It would likely need to be building a command, which has to be run from the command line, since actions in Bazel can\u0027t contact the network.",
+      "parentUuid": "4ef294a8_cebb2390",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_0e836bcb",
         "filename": "WORKSPACE",
         "patchSetId": 1
