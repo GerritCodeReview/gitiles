@@ -357,6 +357,24 @@
       "revId": "526af3228bea6460a70a9d736443bce748232d82",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce6be468_aa92ef44",
+        "filename": "lib/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-07T10:32:58Z",
+      "side": 1,
+      "message": "I just checked, and bazel has a tool that supposedly automates generation of WORKSPACE,\n\n https://github.com/bazelbuild/bazel/blob/master/src/tools/generate_workspace/src/main/java/com/google/devtools/build/workspace/GenerateWorkspace.java\n\nI\u0027ll check it out and report back.",
+      "parentUuid": "ee926865_0b9c1d9b",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
