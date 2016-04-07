@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher Jonathan Nieder \u003cjrn@google.com\u003e 1460049355 -0700\nnonce AB8gjyVQMDDOR7y0IIPHyNb+UdPNo81qp0tc/lJgzL4LnxWoD9PC0IXNBURrjibRZaMePaE8tFMV\n\n0000000000000000000000000000000000000000 fcbf21306f5364b32112710aaa54ef72b67386bf refs/for/master\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQIcBAABAgAGBQJXBpXLAAoJEN/Gce6zM/olK1kP/238ZZfQ8SccFSpybCviftfu\nTK2YYTzJnqHjUfLQ2pj/YOKJTuAsDzD8x0wDbS12/mDQThTmwLkl7hi3GCLbfgEw\nUiFrtk6bADRN0r3pGsfU8da20mZ5QlRrkMvsAg+RKSRaX+BmFLXlVBDo9KBXIZD6\nmqIIhagpbmW9kA4mkAgU6zmC5rJbDSGuWVCp9zz8sGsNVWET6Q5HmLqw5YrX4I0D\nb98769b6bK85tC4yMgJ95es5WVZHHasCnzeIr4RuPL/CvzVr3KELXn0W82LyvyB9\nl9fFb+46JaAjszAk871r2LTRLq+306h0GiEJKvU0anwE560CWX2hX4UExjKPlm+v\nI5uUxOSWc6SkcAtqES4Yok3DhUtzydg7UAHzAnn02tfKILH5qdp0OUluXLQ+HwPM\nU3QUhuV7PMzPt0zJDVxdeVKmUe9L5qvZcNKoC/+UOT5s0+dYdModU8PS0whdmjea\n+I17KOogXSoHzr7//zgS3iihyRsaf/1qmivpCfMlQ00bkBuPWZDvIoP5r7+/sjEV\nuc7nkT3DhcUcXcVnXukIaYN3Y6a5Lk7QB7oMCS6eujhaF8jEc/wvnwpCelJTiU8u\nf627tOoJ62mFydwpZn14V8CYyUN22yu3zJalWJwaUpKDR3AHGYv8QN+RVSZB7J8g\ntxfiTRzy16Vhnewpdmku\n\u003dlqRo\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e809c4d_0c2d57d3",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2016-04-07T17:19:20Z",
+      "side": 1,
+      "message": "See https://developers.google.com/closure/templates/docs/commands#literal for why this is using {literal}.",
+      "revId": "fcbf21306f5364b32112710aaa54ef72b67386bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
 }
