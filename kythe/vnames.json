@@ -1,0 +1,9 @@
+[
+  {
+    "pattern": "(.*)",
+    "vname": {
+      "corpus": "gitiles",
+      "path": "@1@"
+    }
+  }
+]
