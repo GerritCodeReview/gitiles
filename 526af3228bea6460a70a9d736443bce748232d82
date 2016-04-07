@@ -96,6 +96,24 @@
     },
     {
       "key": {
+        "uuid": "ee7a6832_2b511956",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-07T10:39:24Z",
+      "side": 1,
+      "message": "1. - not in gitiles, but it would be something to consider for PolyGerrit.  I\u0027m still looking at kythe/gitiles to make up my mind on how Kythe integration into Gitiles would work.\n\n2. GWT has already been tried for Gerrit proper, and is being discarded. That said, until it\u0027s fully gone, we would have to have GWT rules out there too. The bright side is that I have access to the google internal ones (written in Java and quite horrible) to understand what they should do, and this could give me an excuse to finalize my vendetta against them. \n\n3. Yes, we dearly want this for Google use too.\n\n4. cs.chromium.org is not open source; it\u0027s driven by our internal code search code base, and our internal version of Kythe.",
+      "parentUuid": "4e8e1443_2e100737",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_8ec11b00",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
