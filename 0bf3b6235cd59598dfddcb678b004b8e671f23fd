@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "ee7a6832_0b545d45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-07T10:39:24Z",
+      "side": 1,
+      "message": "yes, good catch.",
+      "parentUuid": "2e71e053_ada0bdb8",
+      "revId": "0bf3b6235cd59598dfddcb678b004b8e671f23fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e8f587d_0fb0e505",
         "filename": "tools/run_bazel_dev.sh",
         "patchSetId": 2
