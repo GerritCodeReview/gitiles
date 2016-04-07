@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e8f587d_0fb0e505",
+        "filename": "tools/run_bazel_dev.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-07T00:47:46Z",
+      "side": 1,
+      "message": "s/2012/2016",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 16
+      },
+      "revId": "0bf3b6235cd59598dfddcb678b004b8e671f23fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
