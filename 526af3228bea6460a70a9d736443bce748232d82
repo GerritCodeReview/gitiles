@@ -204,6 +204,24 @@
     },
     {
       "key": {
+        "uuid": "ae7f904b_4147529a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-08T16:28:22Z",
+      "side": 1,
+      "message": "Got it, thanks!",
+      "parentUuid": "ce7cc459_c23a821b",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_8ec11b00",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
