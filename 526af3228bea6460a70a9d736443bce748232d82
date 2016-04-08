@@ -186,6 +186,24 @@
     },
     {
       "key": {
+        "uuid": "ce7cc459_c23a821b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-04-08T12:58:04Z",
+      "side": 1,
+      "message": "a quick glance shows that the rules mention \u0027sickle\u0027, but as an optional part. I am not sure of the details though.",
+      "parentUuid": "0e809c4d_2c7ff3ae",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_8ec11b00",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
