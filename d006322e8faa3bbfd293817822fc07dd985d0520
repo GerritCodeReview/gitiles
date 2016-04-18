@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68f5903c_ff781f8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-04-18T13:07:16Z",
+      "side": 1,
+      "message": "What are the next steps?\n\nCan this change be merged without them, or should we wait and merge them all together?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68f5903c_1f64e3ec",
+        "filename": "gitiles-dev/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-04-18T13:07:16Z",
+      "side": 1,
+      "message": "nit: move above servlet, to maintain alphabetical ordering.",
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
