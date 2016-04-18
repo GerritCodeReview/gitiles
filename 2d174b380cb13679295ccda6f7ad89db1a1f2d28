@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2820f890_5895e15c",
+        "filename": "gitiles-servlet/BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T14:43:27Z",
+      "side": 1,
+      "message": "this is not necessary",
+      "revId": "2d174b380cb13679295ccda6f7ad89db1a1f2d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2820f890_389a258d",
+        "filename": "gitiles-servlet/BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T14:43:27Z",
+      "side": 1,
+      "message": "this is likely too much, I have to figure a minimal set of dependencies",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "2d174b380cb13679295ccda6f7ad89db1a1f2d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
