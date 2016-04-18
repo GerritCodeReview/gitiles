@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2820f890_b8ad15b0",
+        "filename": "BUCK",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T15:07:39Z",
+      "side": 1,
+      "message": "missing comma at the end",
+      "revId": "7e4b583f968720626e7d9191335c9e046dd69d2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2820f890_98aa5994",
+        "filename": "BUCK",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T15:07:39Z",
+      "side": 1,
+      "message": "missing closing \u0027",
+      "range": {
+        "startLine": 35,
+        "startChar": 57,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "7e4b583f968720626e7d9191335c9e046dd69d2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
