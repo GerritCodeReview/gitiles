@@ -81,6 +81,30 @@
       "revId": "2d174b380cb13679295ccda6f7ad89db1a1f2d28",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8d5c8d0_11ec0cdd",
+        "filename": "gitiles-servlet/BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-18T21:16:41Z",
+      "side": 1,
+      "message": "Your first impression was correct: the only dependency (lines 35, 36 above) the blame cache source code has is jgit and guava. So how comes that these two libraries are enough to compile the code, but many other libraries are needed to make Javadoc target work? The easiest way to get the answer here and see what happens, is just to remove say jgit-archive_library. What happens now? The errors are coming from totally different source files and not from blame cache.\n\nThis reveals the flaw of current appoach of this change: mixing two independent source trees for two different artifacts. The way currently java_doc is designed and implemented is that the trees should be isolated. But this feels like the correct apporach anyway, because blame cache could be extracted into its own independent project from gitiles or even imported into JGit, when JGit can depend on guava. So that moving the sources in its own root-project directory seems the way to go here.\n\nThis would also significantly simplify the build code, e.g.   blame-cache/BUCK would just be:\n\n  SRCS \u003d glob([\u0027src/main/java/**/*.java\u0027])\n  DEPS \u003d [\n   \u0027//lib:guava\u0027,\n   \u0027//lib/jgit:jgit\u0027,\n  ]\n  java_library(\n    name \u003d \u0027lib\u0027,\n    srcs \u003d SRCS,\n    deps \u003d DEPS,\n    visibility \u003d [\u0027PUBLIC\u0027],\n  )\n  java_sources(\n    name \u003d \u0027src\u0027,\n    srcs \u003d SRCS,\n    visibility \u003d [\u0027//:\u0027],\n  )\n  java_doc(\n    name \u003d \u0027javadoc\u0027,\n    title \u003d \u0027Blame Cache API Documentation\u0027,\n    pkgs \u003d [\u0027com.google.gitiles.blame\u0027],\n    paths \u003d [\u0027blame-cache/src/main/java\u0027],\n    srcs \u003d SRCS,\n    deps \u003d DEPS,\n    visibility \u003d [\u0027//:\u0027],\n    do_it_wrong \u003d True,\n  )\n\nI created this complete patch on top of yours: [1].\n\n* [1] http://paste.openstack.org/show/494515",
+      "parentUuid": "ab4dc25b_14ed9aa8",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "2d174b380cb13679295ccda6f7ad89db1a1f2d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
