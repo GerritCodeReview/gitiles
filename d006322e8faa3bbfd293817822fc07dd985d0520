@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab4dc25b_f495762b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T13:38:24Z",
+      "side": 1,
+      "message": "The next steps are to:\n\n1 depend on blame-cache (instead on gitiles-servlet) from Gerrit core\n2 build gitiles plugin without packaging the blame-cache\n\nTo proceed with 1 we need to reference the blame-cache from Gerrit core which means we need to upload a blame-cache to the google storage and we need the binary SHA1. Therefore, I am not sure about how to proceed with 1. Should it be a WIP waiting on this change to be submitted and the SHA1 of the blame-cache updated?\n\n2 depends on 1 because, IMO, gitiles plugin will have to reference blame-cache from Gerrit core after 1 is done.\n\nI am open for better proposals on how to proceed.",
+      "parentUuid": "68f5903c_ff781f8f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab4dc25b_9486ea0a",
         "filename": "BUCK",
         "patchSetId": 1
