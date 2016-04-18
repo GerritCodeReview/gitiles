@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "ab4dc25b_9486ea0a",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-18T13:32:18Z",
+      "side": 1,
+      "message": "Add new artifact here, so the it\u0027s deployed in local/remote repositories and can be consumed by the gitiles-plugin?",
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68f5903c_1f64e3ec",
         "filename": "gitiles-dev/BUCK",
         "patchSetId": 1
@@ -36,6 +53,23 @@
       "writtenOn": "2016-04-18T13:07:16Z",
       "side": 1,
       "message": "nit: move above servlet, to maintain alphabetical ordering.",
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2820f890_15b4d412",
+        "filename": "gitiles-servlet/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-04-18T13:32:18Z",
+      "side": 1,
+      "message": "Do we want to pull in these transitive dependencies? If not, then this should be provided_deps instead.",
       "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
