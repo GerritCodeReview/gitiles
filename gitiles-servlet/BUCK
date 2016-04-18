@@ -1,6 +1,13 @@
-SRCS = glob(['src/main/java/**/*.java'])
+BLAME_CACHE = [
+  'src/main/java/com/google/gitiles/blame/BlameCache.java',
+  'src/main/java/com/google/gitiles/blame/BlameCacheImpl.java',
+  'src/main/java/com/google/gitiles/blame/Region.java',
+]
+
+SRCS = glob(['src/main/java/**/*.java'], excludes = BLAME_CACHE)
 RSRC = glob(['src/main/resources/**/*'])
 DEPS = [
+  ':blame-cache',
   '//lib:commons-lang',
   '//lib:grappa',
   '//lib:gson',
@@ -19,6 +26,40 @@ DEPS_ALL = DEPS + [
   '//lib/jgit:jgit-archive',
   '//lib/guice:guice',
 ]
+
+java_library(
+  name = 'blame-cache',
+  srcs = BLAME_CACHE,
+  deps = [
+    '//lib:gson',
+    '//lib:guava',
+    '//lib/jgit:jgit',
+  ],
+  visibility = ['PUBLIC'],
+)
+
+java_sources(
+  name = 'blame-cache-src',
+  srcs = BLAME_CACHE,
+  visibility = ['PUBLIC'],
+)
+
+java_doc(
+  name = 'blame-cache-javadoc',
+  title = 'Blame Cache API Documentation',
+  pkgs = ['com.google.gitiles.blame'],
+  paths = ['gitiles-servlet/src/main/java'],
+  srcs = BLAME_CACHE,
+  deps = DEPS + [
+    '//lib/guice:guice_library',
+    '//lib/guice:guice-assistedinject',
+    '//lib/guice:javax-inject',
+    '//lib/jgit:jgit-archive_library',
+    '//lib:servlet-api_2_5',
+  ],
+  visibility = ['PUBLIC'],
+  do_it_wrong = True,
+)
 
 java_library(
   name = 'servlet',
