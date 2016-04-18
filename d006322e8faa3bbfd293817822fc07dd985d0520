@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "ab4dc25b_94d8aa10",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T14:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab4dc25b_9486ea0a",
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68f5903c_1f64e3ec",
         "filename": "gitiles-dev/BUCK",
         "patchSetId": 1
@@ -83,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "2820f890_b574000a",
+        "filename": "gitiles-dev/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T14:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f5903c_1f64e3ec",
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2820f890_15b4d412",
         "filename": "gitiles-servlet/BUCK",
         "patchSetId": 1
@@ -94,6 +130,24 @@
       "writtenOn": "2016-04-18T13:32:18Z",
       "side": 1,
       "message": "Do we want to pull in these transitive dependencies? If not, then this should be provided_deps instead.",
+      "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2820f890_759e6894",
+        "filename": "gitiles-servlet/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-04-18T14:34:28Z",
+      "side": 1,
+      "message": "AFAIK only java_binary will package the deps.\n\njava_library will only use these dependencies for the classpath. I also checked the generated blame-cache.jar and it didn\u0027t contain these dependencies.\n\nFurther, if we would use provided_deps then any java_binary, from this project, which depends on blame-cache would have to declare these dependencies (again). Right?\n\nMaybe my understanding is wrong. Please correct me if necessary.",
+      "parentUuid": "2820f890_15b4d412",
       "revId": "d006322e8faa3bbfd293817822fc07dd985d0520",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
