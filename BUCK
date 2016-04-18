@@ -2,6 +2,7 @@ include_defs('//VERSION')
 
 DEPS = [
   '//gitiles-dev:dev',
+  '//gitiles-servlet:blame-cache',
   '//gitiles-servlet:servlet',
   '//gitiles-servlet:src',
   '//gitiles-servlet:javadoc',

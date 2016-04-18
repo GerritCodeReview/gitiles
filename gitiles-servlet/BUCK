@@ -1,6 +1,23 @@
-SRCS = glob(['src/main/java/**/*.java'])
+BLAME_CACHE = [
+  'src/main/java/com/google/gitiles/blame/BlameCache.java',
+  'src/main/java/com/google/gitiles/blame/BlameCacheImpl.java',
+  'src/main/java/com/google/gitiles/blame/Region.java',
+]
+
+java_library(
+  name = 'blame-cache',
+  srcs = BLAME_CACHE,
+  deps = [
+    '//lib:guava',
+    '//lib/jgit:jgit',
+  ],
+  visibility = ['PUBLIC'],
+)
+
+SRCS = glob(['src/main/java/**/*.java'], excludes = BLAME_CACHE)
 RSRC = glob(['src/main/resources/**/*'])
 DEPS = [
+  ':blame-cache',
   '//lib:commons-lang',
   '//lib:grappa',
   '//lib:gson',
