@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c833dcd5_2a607f07",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-25T07:49:44Z",
+      "side": 1,
+      "message": "s/customHeadPart/customHeaderPart ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 19,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "b7e26cf0579f0549ea9a557c35c4b5f43f666e2f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4827ec98_c6160291",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1012758
+      },
+      "writtenOn": "2016-04-25T07:49:44Z",
+      "side": 1,
+      "message": "header?",
+      "range": {
+        "startLine": 90,
+        "startChar": 26,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "b7e26cf0579f0549ea9a557c35c4b5f43f666e2f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
