@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8fd01ea_bc1141a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Maybe mention in the commit message that this is analogous to the --long option to git ls-tree. I had to go look it up :)",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_9908db83",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Nit: blank line between classes",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8fd01ea_1c3cb51e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "What does having this complex inheritance structure actually buy us? The alternative is just having nullable size and target fields in Entry, which IIUC is how clients would see it anyway. And that would be less code.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_39f8af8c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "I suppose this is the most parsimonious way of defining this interface, but I might slightly prefer a boolean includeSizes field (later extensible to something more like CommitJsonData). Then use checkArgument or checkNotNull to ensure the repo is present if it will be required.",
+      "range": {
+        "startLine": 65,
+        "startChar": 25,
+        "endLine": 65,
+        "endChar": 59
+      },
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_f9fd977f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Don\u0027t align subsequent lines, indent by 4 spaces.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8fd01ea_7c4979c0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "FYI elsewhere this is spelled\n\n (mode.getBits() \u0026 FileMode.TYPE_MASK) \u003d\u003d FileMode.TYPE_FILE\n\nwhich is theoretically more future-proof in terms of adding new modes. But OTOH I don\u0027t think it\u0027s really more readable than you have here, and it\u0027s not like Git currently is planning on adding new modes. So completely optional.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_d902535f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Can factor this out above outside the if to save a bit of repetition.",
+      "range": {
+        "startLine": 86,
+        "startChar": 41,
+        "endLine": 86,
+        "endChar": 58
+      },
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8fd01ea_5c463db0",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/FakeHttpServletResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Unnecessary?",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_79f227ac",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Seems like this is mostly orthogonal to the file size stuff. Maybe have a separate test method for links?",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_19f5eb92",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:02:55Z",
+      "side": 1,
+      "message": "Looks like you\u0027ve mixed tabs and spaces.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
