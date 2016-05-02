@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a80949df_1a5b1d46",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T17:10:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8fd01ea_dc5ecd65",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a80949df_da71a5d2",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 3
@@ -100,6 +118,24 @@
       "writtenOn": "2016-05-02T16:13:09Z",
       "side": 1,
       "message": "Maybe introduce a variable for tree.entries.get(0)?\nWould reduce some duplicate code.",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8f83dfd_db48937a",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T17:10:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8f83dfd_7baa1f2b",
       "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
