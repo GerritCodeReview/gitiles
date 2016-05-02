@@ -93,6 +93,24 @@
     },
     {
       "key": {
+        "uuid": "e8fd01ea_fc0bc96b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:04:06Z",
+      "side": 1,
+      "message": "PS I would be totally ok with using google-java-format for gitiles :)\n\n(It\u0027s Gerrit where I think it might be more of an uphill battle.)",
+      "parentUuid": "880c85ef_f9fd977f",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8fd01ea_7c4979c0",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 1
