@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e8fd01ea_dc5ecd65",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T16:21:55Z",
+      "side": 1,
+      "message": "I think the logic we actually want here is what\u0027s in LogServlet#isTrue. That allows /+log/foo?follow in addition to ?follow\u003d1.\n\nAlso would be confusing that ?long\u003d0 and ?long\u003dfalse still enable the feature :)",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a80949df_da71a5d2",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 3
