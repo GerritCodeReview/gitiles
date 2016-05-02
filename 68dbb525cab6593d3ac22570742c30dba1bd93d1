@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a80949df_7a81799f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2016-05-02T16:16:32Z",
+      "side": 1,
+      "message": "Ahhh makes sense. Sorry for the confusion!",
+      "parentUuid": "880c85ef_3926ef06",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a80949df_3a7701c6",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 3
