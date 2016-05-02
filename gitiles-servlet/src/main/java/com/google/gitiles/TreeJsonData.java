@@ -14,11 +14,16 @@
 
 package com.google.gitiles;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import com.google.common.collect.Lists;
 
+import org.eclipse.jgit.annotations.Nullable;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectReader;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.treewalk.TreeWalk;
 
 import java.io.IOException;
@@ -30,6 +35,12 @@ class TreeJsonData {
     List<Entry> entries;
   }
 
+  // For testing.
+  static class LongTree {
+    String id;
+    List<LongEntry> entries;
+  }
+
   static class Entry {
     int mode;
     String type;
@@ -37,7 +48,22 @@ class TreeJsonData {
     String name;
   }
 
-  static Tree toJsonData(ObjectId id, TreeWalk tw) throws IOException {
+  static class SizedEntry extends Entry {
+    long size;
+  }
+  static class TargetEntry extends Entry {
+    String target;
+  }
+
+  // For testing.
+  static class LongEntry extends Entry {
+    long size;
+    String target;
+  }
+
+  static Tree toJsonData(ObjectId id, TreeWalk tw,
+                         @Nullable Repository repoForSizes) throws IOException {
+    ObjectReader reader = repoForSizes != null ? repoForSizes.newObjectReader() : null;
     Tree tree = new Tree();
     tree.id = id.name();
     tree.entries = Lists.newArrayList();
@@ -48,6 +74,28 @@ class TreeJsonData {
       e.type = Constants.typeString(mode.getObjectType());
       e.id = tw.getObjectId(0).name();
       e.name = tw.getNameString();
+
+      if (reader != null) {
+        FileMode fmode = FileMode.fromBits(mode.getBits());
+        if (fmode == FileMode.REGULAR_FILE || fmode == FileMode.EXECUTABLE_FILE) {
+          SizedEntry se = new SizedEntry();
+          se.id = e.id;
+          se.mode = e.mode;
+          se.name = e.name;
+          se.type = e.type;
+          se.size = reader.getObjectSize(tw.getObjectId(0), Constants.OBJ_BLOB);
+          e = se;
+        } else if (fmode == FileMode.SYMLINK) {
+          TargetEntry se = new TargetEntry();
+          se.id = e.id;
+          se.mode = e.mode;
+          se.name = e.name;
+          se.type = e.type;
+          se.target = new String(
+                  repoForSizes.open(tw.getObjectId(0), Constants.OBJ_BLOB).getBytes(), UTF_8);
+          e = se;
+        }
+      }
       tree.entries.add(e);
     }
     return tree;

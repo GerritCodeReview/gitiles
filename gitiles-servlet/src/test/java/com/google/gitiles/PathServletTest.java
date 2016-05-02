@@ -19,6 +19,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.io.BaseEncoding;
 import com.google.gitiles.TreeJsonData.Tree;
+import com.google.gitiles.TreeJsonData.LongTree;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
 
@@ -204,6 +205,36 @@ public class PathServletTest extends ServletTest {
 
     assertNotFound("/repo/+/master/nonexistent", "format=text");
     assertNotFound("/repo/+/master/gitiles", "format=text");
+  }
+
+  @Test
+  public void treeJsonLong() throws Exception {
+    final ObjectId targetID = repo.blob("target");
+    RevCommit c = repo.parseBody(repo.branch("master").commit()
+            .add("baz", "01234567")
+            .edit(new PathEdit("link") {
+				@Override
+				public void apply(DirCacheEntry ent) {
+					ent.setFileMode(FileMode.SYMLINK);
+					ent.setObjectId(targetID);
+				}
+			})
+            .create());
+
+    LongTree tree = buildJson(LongTree.class, "/repo/+/master/", "long=1");
+
+    assertThat(tree.id).isEqualTo(c.getTree().name());
+    assertThat(tree.entries).hasSize(2);
+    assertThat(tree.entries.get(0)).isInstanceOf(TreeJsonData.LongEntry.class);
+    assertThat(tree.entries.get(0).mode).isEqualTo(0100644);
+    assertThat(tree.entries.get(0).type).isEqualTo("blob");
+    assertThat(tree.entries.get(0).name).isEqualTo("baz");
+    assertThat(((TreeJsonData.LongEntry)tree.entries.get(0)).size).isEqualTo(8);
+    assertThat(tree.entries.get(1).mode).isEqualTo(0120000);
+    assertThat(tree.entries.get(1).type).isEqualTo("blob");
+    assertThat(tree.entries.get(1).name).isEqualTo("link");
+    assertThat(tree.entries.get(1).id).isEqualTo(targetID.name());
+    assertThat(((TreeJsonData.LongEntry)tree.entries.get(1)).target).isEqualTo("target");
   }
 
   @Test

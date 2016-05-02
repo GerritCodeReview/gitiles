@@ -23,6 +23,7 @@ import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -234,6 +235,7 @@ public class PathServlet extends BaseServlet {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
 
+    boolean includeSizes = !Strings.isNullOrEmpty(req.getParameter("long"));
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view)) {
       if (wr == null) {
@@ -242,7 +244,8 @@ public class PathServlet extends BaseServlet {
       }
       switch (wr.type) {
         case TREE:
-          renderJson(req, res, TreeJsonData.toJsonData(wr.id, wr.tw), TreeJsonData.Tree.class);
+          renderJson(req, res, TreeJsonData.toJsonData(wr.id, wr.tw,
+                  includeSizes ? repo : null), TreeJsonData.Tree.class);
           break;
         default:
           res.setStatus(SC_NOT_FOUND);
