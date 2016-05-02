@@ -224,6 +224,48 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
+  public void treeJsonSizes() throws Exception {
+    RevCommit c = repo.parseBody(repo.branch("master").commit().add("baz", "01234567").create());
+
+    Tree tree = buildJson(Tree.class, "/repo/+/master/", "long=1");
+
+    assertThat(tree.id).isEqualTo(c.getTree().name());
+    assertThat(tree.entries).hasSize(1);
+    assertThat(tree.entries.get(0).mode).isEqualTo(0100644);
+    assertThat(tree.entries.get(0).type).isEqualTo("blob");
+    assertThat(tree.entries.get(0).name).isEqualTo("baz");
+    assertThat(tree.entries.get(0).size).isEqualTo(8);
+  }
+
+  @Test
+  public void treeJsonLinkTarget() throws Exception {
+    final ObjectId targetID = repo.blob("target");
+    RevCommit c =
+        repo.parseBody(
+            repo.branch("master")
+                .commit()
+                .edit(
+                    new PathEdit("link") {
+                      @Override
+                      public void apply(DirCacheEntry ent) {
+                        ent.setFileMode(FileMode.SYMLINK);
+                        ent.setObjectId(targetID);
+                      }
+                    })
+                .create());
+
+    Tree tree = buildJson(Tree.class, "/repo/+/master/", "long=1");
+
+    assertThat(tree.id).isEqualTo(c.getTree().name());
+    assertThat(tree.entries).hasSize(1);
+    assertThat(tree.entries.get(0).mode).isEqualTo(0120000);
+    assertThat(tree.entries.get(0).type).isEqualTo("blob");
+    assertThat(tree.entries.get(0).name).isEqualTo("link");
+    assertThat(tree.entries.get(0).id).isEqualTo(targetID.name());
+    assertThat(tree.entries.get(0).target).isEqualTo("target");
+  }
+
+  @Test
   public void treeJson() throws Exception {
     RevCommit c =
         repo.parseBody(
