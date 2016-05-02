@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "880c85ef_594643b0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:52:00Z",
+      "side": 1,
+      "message": "If this is the only thing you need the repo for, you don\u0027t even need to pass in a repo, you can get an ObjectReader from tw.getObjectReader()",
+      "revId": "035fded6ecbf5fdf9538776d68de8c80ce5771d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8fd01ea_9c7d65da",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:52:00Z",
+      "side": 1,
+      "message": "includeSizes",
+      "range": {
+        "startLine": 67,
+        "startChar": 10,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "035fded6ecbf5fdf9538776d68de8c80ce5771d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880c85ef_b9115fa2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:52:00Z",
+      "side": 1,
+      "message": "Unlikely to matter in this case, but usually here I would use getCachedBytes(). That is the underlying backing array provided by the reader, which is fairly unsafe if you\u0027re going to be passing it around (you really don\u0027t want to modify it). But when you\u0027re just passing it to a String constructor like you\u0027re doing here, using getCachedBytes() avoids a copy, and it\u0027s obvious that references aren\u0027t going to leak.",
+      "range": {
+        "startLine": 71,
+        "startChar": 81,
+        "endLine": 71,
+        "endChar": 91
+      },
+      "revId": "035fded6ecbf5fdf9538776d68de8c80ce5771d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8fd01ea_bc7821ea",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T15:52:00Z",
+      "side": 1,
+      "message": "reader.open is equivalent",
+      "range": {
+        "startLine": 71,
+        "startChar": 32,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "035fded6ecbf5fdf9538776d68de8c80ce5771d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
