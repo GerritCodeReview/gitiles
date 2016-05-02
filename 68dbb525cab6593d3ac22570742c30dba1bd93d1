@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "880c85ef_3926ef06",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-02T16:15:05Z",
+      "side": 1,
+      "message": "In Gitiles it\u0027s 100, you\u0027re thinking of Gerrit.\n\nA separate issue is it\u0027s not possible to configure the dashed red line in the Gerrit UI on a per-project basis so it still may *look* like this line is longer than the project allows.\n\nAnyway this is why we moved to google-java-formatter, so we can leave worrying about this kind of thing to the machines :)",
+      "parentUuid": "a80949df_da71a5d2",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a80949df_3a7701c6",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 3
