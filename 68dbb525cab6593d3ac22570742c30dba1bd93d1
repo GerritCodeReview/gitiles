@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a80949df_da71a5d2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2016-05-02T16:13:09Z",
+      "side": 1,
+      "message": "nit: line too long (80 chars is the limit)",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a80949df_3a7701c6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2016-05-02T16:13:09Z",
+      "side": 1,
+      "message": "nit: lines too long (80 chars is the limit)",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8f83dfd_7baa1f2b",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2016-05-02T16:13:09Z",
+      "side": 1,
+      "message": "Maybe introduce a variable for tree.entries.get(0)?\nWould reduce some duplicate code.",
+      "revId": "68dbb525cab6593d3ac22570742c30dba1bd93d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
