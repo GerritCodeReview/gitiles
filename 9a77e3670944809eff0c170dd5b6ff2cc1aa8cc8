@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a80949df_9ac0cdf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8fd01ea_bc1141a2",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "880c85ef_9908db83",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2016-05-02T15:02:55Z",
       "side": 1,
       "message": "What does having this complex inheritance structure actually buy us? The alternative is just having nullable size and target fields in Entry, which IIUC is how clients would see it anyway. And that would be less code.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a80949df_daa3655e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "nothing. I apparently should have read the GSon docs first.",
+      "parentUuid": "e8fd01ea_1c3cb51e",
       "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -111,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "a80949df_9a99ed32",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "+1 - can we do a bulk CL, or should I use incremental mode?",
+      "parentUuid": "e8fd01ea_fc0bc96b",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8fd01ea_7c4979c0",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
         "patchSetId": 1
@@ -122,6 +176,24 @@
       "writtenOn": "2016-05-02T15:02:55Z",
       "side": 1,
       "message": "FYI elsewhere this is spelled\n\n (mode.getBits() \u0026 FileMode.TYPE_MASK) \u003d\u003d FileMode.TYPE_FILE\n\nwhich is theoretically more future-proof in terms of adding new modes. But OTOH I don\u0027t think it\u0027s really more readable than you have here, and it\u0027s not like Git currently is planning on adding new modes. So completely optional.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8f83dfd_fb9e2f16",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8fd01ea_7c4979c0",
       "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -151,6 +223,24 @@
     },
     {
       "key": {
+        "uuid": "a80949df_7a93390b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "880c85ef_d902535f",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8fd01ea_5c463db0",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/FakeHttpServletResponse.java",
         "patchSetId": 1
@@ -162,6 +252,24 @@
       "writtenOn": "2016-05-02T15:02:55Z",
       "side": 1,
       "message": "Unnecessary?",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8f83dfd_bb94a7f8",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/FakeHttpServletResponse.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "api 2.5 vs 3.0 confusion. I\u0027ll revert.",
+      "parentUuid": "e8fd01ea_5c463db0",
       "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -196,6 +304,24 @@
       "writtenOn": "2016-05-02T15:02:55Z",
       "side": 1,
       "message": "Looks like you\u0027ve mixed tabs and spaces.",
+      "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a80949df_fa9e2916",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-02T15:40:12Z",
+      "side": 1,
+      "message": "cut \u0026 paste from code search.",
+      "parentUuid": "880c85ef_19f5eb92",
       "revId": "9a77e3670944809eff0c170dd5b6ff2cc1aa8cc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
