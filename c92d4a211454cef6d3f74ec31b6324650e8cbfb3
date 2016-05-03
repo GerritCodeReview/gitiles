@@ -23,6 +23,30 @@
       "revId": "c92d4a211454cef6d3f74ec31b6324650e8cbfb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4830cdcd_c7afde8b",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-03T02:22:57Z",
+      "side": 1,
+      "message": "Sadly no. The eclipse-java-google-style.xml tweaks some settings that Eclipse provides so they are more in line with Google advice. gjf goes much much further and do things like format your whitespace in a canonical fashion; it contains a lot of hand-written logic and can\u0027t be expressed as an Eclipse configuration file.",
+      "parentUuid": "4830cdcd_87b5e6e1",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 39
+      },
+      "revId": "c92d4a211454cef6d3f74ec31b6324650e8cbfb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
