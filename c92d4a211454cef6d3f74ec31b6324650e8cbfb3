@@ -1,4 +1,28 @@
 {
   "pushCert": "certificate version 0.1\npusher Dave Borowitz \u003cdborowitz@google.com\u003e 1462209039 -0400\npushee rpc://gerrit/gitiles\nnonce AD0XjTV74Kb37BJcDl4dnjydWT8sMhSEzfciQN+2a06YN5EvjLn07o6hxrJK3eO63igMmjASKWPU\n\n0000000000000000000000000000000000000000 c92d4a211454cef6d3f74ec31b6324650e8cbfb3 refs/for/master\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQIcBAABAgAGBQJXJ4oPAAoJEF/XxZqaEoiMJ5IP/1zrQ0H6Np7Hg/jFli/oAJ3S\nwLDa4scyOCzGh/5hM03XjYkTPWVaZCt1qs6CazcRcWhiFa5nDf+hno28+6kqLTxV\nwjaS1r7+3oC/upSfPKpEmsitcIIZAk3A65OsZtXpnw+wSfNve38TR5YAe26q4glG\nmhiAp7ANJyRzvtJC3DpCAVWYb4aVTwOYiDBq+NGXN0Ww7NGNkSELUZh3MzQl/GtT\nHv2AoN1vcZTbOht7IpdCafQD0WHqRPDUDd95gNYehzGLm9XRgcpoB0EzVjl7pQNd\nUyQQ5N6tjyQcn+Y8hQ1BhE9Hz641+8Bb67NzMzKiVfh/1r85JRfWGjfHCcmE3EOu\nU8kaSxQeFWiwBNb8p+pQ0fSgEnhQK75/LqC3EE5+jfEFn6hoxqxTZjb8zgDblz18\nAoDhKmd4YoCZLZFu+MAizhGhpIfJWj8VrjnofIR8LPZhLdJzSubk4uyiC25kAUPq\n5lITAyktTE8LHFm/uwe8G9RTWLGaRb3z+wa7NrXTOUCNM0ZszCV7dNSFOdW3Glau\n9cIxEuwi8yezaANjr57XK2euwR7Zz7iTFguxydENfKGCo16NKh//96NnIlPvFOQT\nmPiY6PoCcZd4WjfgwQCvMo9P6TWdEbrlC5bsG1mpt7pB+7bP9Qg1SwdLmBc/0hul\nydMWZRxRZriIbIlf6s3d\n\u003da13i\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "4830cdcd_87b5e6e1",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2016-05-03T01:10:04Z",
+      "side": 1,
+      "message": "Since the format tool is based on [1], shouldn\u0027t this Eclipse formatter[2] be equivalent?\n\n[1]https://google.github.io/styleguide/javaguide.html\n[2]https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 39
+      },
+      "revId": "c92d4a211454cef6d3f74ec31b6324650e8cbfb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
 }
