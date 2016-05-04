@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad987b90_02b76aea",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-04T18:49:35Z",
+      "side": 1,
+      "message": "It\u0027s a little hard to follow why you open and then immediately close this instance of tw. Maybe give this other instance a different name, and manage it with a try-with-resources block?",
+      "revId": "935d60aaf457b9068a875d9d3e6bd159cc33f545",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
