@@ -14,21 +14,17 @@
 
 package com.google.gitiles.doc;
 
-import org.pegdown.ast.AbstractNode;
-import org.pegdown.ast.Node;
+import org.commonmark.node.CustomBlock;
 
-import java.util.Collections;
-import java.util.List;
+/** Parsed {@code <iframe>} tag. */
+public class IframeBlock extends CustomBlock {
+  String src;
+  String height;
+  String width;
+  boolean border;
 
-/** Block node {@code [TOC]} to display table of contents. */
-public class TocNode extends AbstractNode {
   @Override
-  public void accept(org.pegdown.ast.Visitor visitor) {
+  public void accept(org.commonmark.node.Visitor visitor) {
     ((Visitor) visitor).visit(this);
-  }
-
-  @Override
-  public List<Node> getChildren() {
-    return Collections.emptyList();
   }
 }

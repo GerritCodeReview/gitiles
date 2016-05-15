@@ -14,45 +14,17 @@
 
 package com.google.gitiles.doc;
 
-import org.pegdown.ast.TableCellNode;
-import org.pegdown.ast.TableColumnNode;
-import org.pegdown.ast.TableNode;
-
-import java.util.List;
+import org.commonmark.ext.gfm.tables.TableCell;
 
 class TableState {
-  private final List<TableColumnNode> columns;
-
-  boolean inHeader;
   int column;
-
-  TableState(TableNode node) {
-    columns = node.getColumns();
-  }
 
   void startRow() {
     column = 0;
   }
 
-  String getAlign() {
-    int pos = Math.min(column, columns.size() - 1);
-    TableColumnNode c = columns.get(pos);
-    switch (c.getAlignment()) {
-      case None:
-        return null;
-      case Left:
-        return "left";
-      case Right:
-        return "right";
-      case Center:
-        return "center";
-      default:
-        throw new IllegalStateException(
-            String.format("unsupported alignment %s on column %d", c.getAlignment(), pos));
-    }
-  }
-
-  void done(TableCellNode cell) {
-    column += cell.getColSpan();
+  void done(TableCell cell) {
+    // TODO(sop) colspan
+    // column += cell.getColSpan();
   }
 }

@@ -1,10 +1,10 @@
-// Copyright 2015 Google Inc. All Rights Reserved.
+// Copyright (C) 2016 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,18 +14,27 @@
 
 package com.google.gitiles.doc;
 
-public interface Visitor extends org.commonmark.node.Visitor {
-  void visit(SmartQuoted node);
+import org.commonmark.node.Node;
 
-  void visit(MultiColumnBlock node);
+/** SmartQuotes around text. */
+public class SmartQuoted extends Node {
+  public enum Type {
+    DOUBLE,
+    SINGLE;
+  }
 
-  void visit(MultiColumnBlock.Column node);
+  private Type type;
 
-  void visit(BlockNote node);
+  public Type getType() {
+    return type;
+  }
 
-  void visit(IframeBlock node);
+  public void setType(Type type) {
+    this.type = type;
+  }
 
-  void visit(TocBlock node);
-
-  void visit(NamedAnchor node);
+  @Override
+  public void accept(org.commonmark.node.Visitor visitor) {
+    ((Visitor) visitor).visit(this);
+  }
 }

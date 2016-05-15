@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,18 +14,23 @@
 
 package com.google.gitiles.doc;
 
-public interface Visitor extends org.commonmark.node.Visitor {
-  void visit(SmartQuoted node);
+import org.commonmark.node.CustomNode;
+import org.commonmark.node.Heading;
 
-  void visit(MultiColumnBlock node);
+/** A {@code <a name="...">} tag, usually inside a {@link Heading}. */
+public class NamedAnchor extends CustomNode {
+  private String name;
 
-  void visit(MultiColumnBlock.Column node);
+  public String getName() {
+    return name;
+  }
 
-  void visit(BlockNote node);
+  public void setName(String name) {
+    this.name = name;
+  }
 
-  void visit(IframeBlock node);
-
-  void visit(TocBlock node);
-
-  void visit(NamedAnchor node);
+  @Override
+  public void accept(org.commonmark.node.Visitor visitor) {
+    ((Visitor) visitor).visit(this);
+  }
 }

@@ -14,34 +14,32 @@
 
 package com.google.gitiles.doc;
 
-import com.google.common.base.Strings;
+import org.commonmark.node.CustomBlock;
+import org.commonmark.node.Heading;
 
-import org.pegdown.ast.AbstractNode;
-import org.pegdown.ast.Node;
-
-import java.util.Collections;
-import java.util.List;
-
-class IframeNode extends AbstractNode {
-  final String src;
-  final String height;
-  final String width;
-  final boolean border;
-
-  IframeNode(String src, String height, String width, String border) {
-    this.src = src;
-    this.height = Strings.emptyToNull(height);
-    this.width = Strings.emptyToNull(width);
-    this.border = !"0".equals(border);
-  }
+/**
+ * Multi-column layout delineated by {@code |||---|||}.
+ * <p>
+ * Each {@link Heading} or {@link BlockNote} within the layout begins a new
+ * {@link Column} in the HTML.
+ */
+public class MultiColumnBlock extends CustomBlock {
+  /** Grid is 12 columns wide. */
+  public static final int GRID_WIDTH = 12;
 
   @Override
-  public void accept(org.pegdown.ast.Visitor visitor) {
+  public void accept(org.commonmark.node.Visitor visitor) {
     ((Visitor) visitor).visit(this);
   }
 
-  @Override
-  public List<Node> getChildren() {
-    return Collections.emptyList();
+  /** Column within a {@link MultiColumnBlock}. */
+  public static class Column extends CustomBlock {
+    int span;
+    boolean empty;
+
+    @Override
+    public void accept(org.commonmark.node.Visitor visitor) {
+      ((Visitor) visitor).visit(this);
+    }
   }
 }
