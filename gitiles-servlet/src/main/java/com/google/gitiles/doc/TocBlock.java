@@ -14,17 +14,7 @@
 
 package com.google.gitiles.doc;
 
-import org.commonmark.ext.gfm.tables.TableCell;
+import org.commonmark.node.CustomBlock;
 
-class TableState {
-  int column;
-
-  void startRow() {
-    column = 0;
-  }
-
-  void done(TableCell cell) {
-    // TODO(sop) colspan
-    // column += cell.getColSpan();
-  }
-}
+/** Block node {@code [TOC]} to display table of contents. */
+public class TocBlock extends CustomBlock {}
