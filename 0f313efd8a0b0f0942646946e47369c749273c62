@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f77a46a9_14ce343f",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-16T16:57:42Z",
+      "side": 1,
+      "message": "This is a footer, not a header.\n\nI get that you want to use a single config option for related theme options, but let\u0027s give it a more generic name.",
+      "revId": "0f313efd8a0b0f0942646946e47369c749273c62",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37813ec9_36d338e6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-16T16:57:42Z",
+      "side": 1,
+      "message": "This is, shall we say, too many places to inject customization.\n\nI would rather flip this around and use a deltemplate for the whole footer, then have separate non-del-templates for the pieces like the format badges that theme authors may want to reuse in their own templates.",
+      "revId": "0f313efd8a0b0f0942646946e47369c749273c62",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
