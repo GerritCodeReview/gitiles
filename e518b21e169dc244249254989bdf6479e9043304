@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17c19a19_ed38852a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-17T11:49:57Z",
+      "side": 1,
+      "message": "Just a note: the default delegate templates are now \u0027unnamend\u0027, so that soy will use them as a fallback (see \nhttps://developers.google.com/closure/templates/docs/commands#delegates-with-variant) if not all templates are defined as overrides.",
+      "revId": "e518b21e169dc244249254989bdf6479e9043304",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
