@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c253fa0_36ac7894",
+        "filename": "WORKSPACE",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-05-21T12:45:47Z",
+      "side": 1,
+      "message": "Nit: Blank line is missing.",
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c253fa0_16b17cec",
+        "filename": "WORKSPACE",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-05-21T12:45:47Z",
+      "side": 1,
+      "message": "JGIT_VERS",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 4
+      },
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc199374_33ac8894",
+        "filename": "WORKSPACE",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-05-21T12:45:47Z",
+      "side": 1,
+      "message": "Nit: Unneeded new line.",
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc199374_13b18cec",
+        "filename": "gitiles-servlet/BUILD",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-05-21T12:45:47Z",
+      "side": 1,
+      "message": "Doesn\u0027t work here:\n\n  ERROR: /home/davido/projects/gitiles/gitiles-servlet/BUILD:51:1:\\\nin java_test rule //gitiles-servlet:servlet_tests: cannot determine test class.\n\nAccording to the doc:[1] \"The Java class to be loaded by the test runner\". I assume we need here auto-detection of the tests from the source set.\n\nI\u0027m using the most recent Bazel version available:[2].\n\n* [1] http://bazel.io/docs/be/java.html#java_test.test_class\n* [2] http://paste.openstack.org/show/497969",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c253fa0_f6c5e052",
+        "filename": "gitiles-servlet/BUILD",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-05-21T12:45:47Z",
+      "side": 1,
+      "message": "This rule is not used and can be removed? Web archive artifact, that used this in the past, was dropped in this diff:[1]. Presumably, this can also be dropped in Buck build as well.\n\n* [1] https://gerrit-review.googlesource.com/#/c/76321/5/gitiles-war/BUCK",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 28
+      },
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
