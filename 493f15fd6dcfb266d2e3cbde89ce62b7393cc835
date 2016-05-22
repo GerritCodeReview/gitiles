@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc1f8b52_b5d64005",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-22T18:39:21Z",
+      "side": 1,
+      "message": "This broke one of our team\u0027s internal documents, but its not supported in the CommonMark spec so maybe its right that we rewrite that file away from relying on this non-standard feature.",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
