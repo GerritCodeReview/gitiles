@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1c253fa0_3639182f",
+        "filename": "WORKSPACE",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-23T11:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c253fa0_36ac7894",
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c253fa0_16b17cec",
         "filename": "WORKSPACE",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2016-05-21T12:45:47Z",
       "side": 1,
       "message": "JGIT_VERS",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 4
+      },
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c253fa0_163e1c17",
+        "filename": "WORKSPACE",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-23T11:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c253fa0_16b17cec",
       "range": {
         "startLine": 86,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "bc199374_3339282f",
+        "filename": "WORKSPACE",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-23T11:57:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc199374_33ac8894",
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc199374_13b18cec",
         "filename": "gitiles-servlet/BUILD",
         "patchSetId": 6
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "1c253fa0_762f90e4",
+        "filename": "gitiles-servlet/BUILD",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-23T11:57:50Z",
+      "side": 1,
+      "message": "yeah. I fixed this in an alternate way, but I hope the Bazel team comes up with a standardized solution.",
+      "parentUuid": "bc199374_13b18cec",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c253fa0_f6c5e052",
         "filename": "gitiles-servlet/BUILD",
         "patchSetId": 6
@@ -93,6 +177,30 @@
       "writtenOn": "2016-05-21T12:45:47Z",
       "side": 1,
       "message": "This rule is not used and can be removed? Web archive artifact, that used this in the past, was dropped in this diff:[1]. Presumably, this can also be dropped in Buck build as well.\n\n* [1] https://gerrit-review.googlesource.com/#/c/76321/5/gitiles-war/BUCK",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 28
+      },
+      "revId": "01af6d80f32e71dadc62ab91eeff18e32b88e008",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c253fa0_56349436",
+        "filename": "gitiles-servlet/BUILD",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-05-23T11:57:50Z",
+      "side": 1,
+      "message": "I removed the one BUCK one in a CL that I sent you. Let\u0027s see if we can submit that without casualties first.",
+      "parentUuid": "1c253fa0_f6c5e052",
       "range": {
         "startLine": 79,
         "startChar": 12,
