@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "fc1f8b52_7500a85d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/BlockNoteExtension.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-23T23:50:50Z",
+      "side": 1,
+      "message": "final?",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc1f8b52_5505ac6b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitilesHtmlExtension.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-23T23:50:50Z",
+      "side": 1,
+      "message": "Optional spaces surrounding the \u0027\u003d\u0027? \\s*\u003d\\s*\n\nAlso, is \u003cfoo bar\u003d\"ba\u0027z\u0027\"\u003e a valid attribute? Because I think your pattern disallows it.",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cb843a6_e7c98266",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
         "patchSetId": 5
@@ -66,6 +100,29 @@
       "side": 1,
       "message": "I\u0027d suggest dropping it. It makes the code cleaner. If someone wants colspan, they can add it back in a separate change.",
       "parentUuid": "dc4d67b0_7cfa9984",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc1f8b52_f5f398aa",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-23T23:50:50Z",
+      "side": 1,
+      "message": "IAE?",
+      "range": {
+        "startLine": 446,
+        "startChar": 18,
+        "endLine": 446,
+        "endChar": 39
+      },
       "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
