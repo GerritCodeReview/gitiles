@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "dc4d67b0_5cffdd72",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2016-05-23T23:30:13Z",
+      "side": 1,
+      "message": "I\u0027d suggest dropping it. It makes the code cleaner. If someone wants colspan, they can add it back in a separate change.",
+      "parentUuid": "dc4d67b0_7cfa9984",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc4d67b0_1c05556d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/TableState.java",
         "patchSetId": 5
