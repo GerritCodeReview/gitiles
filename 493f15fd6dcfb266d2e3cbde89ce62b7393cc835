@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "dc4d67b0_7cfa9984",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-23T23:28:29Z",
+      "side": 1,
+      "message": "Colspan is not supported in CommonMark. Its a TODO to either add back support for this, or drop it because its not going to be in the CommonMark spec. Unclear which it will be.",
+      "parentUuid": "3cb843a6_e7c98266",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc4d67b0_1c05556d",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/TableState.java",
         "patchSetId": 5
