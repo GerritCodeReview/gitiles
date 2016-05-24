@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c9a0f77_92c59c54",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-24T23:51:03Z",
+      "side": 1,
+      "message": "Is this needed?  It looks like the filename is already included from the readmePath variable.",
+      "range": {
+        "startLine": 109,
+        "startChar": 31,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "9f06e84d5a583e41aa6a188d5ee5ac4b76bcd858",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
