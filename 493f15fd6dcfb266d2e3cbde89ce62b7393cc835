@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "dc4d67b0_fced09c6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/BlockNoteExtension.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-24T00:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f8b52_7500a85d",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1f8b52_5505ac6b",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitilesHtmlExtension.java",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2016-05-23T23:50:50Z",
       "side": 1,
       "message": "Optional spaces surrounding the \u0027\u003d\u0027? \\s*\u003d\\s*\n\nAlso, is \u003cfoo bar\u003d\"ba\u0027z\u0027\"\u003e a valid attribute? Because I think your pattern disallows it.",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc4d67b0_9cf045a0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitilesHtmlExtension.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-24T00:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f8b52_5505ac6b",
       "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -106,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "3cb843a6_6705926c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-24T00:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc4d67b0_5cffdd72",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1f8b52_f5f398aa",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
         "patchSetId": 5
@@ -140,6 +194,24 @@
       "writtenOn": "2016-05-23T23:26:23Z",
       "side": 1,
       "message": "Is this still planned, or is this stale code?",
+      "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc4d67b0_dceacdab",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/TableState.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-24T00:59:16Z",
+      "side": 1,
+      "message": "Removed entirely.",
+      "parentUuid": "dc4d67b0_1c05556d",
       "revId": "493f15fd6dcfb266d2e3cbde89ce62b7393cc835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
