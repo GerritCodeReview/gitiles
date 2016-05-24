@@ -22,6 +22,24 @@
       "revId": "9f06e84d5a583e41aa6a188d5ee5ac4b76bcd858",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c9a0f77_d2bf24b6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-24T23:53:33Z",
+      "side": 1,
+      "message": "Good point; I dropped the README.md constant part of the log message. Its in readmePath.",
+      "parentUuid": "9c9a0f77_92c59c54",
+      "revId": "9f06e84d5a583e41aa6a188d5ee5ac4b76bcd858",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
