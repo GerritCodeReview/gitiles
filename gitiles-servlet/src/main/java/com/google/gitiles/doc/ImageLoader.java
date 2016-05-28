@@ -31,78 +31,64 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import javax.annotation.Nullable;
+
 /** Reads an image from Git and converts to {@code data:image/*;base64,...} */
-public class ImageLoader {
+class ImageLoader {
   private static final Logger log = LoggerFactory.getLogger(ImageLoader.class);
 
-  private final ObjectReader reader;
   private final GitilesView view;
+  private final MarkdownConfig config;
+  private final ObjectReader reader;
   private final RevTree root;
-  private final String path;
-  private final int imageLimit;
 
-  public ImageLoader(
-      ObjectReader reader, GitilesView view, RevTree root, String path, int maxImageSize) {
-    this.reader = reader;
+  ImageLoader(GitilesView view, MarkdownConfig config, ObjectReader reader, RevTree root) {
     this.view = view;
+    this.config = config;
+    this.reader = reader;
     this.root = root;
-    this.path = path;
-    this.imageLimit = maxImageSize;
   }
 
-  String loadImage(String src) {
-    if (src.startsWith("/")) {
-      return readAndBase64Encode(src.substring(1));
+  String inline(@Nullable String markdownPath, String imagePath) {
+    if (config.imageLimit <= 0) {
+      return innocuousOutput();
     }
 
-    String base = directory();
-    while (src.startsWith("../")) {
-      int s = base.lastIndexOf('/');
-      if (s == -1) {
-        return FilterImageDataUri.INSTANCE.getInnocuousOutput();
-      }
-      base = base.substring(0, s + 1);
-      src = src.substring("../".length());
+    String path = PathResolver.resolve(markdownPath, imagePath);
+    if (path == null) {
+      return innocuousOutput();
     }
-    return readAndBase64Encode(base + src);
-  }
 
-  private String directory() {
-    int s = path.lastIndexOf('/');
-    if (s > 0) {
-      return path.substring(0, s + 1);
-    }
-    return "";
-  }
-
-  private String readAndBase64Encode(String path) {
     String type = getMimeType(path);
     if (type == null) {
-      return FilterImageDataUri.INSTANCE.getInnocuousOutput();
+      return innocuousOutput();
     }
 
     try {
       TreeWalk tw = TreeWalk.forPath(reader, path, root);
       if (tw == null || tw.getFileMode(0) != FileMode.REGULAR_FILE) {
-        return FilterImageDataUri.INSTANCE.getInnocuousOutput();
+        return innocuousOutput();
       }
 
       ObjectId id = tw.getObjectId(0);
-      byte[] raw = reader.open(id, Constants.OBJ_BLOB).getCachedBytes(imageLimit);
-      if (raw.length > imageLimit) {
-        return FilterImageDataUri.INSTANCE.getInnocuousOutput();
+      byte[] raw = reader.open(id, Constants.OBJ_BLOB).getCachedBytes(config.imageLimit);
+      if (raw.length > config.imageLimit) {
+        return innocuousOutput();
       }
 
       return "data:" + type + ";base64," + BaseEncoding.base64().encode(raw);
     } catch (LargeObjectException.ExceedsLimit e) {
-      return FilterImageDataUri.INSTANCE.getInnocuousOutput();
-    } catch (IOException e) {
+      return innocuousOutput();
+    } catch (IOException err) {
+      String repo = view != null ? view.getRepositoryName() : "<unknown>";
       log.error(
-          String.format(
-              "cannot read repo %s image %s from %s", view.getRepositoryName(), path, root.name()),
-          e);
-      return FilterImageDataUri.INSTANCE.getInnocuousOutput();
+          String.format("cannot read repo %s image %s from %s", repo, path, root.name()), err);
+      return innocuousOutput();
     }
+  }
+
+  private static String innocuousOutput() {
+    return FilterImageDataUri.INSTANCE.getInnocuousOutput();
   }
 
   private static final ImmutableMap<String, String> TYPES =
