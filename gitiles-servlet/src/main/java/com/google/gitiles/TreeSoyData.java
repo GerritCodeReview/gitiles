@@ -71,12 +71,15 @@ public class TreeSoyData {
 
   private final ObjectReader reader;
   private final GitilesView view;
+  private final String requestUri;
   private final Config cfg;
   private final RevTree rootTree;
   private ArchiveFormat archiveFormat;
 
-  public TreeSoyData(ObjectReader reader, GitilesView view, Config cfg, RevTree rootTree) {
+  public TreeSoyData(
+      ObjectReader reader, String requestUri, GitilesView view, Config cfg, RevTree rootTree) {
     this.reader = reader;
+    this.requestUri = requestUri;
     this.view = view;
     this.cfg = cfg;
     this.rootTree = rootTree;
@@ -89,7 +92,8 @@ public class TreeSoyData {
 
   public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw)
       throws MissingObjectException, IOException {
-    ReadmeHelper readme = new ReadmeHelper(view, MarkdownConfig.get(cfg), reader, rootTree);
+    ReadmeHelper readme =
+        new ReadmeHelper(requestUri, view, MarkdownConfig.get(cfg), reader, rootTree);
     List<Object> entries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
     while (tw.next()) {

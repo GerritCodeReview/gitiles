@@ -36,6 +36,7 @@ class ReadmeHelper {
   private static final Logger log = LoggerFactory.getLogger(ReadmeHelper.class);
 
   private final ObjectReader reader;
+  private final String requestUri;
   private final GitilesView view;
   private final RevTree rootTree;
   private final MarkdownConfig config;
@@ -43,7 +44,13 @@ class ReadmeHelper {
   private String readmePath;
   private ObjectId readmeId;
 
-  ReadmeHelper(GitilesView view, MarkdownConfig config, ObjectReader reader, RevTree rootTree) {
+  ReadmeHelper(
+      String requestUri,
+      GitilesView view,
+      MarkdownConfig config,
+      ObjectReader reader,
+      RevTree rootTree) {
+    this.requestUri = requestUri;
     this.reader = reader;
     this.view = view;
     this.rootTree = rootTree;
@@ -86,6 +93,7 @@ class ReadmeHelper {
       return MarkdownToHtml.builder()
           .setConfig(config)
           .setGitilesView(view)
+          .setRequestUri(requestUri)
           .setFilePath(readmePath)
           .setReader(reader)
           .setRootTree(rootTree)
