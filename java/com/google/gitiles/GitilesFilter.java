@@ -232,7 +232,7 @@ class GitilesFilter extends MetaFilter {
     initialized = true;
   }
 
-  public synchronized BaseServlet getDefaultHandler(GitilesView.Type view) {
+  public synchronized HttpServlet getDefaultHandler(GitilesView.Type view) {
     checkNotInitialized();
     switch (view) {
       case HOST_INDEX:
@@ -246,6 +246,8 @@ class GitilesFilter extends MetaFilter {
       case SHOW:
       case PATH:
         return new PathServlet(accessFactory, renderer, urls);
+      case RAW:
+        return new RawContentServlet(accessFactory);
       case DIFF:
         return new DiffServlet(accessFactory, renderer, linkifier());
       case LOG:

@@ -23,6 +23,7 @@ import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.PathServlet;
+import com.google.gitiles.RawUrls;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
 import com.google.gitiles.doc.HtmlSanitizer;
@@ -37,6 +38,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
@@ -69,16 +71,17 @@ class DevServer {
     cfg.setString("gitiles", null, "basePath", cwd);
     cfg.setBoolean("gitiles", null, "exportAll", true);
     cfg.setString("gitiles", null, "baseGitUrl", "file://" + cwd + "/");
-    String networkHostName;
-    try {
-      networkHostName = InetAddress.getLocalHost().getCanonicalHostName();
-    } catch (UnknownHostException e) {
-      networkHostName = "127.0.0.1";
-    }
-    cfg.setString(
-        "gitiles", null, "siteTitle", String.format("Gitiles - %s:%s", networkHostName, cwd));
+    cfg.setString("gitiles", null, "siteTitle", String.format("Gitiles - %s:%s", localhost(), cwd));
     cfg.setString("gitiles", null, "canonicalHostName", new File(cwd).getName());
     return cfg;
+  }
+
+  private static String localhost() {
+    try {
+      return InetAddress.getLocalHost().getCanonicalHostName();
+    } catch (UnknownHostException e) {
+      return "127.0.0.1";
+    }
   }
 
   private static Path findSourceRoot() throws IOException {
@@ -93,14 +96,15 @@ class DevServer {
 
   private final Path sourceRoot;
   private final Config cfg;
-  private final Server httpd;
+  private final Server safeHttpd;
+  private final Server rawHttpd;
 
   DevServer(File cfgFile) throws IOException, ConfigInvalidException {
     // Jetty doesn't doesn't allow symlinks, so canonicalize.
     sourceRoot = findSourceRoot().toRealPath();
 
     Config cfg = defaultConfig();
-    if (cfgFile.exists() && cfgFile.isFile()) {
+    if (cfgFile.isFile()) {
       FileBasedConfig fcfg = new FileBasedConfig(cfg, cfgFile, FS.DETECTED);
       fcfg.load();
       cfg = fcfg;
@@ -109,23 +113,58 @@ class DevServer {
     }
     this.cfg = cfg;
 
-    httpd = new Server(cfg.getInt("gitiles", null, "port", 8080));
-    httpd.setHandler(handler());
+    int safePort = cfg.getInt("gitiles", null, "port", 8080);
+    String url = String.format("http://%s:%d", localhost(), safePort);
+    cfg.setString("gitiles", null, "safeUrl", url);
+
+    log.info("Safe content server on {}", url);
+    safeHttpd = new Server(safePort);
+    safeHttpd.setHandler(safeHandler());
+
+    int rawPort = cfg.getInt("gitiles", null, "rawPort", safePort + 1);
+    if (rawPort > 0) {
+      url = String.format("http://%s:%d", localhost(), rawPort);
+      cfg.setString("gitiles", null, "rawUrl", url);
+      log.info("Raw content server on {}", url);
+      rawHttpd = new Server(rawPort);
+      rawHttpd.setHandler(rawHandler());
+    } else {
+      log.info("Raw content server is disabled");
+      rawHttpd = null;
+    }
   }
 
-  void start() throws Exception {
-    httpd.start();
-    httpd.join();
+  DevServer start() throws Exception {
+    safeHttpd.start();
+    if (rawHttpd != null) {
+      rawHttpd.start();
+    }
+    return this;
   }
 
-  private Handler handler() throws IOException {
+  void waitForShutdown() throws InterruptedException {
+    safeHttpd.join();
+    if (rawHttpd != null) {
+      rawHttpd.join();
+    }
+  }
+
+  private Handler safeHandler() throws IOException {
     ContextHandlerCollection handlers = new ContextHandlerCollection();
     handlers.addHandler(staticHandler());
-    handlers.addHandler(appHandler());
+    handlers.addHandler(gitilesHandler());
     return handlers;
   }
 
-  private Handler appHandler() {
+  private Handler rawHandler() {
+    GitilesServlet servlet = new GitilesServlet.RawContentDomain(cfg, null);
+    ServletContextHandler handler = new ServletContextHandler();
+    handler.setContextPath("");
+    handler.addServlet(new ServletHolder(servlet), "/*");
+    return handler;
+  }
+
+  private Handler gitilesHandler() {
     DebugRenderer renderer =
         new DebugRenderer(
             STATIC_PREFIX,
@@ -228,6 +267,11 @@ class DevServer {
         @Override
         public Config getConfig() {
           return cfg;
+        }
+
+        @Override
+        public Optional<RawUrls> getRawUrls() {
+          return Optional.empty();
         }
       };
     }

@@ -22,16 +22,21 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
+import com.google.common.io.BaseEncoding;
+import com.google.gitiles.UrlSigner.ValidatedSignature;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.text.Collator;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -64,6 +69,7 @@ public class DefaultAccess implements GitilesAccess {
     private final String baseGitUrl;
     private final Config baseConfig;
     private final FileResolver<HttpServletRequest> resolver;
+    private final UrlSigner urlSigner;
 
     Factory(
         File basePath,
@@ -76,11 +82,12 @@ public class DefaultAccess implements GitilesAccess {
       this.baseConfig = checkNotNull(baseConfig, "baseConfig");
       this.resolver = checkNotNull(resolver, "resolver");
       this.canonicalBasePath = basePath.getCanonicalPath();
+      this.urlSigner = new HmacUrlSigner(baseConfig);
     }
 
     @Override
     public GitilesAccess forRequest(HttpServletRequest req) {
-      return newAccess(basePath, canonicalBasePath, baseGitUrl, resolver, req);
+      return newAccess(basePath, canonicalBasePath, baseGitUrl, resolver, urlSigner, req);
     }
 
     protected DefaultAccess newAccess(
@@ -88,8 +95,10 @@ public class DefaultAccess implements GitilesAccess {
         String canonicalBasePath,
         String baseGitUrl,
         FileResolver<HttpServletRequest> resolver,
+        UrlSigner urlSigner,
         HttpServletRequest req) {
-      return new DefaultAccess(basePath, canonicalBasePath, baseGitUrl, baseConfig, resolver, req);
+      return new DefaultAccess(
+          basePath, canonicalBasePath, baseGitUrl, baseConfig, resolver, urlSigner, req);
     }
   }
 
@@ -98,6 +107,7 @@ public class DefaultAccess implements GitilesAccess {
   protected final String baseGitUrl;
   protected final Config baseConfig;
   protected final FileResolver<HttpServletRequest> resolver;
+  protected final UrlSigner urlSigner;
   protected final HttpServletRequest req;
 
   protected DefaultAccess(
@@ -106,12 +116,14 @@ public class DefaultAccess implements GitilesAccess {
       String baseGitUrl,
       Config baseConfig,
       FileResolver<HttpServletRequest> resolver,
+      UrlSigner urlSigner,
       HttpServletRequest req) {
     this.basePath = checkNotNull(basePath, "basePath");
     this.canonicalBasePath = checkNotNull(canonicalBasePath, "canonicalBasePath");
     this.baseGitUrl = checkNotNull(baseGitUrl, "baseGitUrl");
     this.baseConfig = checkNotNull(baseConfig, "baseConfig");
     this.resolver = checkNotNull(resolver, "resolver");
+    this.urlSigner = checkNotNull(urlSigner, "urlSigner");
     this.req = checkNotNull(req, "req");
   }
 
@@ -146,6 +158,16 @@ public class DefaultAccess implements GitilesAccess {
   @Override
   public Config getConfig() {
     return baseConfig;
+  }
+
+  @Override
+  public Optional<RawUrls> getRawUrls() {
+    String safe = getConfig().getString("gitiles", null, "safeUrl");
+    String raw = getConfig().getString("gitiles", null, "rawUrl");
+    if (Strings.isNullOrEmpty(safe) || Strings.isNullOrEmpty(raw)) {
+      return Optional.empty();
+    }
+    return Optional.<RawUrls>of(new DefaultRawUrls(safe, raw));
   }
 
   private String getRepositoryName(Repository repo) {
@@ -275,5 +297,91 @@ public class DefaultAccess implements GitilesAccess {
         && !prefix.equals("..")
         && !prefix.contains("../")
         && !prefix.endsWith("/..");
+  }
+
+  private class DefaultRawUrls implements RawUrls {
+    private final String safe;
+    private final String raw;
+    private final String rawHost;
+    private final int rawPort;
+
+    DefaultRawUrls(String safeUrl, String rawUrl) {
+      safe = CharMatcher.is('/').trimTrailingFrom(safeUrl);
+      raw = CharMatcher.is('/').trimTrailingFrom(rawUrl);
+
+      URI rawUri = URI.create(raw);
+      rawHost = rawUri.getHost();
+      rawPort = port(rawUri);
+    }
+
+    @Override
+    public String createRedirectUrl(GitilesView view) {
+      return safe + view.toUrl();
+    }
+
+    @Override
+    public SignedRawUrl createRawUrl(GitilesView view) {
+      String url = view.toUrl();
+      if (exportAll()) {
+        // TODO(sop) allow caching exportAll raw URLs
+        return new SignedRawUrl(raw + url, 0);
+      }
+
+      UrlSigner.Signature sig = urlSigner.sign(url);
+      String key = BaseEncoding.base64Url().omitPadding().encode(sig.getSignature());
+      url = view.toBuilder().putParam(PARAM_AUTHKEY, key).build().toUrl();
+      return new SignedRawUrl(raw + url, sig.getExpires());
+    }
+
+    @Override
+    public ValidatedAuthKey validateAuthKey(GitilesView view, @Nullable String key) {
+      if (Strings.isNullOrEmpty(key)) {
+        if (exportAll()) {
+          // TODO(sop) allow caching exportAll raw URLs
+          return new ValidatedAuthKey(false, 0);
+        }
+        return null;
+      }
+
+      byte[] token;
+      try {
+        token = BaseEncoding.base64Url().decode(key);
+      } catch (IllegalArgumentException e) {
+        return null;
+      }
+
+      ValidatedSignature sig = urlSigner.verify(view.toUrl(), token);
+      if (sig != null) {
+        return new ValidatedAuthKey(true, sig.getExpires());
+      }
+      return null;
+    }
+
+    @Override
+    public boolean isRawDomain() {
+      int reqPort = req.getServerPort();
+      if (reqPort <= 0) {
+        reqPort = req.isSecure() ? 443 : 80;
+      }
+      return reqPort == rawPort && rawHost.equals(req.getServerName());
+    }
+
+    private boolean exportAll() {
+      Config cfg = getConfig();
+      return cfg.getBoolean("gitiles", null, "exportAll", false)
+          && cfg.getBoolean("gitiles", null, "exportAllRaw", false);
+    }
+  }
+
+  private static int port(URI uri) {
+    int p = uri.getPort();
+    if (p <= 0) {
+      if ("http".equals(uri.getScheme())) {
+        return 80;
+      } else if ("https".equals(uri.getScheme())) {
+        return 443;
+      }
+    }
+    return p;
   }
 }
