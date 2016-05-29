@@ -14,6 +14,8 @@
 
 package com.google.gitiles;
 
+import com.google.common.base.Optional;
+
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
 import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
@@ -78,4 +80,9 @@ public interface GitilesAccess {
    * @throws IOException an error occurred reading the configuration.
    */
   public Config getConfig() throws IOException;
+
+  /**
+   * @return raw URL support; or {@code Optional.absent()} if disabled.
+   */
+  public Optional<RawUrls> getRawUrls();
 }

@@ -41,7 +41,7 @@ public class GitilesViewTest {
     assertThat(view.getRepositoryName()).isNull();
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/?format=HTML");
     assertThat(view.getBreadcrumbs()).containsExactly(breadcrumb("host", "/?format=HTML"));
@@ -143,7 +143,7 @@ public class GitilesViewTest {
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/");
     assertThat(view.getBreadcrumbs())
@@ -164,7 +164,7 @@ public class GitilesViewTest {
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+refs");
     assertThat(view.getBreadcrumbs())
@@ -192,7 +192,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master");
     assertThat(view.getBreadcrumbs())
@@ -219,7 +219,7 @@ public class GitilesViewTest {
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isEqualTo("deadbeef");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
   }
 
   @Test
@@ -240,7 +240,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/");
     assertThat(view.getBreadcrumbs())
@@ -271,7 +271,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/file");
     assertThat(view.getBreadcrumbs())
@@ -303,7 +303,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("README.md");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/README.md");
   }
 
@@ -325,7 +325,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("docs");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+doc/master/docs");
   }
 
@@ -347,7 +347,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("README.md");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master/README.md");
   }
 
@@ -367,7 +367,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("docs");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/docs");
   }
 
@@ -389,7 +389,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/path/to/a/file");
     assertThat(view.getBreadcrumbs())
@@ -427,7 +427,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision().getName()).isEqualTo("master^");
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master%5E%21/path/to/a/file");
     assertThat(view.getBreadcrumbs())
@@ -463,7 +463,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master%5E%21/path/to/a/file");
     assertThat(view.getBreadcrumbs())
@@ -501,7 +501,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision().getName()).isEqualTo("efab5678");
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/efab5678..master/path/to/a/file");
     assertThat(view.getBreadcrumbs())
@@ -536,7 +536,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+log/master");
     assertThat(view.getBreadcrumbs())
@@ -566,7 +566,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("abcd1234");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+log/abcd1234");
     assertThat(view.getBreadcrumbs())
@@ -597,7 +597,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+log/master/path/to/a/file");
     assertThat(view.getBreadcrumbs())
@@ -634,7 +634,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision().getName()).isEqualTo("master^");
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+log/master%5E..master/path/to/a/file");
     assertThat(view.getBreadcrumbs())
@@ -660,7 +660,7 @@ public class GitilesViewTest {
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+log");
     assertThat(view.getBreadcrumbs())
@@ -691,7 +691,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isNull();
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+archive/master.tar.bz2");
   }
 
@@ -715,8 +715,31 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isEqualTo("path/to/a/dir");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+archive/master/path/to/a/dir.tar.bz2");
+  }
+
+  @Test
+  public void rawWithPath() throws Exception {
+    ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
+    GitilesView view =
+        GitilesView.raw()
+            .copyFrom(HOST)
+            .setRepositoryName("foo/bar")
+            .setRevision(Revision.unpeeled("master", id))
+            .setPathPart("/path/to/a/foo.c")
+            .build();
+
+    assertThat(view.getServletPath()).isEqualTo("/b");
+    assertThat(view.getType()).isEqualTo(Type.RAW);
+    assertThat(view.getHostName()).isEqualTo("host");
+    assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
+    assertThat(view.getRevision().getId()).isEqualTo(id);
+    assertThat(view.getRevision().getName()).isEqualTo("master");
+    assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
+    assertThat(view.getPathPart()).isEqualTo("path/to/a/foo.c");
+    assertThat(view.getParameters()).isEmpty();
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+raw/master/path/to/a/foo.c");
   }
 
   @Test
@@ -738,7 +761,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
     assertThat(view.getPathPart()).isEqualTo("dir/file");
-    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.getParameters()).isEmpty();
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+blame/master/dir/file");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
