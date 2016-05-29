@@ -720,6 +720,29 @@ public class GitilesViewTest {
   }
 
   @Test
+  public void rawWithPath() throws Exception {
+    ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
+    GitilesView view =
+        GitilesView.raw()
+            .copyFrom(HOST)
+            .setRepositoryName("foo/bar")
+            .setRevision(Revision.unpeeled("master", id))
+            .setPathPart("/path/to/a/foo.c")
+            .build();
+
+    assertThat(view.getServletPath()).isEqualTo("/b");
+    assertThat(view.getType()).isEqualTo(Type.RAW);
+    assertThat(view.getHostName()).isEqualTo("host");
+    assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
+    assertThat(view.getRevision().getId()).isEqualTo(id);
+    assertThat(view.getRevision().getName()).isEqualTo("master");
+    assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
+    assertThat(view.getPathPart()).isEqualTo("path/to/a/foo.c");
+    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+raw/master/path/to/a/foo.c");
+  }
+
+  @Test
   public void blame() throws Exception {
     ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
     GitilesView view =
