@@ -130,7 +130,7 @@ public class GitilesServlet extends MetaServlet {
     getDelegateFilter().setHandler(view, handler);
   }
 
-  public BaseServlet getDefaultHandler(GitilesView.Type view) {
+  public HttpServlet getDefaultHandler(GitilesView.Type view) {
     return getDelegateFilter().getDefaultHandler(view);
   }
 }

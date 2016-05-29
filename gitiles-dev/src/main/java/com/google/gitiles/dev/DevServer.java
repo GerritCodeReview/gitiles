@@ -17,11 +17,13 @@ package com.google.gitiles.dev;
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.PathServlet;
+import com.google.gitiles.RawUrls;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
 
@@ -227,6 +229,11 @@ class DevServer {
         @Override
         public Config getConfig() {
           return cfg;
+        }
+
+        @Override
+        public Optional<RawUrls> getRawUrls() {
+          return Optional.absent();
         }
       };
     }

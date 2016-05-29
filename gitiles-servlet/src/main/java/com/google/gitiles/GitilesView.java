@@ -71,7 +71,8 @@ public class GitilesView {
     ARCHIVE,
     BLAME,
     DOC,
-    ROOTED_DOC;
+    ROOTED_DOC,
+    RAW;
   }
 
   /** Exception thrown when building a view that is invalid. */
@@ -118,6 +119,7 @@ public class GitilesView {
           oldRevision = other.oldRevision;
           // Fallthrough.
         case PATH:
+        case RAW:
         case DOC:
         case ROOTED_DOC:
         case ARCHIVE:
@@ -253,6 +255,7 @@ public class GitilesView {
     public Builder setPathPart(String path) {
       switch (type) {
         case PATH:
+        case RAW:
         case DIFF:
         case SHOW:
           checkState(path != null, "cannot set null path on %s view", type);
@@ -341,6 +344,7 @@ public class GitilesView {
           checkRevision();
           break;
         case PATH:
+        case RAW:
         case SHOW:
         case DOC:
           checkPath();
@@ -459,6 +463,10 @@ public class GitilesView {
 
   public static Builder path() {
     return new Builder(Type.PATH);
+  }
+
+  public static Builder raw() {
+    return new Builder(Type.RAW);
   }
 
   public static Builder show() {
@@ -662,6 +670,13 @@ public class GitilesView {
       case PATH:
         url.append(repositoryName)
             .append("/+/")
+            .append(revision.getName())
+            .append('/')
+            .append(path);
+        break;
+      case RAW:
+        url.append(repositoryName)
+            .append("/+raw/")
             .append(revision.getName())
             .append('/')
             .append(path);

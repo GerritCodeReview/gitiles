@@ -52,6 +52,7 @@ public class ViewFilter extends AbstractHttpFilter {
   private static final String CMD_DIFF = "+diff";
   private static final String CMD_LOG = "+log";
   private static final String CMD_REFS = "+refs";
+  private static final String CMD_RAW = "+raw";
   private static final String CMD_SHOW = "+show";
   private static final String CMD_DOC = "+doc";
 
@@ -177,6 +178,8 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseRefsCommand(repoName, path);
     } else if (command.equals(CMD_SHOW)) {
       return parseShowCommand(req, repoName, path);
+    } else if (command.equals(CMD_RAW)) {
+      return parseRawCommand(req, repoName, path);
     } else if (command.equals(CMD_DOC)) {
       return parseDocCommand(req, repoName, path);
     } else {
@@ -295,6 +298,18 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private GitilesView.Builder parseRefsCommand(String repoName, String path) {
     return GitilesView.refs().setRepositoryName(repoName).setPathPart(path);
+  }
+
+  private GitilesView.Builder parseRawCommand(HttpServletRequest req, String repoName, String path)
+      throws IOException {
+    RevisionParser.Result result = parseRevision(req, path);
+    if (result == null || result.getPath().isEmpty()) {
+      return null;
+    }
+    return GitilesView.raw()
+        .setRepositoryName(repoName)
+        .setRevision(result.getRevision())
+        .setPathPart(result.getPath());
   }
 
   private GitilesView.Builder parseShowCommand(HttpServletRequest req, String repoName, String path)
