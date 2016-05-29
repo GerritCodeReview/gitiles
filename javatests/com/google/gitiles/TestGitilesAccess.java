@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
@@ -85,6 +86,11 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
         config.setStringList(
             "gitiles", null, "allowOriginRegex", ImmutableList.of("http://localhost"));
         return config;
+      }
+
+      @Override
+      public Optional<RawUrls> getRawUrls() {
+        return Optional.empty();
       }
     };
   }
