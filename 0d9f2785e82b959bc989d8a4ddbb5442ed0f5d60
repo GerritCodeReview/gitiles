@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c79bf73_b61a28bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_f1b028eb",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4d5b59_11c68c5e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "places",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 13
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_d60fa47b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_11c68c5e",
       "range": {
         "startLine": 11,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fc730b92_3540d098",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_98d8f53a",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5fb7f9_18f4e592",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "I think we tend to favor // for comments within methods.",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 6
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_76eb30b1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_18f4e592",
       "range": {
         "startLine": 242,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fc730b92_15f4b492",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_78d401fd",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4d5b59_31c3904f",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "t --\u003e",
+      "range": {
+        "startLine": 95,
+        "startChar": 31,
+        "endLine": 95,
+        "endChar": 35
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_f63d801a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_31c3904f",
       "range": {
         "startLine": 95,
         "startChar": 31,
@@ -157,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "fc730b92_35f1b0a3",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_f8e731ed",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5fb7f9_b8ddb929",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
         "patchSetId": 5
@@ -168,6 +330,30 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "LF after /**",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc730b92_55ee2cc2",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_b8ddb929",
       "range": {
         "startLine": 119,
         "startChar": 0,
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "1c79bf73_962e0ce6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_51c01440",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5fb7f9_18cdc572",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
         "patchSetId": 5
@@ -208,6 +412,24 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "Trim leading whitespace.",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_b633084f",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_18cdc572",
       "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -231,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "1c79bf73_1643dca7",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_38ca895b",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4d5b59_71bd18bd",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
         "patchSetId": 5
@@ -242,6 +482,30 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "one space",
+      "range": {
+        "startLine": 150,
+        "startChar": 9,
+        "endLine": 150,
+        "endChar": 13
+      },
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc730b92_75eb28b1",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_71bd18bd",
       "range": {
         "startLine": 150,
         "startChar": 9,
@@ -294,6 +558,24 @@
     },
     {
       "key": {
+        "uuid": "fc730b92_952e04e6",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/DiffDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_98ff1575",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5fb7f9_d8e26de0",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/HostIndex.soy",
         "patchSetId": 5
@@ -305,6 +587,24 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "indent 2 spaces in templates",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc730b92_b533004f",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/HostIndex.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_d8e26de0",
       "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -328,6 +628,24 @@
     },
     {
       "key": {
+        "uuid": "1c79bf73_564d54cf",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_b804d971",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4d5b59_91d8bc3a",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/PathDetail.soy",
         "patchSetId": 5
@@ -339,6 +657,24 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "two space indent",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc730b92_d5387c2d",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/PathDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_91d8bc3a",
       "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -362,6 +698,24 @@
     },
     {
       "key": {
+        "uuid": "1c79bf73_764a50ba",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RefList.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_d8f98d90",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5fb7f9_f8fe5175",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
         "patchSetId": 5
@@ -379,6 +733,24 @@
     },
     {
       "key": {
+        "uuid": "fc730b92_f53d781a",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c5fb7f9_f8fe5175",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c4d5b59_b1ddc029",
         "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RevisionDetail.soy",
         "patchSetId": 5
@@ -390,6 +762,24 @@
       "writtenOn": "2016-05-28T20:17:34Z",
       "side": 1,
       "message": "two space indent",
+      "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_96152c92",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/templates/RevisionDetail.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-05-29T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4d5b59_b1ddc029",
       "revId": "0d9f2785e82b959bc989d8a4ddbb5442ed0f5d60",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
