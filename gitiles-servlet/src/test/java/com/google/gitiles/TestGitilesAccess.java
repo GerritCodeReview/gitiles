@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
@@ -80,6 +81,11 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
       @Override
       public Config getConfig() {
         return new Config();
+      }
+
+      @Override
+      public Optional<RawUrls> getRawUrls() {
+        return Optional.absent();
       }
     };
   }
