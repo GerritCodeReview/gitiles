@@ -14,6 +14,7 @@
 
 package com.google.gitiles;
 
+import com.google.common.base.Optional;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -87,4 +88,9 @@ public interface GitilesAccess {
    * @throws IOException an error occurred reading the configuration.
    */
   Config getConfig() throws IOException;
+
+  /**
+   * @return raw URL support; or {@code Optional.absent()} if disabled.
+   */
+  public Optional<RawUrls> getRawUrls();
 }

@@ -99,7 +99,7 @@ public class PathServlet extends BaseServlet {
     EXECUTABLE_FILE(FileMode.EXECUTABLE_FILE),
     GITLINK(FileMode.GITLINK);
 
-    private final FileMode mode;
+    final FileMode mode;
 
     FileType(FileMode mode) {
       this.mode = mode;
@@ -366,7 +366,7 @@ public class PathServlet extends BaseServlet {
    * <p>Unlike {@link TreeWalk} itself, supports positioning at the root tree. Includes information
    * to help the auto-dive routine as well.
    */
-  private static class WalkResult implements AutoCloseable {
+  static class WalkResult implements AutoCloseable {
     private static WalkResult recursivePath(RevWalk rw, GitilesView view) throws IOException {
       RevTree root = getRoot(view, rw);
       String path = view.getPathPart();
@@ -397,8 +397,7 @@ public class PathServlet extends BaseServlet {
       return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.<Boolean>of());
     }
 
-    private static WalkResult forPath(RevWalk rw, GitilesView view, boolean recursive)
-        throws IOException {
+    static WalkResult forPath(RevWalk rw, GitilesView view, boolean recursive) throws IOException {
       if (recursive) {
         return recursivePath(rw, view);
       }
@@ -432,11 +431,11 @@ public class PathServlet extends BaseServlet {
       return null;
     }
 
-    private final TreeWalk tw;
-    private final String path;
+    final TreeWalk tw;
+    final String path;
     private final RevTree root;
-    private final ObjectId id;
-    private final FileType type;
+    final ObjectId id;
+    final FileType type;
     private final List<Boolean> hasSingleTree;
 
     private WalkResult(
@@ -454,7 +453,7 @@ public class PathServlet extends BaseServlet {
       this.hasSingleTree = hasSingleTree;
     }
 
-    private ObjectReader getObjectReader() {
+    ObjectReader getObjectReader() {
       return tw.getObjectReader();
     }
 

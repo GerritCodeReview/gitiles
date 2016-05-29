@@ -126,7 +126,36 @@ public class GitilesServlet extends MetaServlet {
     getDelegateFilter().setHandler(view, handler);
   }
 
-  public BaseServlet getDefaultHandler(GitilesView.Type view) {
+  public HttpServlet getDefaultHandler(GitilesView.Type view) {
     return getDelegateFilter().getDefaultHandler(view);
+  }
+
+  /**
+   * Root servlet for the raw content domain.
+   * <p>
+   * If a server is supporting raw content serving it should run this servlet on
+   * the raw content domain to parse and respond to {@code /+raw/} requests.
+   */
+  public static class RawContentDomain extends GitilesServlet {
+    private static final long serialVersionUID = 1L;
+
+    public RawContentDomain(Config cfg, @Nullable GitilesAccess.Factory accessFactory) {
+      super(cfg, null, null, accessFactory, null, null, null, null, null);
+      disableViews();
+    }
+
+    public RawContentDomain() {
+      disableViews();
+    }
+
+    private void disableViews() {
+      // TODO(sop) Maybe blanket redirect non /+raw/ views to safe server.
+      // 404 Not Found all views except /+raw/ on the raw content domain.
+      for (GitilesView.Type type : GitilesView.Type.values()) {
+        if (type != GitilesView.Type.RAW) {
+          setHandler(type, BaseServlet.notFoundServlet());
+        }
+      }
+    }
   }
 }
