@@ -32,7 +32,6 @@ import com.google.gitiles.DateFormatter.Format;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.http.server.ServletUtils;
-import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -78,7 +77,6 @@ public class RevisionServlet extends BaseServlet {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
     GitilesAccess access = getAccess(req);
-    Config cfg = getAccess(req).getConfig();
 
     try (RevWalk walk = new RevWalk(repo)) {
       DateFormatter df = new DateFormatter(access, Format.DEFAULT);
@@ -106,7 +104,7 @@ public class RevisionServlet extends BaseServlet {
             case OBJ_TREE:
               Map<String, Object> tree =
                   new TreeSoyData(
-                          walk.getObjectReader(), req.getRequestURI(), view, cfg, (RevTree) obj)
+                          walk.getObjectReader(), req.getRequestURI(), view, access, (RevTree) obj)
                       .toSoyData(obj);
               soyObjects.add(ImmutableMap.of("type", Constants.TYPE_TREE, "data", tree));
               hasReadme = tree.containsKey("readmeHtml");

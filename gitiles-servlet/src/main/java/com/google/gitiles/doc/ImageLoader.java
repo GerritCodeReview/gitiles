@@ -53,44 +53,48 @@ class ImageLoader {
   }
 
   String inline(@Nullable String markdownPath, String imagePath) {
+    String data = maybeInline(markdownPath, imagePath);
+    if (data != null) {
+      return data;
+    }
+    return FilterImageDataUri.INSTANCE.getInnocuousOutput();
+  }
+
+  @Nullable
+  String maybeInline(@Nullable String markdownPath, String imagePath) {
     if (config.imageLimit <= 0) {
-      return innocuousOutput();
+      return null;
     }
 
     String path = PathResolver.resolve(markdownPath, imagePath);
     if (path == null) {
-      return innocuousOutput();
+      return null;
     }
 
     String type = MimeTypes.getMimeType(path);
     if (!ALLOWED.contains(type)) {
-      return innocuousOutput();
+      return null;
     }
 
     try {
       TreeWalk tw = TreeWalk.forPath(reader, path, root);
       if (tw == null || tw.getFileMode(0) != FileMode.REGULAR_FILE) {
-        return innocuousOutput();
+        return null;
       }
 
       ObjectId id = tw.getObjectId(0);
       byte[] raw = reader.open(id, Constants.OBJ_BLOB).getCachedBytes(config.imageLimit);
       if (raw.length > config.imageLimit) {
-        return innocuousOutput();
+        return null;
       }
-
       return "data:" + type + ";base64," + BaseEncoding.base64().encode(raw);
     } catch (LargeObjectException.ExceedsLimit e) {
-      return innocuousOutput();
+      return null;
     } catch (IOException err) {
       String repo = view != null ? view.getRepositoryName() : "<unknown>";
       log.error(
           String.format("cannot read repo %s image %s from %s", repo, path, root.name()), err);
-      return innocuousOutput();
+      return null;
     }
-  }
-
-  private static String innocuousOutput() {
-    return FilterImageDataUri.INSTANCE.getInnocuousOutput();
   }
 }

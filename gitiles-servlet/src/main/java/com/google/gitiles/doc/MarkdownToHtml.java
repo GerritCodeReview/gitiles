@@ -17,8 +17,10 @@ package com.google.gitiles.doc;
 import static com.google.gitiles.doc.MarkdownUtil.getInnerText;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.gitiles.GitilesView;
+import com.google.gitiles.RawUrls;
 import com.google.gitiles.ThreadSafePrettifyParser;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import com.google.template.soy.data.SanitizedContent;
@@ -83,6 +85,7 @@ public class MarkdownToHtml implements Visitor {
     private String requestUri;
     private GitilesView view;
     private MarkdownConfig config;
+    private Optional<RawUrls> rawUrls = Optional.absent();
     private String filePath;
     private ObjectReader reader;
     private RevTree root;
@@ -101,6 +104,11 @@ public class MarkdownToHtml implements Visitor {
 
     public Builder setConfig(@Nullable MarkdownConfig config) {
       this.config = config;
+      return this;
+    }
+
+    public Builder setRawUrls(Optional<RawUrls> rawUrls) {
+      this.rawUrls = rawUrls;
       return this;
     }
 
@@ -129,6 +137,7 @@ public class MarkdownToHtml implements Visitor {
   private final String requestUri;
   private final GitilesView view;
   private final MarkdownConfig config;
+  private final Optional<RawUrls> rawUrls;
   private final String filePath;
   private final ImageLoader imageLoader;
   private boolean outputNamedAnchor = true;
@@ -137,6 +146,7 @@ public class MarkdownToHtml implements Visitor {
     requestUri = b.requestUri;
     view = b.view;
     config = b.config;
+    rawUrls = b.rawUrls;
     filePath = b.filePath;
     imageLoader = newImageLoader(b);
   }
@@ -415,6 +425,23 @@ public class MarkdownToHtml implements Visitor {
   String image(String dest) {
     if (HtmlBuilder.isValidHttpUri(dest) || HtmlBuilder.isImageDataUri(dest)) {
       return dest;
+    } else if (view != null && rawUrls.isPresent()
+        && view.getType() != GitilesView.Type.ROOTED_DOC) {
+      // TODO(sop) support /+raw/ serving with ROOTED_DOC.
+      if (imageLoader != null) {
+        String data = imageLoader.maybeInline(filePath, dest);
+        if (data != null) {
+          return data;
+        }
+      }
+
+      String img = PathResolver.resolve(filePath, dest);
+      if (img == null) {
+        return FilterNormalizeUri.INSTANCE.getInnocuousOutput();
+      }
+      return GitilesView.raw().copyFrom(view)
+          .setRevision(view.getRevision().getId().name())
+          .setPathPart(dest).build().toUrl();
     } else if (imageLoader != null) {
       return imageLoader.inline(filePath, dest);
     }

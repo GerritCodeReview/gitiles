@@ -18,6 +18,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -73,15 +74,17 @@ public class TreeSoyData {
   private final GitilesView view;
   private final String requestUri;
   private final Config cfg;
+  private final Optional<RawUrls> rawUrls;
   private final RevTree rootTree;
   private ArchiveFormat archiveFormat;
 
   public TreeSoyData(
-      ObjectReader reader, String requestUri, GitilesView view, Config cfg, RevTree rootTree) {
+      ObjectReader reader, String requestUri, GitilesView view, GitilesAccess access, RevTree rootTree) throws IOException {
     this.reader = reader;
     this.requestUri = requestUri;
     this.view = view;
-    this.cfg = cfg;
+    this.cfg = access.getConfig();
+    this.rawUrls = access.getRawUrls();
     this.rootTree = rootTree;
   }
 
@@ -93,7 +96,7 @@ public class TreeSoyData {
   public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw)
       throws MissingObjectException, IOException {
     ReadmeHelper readme =
-        new ReadmeHelper(requestUri, view, MarkdownConfig.get(cfg), reader, rootTree);
+        new ReadmeHelper(requestUri, view, MarkdownConfig.get(cfg), rawUrls, reader, rootTree);
     List<Object> entries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
     while (tw.next()) {
