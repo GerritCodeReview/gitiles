@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c79bf73_d686c4ef",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-30T03:28:04Z",
+      "side": 1,
+      "message": "Why is the order of parameters changed?\n\nLeaving the same ordering would reduce (slightly) the diff in other files modified in this change.",
+      "range": {
+        "startLine": 46,
+        "startChar": 56,
+        "endLine": 46,
+        "endChar": 75
+      },
+      "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_b68148db",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-30T03:28:04Z",
+      "side": 1,
+      "message": "nit: Long line. Or is the margin 100 columns for this project?",
+      "range": {
+        "startLine": 46,
+        "startChar": 80,
+        "endLine": 46,
+        "endChar": 96
+      },
+      "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c79bf73_762170e6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-30T03:28:04Z",
+      "side": 1,
+      "message": "nit: Previously the member initialisations were in the same order as the constructor parameters.",
+      "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
