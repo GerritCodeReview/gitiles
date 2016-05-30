@@ -36,7 +36,6 @@ import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.http.server.ServletUtils;
-import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
@@ -459,7 +458,7 @@ public class PathServlet extends BaseServlet {
   private void showTree(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    Config cfg = getAccess(req).getConfig();
+    GitilesAccess access = getAccess(req);
     List<String> autodive = view.getParameters().get(AUTODIVE_PARAM);
     if (autodive.size() != 1 || !NO_AUTODIVE_VALUE.equals(autodive.get(0))) {
       byte[] path = Constants.encode(view.getPathPart());
@@ -494,8 +493,8 @@ public class PathServlet extends BaseServlet {
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
             "type", FileType.TREE.toString(),
             "data",
-                new TreeSoyData(wr.getObjectReader(), view, cfg, wr.root, req.getRequestURI())
-                    .setArchiveFormat(getArchiveFormat(getAccess(req)))
+                new TreeSoyData(wr.getObjectReader(), view, access, wr.root, req.getRequestURI())
+                    .setArchiveFormat(getArchiveFormat(access))
                     .toSoyData(wr.id, wr.tw)));
   }
 
