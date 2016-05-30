@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7c4d5b59_7178b8de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-30T16:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc730b92_b568600b",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "2b473bd87ed42527fd74cb97ce4857b1b09796ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc730b92_d55ddc6f",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/PathResolver.java",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2016-05-30T07:06:03Z",
       "side": 1,
       "message": "Add a test for this method?",
+      "revId": "2b473bd87ed42527fd74cb97ce4857b1b09796ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5fb7f9_d8cc2d4b",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/PathResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-30T16:46:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc730b92_d55ddc6f",
       "revId": "2b473bd87ed42527fd74cb97ce4857b1b09796ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
