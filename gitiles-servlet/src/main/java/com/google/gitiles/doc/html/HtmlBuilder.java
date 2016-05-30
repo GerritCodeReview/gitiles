@@ -166,11 +166,11 @@ public final class HtmlBuilder {
   }
 
   private static String imgSrc(String val) {
-    if (isValidHttpUri(val)) {
-      return URI.escape(val);
-    }
     if (isImageDataUri(val)) {
       return val; // pass through data:image/*;base64,...
+    }
+    if (URI.getValueFilter().matcher(val).find()) {
+      return URI.escape(val);
     }
     return IMAGE_DATA.getInnocuousOutput();
   }

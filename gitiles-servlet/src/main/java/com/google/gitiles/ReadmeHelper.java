@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package com.google.gitiles;
+import com.google.common.base.Optional;
 import com.google.gitiles.doc.GitilesMarkdown;
 import com.google.gitiles.doc.MarkdownConfig;
 import com.google.gitiles.doc.MarkdownToHtml;
@@ -38,6 +39,7 @@ class ReadmeHelper {
   private final ObjectReader reader;
   private final GitilesView view;
   private final MarkdownConfig config;
+  private final Optional<RawUrls> rawUrls;
   private final RevTree rootTree;
   private final String requestUri;
 
@@ -47,12 +49,13 @@ class ReadmeHelper {
   ReadmeHelper(
       ObjectReader reader,
       GitilesView view,
-      MarkdownConfig config,
+      GitilesAccess access,
       RevTree rootTree,
-      String requestUri) {
+      String requestUri) throws IOException {
     this.reader = reader;
     this.view = view;
-    this.config = config;
+    this.config = MarkdownConfig.get(access.getConfig());
+    this.rawUrls = access.getRawUrls();
     this.rootTree = rootTree;
     this.requestUri = requestUri;
   }
@@ -93,6 +96,7 @@ class ReadmeHelper {
       return MarkdownToHtml.builder()
           .setConfig(config)
           .setGitilesView(view)
+          .setRawUrls(rawUrls)
           .setRequestUri(requestUri)
           .setFilePath(readmePath)
           .setReader(reader)
