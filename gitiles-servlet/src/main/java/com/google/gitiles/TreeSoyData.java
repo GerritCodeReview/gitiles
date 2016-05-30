@@ -22,10 +22,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gitiles.PathServlet.FileType;
-import com.google.gitiles.doc.MarkdownConfig;
 
 import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -71,16 +69,16 @@ public class TreeSoyData {
 
   private final ObjectReader reader;
   private final GitilesView view;
-  private final Config cfg;
+  private final GitilesAccess access;
   private final RevTree rootTree;
   private final String requestUri;
   private ArchiveFormat archiveFormat;
 
   public TreeSoyData(
-      ObjectReader reader, GitilesView view, Config cfg, RevTree rootTree, String requestUri) {
+      ObjectReader reader, GitilesView view, GitilesAccess access, RevTree rootTree, String requestUri) {
     this.reader = reader;
     this.view = view;
-    this.cfg = cfg;
+    this.access = access;
     this.rootTree = rootTree;
     this.requestUri = requestUri;
   }
@@ -93,7 +91,7 @@ public class TreeSoyData {
   public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw)
       throws MissingObjectException, IOException {
     ReadmeHelper readme =
-        new ReadmeHelper(reader, view, MarkdownConfig.get(cfg), rootTree, requestUri);
+        new ReadmeHelper(reader, view, access, rootTree, requestUri);
     List<Object> entries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
     while (tw.next()) {

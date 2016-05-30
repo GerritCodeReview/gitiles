@@ -18,7 +18,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.io.BaseEncoding;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.MimeTypes;
-import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
 
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.lib.Constants;
@@ -52,15 +51,8 @@ class ImageLoader {
     this.root = root;
   }
 
-  String inline(@Nullable String markdownPath, String imagePath) {
-    String data = inlineMaybe(markdownPath, imagePath);
-    if (data != null) {
-      return data;
-    }
-    return FilterImageDataUri.INSTANCE.getInnocuousOutput();
-  }
-
-  private String inlineMaybe(@Nullable String markdownPath, String imagePath) {
+  @Nullable
+  String inlineMaybe(@Nullable String markdownPath, String imagePath) {
     if (config.imageLimit <= 0) {
       return null;
     }

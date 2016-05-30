@@ -17,6 +17,7 @@ package com.google.gitiles.doc;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import com.google.template.soy.shared.restricted.Sanitizers;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
+import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
 
 import org.commonmark.node.Heading;
 import org.commonmark.node.Node;
@@ -66,13 +67,13 @@ class Navbar {
     }
 
     String url = fmt.image(logoUrl);
-    if (HtmlBuilder.isValidHttpUri(url)) {
-      return url;
-    } else if (HtmlBuilder.isImageDataUri(url)) {
+    if (HtmlBuilder.isImageDataUri(url)) {
       return Sanitizers.filterImageDataUri(url);
-    } else {
-      return FilterImageDataUri.INSTANCE.getInnocuousOutput();
     }
+    if (FilterNormalizeUri.INSTANCE.getValueFilter().matcher(url).find()) {
+      return Sanitizers.filterNormalizeUri(url);
+    }
+    return FilterImageDataUri.INSTANCE.getInnocuousOutput();
   }
 
   private void parse(String markdown) {
