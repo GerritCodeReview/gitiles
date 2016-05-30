@@ -72,6 +72,54 @@
     },
     {
       "key": {
+        "uuid": "7c4d5b59_11712cfc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-30T16:38:25Z",
+      "side": 1,
+      "message": "Restored the ordering of parameters here.",
+      "parentUuid": "1c79bf73_d686c4ef",
+      "range": {
+        "startLine": 46,
+        "startChar": 56,
+        "endLine": 46,
+        "endChar": 75
+      },
+      "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5fb7f9_784fa1b0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-30T16:38:25Z",
+      "side": 1,
+      "message": "Yes, gitiles uses 100 column line length, and the google-java-formatter for machine managed source code formatting.",
+      "parentUuid": "1c79bf73_b620689a",
+      "range": {
+        "startLine": 46,
+        "startChar": 80,
+        "endLine": 46,
+        "endChar": 96
+      },
+      "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c79bf73_762170e6",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
         "patchSetId": 1
@@ -83,6 +131,24 @@
       "writtenOn": "2016-05-30T03:28:04Z",
       "side": 1,
       "message": "nit: Previously the member initialisations were in the same order as the constructor parameters.",
+      "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5fb7f9_98c2b515",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ReadmeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-30T16:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c79bf73_762170e6",
       "revId": "b02b6ead805500e1f52e0af6b0cc22272eda0cc4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
