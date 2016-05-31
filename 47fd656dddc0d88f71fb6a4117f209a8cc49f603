@@ -109,6 +109,30 @@
       "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b900c5f0_fb9dcf6c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/PathResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1027122
+      },
+      "writtenOn": "2016-05-31T13:42:33Z",
+      "side": 1,
+      "message": "ahh, sorry :) I haven\u0027t noticed.",
+      "parentUuid": "f9f6bd4a_7d8ad727",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
