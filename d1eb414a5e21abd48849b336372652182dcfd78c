@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "99e86167_c2a7c2b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-31T13:39:27Z",
+      "side": 1,
+      "message": "I would be a little more explicit here: Gitiles is often used to host user-provided content in Git repositories, including code that has yet to be reviewed in Gerrit Code Review. Such content from arbitrary users on the internet cannot be trusted.",
+      "range": {
+        "startLine": 11,
+        "startChar": 50,
+        "endLine": 12,
+        "endChar": 23
+      },
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc730b92_b51a20bf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -82,6 +105,40 @@
       "writtenOn": "2016-05-30T01:51:29Z",
       "side": 1,
       "message": "Add a reference to issue 7.",
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e86167_82b3faf8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-31T13:39:27Z",
+      "side": 1,
+      "message": "I don\u0027t understand the relevance of this comment in this context.",
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e86167_a2a4beb0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-31T13:39:27Z",
+      "side": 1,
+      "message": "Cache this in an instance field?",
       "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
