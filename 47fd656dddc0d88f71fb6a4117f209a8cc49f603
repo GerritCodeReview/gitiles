@@ -85,6 +85,30 @@
       "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f6bd4a_7d8ad727",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/PathResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-31T13:37:33Z",
+      "side": 1,
+      "message": "This is a common pattern in Java to indicate this class only exists to contain static helper methods, and should never be instantiated.",
+      "parentUuid": "1c79bf73_36f298f0",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
