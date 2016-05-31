@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "59f26956_009ec668",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc730b92_95152492",
+      "range": {
+        "startLine": 9,
+        "startChar": 54,
+        "endLine": 9,
+        "endChar": 57
+      },
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99e86167_c2a7c2b4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2016-05-31T13:39:27Z",
       "side": 1,
       "message": "I would be a little more explicit here: Gitiles is often used to host user-provided content in Git repositories, including code that has yet to be reviewed in Gerrit Code Review. Such content from arbitrary users on the internet cannot be trusted.",
+      "range": {
+        "startLine": 11,
+        "startChar": 50,
+        "endLine": 12,
+        "endChar": 23
+      },
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b900c5f0_fbc6ef5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e86167_c2a7c2b4",
       "range": {
         "startLine": 11,
         "startChar": 50,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "59f26956_e09ac272",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc730b92_b51a20bf",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc730b92_d50f9c7b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -105,6 +177,24 @@
       "writtenOn": "2016-05-30T01:51:29Z",
       "side": 1,
       "message": "Add a reference to issue 7.",
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e86167_02c7ea5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc730b92_d50f9c7b",
       "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -128,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "d90579ff_3ce211e2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Dropped.",
+      "parentUuid": "99e86167_82b3faf8",
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99e86167_a2a4beb0",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
         "patchSetId": 2
@@ -139,6 +247,24 @@
       "writtenOn": "2016-05-31T13:39:27Z",
       "side": 1,
       "message": "Cache this in an instance field?",
+      "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d90579ff_1ce755f2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e86167_a2a4beb0",
       "revId": "d1eb414a5e21abd48849b336372652182dcfd78c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
