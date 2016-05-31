@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d90579ff_5cb83dd2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/ImageLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T14:35:20Z",
+      "side": 1,
+      "message": "Within Gitiles the class is only used by the doc package. Did you need it from another application that is embedding Gitiles?",
+      "parentUuid": "79ebad63_a1dcbef5",
+      "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ebad63_81ebfa85",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownConfig.java",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f9f6bd4a_fd9dc76c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T14:35:20Z",
+      "side": 1,
+      "message": "No, these are accessed within the doc package so they cannot be private. Default access lets them be used elsewhere in doc. I was too lazy to write getters for just 2 call sites that need the value.",
+      "parentUuid": "79ebad63_81ebfa85",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c79bf73_16f59cd7",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownConfig.java",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2016-05-31T09:55:15Z",
       "side": 1,
       "message": "magic number?",
+      "range": {
+        "startLine": 50,
+        "startChar": 54,
+        "endLine": 50,
+        "endChar": 61
+      },
+      "revId": "47fd656dddc0d88f71fb6a4117f209a8cc49f603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d90579ff_3cad7190",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T14:35:20Z",
+      "side": 1,
+      "message": "Yes, but its common pattern to do this in a JGit SectionParser. Pass the default value exactly once in the getter method when initializing the final field that carries the configured value.\n\nWe only declare these as constants if they are needed in another location. IMAGE_LIMIT for example has this problem; I needed it in at least one other location so it became a constant.",
+      "parentUuid": "1c79bf73_16f59cd7",
       "range": {
         "startLine": 50,
         "startChar": 54,
