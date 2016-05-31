@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d90579ff_9cbda5bf",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Can\u0027t. Hilariously the public version of Guava has decodeChecked() as package visible only. The exception it throws is public, but no public method throws it.",
+      "parentUuid": "f9f6bd4a_1d999380",
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d90579ff_1c999580",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HmacUrlSigner.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2016-05-31T14:01:36Z",
       "side": 1,
       "message": "Is it worth doing a sanity check on permissions of this key?",
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f6bd4a_dd9a0b73",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HmacUrlSigner.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Ok, done.",
+      "parentUuid": "d90579ff_1c999580",
       "revId": "dc487eb9ae61491d8562b23600363b1984506553",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "d90579ff_5cdddd25",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Ack, but can\u0027t use that here. git ls-tree uses %06o to write the mode with a leading zero even if that is not what is used in the tree:\n\n $ git ls-tree HEAD\n 100644 blob 7ab2a749e704fe9aa168f1dd279be49b7e2fe491\t.buckconfig\n 120000 blob 6203e53fa9c26580a67bb69268407289dcd8a999\t.buckversion\n 100644 blob 8b1fe5388c704a5a6f22475d027c6abf3e2bcfb1\t.gitignore\n 100644 blob f5537dff995b6b21101b1729547ea88b53918052\t.gitmodules\n 040000 tree 55314201cca6f0112588f8ed71718c04539e9786\t.settings\n\nThe JGit helper you are thinking of in FileMode does not create the leading 0 mode. And it annoyingly produces a byte[] for raw tree formatting, not a char[]/String for Writer output. So its just easier to use the String.format approach here.",
+      "parentUuid": "d90579ff_fc9dc96c",
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d90579ff_dc9a0d73",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 5
@@ -87,6 +141,24 @@
       "writtenOn": "2016-05-31T14:01:36Z",
       "side": 1,
       "message": "Nit: raw \u003c refs",
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d90579ff_7cd89937",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T15:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d90579ff_dc9a0d73",
       "revId": "dc487eb9ae61491d8562b23600363b1984506553",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
