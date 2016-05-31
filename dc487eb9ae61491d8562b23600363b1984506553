@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "99114145_ba4bd1bb",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HmacUrlSigner.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-05-31T21:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f6bd4a_dd9a0b73",
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d90579ff_3c94514a",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HmacUrlSigner.java",
         "patchSetId": 5
