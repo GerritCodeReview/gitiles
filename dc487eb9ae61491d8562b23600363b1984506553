@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "192ab17a_ee417f9f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/HmacUrlSigner.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-31T20:02:31Z",
+      "side": 1,
+      "message": "Ping",
+      "parentUuid": "d90579ff_3c94514a",
+      "range": {
+        "startLine": 118,
+        "startChar": 45,
+        "endLine": 118,
+        "endChar": 50
+      },
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d90579ff_fc9dc96c",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
         "patchSetId": 5
