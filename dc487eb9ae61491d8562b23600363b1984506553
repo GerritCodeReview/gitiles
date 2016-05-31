@@ -130,6 +130,24 @@
     },
     {
       "key": {
+        "uuid": "19fc712a_7ed89137",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/RawContentServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-05-31T15:19:08Z",
+      "side": 1,
+      "message": "No I was thinking of LsTree.java which explicitly adds the leading \u00270\u0027 when necessary.",
+      "parentUuid": "d90579ff_5cdddd25",
+      "revId": "dc487eb9ae61491d8562b23600363b1984506553",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d90579ff_dc9a0d73",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 5
