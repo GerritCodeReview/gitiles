@@ -61,6 +61,7 @@ import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.revwalk.RevTree;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -121,6 +122,13 @@ public class MarkdownToHtml implements Visitor {
       return new MarkdownToHtml(this);
     }
   }
+
+  private static final Pattern GIT_URI = Pattern.compile(
+      "^" +
+      // Reject paths containing /../ or ending in /..
+      "(?![^#?]*/(?:\\.|%2E){2}(?:[/?#]|\\z))" +
+      // Accept git://host/path
+      "git://[^/]+/.+", Pattern.CASE_INSENSITIVE);
 
   private final HtmlBuilder html = new HtmlBuilder();
   private final TocFormatter toc = new TocFormatter(html, 3);
@@ -364,6 +372,11 @@ public class MarkdownToHtml implements Visitor {
   String href(String target) {
     if (target.startsWith("#") || HtmlBuilder.isValidHttpUri(target)) {
       return target;
+    } else if (target.startsWith("git:")) {
+      if (GIT_URI.matcher(target).find()) {
+        return target;
+      }
+      return FilterNormalizeUri.INSTANCE.getInnocuousOutput();
     }
 
     String anchor = "";
