@@ -132,4 +132,12 @@ public class DocServletTest extends ServletTest {
     String html = buildHtml("/repo/+doc/master/README.md");
     assertThat(html).contains("<a href=\"/b/repo/+/master/x\">c</a>");
   }
+
+  @Test
+  public void gitUrlLink() throws Exception {
+    repo.branch("master").commit().add("README.md", "[c](git://example.com/repo.git)").create();
+
+    String html = buildHtml("/repo/+doc/master/README.md");
+    assertThat(html).contains("<a href=\"git://example.com/repo.git\">c</a>");
+  }
 }
