@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63dcdcfd_3097c84e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/html/HtmlBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-06-06T15:52:42Z",
+      "side": 1,
+      "message": "Yes. This is the preferred layout from google-java-format.",
+      "parentUuid": "a38414cd_62b1f6ed",
+      "range": {
+        "startLine": 91,
+        "startChar": 10,
+        "endLine": 91,
+        "endChar": 14
+      },
+      "revId": "b536f48117f84a357e8c43883e968727a63567cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a38414cd_22abee7f",
         "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/LinkTest.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2016-06-06T05:36:59Z",
       "side": 1,
       "message": "Add a test that paths containing /../ or ending in /.. are ignored?",
+      "revId": "b536f48117f84a357e8c43883e968727a63567cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43dfd8f2_6f8d713e",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/LinkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-06-06T15:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a38414cd_22abee7f",
       "revId": "b536f48117f84a357e8c43883e968727a63567cf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
