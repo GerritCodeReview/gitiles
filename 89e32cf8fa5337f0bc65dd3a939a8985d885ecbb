@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4732992_d5a87c8e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-15T14:14:11Z",
+      "side": 1,
+      "message": "This is a slight behavior change. \"new Paginator\" can throw an IncorrectObjectTypeException that previously would have been thrown from this method but now this catch block and returns null.\n\nIn the case of newWalk, IOTE is a well understood case: it means view.getRevision() returns an ID that is not a commit. This is why you get a 404 when trying to log a non-commit object[1]. Maybe not the best error handling, but at least semi-intentional.\n\nIn the case of new Paginator, it can actually do a potentially large amount of work in the constructor, e.g. rename detection, while it looks for the first commit. An IOTE in this case may indicate more serious repository corruption and throwing is the right thing IMO.\n\nI think the fix is to catch IOTE and return null from the body of newWalk, then short-circuit in the top of this try block if newWalk \u003d\u003d null. Then have no catch at all in this try.\n\n[1] https://gerrit.googlesource.com/gitiles/+/49cc34293b87806bd9afdfe50cc5cfc2e12f9d05",
+      "range": {
+        "startLine": 302,
+        "startChar": 15,
+        "endLine": 302,
+        "endChar": 43
+      },
+      "revId": "89e32cf8fa5337f0bc65dd3a939a8985d885ecbb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4732992_b5b30004",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-15T14:14:11Z",
+      "side": 1,
+      "message": "Indentation.",
+      "revId": "89e32cf8fa5337f0bc65dd3a939a8985d885ecbb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
