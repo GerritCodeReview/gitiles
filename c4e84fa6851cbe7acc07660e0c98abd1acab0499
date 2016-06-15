@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "749bb98d_c12bc2df",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesUrls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-15T14:22:46Z",
+      "side": 1,
+      "message": "TIL interface fields are automatically final.\n\nAre they automatically public too? In particular we use this constant from our custom GitilesAccess implementation, so we need it to be public.",
+      "revId": "c4e84fa6851cbe7acc07660e0c98abd1acab0499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
