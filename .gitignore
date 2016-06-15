@@ -7,3 +7,4 @@
 /.buckd
 /.idea
 *.iml
+/.apt_generated/
