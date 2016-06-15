@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7412d9d9_296eed14",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-06-15T14:00:30Z",
+      "side": 1,
+      "message": "missing return?",
+      "revId": "a4fd1ff7a281715869074c78cf053afe44798dc2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
