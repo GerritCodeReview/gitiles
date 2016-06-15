@@ -174,6 +174,18 @@ public class GitilesView {
           this.repositoryPrefix =
               prefix != null ? Strings.emptyToNull(maybeTrimLeadingAndTrailingSlash(prefix)) : null;
           return this;
+        case ARCHIVE:
+        case BLAME:
+        case DESCRIBE:
+        case DIFF:
+        case DOC:
+        case LOG:
+        case PATH:
+        case REFS:
+        case REPOSITORY_INDEX:
+        case REVISION:
+        case ROOTED_DOC:
+        case SHOW:
         default:
           throw new IllegalStateException(
               String.format("cannot set repository prefix on %s view", type));
@@ -181,14 +193,12 @@ public class GitilesView {
     }
 
     public Builder setRepositoryName(String repositoryName) {
-      switch (type) {
-        case HOST_INDEX:
-          throw new IllegalStateException(
-              String.format("cannot set repository name on %s view", type));
-        default:
-          this.repositoryName = checkNotNull(repositoryName);
-          return this;
+      if (type == Type.HOST_INDEX) {
+        throw new IllegalStateException(
+            String.format("cannot set repository name on %s view", type));
       }
+      this.repositoryName = checkNotNull(repositoryName);
+      return this;
     }
 
     public String getRepositoryName() {
@@ -202,6 +212,15 @@ public class GitilesView {
         case REFS:
         case DESCRIBE:
           throw new IllegalStateException(String.format("cannot set revision on %s view", type));
+        case ARCHIVE:
+        case BLAME:
+        case DIFF:
+        case DOC:
+        case LOG:
+        case PATH:
+        case REVISION:
+        case ROOTED_DOC:
+        case SHOW:
         default:
           this.revision = checkNotNull(revision);
           return this;
@@ -229,6 +248,17 @@ public class GitilesView {
         case DIFF:
         case LOG:
           break;
+        case ARCHIVE:
+        case BLAME:
+        case DESCRIBE:
+        case DOC:
+        case HOST_INDEX:
+        case PATH:
+        case REFS:
+        case REPOSITORY_INDEX:
+        case REVISION:
+        case ROOTED_DOC:
+        case SHOW:
         default:
           revision = firstNonNull(revision, Revision.NULL);
           checkState(revision == Revision.NULL, "cannot set old revision on %s view", type);
@@ -265,6 +295,9 @@ public class GitilesView {
         case DOC:
         case ROOTED_DOC:
           break;
+        case HOST_INDEX:
+        case REPOSITORY_INDEX:
+        case REVISION:
         default:
           checkState(path == null, "cannot set path on %s view", type);
           break;
@@ -278,14 +311,10 @@ public class GitilesView {
     }
 
     public Builder setExtension(String extension) {
-      switch (type) {
-        default:
-          checkState(extension == null, "cannot set extension on %s view", type);
-          //$FALL-THROUGH$
-        case ARCHIVE:
-          this.extension = extension;
-          break;
+      if (type != Type.ARCHIVE) {
+        checkState(extension == null, "cannot set extension on %s view", type);
       }
+      this.extension = extension;
       return this;
     }
 
@@ -573,6 +602,17 @@ public class GitilesView {
           // For types that require two revisions, NULL indicates the empty
           // tree/commit.
           return revision.getName() + "^!";
+        case ARCHIVE:
+        case BLAME:
+        case DESCRIBE:
+        case DOC:
+        case HOST_INDEX:
+        case PATH:
+        case REFS:
+        case REPOSITORY_INDEX:
+        case REVISION:
+        case ROOTED_DOC:
+        case SHOW:
         default:
           // For everything else NULL indicates it is not a range, just a single
           // revision.
@@ -842,6 +882,16 @@ public class GitilesView {
       case BLAME:
         copy = isLeaf ? blame() : path();
         break;
+      case ARCHIVE:
+      case DESCRIBE:
+      case DOC:
+      case HOST_INDEX:
+      case PATH:
+      case REFS:
+      case REPOSITORY_INDEX:
+      case REVISION:
+      case ROOTED_DOC:
+      case SHOW:
       default:
         copy = path();
         break;

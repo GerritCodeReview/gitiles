@@ -107,6 +107,17 @@ public class TreeSoyData {
           // Got here from a tag pointing at a tree.
           urlBuilder.setPathPart(name);
           break;
+        case ARCHIVE:
+        case BLAME:
+        case DESCRIBE:
+        case DIFF:
+        case DOC:
+        case HOST_INDEX:
+        case LOG:
+        case REFS:
+        case REPOSITORY_INDEX:
+        case ROOTED_DOC:
+        case SHOW:
         default:
           throw new IllegalStateException(
               String.format("Cannot render TreeSoyData from %s view", view.getType()));
