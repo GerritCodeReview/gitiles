@@ -34,6 +34,24 @@
       "revId": "041b92a91c371d292974bb79d7b34d7acff2d4cd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "749bb98d_e1012667",
+        "filename": ".settings/org.eclipse.jdt.core.prefs",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-15T14:06:20Z",
+      "side": 1,
+      "message": "I also wonder how much of these formatter options we need, considering the real standard is google-java-format. But considering that we have some, I\u0027m fine with the principle of keeping it in sync with Gerrit (other than line length).\n\nEclipse support in google-java-format is a work in progress: https://github.com/google/google-java-format/issues/49",
+      "parentUuid": "f4732992_75a168ab",
+      "revId": "041b92a91c371d292974bb79d7b34d7acff2d4cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
