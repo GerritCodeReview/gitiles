@@ -288,25 +288,20 @@ public class LogServlet extends BaseServlet {
       return null;
     }
 
-    RevWalk walk = null;
-    try {
-      walk = newWalk(repo, view, access);
-    } catch (IncorrectObjectTypeException e) {
-      return null;
-    }
-
-    Optional<ObjectId> start;
-    try {
-      start = getStart(view.getParameters(), walk.getObjectReader());
-    } catch (IOException e) {
-      walk.close();
-      throw e;
-    }
-    if (start == null) {
-      return null;
-    }
-
-    return new Paginator(walk, getLimit(view), start.orNull());
+    try (RevWalk walk = newWalk(repo, view, access)) {
+      Optional<ObjectId> start;
+      try {
+        start = getStart(view.getParameters(), walk.getObjectReader());
+      } catch (IOException e) {
+        throw e;
+      }
+      if (start == null) {
+        return null;
+      }
+      return new Paginator(walk, getLimit(view), start.orNull());
+      } catch (IncorrectObjectTypeException e) {
+        return null;
+      }
   }
 
   private static int getLimit(GitilesView view) {
