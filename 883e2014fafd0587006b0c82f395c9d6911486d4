@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89e81467_e2952646",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-16T13:08:59Z",
+      "side": 1,
+      "message": "Unnecessary, walk is managed by the outer try-with-resources.",
+      "revId": "883e2014fafd0587006b0c82f395c9d6911486d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
