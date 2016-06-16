@@ -22,6 +22,24 @@
       "revId": "d8045472fe0d7af2055e03a15f0a0d50ff0b4c46",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89e81467_42e172d8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-16T13:42:23Z",
+      "side": 1,
+      "message": "Yes, sadly, getStart can return present, absent, or null.",
+      "parentUuid": "b41b715a_c3dd161b",
+      "revId": "d8045472fe0d7af2055e03a15f0a0d50ff0b4c46",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
