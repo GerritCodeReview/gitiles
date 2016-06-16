@@ -39,6 +39,30 @@
       "revId": "89e32cf8fa5337f0bc65dd3a939a8985d885ecbb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9433cdd6_0a1f3bb1",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-06-16T01:17:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4732992_d5a87c8e",
+      "range": {
+        "startLine": 302,
+        "startChar": 15,
+        "endLine": 302,
+        "endChar": 43
+      },
+      "revId": "89e32cf8fa5337f0bc65dd3a939a8985d885ecbb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
