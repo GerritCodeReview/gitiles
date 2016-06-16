@@ -16,6 +16,24 @@
       "revId": "c4e84fa6851cbe7acc07660e0c98abd1acab0499",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9433cdd6_6a3d1720",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesUrls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-06-16T00:35:28Z",
+      "side": 1,
+      "message": "According to [1] they are public static final.\n\n[1] http://stackoverflow.com/a/9446909",
+      "parentUuid": "749bb98d_c12bc2df",
+      "revId": "c4e84fa6851cbe7acc07660e0c98abd1acab0499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
