@@ -70,6 +70,24 @@
       "revId": "041b92a91c371d292974bb79d7b34d7acff2d4cd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89e81467_02992a82",
+        "filename": ".settings/org.eclipse.jdt.core.prefs",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-06-16T13:02:25Z",
+      "side": 1,
+      "message": "Yeah, leaving this alone SGTM.",
+      "parentUuid": "542dd575_68cfe35b",
+      "revId": "041b92a91c371d292974bb79d7b34d7acff2d4cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
