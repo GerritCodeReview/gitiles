@@ -111,9 +111,9 @@ public class BlobSoyData {
           "out-of-order ParseResult, expected %s >= %s",
           r.getOffset(),
           last);
-      line = writeResult(lines, null, content, last, r.getOffset());
+      writeResult(lines, null, content, last, r.getOffset());
       last = r.getOffset() + r.getLength();
-      line = writeResult(lines, r.getStyleKeysString(), content, r.getOffset(), last);
+      writeResult(lines, r.getStyleKeysString(), content, r.getOffset(), last);
     }
     if (last < content.length()) {
       writeResult(lines, null, content, last, content.length());
