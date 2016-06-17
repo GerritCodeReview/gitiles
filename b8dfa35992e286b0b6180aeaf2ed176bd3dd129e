@@ -33,6 +33,24 @@
       "revId": "b8dfa35992e286b0b6180aeaf2ed176bd3dd129e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e967d02f_b5bf20c3",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/GitilesHtmlExtension.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-06-17T15:32:06Z",
+      "side": 1,
+      "message": "This getNext() can just be dropped. Its old code.\n\nI reread the logic surrounding and I think the method still does what we expect. When the method gets here we have two nodes:\n\n  curr \u003d HtmlInline{\u003ca name\u003d\"id\"\u003e}\n  next \u003d HtmlInline{\u003c/a\u003e}\n\nand both are linked into a parent using a linked list:\n\n  parent\n    |\n    curr - next\n\nWe unlink next, throwing away the \u003c/a\u003e node. Then we insert a new node giving us:\n\n  parent\n    |\n    curr - anchor\n\nand then we unlink curr, leaving us:\n\n  parent\n    |\n    anchor\n\nWhich is the transformation we want.",
+      "parentUuid": "e967d02f_d59f3c63",
+      "revId": "b8dfa35992e286b0b6180aeaf2ed176bd3dd129e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
