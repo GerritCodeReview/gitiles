@@ -45,6 +45,8 @@ public class ConfigUtil {
    */
   public static Duration getDuration(
       Config config, String section, String subsection, String name, Duration defaultValue) {
+    // TODO(jrn@google.com): use {@link Config#getTimeUnit} once it supports
+    // fractional values.
     String valStr = config.getString(section, subsection, name);
     if (valStr == null) {
       return defaultValue;
@@ -79,7 +81,7 @@ public class ConfigUtil {
     if (valStr.isEmpty()) {
       return null;
     }
-    Matcher m = matcher("^([1-9][0-9]*(?:\\.[0-9]*)?)\\s*(.*)$", valStr);
+    Matcher m = matcher("^([0-9][0-9]*(?:\\.[0-9]*)?)\\s*(.*)$", valStr);
     if (!m.matches()) {
       return null;
     }
