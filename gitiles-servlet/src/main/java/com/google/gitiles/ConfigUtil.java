@@ -79,7 +79,7 @@ public class ConfigUtil {
     if (valStr.isEmpty()) {
       return null;
     }
-    Matcher m = matcher("^([1-9][0-9]*(?:\\.[0-9]*)?)\\s*(.*)$", valStr);
+    Matcher m = matcher("^([0-9][0-9]*(?:\\.[0-9]*)?)\\s*(.*)$", valStr);
     if (!m.matches()) {
       return null;
     }
