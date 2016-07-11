@@ -16,6 +16,24 @@
       "revId": "390888b7f0f2bc5b6e7b2f724ae7926d92e4b5c3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa43187f_dee2c5a5",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2016-07-11T17:51:03Z",
+      "side": 0,
+      "message": "ah whoops. editor did that automatically based on support of the prefix in modern browsers.",
+      "parentUuid": "7a300813_625e7661",
+      "revId": "390888b7f0f2bc5b6e7b2f724ae7926d92e4b5c3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
