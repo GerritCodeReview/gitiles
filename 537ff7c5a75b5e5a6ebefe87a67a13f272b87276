@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88bc9b98_4a1df3cd",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-19T10:27:51Z",
+      "side": 1,
+      "message": "I wonder if it can be configured to not add this prefix.\n\nBefore it would render to a link within the same page, but now it\u0027s an external link that for me results in:\n\n This site can’t be reached\n \n The webpage at chrome://invalid/#zSoyz might be temporarily down or\n it may have moved permanently to a new web address.\n \n ERR_INVALID_URL\n\n(Chrome on OSX)",
+      "range": {
+        "startLine": 149,
+        "startChar": 41,
+        "endLine": 149,
+        "endChar": 54
+      },
+      "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
