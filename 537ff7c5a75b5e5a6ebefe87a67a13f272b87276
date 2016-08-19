@@ -46,6 +46,24 @@
       "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b5cdb04_d82d0da9",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-08-19T15:25:04Z",
+      "side": 1,
+      "message": "[2] has a reference to additional justification that\u0027s been stripped out when the commit was published externally. Here\u0027s what it says:\n\nA string to use when [Soy deems] input unsafe. The string is not a substring of any keyword or well-known identifier in HTML, JS, or CSS and cannot terminate a string, comment, or other bracketed section. Additionally, the string should not result in a browser issuing a network request when used as the value of an attribute such as href or src.\n\nabout:invalid, used in the string. is registered in http://www.w3.org/TR/css3-values/#about-invalid. http://tools.ietf.org/html/rfc6694#section-2.1 permits about URLs to contain a fragment, which is not to be considered when determining if an about URL is well-known.\n\nUsing about:invalid seems preferable to using a fixed data URL, since browsers might choose to not report CSP violations on it, as legitimate CSS function calls to attr() can result in this URL being produced. It also a now standard URL which matches exactly the semantics we need: \"The about:invalid URI references a non-existent document with a generic error condition. It can be used when a URI is necessary, but the default value shouldn\u0027t be resolveable as any type of document\".",
+      "parentUuid": "88bc9b98_6a22370d",
+      "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
