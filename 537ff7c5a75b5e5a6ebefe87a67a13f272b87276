@@ -64,6 +64,24 @@
       "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "483d43bc_307928f5",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-19T16:35:07Z",
+      "side": 1,
+      "message": "Thanks.  Seems a bit odd that such valuable information was stripped out.\n\nDoes \"MOE\" just blanket strip out everything, to be sure of not exposing any non-public details?",
+      "parentUuid": "3b5cdb04_d82d0da9",
+      "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
