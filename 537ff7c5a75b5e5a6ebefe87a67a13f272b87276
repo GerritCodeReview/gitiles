@@ -82,6 +82,24 @@
       "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b5cdb04_b8113966",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-08-19T16:38:07Z",
+      "side": 1,
+      "message": "No, the stripping is fairly configurable (I wrote some of it), and it was correct in this case.\n\nIn \"See [] for further rationale\" the text between [] was a URL to our internal source browser, containing the text I pasted above as a comment in non-open-source code.\n\nThe text itself, as you can see, is perfectly reasonable to share with the world, they just didn\u0027t.",
+      "parentUuid": "483d43bc_307928f5",
+      "revId": "537ff7c5a75b5e5a6ebefe87a67a13f272b87276",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
