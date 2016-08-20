@@ -71,6 +71,30 @@
       "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c80213f7_7c1d39ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-08-20T02:04:43Z",
+      "side": 1,
+      "message": "\u003e This is with Chrome fullscreen on a 15\" Macbook Pro with Retina display.\n\nI feel you, since I have a non-Retina 11\" MBA. I tend to just scroll all the way right immediately to see the RHS and only scroll left if I really need to. Still less than ideal.",
+      "parentUuid": "683cc7c0_117e2cdd",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
