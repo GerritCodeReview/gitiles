@@ -95,6 +95,30 @@
       "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "683cc7c0_d15f8479",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-20T02:16:59Z",
+      "side": 1,
+      "message": "\u003e I have a non-Retina 11\" MBA\n\nYeah, I was going to ask how you were coping with that, but forgot.\n\nZooming out helps, but there\u0027s a limit to how long that works without causing eye strain.",
+      "parentUuid": "c80213f7_7c1d39ce",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
