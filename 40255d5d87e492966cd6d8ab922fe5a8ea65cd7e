@@ -47,6 +47,30 @@
       "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "683cc7c0_117e2cdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-20T01:47:11Z",
+      "side": 1,
+      "message": "\u003e The rest of Gitiles was already 100 chars.\n\u003e Do you not have your column limit set to 100?\n\nI have my column limit set to 80 because that\u0027s the limit on the majority of projects here.  AFAIK gitiles is the only exception.\n\n\u003e What\u0027s ugly? \n\nThat it doesn\u0027t fit on the screen and I have to horizontal-scroll to see the ends of the lines.  This is with Chrome fullscreen on a 15\" Macbook Pro with Retina display.\n\nhttp://imgur.com/a/Gl5tS\n\n\u003e I agree that it\u0027s unfortunate how it\u0027s a per-site rather than per-project preference.\n\nIt would be nice to have a per-project column limit,  but I\u0027d still have to scroll to see it :(",
+      "parentUuid": "c8a5b383_8411a6ad",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
