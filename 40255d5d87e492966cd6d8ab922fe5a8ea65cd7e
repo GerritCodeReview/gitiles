@@ -23,6 +23,30 @@
       "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8a5b383_8411a6ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-08-20T01:14:33Z",
+      "side": 1,
+      "message": "The rest of Gitiles was already 100 chars.\n\nWhat\u0027s ugly? Do you not have your column limit set to 100? I agree that it\u0027s unfortunate how it\u0027s a per-site rather than per-project preference.",
+      "parentUuid": "683cc7c0_910e9c8d",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "40255d5d87e492966cd6d8ab922fe5a8ea65cd7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
