@@ -61,6 +61,7 @@ public class ServletTest {
   protected FakeHttpServletResponse buildResponse(
       String path, String queryString, int expectedStatus) throws Exception {
     FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
+    req.setHeader(HttpHeaders.ORIGIN, "http://localhost");
     req.setPathInfo(path);
     if (queryString != null) {
       req.setQueryString(queryString);

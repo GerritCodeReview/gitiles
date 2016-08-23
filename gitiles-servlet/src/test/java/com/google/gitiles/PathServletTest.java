@@ -18,6 +18,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.io.BaseEncoding;
+import com.google.common.net.HttpHeaders;
 import com.google.gitiles.TreeJsonData.Tree;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
@@ -329,6 +330,14 @@ public class PathServletTest extends ServletTest {
     assertThat(tree.entries.get(0).type).isEqualTo("blob");
     assertThat(tree.entries.get(0).id).isEqualTo(repo.get(c.getTree(), "foo/bar").name());
     assertThat(tree.entries.get(0).name).isEqualTo("bar");
+  }
+
+  @Test
+  public void allowOrigin() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+    FakeHttpServletResponse res = buildText("/repo/+/master/foo");
+    assertThat(res.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN))
+        .isEqualTo("http://localhost");
   }
 
   private Map<String, ?> getBlobData(Map<String, ?> data) {
