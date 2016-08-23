@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "483b835a_20e04abd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-08-23T21:56:15Z",
+      "side": 1,
+      "message": "gitiles.config. HostMeta makes no sense in the context of Gitiles open source project.",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "1d75d67f02a1b4b27b1415446c8c0e1dddb9ef3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "483b835a_e01ca2d4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-08-23T21:56:15Z",
+      "side": 1,
+      "message": "skipNulls is probably unnecessary; JGit doesn\u0027t ever include null as a value in the String[] it returns from getStringList().",
+      "range": {
+        "startLine": 359,
+        "startChar": 65,
+        "endLine": 359,
+        "endChar": 77
+      },
+      "revId": "1d75d67f02a1b4b27b1415446c8c0e1dddb9ef3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08498b01_9eebbda7",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-08-23T21:56:15Z",
+      "side": 1,
+      "message": "Strings.isNullOrEmpty(origin)",
+      "range": {
+        "startLine": 361,
+        "startChar": 12,
+        "endLine": 361,
+        "endChar": 46
+      },
+      "revId": "1d75d67f02a1b4b27b1415446c8c0e1dddb9ef3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08498b01_fef6818c",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-08-23T21:56:15Z",
+      "side": 1,
+      "message": "} else {\n\nProject style is to cuddle else on the same line as the closing }",
+      "range": {
+        "startLine": 364,
+        "startChar": 4,
+        "endLine": 365,
+        "endChar": 10
+      },
+      "revId": "1d75d67f02a1b4b27b1415446c8c0e1dddb9ef3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "483b835a_c02b9ee5",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-08-23T21:56:15Z",
+      "side": 1,
+      "message": "How about a negative test too when the pattern matcher fails?",
+      "revId": "1d75d67f02a1b4b27b1415446c8c0e1dddb9ef3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
