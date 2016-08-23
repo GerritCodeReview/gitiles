@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a84b1ffc_db787325",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-23T23:28:52Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "36d7ac71968803877947b70c4fb075f75a41d051",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a84b1ffc_fb7d2f12",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-23T23:28:52Z",
+      "side": 1,
+      "message": "nit: This should be listed before Map.",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 21
+      },
+      "revId": "36d7ac71968803877947b70c4fb075f75a41d051",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c84e930b_5c8d3d2b",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-23T23:28:52Z",
+      "side": 1,
+      "message": "There is no test with a regular expression in gitiles.allowOriginRegex, or with multiple values for allowOriginRegex.",
+      "revId": "36d7ac71968803877947b70c4fb075f75a41d051",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
