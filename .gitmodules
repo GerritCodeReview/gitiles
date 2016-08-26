@@ -1,3 +1,4 @@
 [submodule "bucklets"]
 	path = bucklets
 	url = ../bucklets
+	branch = master
