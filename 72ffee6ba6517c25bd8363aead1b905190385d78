@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5ccbe55_4c82ffb2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2016-08-26T15:47:26Z",
+      "side": 1,
+      "message": "This is a slight behavior change; now if Paginator were to throw ISE for any reason instead of it going up the stack and probably aborting this request it behaves as though start as supplied by the user was invalid. That may mask programming errors inside of Paginator.\n\nI think that is why Dave preferred returning null over throwing. The cleaner way to prevent over-catching is introduce a new private Exception subclass that means the start was given, but was invalid. Or treat the result as a tri-state (absent \u003d not supplied, has value \u003d valid, null \u003d invalid).",
+      "range": {
+        "startLine": 318,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 41
+      },
+      "revId": "72ffee6ba6517c25bd8363aead1b905190385d78",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
