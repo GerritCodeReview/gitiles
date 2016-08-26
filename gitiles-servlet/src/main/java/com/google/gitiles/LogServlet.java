@@ -211,15 +211,15 @@ public class LogServlet extends BaseServlet {
       case 1:
         String id = values.get(0);
         if (!AbbreviatedObjectId.isId(id)) {
-          return null;
+          throw new IllegalStateException();
         }
         Collection<ObjectId> ids = reader.resolve(AbbreviatedObjectId.fromString(id));
         if (ids.size() != 1) {
-          return null;
+          throw new IllegalStateException();
         }
         return Optional.of(Iterables.getOnlyElement(ids));
       default:
-        return null;
+        throw new IllegalStateException();
     }
   }
 
@@ -313,12 +313,12 @@ public class LogServlet extends BaseServlet {
         return null;
       }
 
-      Optional<ObjectId> start = getStart(view.getParameters(), walk.getObjectReader());
-      if (start == null) {
+      try {
+        Optional<ObjectId> start = getStart(view.getParameters(), walk.getObjectReader());
+        return new Paginator(walk, getLimit(view), start.orNull());
+      } catch (IllegalStateException e) {
         return null;
       }
-
-      return new Paginator(walk, getLimit(view), start.orNull());
     }
   }
 
