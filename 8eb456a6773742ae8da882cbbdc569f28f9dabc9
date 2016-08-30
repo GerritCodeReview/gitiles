@@ -34,6 +34,24 @@
       "revId": "8eb456a6773742ae8da882cbbdc569f28f9dabc9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e51aa224_151654a6",
+        "filename": ".mailmap",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2016-08-30T00:34:56Z",
+      "side": 1,
+      "message": "It only affects \u0027git shortlog -e\u0027",
+      "parentUuid": "0577b647_ae9f574a",
+      "revId": "8eb456a6773742ae8da882cbbdc569f28f9dabc9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
