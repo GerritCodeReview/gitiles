@@ -445,6 +445,24 @@
     },
     {
       "key": {
+        "uuid": "4b0622a0_c8a06f99",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-09-11T06:47:28Z",
+      "side": 1,
+      "message": "Unfortunately, you were wrong, it doesn\u0027t work, I just re-checked. Steps to reproduce:\n\n* 1. set up a project with this WORKSPACE:\n\n  maven_jar(\n    name \u003d \u0027guava\u0027,\n    artifact \u003d \u0027com.google.guava:guava:19.0\u0027,\n    sha1 \u003d \u00276ce200f6b23222af3d8abb6b6459e6c44f4bb0e9\u0027,\n  )\n\n* 2. add this BUILD file:\n\n  java_library(\n    name \u003d \u0027guava\u0027,\n    exports \u003d [\u0027@guava//jar\u0027],\n    visibility \u003d [\u0027//visibility:public\u0027],\n  )\n\n* 3. build :guava rule\n* 4. verify that external repository now correctly includes guava.jar:\n\n  $ ls $(bazel info output_base)/external/guava/jar/guava-19.0.jar\n /home/davido/.cache/bazel/_bazel_davido/1c05526fe8c8cba2b825c0ac3eea91e4/external/guava/jar/guava-19.0.jar\n\n* 5. wipe out the output directory entirely:\n\n  bazel clean --expunge\n\n* 6. unplug ethernet cable\n\n* 7. try to rebuild :guava rule. Expectation is that the previously fetched artifact is re-used, obviously. Unfortunately it doesn\u0027t:\n\n  $ bazel build :guava\n  ERROR: /home/davido/projects/bazel_test/BUILD:27:1: no such package \u0027@guava//jar\u0027:\n  Failed to fetch Maven dependency: Could not transfer artifact com.google.guava:guava:jar:19.0 from/to\n  guava (https://repo1.maven.org/maven2/): Connection to https://repo1.maven.org refused and referenced by \u0027//:guava\u0027.\n  ERROR: Analysis of target \u0027//:guava\u0027 failed; build aborted.\n  INFO: Elapsed time: 1.635s\n\nSo basically this is broken by design in the same way, like Buck\u0027s remote_file() implementation: [1]. See maven_jar() implementation in Gerrit core and Bucklets how to get it right:\n\n  $ cd ~/.gerritcodereview/buck-cache/downloaded-artifacts\n  $ ls -1 guava-1*\n  guava-18.0.jar-cce0823396aa693798f8882e64213b1772032b09\n  guava-18.0-src.jar-45b0363545dd28412143940c0a8ee5d75b58d0d6\n  guava-19.0.jar-6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9\n  guava-19.0-rc2.jar-93e17f60bc524c2610b41c494bb829c11ca89436\n  guava-19.0-rc2-src.jar-7934c16d4f41fb325b1939abdc78006b9571abe1\n  guava-19.0-src.jar-39fd7d39776feaf0c9e883fd4cdcae76721c933b\n\nWhat is needed is staging area for downloaded artifact that is entirely de-coupled from build tool chain output base and caches of specific project. Why? Because it\u0027s external dependency and guava-19.0 is not going to be changed, ever.\n\nSo instead of putting the external jar in output base for a specific project:\n\n davido@wizball:~/.cache/bazel/_bazel_davido/1c05526fe8c8cba2b825c0ac3eea91e4/external/guava/jar$ ls -all\n\n lrwxrwxrwx 1 davido users  130 Sep 11 08:00 guava-19.0.jar -\u003e /home/davido/.cache/bazel/_bazel_davido/1c05526fe8c8cba2b825c0ac3eea91e4/external/guava/com/google/guava/guava/19.0/guava-19.0.jar\n\nit must be put elewhere, so that:\n\n* a) it survives entire clean of output base for specific project (bazel clean --expunge)\n* b) previously fetched artifacts can be reused by other clones of the same project. Say i have separate clones for master ans stable branch\n* c) previously fetched artifacts can be re-used by different projects. Say Gerrit, JGit, Gitiles and 42 Gerrit plugins (standalone build mode) are cloned and built on the same machine.\n\nI just wrote this issue: [2].\n\n* [1] https://github.com/facebook/buck/issues/602\n* [2] https://github.com/bazelbuild/bazel/issues/1752",
+      "parentUuid": "ee926865_ebc1916c",
+      "revId": "526af3228bea6460a70a9d736443bce748232d82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef294a8_2e7e2789",
         "filename": "lib/BUILD",
         "patchSetId": 1
