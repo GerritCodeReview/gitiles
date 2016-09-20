@@ -30,6 +30,7 @@ import com.google.gitiles.blame.BlameCache;
 import com.google.gitiles.blame.BlameCacheImpl;
 import com.google.gitiles.blame.BlameServlet;
 import com.google.gitiles.doc.DocServlet;
+import com.google.gitiles.search.SearchServlet;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -259,6 +260,8 @@ class GitilesFilter extends MetaFilter {
       case DOC:
       case ROOTED_DOC:
         return new DocServlet(accessFactory, renderer);
+      case SEARCH:
+        return new SearchServlet(accessFactory, renderer, config);
       default:
         throw new IllegalArgumentException("Invalid view type: " + view);
     }
