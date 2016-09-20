@@ -443,6 +443,13 @@ ul, ol {
   min-height: 1em;
   padding-left: 10px;
 }
+.FileContents-lineContents .plain {
+  font-weight: normal;
+}
+.FileContents-lineContents .emphasized {
+    font-weight: bold;
+    background-color: #f1f2f3;
+}
 .FileContents-lineContents:target {
   background: #cfd8dc;
 }

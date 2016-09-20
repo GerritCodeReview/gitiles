@@ -1,0 +1,77 @@
+// Copyright 2016 Google Inc. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+{namespace gitiles autoescape="strict"}
+
+/**
+ * Detail page showing a code search result.
+
+ * @param title human-readable revision name.
+ * @param repositoryName name of this repository.
+ * @param? menuEntries menu entries.
+ * @param? customVariant variant name for custom styling.
+ * @param breadcrumbs breadcrumbs for this page.
+ * @param query
+ * @param searchResult
+ * @param repoUrl
+ * @param revisionUrl
+ */
+{template .codeSearchResult}
+{call .header data="all" /}
+
+<h3>Matches for Query "{$query}"</h3>
+
+<div>
+{if $searchResult}
+  {foreach $file in $searchResult.files}
+    <div>
+      <div>
+        <span><a href="{$repoUrl}">{$file.repo}</a></span>{sp}:{sp}
+        <span><a href="{$file.fileUrl}">{$file.fileName}</a></span>{sp}:{sp}
+        <span><a href="{$revisionUrl}">{$file.branch}</a></span></div>
+      <table class="FileContents">
+        {foreach $line in $file.lines}
+          <tr class="u-pre u-monospace FileContents-line">
+            <td class="u-lineNum u-noSelect FileContents-lineNum"
+                data-line-number="{$line.lineNumber}"
+                onclick="window.location='{$line.lineUrl}'"></td>
+            <td class="FileContents-lineContents" id="{$line.lineNumber}">
+              {foreach $span in $line.line}
+                <span class="{$span.class}">{$span.text}</span>
+              {/foreach}
+            </td>
+          </tr>
+        {/foreach}
+      </table>
+    </div>
+  {/foreach}
+{/if}
+</div>
+
+{/template}
+
+/**
+ * Empty result page.
+
+ * @param title human-readable revision name.
+ * @param repositoryName name of this repository.
+ * @param? menuEntries menu entries.
+ * @param? customVariant variant name for custom styling.
+ * @param breadcrumbs breadcrumbs for this page.
+ * @param query
+ */
+{template .emptyCodeSearchResult}
+{call .header data="all" /}
+
+<h3>No matches for query "{$query}"</h3>
+{/template}

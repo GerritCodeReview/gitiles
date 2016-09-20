@@ -51,6 +51,7 @@ public class ViewFilter extends AbstractHttpFilter {
   private static final String CMD_REFS = "+refs";
   private static final String CMD_SHOW = "+show";
   private static final String CMD_DOC = "+doc";
+  private static final String CMD_SEARCH = "+search";
 
   public static GitilesView getView(HttpServletRequest req) {
     return (GitilesView) req.getAttribute(VIEW_ATTRIBUTE);
@@ -176,6 +177,8 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseShowCommand(req, repoName, path);
     } else if (command.equals(CMD_DOC)) {
       return parseDocCommand(req, repoName, path);
+    } else if (command.equals(CMD_SEARCH)) {
+      return parseSearchCommand(req, repoName, path);
     } else {
       return null;
     }
@@ -287,6 +290,22 @@ public class ViewFilter extends AbstractHttpFilter {
         .setRepositoryName(repoName)
         .setRevision(result.getRevision())
         .setOldRevision(result.getOldRevision())
+        .setPathPart(result.getPath());
+  }
+
+  private GitilesView.Builder parseSearchCommand(HttpServletRequest req, String repoName, String path)
+      throws IOException {
+    if (isEmptyOrSlash(path)) {
+      return GitilesView.search()
+          .setRepositoryName(repoName);
+    }
+    RevisionParser.Result result = parseRevision(req, path);
+    if (result == null) {
+      return null;
+    }
+    return GitilesView.search()
+        .setRepositoryName(repoName)
+        .setRevision(result.getRevision())
         .setPathPart(result.getPath());
   }
 
