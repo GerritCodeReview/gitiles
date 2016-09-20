@@ -19,6 +19,7 @@
  * @param title title for this page. Always suffixed with repository name and a
  *     sitewide title.
  * @param? repositoryName repository name for this page, if applicable.
+ * @param? branches list of branches in the repository, if applicable.
  * @param? menuEntries optional list of menu entries with "text" and optional
  *     "url" keys.
  * @param? customVariant variant name for custom styling.
@@ -70,6 +71,24 @@
   </header>
 
   <div class="Site-content">
+    {if $branches}
+      <div class="Header-search">
+        <form action="{if $repositoryName}../{/if}+search">
+            <label for="query">Search{sp}
+              <input class="Header-searchInput" type="text" name="query" />
+            </label>{sp}
+            <label for="branches">in{sp}
+              <select name="branches">
+                {foreach $branch in $branches}
+                <option>{$branch.name}</option>
+                {/foreach}
+              </select>
+            </label>{sp}
+            <input type="submit" />
+        </form>
+      </div>
+    {/if}
+
     <div class="Container {if $containerClass}{$containerClass}{/if}">
       {if $breadcrumbs and length($breadcrumbs)}
         <div class="Breadcrumbs">

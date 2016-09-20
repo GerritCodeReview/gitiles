@@ -13,6 +13,8 @@ java_library(
     '//lib/slf4j:slf4j-api',
     '//lib/slf4j:slf4j-simple',
     '//lib/soy:soy',
+    '//lib/httpcomponents:httpclient',
+    '//lib/httpcomponents:httpcore',
   ],
   visibility = ['PUBLIC'],
 )
