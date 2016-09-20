@@ -157,6 +157,13 @@ ul, ol {
 .Header-menuItem--noAction {
   color: inherit;
 }
+.Header-search {
+  position: absolute;
+  right: 20px;
+}
+.Header-searchInput {
+  width: 20em;
+}
 .Breadcrumbs {
   font-size: 18px;
   margin-bottom: 20px;
@@ -442,6 +449,13 @@ ul, ol {
   line-height: 1.3em;
   min-height: 1em;
   padding-left: 10px;
+}
+.FileContents-lineContents .plain {
+  font-weight: normal;
+}
+.FileContents-lineContents .emphasized {
+    font-weight: bold;
+    background-color: #f1f2f3;
 }
 .FileContents-lineContents:target {
   background: #cfd8dc;
