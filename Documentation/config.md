@@ -92,3 +92,11 @@ to the configuration file:
 [google]
   analyticsId = UA-XXXX-Y
 ```
+
+## Code Search
+
+The URL of a [Zoekt](https://github.com/google/zoekt) server can be configured
+to facilitate code search.
+
+[codeSearch]
+  zoektServer = https://zoekt.example.org:6070

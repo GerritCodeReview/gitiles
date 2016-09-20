@@ -67,7 +67,8 @@ public class GitilesView {
     ARCHIVE,
     BLAME,
     DOC,
-    ROOTED_DOC;
+    ROOTED_DOC,
+    SEARCH,
   }
 
   /** Exception thrown when building a view that is invalid. */
@@ -203,6 +204,7 @@ public class GitilesView {
         case REVISION:
         case ROOTED_DOC:
         case SHOW:
+        case SEARCH:
         default:
           this.revision = checkNotNull(revision);
           return this;
@@ -258,6 +260,7 @@ public class GitilesView {
         case DESCRIBE:
         case REFS:
         case LOG:
+        case SEARCH:
         case DOC:
         case ROOTED_DOC:
           break;
@@ -355,6 +358,9 @@ public class GitilesView {
         case ROOTED_DOC:
           checkRootedDoc();
           break;
+        case SEARCH:
+          checkSearch();
+          break;
       }
       return new GitilesView(
           type,
@@ -390,6 +396,10 @@ public class GitilesView {
       checkHostIndex();
     }
 
+    private void checkQuery() {
+      checkView(params != null && params.get("query") != null, "missing query string on %s view", type);
+    }
+
     private void checkRefs() {
       checkRepositoryIndex();
     }
@@ -409,6 +419,10 @@ public class GitilesView {
 
     private void checkLog() {
       checkRepositoryIndex();
+    }
+
+    private void checkSearch() {
+      checkQuery();
     }
 
     private void checkPath() {
@@ -466,6 +480,10 @@ public class GitilesView {
 
   public static Builder log() {
     return new Builder(Type.LOG);
+  }
+
+  public static Builder search() {
+    return new Builder(Type.SEARCH);
   }
 
   public static Builder archive() {
@@ -681,6 +699,16 @@ public class GitilesView {
           if (oldRevision != Revision.NULL) {
             url.append(oldRevision.getName()).append("..");
           }
+          url.append(revision.getName());
+          if (path != null) {
+            url.append('/').append(path);
+          }
+        }
+        break;
+      case SEARCH:
+        url.append(repositoryName).append("/+search");
+        if (revision != Revision.NULL) {
+          url.append('/');
           url.append(revision.getName());
           if (path != null) {
             url.append('/').append(path);
