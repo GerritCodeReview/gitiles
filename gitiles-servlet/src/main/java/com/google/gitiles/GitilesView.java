@@ -67,7 +67,8 @@ public class GitilesView {
     ARCHIVE,
     BLAME,
     DOC,
-    ROOTED_DOC;
+    ROOTED_DOC,
+    SEARCH,
   }
 
   /** Exception thrown when building a view that is invalid. */
@@ -93,6 +94,7 @@ public class GitilesView {
     private String path;
     private String extension;
     private String anchor;
+    private String query;
 
     private Builder(Type type) {
       this.type = type;
@@ -318,6 +320,15 @@ public class GitilesView {
       return anchor;
     }
 
+    public Builder setQuery(String query) {
+      this.query = query;
+      return this;
+    }
+
+    public String getQuery() {
+      return query;
+    }
+
     public GitilesView build() {
       switch (type) {
         case HOST_INDEX:
@@ -355,6 +366,9 @@ public class GitilesView {
         case ROOTED_DOC:
           checkRootedDoc();
           break;
+        case SEARCH:
+          checkSearch();
+          break;
       }
       return new GitilesView(
           type,
@@ -390,6 +404,10 @@ public class GitilesView {
       checkHostIndex();
     }
 
+    private void checkQuery() {
+      checkView(query != null, "missing query string on %s view", type);
+    }
+
     private void checkRefs() {
       checkRepositoryIndex();
     }
@@ -409,6 +427,10 @@ public class GitilesView {
 
     private void checkLog() {
       checkRepositoryIndex();
+    }
+
+    private void checkSearch() {
+      checkQuery();
     }
 
     private void checkPath() {
@@ -466,6 +488,10 @@ public class GitilesView {
 
   public static Builder log() {
     return new Builder(Type.LOG);
+  }
+
+  public static Builder search() {
+    return new Builder(Type.SEARCH);
   }
 
   public static Builder archive() {
