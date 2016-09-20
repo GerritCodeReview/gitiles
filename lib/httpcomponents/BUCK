@@ -1,0 +1,38 @@
+VERSION = '4.4.1'
+
+maven_jar(
+  name = 'codec',
+  id = 'commons-codec:commons-codec:1.4',
+  sha1 = '4216af16d38465bbab0f3dff8efa14204f7a399a',
+  license = 'Apache2.0',
+  exclude = ['META-INF/LICENSE.txt', 'META-INF/NOTICE.txt'],
+)
+
+maven_jar(
+  name = 'jcl-over-slf4j',
+  id = 'org.slf4j:jcl-over-slf4j:1.7.7',
+  sha1 = '56003dcd0a31deea6391b9e2ef2f2dc90b205a92',
+  license = 'slf4j',
+)
+
+maven_jar(
+  name = 'httpclient',
+  id = 'org.apache.httpcomponents:httpclient:' + VERSION,
+  bin_sha1 = '016d0bc512222f1253ee6b64d389c84e22f697f0',
+  src_sha1 = '30cb4791019c7280227e027b01814f4964a02482',
+  deps = [
+    ':codec',
+    ':httpcore',
+    ':jcl-over-slf4j',
+  ],
+  visibility = ['PUBLIC'],
+)
+
+maven_jar(
+  name = 'httpcore',
+  id = 'org.apache.httpcomponents:httpcore:' + VERSION,
+  bin_sha1 = 'f5aa318bda4c6c8d688c9d00b90681dcd82ce636',
+  src_sha1 = '9700be0d0a331691654a8e901943c9a74e33c5fc',
+  visibility = ['PUBLIC'],
+)
+
