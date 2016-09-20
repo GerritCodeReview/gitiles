@@ -77,6 +77,9 @@ class DevServer {
     cfg.setString(
         "gitiles", null, "siteTitle", String.format("Gitiles - %s:%s", networkHostName, cwd));
     cfg.setString("gitiles", null, "canonicalHostName", new File(cwd).getName());
+
+    cfg.setString("codeSearch", null, "zoektServer", "http://localhost:6070");
+
     return cfg;
   }
 
