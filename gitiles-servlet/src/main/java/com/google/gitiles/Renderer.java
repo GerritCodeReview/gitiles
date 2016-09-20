@@ -65,7 +65,8 @@ public abstract class Renderer {
           "PathDetail.soy",
           "RefList.soy",
           "RevisionDetail.soy",
-          "RepositoryIndex.soy");
+          "RepositoryIndex.soy",
+          "CodeSearchResult.soy");
 
   public static final Map<String, String> STATIC_URL_GLOBALS =
       ImmutableMap.of(

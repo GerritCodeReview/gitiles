@@ -16,6 +16,8 @@ DEPS = [
   '//lib/jgit:jgit-servlet',
   '//lib/slf4j:slf4j-api',
   '//lib/soy:soy',
+  '//lib/httpcomponents:httpclient',
+  '//lib/httpcomponents:httpcore',
 ]
 
 DEPS_ALL = DEPS + [
