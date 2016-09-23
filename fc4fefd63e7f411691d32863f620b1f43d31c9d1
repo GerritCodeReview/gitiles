@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a560afe5_aae36fef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "as any other revision",
+      "range": {
+        "startLine": 17,
+        "startChar": 32,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_d0cfa250",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "improve",
+      "range": {
+        "startLine": 39,
+        "startChar": 44,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a560afe5_2ac77f5e",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/MatchingFile.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "Is this necessary? Java generates a no-arg constructor automatically when there are no other constructors.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 3
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_90eefab2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/MatchingLine.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_f01e5eca",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/MatchingLine.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "Are these methods used?\n\nSince this is just an object representing a json response I think it can simply expose its fields instead of getter methods.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_3021c610",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/Position.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 3
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_1024ca1f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/Position.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "Remove and expose fields? This objects represents (a part of) json response 1:1 and there is likely not much value into encapsulating them.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_502e52ff",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/Restriction.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "remove this line?",
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_702b4eee",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/Search.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_90f8ba67",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/SearchResult.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-09-23T12:32:33Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "fc4fefd63e7f411691d32863f620b1f43d31c9d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
