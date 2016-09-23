@@ -22,6 +22,91 @@
       "revId": "dc84fef4035cb3a955fcc39cdb07f26fe7c182b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_907efa70",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/SearchResult.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-09-23T15:14:59Z",
+      "side": 1,
+      "message": "I would generally prefer lists to arrays, Gson should be able to handle them fine.",
+      "revId": "dc84fef4035cb3a955fcc39cdb07f26fe7c182b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a560afe5_0d3cd5e4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/SearchResult.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-09-23T15:14:59Z",
+      "side": 1,
+      "message": "Cache a Gson instance somewhere, no need to create a new one on every request.",
+      "revId": "dc84fef4035cb3a955fcc39cdb07f26fe7c182b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03b47ab_505492f0",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/SearchServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-09-23T15:14:59Z",
+      "side": 1,
+      "message": "Does this shut down the http connection after every request, or does HttpClient pool connections behind the scenes? We need some kind of connection pooling at least.",
+      "revId": "dc84fef4035cb3a955fcc39cdb07f26fe7c182b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a560afe5_4d32cd14",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/search/SearchServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-09-23T15:14:59Z",
+      "side": 1,
+      "message": "Gson can read from a Reader without this intermediate buffering, just use a new InputStreamReader(respEntity.getContent())",
+      "revId": "dc84fef4035cb3a955fcc39cdb07f26fe7c182b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a560afe5_2d379904",
+        "filename": "lib/httpcomponents/BUCK",
+        "patchSetId": 10
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-09-23T15:14:59Z",
+      "side": 1,
+      "message": "I think some of these belong in different files, certainly the slf4j one belongs in the slf4j directory.",
+      "revId": "dc84fef4035cb3a955fcc39cdb07f26fe7c182b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
