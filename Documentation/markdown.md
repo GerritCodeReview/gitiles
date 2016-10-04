@@ -129,6 +129,19 @@ reading the source file.
 Like bullet lists, numbered lists can be nested by using more leading
 space than the prior list item.
 
+Paragraphs can be properly indented within lists by indenting with at
+least 2 leading spaces:
+
+```
+1. Fruit
+
+  In botany, a fruit is the seed-bearing structure in flowering plants.
+
+2. Cake
+
+  The cake is a lie.
+```
+
 ### Tables
 
 Simple tables are supported with column alignment.  The first line is
