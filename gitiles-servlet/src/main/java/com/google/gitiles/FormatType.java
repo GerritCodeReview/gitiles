@@ -15,9 +15,9 @@
 package com.google.gitiles;
 
 import com.google.common.base.Enums;
-import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 /** Type of formatting to use in the response to the client. */
@@ -38,7 +38,10 @@ public enum FormatType {
 
     String fmt = req.getParameter("format");
     if (!Strings.isNullOrEmpty(fmt)) {
-      return set(req, Enums.getIfPresent(FormatType.class, fmt.toUpperCase()));
+      FormatType f = Enums.getIfPresent(FormatType.class, fmt.toUpperCase()).orNull();
+      if (f != null) {
+        return set(req, Optional.of(f));
+      }
     }
 
     String accept = req.getHeader(HttpHeaders.ACCEPT);
