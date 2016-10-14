@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c9fd279_0029a68f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveFormat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-10-14T16:13:09Z",
+      "side": 1,
+      "message": "Optional:\n\n return formats.stream().filter(f -\u003e f.toUpperCase().equals(format))\n     .findFirst();",
+      "revId": "7f587a820b91267e97e12c8a7c0e1d87ddc521aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c9fd279_c0229eab",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ConfigUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-10-14T16:13:09Z",
+      "side": 1,
+      "message": "Optional:\n\n Optional.ofNullable(config.getString(...))\n     .map(id -\u003e TimeZone.getTimeZone(id));",
+      "revId": "7f587a820b91267e97e12c8a7c0e1d87ddc521aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c9fd279_a0279ab9",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/FormatType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-10-14T16:13:09Z",
+      "side": 1,
+      "message": "To replicate the logic on the LHS you would want:\n\n return set(req, Optional.ofNullable(f));\n\nIOW you need to return even if the enum is not found.",
+      "revId": "7f587a820b91267e97e12c8a7c0e1d87ddc521aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
