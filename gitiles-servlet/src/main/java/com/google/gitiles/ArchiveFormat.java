@@ -17,6 +17,9 @@ package com.google.gitiles;
 import com.google.common.base.Enums;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.eclipse.jgit.api.ArchiveCommand;
 import org.eclipse.jgit.archive.TarFormat;
@@ -101,15 +104,12 @@ public enum ArchiveFormat {
     if (format == null) {
       return Optional.empty();
     }
-    String[] formats = cfg.getStringList("archive", null, "format");
-    if (formats.length == 0) {
+    List<ArchiveFormat> formats = (List<ArchiveFormat>) Iterables.transform(
+        Arrays.asList(cfg.getStringList("archive", null, "format")),
+        e -> ArchiveFormat.valueOf(e));
+    if (formats.isEmpty()) {
       return Optional.of(format);
     }
-    for (String allowed : formats) {
-      if (format.name().equals(allowed.toUpperCase())) {
-        return Optional.of(format);
-      }
-    }
-    return Optional.empty();
+    return formats.stream().filter(f -> f.equals(format)).findFirst();
   }
 }
