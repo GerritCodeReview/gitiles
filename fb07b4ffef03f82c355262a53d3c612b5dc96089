@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c7f1b9a_95a32484",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveFormat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-10-17T14:20:25Z",
+      "side": 1,
+      "message": "This is a behavior change, it now throws IAE rather than silently ignoring invalid values of archive.format.\n\nI don\u0027t think there\u0027s a big readability win to replacing the block up to line 107 on the LHS, assuming we want to keep the same behavior.\n\nYou can replace the for lop with a native stream using Arrays.stream instead of using Iterables, something like:\n\n return Arrays.stream(formats)\n     .filter(format.name()::equalsIgnoreCase)\n     .findFirst()\n     .map(x -\u003e format);",
+      "revId": "fb07b4ffef03f82c355262a53d3c612b5dc96089",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7f1b9a_b5a0a077",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ConfigUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-10-17T14:20:25Z",
+      "side": 1,
+      "message": ".map(TimeZone::getTimeZone)",
+      "revId": "fb07b4ffef03f82c355262a53d3c612b5dc96089",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
