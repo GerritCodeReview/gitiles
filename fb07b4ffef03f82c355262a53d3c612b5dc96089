@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ca06ba7_51797439",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ArchiveFormat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-10-18T02:31:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c7f1b9a_95a32484",
+      "revId": "fb07b4ffef03f82c355262a53d3c612b5dc96089",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7f1b9a_b5a0a077",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ConfigUtil.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-10-17T14:20:25Z",
       "side": 1,
       "message": ".map(TimeZone::getTimeZone)",
+      "revId": "fb07b4ffef03f82c355262a53d3c612b5dc96089",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ca1f7a9_9082f4e4",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/ConfigUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-10-18T02:31:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c7f1b9a_b5a0a077",
       "revId": "fb07b4ffef03f82c355262a53d3c612b5dc96089",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
