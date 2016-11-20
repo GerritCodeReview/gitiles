@@ -54,7 +54,7 @@ java_library(
 load("@com_googlesource_gerrit_bazlets//tools:junit.bzl", "junit_tests")
 
 junit_tests(
-    name = "ServletTests",
+    name = "servlet_tests",
     srcs = glob(
         [
             "src/test/java/**/*Test.java",
@@ -81,4 +81,5 @@ junit_tests(
         "//lib/junit",
         "//lib/soy",
     ],
+    visibility = ["//visibility:public"],
 )
