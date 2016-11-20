@@ -51,7 +51,7 @@ java_library(
     ],
 )
 
-load("//gitiles-servlet:junit.bzl", "junit_tests")
+load("@com_github_davido_bazlets//tools:junit.bzl", "junit_tests")
 
 junit_tests(
     name = "ServletTests",
