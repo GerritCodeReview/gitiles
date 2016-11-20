@@ -11,3 +11,17 @@ java_library(
     visibility = ["//visibility:public"],
     deps = DEPS,
 )
+
+load("@com_github_davido_bazlets//tools:javadoc.bzl", "java_doc")
+
+java_doc(
+    name = "javadoc",
+    libs = [
+        ":lib",
+        "//lib:guava",
+        "//lib/jgit:jgit",
+    ],
+    pkgs = ["com.google.gitiles.blame"],
+    title = "Blame Cache API Documentation",
+    visibility = ["//visibility:public"],
+)
