@@ -1,6 +1,6 @@
 workspace(name = "gitiles")
 load("//tools:bazlets.bzl", "load_bazlets")
-load_bazlets(tag = "v0.2")
+load_bazlets(tag = "v0.3")
 load("@com_github_davido_bazlets//tools:maven_jar.bzl",
      "maven_jar",
      "GERRIT")
