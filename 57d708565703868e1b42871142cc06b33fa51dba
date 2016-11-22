@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "104624f2_5df0db1f",
+        "filename": "gitiles-servlet/junit.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-11-22T14:22:26Z",
+      "side": 1,
+      "message": "would be neat if we could stick this in a central place.",
+      "range": {
+        "startLine": 1,
+        "startChar": 35,
+        "endLine": 1,
+        "endChar": 36
+      },
+      "revId": "57d708565703868e1b42871142cc06b33fa51dba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
