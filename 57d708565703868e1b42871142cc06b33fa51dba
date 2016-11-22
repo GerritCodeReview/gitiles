@@ -22,6 +22,30 @@
       "revId": "57d708565703868e1b42871142cc06b33fa51dba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "104624f2_7ded9744",
+        "filename": "gitiles-servlet/junit.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-11-22T14:35:07Z",
+      "side": 1,
+      "message": "It\u0027s already in central place, in Bazlets: [1], that is integrated in the follow-up change in this series.\n\n* [1] https://github.com/davido/bazlets/blob/master/tools/junit.bzl",
+      "parentUuid": "104624f2_5df0db1f",
+      "range": {
+        "startLine": 1,
+        "startChar": 35,
+        "endLine": 1,
+        "endChar": 36
+      },
+      "revId": "57d708565703868e1b42871142cc06b33fa51dba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
