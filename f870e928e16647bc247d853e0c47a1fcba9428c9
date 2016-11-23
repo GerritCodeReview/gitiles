@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50ec1c3c_5f83cb93",
+        "filename": "gitiles-servlet/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-11-23T16:49:20Z",
+      "side": 1,
+      "message": "come to think of it, shouldn\u0027t we host this on Gerrit.googlesource.com ?",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "f870e928e16647bc247d853e0c47a1fcba9428c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
