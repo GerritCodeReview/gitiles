@@ -22,6 +22,30 @@
       "revId": "f870e928e16647bc247d853e0c47a1fcba9428c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50ec1c3c_3f5b6773",
+        "filename": "gitiles-servlet/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2016-11-23T17:05:13Z",
+      "side": 1,
+      "message": "Probably, yes. I asked other maintainers about it in this change, but havn\u0027t got any answer, so still waiting for confirmation for someone from Google: [1].\n\n* [1] https://gerrit-review.googlesource.com/#/c/91830/1/WORKSPACE@7",
+      "parentUuid": "50ec1c3c_5f83cb93",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "f870e928e16647bc247d853e0c47a1fcba9428c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
