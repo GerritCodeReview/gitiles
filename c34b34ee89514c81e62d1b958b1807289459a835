@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "8d04bb4e_d162a4eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2016-12-02T15:31:29Z",
+      "side": 1,
+      "message": "You’re correct, which is why I chose 1 day as the cache time. A more appropriate wording is “the underlying git content being displayed does not change.”\n\nI originally thought of Etagging the actual HTML content, but using the git hash plus the server version is genius.",
+      "parentUuid": "6d05c749_903f74e7",
+      "revId": "c34b34ee89514c81e62d1b958b1807289459a835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d05c749_502eacbc",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
         "patchSetId": 1
