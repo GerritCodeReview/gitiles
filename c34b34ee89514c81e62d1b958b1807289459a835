@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d05c749_903f74e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-12-02T14:46:33Z",
+      "side": 1,
+      "message": "This is not true. The underlying git data will never change, but this doesn\u0027t take into account changes to the rendering code or the Soy templates/JSON structure.\n\nA more complete solution would be to include an ETag containing both the SHA-1 that the view\u0027s revision revolved to, and the version of the Gitiles server code, and always require revalidation.\n\nHowever, if you think that a 1-day cache time is an appropriate compromise, and users are willing to live with:\n\n* 1-day lag between a new release and that release guaranteed being visible\n* potential visual inconsistencies as they jump between uncacheable pages (new server version) and cached pages (old cached version)\n\nthen I can live with this change as a stopgap.",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "c34b34ee89514c81e62d1b958b1807289459a835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d05c749_502eacbc",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-12-02T14:46:33Z",
+      "side": 1,
+      "message": "Optional slightly shorter version: Strings.nullToEmpty(pragma).equals(\"no-cache\"); you could also inline pragma at that point.\n\nAlso, I don\u0027t know what the spec/convention is; would equalsIgnoreCase be safer?",
+      "revId": "c34b34ee89514c81e62d1b958b1807289459a835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d05c749_b0427879",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-12-02T14:46:33Z",
+      "side": 1,
+      "message": "Same comments as above.",
+      "revId": "c34b34ee89514c81e62d1b958b1807289459a835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
