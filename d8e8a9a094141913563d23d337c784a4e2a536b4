@@ -46,6 +46,24 @@
       "revId": "d8e8a9a094141913563d23d337c784a4e2a536b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dc74f2e_118dee13",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2016-12-05T12:08:04Z",
+      "side": 1,
+      "message": "Just point to the page with the relevant details,\n\n https://www.bazel.io/versions/master/docs/install.html\n\nrather than quoting untested command lines.",
+      "parentUuid": "edcc5755_ef4cfde6",
+      "revId": "d8e8a9a094141913563d23d337c784a4e2a536b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
