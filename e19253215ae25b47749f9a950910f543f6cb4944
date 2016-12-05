@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d0ac35e_4f444db8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-12-05T07:13:02Z",
+      "side": 1,
+      "message": "So far we didn\u0027t deploy gitiles artifacts to Maven Central, only to the google storage bucket.",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2df3cfac_ced5e3a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-12-05T07:13:02Z",
+      "side": 1,
+      "message": "If this is really intended to deploy to Maven Central, have you also tried the deploy command?  I\u0027m not sure it\u0027ll work, since AFAIK we don\u0027t have the permissions to deploy to the group Id com.google.gitiles on Sonatype.\n\nWe had a similar problem when changing gwtjsonrpc to deploy to Maven Central.  In [1] we simply changed the group Id to com.google.gerrit, but I\u0027m not sure if that\u0027s also appropriate for gitiles.\n\n[1] https://gerrit-review.googlesource.com/#/c/74472/",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0ac35e_6f3f911b",
+        "filename": "blame-cache/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-12-05T07:13:02Z",
+      "side": 1,
+      "message": "This is only needed for deployment to google storage",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2df3cfac_2e70e7fb",
+        "filename": "blame-cache/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-12-05T07:13:02Z",
+      "side": 1,
+      "message": "This too.",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 23
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
