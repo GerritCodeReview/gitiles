@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d05c749_b34f22da",
+        "filename": "tools/eclipse/project.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2016-12-07T17:51:36Z",
+      "side": 1,
+      "message": "I would really rather not copy all this into this project. In the buck world we already had bucklets as a submodule so it wasn\u0027t a problem to consume it from there.\n\nNow that we have bazlets in our bazel WORKSPACE, maybe this should be a py_binary there? Then in this repo we would just have a tiny wrapper script to call \"bazel run\" with the right flags.",
+      "revId": "3809744e442b798d20091f9657dfc7d41e128ee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
