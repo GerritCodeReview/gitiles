@@ -64,6 +64,24 @@
       "revId": "d8e8a9a094141913563d23d337c784a4e2a536b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ac48328_2d78cd2e",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-12-10T14:57:32Z",
+      "side": 1,
+      "message": "\u003e point to the page with the relevant details\n\n+1",
+      "parentUuid": "2dc74f2e_118dee13",
+      "revId": "d8e8a9a094141913563d23d337c784a4e2a536b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

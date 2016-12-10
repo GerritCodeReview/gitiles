@@ -46,6 +46,30 @@
       "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ac48328_0d739155",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-12-10T14:57:32Z",
+      "side": 0,
+      "message": "I\u0027m not bothered about all.zip particularly, I just think the documentation should include the command(s) to actually build gitiles, not only to run the tests.",
+      "parentUuid": "edcc5755_8f8779f9",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
