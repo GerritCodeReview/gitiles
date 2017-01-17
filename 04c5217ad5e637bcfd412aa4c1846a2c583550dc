@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03c9819c_134c6cd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-01-17T12:10:47Z",
+      "side": 1,
+      "message": "Why not point to googlesource.com [1] which is actually running gitiles?\n\n\n[1] https://gerrit.googlesource.com/gitiles",
+      "revId": "04c5217ad5e637bcfd412aa4c1846a2c583550dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
