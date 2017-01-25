@@ -16,6 +16,23 @@
       "revId": "3809744e442b798d20091f9657dfc7d41e128ee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74989cd4_a1d424d1",
+        "filename": "tools/eclipse/project.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-25T21:58:54Z",
+      "side": 1,
+      "message": "Yes, It is wrong to spread the same content of project.py across all projects. But I had hard time to make it work as you suggested. For one, it\u0027s not clear what input and output should this target define? For another there is a complication with the execution root, where this tool will be actually executed is different from the project root directory.\n\nAfter playing with it a bit, I found one way to make it work: generate a location of this tool, retrieve execution root, rellocate to bazlets package, call the script and pass in the parameters. I\u0027m sure there is a smarter way, so I\u0027m open for suggestions.",
+      "revId": "3809744e442b798d20091f9657dfc7d41e128ee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
