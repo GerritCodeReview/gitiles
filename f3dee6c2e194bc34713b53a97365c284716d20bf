@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea32af64_d8005879",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-25T22:29:54Z",
+      "side": 1,
+      "message": "This depends on this change: [1].\n\n* [1] https://gerrit-review.googlesource.com/95253",
+      "revId": "f3dee6c2e194bc34713b53a97365c284716d20bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d850d8dd_e9ad87ba",
+        "filename": "WORKSPACE",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-25T22:29:54Z",
+      "side": 1,
+      "message": "Unless the bazlet change was merged it can be tested by cherry-pciking bazlets change locally, uncommented this line and adapting it to right path.",
+      "revId": "f3dee6c2e194bc34713b53a97365c284716d20bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
