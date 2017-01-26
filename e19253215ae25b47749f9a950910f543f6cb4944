@@ -186,6 +186,29 @@
     },
     {
       "key": {
+        "uuid": "a07cdb03_00041ae8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-01-26T11:28:50Z",
+      "side": 1,
+      "message": "Sorry, I thought \"test if this works\" refers to the previous sentence \"If we want to move to Central within gerrit group id or gitiles own group id is different story\"\n\nThe way I would do it is make a version update to a dummy version and then attempt to deploy it.  AFAIK there is no restriction on the naming convention so could probably just add \"-TEST\" to the current version.\n\nDeployment to local repo should not be a problem.  Same for google bucket assuming the version is clearly for testing and you have the necessary deploy permissions.\n\nI can help with it although I\u0027m not sure if I\u0027ll have time this week.",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d0ac35e_6f3f911b",
         "filename": "blame-cache/pom.xml",
         "patchSetId": 3
