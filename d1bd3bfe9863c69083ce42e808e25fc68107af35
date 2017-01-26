@@ -22,6 +22,29 @@
       "revId": "d1bd3bfe9863c69083ce42e808e25fc68107af35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0e28870_c31d058c",
+        "filename": "tools/maven/mvn.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-26T09:57:25Z",
+      "side": 1,
+      "message": "Yes. I wonder if it would rather be smarter to do the same what we did in https://gerrit-review.googlesource.com/#/c/91837, move this script to bazlets and consume it from there?",
+      "range": {
+        "startLine": 22,
+        "startChar": 7,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "d1bd3bfe9863c69083ce42e808e25fc68107af35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
