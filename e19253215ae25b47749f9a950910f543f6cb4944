@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "673d11ef_a79c9483",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-26T09:57:25Z",
+      "side": 1,
+      "message": "So, teh commit message is wrong? It should say: publish to local maven repository and Google storage bucket?",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2df3cfac_ced5e3a3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -48,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "e8912894_438fdda5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-26T09:57:25Z",
+      "side": 1,
+      "message": "I do not intend to change anything existing in this commit. It should the same what it have done before it, but with Bazel. If we want to move to Central within gerrit group id or gitiles own group id is different story. My problem is, I\u0027m not sure how to test it if this works.",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d0ac35e_6f3f911b",
         "filename": "blame-cache/pom.xml",
         "patchSetId": 3
@@ -59,6 +105,29 @@
       "writtenOn": "2016-12-05T07:13:02Z",
       "side": 1,
       "message": "This is only needed for deployment to google storage",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "962fb305_ab59a19a",
+        "filename": "blame-cache/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-26T09:57:25Z",
+      "side": 1,
+      "message": "Yes, this is what this change is doing. Commit message is wrong.",
       "range": {
         "startLine": 9,
         "startChar": 8,
