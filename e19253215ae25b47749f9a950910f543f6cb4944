@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "29e971b0_c1df3656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-01-26T10:53:07Z",
+      "side": 1,
+      "message": "Yes, the commit message was wrong.  Thanks for fixing it.",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2df3cfac_ced5e3a3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -105,6 +128,29 @@
       "writtenOn": "2017-01-26T09:57:25Z",
       "side": 1,
       "message": "I do not intend to change anything existing in this commit. It should the same what it have done before it, but with Bazel. If we want to move to Central within gerrit group id or gitiles own group id is different story. My problem is, I\u0027m not sure how to test it if this works.",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddc86f75_4054b388",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-01-26T10:53:07Z",
+      "side": 1,
+      "message": "OK, this can be done later if necessary.\n\nTesting is easy.  Just deploy in the same way that you do with gwtorm, gwtjsonrpc, or the gerrit artifacts, and then verify that the artifact appears in the staging repository on sonatype.  Then simply drop the staging repo.",
       "range": {
         "startLine": 11,
         "startChar": 33,
