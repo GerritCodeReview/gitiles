@@ -209,6 +209,29 @@
     },
     {
       "key": {
+        "uuid": "911a485a_13040ed0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-26T11:49:50Z",
+      "side": 1,
+      "message": "Thanks!",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "e19253215ae25b47749f9a950910f543f6cb4944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d0ac35e_6f3f911b",
         "filename": "blame-cache/pom.xml",
         "patchSetId": 3
