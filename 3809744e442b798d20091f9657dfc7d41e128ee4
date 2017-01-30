@@ -50,6 +50,29 @@
       "revId": "3809744e442b798d20091f9657dfc7d41e128ee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38c8a974_50da699b",
+        "filename": "tools/eclipse/project.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-30T18:19:51Z",
+      "side": 1,
+      "message": "This where the bug was introduced. I move the hard coded exclusion of \"servlet_api_2_5\" to be configurable from the command line, but, unfortunately, managed to lost:\n\n  lib.add(p)\n\n^^^^ this line.",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 119,
+        "endChar": 18
+      },
+      "revId": "3809744e442b798d20091f9657dfc7d41e128ee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
