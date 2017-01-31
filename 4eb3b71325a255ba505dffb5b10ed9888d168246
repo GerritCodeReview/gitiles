@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ddcf6b4_0322edcc",
+        "filename": "blame-cache/pom.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-31T13:15:39Z",
+      "side": 1,
+      "message": "Are we missing here the distributionManagement section? It\u0027s clearly mentioned in the dev-release-deploy-config.txt section:\n\n  * You will need to have the following in the `pom.xml` to make it\n  deployable to the `gerrit-maven` storage bucket:\n\nAnd it is also present in your diff in gerrit-core: tools/jgit-snapshot-deploy-pom.diff:\n\n    \u003cdistributionManagement\u003e\n    \u003crepository\u003e\n      \u003cid\u003egerrit-maven-repository\u003c/id\u003e\n      \u003cname\u003eGerrit Maven Repository\u003c/name\u003e\n      \u003curl\u003egs://gerrit-maven\u003c/url\u003e\n      \u003cuniqueVersion\u003etrue\u003c/uniqueVersion\u003e\n    \u003c/repository\u003e\n  \u003c/distributionManagement\u003e\n\nI wonder, though why and how does it work in gitiles, as the pom.xml used there doesn\u0027t have this section either: [1].\n\nDoes it ring any bells?\n\n* [1] https://gerrit.googlesource.com/gitiles/+/master/fake_pom_deploy.xml",
+      "revId": "4eb3b71325a255ba505dffb5b10ed9888d168246",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
