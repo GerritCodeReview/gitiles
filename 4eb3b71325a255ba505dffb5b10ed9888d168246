@@ -16,6 +16,29 @@
       "revId": "4eb3b71325a255ba505dffb5b10ed9888d168246",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "635a562b_0fbf5e01",
+        "filename": "tools/maven/mvn.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-31T20:14:27Z",
+      "side": 1,
+      "message": "Actually, this could be simplified by exposing OUTPUT_BASE variable in package.bzl and setting it here with:\n\n  export OUTPUT_BASE\u003d`bazel info output_base`",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "4eb3b71325a255ba505dffb5b10ed9888d168246",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
