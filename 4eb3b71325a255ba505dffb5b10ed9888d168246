@@ -39,6 +39,30 @@
       "revId": "4eb3b71325a255ba505dffb5b10ed9888d168246",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ce063be_4a59b2cc",
+        "filename": "tools/maven/mvn.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-01-31T20:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "635a562b_0fbf5e01",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "4eb3b71325a255ba505dffb5b10ed9888d168246",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
