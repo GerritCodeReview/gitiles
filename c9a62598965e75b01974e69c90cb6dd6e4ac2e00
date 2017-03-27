@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f06c170_bbc67d25",
+        "filename": "tools/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-03-27T22:19:38Z",
+      "side": 1,
+      "message": "Why does this directory even have a BUILD file?",
+      "revId": "c9a62598965e75b01974e69c90cb6dd6e4ac2e00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
