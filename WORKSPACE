@@ -2,9 +2,10 @@ workspace(name = "gitiles")
 
 load("//tools:bazlets.bzl", "load_bazlets")
 
+# TODO(davido): Switch again to remote repository, when war packaging is merged.
 load_bazlets(
     commit = "0f87babe07a555425d829c6e7951e296e9e24579",
-    #    local_path = "/home/<user>/projects/bazlets"
+    local_path = "/home/davido/projects/bazlets",
 )
 
 load(
