@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ce0c9ce_6e8dbe1a",
+        "filename": "tools/pkg_war.bzl",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-03-27T22:15:19Z",
+      "side": 1,
+      "message": "Probably would be better to add it to bazlets.",
+      "revId": "136ac55667d49d918e24cc5ab08e27d115b39cb4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
