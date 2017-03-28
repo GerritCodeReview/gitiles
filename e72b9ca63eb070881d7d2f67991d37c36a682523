@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e57c9a46_2584b1b3",
+        "filename": "gitiles-war/src/main/resources/web.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-03-28T06:45:08Z",
+      "side": 1,
+      "message": "I guess we need to package the webassets under +static, directory withing web archive, something that gitiles-plugin is doing: [1].\n\n* [1] https://gerrit.googlesource.com/plugins/gitiles/+/master/BUILD#16",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "e72b9ca63eb070881d7d2f67991d37c36a682523",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
