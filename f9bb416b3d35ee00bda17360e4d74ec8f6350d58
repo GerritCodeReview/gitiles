@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "468ea4dd_aa74343b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-04-03T06:37:08Z",
+      "side": 1,
+      "message": "Are there instructions somewhere about how to run it from the .war file?",
+      "revId": "f9bb416b3d35ee00bda17360e4d74ec8f6350d58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
