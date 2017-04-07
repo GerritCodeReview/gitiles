@@ -22,6 +22,30 @@
       "revId": "f4f1ac2922e97b6590ed50d1219da74008cf71cf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93abe9ab_d471df1e",
+        "filename": "tools/maven/mvn.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-04-07T11:39:25Z",
+      "side": 1,
+      "message": "Strictly speaking, we don\u0027t. The reason we do it that way, is because I extracted the maven package bazlet from the gerrit code, and in gerrit we do have the \"api_\" prefix. So i just let it in place: [1].\n\n* [1] https://gerrit.googlesource.com/bazlets/+/master/tools/maven/package.bzl#50",
+      "parentUuid": "79684dcc_db57228a",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "f4f1ac2922e97b6590ed50d1219da74008cf71cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
