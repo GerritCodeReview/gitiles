@@ -115,20 +115,42 @@
  *     score: the similarity score of the rename or copy.
  */
 {deltemplate gitiles.logEntry variant="'oneline'"}
-<a class="u-sha1 u-monospace CommitLog-sha1" href="{$url}">{$abbrevSha}</a>
-{sp}<a href="{$url}">{$shortMessage}</a>
-{sp}<span class="CommitLog-author" title="{$author.email}">{msg desc="commit author name"}by {$author.name}{/msg}</span>
-{sp}<span class="CommitLog-time" title="{$author.time}">· {$author.relativeTime}</span>
-{if length($branches)}
-  {foreach $branch in $branches}
-    {sp}<a class="CommitLog-branchLabel" href="{$branch.url}">{$branch.name}</a>
-  {/foreach}
-{/if}
-{if length($tags)}
-  {foreach $tag in $tags}
-    {sp}<a class="CommitLog-tagLabel" href="{$tag.url}">{$tag.name}</a>
-  {/foreach}
-{/if}
+{sp}<a class="CommitLog-commitMsg" href="{$url}">{$shortMessage}</a>
+{sp}<a class="u-sha1 u-monospace CommitLog-sha1" href="{$url}">{$abbrevSha}</a>
+<ul class="CommitLog-metaInfo">
+  <li class="CommitLog-metaItem CommitLog-metaItem--author" title="{$author.email}">
+    <i class="material-icons md-18 CommitLog-metaIcon" aria-label="Committed by:">
+      <span role="presentation">&#xe7fd;</span>
+    </i>
+    {msg desc="commit author name"}{$author.name}{/msg}
+  </li>
+  <li class="CommitLog-metaItem CommitLog-metaItem--time" title="{$author.time}">
+    <i class="material-icons md-18 CommitLog-metaIcon" aria-label="Committed On:">
+      <span role="presentation">&#xe192;</span>
+    </i>
+    {$author.relativeTime}
+  </li>
+  {if length($branches)}
+    {foreach $branch in $branches}
+      <li class="CommitLog-metaItem CommitLog-metaItem--branchLabel" href="{$branch.url}">
+        <i class="material-icons md-18 CommitLog-metaIcon" aria-label="Branch:">
+          <span role="presentation">&#xe0b6;</span>
+        </i>
+        {$branch.name}
+      </li>
+    {/foreach}
+  {/if}
+  {if length($tags)}
+    {foreach $tag in $tags}
+      <li class="CommitLog-metaItem CommitLog-metaItem--tagLabel" href="{$tag.url}">
+        <i class="material-icons md-18 CommitLog-metaIcon" aria-label="Tag:">
+          <span role="presentation">&#xe892;</span>
+        </i>
+        {$tag.name}
+      </li>
+    {/foreach}
+  {/if}
+</ul>
 
 {if $rename}
   <span class="CommitLog-rename">

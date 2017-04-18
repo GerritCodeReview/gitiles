@@ -42,18 +42,6 @@
   {/if}
 
   <div class="RepoList">
-    <div class="RepoList-item RepoList-item--header">
-      <span class="RepoList-itemName">
-        {msg desc="column header for repository name"}
-          Name
-        {/msg}
-      </span>
-      <span class="RepoList-itemDescription">
-        {msg desc="column header for repository description"}
-          Description
-        {/msg}
-      </span>
-    </div>
     {foreach $repo in $repositories}
       <a class="RepoList-item" href="{$repo.url}">
         <span class="RepoList-itemName">{$repo.name}</span>
