@@ -174,26 +174,38 @@
     <ol class="FileList">
       {foreach $entry in $entries}
         <li class="FileList-item{sp}
+            {switch $entry.type}
+              {case 'TREE'}FileList-item--gitTree
+              {case 'SYMLINK'}FileList-item--symlink
+              {case 'REGULAR_FILE'}FileList-item--regularFile
+              {case 'EXECUTABLE_FILE'}FileList-item--executableFile
+              {case 'GITLINK'}gitlink
+              {default}regular-file
+            {/switch}
+            " aria-label="
+            {switch $entry.type}
+              {case 'TREE'}{msg desc="Alt text for tree icon"}Tree{/msg}
+              {case 'SYMLINK'}{msg desc="Alt text for symlink icon"}Symlink{/msg}
+              {case 'REGULAR_FILE'}{msg desc="Alt text for regular file icon"}Regular file{/msg}
+              {case 'EXECUTABLE_FILE'}
+                {msg desc="Alt text for executable file icon"}Executable file{/msg}
+              {case 'GITLINK'}
+                {msg desc="Alt text for git submodule link icon"}Git submodule link{/msg}
+              {default}{msg desc="Alt text for other file icon"}Other{/msg}
+            {/switch}
+            {sp}- {$entry.name}">
+          <i class="material-icons md-18 FileList-icon">
+            <span role="presentation">
               {switch $entry.type}
-                {case 'TREE'}FileList-item--gitTree
-                {case 'SYMLINK'}FileList-item--symlink
-                {case 'REGULAR_FILE'}FileList-item--regularFile
-                {case 'EXECUTABLE_FILE'}FileList-item--executableFile
-                {case 'GITLINK'}gitlink
-                {default}regular-file
+                {case 'TREE'}&#xe2c7;
+                {case 'SYMLINK'}&#xe157;
+                {case 'REGULAR_FILE'}&#xe873;
+                {case 'EXECUTABLE_FILE'}&#xe30d;
+                {case 'GITLINK'}&#xe5da;
+                {default}&#xe873;
               {/switch}
-              " title="
-              {switch $entry.type}
-                {case 'TREE'}{msg desc="Alt text for tree icon"}Tree{/msg}
-                {case 'SYMLINK'}{msg desc="Alt text for symlink icon"}Symlink{/msg}
-                {case 'REGULAR_FILE'}{msg desc="Alt text for regular file icon"}Regular file{/msg}
-                {case 'EXECUTABLE_FILE'}
-                  {msg desc="Alt text for executable file icon"}Executable file{/msg}
-                {case 'GITLINK'}
-                  {msg desc="Alt text for git submodule link icon"}Git submodule link{/msg}
-                {default}{msg desc="Alt text for other file icon"}Other{/msg}
-              {/switch}
-              {sp}- {$entry.name}">
+            </span>
+          </i>
           <a class="FileList-itemLink" href="{$entry.url}">{$entry.name}</a>
           {if $entry.type == 'SYMLINK'}
             {sp}&#x21e8;{sp}

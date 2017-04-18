@@ -5,6 +5,7 @@
 /gitiles.config
 /.idea
 *.iml
+/.vscode
 *~
 /bazel-bin
 /bazel-genfiles
