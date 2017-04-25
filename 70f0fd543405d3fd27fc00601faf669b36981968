@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89ae11a6_a8973d1b",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1021482
+      },
+      "writtenOn": "2017-04-25T22:46:45Z",
+      "side": 1,
+      "message": "is this ever shown again?",
+      "range": {
+        "startLine": 248,
+        "startChar": 2,
+        "endLine": 248,
+        "endChar": 16
+      },
+      "revId": "70f0fd543405d3fd27fc00601faf669b36981968",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
