@@ -22,6 +22,30 @@
       "revId": "70f0fd543405d3fd27fc00601faf669b36981968",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af99d12c_8c8b8cb0",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/base.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1039587
+      },
+      "writtenOn": "2017-04-25T22:50:01Z",
+      "side": 1,
+      "message": "Whoops, nope. I\u0027ll update the diff to remove this element altogether.",
+      "parentUuid": "89ae11a6_a8973d1b",
+      "range": {
+        "startLine": 248,
+        "startChar": 2,
+        "endLine": 248,
+        "endChar": 16
+      },
+      "revId": "70f0fd543405d3fd27fc00601faf669b36981968",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
