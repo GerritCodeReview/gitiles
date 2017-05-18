@@ -210,8 +210,8 @@ public class MarkdownToHtml implements Visitor {
     if (id != null) {
       html.open("a")
           .attribute("class", "h")
-          .attribute("name", id)
-          .attribute("href", "#" + id)
+          .attribute("name", id.toLowerCase())
+          .attribute("href", "#" + id.toLowerCase())
           .open("span")
           .close("span")
           .close("a");
