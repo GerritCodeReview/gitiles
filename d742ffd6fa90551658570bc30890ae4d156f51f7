@@ -34,6 +34,24 @@
       "revId": "d742ffd6fa90551658570bc30890ae4d156f51f7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c1f7f98_80912aa4",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2017-05-24T20:53:22Z",
+      "side": 1,
+      "message": "Done, can you please merge?",
+      "parentUuid": "606a8819_40b173e9",
+      "revId": "d742ffd6fa90551658570bc30890ae4d156f51f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
