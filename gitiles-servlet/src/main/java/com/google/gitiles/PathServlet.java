@@ -283,6 +283,44 @@ public class PathServlet extends BaseServlet {
     }
   }
 
+  @Override
+  protected void doGetRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Repository repo = ServletUtils.getRepository(req);
+
+    try (RevWalk rw = new RevWalk(repo);
+        WalkResult wr = WalkResult.forPath(rw, view, false)) {
+      if (wr == null) {
+        res.setStatus(SC_NOT_FOUND);
+        return;
+      }
+
+      switch (wr.type) {
+        case SYMLINK:
+        case REGULAR_FILE:
+        case EXECUTABLE_FILE:
+          writeBlobRaw(req, res, wr);
+          break;
+        case TREE:
+        case GITLINK:
+        default:
+          renderTextError(req, res, SC_NOT_FOUND, "Not a file");
+          break;
+      }
+    } catch (LargeObjectException e) {
+      res.setStatus(SC_INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  private void writeBlobRaw(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
+      throws IOException {
+    setTypeHeader(res, wr.type.mode.getObjectType());
+    setModeHeader(res, wr.type);
+    try (OutputStream out = startRenderRaw(req, res)) {
+      wr.getObjectReader().open(wr.id).copyTo(out);
+    }
+  }
+
   private static RevTree getRoot(GitilesView view, RevWalk rw) throws IOException {
     RevObject obj = rw.peel(rw.parseAny(view.getRevision().getId()));
     switch (obj.getType()) {

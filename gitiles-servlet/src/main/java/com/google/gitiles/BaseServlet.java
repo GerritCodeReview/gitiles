@@ -18,6 +18,7 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.FormatType.DEFAULT;
 import static com.google.gitiles.FormatType.HTML;
 import static com.google.gitiles.FormatType.JSON;
+import static com.google.gitiles.FormatType.RAW;
 import static com.google.gitiles.FormatType.TEXT;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
@@ -118,6 +119,9 @@ public abstract class BaseServlet extends HttpServlet {
       case JSON:
         doGetJson(req, res);
         break;
+      case RAW:
+        doGetRaw(req, res);
+        break;
       case DEFAULT:
       default:
         res.sendError(SC_BAD_REQUEST);
@@ -168,6 +172,16 @@ public abstract class BaseServlet extends HttpServlet {
    * @param res in-progress response.
    */
   protected void doGetJson(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    res.sendError(SC_BAD_REQUEST);
+  }
+
+  /**
+   * Handle a GET request when the requested format type was RAW.
+   *
+   * @param req in-progress request.
+   * @param res in-progress response.
+   */
+  protected void doGetRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
     res.sendError(SC_BAD_REQUEST);
   }
 
@@ -311,6 +325,27 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   /**
+   * Prepare the response to render binary.
+   *
+   * <p>
+   * This method does not write any data, only headers, and
+   * returns the response's ready-to-use output stream.
+   *
+   * @param req in-progress request.
+   * @param res in-progress response.
+   * @return the response's output stream.
+   */
+  protected OutputStream startRenderRaw(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    String contentType = req.getParameter("content-type");
+    if (Strings.isNullOrEmpty(contentType)) {
+        contentType = RAW.getMimeType();
+    }
+    setApiHeaders(req, res, contentType);
+    return newOutputStream(req, res);
+  }
+
+  /**
    * Render an error as plain text.
    *
    * @param req in-progress request.
@@ -363,8 +398,18 @@ public abstract class BaseServlet extends HttpServlet {
     if (!Strings.isNullOrEmpty(contentType)) {
       res.setContentType(contentType);
     }
+
+    String attachment = req.getParameter("attachment");
+    boolean asAttachment = true;
+    if (!Strings.isNullOrEmpty(attachment)) {
+        if ("0".equals(attachment) || "false".equals(attachment)) {
+            asAttachment = false;
+        }
+    }
+    if (asAttachment) {
+        res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment");
+    }
     res.setCharacterEncoding(UTF_8.name());
-    res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment");
 
     GitilesAccess access = getAccess(req);
     String[] allowOrigin = access.getConfig().getStringList("gitiles", null, "allowOriginRegex");
@@ -404,7 +449,7 @@ public abstract class BaseServlet extends HttpServlet {
     return new BufferedWriter(new OutputStreamWriter(os, res.getCharacterEncoding()));
   }
 
-  private Writer newWriter(HttpServletRequest req, HttpServletResponse res) throws IOException {
+  private OutputStream newOutputStream(HttpServletRequest req, HttpServletResponse res) throws IOException {
     OutputStream out;
     if (acceptsGzipEncoding(req)) {
       res.addHeader(HttpHeaders.VARY, HttpHeaders.ACCEPT_ENCODING);
@@ -413,7 +458,11 @@ public abstract class BaseServlet extends HttpServlet {
     } else {
       out = res.getOutputStream();
     }
-    return newWriter(out, res);
+    return out;
+  }
+
+  private Writer newWriter(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    return newWriter(newOutputStream(req, res), res);
   }
 
   protected static boolean acceptsGzipEncoding(HttpServletRequest req) {
