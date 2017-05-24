@@ -25,6 +25,7 @@ public enum FormatType {
   HTML("text/html"),
   TEXT("text/plain"),
   JSON("application/json"),
+  RAW("application/octet-stream"),
   DEFAULT("*/*");
 
   private static final String FORMAT_TYPE_ATTRIBUTE = FormatType.class.getName();
