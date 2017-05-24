@@ -16,6 +16,24 @@
       "revId": "d742ffd6fa90551658570bc30890ae4d156f51f7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "606a8819_40b173e9",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2017-05-24T17:29:26Z",
+      "side": 1,
+      "message": "We should definitely do that. I don\u0027t know why it used sh originally, seems like an oversight.",
+      "parentUuid": "995d984f_1f08de50",
+      "revId": "d742ffd6fa90551658570bc30890ae4d156f51f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
