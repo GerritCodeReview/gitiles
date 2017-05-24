@@ -20,6 +20,18 @@ expression defined in `allowOriginRegex`.
 
 By default `allowOriginRegex` is unset, denying all cross-origin requests.
 
+### Raw artifact download
+
+For security reasons raw download of artifacts is disabled, in trusted
+environment raw download may be enabled by using:
+
+```
+[gitiles]
+allowRaw = true
+```
+
+To download raw artifact use format=RAW query parameter.
+
 ## Markdown
 
 ### Disabling markdown
