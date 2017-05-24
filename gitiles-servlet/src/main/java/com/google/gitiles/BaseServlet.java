@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -337,7 +338,19 @@ public abstract class BaseServlet extends HttpServlet {
    */
   protected OutputStream startRenderRaw(HttpServletRequest req, HttpServletResponse res)
       throws IOException {
-    setApiHeaders(req, res, RAW);
+
+    GitilesView view = ViewFilter.getView(req);
+    String mimeType = MimeTypes.getMimeType(view.getPathPart());
+
+    String mimeTypeOverride = req.getParameter("mime-type");
+    if (!Strings.isNullOrEmpty(mimeTypeOverride)) {
+      GitilesAccess access = getAccess(req);
+      String[] allowedContentTypes = access.getConfig().getStringList("gitiles", null, "allowedMimeType");
+      if (Arrays.asList(allowedContentTypes).contains(mimeTypeOverride)) {
+        mimeType = mimeTypeOverride;
+      }
+    }
+    setApiHeaders(req, res, mimeType);
     return newOutputStream(req, res);
   }
 
@@ -395,7 +408,17 @@ public abstract class BaseServlet extends HttpServlet {
       res.setContentType(contentType);
     }
     res.setCharacterEncoding(UTF_8.name());
-    res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment");
+
+    String attachment = req.getParameter("attachment");
+    boolean asAttachment = true;
+    if (!Strings.isNullOrEmpty(attachment)) {
+        if ("0".equals(attachment) || "false".equals(attachment)) {
+            asAttachment = false;
+        }
+    }
+    if (asAttachment) {
+        res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment");
+    }
 
     GitilesAccess access = getAccess(req);
     String[] allowOrigin = access.getConfig().getStringList("gitiles", null, "allowOriginRegex");

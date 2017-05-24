@@ -20,6 +20,17 @@ expression defined in `allowOriginRegex`.
 
 By default `allowOriginRegex` is unset, denying all cross-origin requests.
 
+### Allowed Mime-Type
+
+Gitiles supports `mime-type=TYPE` and `attachment=0|1|true|false` query
+parameters for `type=RAW`. Allowed mime types values are defined in
+`allowedMimeType`. Default is a subset based on path extension.
+
+```
+[gitiles]
+  allowedMimeType = video/mpeg
+```
+
 ## Markdown
 
 ### Disabling markdown
