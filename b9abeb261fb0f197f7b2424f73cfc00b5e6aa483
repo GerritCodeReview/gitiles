@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e100a2f_4256632f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1030912
+      },
+      "writtenOn": "2017-05-30T09:25:44Z",
+      "side": 1,
+      "message": "According to [1], the \u0027default\u0027 case could be omitted so that missing cases can be automatically identified.\n\n[1] https://google.github.io/styleguide/javaguide.html#s4.8.4-switch",
+      "range": {
+        "startLine": 280,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 16
+      },
+      "revId": "b9abeb261fb0f197f7b2424f73cfc00b5e6aa483",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
