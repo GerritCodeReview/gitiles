@@ -16,7 +16,6 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.hash.HashCode;
 import com.google.template.soy.SoyFileSet;
@@ -24,6 +23,8 @@ import com.google.template.soy.tofu.SoyTofu;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /** Renderer that reloads Soy templates from the filesystem on every request. */
 public class DebugRenderer extends Renderer {
@@ -36,7 +37,8 @@ public class DebugRenderer extends Renderer {
         fileUrlMapper(soyTemplatesRoot + File.separator),
         ImmutableMap.<String, String>of(),
         staticPrefix,
-        FluentIterable.from(customTemplatesFilenames).transform(fileUrlMapper()),
+        StreamSupport.stream(customTemplatesFilenames.spliterator(), false)
+          .map(fileUrlMapper()).collect(Collectors.toList()),
         siteTitle);
   }
 
