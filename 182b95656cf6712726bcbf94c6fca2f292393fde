@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "668e826e_c4a6f0f8",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DebugRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1030912
+      },
+      "writtenOn": "2017-05-30T10:52:23Z",
+      "side": 1,
+      "message": "Even though the class is part of Guava, it will create a java.util.stream.Stream.",
+      "parentUuid": "f752a58c_cb41f9c6",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "182b95656cf6712726bcbf94c6fca2f292393fde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6da9635_ad68f697",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
         "patchSetId": 3
