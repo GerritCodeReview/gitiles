@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "2592d3ae_f07a4eae",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DebugRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-30T23:01:44Z",
+      "side": 1,
+      "message": "Looking at the implementation, it essentially does the same thing as here:\n\n public static \u003cT\u003e Stream\u003cT\u003e stream(Iterable\u003cT\u003e iterable) {\n    return (iterable instanceof Collection)\n        ? ((Collection\u003cT\u003e) iterable).stream()\n        : StreamSupport.stream(iterable.spliterator(), false);\n  }\n\nbut I do agree that it looks more expressive.  I\u0027ll change it.",
+      "parentUuid": "40bc9ada_7f667d02",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "182b95656cf6712726bcbf94c6fca2f292393fde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6da9635_ad68f697",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
         "patchSetId": 3
