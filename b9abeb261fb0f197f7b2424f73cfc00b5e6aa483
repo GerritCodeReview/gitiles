@@ -22,6 +22,30 @@
       "revId": "b9abeb261fb0f197f7b2424f73cfc00b5e6aa483",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca256f20_deb02f9d",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-30T10:24:04Z",
+      "side": 1,
+      "message": "Typically we don\u0027t omit the default.  IIRC doing so will cause a warning in Eclipse.\n\nAnd the missing cases were automatically identified anyway, which is how I noticed them :)",
+      "parentUuid": "8e100a2f_4256632f",
+      "range": {
+        "startLine": 280,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 16
+      },
+      "revId": "b9abeb261fb0f197f7b2424f73cfc00b5e6aa483",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
