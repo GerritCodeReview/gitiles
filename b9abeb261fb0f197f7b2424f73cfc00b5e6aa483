@@ -46,6 +46,30 @@
       "revId": "b9abeb261fb0f197f7b2424f73cfc00b5e6aa483",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f90fc05a_a825e26f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1030912
+      },
+      "writtenOn": "2017-05-30T15:37:36Z",
+      "side": 1,
+      "message": "Fair enough.",
+      "parentUuid": "ca256f20_deb02f9d",
+      "range": {
+        "startLine": 280,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 16
+      },
+      "revId": "b9abeb261fb0f197f7b2424f73cfc00b5e6aa483",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
