@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f752a58c_cb41f9c6",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/DebugRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-30T10:25:54Z",
+      "side": 1,
+      "message": "My intention was to replace Guava with \"native\" Java.",
+      "parentUuid": "406a415d_4f3cb6ef",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "182b95656cf6712726bcbf94c6fca2f292393fde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6da9635_ad68f697",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-05-30T09:32:10Z",
       "side": 1,
       "message": "nit: Could be replaced by Arrays#stream.",
+      "range": {
+        "startLine": 320,
+        "startChar": 14,
+        "endLine": 320,
+        "endChar": 27
+      },
+      "revId": "182b95656cf6712726bcbf94c6fca2f292393fde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "785f5e1b_7dbb138f",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-30T10:25:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6da9635_ad68f697",
       "range": {
         "startLine": 320,
         "startChar": 14,
