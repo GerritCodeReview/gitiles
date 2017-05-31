@@ -134,6 +134,7 @@ public abstract class Renderer {
     URL u = templates.get(soyFile);
     checkState(u != null, "Missing Soy template %s", soyFile);
 
+    @SuppressWarnings("deprecation")
     Hasher h = Hashing.sha1().newHasher();
     try (InputStream is = u.openStream();
         OutputStream os = Funnels.asOutputStream(h)) {

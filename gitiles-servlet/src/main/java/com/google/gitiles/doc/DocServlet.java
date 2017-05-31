@@ -139,6 +139,7 @@ public class DocServlet extends BaseServlet {
 
   private String etag(MarkdownFile srcmd, @Nullable MarkdownFile navmd) {
     byte[] b = new byte[Constants.OBJECT_ID_LENGTH];
+    @SuppressWarnings("deprecation")
     Hasher h = Hashing.sha1().newHasher();
     h.putInt(ETAG_GEN);
 
