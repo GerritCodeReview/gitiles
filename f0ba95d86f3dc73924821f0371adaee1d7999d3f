@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d66ba941_6bf03da7",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/Renderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2017-06-07T17:51:40Z",
+      "side": 1,
+      "message": "Same as other comment, this doesn\u0027t need to be SHA-1.",
+      "revId": "f0ba95d86f3dc73924821f0371adaee1d7999d3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb021fc_26cb1007",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2017-06-07T17:51:40Z",
+      "side": 1,
+      "message": "We don\u0027t need SHA-1 for this. It will invalidate all old ETags but I doubt we care; ETags are already invalidated between releases that modify the soy templates, which is frequent.",
+      "revId": "f0ba95d86f3dc73924821f0371adaee1d7999d3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
