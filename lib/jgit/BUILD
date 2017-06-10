@@ -9,7 +9,7 @@ java_library(
 
 java_library(
     name = "jgit",
-    exports = ["@jgit_lib//jar"],
+    exports = ["@jgit//jar"],
 )
 
 java_library(
@@ -33,7 +33,7 @@ java_library(
 
 java_library(
     name = "jgit-archive_library",
-    exports = ["@jgit_archive//jar"],
+    exports = ["@jgit_archive_library//jar"],
 )
 
 java_library(

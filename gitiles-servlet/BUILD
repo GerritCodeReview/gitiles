@@ -6,7 +6,7 @@ load(
 DEPS = [
     "//blame-cache:blame-cache",
     "//lib:autolink",
-    "//lib:commons-lang3",
+    "//lib:commons-lang",
     "//lib:gson",
     "//lib:guava",
     "//lib:joda-time",

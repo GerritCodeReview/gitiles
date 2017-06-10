@@ -8,7 +8,7 @@ package(
 ) for n in [
     "autolink",
     "commonmark",
-    "commons-lang3",
+    "commons-lang",
     "cm-autolink",
     "gfm-strikethrough",
     "gfm-tables",
