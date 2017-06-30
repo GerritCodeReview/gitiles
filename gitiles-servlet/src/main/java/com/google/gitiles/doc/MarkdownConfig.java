@@ -41,6 +41,17 @@ public class MarkdownConfig {
   final int imageLimit;
   final String analyticsId;
 
+  final boolean autoLink;
+  final boolean blockNote;
+  final boolean ghThematicBreak;
+  final boolean multiColumn;
+  final boolean namedAnchor;
+  final boolean safeHtml;
+  final boolean smartQuote;
+  final boolean strikethrough;
+  final boolean tables;
+  final boolean toc;
+
   private final boolean allowAnyIFrame;
   private final ImmutableList<String> allowIFrame;
 
@@ -50,7 +61,21 @@ public class MarkdownConfig {
     imageLimit = cfg.getInt("markdown", "imageLimit", IMAGE_LIMIT);
     analyticsId = Strings.emptyToNull(cfg.getString("google", null, "analyticsId"));
 
-    String[] f = cfg.getStringList("markdown", null, "allowiframe");
+    autoLink = cfg.getBoolean("markdown", "autolink", true);
+    blockNote = cfg.getBoolean("markdown", "blocknote", false);
+    ghThematicBreak = cfg.getBoolean("markdown", "ghthematicbreak", true);
+    multiColumn = cfg.getBoolean("markdown", "multicolumn", false);
+    namedAnchor = cfg.getBoolean("markdown", "namedanchor", false);
+    safeHtml = cfg.getBoolean("markdown", "safehtml", true);
+    smartQuote = cfg.getBoolean("markdown", "smartquote", false);
+    strikethrough = cfg.getBoolean("markdown", "strikethrough", true);
+    tables = cfg.getBoolean("markdown", "tables", true);
+    toc = cfg.getBoolean("markdown", "toc", true);
+
+    String[] f = {};
+    if (safeHtml) {
+      f = cfg.getStringList("markdown", null, "allowiframe");
+    }
     allowAnyIFrame = f.length == 1 && StringUtils.toBooleanOrNull(f[0]) == Boolean.TRUE;
     if (allowAnyIFrame) {
       allowIFrame = ImmutableList.of();
