@@ -128,12 +128,16 @@ public class MarkdownToHtml implements Visitor {
   private final ImageLoader imageLoader;
   private boolean outputNamedAnchor = true;
 
-  private MarkdownToHtml(Builder b) {
+  protected MarkdownToHtml(Builder b) {
     requestUri = b.requestUri;
     view = b.view;
     config = b.config;
     filePath = b.filePath;
     imageLoader = newImageLoader(b);
+  }
+
+  protected HtmlBuilder html() {
+    return html;
   }
 
   private static ImageLoader newImageLoader(Builder b) {

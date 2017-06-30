@@ -39,6 +39,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,8 +71,18 @@ public class DocServlet extends BaseServlet {
   // files are automatically hashed as part of the ETag.
   private static final int ETAG_GEN = 5;
 
+  private final Function<MarkdownToHtml.Builder, MarkdownToHtml> htmlBuilder;
+
   public DocServlet(GitilesAccess.Factory accessFactory, Renderer renderer) {
+    this(accessFactory, renderer, b -> b.build());
+  }
+
+  public DocServlet(
+      GitilesAccess.Factory accessFactory,
+      Renderer renderer,
+      Function<MarkdownToHtml.Builder, MarkdownToHtml> htmlBuilder) {
     super(renderer, accessFactory);
+    this.htmlBuilder = htmlBuilder;
   }
 
   @Override
@@ -180,9 +191,10 @@ public class DocServlet extends BaseServlet {
       data.put("analyticsId", cfg.analyticsId);
     }
 
+    fmt.setFilePath(srcFile.path);
     try (OutputStream out = startRenderCompressedStreamingHtml(req, res, SOY_TEMPLATE, data)) {
       Writer w = newWriter(out, res);
-      fmt.setFilePath(srcFile.path).build().renderToHtml(new StreamHtmlBuilder(w), doc);
+      htmlBuilder.apply(fmt).renderToHtml(new StreamHtmlBuilder(w), doc);
       w.flush();
     } catch (RuntimeIOException e) {
       Throwables.throwIfInstanceOf(e.getCause(), IOException.class);
