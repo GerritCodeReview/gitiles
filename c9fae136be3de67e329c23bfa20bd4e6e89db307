@@ -34,6 +34,24 @@
       "revId": "c9fae136be3de67e329c23bfa20bd4e6e89db307",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba2cd19d_09f12b38",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-06-30T20:21:41Z",
+      "side": 1,
+      "message": "Is this to prevent BaseServlet#startHtmlResponse from hitting the \u0027if (!allData.containsKey(\"breadcrumbs\"))\u0027 code path? Should that code path check that view.getBreadcrumbs() !\u003d null like it does for view.getRepositoryName() !\u003d null a few lines up? Is GitilesView#getBreadcrumbs throwing an exception instead of returning null?\n\nThis seems error-prone and hard to read. I think we can do better.",
+      "parentUuid": "adc035a9_27ba367a",
+      "revId": "c9fae136be3de67e329c23bfa20bd4e6e89db307",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
