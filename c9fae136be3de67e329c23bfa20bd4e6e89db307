@@ -16,6 +16,24 @@
       "revId": "c9fae136be3de67e329c23bfa20bd4e6e89db307",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc035a9_27ba367a",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-06-30T20:13:49Z",
+      "side": 1,
+      "message": "Necessary to prevent startRenderCompressedStreamingHtml from trying (and failing) to populate breadcrumbs when rendering some types of Markdown pages.",
+      "parentUuid": "b1435583_e3e6c392",
+      "revId": "c9fae136be3de67e329c23bfa20bd4e6e89db307",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
