@@ -27,6 +27,7 @@ import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
+import com.google.common.html.types.SafeHtml;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.BaseServlet;
 import com.google.gitiles.GitilesAccess;
@@ -39,6 +40,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,13 +67,26 @@ public class DocServlet extends BaseServlet {
   private static final String SOY_FILE = "Doc.soy";
   private static final String SOY_TEMPLATE = "gitiles.markdownDoc";
 
+  /** HTML ordainer that discards input and always returns an empty SafeHtml. */
+  public static final Function<String, SafeHtml> NO_SAFE_HTML = unused -> SafeHtml.EMPTY;
+
   // Generation of ETag logic. Bump this only if DocServlet logic changes
   // significantly enough to impact cached pages. Soy template and source
   // files are automatically hashed as part of the ETag.
   private static final int ETAG_GEN = 5;
 
+  private final Function<String, SafeHtml> htmlOrdainer;
+
   public DocServlet(GitilesAccess.Factory accessFactory, Renderer renderer) {
+    this(accessFactory, renderer, NO_SAFE_HTML);
+  }
+
+  public DocServlet(
+      GitilesAccess.Factory accessFactory,
+      Renderer renderer,
+      Function<String, SafeHtml> htmlOrdainer) {
     super(renderer, accessFactory);
+    this.htmlOrdainer = htmlOrdainer;
   }
 
   @Override
@@ -128,7 +143,8 @@ public class DocServlet extends BaseServlet {
               .setGitilesView(view)
               .setRequestUri(req.getRequestURI())
               .setReader(reader)
-              .setRootTree(root);
+              .setRootTree(root)
+              .setHtmlOrdainer(htmlOrdainer);
       res.setHeader(HttpHeaders.ETAG, curEtag);
       showDoc(req, res, view, cfg, fmt, navmd, srcmd);
     }

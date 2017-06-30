@@ -17,7 +17,9 @@ package com.google.gitiles.doc;
 import static com.google.gitiles.doc.MarkdownUtil.getInnerText;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
+import com.google.common.html.types.SafeHtml;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.ThreadSafePrettifyParser;
 import com.google.gitiles.doc.html.HtmlBuilder;
@@ -26,6 +28,7 @@ import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
 import java.util.List;
+import java.util.function.Function;
 import javax.annotation.Nullable;
 import org.commonmark.ext.gfm.strikethrough.Strikethrough;
 import org.commonmark.ext.gfm.tables.TableBlock;
@@ -81,6 +84,7 @@ public class MarkdownToHtml implements Visitor {
     private String filePath;
     private ObjectReader reader;
     private RevTree root;
+    private Function<String, SafeHtml> htmlOrdainer = DocServlet.NO_SAFE_HTML;
 
     Builder() {}
 
@@ -114,6 +118,11 @@ public class MarkdownToHtml implements Visitor {
       return this;
     }
 
+    public Builder setHtmlOrdainer(Function<String, SafeHtml> htmlOrdainer) {
+      this.htmlOrdainer = MoreObjects.firstNonNull(htmlOrdainer, DocServlet.NO_SAFE_HTML);
+      return this;
+    }
+
     public MarkdownToHtml build() {
       return new MarkdownToHtml(this);
     }
@@ -125,15 +134,21 @@ public class MarkdownToHtml implements Visitor {
   private final GitilesView view;
   private final MarkdownConfig config;
   private final String filePath;
+  private final Function<String, SafeHtml> htmlOrdainer;
   private final ImageLoader imageLoader;
   private boolean outputNamedAnchor = true;
 
-  private MarkdownToHtml(Builder b) {
+  protected MarkdownToHtml(Builder b) {
     requestUri = b.requestUri;
     view = b.view;
     config = b.config;
     filePath = b.filePath;
+    htmlOrdainer = b.htmlOrdainer;
     imageLoader = newImageLoader(b);
+  }
+
+  protected HtmlBuilder html() {
+    return html;
   }
 
   private static ImageLoader newImageLoader(Builder b) {
@@ -491,12 +506,12 @@ public class MarkdownToHtml implements Visitor {
 
   @Override
   public void visit(HtmlInline node) {
-    // Discard all HTML.
+    // Discard inline HTML, as its always partial tags.
   }
 
   @Override
   public void visit(HtmlBlock node) {
-    // Discard all HTML.
+    html.append(htmlOrdainer.apply(node.getLiteral()));
   }
 
   private void wrapChildren(String tag, Node node) {

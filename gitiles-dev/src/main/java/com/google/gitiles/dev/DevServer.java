@@ -18,6 +18,7 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
 import com.google.common.base.Strings;
+import com.google.common.html.types.UncheckedConversions;
 import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
@@ -175,6 +176,18 @@ class DevServer {
             throw new RepositoryNotFoundException(repoKey.getFile(), e);
           }
         };
+
+    if (cfg.getBoolean("markdown", "unsafeAllowUserContentHtmlInDevMode", false)) {
+      log.warn("!!! Allowing unsafe user content HTML in Markdown !!!");
+      return new RootedDocServlet(
+          resolver,
+          new RootedDocAccess(docRepo),
+          renderer,
+          rawUnsafeHtml ->
+              // Yes, this is evil. Its not known the input was safe.
+              // I'm a development server to test Gitiles, not a cop.
+              UncheckedConversions.safeHtmlFromStringKnownToSatisfyTypeContract(rawUnsafeHtml));
+    }
 
     return new RootedDocServlet(resolver, new RootedDocAccess(docRepo), renderer);
   }
