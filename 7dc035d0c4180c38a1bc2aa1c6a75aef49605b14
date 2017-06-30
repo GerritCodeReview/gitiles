@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7b97a20_8490ae3c",
+        "filename": "Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-06-30T18:52:21Z",
+      "side": 1,
+      "message": "is dropped regardless of this setting",
+      "range": {
+        "startLine": 79,
+        "startChar": 34,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "7dc035d0c4180c38a1bc2aa1c6a75aef49605b14",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
