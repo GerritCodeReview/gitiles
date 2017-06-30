@@ -18,12 +18,14 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
 import com.google.common.base.Strings;
+import com.google.common.html.types.UncheckedConversions;
 import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.PathServlet;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
+import com.google.gitiles.doc.MarkdownToHtml;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -38,6 +40,8 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
+import org.commonmark.node.HtmlBlock;
+import org.commonmark.node.HtmlInline;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -175,6 +179,34 @@ class DevServer {
             throw new RepositoryNotFoundException(repoKey.getFile(), e);
           }
         };
+
+    if (cfg.getBoolean("markdown", "unsafeAllowUserContentHtmlInDevMode", false)) {
+      log.warn("!!! Allowing unsafe user content HTML in Markdown !!!");
+      return new RootedDocServlet(resolver, new RootedDocAccess(docRepo), renderer) {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        protected MarkdownToHtml createMarkdownToHtml(MarkdownToHtml.Builder fmt) {
+          return new MarkdownToHtml(fmt) {
+            @Override
+            public void visit(HtmlInline node) {
+              unsafeAppendRawUnsafeUserSuppliedHtml(node.getLiteral());
+            }
+
+            @Override
+            public void visit(HtmlBlock node) {
+              unsafeAppendRawUnsafeUserSuppliedHtml(node.getLiteral());
+            }
+
+            private void unsafeAppendRawUnsafeUserSuppliedHtml(String s) {
+              // Yes, this is evil. Its not known the input was safe.
+              // I'm a development server to test Gitiles, not a cop.
+              html().append(UncheckedConversions.safeHtmlFromStringKnownToSatisfyTypeContract(s));
+            }
+          };
+        }
+      };
+    }
 
     return new RootedDocServlet(resolver, new RootedDocAccess(docRepo), renderer);
   }

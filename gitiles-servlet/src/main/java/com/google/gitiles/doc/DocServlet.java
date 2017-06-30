@@ -180,14 +180,20 @@ public class DocServlet extends BaseServlet {
       data.put("analyticsId", cfg.analyticsId);
     }
 
+    fmt.setFilePath(srcFile.path);
     try (OutputStream out = startRenderCompressedStreamingHtml(req, res, SOY_TEMPLATE, data)) {
       Writer w = newWriter(out, res);
-      fmt.setFilePath(srcFile.path).build().renderToHtml(new StreamHtmlBuilder(w), doc);
+      createMarkdownToHtml(fmt).renderToHtml(new StreamHtmlBuilder(w), doc);
       w.flush();
     } catch (RuntimeIOException e) {
       Throwables.throwIfInstanceOf(e.getCause(), IOException.class);
       throw e;
     }
+  }
+
+  /** Construct the {@link MarkdownToHtml} instance for the document's content. */
+  protected MarkdownToHtml createMarkdownToHtml(MarkdownToHtml.Builder fmt) {
+    return fmt.build();
   }
 
   private Map<String, Object> buildNavbar(

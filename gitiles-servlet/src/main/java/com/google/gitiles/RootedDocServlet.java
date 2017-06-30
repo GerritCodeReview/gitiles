@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static org.eclipse.jgit.http.server.ServletUtils.ATTRIBUTE_REPOSITORY;
 
 import com.google.gitiles.doc.DocServlet;
+import com.google.gitiles.doc.MarkdownToHtml;
 import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -49,7 +50,19 @@ public class RootedDocServlet extends HttpServlet {
       GitilesAccess.Factory accessFactory,
       Renderer renderer) {
     this.resolver = resolver;
-    docServlet = new DocServlet(accessFactory, renderer);
+    docServlet = new DocServlet(accessFactory, renderer) {
+      private static final long serialVersionUID = 1L;
+
+      @Override
+      protected MarkdownToHtml createMarkdownToHtml(MarkdownToHtml.Builder fmt) {
+        return RootedDocServlet.this.createMarkdownToHtml(fmt);
+      }
+    };
+  }
+
+  /** Construct the {@link MarkdownToHtml} instance for the document's content. */
+  protected MarkdownToHtml createMarkdownToHtml(MarkdownToHtml.Builder fmt) {
+    return fmt.build();
   }
 
   @Override
