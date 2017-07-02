@@ -45,6 +45,54 @@
       "revId": "f485a317f83ff20a529f3126617821ea1b4462c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e959b1b4_16fe17ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-07-02T20:10:15Z",
+      "side": 1,
+      "message": "Yes. Existing extensions are safe to enable on any site. The only risk is your documents using an extension and requiring it to be enabled to be readable/legible.",
+      "parentUuid": "8d03f551_2aea67cf",
+      "range": {
+        "startLine": 13,
+        "startChar": 45,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "f485a317f83ff20a529f3126617821ea1b4462c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75fb0b4c_223db713",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-07-02T20:10:15Z",
+      "side": 1,
+      "message": "Yes, I agree. The documentation is a bit of a disorganized mess right now, and could benefit from an overhaul for the extensions.\n\nI don\u0027t really have the energy to do that kind of work today. I might get back to it later this week. A proper overhaul might be better done as a separate commit, rather than folded into this commit. It could be ordered before, or after this.",
+      "parentUuid": "4db3c9c3_ccf581f7",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 57
+      },
+      "revId": "f485a317f83ff20a529f3126617821ea1b4462c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
