@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4db3c9c3_ccf581f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-02T04:37:02Z",
+      "side": 1,
+      "message": "This should be mentioned in the documentation.  Actually, the markdown extensions documentation could do with an update anyway to make it clearer how to enable/disable extensions.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 57
+      },
+      "revId": "f485a317f83ff20a529f3126617821ea1b4462c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d03f551_2aea67cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-02T04:37:02Z",
+      "side": 1,
+      "message": "So if the admin of a site disabled some extensions, this allows anyone with push permission to override that as long as the reviewer lets it in?",
+      "range": {
+        "startLine": 13,
+        "startChar": 45,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "f485a317f83ff20a529f3126617821ea1b4462c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
