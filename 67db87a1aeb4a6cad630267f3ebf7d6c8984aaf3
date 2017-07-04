@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33779704_3c80a356",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-04T01:29:30Z",
+      "side": 1,
+      "message": "it\u0027s",
+      "range": {
+        "startLine": 16,
+        "startChar": 53,
+        "endLine": 16,
+        "endChar": 56
+      },
+      "revId": "67db87a1aeb4a6cad630267f3ebf7d6c8984aaf3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10b65701_7b20af04",
+        "filename": "gitiles-dev/src/main/java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-04T01:29:30Z",
+      "side": 1,
+      "message": "It\u0027s",
+      "range": {
+        "startLine": 187,
+        "startChar": 40,
+        "endLine": 187,
+        "endChar": 43
+      },
+      "revId": "67db87a1aeb4a6cad630267f3ebf7d6c8984aaf3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4f5a7fc_02971ae2",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-04T01:29:30Z",
+      "side": 1,
+      "message": "it\u0027s",
+      "range": {
+        "startLine": 507,
+        "startChar": 31,
+        "endLine": 507,
+        "endChar": 34
+      },
+      "revId": "67db87a1aeb4a6cad630267f3ebf7d6c8984aaf3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
