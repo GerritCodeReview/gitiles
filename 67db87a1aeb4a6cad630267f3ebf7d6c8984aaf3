@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "be78d09f_675289d5",
+        "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/HtmlSanitizer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-07T00:00:36Z",
+      "side": 1,
+      "message": "bazel build doesn\u0027t like this import.\n\n  gitiles-servlet/src/main/java/com/google/gitiles/doc/HtmlSanitizer.java:17: error: package com.google.common.html.types does not exist\n  import com.google.common.html.types.SafeHtml;\n                                     ^",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "67db87a1aeb4a6cad630267f3ebf7d6c8984aaf3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4f5a7fc_02971ae2",
         "filename": "gitiles-servlet/src/main/java/com/google/gitiles/doc/MarkdownToHtml.java",
         "patchSetId": 5
