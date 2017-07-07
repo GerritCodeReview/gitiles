@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c312d407_3287c960",
+        "filename": "gitiles-servlet/src/test/java/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-07T11:23:15Z",
+      "side": 1,
+      "message": "redundant concatenation",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "4ab5515a87490050e5947dfe60ed5b4ec8d75abc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
