@@ -57,7 +57,6 @@ public class DocServletTest extends ServletTest {
         .contains(
             "<h1>"
                 + "<a class=\"h\" name=\"page\" href=\"#page\"><span></span></a>"
-                + "<a class=\"h\" name=\"page\" href=\"#page\"><span></span></a>"
                 + "page</h1>");
   }
 
@@ -87,7 +86,6 @@ public class DocServletTest extends ServletTest {
     assertThat(html)
         .contains(
             "<h1>"
-                + "<a class=\"h\" name=\"debug\" href=\"#debug\"><span></span></a>"
                 + "<a class=\"h\" name=\"debug\" href=\"#debug\"><span></span></a>"
                 + "Section</h1>");
     assertThat(html)
