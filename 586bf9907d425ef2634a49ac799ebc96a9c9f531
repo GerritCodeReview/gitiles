@@ -22,6 +22,30 @@
       "revId": "586bf9907d425ef2634a49ac799ebc96a9c9f531",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "548fa0d9_7cb44673",
+        "filename": "gitiles-servlet/src/main/resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-07-25T23:54:40Z",
+      "side": 1,
+      "message": "I agree. base.css sets the font size for .Site to 14px so the font would have to have a narrow em for 1.3em to be smaller than 16px, but in general it is easier to understand consistent units.\n\nLeft for a followup change since this change already looks like an improvement.",
+      "parentUuid": "9c8a33b3_73feb86b",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "586bf9907d425ef2634a49ac799ebc96a9c9f531",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
