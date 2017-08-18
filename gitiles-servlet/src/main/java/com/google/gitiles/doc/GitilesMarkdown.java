@@ -14,9 +14,7 @@
 
 package com.google.gitiles.doc;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.commonmark.Extension;
+import com.google.common.collect.ImmutableList;
 import org.commonmark.ext.autolink.AutolinkExtension;
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
@@ -26,43 +24,28 @@ import org.eclipse.jgit.util.RawParseUtils;
 
 /** Parses Gitiles style CommonMark Markdown. */
 public class GitilesMarkdown {
-  public static Node parse(MarkdownConfig cfg, byte[] md) {
-    return parse(cfg, RawParseUtils.decode(md));
+  private static final Parser PARSER =
+      Parser.builder()
+          .extensions(
+              ImmutableList.of(
+                  AutolinkExtension.create(),
+                  BlockNoteExtension.create(),
+                  GitilesHtmlExtension.create(),
+                  GitHubThematicBreakExtension.create(),
+                  MultiColumnExtension.create(),
+                  NamedAnchorExtension.create(),
+                  SmartQuotedExtension.create(),
+                  StrikethroughExtension.create(),
+                  TablesExtension.create(),
+                  TocExtension.create()))
+          .build();
+
+  public static Node parse(byte[] md) {
+    return parse(RawParseUtils.decode(md));
   }
 
-  public static Node parse(MarkdownConfig cfg, String md) {
-    List<Extension> ext = new ArrayList<>();
-    if (cfg.autoLink) {
-      ext.add(AutolinkExtension.create());
-    }
-    if (cfg.blockNote) {
-      ext.add(BlockNoteExtension.create());
-    }
-    if (cfg.safeHtml) {
-      ext.add(GitilesHtmlExtension.create());
-    }
-    if (cfg.ghThematicBreak) {
-      ext.add(GitHubThematicBreakExtension.create());
-    }
-    if (cfg.multiColumn) {
-      ext.add(MultiColumnExtension.create());
-    }
-    if (cfg.namedAnchor) {
-      ext.add(NamedAnchorExtension.create());
-    }
-    if (cfg.smartQuote) {
-      ext.add(SmartQuotedExtension.create());
-    }
-    if (cfg.strikethrough) {
-      ext.add(StrikethroughExtension.create());
-    }
-    if (cfg.tables) {
-      ext.add(TablesExtension.create());
-    }
-    if (cfg.toc) {
-      ext.add(TocExtension.create());
-    }
-    return Parser.builder().extensions(ext).build().parse(md);
+  public static Node parse(String md) {
+    return PARSER.parse(md);
   }
 
   private GitilesMarkdown() {}

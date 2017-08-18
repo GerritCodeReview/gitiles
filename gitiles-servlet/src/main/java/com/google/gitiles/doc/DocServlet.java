@@ -167,9 +167,9 @@ public class DocServlet extends BaseServlet {
       MarkdownFile srcFile)
       throws IOException {
     Map<String, Object> data = new HashMap<>();
-    data.putAll(buildNavbar(cfg, fmt, navFile));
+    data.putAll(buildNavbar(fmt, navFile));
 
-    Node doc = GitilesMarkdown.parse(cfg, srcFile.consumeContent());
+    Node doc = GitilesMarkdown.parse(srcFile.consumeContent());
     data.put("pageTitle", pageTitle(doc, srcFile));
     if (view.getType() != GitilesView.Type.ROOTED_DOC) {
       data.put("sourceUrl", GitilesView.show().copyFrom(view).toUrl());
@@ -190,12 +190,11 @@ public class DocServlet extends BaseServlet {
     }
   }
 
-  private Map<String, Object> buildNavbar(
-      MarkdownConfig cfg, MarkdownToHtml.Builder fmt, MarkdownFile navFile) {
+  private Map<String, Object> buildNavbar(MarkdownToHtml.Builder fmt, MarkdownFile navFile) {
     Navbar navbar = new Navbar();
     if (navFile != null) {
       navbar.setFormatter(fmt.setFilePath(navFile.path).build());
-      navbar.setMarkdown(cfg, navFile.consumeContent());
+      navbar.setMarkdown(navFile.consumeContent());
     }
     return navbar.toSoyData();
   }

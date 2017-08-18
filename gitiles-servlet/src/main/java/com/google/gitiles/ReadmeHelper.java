@@ -98,7 +98,7 @@ class ReadmeHelper {
           .setReader(reader)
           .setRootTree(rootTree)
           .build()
-          .toSoyHtml(GitilesMarkdown.parse(config, raw));
+          .toSoyHtml(GitilesMarkdown.parse(raw));
     } catch (RuntimeException | IOException err) {
       log.error(
           String.format(
