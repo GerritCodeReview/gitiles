@@ -3,17 +3,17 @@ load("@com_googlesource_gerrit_bazlets//tools/maven:package.bzl", "maven_package
 
 maven_package(
     src = {
-        "blame-cache": "//blame-cache:libblame-cache-src.jar",
-        "gitiles-servlet": "//gitiles-servlet:libservlet-src.jar",
+        "blame-cache": "//src/main/java/com/google/gitiles:libblame-cache-src.jar",
+        "gitiles-servlet": "//src/main/java/com/google/gitiles:libservlet-src.jar",
     },
     doc = {
-        "blame-cache": "//blame-cache:javadoc",
-        "gitiles-servlet": "//gitiles-servlet:javadoc",
+        "blame-cache": "//src/main/java/com/google/gitiles:blame-cache-javadoc",
+        "gitiles-servlet": "//src/main/java/com/google/gitiles:servlet-javadoc",
     },
     group = "com.google.gitiles",
     jar = {
-        "blame-cache": "//blame-cache:blame-cache",
-        "gitiles-servlet": "//gitiles-servlet:servlet",
+        "blame-cache": "//src/main/java/com/google/gitiles:blame-cache",
+        "gitiles-servlet": "//src/main/java/com/google/gitiles:servlet",
     },
     repository = "gerrit-maven-repository",
     url = "gs://gerrit-maven",
