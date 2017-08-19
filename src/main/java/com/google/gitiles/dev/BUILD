@@ -1,9 +1,8 @@
 java_library(
     name = "lib",
-    srcs = glob(["src/main/java/**/*.java"]),
+    srcs = glob(["**/*.java"]),
     visibility = ["//visibility:public"],
     deps = [
-        "//gitiles-servlet:servlet",
         "//lib:guava",
         "//lib:html-types",
         "//lib:servlet-api_3_0",
@@ -14,6 +13,7 @@ java_library(
         "//lib/slf4j:slf4j-api",
         "//lib/slf4j:slf4j-simple",
         "//lib/soy",
+        "//src/main/java/com/google/gitiles:servlet",
     ],
 )
 
