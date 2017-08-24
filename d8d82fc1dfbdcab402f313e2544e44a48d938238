@@ -22,6 +22,30 @@
       "revId": "d8d82fc1dfbdcab402f313e2544e44a48d938238",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7586d64_f2fcf1e7",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2017-08-24T14:20:04Z",
+      "side": 0,
+      "message": "No, we just copied the version we were already using to our storage bucket when code.google.com shut down",
+      "parentUuid": "7e02bed6_7cf96a84",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "d8d82fc1dfbdcab402f313e2544e44a48d938238",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
