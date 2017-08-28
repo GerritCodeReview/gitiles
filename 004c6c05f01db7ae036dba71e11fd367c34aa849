@@ -35,6 +35,24 @@
       "revId": "004c6c05f01db7ae036dba71e11fd367c34aa849",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2abc83e1_d7593f83",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-28T23:18:58Z",
+      "side": 1,
+      "message": "Should also mention adding a tag on the commit from which the release was made.\n\nThis was not done for 0.2-3",
+      "parentUuid": "0612b6a2_99aa29ae",
+      "revId": "004c6c05f01db7ae036dba71e11fd367c34aa849",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
