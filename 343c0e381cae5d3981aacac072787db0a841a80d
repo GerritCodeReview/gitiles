@@ -22,6 +22,30 @@
       "revId": "343c0e381cae5d3981aacac072787db0a841a80d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bebe1d6_01612e14",
+        "filename": "tools/stamper.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-08-29T07:21:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0be7e12c_1f82304a",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 2
+      },
+      "revId": "343c0e381cae5d3981aacac072787db0a841a80d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
