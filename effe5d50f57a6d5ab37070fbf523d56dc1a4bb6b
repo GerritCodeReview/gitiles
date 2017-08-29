@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab46015d_9ba17d88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-08-29T06:37:37Z",
+      "side": 1,
+      "message": "produces.",
+      "range": {
+        "startLine": 22,
+        "startChar": 47,
+        "endLine": 22,
+        "endChar": 54
+      },
+      "revId": "effe5d50f57a6d5ab37070fbf523d56dc1a4bb6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09308e0e_73e9f73e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-08-29T06:37:37Z",
+      "side": 1,
+      "message": "After rebase, this would produce different result.",
+      "revId": "effe5d50f57a6d5ab37070fbf523d56dc1a4bb6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69313803_3416a1fc",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-08-29T06:37:37Z",
+      "side": 1,
+      "message": "Nit: Reformat with buildifier.",
+      "revId": "effe5d50f57a6d5ab37070fbf523d56dc1a4bb6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35efe30e_9ddbe1f7",
+        "filename": "java/com/google/gitiles/blame/cache/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-08-29T06:37:37Z",
+      "side": 1,
+      "message": "Nit: Reformat with buildifier.",
+      "revId": "effe5d50f57a6d5ab37070fbf523d56dc1a4bb6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e9bab44_f88d9b16",
+        "filename": "tools/stamper.bzl",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-08-29T06:37:37Z",
+      "side": 1,
+      "message": "Nit: trailing blanks and unneeded new line.",
+      "revId": "effe5d50f57a6d5ab37070fbf523d56dc1a4bb6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
