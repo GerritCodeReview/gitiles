@@ -22,6 +22,30 @@
       "revId": "76df9a6661733d9f27c073efefdd200412291a35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41e61ac9_8e39ebdc",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-29T00:33:35Z",
+      "side": 1,
+      "message": "Tags were not signed so far, but yes, in future I think it would be good to do that.  Also for gerrit releases.\n\nI would prefer to do that in a follow up commit, since it might also need some permission changes.",
+      "parentUuid": "dbf5ffab_d2310a2a",
+      "range": {
+        "startLine": 132,
+        "startChar": 21,
+        "endLine": 132,
+        "endChar": 33
+      },
+      "revId": "76df9a6661733d9f27c073efefdd200412291a35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
