@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbf5ffab_d2310a2a",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-08-29T00:15:28Z",
+      "side": 1,
+      "message": "optional: Should we encourage signed tag (\"git tag -s\")?",
+      "range": {
+        "startLine": 132,
+        "startChar": 21,
+        "endLine": 132,
+        "endChar": 33
+      },
+      "revId": "76df9a6661733d9f27c073efefdd200412291a35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
