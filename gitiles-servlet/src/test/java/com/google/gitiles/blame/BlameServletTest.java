@@ -54,7 +54,7 @@ public class BlameServletTest {
   @Before
   public void setUp() throws Exception {
     DfsRepository r = new InMemoryRepository(new DfsRepositoryDescription("test"));
-    repo = new TestRepository<>(r);
+    repo = new TestRepository<DfsRepository>(r);
     servlet = TestGitilesServlet.create(repo);
   }
 
