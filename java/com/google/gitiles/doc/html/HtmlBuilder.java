@@ -101,7 +101,7 @@ public abstract class HtmlBuilder {
   }
 
   public static boolean isValidHttpUri(String val) {
-    return (val.startsWith("https://") || val.startsWith("http://") || val.startsWith("//"))
+    return (val.startsWith("https://") || val.startsWith("http://") || val.startsWith("mailto:") || val.startsWith("//"))
         && URI.getValueFilter().matcher(val).find();
   }
 
