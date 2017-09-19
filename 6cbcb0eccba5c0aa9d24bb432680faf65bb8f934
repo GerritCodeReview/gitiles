@@ -52,6 +52,24 @@
       "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4b8b8f0_280b0830",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-09-19T21:12:03Z",
+      "side": 1,
+      "message": "The ancient history my local checkout was missing is that b33426e831fca57fc93d9f8a6751c5d9aa82aeea (Overhaul of CSS and UX clean up, 2015-09-09) got rid of most vestiges of XHTML. \\o/",
+      "parentUuid": "c9615f51_58139c8f",
+      "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
