@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ef6c3fa_3d56b79a",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-09-19T21:03:08Z",
+      "side": 1,
+      "message": "So strange.",
+      "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
