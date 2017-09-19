@@ -34,6 +34,24 @@
       "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9615f51_58139c8f",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-09-19T21:08:48Z",
+      "side": 1,
+      "message": "Uh, I\u0027m way out of date. (B) is silly. What you have here looks good.",
+      "parentUuid": "64da8cfa_8e8891ed",
+      "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
