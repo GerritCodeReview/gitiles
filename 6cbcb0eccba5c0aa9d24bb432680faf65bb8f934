@@ -16,6 +16,24 @@
       "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64da8cfa_8e8891ed",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2017-09-19T21:07:24Z",
+      "side": 1,
+      "message": "Other possibilities:\n\nA. Could use \u003cdiv ...\u003e\u003c/div\u003e and update java/com/google/gitiles/Renderer.java to expect it\nB. Could put /\u003e at the end of the \u003cbr\u003e tag.\n\nThere are some \u003clink\u003e tags in Common.soy that use /\u003e. Could this do that?  That way, it would be more likely to parse as XHTML (not that anyone cares about that these days). Alternatively, we could remove the /\u003e consistently, but that\u0027s a topic for a separate change.",
+      "parentUuid": "0ef6c3fa_3d56b79a",
+      "revId": "6cbcb0eccba5c0aa9d24bb432680faf65bb8f934",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
