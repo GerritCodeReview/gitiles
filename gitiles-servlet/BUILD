@@ -1,8 +1,3 @@
-load(
-    "@com_googlesource_gerrit_bazlets//tools:genrule2.bzl",
-    "genrule2",
-)
-
 DEPS = [
     "//blame-cache:lib",
     "//lib:autolink",
@@ -41,20 +36,6 @@ java_library(
     deps = DEPS_ALL + [
         ":servlet-api",
     ],
-)
-
-genrule2(
-    name = "webassets",
-    srcs = glob(["src/main/resources/com/google/gitiles/static/**/*"]),
-    outs = ["webassets.zip"],
-    cmd = " && ".join([
-        "o=$$PWD/$@",
-        "tar cf - $(SRCS) | tar -C $$TMP/ --strip-components=2 -xf -",
-        "cd $$TMP/main/resources/com/google/gitiles/",
-        "mv static +static",
-        "zip -qr $$o .",
-    ]),
-    visibility = ["//visibility:public"],
 )
 
 java_library(
