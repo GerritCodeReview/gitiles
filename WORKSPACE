@@ -40,9 +40,9 @@ maven_jar(
 
 maven_jar(
     name = "jsr305",
-    artifact = "com.google.code.findbugs:jsr305:3.0.0",
+    artifact = "com.google.code.findbugs:jsr305:3.0.2",
     attach_source = False,
-    sha1 = "5871fb60dc68d67da54a663c3fd636a10a532948",
+    sha1 = "25ea2e8b0c338a877313bd4672d3fe056ea78f0d",
 )
 
 maven_jar(
