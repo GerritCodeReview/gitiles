@@ -168,17 +168,17 @@ maven_jar(
 # corresponding version
 maven_jar(
     name = "commons_compress",
-    artifact = "org.apache.commons:commons-compress:1.13",
-    sha1 = "15c5e9584200122924e50203ae210b57616b75ee",
+    artifact = "org.apache.commons:commons-compress:1.15",
+    sha1 = "b686cd04abaef1ea7bc5e143c080563668eec17e",
 )
 
 # Transitive dependency of commons_compress. Should only be
 # upgraded at the same time as commons_compress.
 maven_jar(
     name = "tukaani_xz",
-    artifact = "org.tukaani:xz:1.4",
+    artifact = "org.tukaani:xz:1.6",
     attach_source = False,
-    sha1 = "18a9a2ce6abf32ea1b5fd31dae5210ad93f4e5e3",
+    sha1 = "05b6f921f1810bdf90e25471968f741f87168b64",
 )
 
 maven_jar(
