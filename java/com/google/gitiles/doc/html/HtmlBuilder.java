@@ -19,11 +19,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.html.types.SafeHtml;
 import com.google.gitiles.doc.RuntimeIOException;
+import com.google.template.soy.shared.restricted.EscapingConventions.CrossLanguageStringXform;
+import com.google.template.soy.shared.restricted.EscapingConventions.Escape;
 import com.google.template.soy.shared.restricted.EscapingConventions.EscapeHtml;
-import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
 import com.google.template.soy.shared.restricted.EscapingConventions.FilterNormalizeUri;
 import java.io.IOException;
 import java.util.regex.Pattern;
@@ -83,6 +85,42 @@ public abstract class HtmlBuilder {
   private static final ImmutableSet<String> SELF_CLOSING_TAGS = ImmutableSet.of("img", "br", "hr");
 
   private static final FilterNormalizeUri URI = FilterNormalizeUri.INSTANCE;
+
+  /**
+   * Slightly relaxed version of FilterImageDataUri in EscapingConventionsTest.
+   *
+   * <p>Soy's version of the class disallows SVG, because it is also used for <object src> URIs.
+   * This version can allow SVG, as it is exclusviely used in <img src> URIs.
+   */
+  private static final class FilterImageDataUri extends CrossLanguageStringXform {
+    /** Implements the {@code |filterImageDataUri} directive. */
+    public static final FilterImageDataUri INSTANCE = new FilterImageDataUri();
+
+    private FilterImageDataUri() {
+      super(
+          Pattern.compile(
+              "^data:image/(?:gif|jpeg|png|svg\\+xml);base64,[a-z0-9+/]+=*\\z",
+              Pattern.CASE_INSENSITIVE),
+          null);
+    }
+
+    @Override
+    protected ImmutableList<Escape> defineEscapes() {
+      // No normalization or escaping necessary -- the filter is limited to a strict subset that
+      // doesn't involve html stop-chars.
+      return ImmutableList.<Escape>of();
+    }
+
+    @Override
+    public String getInnocuousOutput() {
+      // Return something that is both clearly an image, but clearly invalid. We don't want the
+      // browser to fetch anything. We also don't necessarily want a transparent gif, since it
+      // doesn't alert developers to an issue. And finally, by not starting with GIF89a, we ensure
+      // the browser doesn't attempt to actually decode it and crash.
+      return "data:image/gif;base64,zSoyz";
+    }
+  }
+
   private static final FilterImageDataUri IMAGE_DATA = FilterImageDataUri.INSTANCE;
 
   private static final Pattern GIT_URI =
