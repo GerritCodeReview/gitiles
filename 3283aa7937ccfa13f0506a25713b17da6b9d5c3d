@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d2e803e_ec462865",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1056937
+      },
+      "writtenOn": "2017-11-19T18:09:25Z",
+      "side": 1,
+      "message": "Don\u0027t do anything for free.",
+      "revId": "3283aa7937ccfa13f0506a25713b17da6b9d5c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a488a68b_313e92d7",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1056937
+      },
+      "writtenOn": "2017-11-19T18:09:25Z",
+      "side": 1,
+      "message": "This is where you get paid.",
+      "revId": "3283aa7937ccfa13f0506a25713b17da6b9d5c3d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
