@@ -19,8 +19,7 @@ import static java.util.stream.Collectors.toSet;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.gitiles.doc.html.HtmlBuilder;
-import com.google.template.soy.shared.restricted.EscapingConventions.FilterImageDataUri;
-import com.google.template.soy.shared.restricted.Sanitizers;
+import com.google.template.soy.shared.internal.Sanitizers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -85,7 +84,7 @@ class Navbar {
     } else if (HtmlBuilder.isImageDataUri(url)) {
       return Sanitizers.filterImageDataUri(url);
     } else {
-      return FilterImageDataUri.INSTANCE.getInnocuousOutput();
+      return SharedUtility.IMAGE_URI_INNOCUOUS_OUTPUT;
     }
   }
 
