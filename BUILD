@@ -11,3 +11,12 @@ pkg_war(
     ],
     web_xml = "//resources:web_xml",
 )
+
+java_plugin(
+    name = "nullaway",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@guava//jar",
+        "@nullaway//jar",
+    ],
+)

@@ -288,3 +288,9 @@ maven_jar(
     artifact = "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
     sha1 = "8600b7d028a38cb462eff338de91390b3ff5040e",
 )
+
+maven_jar(
+    name = "nullaway",
+    artifact = "com.uber.nullaway:nullaway:0.3.2",
+    sha1 = "cb4b7bd1f7c7f194d6a36353fc81681749cbc862",
+)
