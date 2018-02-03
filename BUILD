@@ -11,3 +11,11 @@ pkg_war(
     ],
     web_xml = "//resources:web_xml",
 )
+
+java_plugin(
+    name = "nullaway",
+    deps = [
+        "@guava//jar",
+        "@nullaway//jar",
+    ],
+)

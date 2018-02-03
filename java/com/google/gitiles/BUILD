@@ -32,6 +32,9 @@ java_library(
 java_library(
     name = "servlet",
     srcs = glob(["**/*.java"]),
+    plugins = [
+        "//:nullaway",
+    ],
     resource_strip_prefix = "resources",
     resources = ["//resources/com/google/gitiles"],
     visibility = ["//visibility:public"],
