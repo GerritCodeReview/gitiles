@@ -1,1 +1,2 @@
 build --workspace_status_command=./tools/workspace-status.sh
+build --javacopt="-XepOpt:NullAway:AnnotatedPackages=com.google.gitiles -Xep:NullAway:WARN"
