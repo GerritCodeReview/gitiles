@@ -14,6 +14,7 @@ pkg_war(
 
 java_plugin(
     name = "nullaway",
+    visibility = ["//visibility:public"],
     deps = [
         "@guava//jar",
         "@nullaway//jar",
