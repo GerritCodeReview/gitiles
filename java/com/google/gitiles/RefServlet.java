@@ -57,7 +57,12 @@ public class RefServlet extends BaseServlet {
   @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     if (!ViewFilter.getView(req).getPathPart().isEmpty()) {
-      res.setStatus(SC_NOT_FOUND);
+      List<Map<String, Object>> refs = getRefsSoyData(req, 0);
+      if (refs.isEmpty()) {
+        res.setStatus(SC_NOT_FOUND);
+        return;
+      }
+      renderHtml(req, res, "gitiles.refsDetail", ImmutableMap.of("refs", refs));
       return;
     }
     List<Map<String, Object>> tags;
@@ -69,6 +74,20 @@ public class RefServlet extends BaseServlet {
         res,
         "gitiles.refsDetail",
         ImmutableMap.of("branches", getBranchesSoyData(req, 0), "tags", tags));
+  }
+
+  static List<Map<String, Object>> getRefsSoyData(HttpServletRequest req, int limit)
+      throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    String path = view.getPathPart();
+    path = Constants.R_REFS + GitilesView.maybeTrimLeadingAndTrailingSlash(path) + '/';
+    return getRefsSoyData(
+        ServletUtils.getRepository(req).getRefDatabase(),
+        view,
+        path,
+        Ordering.from(RefComparator.INSTANCE),
+        null,
+        limit);
   }
 
   @Override
@@ -153,6 +172,50 @@ public class RefServlet extends BaseServlet {
         .compound(RefComparator.INSTANCE);
   }
 
+  // TODO: shortestRefname should be moved to RefDatabase.
+  private abstract static class FakeRefDatabase extends RefDatabase {
+    public static final String[] SEARCH_PATH = RefDatabase.SEARCH_PATH;
+  }
+
+  /**
+   * Finds the current shortest refname for the ref. This is meant to be equivalent to "git
+   * for-each-ref"'s refname:short format specifier. This is the shortest refname which can
+   * currently be used to call refdb.getRef() and get an equivelent Ref.
+   *
+   * @param refdb the other refnames against which to compare
+   * @param ref find the current shortest refname for this ref
+   * @param strict when true generates the shortest unambiguous refname
+   * @return the current shortest refname for the ref
+   */
+  private static String shortestRefname(RefDatabase refdb, Ref ref, boolean strict)
+      throws IOException {
+    final String refName = ref.getName();
+    final String[] searchPath = FakeRefDatabase.SEARCH_PATH;
+    assert searchPath[0].isEmpty();
+    for (int actualIndex = searchPath.length - 1; actualIndex > 0; --actualIndex) {
+      final String actualPrefix = searchPath[actualIndex];
+      if (!refName.startsWith(actualPrefix)) {
+        continue;
+      }
+      final String shortName = refName.substring(actualPrefix.length());
+      final int conflictingEndIndex = strict ? searchPath.length : actualIndex;
+      int conflictingIndex;
+      for (conflictingIndex = 0; conflictingIndex < conflictingEndIndex; ++conflictingIndex) {
+        if (actualIndex == conflictingIndex) {
+          continue;
+        }
+        final String conflictingPrefix = searchPath[conflictingIndex];
+        if (refdb.exactRef(conflictingPrefix + shortName) != null) {
+          break;
+        }
+      }
+      if (conflictingIndex == conflictingEndIndex) {
+        return shortName;
+      }
+    }
+    return refName;
+  }
+
   private static List<Map<String, Object>> getRefsSoyData(
       RefDatabase refdb,
       GitilesView view,
@@ -164,26 +227,19 @@ public class RefServlet extends BaseServlet {
     Collection<Ref> refs = refdb.getRefs(prefix).values();
     refs = ordering.leastOf(refs, limit > 0 ? Ints.saturatedCast(limit + 1L) : refs.size());
     List<Map<String, Object>> result = Lists.newArrayListWithCapacity(refs.size());
-
     for (Ref ref : refs) {
-      String name = ref.getName().substring(prefix.length());
-      Ref refForName = refdb.getRef(name);
-      if (refForName != null) {
-        boolean needPrefix = !ref.getName().equals(refForName.getName());
-        Map<String, Object> value = Maps.newHashMapWithExpectedSize(3);
-        value.put(
-            "url",
-            GitilesView.revision()
-                .copyFrom(view)
-                .setRevision(
-                    Revision.unpeeled(needPrefix ? ref.getName() : name, ref.getObjectId()))
-                .toUrl());
-        value.put("name", name);
-        if (headLeaf != null) {
-          value.put("isHead", headLeaf.equals(ref));
-        }
-        result.add(value);
+      Map<String, Object> value = Maps.newHashMapWithExpectedSize(3);
+      value.put(
+          "url",
+          GitilesView.revision()
+              .copyFrom(view)
+              .setRevision(Revision.unpeeled(shortestRefname(refdb, ref, false), ref.getObjectId()))
+              .toUrl());
+      value.put("name", ref.getName().substring(prefix.length()));
+      if (headLeaf != null) {
+        value.put("isHead", headLeaf.equals(ref));
       }
+      result.add(value);
     }
     return result;
   }
