@@ -57,7 +57,12 @@ public class RefServlet extends BaseServlet {
   @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     if (!ViewFilter.getView(req).getPathPart().isEmpty()) {
-      res.setStatus(SC_NOT_FOUND);
+      List<Map<String, Object>> refs = getRefsSoyData(req, 0);
+      if (refs.isEmpty()) {
+        res.setStatus(SC_NOT_FOUND);
+        return;
+      }
+      renderHtml(req, res, "gitiles.refsDetail", ImmutableMap.of("refs", refs));
       return;
     }
     List<Map<String, Object>> tags;
@@ -69,6 +74,20 @@ public class RefServlet extends BaseServlet {
         res,
         "gitiles.refsDetail",
         ImmutableMap.of("branches", getBranchesSoyData(req, 0), "tags", tags));
+  }
+
+  static List<Map<String, Object>> getRefsSoyData(HttpServletRequest req, int limit)
+      throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    String path = view.getPathPart();
+    path = Constants.R_REFS + GitilesView.maybeTrimLeadingAndTrailingSlash(path) + '/';
+    return getRefsSoyData(
+        ServletUtils.getRepository(req).getRefDatabase(),
+        view,
+        path,
+        Ordering.from(RefComparator.INSTANCE),
+        null,
+        limit);
   }
 
   @Override
@@ -153,6 +172,39 @@ public class RefServlet extends BaseServlet {
         .compound(RefComparator.INSTANCE);
   }
 
+  private static final String[] SEARCH_PATH = {
+    "", Constants.R_REFS, Constants.R_TAGS, Constants.R_HEADS, Constants.R_REMOTES
+    // Ignoring refs/remotes/<refname>/HEAD since jgit does as well.
+  };
+
+  private static String shortestUnambiguousRefName(RefDatabase refdb, Ref ref, boolean strict)
+      throws IOException {
+    final String refName = ref.getName();
+    assert SEARCH_PATH[0].isEmpty();
+    for (int actualIndex = SEARCH_PATH.length - 1; actualIndex > 0; --actualIndex) {
+      final String actualPrefix = SEARCH_PATH[actualIndex];
+      if (!refName.startsWith(actualPrefix)) {
+        continue;
+      }
+      final String shortName = refName.substring(actualPrefix.length());
+      final int conflictingEndIndex = strict ? SEARCH_PATH.length : actualIndex;
+      int conflictingIndex;
+      for (conflictingIndex = 0; conflictingIndex < conflictingEndIndex; ++conflictingIndex) {
+        if (actualIndex == conflictingIndex) {
+          continue;
+        }
+        final String conflictingPrefix = SEARCH_PATH[conflictingIndex];
+        if (refdb.exactRef(conflictingPrefix + shortName) != null) {
+          break;
+        }
+      }
+      if (conflictingIndex == conflictingEndIndex) {
+        return shortName;
+      }
+    }
+    return refName;
+  }
+
   private static List<Map<String, Object>> getRefsSoyData(
       RefDatabase refdb,
       GitilesView view,
@@ -164,26 +216,21 @@ public class RefServlet extends BaseServlet {
     Collection<Ref> refs = refdb.getRefs(prefix).values();
     refs = ordering.leastOf(refs, limit > 0 ? Ints.saturatedCast(limit + 1L) : refs.size());
     List<Map<String, Object>> result = Lists.newArrayListWithCapacity(refs.size());
-
     for (Ref ref : refs) {
-      String name = ref.getName().substring(prefix.length());
-      Ref refForName = refdb.getRef(name);
-      if (refForName != null) {
-        boolean needPrefix = !ref.getName().equals(refForName.getName());
-        Map<String, Object> value = Maps.newHashMapWithExpectedSize(3);
-        value.put(
-            "url",
-            GitilesView.revision()
-                .copyFrom(view)
-                .setRevision(
-                    Revision.unpeeled(needPrefix ? ref.getName() : name, ref.getObjectId()))
-                .toUrl());
-        value.put("name", name);
-        if (headLeaf != null) {
-          value.put("isHead", headLeaf.equals(ref));
-        }
-        result.add(value);
+      Map<String, Object> value = Maps.newHashMapWithExpectedSize(3);
+      value.put(
+          "url",
+          GitilesView.revision()
+              .copyFrom(view)
+              .setRevision(
+                  Revision.unpeeled(
+                      shortestUnambiguousRefName(refdb, ref, false), ref.getObjectId()))
+              .toUrl());
+      value.put("name", ref.getName().substring(prefix.length()));
+      if (headLeaf != null) {
+        value.put("isHead", headLeaf.equals(ref));
       }
+      result.add(value);
     }
     return result;
   }
