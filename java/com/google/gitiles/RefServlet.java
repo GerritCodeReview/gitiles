@@ -41,10 +41,13 @@ import org.eclipse.jgit.lib.RefComparator;
 import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.transport.RefAdvertiser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Serves an HTML page with all the refs in a repository. */
 public class RefServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
+  private static final Logger log = LoggerFactory.getLogger(PathServlet.class);
 
   private final TimeCache timeCache;
 
@@ -57,7 +60,12 @@ public class RefServlet extends BaseServlet {
   @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     if (!ViewFilter.getView(req).getPathPart().isEmpty()) {
-      res.setStatus(SC_NOT_FOUND);
+      List<Map<String, Object>> refs = getRefsSoyData(req, 0);
+      if (refs.isEmpty()) {
+        res.setStatus(SC_NOT_FOUND);
+        return;
+      }
+      renderHtml(req, res, "gitiles.refsDetail", ImmutableMap.of("refs", refs));
       return;
     }
     List<Map<String, Object>> tags;
@@ -69,6 +77,20 @@ public class RefServlet extends BaseServlet {
         res,
         "gitiles.refsDetail",
         ImmutableMap.of("branches", getBranchesSoyData(req, 0), "tags", tags));
+  }
+
+  static List<Map<String, Object>> getRefsSoyData(HttpServletRequest req, int limit)
+      throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    String path = view.getPathPart();
+    path = Constants.R_REFS + GitilesView.maybeTrimLeadingAndTrailingSlash(path) + '/';
+    return getRefsSoyData(
+        ServletUtils.getRepository(req).getRefDatabase(),
+        view,
+        path,
+        Ordering.from(RefComparator.INSTANCE),
+        null,
+        limit);
   }
 
   @Override
@@ -153,6 +175,39 @@ public class RefServlet extends BaseServlet {
         .compound(RefComparator.INSTANCE);
   }
 
+  private static final String[] SEARCH_PATH = {
+    "", Constants.R_REFS, Constants.R_TAGS, Constants.R_HEADS, Constants.R_REMOTES
+    // Ignoring refs/remotes/<refname>/HEAD since jgit does as well.
+  };
+
+  private static String shortUnambiguousRefName(RefDatabase refdb, Ref ref, boolean strict)
+      throws IOException {
+    final String refName = ref.getName();
+    for (int i = SEARCH_PATH.length - 1; i > 0; --i) {
+      int rulesToFail = i;
+      if (!refName.startsWith(SEARCH_PATH[i])) {
+        continue;
+      }
+      String shortName = refName.substring(SEARCH_PATH[i].length());
+      if (strict) {
+        rulesToFail = SEARCH_PATH.length;
+      }
+      int j;
+      for (j = 0; j < rulesToFail; ++j) {
+        if (i == j) {
+          continue;
+        }
+        if (refdb.exactRef(SEARCH_PATH[j] + shortName) != null) {
+          break;
+        }
+      }
+      if (j == rulesToFail) {
+        return shortName;
+      }
+    }
+    return refName;
+  }
+
   private static List<Map<String, Object>> getRefsSoyData(
       RefDatabase refdb,
       GitilesView view,
@@ -164,26 +219,20 @@ public class RefServlet extends BaseServlet {
     Collection<Ref> refs = refdb.getRefs(prefix).values();
     refs = ordering.leastOf(refs, limit > 0 ? Ints.saturatedCast(limit + 1L) : refs.size());
     List<Map<String, Object>> result = Lists.newArrayListWithCapacity(refs.size());
-
     for (Ref ref : refs) {
-      String name = ref.getName().substring(prefix.length());
-      Ref refForName = refdb.getRef(name);
-      if (refForName != null) {
-        boolean needPrefix = !ref.getName().equals(refForName.getName());
-        Map<String, Object> value = Maps.newHashMapWithExpectedSize(3);
-        value.put(
-            "url",
-            GitilesView.revision()
-                .copyFrom(view)
-                .setRevision(
-                    Revision.unpeeled(needPrefix ? ref.getName() : name, ref.getObjectId()))
-                .toUrl());
-        value.put("name", name);
-        if (headLeaf != null) {
-          value.put("isHead", headLeaf.equals(ref));
-        }
-        result.add(value);
+      Map<String, Object> value = Maps.newHashMapWithExpectedSize(3);
+      value.put(
+          "url",
+          GitilesView.revision()
+              .copyFrom(view)
+              .setRevision(
+                  Revision.unpeeled(shortUnambiguousRefName(refdb, ref, false), ref.getObjectId()))
+              .toUrl());
+      value.put("name", ref.getName().substring(prefix.length()));
+      if (headLeaf != null) {
+        value.put("isHead", headLeaf.equals(ref));
       }
+      result.add(value);
     }
     return result;
   }
