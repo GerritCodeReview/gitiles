@@ -747,9 +747,6 @@ public class GitilesView {
   public List<Map<String, String>> getBreadcrumbs(List<Boolean> hasSingleTree) {
     checkArgument(!NON_HTML_TYPES.contains(type), "breadcrumbs for %s view not supported", type);
     checkArgument(
-        type != Type.REFS || Strings.isNullOrEmpty(path),
-        "breadcrumbs for REFS view with path not supported");
-    checkArgument(
         hasSingleTree == null || type == Type.PATH, "hasSingleTree must be null for %s view", type);
     String path = this.path;
     ImmutableList.Builder<Map<String, String>> breadcrumbs = ImmutableList.builder();
@@ -832,12 +829,14 @@ public class GitilesView {
       case BLAME:
         copy = isLeaf ? blame() : path();
         break;
+      case REFS:
+        copy = refs();
+        break;
       case ARCHIVE:
       case DESCRIBE:
       case DOC:
       case HOST_INDEX:
       case PATH:
-      case REFS:
       case REPOSITORY_INDEX:
       case REVISION:
       case ROOTED_DOC:

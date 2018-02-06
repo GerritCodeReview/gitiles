@@ -21,8 +21,9 @@
  * @param? menuEntries menu entries.
  * @param? customVariant variant name for custom styling.
  * @param breadcrumbs breadcrumbs for this page.
- * @param branches list of branch objects with url, name, and isHead keys.
- * @param tags list of tag objects with url and name keys.
+ * @param? branches list of branch objects with url, name, and isHead keys.
+ * @param? tags list of tag objects with url and name keys.
+ * @param? refs list of additional refs with url and name keys.
  */
 {template .refsDetail stricthtml="false"}
 {call .header}
@@ -34,17 +35,24 @@
 {/call}
 
 <div class="Refs">
-  {if length($branches)}
+  {if isNonnull($branches) and length($branches)}
     {call .refList}
       {param type: 'Branches' /}
       {param refs: $branches /}
     {/call}
   {/if}
 
-  {if length($tags)}
+  {if isNonnull($tags) and length($tags)}
     {call .refList}
       {param type: 'Tags' /}
       {param refs: $tags /}
+    {/call}
+  {/if}
+
+  {if isNonnull($refs) and length($refs)}
+    {call .refList}
+      {param type: 'Refs' /}
+      {param refs: $refs /}
     {/call}
   {/if}
 </div>
