@@ -90,6 +90,23 @@
     },
     {
       "key": {
+        "uuid": "ccaa721d_3f44546b",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-02-07T17:53:07Z",
+      "side": 1,
+      "message": "Please add a TODO comment saying this should be provided by jgit.",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3427fa4f_a07373a7",
         "filename": "java/com/google/gitiles/RefServlet.java",
         "patchSetId": 2
@@ -119,6 +136,64 @@
       "side": 1,
       "message": "This finds the shortest unambiguous name for a full refname. I can add that as a comment, though that is basically the name of the method.\n\nThis is essentially doing more or less what git does in shorten_unambiguous_ref (see https://github.com/git/git/blob/d9a3764af74ac215e06543c263ec21196d672b49/refs.c#L1106 ). This would probably be a good thing to have in jgit directly (SEARCH_PATH here is basically the same as RefDatabase.SEARCH_PATH since I started this trying to use it directly). The public documentation for this is at https://git-scm.com/docs/gitrevisions#gitrevisions-emltrefnamegtemegemmasterememheadsmasterememrefsheadsmasterem . I suppose I could propose this function to jgit, but I feel like I\u0027m already down a rabbit trail writing this CL :-).\n\nThis is necessary to maintain the intention of the existing code (refs/heads/master usually maps to /+/master) but not strip prefixes from non-standard refs (refs/branch-heads/m63 needs to map to /+/branch-heads/m63). If you\u0027re willing for refs/heads/master to map to /+/refs/heads/master instead of normally mapping to /+refs/master then this isn\u0027t needed since then everything can just use the full path.\n\nI\u0027m not currently using \u0027strict\u0027 but I kept it in anyway because it seemed an interesting consideration on the thread when this functionality was added to git (see https://public-inbox.org/git/7vfxoadz5c.fsf@gitster.siamese.dyndns.org/ ). When set this function returns the shortest ref name which is currently unambiguous. Otherwise this function returns the shortest ref name which will resolve to the same ref as the original name when following the lookup rules (the search path order).\n\nI\u0027m pretty sure refdb.findRef does something rather different. It takes a bunch of refs and a short ref name and returns the ref which matches that short name. This function takes a ref and finds the current shortest ref name. These two are somewhat the inverse of each other, I think.",
       "parentUuid": "3427fa4f_a07373a7",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e55dcd9_83f94764",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-02-07T17:53:07Z",
+      "side": 1,
+      "message": "Could you add a javadoc comment mentioning that it\u0027s meant to be equivalent to \"git for-each-ref\"\u0027s :short output? That should make the intended semantics more obvious.",
+      "parentUuid": "4a3b99a3_f8521cbe",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e68c3f6_c9c45569",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-02-07T17:53:07Z",
+      "side": 1,
+      "message": "Is this about shortening \"heads/master\" to \"master\"? That feels like a positive change but copying refdb\u0027s search code into here is enough of a layering violation that it doesn\u0027t seem worth it.\n\nWhat bad consequences would occur if this used the same needPrefix heuristic as before?",
+      "range": {
+        "startLine": 226,
+        "startChar": 36,
+        "endLine": 226,
+        "endChar": 59
+      },
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8610d66d_2c910383",
+        "filename": "javatests/com/google/gitiles/RefServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-02-07T17:53:07Z",
+      "side": 1,
+      "message": "This looks like a consequence of the shortUnambiguousRefName change, but I think the older behavior is more intuitive (using +/refs/ makes it clear that this is a refname).",
       "revId": "5ab93013391c64d973595781f0a62240910d2ade",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
