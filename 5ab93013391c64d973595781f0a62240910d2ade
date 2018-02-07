@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "8163a652_835fc4a3",
+        "filename": "java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-07T07:13:00Z",
+      "side": 1,
+      "message": "Is this done by google-java-format?  If so, please check which version is used; this project is formatted with version 1.3 AFAIK.",
+      "parentUuid": "2c70b417_85afcbaf",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3427fa4f_a07373a7",
         "filename": "java/com/google/gitiles/RefServlet.java",
         "patchSetId": 2
