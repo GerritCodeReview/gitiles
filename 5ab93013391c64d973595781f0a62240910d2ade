@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0625e2e7_a28ca4af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d722ff9f_8f84b952",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c70b417_85afcbaf",
         "filename": "java/com/google/gitiles/GitilesView.java",
         "patchSetId": 2
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "98b90e14_e54c80f7",
+        "filename": "java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T15:43:36Z",
+      "side": 1,
+      "message": "Yes, seems I had a newer version. Oddly enough 1.3 didn\u0027t put these back, but when I manually put these back it didn\u0027t try to modify them.",
+      "parentUuid": "8163a652_835fc4a3",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3427fa4f_a07373a7",
         "filename": "java/com/google/gitiles/RefServlet.java",
         "patchSetId": 2
@@ -65,6 +101,24 @@
       "writtenOn": "2018-02-06T22:59:07Z",
       "side": 1,
       "message": "What does this function do? Would refdb.findRef work?",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3b99a3_f8521cbe",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T15:43:36Z",
+      "side": 1,
+      "message": "This finds the shortest unambiguous name for a full refname. I can add that as a comment, though that is basically the name of the method.\n\nThis is essentially doing more or less what git does in shorten_unambiguous_ref (see https://github.com/git/git/blob/d9a3764af74ac215e06543c263ec21196d672b49/refs.c#L1106 ). This would probably be a good thing to have in jgit directly (SEARCH_PATH here is basically the same as RefDatabase.SEARCH_PATH since I started this trying to use it directly). The public documentation for this is at https://git-scm.com/docs/gitrevisions#gitrevisions-emltrefnamegtemegemmasterememheadsmasterememrefsheadsmasterem . I suppose I could propose this function to jgit, but I feel like I\u0027m already down a rabbit trail writing this CL :-).\n\nThis is necessary to maintain the intention of the existing code (refs/heads/master usually maps to /+/master) but not strip prefixes from non-standard refs (refs/branch-heads/m63 needs to map to /+/branch-heads/m63). If you\u0027re willing for refs/heads/master to map to /+/refs/heads/master instead of normally mapping to /+refs/master then this isn\u0027t needed since then everything can just use the full path.\n\nI\u0027m not currently using \u0027strict\u0027 but I kept it in anyway because it seemed an interesting consideration on the thread when this functionality was added to git (see https://public-inbox.org/git/7vfxoadz5c.fsf@gitster.siamese.dyndns.org/ ). When set this function returns the shortest ref name which is currently unambiguous. Otherwise this function returns the shortest ref name which will resolve to the same ref as the original name when following the lookup rules (the search path order).\n\nI\u0027m pretty sure refdb.findRef does something rather different. It takes a bunch of refs and a short ref name and returns the ref which matches that short name. This function takes a ref and finds the current shortest ref name. These two are somewhat the inverse of each other, I think.",
+      "parentUuid": "3427fa4f_a07373a7",
       "revId": "5ab93013391c64d973595781f0a62240910d2ade",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
