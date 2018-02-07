@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "2a0768f8_14d4884e",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccaa721d_3f44546b",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3427fa4f_a07373a7",
         "filename": "java/com/google/gitiles/RefServlet.java",
         "patchSetId": 2
@@ -160,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "9f731876_d95d63a3",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T20:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e55dcd9_83f94764",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e68c3f6_c9c45569",
         "filename": "java/com/google/gitiles/RefServlet.java",
         "patchSetId": 2
@@ -183,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "9e6573d0_5017b779",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T20:35:18Z",
+      "side": 1,
+      "message": "The reason for shortUnamniguousRefName is that the needPrefix heuristic is wrong. The most trivial example is if someone creates an evil ref like refs/heads/HEAD , which the heuristic would turn into /+/HEAD , which would (almost certainly) result in linking to HEAD instead of refs/heads/HEAD (since the top level is searched first). In particular to this change, the heuristic falls over when using refs with paths not on the search paths, for example, for /+refs/branch-heads the prefix is refs/branch-heads which would turn refs/branch-heads/m63 into /+/m63 , which is clearly incorrect since branch-heads isn\u0027t on the search path, this needs to be /+/branch-heads/m63 .\n\nAs I pointed out above, if it\u0027s ok to always link to the full ref instead of a short ref, it\u0027s possible to replace this with ref.getName() and change the tests. I\u0027m fine with that, but it is quite a visible change on the user side, since now when you click on the \u0027master\u0027 branch you\u0027\u0027 go to /+/refs/heads/master instead of /+/master if that is (as it usually is) the same thing. I was just trying to preserve the old behavior here similar to the way git does.\n\nI\u0027m not sure what you mean by copying refdb\u0027s search code, do you mean just the SEARCH_PATHS? Those are specified by git, the only jgit specific thing is that jgit doesn\u0027t do the refs/remotes/\u003crefname\u003e/HEAD thing, which seems pretty obscure (and would make this implementation a bit more involved). In theory one could inherit from RefDatabase and add a public getter for SEARCH_PATH, but that seems like more code and just as hacky. It is true that it would be nice if jgit had this code directly.",
+      "parentUuid": "6e68c3f6_c9c45569",
+      "range": {
+        "startLine": 226,
+        "startChar": 36,
+        "endLine": 226,
+        "endChar": 59
+      },
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8610d66d_2c910383",
         "filename": "javatests/com/google/gitiles/RefServletTest.java",
         "patchSetId": 2
@@ -194,6 +254,24 @@
       "writtenOn": "2018-02-07T17:53:07Z",
       "side": 1,
       "message": "This looks like a consequence of the shortUnambiguousRefName change, but I think the older behavior is more intuitive (using +/refs/ makes it clear that this is a refname).",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "918c741a_5b9d7e82",
+        "filename": "javatests/com/google/gitiles/RefServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T20:35:18Z",
+      "side": 1,
+      "message": "Yes, this is because of shortUnambiguousRefName . I suppose in theory shortUnambiguousRefName could be modified to return a non-shortest name by using only the longest (last) prefix which matches (if any). Essentially, put a \u0027break\u0027 at the end of the outer \u0027for\u0027 loop. However, that isn\u0027t a standard thing and isn\u0027t really something to push back to jgit. Of course, if these were always fully qualified (never shortened) then all the tests could be changed to respect that as well. Also, this is something of a edge case that isn\u0027t expected to be seen too often, I think the code just needs to make sure it can handle it correctly.",
+      "parentUuid": "8610d66d_2c910383",
       "revId": "5ab93013391c64d973595781f0a62240910d2ade",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
