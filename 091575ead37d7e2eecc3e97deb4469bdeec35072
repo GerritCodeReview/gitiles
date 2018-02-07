@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28e6762c_72741974",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-02-07T17:53:07Z",
+      "side": 0,
+      "message": "I don\u0027t understand what this needPrefix code is trying to do. Unfortunately it\u0027s been there since day one so the commit messages don\u0027t help. Maybe dborowitz can weigh in.\n\nIs it just about producing short URLs? E.g. if we changed this line to \u0027boolean needPrefix \u003d false\u0027 and made it always include \u0027refs\u0027 in the URL, would there be any other ill effect?",
+      "revId": "091575ead37d7e2eecc3e97deb4469bdeec35072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
