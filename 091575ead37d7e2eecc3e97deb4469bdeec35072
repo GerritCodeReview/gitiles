@@ -16,6 +16,24 @@
       "revId": "091575ead37d7e2eecc3e97deb4469bdeec35072",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34158e80_ffc25c5e",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-07T20:35:18Z",
+      "side": 0,
+      "message": "Just always using ref.getName() and removing needPrefix is fine, it just makes the UI a little less nice looking. I wrote the shortUnambiguousRefName because I thought it would be a deal breaker to make (for example) refs/heads/master point to /+/refs/heads/master instead of the current /+/master . If not, always using fully qualified refnames is simpler and is always unambiguous.",
+      "parentUuid": "28e6762c_72741974",
+      "revId": "091575ead37d7e2eecc3e97deb4469bdeec35072",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
