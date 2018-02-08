@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f58ee0b_50b78aa8",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-08T16:54:57Z",
+      "side": 1,
+      "message": "2. Add a parameter to shortestRefname which causes a \u0027break\u0027 at the end of the body of this \u0027for\u0027 loop. Doing so preserves the behavior of all existing tests. This essentially would mean removing only the most specific matching search path prefix which applies and ignoring any shorter ones. Perhaps such a parameter would be a boolean named \u0027notTooShort\u0027.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 7
+      },
+      "revId": "3a4984c0615a5297ccb131968590fea07be6ca93",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd69468_bedd276b",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-08T16:54:57Z",
+      "side": 1,
+      "message": "1. Do what this CL currently does. This most closely matches what git would do in this sort of situation on the cli. It does have the interesting behavior pointed out by the changes in this CL with \u0027ambiguous\u0027 tests. It still does the right thing, but sometimes does so in a non-obvious manner. Then again, introducing ambiguous refnames to a repo is somewhat asking for some non-obvious results.\n\n\n3. This could be ref.getName(). This is super stable and always does the right thing technically, but means the UI seen when clicking on branches or tags will change. Comapre\n\nhttps://gerrit.googlesource.com/gitiles/+/master\nhttps://gerrit.googlesource.com/gitiles/+/refs/heads/master\n\nThis would remove the sort of shortening is what needPrefix was intended to do, which worked most of the time for branches and tags (except when named HEAD). The upside is that it doesn\u0027t require shortestRefname, which is code one would hope to find in jgit.",
+      "range": {
+        "startLine": 236,
+        "startChar": 45,
+        "endLine": 236,
+        "endChar": 79
+      },
+      "revId": "3a4984c0615a5297ccb131968590fea07be6ca93",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
