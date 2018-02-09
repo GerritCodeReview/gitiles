@@ -23,6 +23,30 @@
       "revId": "b9aeda38e6842c2cc72b6fc46799294d4427d638",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e9cc1c0_8ce2141f",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-02-09T21:22:51Z",
+      "side": 1,
+      "message": "\"More\" and \"Log\" were the two proposals in the bug. I don\u0027t really have any preference, so I\u0027m happy to go with a majority vote.",
+      "parentUuid": "9840af93_0a2ff557",
+      "range": {
+        "startLine": 170,
+        "startChar": 78,
+        "endLine": 170,
+        "endChar": 81
+      },
+      "revId": "b9aeda38e6842c2cc72b6fc46799294d4427d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
