@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -314,13 +315,19 @@ class GitilesFilter extends MetaFilter {
 
   private void setDefaultRenderer(FilterConfig filterConfig) {
     if (renderer == null) {
+      HashMap<String,String> searchParams = new HashMap<String,String>();
+      searchParams.put( "queryUrl", firstNonNull(
+          config.getString("gitiles", "search", "queryUrl"), ""));
+      searchParams.put( "publicUrl", firstNonNull(
+          config.getString("gitiles", "search", "publicUrl"), ""));
       renderer =
           new DefaultRenderer(
               filterConfig.getServletContext().getContextPath() + STATIC_PREFIX,
               Arrays.stream(config.getStringList("gitiles", null, "customTemplates"))
                   .map(fileUrlMapper())
                   .collect(toList()),
-              firstNonNull(config.getString("gitiles", null, "siteTitle"), "Gitiles"));
+              firstNonNull(config.getString("gitiles", null, "siteTitle"), "Gitiles"),
+              searchParams);
     }
   }
 

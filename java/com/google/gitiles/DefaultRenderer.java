@@ -20,6 +20,7 @@ import com.google.common.io.Resources;
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.tofu.SoyTofu;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /** Renderer that precompiles Soy and uses static precompiled CSS. */
@@ -27,24 +28,28 @@ public class DefaultRenderer extends Renderer {
   private final SoyTofu tofu;
 
   DefaultRenderer() {
-    this("", ImmutableList.<URL>of(), "");
+    this("", ImmutableList.<URL>of(), "", new HashMap<String,String>());
   }
 
-  public DefaultRenderer(String staticPrefix, Iterable<URL> customTemplates, String siteTitle) {
-    this(ImmutableMap.<String, String>of(), staticPrefix, customTemplates, siteTitle);
+  public DefaultRenderer(String staticPrefix, Iterable<URL> customTemplates, String siteTitle,
+      HashMap<String,String> searchParams) {
+    this(ImmutableMap.<String, String>of(), staticPrefix,
+       customTemplates, siteTitle, searchParams);
   }
 
   public DefaultRenderer(
       Map<String, String> globals,
       String staticPrefix,
       Iterable<URL> customTemplates,
-      String siteTitle) {
+      String siteTitle,
+      HashMap<String,String> searchParams) {
     super(
         r -> Resources.getResource(Renderer.class, "templates/" + r),
         globals,
         staticPrefix,
         customTemplates,
-        siteTitle);
+        siteTitle,
+        searchParams);
     SoyFileSet.Builder builder = SoyFileSet.builder().setCompileTimeGlobals(this.globals);
     for (URL template : templates.values()) {
       builder.add(template);

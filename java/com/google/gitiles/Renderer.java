@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
@@ -101,7 +102,8 @@ public abstract class Renderer {
       Map<String, String> globals,
       String staticPrefix,
       Iterable<URL> customTemplates,
-      String siteTitle) {
+      String siteTitle,
+      HashMap<String,String> searchParams) {
     checkNotNull(staticPrefix, "staticPrefix");
 
     ImmutableMap.Builder<String, URL> b = ImmutableMap.builder();
@@ -118,6 +120,8 @@ public abstract class Renderer {
       allGlobals.put(e.getKey(), staticPrefix + e.getValue());
     }
     allGlobals.put("gitiles.SITE_TITLE", siteTitle);
+    allGlobals.put("gitiles.SEARCH_QUERY_URL", searchParams.get("queryUrl"));
+    allGlobals.put("gitiles.SEARCH_PUBLIC_URL", searchParams.get("publicUrl"));
     allGlobals.putAll(globals);
     this.globals = ImmutableMap.copyOf(allGlobals);
   }

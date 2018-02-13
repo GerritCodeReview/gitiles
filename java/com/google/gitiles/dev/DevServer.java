@@ -36,6 +36,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.Servlet;
@@ -126,12 +127,18 @@ class DevServer {
   }
 
   private Handler appHandler() {
+    HashMap<String,String> searchParams = new HashMap<String,String>();
+    searchParams.put( "queryUrl", firstNonNull(
+        cfg.getString("gitiles", "search", "queryUrl"), ""));
+    searchParams.put( "publicUrl", firstNonNull(
+        cfg.getString("gitiles", "search", "publicUrl"), ""));
     DebugRenderer renderer =
         new DebugRenderer(
             STATIC_PREFIX,
             Arrays.asList(cfg.getStringList("gitiles", null, "customTemplates")),
             sourceRoot.resolve("resources/com/google/gitiles/templates").toString(),
-            firstNonNull(cfg.getString("gitiles", null, "siteTitle"), "Gitiles"));
+            firstNonNull(cfg.getString("gitiles", null, "siteTitle"), "Gitiles"),
+            searchParams);
 
     String docRoot = cfg.getString("gitiles", null, "docroot");
     Servlet servlet;
