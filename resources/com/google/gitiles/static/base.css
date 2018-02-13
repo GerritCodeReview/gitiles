@@ -46,6 +46,12 @@ ul, ol {
   list-style: none;
 }
 
+.search {
+  position: absolute;
+  right: 0;
+  padding: 0.5em;
+}
+
 /* Utility classes */
 
 .u-sha1 {

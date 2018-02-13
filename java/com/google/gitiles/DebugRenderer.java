@@ -25,6 +25,7 @@ import com.google.template.soy.tofu.SoyTofu;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 
 /** Renderer that reloads Soy templates from the filesystem on every request. */
 public class DebugRenderer extends Renderer {
@@ -32,13 +33,15 @@ public class DebugRenderer extends Renderer {
       String staticPrefix,
       Iterable<String> customTemplatesFilenames,
       final String soyTemplatesRoot,
-      String siteTitle) {
+      String siteTitle,
+      HashMap<String,String> searchParams) {
     super(
         fileUrlMapper(soyTemplatesRoot + File.separator),
         ImmutableMap.<String, String>of(),
         staticPrefix,
         Streams.stream(customTemplatesFilenames).map(fileUrlMapper()).collect(toList()),
-        siteTitle);
+        siteTitle,
+        searchParams);
   }
 
   @Override
