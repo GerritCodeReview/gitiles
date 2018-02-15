@@ -243,6 +243,30 @@
     },
     {
       "key": {
+        "uuid": "5e249c5c_751561c9",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-15T18:19:14Z",
+      "side": 1,
+      "message": "I\u0027ve removed SEARCH_PATHS and am now using the ones from RefDatabase directly and using them more or less as documented.",
+      "parentUuid": "9e6573d0_5017b779",
+      "range": {
+        "startLine": 226,
+        "startChar": 36,
+        "endLine": 226,
+        "endChar": 59
+      },
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8610d66d_2c910383",
         "filename": "javatests/com/google/gitiles/RefServletTest.java",
         "patchSetId": 2
@@ -275,6 +299,24 @@
       "revId": "5ab93013391c64d973595781f0a62240910d2ade",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c5eff93_e6b1c220",
+        "filename": "javatests/com/google/gitiles/RefServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1060994
+      },
+      "writtenOn": "2018-02-15T18:19:14Z",
+      "side": 1,
+      "message": "I\u0027ve listed on a later Patchset the available options for these, and the pros and cons of each. Once a decision is made on which to use, I\u0027ll update the tests accordingly.",
+      "parentUuid": "918c741a_5b9d7e82",
+      "revId": "5ab93013391c64d973595781f0a62240910d2ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
