@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b09458dd_4fed247e",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-03-01T18:15:46Z",
+      "side": 1,
+      "message": "Should this be just /admin/projects/?\n\nThe old ui should correctly add the # in front of it.",
+      "range": {
+        "startLine": 625,
+        "startChar": 31,
+        "endLine": 625,
+        "endChar": 48
+      },
+      "revId": "2331dba6662653b033bab589d59a4dd6754e7252",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
