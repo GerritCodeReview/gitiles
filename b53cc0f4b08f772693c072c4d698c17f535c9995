@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12029a63_92d43589",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-03-01T06:56:08Z",
+      "side": 1,
+      "message": "Is this line now stale and should be moved?",
+      "range": {
+        "startLine": 634,
+        "startChar": 4,
+        "endLine": 634,
+        "endChar": 69
+      },
+      "revId": "b53cc0f4b08f772693c072c4d698c17f535c9995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
