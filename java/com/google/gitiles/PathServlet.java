@@ -601,6 +601,8 @@ public class PathServlet extends BaseServlet {
     GitilesView view = ViewFilter.getView(req);
     String modulesUrl;
     String remoteUrl = null;
+    String httpUrl = null;
+    String gerritUrl = urls.getBaseGerritUrl(req);
 
     try (SubmoduleWalk sw =
         SubmoduleWalk.forPath(ServletUtils.getRepository(req), wr.root, view.getPathPart())) {
@@ -609,9 +611,17 @@ public class PathServlet extends BaseServlet {
         String moduleRepo = PathUtil.simplifyPathUpToRoot(modulesUrl, view.getRepositoryName());
         if (moduleRepo != null) {
           modulesUrl = urls.getBaseGitUrl(req) + moduleRepo;
+          httpUrl = GitilesView.revision().
+              setRevision(sw.getHeadRef()).
+              setRepositoryName(moduleRepo).toUrl();
         }
       } else {
         remoteUrl = sw.getRemoteUrl();
+        httpUrl = resolveHttpUrl(remoteUrl);
+      }
+
+      if(httpUrl == null && gerritUrl != null) {
+        httpUrl = gerritUrl + "#/admin/projects/" + sw.getRepository().toString();
       }
     } catch (ConfigInvalidException e) {
       throw new IOException(e);
@@ -622,7 +632,6 @@ public class PathServlet extends BaseServlet {
     data.put("remoteUrl", remoteUrl != null ? remoteUrl : modulesUrl);
 
     // TODO(dborowitz): Guess when we can put commit SHAs in the URL.
-    String httpUrl = resolveHttpUrl(remoteUrl);
     if (httpUrl != null) {
       data.put("httpUrl", httpUrl);
     }
