@@ -46,6 +46,30 @@
       "revId": "2331dba6662653b033bab589d59a4dd6754e7252",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "976c9e88_1aa67022",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2018-03-13T00:40:49Z",
+      "side": 1,
+      "message": "But this change is to master, so....",
+      "parentUuid": "9f42a90e_0e98f85a",
+      "range": {
+        "startLine": 625,
+        "startChar": 31,
+        "endLine": 625,
+        "endChar": 48
+      },
+      "revId": "2331dba6662653b033bab589d59a4dd6754e7252",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
