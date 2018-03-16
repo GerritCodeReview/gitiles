@@ -22,7 +22,6 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import org.eclipse.jgit.lib.Config;
-import org.joda.time.Duration;
 
 /** Utilities for working with {@link Config} objects. */
 public class ConfigUtil {
@@ -39,14 +38,14 @@ public class ConfigUtil {
    * @param defaultValue value to use when the value is not assigned.
    * @return a standard duration representing the time read, or defaultValue.
    */
-  public static Duration getDuration(
-      Config config,
-      String section,
-      String subsection,
-      String name,
-      @Nullable Duration defaultValue) {
+  @Nullable
+  public static Long getDuration(
+      Config config, String section, String subsection, String name, @Nullable Long defaultValue) {
     long m = config.getTimeUnit(section, subsection, name, -1, MILLISECONDS);
-    return m == -1 ? defaultValue : Duration.millis(m);
+    if (m != -1) {
+      return m;
+    }
+    return defaultValue;
   }
 
   /**
@@ -65,13 +64,13 @@ public class ConfigUtil {
       if (config.getString("cache", name, "maximumSize") != null) {
         b.maximumSize(config.getLong("cache", name, "maximumSize", 16384));
       }
-      Duration expireAfterWrite = getDuration(config, "cache", name, "expireAfterWrite", null);
+      Long expireAfterWrite = getDuration(config, "cache", name, "expireAfterWrite", null);
       if (expireAfterWrite != null) {
-        b.expireAfterWrite(expireAfterWrite.getMillis(), TimeUnit.MILLISECONDS);
+        b.expireAfterWrite(expireAfterWrite, TimeUnit.MILLISECONDS);
       }
-      Duration expireAfterAccess = getDuration(config, "cache", name, "expireAfterAccess", null);
+      Long expireAfterAccess = getDuration(config, "cache", name, "expireAfterAccess", null);
       if (expireAfterAccess != null) {
-        b.expireAfterAccess(expireAfterAccess.getMillis(), TimeUnit.MILLISECONDS);
+        b.expireAfterAccess(expireAfterAccess, TimeUnit.MILLISECONDS);
       }
       // Add other methods as needed.
     } catch (IllegalArgumentException e) {

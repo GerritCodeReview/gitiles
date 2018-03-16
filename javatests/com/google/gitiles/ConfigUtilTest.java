@@ -19,7 +19,6 @@ import static com.google.gitiles.ConfigUtil.getDuration;
 import static org.junit.Assert.fail;
 
 import org.eclipse.jgit.lib.Config;
-import org.joda.time.Duration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -29,13 +28,13 @@ import org.junit.runners.JUnit4;
 public class ConfigUtilTest {
   @Test
   public void getDurationReturnsDuration() throws Exception {
-    Duration def = Duration.standardSeconds(2);
+    Long def = 2 * 1000L; // 2 seconds
     Config config = new Config();
-    Duration t;
+    Long t;
 
     config.setString("core", "dht", "timeout", "500 ms");
     t = getDuration(config, "core", "dht", "timeout", def);
-    assertThat(t.getMillis()).isEqualTo(500);
+    assertThat(t).isEqualTo(500);
 
     config.setString("core", "dht", "timeout", "5.2 sec");
     try {
@@ -47,31 +46,31 @@ public class ConfigUtilTest {
 
     config.setString("core", "dht", "timeout", "1 min");
     t = getDuration(config, "core", "dht", "timeout", def);
-    assertThat(t.getMillis()).isEqualTo(60000);
+    assertThat(t).isEqualTo(60000);
   }
 
   @Test
   public void getDurationCanReturnDefault() throws Exception {
-    Duration def = Duration.standardSeconds(1);
+    Long def = 1000L; // 1 second
     Config config = new Config();
-    Duration t;
+    Long t;
 
     t = getDuration(config, "core", null, "blank", def);
-    assertThat(t.getMillis()).isEqualTo(1000);
+    assertThat(t).isEqualTo(1000);
 
     config.setString("core", null, "blank", "");
     t = getDuration(config, "core", null, "blank", def);
-    assertThat(t.getMillis()).isEqualTo(1000);
+    assertThat(t).isEqualTo(1000);
 
     config.setString("core", null, "blank", " ");
     t = getDuration(config, "core", null, "blank", def);
-    assertThat(t.getMillis()).isEqualTo(1000);
+    assertThat(t).isEqualTo(1000);
   }
 
   @Test
   public void nullAsDefault() throws Exception {
     Config config = new Config();
-    Duration t;
+    Long t;
 
     t = getDuration(config, "core", null, "blank", null);
     assertThat(t).isNull();
