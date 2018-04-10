@@ -1,4 +1,28 @@
 {
   "pushCert": "certificate version 0.1\npusher Dave Borowitz \u003cdborowitz@google.com\u003e 1523347806 -0400\npushee rpc://gerrit/gitiles\nnonce AFN+CTKDUzZXHW86m6iR89cbDR4fgSloceo8SqEu0bhzg/DuH0tZoMkHVZiJkhmHfl24F9M4rr+O\n\n0000000000000000000000000000000000000000 beeaca3bff69ee60f782d3e7686eefc5cf299195 refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQJJBAABCgAzFiEEpPm/sOxWgSqG5grhX9fFmpoSiIwFAlrMcV4VHGRib3Jvd2l0\nekBnb29nbGUuY29tAAoJEF/XxZqaEoiM3/oP/RkGSZlIrRnoD7Ij7Bk9E9ZWOhN+\nuCJUtxrR4Z+UE2FECsk34xSxwNmDOmwCFz+TcgAl2ggbCppmfHAO5DQRetC0S1fW\nATWsAAQ7nsmi7w0cAqNHi2Tsb0yN36J10sqFavUX6VsJXOCnMw0FoKODsHUpjJ+w\nXqnxDuCjqbdUv5iuk9uZsZ6CAQp4Djdi2BSkZZhWxYU6ixuv/UbcODwJzJIzlEYk\n2VQ3o4jR0s1HZpbnm0y7xtWn05lbCFjlBvv8Zscgz7Z51X570Br/qdLXY7oF/Qt3\n9gKWcl+Akb6OSLf0f0oomcuWbgrzMeyHU2K1sXIKtJ2hNEKrr3uDF2Bo3MrG+CwF\n7OB9mrdZODKrRB/x/0Dahm+VU4wMTh5wckoEUSl1IslhQzlVbe097texFbIbi7nb\nvrDdYeTJkQkVCq6QhDoO6b8e2I2esUINgY2n9c0HWVo2dfs1HROwGTDMjarh4aL0\nFXgmGqBZsfi/6BYa3R9MGptYJVrWpHHryxVtT0w1902446MxBy98OhpOwPPj/rt2\nXatqNfIBu5lhGVEY8SjqjaRggN9D0l2ifnuAb7mJq2rrZ71Vs0lQBraRtLlKC1pW\ny2HRAj6c8f2GYH8LAUOL2FOLp/wJhTQ7ZshWOvUmJf6EoSwlelOZVJfelo1tGidE\n0IGWvIbF7wyVnQG/\n\u003dLhe8\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "93b7ff16_eaa7a817",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-04-10T08:16:28Z",
+      "side": 1,
+      "message": "Is this correct?",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 62
+      },
+      "revId": "beeaca3bff69ee60f782d3e7686eefc5cf299195",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
 }
