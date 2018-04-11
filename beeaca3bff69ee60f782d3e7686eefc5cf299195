@@ -71,6 +71,30 @@
       "revId": "beeaca3bff69ee60f782d3e7686eefc5cf299195",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46237a72_bc702d03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-04-11T04:59:58Z",
+      "side": 1,
+      "message": "A few thoughts:\n\n* it would be nice to generically use a name that gives Google credit, since otherwise projects like Eclipse get scared about undeclared provenance\n* this particular piper change was credited to \u0027Soy Authors \u003csoy-dev@google.com\u003e\u0027 at https://github.com/google/closure-templates/commit/6efb6f48fc26b439f60d6de0875b4cdafa8ccac6, so let\u0027s go with that for this one.",
+      "parentUuid": "9646f2fd_3489c791",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 62
+      },
+      "revId": "beeaca3bff69ee60f782d3e7686eefc5cf299195",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
