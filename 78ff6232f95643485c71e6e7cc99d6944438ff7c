@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc367540_611e6e4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-05-11T23:41:36Z",
+      "side": 1,
+      "message": "nit: Please wrap to 76 or fewer characters per line.",
+      "revId": "78ff6232f95643485c71e6e7cc99d6944438ff7c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

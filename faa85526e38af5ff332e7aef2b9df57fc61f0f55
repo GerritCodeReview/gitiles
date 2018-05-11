@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0a4e741_5ebd115c",
+        "filename": "resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-05-11T23:41:36Z",
+      "side": 1,
+      "message": "optional nit: can simplify e.g. to something like \"This repository is empty. Push to it to show branches and history.\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 75
+      },
+      "revId": "faa85526e38af5ff332e7aef2b9df57fc61f0f55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
