@@ -46,6 +46,30 @@
       "revId": "faa85526e38af5ff332e7aef2b9df57fc61f0f55",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c76e085b_e202a125",
+        "filename": "resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1066506
+      },
+      "writtenOn": "2018-05-11T23:58:40Z",
+      "side": 1,
+      "message": "Updated with CSS classes for easier theming and to use \u003cp\u003e.",
+      "parentUuid": "31d4c2f2_dc7bdbbb",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 75
+      },
+      "revId": "faa85526e38af5ff332e7aef2b9df57fc61f0f55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
