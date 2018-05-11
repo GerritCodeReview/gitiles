@@ -22,6 +22,30 @@
       "revId": "faa85526e38af5ff332e7aef2b9df57fc61f0f55",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31d4c2f2_dc7bdbbb",
+        "filename": "resources/com/google/gitiles/templates/RepositoryIndex.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-05-11T23:43:04Z",
+      "side": 1,
+      "message": "Also, is it intended that this uses \u003ch4\u003e? Would something like \u003cp\u003e or \u003cdiv\u003e work?\n\nThe rest of the template appears to have CSS classes set to make theming easier, so this probably should as well.",
+      "parentUuid": "b0a4e741_5ebd115c",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 75
+      },
+      "revId": "faa85526e38af5ff332e7aef2b9df57fc61f0f55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
