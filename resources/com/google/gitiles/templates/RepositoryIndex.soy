@@ -89,8 +89,8 @@
   {call .branches_ data="all" /}
   {call .tags_ data="all" /}
 {else}
-  <h1>Empty Repository</h1>
-  <h4>This repository has no data. Add commits to view branches and history.</h4>
+  <h1 class="EmptyRepo-header">Empty Repository</h1>
+  <p class="EmptyRepo-description">This repository is empty. Push to it to show branches and history.</p>
 {/if}
 
 {call .footer}
