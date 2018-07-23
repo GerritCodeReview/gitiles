@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fe6b3ae_2557ad41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-07-23T14:42:50Z",
+      "side": 1,
+      "message": "RefDatabase#getRefs(String)",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "2bf8717bce5199e035fe1a3128335f23ac9f02b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a5c768_6fa2fa74",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-07-23T14:42:50Z",
+      "side": 1,
+      "message": "Interesting. We should add a new method for this to RefDatabase, since reftable can do it more cheaply (it has an object-to-ref mapping: https://eclipse.googlesource.com/jgit/jgit/+/master/Documentation/technical/reftable.md#Obj-block-format).",
+      "revId": "2bf8717bce5199e035fe1a3128335f23ac9f02b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
