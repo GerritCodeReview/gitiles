@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d1a0f15_439e31c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-07-23T14:48:20Z",
+      "side": 1,
+      "message": "RefDatabase#getRefs(String)",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "dfd1f6db6124cf4b7da612bbe7b7df0a3708e316",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab0402a_80ff44b2",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-07-23T14:48:20Z",
+      "side": 1,
+      "message": "optional: can calculate this once instead of once per ref:\n\n  int prefixLen \u003d refs.prefix.length();\n  for (ref : ...) {\n    ...(...substring(prefixLen)), ...",
+      "range": {
+        "startLine": 91,
+        "startChar": 43,
+        "endLine": 91,
+        "endChar": 63
+      },
+      "revId": "dfd1f6db6124cf4b7da612bbe7b7df0a3708e316",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24060f20_ecfac3f3",
+        "filename": "java/com/google/gitiles/RefServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-07-23T14:48:20Z",
+      "side": 1,
+      "message": "optional: should we check that prefix ends with a \u0027/\u0027? E.g.\n\n  checkArgument(!prefix.endsWith(\u0027/\u0027), \"ref hierarchy prefix should end with /: %s\", prefix);\n\nThat way, if a caller accidentally passes \u0027refs/heads\u0027, we\u0027d notice.",
+      "revId": "dfd1f6db6124cf4b7da612bbe7b7df0a3708e316",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
