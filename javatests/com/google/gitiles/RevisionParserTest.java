@@ -175,7 +175,7 @@ public class RevisionParserTest {
             new Result(Revision.peeled("master", commit), Revision.peeled("master~1", parent), ""));
     // TODO(dborowitz): 2a2362fbb in JGit causes master~2 to resolve to master
     // rather than null. Uncomment when upstream regression is fixed.
-    //assertThat(parser.parse("master~2..master")).isNull();
+    // assertThat(parser.parse("master~2..master")).isNull();
     assertThat(parser.parse("other..master"))
         .isEqualTo(
             new Result(Revision.peeled("master", commit), Revision.peeled("other", other), ""));
@@ -252,7 +252,7 @@ public class RevisionParserTest {
     assertThat(parser.parse("master:blob")).isNull();
 
     // TestRepository has no simple way of setting the reflog.
-    //assertThat(repo.getRepository().resolve("master@{0}")).isEqualTo(null);
+    // assertThat(repo.getRepository().resolve("master@{0}")).isEqualTo(null);
     assertThat(parser.parse("master@{0}")).isNull();
   }
 
