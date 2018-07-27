@@ -265,6 +265,11 @@
               {for $span in $line}
                 <span class="{$span.classes}">{$span.text}</span>
               {/for}
+              {if length($line) == 0}
+                /* This empty line is kept when the displayed code is copied. Without
+                   it, the empty line would be missing. */
+                {\n}{nil}
+              {/if}
             </td>
           </tr>
         {/for}
