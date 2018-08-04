@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f5fceec1_9727466b",
+        "filename": "java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-08-04T20:55:23Z",
+      "side": 0,
+      "message": "Looks like it\u0027s from https://gerrit-review.googlesource.com/c/gitiles/+/78925/ and is for Eclipse.\n\nJGit uses plain \"// fall through\" comments, so I wonder if the issue in that change was the lack of space between words.",
+      "parentUuid": "cbe116ff_879c73e8",
+      "revId": "55a49f46d8517e7a1a752e48351d028027466292",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c8fabe3_a4b578e9",
         "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
         "patchSetId": 1
