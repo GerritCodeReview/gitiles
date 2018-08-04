@@ -63,6 +63,24 @@
       "revId": "2bf8717bce5199e035fe1a3128335f23ac9f02b5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922ce34c_5be58c29",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-08-04T20:42:22Z",
+      "side": 1,
+      "message": "Please add a TODO comment to use such a method once https://bugs.eclipse.org/537692 is fixed.",
+      "parentUuid": "e6a5c768_6fa2fa74",
+      "revId": "2bf8717bce5199e035fe1a3128335f23ac9f02b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
