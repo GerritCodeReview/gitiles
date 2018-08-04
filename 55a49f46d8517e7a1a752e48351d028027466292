@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3c377045_e3e3fff0",
+        "filename": "java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-08-04T20:58:13Z",
+      "side": 0,
+      "message": "Nah, JGit RebaseCommand uses \"// fall through\" like this:\n\n                        case PROCESS_STEPS:\n                                // fall through\n                        case SKIP:\n                                // fall through\n                        case CONTINUE:\n\nBut that\u0027s not a warning suppression. Will upload a change to drop those. Marking resolved --- I hope Eclipse learns about the more readable \"// fall through\" some day in the future, though!",
+      "parentUuid": "f5fceec1_9727466b",
+      "revId": "55a49f46d8517e7a1a752e48351d028027466292",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c8fabe3_a4b578e9",
         "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
         "patchSetId": 1
