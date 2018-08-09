@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "d22e9b8c_51dcf3f3",
+        "filename": "java/com/google/gitiles/GitilesView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-09T21:31:50Z",
+      "side": 0,
+      "message": "IIRC despite the commit message in the referenced change, these were added for Checkstyle, rather than Eclipse.",
+      "parentUuid": "3c377045_e3e3fff0",
+      "revId": "55a49f46d8517e7a1a752e48351d028027466292",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c8fabe3_a4b578e9",
         "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
         "patchSetId": 1
