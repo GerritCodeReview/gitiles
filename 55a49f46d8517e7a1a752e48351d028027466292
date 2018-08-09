@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "ef6399cf_151e70a1",
+        "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-09T21:35:35Z",
+      "side": 0,
+      "message": "Done in https://gerrit-review.googlesource.com/c/gitiles/+/192271",
+      "parentUuid": "9c8fabe3_a4b578e9",
+      "revId": "55a49f46d8517e7a1a752e48351d028027466292",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "111ab16c_c25d9f7d",
         "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
         "patchSetId": 1
