@@ -159,6 +159,24 @@
       "revId": "55a49f46d8517e7a1a752e48351d028027466292",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e801a2d4_8f70e1a1",
+        "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-08-15T21:03:37Z",
+      "side": 0,
+      "message": "Comment wording tweaked in followup.",
+      "parentUuid": "57957e41_d1060cf0",
+      "revId": "55a49f46d8517e7a1a752e48351d028027466292",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
