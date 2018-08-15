@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher Dave Borowitz \u003cdborowitz@google.com\u003e 1534367163 -0700\npushee rpc://gerrit/gitiles\nnonce APISObQOcA7r8bfB6qGHjrUUrCPWinSSt4TFxmEFrb5xMZY2Sayau5QQxfuVyd/BIJwwzytpCqNI\n\n0000000000000000000000000000000000000000 aafbb36a9ecc0c914b73e6a2b8c3926112a23c1a refs/for/master%r\u003djrn@google.com\n-----BEGIN PGP SIGNATURE-----\n\niQJJBAABCgAzFiEEpPm/sOxWgSqG5grhX9fFmpoSiIwFAlt0lbsVHGRib3Jvd2l0\nekBnb29nbGUuY29tAAoJEF/XxZqaEoiMHroP/1ty9xWKqsH2/Ht/+/1ZcRYb8eei\nXVD5roq7xpn7wEz2TUw3w0O+LdvmlA6nq7udE0PXShwyxMB+FkQzy+yXafskBYs4\nP7i/8eus08uR8rlWaH7w4VteP2WSi5cWzTCIJmY9Rm8xpzrOmciXBuK4emjxUwpk\nQi8mhW+X6QM1Plf+0V7tdr8kUPezIYOXZ0sgzAg8rJmgPPNxnzNXMyH15iO8f0qz\nbcAdlDUXgA0fWu0hFqESqlpzB6WFOeU48aNObqe8rY/OWqqVbRAa4LbSAlVfO9HF\nrGaGwkFMNKYf4j3FoCTUyzs5SEEJcoCcpQihLCLpB/PdrGKQv7BUCITXqxcOu3Lw\n647H89OQC/bYhKu/oO95sC51uQJ7h7tl3g2o5qtppt/STLokpboiV2QmBJOQ3QLz\nqZxTbmHcLoNFA9g+hFiRtewvM8lt0WwZEdAyTQE1Ao1lpRrHSZMXi3daF06hqbXW\nNdFZc3PbXms8wJQd9inaRAGWcpO+fX4i2UMgStyQpgHdT3RLQc7pB3tUwXMhWJ9E\n/TOIUkgFeHmhd8XXOQKewxusJt685wCggfrsO4oTebkBhRd2gnN51ZQ21ucpkVKu\nn1gbHryLOijZ+BYoRCcK8x48BlSI/xZ8GYjQO4lioSDlF5JQ53OGTK08QQfasDHv\n2ApUhBqRQ8DSFFze\n\u003dg2UP\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a35b2b6_54dd8a8d",
+        "filename": "javatests/com/google/gitiles/RevisionParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-08-15T21:07:31Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of commented code like this (since it bitrots easily), but that\u0027s a separate topic. Thanks for the followup that clarifies the comment.",
+      "revId": "0138abf48005f26f727e5b38f853d7dc23ac201f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
 }
