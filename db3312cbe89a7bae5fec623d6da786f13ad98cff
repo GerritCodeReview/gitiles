@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "87d41268_6b3af39b",
+        "filename": ".mailmap",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-10-16T04:19:58Z",
+      "side": 1,
+      "message": "See https://kernel.googlesource.com/pub/scm/git/git/+/master/.mailmap for an example with many entries. The simple formatting grows on one.\n\nBut it\u0027s not a big deal.",
+      "parentUuid": "f0d47bda_5bcc080f",
+      "revId": "db3312cbe89a7bae5fec623d6da786f13ad98cff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b56a184f_dc9a7b6c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
