@@ -16,6 +16,24 @@
       "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36723292_26943717",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-10-16T05:26:43Z",
+      "side": 1,
+      "message": "Thanks.  Done in https://gerrit-review.googlesource.com/c/gitiles/+/200180",
+      "parentUuid": "d62d99c0_de81e5d1",
+      "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
