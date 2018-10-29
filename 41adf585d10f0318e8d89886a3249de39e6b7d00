@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "b3a8c004_00782513",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1073824
+      },
+      "writtenOn": "2018-10-29T19:50:27Z",
+      "side": 1,
+      "message": "s/gerrit/gitiles/",
+      "parentUuid": "2a245d5d_b1fa2fbe",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685da9a3_706eecb9",
         "filename": "javatests/com/google/gitiles/TestGitilesAccess.java",
         "patchSetId": 1
