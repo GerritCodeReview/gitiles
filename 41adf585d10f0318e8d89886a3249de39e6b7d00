@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "2a245d5d_b1fa2fbe",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1073824
+      },
+      "writtenOn": "2018-10-29T19:49:59Z",
+      "side": 1,
+      "message": "Responding to this one first as it impacts how the tests are handled. I will handle the rest of the comments once we close on this one.\n\nWhat is the SLA for things like this in gerrit? This is potentially a large behavior change in the event some repos did do this as it was documented navbar.md has to occur at the root. Someone may have (unwisely) repurposed this as the name of an actual page.\n\nIf the SLA says we follow the contract, then the config is a good way to transition these folks.\n\nIf there is no such SLA, then we don\u0027t need this config.",
+      "parentUuid": "c68e3648_c71b5f2e",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685da9a3_706eecb9",
         "filename": "javatests/com/google/gitiles/TestGitilesAccess.java",
         "patchSetId": 1
