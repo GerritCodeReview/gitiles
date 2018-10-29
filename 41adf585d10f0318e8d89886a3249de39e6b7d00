@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "70f6f22c_4519d04f",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-10-29T21:01:46Z",
+      "side": 1,
+      "message": "\u003e What is the SLA for things like this in [gitiles]?\n\nGitiles is an open-source project you download and run on your own servers. There is no SLA :)\n\nWithin Google\u0027s hosted Gitiles service, we don\u0027t have a strict backwards compatibility policy either. The service has relatively low staffing, and what guarantees we do provide are around JSON/text API compatibility, not Markdown behavior.\n\n\u003e This is potentially a large behavior change in the event some repos did do this as it was documented navbar.md has to occur at the root. Someone may have (unwisely) repurposed this as the name of an actual page.\n\nIn this case, IMO the risk of someone actually doing this is low enough that I\u0027m not too concerned. I\u0027ll put my money where my mouth is: if a customer complains to us about this, I\u0027ll personally take care of resurrecting your PS1 to introduce the option.",
+      "parentUuid": "b3a8c004_00782513",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "685da9a3_706eecb9",
         "filename": "javatests/com/google/gitiles/TestGitilesAccess.java",
         "patchSetId": 1
