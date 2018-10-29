@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44f73d6a_e06e3a7d",
+        "filename": "java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-10-29T18:53:09Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me after rereading this code for the first time in a while that path is always non-null. I would suggest replacing this with Strings.isNullOrEmpty",
+      "range": {
+        "startLine": 172,
+        "startChar": 26,
+        "endLine": 172,
+        "endChar": 38
+      },
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c68e3648_c71b5f2e",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-10-29T18:53:09Z",
+      "side": 1,
+      "message": "What\u0027s the harm in omitting this config option and just making the feature always-on? Wouldn\u0027t it only use the subnavbar if navbar.md is actually present in the a subdirectory in the repo? Assuming existing repos don\u0027t already have such files (because why would they, it\u0027s not currently supported), turning the feature on unconditionally shouldn\u0027t have any visible effect. Or am I missing something about the semantics here?",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685da9a3_706eecb9",
+        "filename": "javatests/com/google/gitiles/TestGitilesAccess.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-10-29T18:53:09Z",
+      "side": 1,
+      "message": "Would it make sense to mark this config @Nullable, and fall back to createDefaultConfig only if it\u0027s null? Then the main call site in TestGitilesServlet would be able to avoid the ternary.",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f81cd96_05710463",
+        "filename": "javatests/com/google/gitiles/doc/SubNavbarServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2018-10-29T18:53:09Z",
+      "side": 1,
+      "message": "Nit: IMO when google-java-format decides to put the whole expression on one line, these \" + \"s are more distracting than clarifying.",
+      "range": {
+        "startLine": 39,
+        "startChar": 23,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
