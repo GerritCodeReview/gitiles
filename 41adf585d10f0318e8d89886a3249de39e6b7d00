@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e757c03c_59b0ac32",
+        "filename": "java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1073824
+      },
+      "writtenOn": "2018-10-30T00:43:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44f73d6a_e06e3a7d",
+      "range": {
+        "startLine": 172,
+        "startChar": 26,
+        "endLine": 172,
+        "endChar": 38
+      },
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c68e3648_c71b5f2e",
         "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
         "patchSetId": 1
@@ -96,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "14959d5f_5fd9b1e6",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1073824
+      },
+      "writtenOn": "2018-10-30T00:43:50Z",
+      "side": 1,
+      "message": "sgtm. Removed the config check.",
+      "parentUuid": "70f6f22c_4519d04f",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "685da9a3_706eecb9",
         "filename": "javatests/com/google/gitiles/TestGitilesAccess.java",
         "patchSetId": 1
@@ -110,6 +152,24 @@
       "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2328f8e_afaa0334",
+        "filename": "javatests/com/google/gitiles/TestGitilesAccess.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1073824
+      },
+      "writtenOn": "2018-10-30T00:43:50Z",
+      "side": 1,
+      "message": "Since we\u0027re removing the config, this is no longer needed!",
+      "parentUuid": "685da9a3_706eecb9",
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +193,30 @@
       "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8443b173_1139abca",
+        "filename": "javatests/com/google/gitiles/doc/SubNavbarServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1073824
+      },
+      "writtenOn": "2018-10-30T00:43:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f81cd96_05710463",
+      "range": {
+        "startLine": 39,
+        "startChar": 23,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "41adf585d10f0318e8d89886a3249de39e6b7d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
