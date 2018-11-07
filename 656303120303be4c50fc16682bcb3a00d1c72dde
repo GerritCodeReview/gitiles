@@ -22,6 +22,30 @@
       "revId": "656303120303be4c50fc16682bcb3a00d1c72dde",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa09c5e_b731a5ee",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-07T06:51:33Z",
+      "side": 1,
+      "message": "Will do in a followup",
+      "parentUuid": "4b7fc20a_39d2c693",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "656303120303be4c50fc16682bcb3a00d1c72dde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
