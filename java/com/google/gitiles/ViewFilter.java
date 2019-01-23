@@ -98,7 +98,7 @@ public class ViewFilter extends AbstractHttpFilter {
       throws IOException, ServletException {
     GitilesView.Builder view = parse(req);
     if (view == null) {
-      throw new GitilesRequestFailureException(FailureReason.CANNOT_PARSE_GITILES_VIEW);
+      throw new GitilesRequestFailureException(FailureReason.NOT_AUTHORIZED);
     }
 
     @SuppressWarnings("unchecked")
