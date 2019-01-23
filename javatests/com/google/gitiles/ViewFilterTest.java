@@ -19,8 +19,10 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.gitiles.MoreAssert.assertThrows;
 
 import com.google.common.net.HttpHeaders;
+import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gitiles.GitilesView.Type;
 import java.io.IOException;
+import java.util.EnumSet;
 import javax.servlet.ServletException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
@@ -513,9 +515,14 @@ public class ViewFilterTest {
   private GitilesView getView(String pathAndQuery) throws ServletException, IOException {
     TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
     FakeHttpServletResponse resp = result.getResponse();
-    assertWithMessage("expected non-redirect status, got " + resp.getStatus())
-        .that(resp.getStatus() < 300 || resp.getStatus() >= 400)
-        .isTrue();
+    if (resp.getStatus() != 200) {
+        throw new GitilesRequestFailureException(
+            EnumSet.allOf(FailureReason.class).stream()
+                .filter(e -> e.getHttpStatusCode() == resp.getStatus())
+                .findFirst()
+                .orElse(FailureReason.SERVICE_NOT_ENABLED)
+        );
+    }
     return result.getView();
   }
 }

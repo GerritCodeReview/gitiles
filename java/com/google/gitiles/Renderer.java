@@ -60,6 +60,7 @@ public abstract class Renderer {
           "Common.soy",
           "DiffDetail.soy",
           "Doc.soy",
+          "Empty.soy",
           "HostIndex.soy",
           "LogDetail.soy",
           "ObjectDetail.soy",
