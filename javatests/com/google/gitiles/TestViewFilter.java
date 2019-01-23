@@ -22,6 +22,7 @@ import static com.google.gitiles.GitilesFilter.ROOT_REGEX;
 
 import com.google.common.collect.ImmutableList;
 import java.io.IOException;
+import java.net.URL;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -63,6 +64,10 @@ public class TestViewFilter {
     TestServlet servlet = new TestServlet();
     ViewFilter vf =
         new ViewFilter(
+            new DefaultRenderer(
+                GitilesServlet.STATIC_PREFIX,
+                ImmutableList.<URL>of(),
+                servlet.view.getRepositoryName() + " test site"),
             new TestGitilesAccess(repo.getRepository()),
             TestGitilesUrls.URLS,
             new VisibilityCache(false));
