@@ -1,5 +1,5 @@
-load("@com_googlesource_gerrit_bazlets//tools/maven:package.bzl", "maven_package")
 load("//:version.bzl", "GITILES_VERSION")
+load("@com_googlesource_gerrit_bazlets//tools/maven:package.bzl", "maven_package")
 
 maven_package(
     src = {
