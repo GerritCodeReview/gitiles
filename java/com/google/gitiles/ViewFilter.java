@@ -16,12 +16,13 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 import static org.eclipse.jgit.http.server.GitSmartHttpTools.sendError;
 import static org.eclipse.jgit.http.server.ServletUtils.ATTRIBUTE_REPOSITORY;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.util.Map;
 import javax.servlet.FilterChain;
@@ -91,9 +92,11 @@ public class ViewFilter extends AbstractHttpFilter {
   private final GitilesUrls urls;
   private final GitilesAccess.Factory accessFactory;
   private final VisibilityCache visibilityCache;
+  protected final Renderer renderer;
 
   public ViewFilter(
-      GitilesAccess.Factory accessFactory, GitilesUrls urls, VisibilityCache visibilityCache) {
+      Renderer renderer, GitilesAccess.Factory accessFactory, GitilesUrls urls, VisibilityCache visibilityCache) {
+    this.renderer = renderer;
     this.urls = checkNotNull(urls, "urls");
     this.accessFactory = checkNotNull(accessFactory, "accessFactory");
     this.visibilityCache = checkNotNull(visibilityCache, "visibilityCache");
@@ -115,7 +118,13 @@ public class ViewFilter extends AbstractHttpFilter {
       return;
     }
     if (view == null) {
-      res.setStatus(SC_NOT_FOUND);
+      renderHtml(
+        req,
+        res,
+        "gitiles.empty",
+        ImmutableMap.of(
+            "title",
+            "Not Found"));
       return;
     }
 
@@ -340,5 +349,22 @@ public class ViewFilter extends AbstractHttpFilter {
         new RevisionParser(
             ServletUtils.getRepository(req), accessFactory.forRequest(req), visibilityCache);
     return revParser.parse(checkLeadingSlash(path));
+  }
+
+  protected void renderHtml(
+      HttpServletRequest req, HttpServletResponse res, String templateName, Map<String, ?> soyData)
+      throws IOException {
+    renderer.render(req, res, templateName, startHtmlResponse(req, res, soyData));
+  }
+
+  private Map<String, ?> startHtmlResponse(
+      HttpServletRequest req, HttpServletResponse res, Map<String, ?> soyData) throws IOException {
+    res.setContentType(FormatType.HTML.getMimeType());
+    res.setCharacterEncoding(UTF_8.name());
+    res.setStatus(HttpServletResponse.SC_OK);
+    BaseServlet.setNotCacheable(res);
+    Map<String, Object> allData = BaseServlet.getData(req);
+    allData.putAll(soyData);
+    return allData;
   }
 }

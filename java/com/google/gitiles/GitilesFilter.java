@@ -213,7 +213,7 @@ class GitilesFilter extends MetaFilter {
     }
 
     Filter repositoryFilter = new RepositoryFilter(resolver);
-    Filter viewFilter = new ViewFilter(accessFactory, urls, visibilityCache);
+    Filter viewFilter = new ViewFilter(renderer, accessFactory, urls, visibilityCache);
     Filter dispatchFilter = new DispatchFilter(filters, servlets);
 
     ServletBinder root = serveRegex(ROOT_REGEX).through(viewFilter);
