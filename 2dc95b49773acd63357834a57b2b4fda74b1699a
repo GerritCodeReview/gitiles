@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a5a8af8c_295be269",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-01-23T01:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "434121fc_dd1bee43",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "2dc95b49773acd63357834a57b2b4fda74b1699a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2371f673_9aeb4630",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-23T01:17:04Z",
       "side": 1,
       "message": "IIRC the reason for sending 404 is to prevent leaking that the repository exists for users who are not supposed to be able to see it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 73
+      },
+      "revId": "2dc95b49773acd63357834a57b2b4fda74b1699a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6573f122_6a398f80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-01-23T01:29:47Z",
+      "side": 1,
+      "message": "there is no difference of returning 404 for everything or 401... right? there is no leak...",
+      "parentUuid": "2371f673_9aeb4630",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "2dc95b49773acd63357834a57b2b4fda74b1699a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742caae5_8c82201a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-01-23T01:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58e33331_6a5a54b9",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 8
+      },
+      "revId": "2dc95b49773acd63357834a57b2b4fda74b1699a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
