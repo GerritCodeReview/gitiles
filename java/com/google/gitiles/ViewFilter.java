@@ -16,8 +16,8 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.eclipse.jgit.http.server.GitSmartHttpTools.sendError;
 import static org.eclipse.jgit.http.server.ServletUtils.ATTRIBUTE_REPOSITORY;
 
@@ -115,7 +115,7 @@ public class ViewFilter extends AbstractHttpFilter {
       return;
     }
     if (view == null) {
-      res.setStatus(SC_NOT_FOUND);
+      res.sendError(SC_UNAUTHORIZED);
       return;
     }
 
