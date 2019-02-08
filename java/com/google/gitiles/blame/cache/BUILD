@@ -1,6 +1,3 @@
-load("@com_googlesource_gerrit_bazlets//tools:javadoc.bzl", "java_doc")
-load("//tools:stamper.bzl", "stamp")
-
 java_library(
     name = "cache",
     srcs = glob(["**/*.java"]),
@@ -10,6 +7,8 @@ java_library(
         "//lib/jgit",
     ],
 )
+
+load("@com_googlesource_gerrit_bazlets//tools:javadoc.bzl", "java_doc")
 
 java_doc(
     name = "cache-javadoc",
@@ -22,6 +21,8 @@ java_doc(
     title = "Blame Cache API Documentation",
     visibility = ["//visibility:public"],
 )
+
+load("//tools:stamper.bzl", "stamp")
 
 stamp(
     name = "cache",
