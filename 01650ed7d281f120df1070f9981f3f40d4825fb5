@@ -16,6 +16,24 @@
       "revId": "01650ed7d281f120df1070f9981f3f40d4825fb5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db92696d_ec7a280b",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-02-09T19:55:41Z",
+      "side": 0,
+      "message": "I modified it to return 404, and this is the downside as the gitiles gerrit plugin cannot react and redirect to login as in the other patch.",
+      "parentUuid": "a0b53006_c5dfafcb",
+      "revId": "01650ed7d281f120df1070f9981f3f40d4825fb5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
