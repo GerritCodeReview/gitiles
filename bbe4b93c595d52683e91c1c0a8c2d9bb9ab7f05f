@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8728e004_b214641e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-09T18:31:56Z",
+      "side": 1,
+      "message": "Please also add a Bug: field:\n\n Bug: https://github.com/google/gitiles/issues/145",
+      "revId": "bbe4b93c595d52683e91c1c0a8c2d9bb9ab7f05f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
