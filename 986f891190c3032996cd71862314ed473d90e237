@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b3eafd7c_016850d5",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-02-09T19:55:41Z",
+      "side": 1,
+      "message": "There is no subclass, I thought of maybe add this to parent, not critical at this point.",
+      "parentUuid": "c387965f_e25b5f48",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "986f891190c3032996cd71862314ed473d90e237",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6db1f6a2_b7b3021b",
         "filename": "java/com/google/gitiles/ViewFilter.java",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "849717f8_86c68e1a",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-02-09T19:55:41Z",
+      "side": 1,
+      "message": "in maven there is a plugin to automatically format... I do not know how to do this in bazel, I will run this manually.",
+      "parentUuid": "6db1f6a2_b7b3021b",
+      "revId": "986f891190c3032996cd71862314ed473d90e237",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f160e74f_9a19bc79",
         "filename": "resources/com/google/gitiles/templates/Empty.soy",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2019-02-09T19:17:20Z",
       "side": 1,
       "message": "How about a name like NotFound.soy?",
+      "revId": "986f891190c3032996cd71862314ed473d90e237",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3617e0e_a8d4d3db",
+        "filename": "resources/com/google/gitiles/templates/Empty.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2019-02-09T19:55:41Z",
+      "side": 1,
+      "message": "this is a generic page, can be used by any error, it is not specific not not found, do you see any reason to make it specific?",
+      "parentUuid": "f160e74f_9a19bc79",
       "revId": "986f891190c3032996cd71862314ed473d90e237",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
