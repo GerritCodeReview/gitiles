@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c387965f_e25b5f48",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-09T19:17:20Z",
+      "side": 1,
+      "message": "Does a subclass make use of this?",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "986f891190c3032996cd71862314ed473d90e237",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db1f6a2_b7b3021b",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-09T19:17:20Z",
+      "side": 1,
+      "message": "nit: Long line. (google-java-format can take care of these)",
+      "revId": "986f891190c3032996cd71862314ed473d90e237",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f160e74f_9a19bc79",
+        "filename": "resources/com/google/gitiles/templates/Empty.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-09T19:17:20Z",
+      "side": 1,
+      "message": "How about a name like NotFound.soy?",
+      "revId": "986f891190c3032996cd71862314ed473d90e237",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
