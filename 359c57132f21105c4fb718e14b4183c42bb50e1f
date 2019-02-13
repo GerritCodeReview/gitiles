@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92dae1cc_6a606f2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-13T01:55:14Z",
+      "side": 1,
+      "message": "Use full refname",
+      "range": {
+        "startLine": 7,
+        "startChar": 12,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "359c57132f21105c4fb718e14b4183c42bb50e1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fbec1c6_938cb25d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-13T01:55:14Z",
+      "side": 1,
+      "message": "More precisely: it is checking whether the short name expands to some other refname so that it can make a short link that points to the right target.",
+      "revId": "359c57132f21105c4fb718e14b4183c42bb50e1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcab8ca2_4ab76bab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-13T01:55:14Z",
+      "side": 1,
+      "message": "I think this undersells the feature: it\u0027s nice to have a short, comprehensible URL that the user can manipulate to do what they\u0027re looking for.\n\nThe issue here is that when there are many branches and tags, the check is expensive. We could do a more complex check that would be a little cheaper, but it doesn\u0027t seem worth the complexity.",
+      "range": {
+        "startLine": 10,
+        "startChar": 14,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "359c57132f21105c4fb718e14b4183c42bb50e1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f66010a_7a8abb1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-13T01:55:14Z",
+      "side": 1,
+      "message": "language nit: This should say \"Always use full reference names\" (word order, use of plural)",
+      "revId": "359c57132f21105c4fb718e14b4183c42bb50e1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ff5cda_5878c627",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-13T01:55:14Z",
+      "side": 1,
+      "message": "nit: \"speeds up page generation\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "359c57132f21105c4fb718e14b4183c42bb50e1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d866651_2d46776d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-02-13T01:55:14Z",
+      "side": 1,
+      "message": "nit: this should be a period, since it\u0027s separating two independent sentences.",
+      "range": {
+        "startLine": 18,
+        "startChar": 41,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "359c57132f21105c4fb718e14b4183c42bb50e1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
