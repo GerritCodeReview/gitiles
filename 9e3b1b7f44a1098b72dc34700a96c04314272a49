@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04284bb5_e4cc834e",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-03-07T22:54:35Z",
+      "side": 0,
+      "message": "Sure the commit body doesn\u0027t need to be in the JSON results?",
+      "range": {
+        "startLine": 180,
+        "startChar": 6,
+        "endLine": 180,
+        "endChar": 16
+      },
+      "revId": "9e3b1b7f44a1098b72dc34700a96c04314272a49",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
