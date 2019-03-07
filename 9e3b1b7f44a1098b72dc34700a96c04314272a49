@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9911ce3c_ad330176",
+        "filename": "java/com/google/gitiles/TagSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-03-07T23:00:36Z",
+      "side": 1,
+      "message": "Is it more expensive to parseBody on the adhoc basis like this?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "9e3b1b7f44a1098b72dc34700a96c04314272a49",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
