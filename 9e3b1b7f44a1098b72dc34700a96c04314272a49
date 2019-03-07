@@ -46,6 +46,30 @@
       "revId": "9e3b1b7f44a1098b72dc34700a96c04314272a49",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a60590c_0b6a62a4",
+        "filename": "java/com/google/gitiles/TagSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-03-07T23:58:10Z",
+      "side": 1,
+      "message": "More precisely, it costs almost nothing (what I called \u0027some \"if\"s\u0027) in this change. https://gerrit-review.googlesource.com/c/gitiles/+/217138 will incur some cost by forcing us to reobtain the object content from the ObjectReader, which is the cost of not retaining it. (I think it\u0027s worth it because usually the object content isn\u0027t needed.)",
+      "parentUuid": "1dcf1b5d_bcd7226e",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "9e3b1b7f44a1098b72dc34700a96c04314272a49",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
