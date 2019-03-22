@@ -103,7 +103,7 @@ public class PathServletTest extends ServletTest {
 
   @Test
   public void symlinkHtml() throws Exception {
-    final RevBlob link = repo.blob("foo");
+    RevBlob link = repo.blob("foo");
     repo.branch("master")
         .commit()
         .add("foo", "contents")
@@ -128,7 +128,7 @@ public class PathServletTest extends ServletTest {
         "[submodule \"gitiles\"]\n"
             + "  path = gitiles\n"
             + "  url = https://gerrit.googlesource.com/gitiles\n";
-    final String gitilesSha = "2b2f34bba3c2be7e2506ce6b1f040949da350cf9";
+    String gitilesSha = "2b2f34bba3c2be7e2506ce6b1f040949da350cf9";
     repo.branch("master")
         .commit()
         .add(".gitmodules", gitmodules)
@@ -173,7 +173,7 @@ public class PathServletTest extends ServletTest {
 
   @Test
   public void symlinkText() throws Exception {
-    final RevBlob link = repo.blob("foo");
+    RevBlob link = repo.blob("foo");
     repo.branch("master")
         .commit()
         .edit(
@@ -218,7 +218,7 @@ public class PathServletTest extends ServletTest {
         "[submodule \"gitiles\"]\n"
             + "  path = gitiles\n"
             + "  url = https://gerrit.googlesource.com/gitiles\n";
-    final String gitilesSha = "2b2f34bba3c2be7e2506ce6b1f040949da350cf9";
+    String gitilesSha = "2b2f34bba3c2be7e2506ce6b1f040949da350cf9";
     repo.branch("master")
         .commit()
         .add("foo/bar", "contents")
@@ -253,7 +253,7 @@ public class PathServletTest extends ServletTest {
 
   @Test
   public void treeJsonLinkTarget() throws Exception {
-    final ObjectId targetID = repo.blob("target");
+    ObjectId targetID = repo.blob("target");
     RevCommit c =
         repo.parseBody(
             repo.branch("master")

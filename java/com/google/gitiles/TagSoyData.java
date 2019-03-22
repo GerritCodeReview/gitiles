@@ -18,7 +18,6 @@ import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -34,7 +33,7 @@ public class TagSoyData {
   }
 
   public Map<String, Object> toSoyData(RevWalk walk, RevTag tag, DateFormatter df)
-      throws MissingObjectException, IOException {
+      throws IOException {
     walk.parseBody(tag);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);

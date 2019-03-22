@@ -778,7 +778,7 @@ public class GitilesViewTest {
     assertThat(view.getOldRevision().getName()).isEqualTo("other\"na/me");
     assertThat(view.getPathPart()).isEqualTo("we ird/pa'th/name");
     assertThat(view.getParameters())
-        .isEqualTo(ImmutableListMultimap.<String, String>of("k e y", "val/ue"));
+        .isEqualTo(ImmutableListMultimap.of("k e y", "val/ue"));
 
     String qs = "?k+e+y=val%2Fue";
     assertThat(view.toUrl())
@@ -851,7 +851,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/");
-    assertThat(view.getBreadcrumbs(ImmutableList.<Boolean>of()))
+    assertThat(view.getBreadcrumbs(ImmutableList.of()))
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),

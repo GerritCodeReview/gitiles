@@ -140,7 +140,7 @@ public class DefaultAccess implements GitilesAccess {
 
   @Override
   public RepositoryDescription getRepositoryDescription() throws IOException {
-    return buildDescription(ServletUtils.getRepository(req), Collections.<String>emptySet());
+    return buildDescription(ServletUtils.getRepository(req), Collections.emptySet());
   }
 
   @Override

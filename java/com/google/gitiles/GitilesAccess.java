@@ -32,12 +32,12 @@ import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
  */
 public interface GitilesAccess {
   /** Access for the current request, if it has been initialized. */
-  public static Optional<GitilesAccess> getAccess(HttpServletRequest req) {
+  static Optional<GitilesAccess> getAccess(HttpServletRequest req) {
     return Optional.ofNullable((GitilesAccess) req.getAttribute(GitilesAccess.class.getName()));
   }
 
   /** Access for the current request. */
-  public static GitilesAccess getAccess(HttpServletRequest req, Factory factory) {
+  static GitilesAccess getAccess(HttpServletRequest req, Factory factory) {
     GitilesAccess access = getAccess(req).orElse(null);
     if (access == null) {
       access = factory.forRequest(req);
@@ -47,7 +47,7 @@ public interface GitilesAccess {
   }
 
   /** Factory for per-request access. */
-  public interface Factory {
+  interface Factory {
     GitilesAccess forRequest(HttpServletRequest req);
   }
 

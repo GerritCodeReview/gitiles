@@ -19,9 +19,6 @@ import com.google.gitiles.doc.MarkdownConfig;
 import com.google.gitiles.doc.MarkdownToHtml;
 import com.google.template.soy.data.SanitizedContent;
 import java.io.IOException;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
@@ -57,8 +54,8 @@ class ReadmeHelper {
   }
 
   void scanTree(RevTree tree)
-      throws MissingObjectException, IncorrectObjectTypeException, CorruptObjectException,
-          IOException {
+      throws
+      IOException {
     if (config.render) {
       try (TreeWalk tw = new TreeWalk(reader)) {
         tw.setRecursive(false);

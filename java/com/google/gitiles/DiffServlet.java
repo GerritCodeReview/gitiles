@@ -15,11 +15,11 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import com.google.common.io.BaseEncoding;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.DateFormatter.Format;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -67,8 +67,7 @@ public class DiffServlet extends BaseServlet {
       AbstractTreeIterator newTree;
       try {
         if (tw == null && !view.getPathPart().isEmpty()) {
-          res.setStatus(SC_NOT_FOUND);
-          return;
+          throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
         }
         isFile = tw != null && isFile(tw);
 
@@ -77,9 +76,10 @@ public class DiffServlet extends BaseServlet {
         showCommit = isParentOf(walk, view.getOldRevision(), view.getRevision());
         oldTree = getTreeIterator(walk, view.getOldRevision().getId());
         newTree = getTreeIterator(walk, view.getRevision().getId());
-      } catch (MissingObjectException | IncorrectObjectTypeException e) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+      } catch (MissingObjectException e) {
+        throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND, e);
+      } catch (IncorrectObjectTypeException e) {
+        throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
       }
 
       Map<String, Object> data = getData(req);
@@ -124,9 +124,10 @@ public class DiffServlet extends BaseServlet {
       try {
         oldTree = getTreeIterator(walk, view.getOldRevision().getId());
         newTree = getTreeIterator(walk, view.getRevision().getId());
-      } catch (MissingObjectException | IncorrectObjectTypeException e) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+      } catch (MissingObjectException e) {
+        throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND, e);
+      } catch (IncorrectObjectTypeException e) {
+        throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
       }
 
       try (Writer writer = startRenderText(req, res);
@@ -146,7 +147,7 @@ public class DiffServlet extends BaseServlet {
   }
 
   private static boolean isParentOf(RevWalk walk, Revision oldRevision, Revision newRevision)
-      throws MissingObjectException, IncorrectObjectTypeException, IOException {
+      throws IOException {
     RevCommit newCommit = walk.parseCommit(newRevision.getId());
     if (newCommit.getParentCount() > 0) {
       return Arrays.asList(newCommit.getParents()).contains(oldRevision.getId());

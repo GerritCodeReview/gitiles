@@ -103,12 +103,12 @@ public class MarkdownConfig {
     tables = on("tables", p.tables, enable, disable);
     toc = on("toc", p.toc, enable, disable);
 
-    allowAnyIFrame = safeHtml ? p.allowAnyIFrame : false;
+    allowAnyIFrame = safeHtml && p.allowAnyIFrame;
     allowIFrame = safeHtml ? p.allowIFrame : ImmutableList.of();
   }
 
   private static boolean on(String key, boolean val, Set<String> enable, Set<String> disable) {
-    return enable.contains(key) ? true : disable.contains(key) ? false : val;
+    return enable.contains(key) || !disable.contains(key) && val;
   }
 
   boolean isIFrameAllowed(String src) {

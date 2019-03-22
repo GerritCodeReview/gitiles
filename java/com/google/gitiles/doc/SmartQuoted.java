@@ -20,7 +20,7 @@ import org.commonmark.node.CustomNode;
 public class SmartQuoted extends CustomNode {
   public enum Type {
     DOUBLE,
-    SINGLE;
+    SINGLE
   }
 
   private Type type;

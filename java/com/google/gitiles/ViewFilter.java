@@ -16,12 +16,10 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
-import static org.eclipse.jgit.http.server.GitSmartHttpTools.sendError;
 import static org.eclipse.jgit.http.server.ServletUtils.ATTRIBUTE_REPOSITORY;
 
 import com.google.common.base.Strings;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import java.io.IOException;
 import java.util.Map;
 import javax.servlet.FilterChain;
@@ -30,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.http.server.glue.WrappedRequest;
-import org.eclipse.jgit.transport.ServiceMayNotContinueException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,22 +99,7 @@ public class ViewFilter extends AbstractHttpFilter {
   @Override
   public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
       throws IOException, ServletException {
-    GitilesView.Builder view;
-    try {
-      view = parse(req);
-    } catch (ServiceMayNotContinueException e) {
-      sendError(req, res, e.getStatusCode(), e.getMessage());
-      return;
-    } catch (IOException err) {
-      String name = urls.getHostName(req);
-      log.warn("Cannot parse view" + (name != null ? " for " + name : ""), err);
-      res.setStatus(SC_SERVICE_UNAVAILABLE);
-      return;
-    }
-    if (view == null) {
-      res.setStatus(SC_NOT_FOUND);
-      return;
-    }
+    GitilesView.Builder view = parse(req);
 
     @SuppressWarnings("unchecked")
     Map<String, String[]> params = req.getParameterMap();
@@ -161,7 +143,7 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseNoCommand(req, repoName);
     }
     if (!hasRepository(req)) {
-      return null; // no repository? return null to 404.
+      throw new RequestFailureException(FailureReason.REPOSITORY_NOT_FOUND);
     }
     if (command.equals(CMD_ARCHIVE)) {
       return parseArchiveCommand(req, repoName, path);
@@ -181,9 +163,8 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseShowCommand(req, repoName, path);
     } else if (command.equals(CMD_DOC)) {
       return parseDocCommand(req, repoName, path);
-    } else {
-      return null;
     }
+    throw new RequestFailureException(FailureReason.UNSUPPORTED_ACTION);
   }
 
   private GitilesView.Builder parseNoCommand(HttpServletRequest req, String repoName) {
@@ -204,11 +185,11 @@ public class ViewFilter extends AbstractHttpFilter {
       }
     }
     if (ext == null || path.endsWith("/")) {
-      return null;
+      throw new RequestFailureException(FailureReason.INCORECT_PARAMETER);
     }
     RevisionParser.Result result = parseRevision(req, path);
     if (result == null || result.getOldRevision() != null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     return GitilesView.archive()
         .setRepositoryName(repoName)
@@ -222,11 +203,11 @@ public class ViewFilter extends AbstractHttpFilter {
     // Note: if you change the mapping for +, make sure to change
     // GitilesView.toUrl() correspondingly.
     if (path.isEmpty()) {
-      return null;
+      throw new RequestFailureException(FailureReason.INCORECT_PARAMETER);
     }
     RevisionParser.Result result = parseRevision(req, path);
     if (result == null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     if (result.getOldRevision() != null) {
       return parseDiffCommand(repoName, result);
@@ -244,11 +225,11 @@ public class ViewFilter extends AbstractHttpFilter {
   private GitilesView.Builder parseBlameCommand(
       HttpServletRequest req, String repoName, String path) throws IOException {
     if (path.isEmpty()) {
-      return null;
+      throw new RequestFailureException(FailureReason.INCORECT_PARAMETER);
     }
     RevisionParser.Result result = parseRevision(req, path);
     if (result == null || result.getOldRevision() != null || result.getPath().isEmpty()) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     return GitilesView.blame()
         .setRepositoryName(repoName)
@@ -258,7 +239,7 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private GitilesView.Builder parseDescribeCommand(String repoName, String path) {
     if (isEmptyOrSlash(path)) {
-      return null;
+      throw new RequestFailureException(FailureReason.INCORECT_PARAMETER);
     }
     return GitilesView.describe().setRepositoryName(repoName).setPathPart(path);
   }
@@ -270,7 +251,7 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private GitilesView.Builder parseDiffCommand(String repoName, RevisionParser.Result result) {
     if (result == null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     return GitilesView.diff()
         .setRepositoryName(repoName)
@@ -286,7 +267,7 @@ public class ViewFilter extends AbstractHttpFilter {
     }
     RevisionParser.Result result = parseRevision(req, path);
     if (result == null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     return GitilesView.log()
         .setRepositoryName(repoName)
@@ -306,7 +287,7 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private GitilesView.Builder parseShowCommand(String repoName, RevisionParser.Result result) {
     if (result == null || result.getOldRevision() != null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     if (result.getPath().isEmpty()) {
       return GitilesView.revision().setRepositoryName(repoName).setRevision(result.getRevision());
@@ -324,7 +305,7 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private GitilesView.Builder parseDocCommand(String repoName, RevisionParser.Result result) {
     if (result == null || result.getOldRevision() != null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     GitilesView.Builder b =
         GitilesView.doc().setRepositoryName(repoName).setRevision(result.getRevision());

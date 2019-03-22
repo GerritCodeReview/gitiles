@@ -102,11 +102,11 @@ public class VisibilityCache {
   }
 
   boolean isVisible(
-      final Repository repo,
-      final RevWalk walk,
+      Repository repo,
+      RevWalk walk,
       GitilesAccess access,
-      final ObjectId id,
-      final ObjectId... knownReachable)
+      ObjectId id,
+      ObjectId... knownReachable)
       throws IOException {
     try {
       return cache.get(

@@ -16,8 +16,6 @@ package com.google.gitiles;
 
 import com.google.common.annotations.VisibleForTesting;
 import java.io.IOException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -42,7 +40,7 @@ public abstract class IdentRevFilter extends RevFilter {
 
   @Override
   public boolean include(RevWalk walker, RevCommit commit)
-      throws StopWalkException, MissingObjectException, IncorrectObjectTypeException, IOException {
+      throws StopWalkException, IOException {
     return matchesPerson(getIdent(walker, commit));
   }
 
@@ -61,7 +59,7 @@ public abstract class IdentRevFilter extends RevFilter {
   }
 
   protected abstract PersonIdent getIdent(RevWalk walk, RevCommit commit)
-      throws MissingObjectException, IOException;
+      throws IOException;
 
   private static class Author extends IdentRevFilter {
     private Author(String author) {
@@ -70,7 +68,7 @@ public abstract class IdentRevFilter extends RevFilter {
 
     @Override
     protected PersonIdent getIdent(RevWalk walk, RevCommit commit)
-        throws MissingObjectException, IOException {
+        throws IOException {
       walk.parseBody(commit);
       return commit.getAuthorIdent();
     }
@@ -83,7 +81,7 @@ public abstract class IdentRevFilter extends RevFilter {
 
     @Override
     protected PersonIdent getIdent(RevWalk walk, RevCommit commit)
-        throws MissingObjectException, IOException {
+        throws IOException {
       walk.parseBody(commit);
       return commit.getCommitterIdent();
     }

@@ -35,7 +35,7 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
   }
 
   @Override
-  public GitilesAccess forRequest(final HttpServletRequest req) {
+  public GitilesAccess forRequest(HttpServletRequest req) {
     return new GitilesAccess() {
       @Override
       public Map<String, RepositoryDescription> listRepositories(

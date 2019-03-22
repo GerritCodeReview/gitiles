@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -57,12 +56,12 @@ public class BlobSoyData {
     this.view = view;
   }
 
-  public Map<String, Object> toSoyData(ObjectId blobId) throws MissingObjectException, IOException {
+  public Map<String, Object> toSoyData(ObjectId blobId) throws IOException {
     return toSoyData(null, blobId);
   }
 
   public Map<String, Object> toSoyData(String path, ObjectId blobId)
-      throws MissingObjectException, IOException {
+      throws IOException {
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
     data.put("sha", ObjectId.toString(blobId));
 

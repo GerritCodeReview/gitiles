@@ -14,8 +14,6 @@
 
 package com.google.gitiles.doc;
 
-import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
 import static org.eclipse.jgit.lib.FileMode.TYPE_FILE;
@@ -32,6 +30,8 @@ import com.google.gitiles.BaseServlet;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.Renderer;
+import com.google.gitiles.RequestFailureException;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import com.google.gitiles.ViewFilter;
 import com.google.gitiles.doc.html.StreamHtmlBuilder;
 import java.io.IOException;
@@ -86,8 +86,7 @@ public class DocServlet extends BaseServlet {
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     MarkdownConfig cfg = MarkdownConfig.get(getAccess(req).getConfig());
     if (!cfg.render) {
-      res.setStatus(SC_NOT_FOUND);
-      return;
+      throw new RequestFailureException(FailureReason.MARKDOWN_NOT_ENABLED);
     }
 
     GitilesView view = ViewFilter.getView(req);
@@ -99,14 +98,12 @@ public class DocServlet extends BaseServlet {
       try {
         root = rw.parseTree(view.getRevision().getId());
       } catch (IncorrectObjectTypeException e) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+        throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
       }
 
       MarkdownFile srcmd = findFile(rw, root, path);
       if (srcmd == null) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+        throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
       }
 
       MarkdownFile navmd = findNavbar(rw, root, path);
@@ -124,9 +121,6 @@ public class DocServlet extends BaseServlet {
         }
       } catch (LargeObjectException.ExceedsLimit errBig) {
         fileTooBig(res, view, errBig);
-        return;
-      } catch (IOException err) {
-        readError(res, view, err);
         return;
       }
 
@@ -174,7 +168,7 @@ public class DocServlet extends BaseServlet {
       while (pathRemaining.length() > 0) {
         int lastPathSeparatorIndex = pathRemaining.lastIndexOf("/");
         pathRemaining.setLength(lastPathSeparatorIndex + 1);
-        MarkdownFile navmd = findFile(rw, root, pathRemaining.toString() + NAVBAR_MD);
+        MarkdownFile navmd = findFile(rw, root, pathRemaining + NAVBAR_MD);
         if (navmd != null) {
           return navmd;
         }
@@ -280,27 +274,10 @@ public class DocServlet extends BaseServlet {
       HttpServletResponse res, GitilesView view, LargeObjectException.ExceedsLimit errBig)
       throws IOException {
     if (view.getType() == GitilesView.Type.ROOTED_DOC) {
-      log.error(
-          String.format(
-              "markdown too large: %s/%s %s %s: %s",
-              view.getHostName(),
-              view.getRepositoryName(),
-              view.getRevision(),
-              view.getPathPart(),
-              errBig.getMessage()));
-      res.setStatus(SC_INTERNAL_SERVER_ERROR);
+      throw new RequestFailureException(FailureReason.OBJECT_TOO_LARGE);
     } else {
       res.sendRedirect(GitilesView.show().copyFrom(view).toUrl());
     }
-  }
-
-  private static void readError(HttpServletResponse res, GitilesView view, IOException err) {
-    log.error(
-        String.format(
-            "cannot load markdown %s/%s %s %s",
-            view.getHostName(), view.getRepositoryName(), view.getRevision(), view.getPathPart()),
-        err);
-    res.setStatus(SC_INTERNAL_SERVER_ERROR);
   }
 
   private static class MarkdownFile {

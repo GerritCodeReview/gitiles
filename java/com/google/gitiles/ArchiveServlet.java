@@ -14,10 +14,10 @@
 
 package com.google.gitiles;
 
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.common.base.Strings;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import java.io.IOException;
 import java.util.Optional;
 import javax.servlet.ServletException;
@@ -50,15 +50,13 @@ public class ArchiveServlet extends BaseServlet {
 
     ObjectId treeId = getTree(view, repo, rev);
     if (treeId.equals(ObjectId.zeroId())) {
-      res.sendError(SC_NOT_FOUND);
-      return;
+      throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE);
     }
 
     Optional<ArchiveFormat> format =
         ArchiveFormat.byExtension(view.getExtension(), getAccess(req).getConfig());
     if (!format.isPresent()) {
-      res.setStatus(SC_NOT_FOUND);
-      return;
+      throw new RequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
     }
     String filename = getFilename(view, rev, view.getExtension());
     setDownloadHeaders(req, res, filename, format.get().getMimeType());
@@ -83,11 +81,11 @@ public class ArchiveServlet extends BaseServlet {
       }
       TreeWalk tw = TreeWalk.forPath(rw.getObjectReader(), view.getPathPart(), tree);
       if (tw == null || tw.getFileMode(0) != FileMode.TREE) {
-        return ObjectId.zeroId();
+        throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE);
       }
       return tw.getObjectId(0);
     } catch (IncorrectObjectTypeException e) {
-      return ObjectId.zeroId();
+      throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
     }
   }
 

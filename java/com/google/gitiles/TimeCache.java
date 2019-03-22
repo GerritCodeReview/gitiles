@@ -53,7 +53,7 @@ public class TimeCache {
     return cache;
   }
 
-  Long getTime(final RevWalk walk, final ObjectId id) throws IOException {
+  Long getTime(RevWalk walk, ObjectId id) throws IOException {
     try {
       return cache.get(
           id,

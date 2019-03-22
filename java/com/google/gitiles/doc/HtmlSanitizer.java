@@ -19,14 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 
 /** Verifies a user content HTML block is safe. */
 public interface HtmlSanitizer {
-  public static final HtmlSanitizer DISABLED = unused -> SafeHtml.EMPTY;
-  public static final Factory DISABLED_FACTORY = req -> DISABLED;
+  HtmlSanitizer DISABLED = unused -> SafeHtml.EMPTY;
+  Factory DISABLED_FACTORY = req -> DISABLED;
 
   /** Verifies the supplied block is safe, or returns {@link SafeHtml#EMPTY}. */
   SafeHtml sanitize(String html);
 
   /** Creates an {@link HtmlSanitizer} for this request. */
-  public interface Factory {
+  interface Factory {
     HtmlSanitizer create(HttpServletRequest req);
   }
 }

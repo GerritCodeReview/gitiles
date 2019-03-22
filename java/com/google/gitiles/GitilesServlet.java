@@ -39,7 +39,9 @@ import org.eclipse.jgit.transport.resolver.RepositoryResolver;
 public class GitilesServlet extends MetaServlet {
   private static final long serialVersionUID = 1L;
 
-  /** The prefix from which static resources are served. */
+  /**
+   * The prefix from which static resources are served.
+   */
   public static final String STATIC_PREFIX = "/+static/";
 
   public GitilesServlet(
@@ -52,6 +54,21 @@ public class GitilesServlet extends MetaServlet {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect) {
+    this(config, renderer, urls, accessFactory, resolver, visibilityCache, timeCache, blameCache,
+        gitwebRedirect, new DefaultErrorHandlingFilter());
+  }
+
+  public GitilesServlet(
+      Config config,
+      @Nullable Renderer renderer,
+      @Nullable GitilesUrls urls,
+      @Nullable GitilesAccess.Factory accessFactory,
+      @Nullable RepositoryResolver<HttpServletRequest> resolver,
+      @Nullable VisibilityCache visibilityCache,
+      @Nullable TimeCache timeCache,
+      @Nullable BlameCache blameCache,
+      @Nullable GitwebRedirectFilter gitwebRedirect,
+      @Nullable Filter errorHandler) {
     super(
         new GitilesFilter(
             config,
@@ -62,7 +79,8 @@ public class GitilesServlet extends MetaServlet {
             visibilityCache,
             timeCache,
             blameCache,
-            gitwebRedirect));
+            gitwebRedirect,
+            errorHandler));
   }
 
   public GitilesServlet() {
@@ -75,7 +93,7 @@ public class GitilesServlet extends MetaServlet {
   }
 
   @Override
-  public void init(final ServletConfig config) throws ServletException {
+  public void init(ServletConfig config) throws ServletException {
     getDelegateFilter()
         .init(
             new FilterConfig() {

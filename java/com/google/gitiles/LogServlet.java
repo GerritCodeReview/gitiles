@@ -15,8 +15,6 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
@@ -27,6 +25,7 @@ import com.google.common.collect.Sets;
 import com.google.common.primitives.Longs;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.DateFormatter.Format;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,8 +40,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.diff.DiffConfig;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.RevWalkException;
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.lib.AbbreviatedObjectId;
 import org.eclipse.jgit.lib.Constants;
@@ -96,10 +93,6 @@ public class LogServlet extends BaseServlet {
     try {
       GitilesAccess access = getAccess(req);
       paginator = newPaginator(repo, view, access);
-      if (paginator == null) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
-      }
       DateFormatter df = new DateFormatter(access, Format.DEFAULT);
 
       // Allow the user to select a logView variant with the "pretty" param.
@@ -133,10 +126,6 @@ public class LogServlet extends BaseServlet {
             .renderStreaming(paginator, null, renderer, w, df, LogSoyData.FooterBehavior.NEXT);
         w.flush();
       }
-    } catch (RevWalkException e) {
-      log.warn("Error in rev walk", e);
-      res.setStatus(SC_INTERNAL_SERVER_ERROR);
-      return;
     } finally {
       if (paginator != null) {
         paginator.getWalk().close();
@@ -159,10 +148,6 @@ public class LogServlet extends BaseServlet {
     try {
       GitilesAccess access = getAccess(req);
       paginator = newPaginator(repo, view, access);
-      if (paginator == null) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
-      }
       DateFormatter df = new DateFormatter(access, Format.DEFAULT);
       CommitJsonData.Log result = new CommitJsonData.Log();
       List<CommitJsonData.Commit> entries = Lists.newArrayListWithCapacity(paginator.getLimit());
@@ -191,7 +176,7 @@ public class LogServlet extends BaseServlet {
     }
     Ref headRef = repo.exactRef(Constants.HEAD);
     if (headRef == null) {
-      return null;
+      throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
     try (RevWalk walk = new RevWalk(repo)) {
       return GitilesView.log()
@@ -201,17 +186,8 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static class InvalidStartValueException extends IllegalArgumentException {
-    private static final long serialVersionUID = 1L;
-
-    InvalidStartValueException() {
-      super();
-    }
-  }
-
   private static Optional<ObjectId> getStart(
-      ListMultimap<String, String> params, ObjectReader reader)
-      throws IOException, InvalidStartValueException {
+      ListMultimap<String, String> params, ObjectReader reader) throws IOException {
     List<String> values = params.get(START_PARAM);
     switch (values.size()) {
       case 0:
@@ -219,28 +195,27 @@ public class LogServlet extends BaseServlet {
       case 1:
         String id = values.get(0);
         if (!AbbreviatedObjectId.isId(id)) {
-          throw new InvalidStartValueException();
+          throw new RequestFailureException(FailureReason.INCORECT_PARAMETER);
         }
         Collection<ObjectId> ids = reader.resolve(AbbreviatedObjectId.fromString(id));
         if (ids.size() != 1) {
-          throw new InvalidStartValueException();
+          throw new RequestFailureException(FailureReason.AMBIGUOUS_OBJECT);
         }
         return Optional.of(Iterables.getOnlyElement(ids));
-      default:
-        throw new InvalidStartValueException();
     }
+    throw new RequestFailureException(FailureReason.INCORECT_PARAMETER);
   }
 
   private static RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
-      throws MissingObjectException, IOException {
+      throws IOException {
     RevWalk walk = new RevWalk(repo);
     try {
       walk.markStart(walk.parseCommit(view.getRevision().getId()));
       if (view.getOldRevision() != Revision.NULL) {
         walk.markUninteresting(walk.parseCommit(view.getOldRevision().getId()));
       }
-    } catch (IncorrectObjectTypeException iote) {
-      return null;
+    } catch (IncorrectObjectTypeException e) {
+      throw new RequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
     }
     setTreeFilter(walk, view, access);
     setRevFilter(walk, view);
@@ -312,21 +287,9 @@ public class LogServlet extends BaseServlet {
 
   private static Paginator newPaginator(Repository repo, GitilesView view, GitilesAccess access)
       throws IOException {
-    if (view == null) {
-      return null;
-    }
-
     try (RevWalk walk = newWalk(repo, view, access)) {
-      if (walk == null) {
-        return null;
-      }
-
-      try {
-        Optional<ObjectId> start = getStart(view.getParameters(), walk.getObjectReader());
-        return new Paginator(walk, getLimit(view), start.orElse(null));
-      } catch (InvalidStartValueException e) {
-        return null;
-      }
+      Optional<ObjectId> start = getStart(view.getParameters(), walk.getObjectReader());
+      return new Paginator(walk, getLimit(view), start.orElse(null));
     }
   }
 

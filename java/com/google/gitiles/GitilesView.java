@@ -67,7 +67,7 @@ public class GitilesView {
     ARCHIVE,
     BLAME,
     DOC,
-    ROOTED_DOC;
+    ROOTED_DOC
   }
 
   /** Exception thrown when building a view that is invalid. */

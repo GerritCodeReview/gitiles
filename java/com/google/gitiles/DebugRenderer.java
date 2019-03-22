@@ -31,11 +31,11 @@ public class DebugRenderer extends Renderer {
   public DebugRenderer(
       String staticPrefix,
       Iterable<String> customTemplatesFilenames,
-      final String soyTemplatesRoot,
+      String soyTemplatesRoot,
       String siteTitle) {
     super(
         fileUrlMapper(soyTemplatesRoot + File.separator),
-        ImmutableMap.<String, String>of(),
+        ImmutableMap.of(),
         staticPrefix,
         Streams.stream(customTemplatesFilenames).map(fileUrlMapper()).collect(toList()),
         siteTitle);

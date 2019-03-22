@@ -16,8 +16,6 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.gitiles.TreeSoyData.resolveTargetUrl;
-import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
@@ -29,6 +27,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.BaseEncoding;
 import com.google.common.primitives.Bytes;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -38,9 +37,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.lib.Config;
@@ -131,30 +128,26 @@ public class PathServlet extends BaseServlet {
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view, false)) {
       if (wr == null) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+        throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
       }
       switch (wr.type) {
         case TREE:
           showTree(req, res, wr);
-          break;
+          return;
         case SYMLINK:
           showSymlink(req, res, wr);
-          break;
+          return;
         case REGULAR_FILE:
         case EXECUTABLE_FILE:
           showFile(req, res, wr);
-          break;
+          return;
         case GITLINK:
           showGitlink(req, res, wr);
-          break;
-        default:
-          log.error("Bad file type: {}", wr.type);
-          res.setStatus(SC_NOT_FOUND);
-          break;
+          return;
       }
+      throw new RequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
     } catch (LargeObjectException e) {
-      res.setStatus(SC_INTERNAL_SERVER_ERROR);
+      throw new RequestFailureException(FailureReason.OBJECT_TOO_LARGE, e);
     }
   }
 
@@ -166,8 +159,7 @@ public class PathServlet extends BaseServlet {
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view, false)) {
       if (wr == null) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+        throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
       }
 
       // Write base64 as plain text without modifying any other headers, under
@@ -179,17 +171,14 @@ public class PathServlet extends BaseServlet {
         case REGULAR_FILE:
         case EXECUTABLE_FILE:
           writeBlobText(req, res, wr);
-          break;
+          return;
         case TREE:
           writeTreeText(req, res, wr);
-          break;
-        case GITLINK:
-        default:
-          renderTextError(req, res, SC_NOT_FOUND, "Not a file");
-          break;
+          return;
       }
+      throw new RequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
     } catch (LargeObjectException e) {
-      res.setStatus(SC_INTERNAL_SERVER_ERROR);
+      throw new RequestFailureException(FailureReason.OBJECT_TOO_LARGE, e);
     }
   }
 
@@ -252,8 +241,7 @@ public class PathServlet extends BaseServlet {
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view, recursive)) {
       if (wr == null) {
-        res.setStatus(SC_NOT_FOUND);
-        return;
+        throw new RequestFailureException(FailureReason.OBJECT_NOT_FOUND);
       }
       switch (wr.type) {
         case REGULAR_FILE:
@@ -263,23 +251,18 @@ public class PathServlet extends BaseServlet {
               FileJsonData.toJsonData(
                   wr.id, view.getRepositoryName(), view.getRevision().getName(), wr.path),
               FileJsonData.File.class);
-          break;
+          return;
         case TREE:
           renderJson(
               req,
               res,
               TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
               TreeJsonData.Tree.class);
-          break;
-        case EXECUTABLE_FILE:
-        case GITLINK:
-        case SYMLINK:
-        default:
-          res.setStatus(SC_NOT_FOUND);
-          break;
+          return;
       }
+      throw new RequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
     } catch (LargeObjectException e) {
-      res.setStatus(SC_INTERNAL_SERVER_ERROR);
+      throw new RequestFailureException(FailureReason.OBJECT_TOO_LARGE, e);
     }
   }
 
@@ -310,7 +293,7 @@ public class PathServlet extends BaseServlet {
 
     @Override
     public boolean include(TreeWalk tw)
-        throws MissingObjectException, IncorrectObjectTypeException, IOException {
+        throws IOException {
 
       count++;
       int cmp = tw.isPathPrefix(pathRaw, pathRaw.length);
@@ -394,7 +377,7 @@ public class PathServlet extends BaseServlet {
       }
 
       tw.setRecursive(true);
-      return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.<Boolean>of());
+      return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.of());
     }
 
     private static WalkResult forPath(RevWalk rw, GitilesView view, boolean recursive)
@@ -409,7 +392,7 @@ public class PathServlet extends BaseServlet {
         tw.addTree(root);
         tw.setRecursive(false);
         if (path.isEmpty()) {
-          return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.<Boolean>of());
+          return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.of());
         }
         AutoDiveFilter f = new AutoDiveFilter(path);
         tw.setFilter(f);

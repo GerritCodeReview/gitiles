@@ -30,6 +30,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.net.HttpHeaders;
+import com.google.gitiles.RequestFailureException.FailureReason;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import java.io.BufferedWriter;
@@ -110,18 +111,15 @@ public abstract class BaseServlet extends HttpServlet {
     switch (format.get()) {
       case HTML:
         doGetHtml(req, res);
-        break;
+        return;
       case TEXT:
         doGetText(req, res);
-        break;
+        return;
       case JSON:
         doGetJson(req, res);
-        break;
-      case DEFAULT:
-      default:
-        res.sendError(SC_BAD_REQUEST);
-        break;
+        return;
     }
+    throw new RequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
   }
 
   protected Optional<FormatType> getFormat(HttpServletRequest req) {
@@ -147,7 +145,7 @@ public abstract class BaseServlet extends HttpServlet {
    * @param res in-progress response.
    */
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    res.sendError(SC_BAD_REQUEST);
+    throw new RequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
   }
 
   /**
@@ -157,7 +155,7 @@ public abstract class BaseServlet extends HttpServlet {
    * @param res in-progress response.
    */
   protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    res.sendError(SC_BAD_REQUEST);
+    throw new RequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
   }
 
   /**
@@ -167,7 +165,7 @@ public abstract class BaseServlet extends HttpServlet {
    * @param res in-progress response.
    */
   protected void doGetJson(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    res.sendError(SC_BAD_REQUEST);
+    throw new RequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
   }
 
   protected static Map<String, Object> getData(HttpServletRequest req) {
@@ -339,26 +337,6 @@ public abstract class BaseServlet extends HttpServlet {
   protected Writer startRenderText(HttpServletRequest req, HttpServletResponse res)
       throws IOException {
     return startRenderText(req, res, TEXT.getMimeType());
-  }
-
-  /**
-   * Render an error as plain text.
-   *
-   * @param req in-progress request.
-   * @param res in-progress response.
-   * @param statusCode HTTP status code.
-   * @param message full message text.
-   * @throws IOException
-   */
-  protected void renderTextError(
-      HttpServletRequest req, HttpServletResponse res, int statusCode, String message)
-      throws IOException {
-    res.setStatus(statusCode);
-    setApiHeaders(req, res, TEXT);
-    setCacheHeaders(req, res);
-    try (Writer out = newWriter(req, res)) {
-      out.write(message);
-    }
   }
 
   protected GitilesAccess getAccess(HttpServletRequest req) {

@@ -81,7 +81,7 @@ class Paginator implements Iterable<RevCommit> {
    * @param start commit at which to start the walk, or null to start at the beginning.
    */
   Paginator(RevWalk walk, int limit, @Nullable ObjectId start)
-      throws MissingObjectException, IncorrectObjectTypeException, IOException {
+      throws IOException {
     this.walk = checkNotNull(walk, "walk");
     checkArgument(limit > 0, "limit must be positive: %s", limit);
     this.limit = limit;

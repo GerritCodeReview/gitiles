@@ -23,7 +23,6 @@ import static org.eclipse.jgit.lib.Constants.OBJ_TAG;
 import com.google.common.annotations.VisibleForTesting;
 import java.io.IOException;
 import java.util.Objects;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.AbbreviatedObjectId;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
@@ -69,7 +68,7 @@ public class Revision {
   }
 
   public static Revision peel(String name, RevObject obj, RevWalk walk)
-      throws MissingObjectException, IOException {
+      throws IOException {
     RevObject peeled = walk.peel(obj);
     return new Revision(name, obj, obj.getType(), peeled, peeled.getType());
   }

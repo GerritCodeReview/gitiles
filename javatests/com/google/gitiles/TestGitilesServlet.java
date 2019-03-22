@@ -15,7 +15,6 @@
 package com.google.gitiles;
 
 import com.google.common.collect.ImmutableList;
-import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
 import javax.servlet.ServletConfig;
@@ -32,7 +31,7 @@ import org.eclipse.jgit.transport.resolver.RepositoryResolver;
 /** Static utility methods for creating {@link GitilesServlet}s for testing. */
 public class TestGitilesServlet {
   /** @see #create(TestRepository) */
-  public static GitilesServlet create(final TestRepository<DfsRepository> repo)
+  public static GitilesServlet create(TestRepository<DfsRepository> repo)
       throws ServletException {
     return create(repo, new GitwebRedirectFilter());
   }
@@ -51,14 +50,14 @@ public class TestGitilesServlet {
    * @return a servlet.
    */
   public static GitilesServlet create(
-      final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
+      TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
       throws ServletException {
-    final String repoName = repo.getRepository().getDescription().getRepositoryName();
+    String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
         new GitilesServlet(
             new Config(),
             new DefaultRenderer(
-                GitilesServlet.STATIC_PREFIX, ImmutableList.<URL>of(), repoName + " test site"),
+                GitilesServlet.STATIC_PREFIX, ImmutableList.of(), repoName + " test site"),
             TestGitilesUrls.URLS,
             new TestGitilesAccess(repo.getRepository()),
             new RepositoryResolver<HttpServletRequest>() {
@@ -85,7 +84,7 @@ public class TestGitilesServlet {
 
           @Override
           public Enumeration<String> getInitParameterNames() {
-            return Collections.enumeration(ImmutableList.<String>of());
+            return Collections.enumeration(ImmutableList.of());
           }
 
           @Override

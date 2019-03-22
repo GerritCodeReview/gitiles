@@ -145,8 +145,8 @@ class GitilesFilter extends MetaFilter {
     public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
         throws IOException, ServletException {
       GitilesView view = checkNotNull(ViewFilter.getView(req));
-      final Iterator<Filter> itr = filters.get(view.getType()).iterator();
-      final HttpServlet servlet = servlets.get(view.getType());
+      Iterator<Filter> itr = filters.get(view.getType()).iterator();
+      HttpServlet servlet = servlets.get(view.getType());
       new FilterChain() {
         @Override
         public void doFilter(ServletRequest req, ServletResponse res)
@@ -174,20 +174,23 @@ class GitilesFilter extends MetaFilter {
   private TimeCache timeCache;
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
+  private Filter errorHandler = new DefaultErrorHandlingFilter();
   private boolean initialized;
 
-  GitilesFilter() {}
+  GitilesFilter() {
+  }
 
   GitilesFilter(
       Config config,
       Renderer renderer,
       GitilesUrls urls,
       GitilesAccess.Factory accessFactory,
-      final RepositoryResolver<HttpServletRequest> resolver,
+      RepositoryResolver<HttpServletRequest> resolver,
       VisibilityCache visibilityCache,
       TimeCache timeCache,
       BlameCache blameCache,
-      GitwebRedirectFilter gitwebRedirect) {
+      GitwebRedirectFilter gitwebRedirect,
+      Filter errorHandler) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
     this.urls = urls;
@@ -199,6 +202,7 @@ class GitilesFilter extends MetaFilter {
     if (resolver != null) {
       this.resolver = resolver;
     }
+    this.errorHandler = errorHandler;
   }
 
   @Override
@@ -230,6 +234,12 @@ class GitilesFilter extends MetaFilter {
         .through(dispatchFilter);
 
     initialized = true;
+  }
+
+  @Override
+  protected ServletBinder register(ServletBinder b) {
+    b.through(errorHandler);
+    return b;
   }
 
   public synchronized BaseServlet getDefaultHandler(GitilesView.Type view) {

@@ -55,7 +55,7 @@ public class LogSoyData {
     NEXT,
 
     /** "More" link that starts from HEAD. */
-    LOG_HEAD;
+    LOG_HEAD
   }
 
   private final HttpServletRequest req;
@@ -142,7 +142,7 @@ public class LogSoyData {
     if (type != ChangeType.RENAME && type != ChangeType.COPY) {
       return null;
     }
-    return ImmutableMap.<String, Object>of(
+    return ImmutableMap.of(
         "changeType", type.toString(),
         "oldPath", entry.getOldPath(),
         "newPath", entry.getNewPath(),

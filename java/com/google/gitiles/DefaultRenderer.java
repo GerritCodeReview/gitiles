@@ -27,11 +27,11 @@ public class DefaultRenderer extends Renderer {
   private final SoyTofu tofu;
 
   DefaultRenderer() {
-    this("", ImmutableList.<URL>of(), "");
+    this("", ImmutableList.of(), "");
   }
 
   public DefaultRenderer(String staticPrefix, Iterable<URL> customTemplates, String siteTitle) {
-    this(ImmutableMap.<String, String>of(), staticPrefix, customTemplates, siteTitle);
+    this(ImmutableMap.of(), staticPrefix, customTemplates, siteTitle);
   }
 
   public DefaultRenderer(

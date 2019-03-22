@@ -26,7 +26,6 @@ import com.google.gitiles.doc.MarkdownConfig;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
@@ -87,7 +86,7 @@ public class TreeSoyData {
   }
 
   public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw)
-      throws MissingObjectException, IOException {
+      throws IOException {
     ReadmeHelper readme =
         new ReadmeHelper(reader, view, MarkdownConfig.get(cfg), rootTree, requestUri);
     List<Object> entries = Lists.newArrayList();
@@ -154,7 +153,7 @@ public class TreeSoyData {
     return data;
   }
 
-  public Map<String, Object> toSoyData(ObjectId treeId) throws MissingObjectException, IOException {
+  public Map<String, Object> toSoyData(ObjectId treeId) throws IOException {
     TreeWalk tw = new TreeWalk(reader);
     tw.addTree(treeId);
     tw.setRecursive(false);
