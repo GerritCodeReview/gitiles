@@ -174,6 +174,7 @@ class GitilesFilter extends MetaFilter {
   private TimeCache timeCache;
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
+  private Filter errorHandler;
   private boolean initialized;
 
   GitilesFilter() {}
@@ -187,7 +188,8 @@ class GitilesFilter extends MetaFilter {
       VisibilityCache visibilityCache,
       TimeCache timeCache,
       BlameCache blameCache,
-      GitwebRedirectFilter gitwebRedirect) {
+      GitwebRedirectFilter gitwebRedirect,
+      Filter errorHandler) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
     this.urls = urls;
@@ -198,6 +200,11 @@ class GitilesFilter extends MetaFilter {
     this.gitwebRedirect = gitwebRedirect;
     if (resolver != null) {
       this.resolver = resolver;
+    }
+    if (errorHandler != null) {
+      this.errorHandler = errorHandler;
+    } else {
+      this.errorHandler = new DefaultErrorHandlingFilter();
     }
   }
 
@@ -230,6 +237,12 @@ class GitilesFilter extends MetaFilter {
         .through(dispatchFilter);
 
     initialized = true;
+  }
+
+  @Override
+  protected ServletBinder register(ServletBinder b) {
+    b.through(errorHandler);
+    return b;
   }
 
   public synchronized BaseServlet getDefaultHandler(GitilesView.Type view) {
