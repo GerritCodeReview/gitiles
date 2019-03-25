@@ -22,6 +22,30 @@
       "revId": "76346b0810deec731737c9bb2bf54cc46a2c88cc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b938d88_373f30e8",
+        "filename": "java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-03-25T17:37:51Z",
+      "side": 0,
+      "message": "I cannot find any @since or @deprecate tags in the repository. I think we\u0027ve never enforced API versioning in Gitiles.\n\nThis BaseServlet should be used only in Gitiles. I don\u0027t know why it\u0027s exposed as a public class.",
+      "parentUuid": "0f178790_8d8db2c6",
+      "range": {
+        "startLine": 353,
+        "startChar": 17,
+        "endLine": 353,
+        "endChar": 32
+      },
+      "revId": "76346b0810deec731737c9bb2bf54cc46a2c88cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
