@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -174,20 +175,22 @@ class GitilesFilter extends MetaFilter {
   private TimeCache timeCache;
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
+  private final Filter errorHandler;
   private boolean initialized;
 
   GitilesFilter() {}
 
   GitilesFilter(
       Config config,
-      Renderer renderer,
-      GitilesUrls urls,
-      GitilesAccess.Factory accessFactory,
-      final RepositoryResolver<HttpServletRequest> resolver,
-      VisibilityCache visibilityCache,
-      TimeCache timeCache,
-      BlameCache blameCache,
-      GitwebRedirectFilter gitwebRedirect) {
+      @Nullable Renderer renderer,
+      @Nullable GitilesUrls urls,
+      @Nullable GitilesAccess.Factory accessFactory,
+      @Nullable RepositoryResolver<HttpServletRequest> resolver,
+      @Nullable VisibilityCache visibilityCache,
+      @Nullable TimeCache timeCache,
+      @Nullable BlameCache blameCache,
+      @Nullable GitwebRedirectFilter gitwebRedirect,
+      @Nullable Filter errorHandler) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
     this.urls = urls;
@@ -198,6 +201,11 @@ class GitilesFilter extends MetaFilter {
     this.gitwebRedirect = gitwebRedirect;
     if (resolver != null) {
       this.resolver = resolver;
+    }
+    if (errorHandler != null) {
+      this.errorHandler = errorHandler;
+    } else {
+      this.errorHandler = new DefaultErrorHandlingFilter();
     }
   }
 
@@ -230,6 +238,12 @@ class GitilesFilter extends MetaFilter {
         .through(dispatchFilter);
 
     initialized = true;
+  }
+
+  @Override
+  protected ServletBinder register(ServletBinder b) {
+    b.through(errorHandler);
+    return b;
   }
 
   public synchronized BaseServlet getDefaultHandler(GitilesView.Type view) {
