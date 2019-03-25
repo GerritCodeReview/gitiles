@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f178790_8d8db2c6",
+        "filename": "java/com/google/gitiles/BaseServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2019-03-25T14:04:40Z",
+      "side": 0,
+      "message": "Removing this protected method breaks binary compatibility. Does Gitiles follow the JGit project\u0027s strict API deprecation?",
+      "range": {
+        "startLine": 353,
+        "startChar": 17,
+        "endLine": 353,
+        "endChar": 32
+      },
+      "revId": "76346b0810deec731737c9bb2bf54cc46a2c88cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
