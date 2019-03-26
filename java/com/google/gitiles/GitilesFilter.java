@@ -175,7 +175,7 @@ class GitilesFilter extends MetaFilter {
   private TimeCache timeCache;
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
-  private final Filter errorHandler;
+  private Filter errorHandler;
   private boolean initialized;
 
   GitilesFilter() {}
