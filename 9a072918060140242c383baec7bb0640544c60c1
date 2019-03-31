@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "20c87945_46a5ac05",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-03-31T19:16:33Z",
+      "side": 1,
+      "message": "Cannot be final. There\u0027s a non-arg ctor.",
+      "parentUuid": "259b2a95_64116dde",
+      "revId": "9a072918060140242c383baec7bb0640544c60c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8174952a_7d345886",
         "filename": "java/com/google/gitiles/GitilesFilter.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "9a072918060140242c383baec7bb0640544c60c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04549ba_f97be495",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-03-31T19:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8174952a_7d345886",
+      "revId": "9a072918060140242c383baec7bb0640544c60c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f5850521_382c33fe",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-03-31T19:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efaf83db_6f896407",
+      "revId": "9a072918060140242c383baec7bb0640544c60c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1809a34a_161a9dd9",
         "filename": "java/com/google/gitiles/RequestFailureException.java",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "9a072918060140242c383baec7bb0640544c60c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11690622_2886de13",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-03-31T19:16:33Z",
+      "side": 1,
+      "message": "Explained in the change description.",
+      "parentUuid": "1809a34a_161a9dd9",
+      "revId": "9a072918060140242c383baec7bb0640544c60c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +179,24 @@
       "revId": "9a072918060140242c383baec7bb0640544c60c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c1687a_3be9c41a",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-03-31T19:16:33Z",
+      "side": 1,
+      "message": "This enum is now returned in an HTTP header. Also explained in the change description.",
+      "parentUuid": "02f00d99_d1321cb5",
+      "revId": "9a072918060140242c383baec7bb0640544c60c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
