@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64494e77_a0296f9d",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-04-02T01:26:16Z",
+      "side": 1,
+      "message": "Can this say a little more? E.g. what does a call site that throws it look like, and what does a call site that catches it look like?",
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de63c39d_e4cddefe",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-04-02T01:26:16Z",
+      "side": 1,
+      "message": "I think a name describing the intended scope of use (like GitilesServletException) would make the meaning more obvious.",
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04afda06_3a02e9f3",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-04-02T01:26:16Z",
+      "side": 1,
+      "message": "Can there be a brief description (Javadoc) for each of these failure reasons?",
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739d6d63_11beca77",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-04-02T01:26:16Z",
+      "side": 1,
+      "message": "optional: can import static",
+      "range": {
+        "startLine": 52,
+        "startChar": 27,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
