@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "58291bb9_8e84b474",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-04-04T20:34:22Z",
+      "side": 1,
+      "message": "There is a constructor that doesn\u0027t have any argument. This won\u0027t assign anything. By making this final, it makes a compilation error if it doesn\u0027t have an explicit assignment. If this constructor can be removed (it\u0027s just a package private, so it\u0027s easy), I would change the code and make this final. But since this is already a part of the large change, I don\u0027t want to do that in this change.",
+      "parentUuid": "f3cfab1a_004aaf05",
+      "revId": "9a072918060140242c383baec7bb0640544c60c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8174952a_7d345886",
         "filename": "java/com/google/gitiles/GitilesFilter.java",
         "patchSetId": 1

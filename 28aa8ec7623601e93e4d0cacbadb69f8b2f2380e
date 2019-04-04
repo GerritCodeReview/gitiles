@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fbad288_8c8209b4",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-04-04T20:34:22Z",
+      "side": 1,
+      "message": "Added explanation.",
+      "parentUuid": "64494e77_a0296f9d",
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de63c39d_e4cddefe",
         "filename": "java/com/google/gitiles/RequestFailureException.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e80d8421_dccc4e4e",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-04-04T20:34:22Z",
+      "side": 1,
+      "message": "Renamed to GitilesRequestFailureException.",
+      "parentUuid": "de63c39d_e4cddefe",
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04afda06_3a02e9f3",
         "filename": "java/com/google/gitiles/RequestFailureException.java",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a43858_ab1501a6",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-04-04T20:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04afda06_3a02e9f3",
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -73,6 +127,30 @@
       "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a4190b_ea108f51",
+        "filename": "java/com/google/gitiles/RequestFailureException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-04-04T20:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "739d6d63_11beca77",
+      "range": {
+        "startLine": 52,
+        "startChar": 27,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "28aa8ec7623601e93e4d0cacbadb69f8b2f2380e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
