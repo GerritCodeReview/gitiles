@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -140,11 +141,9 @@ public class VisibilityCache {
 
     // If any reference directly points at the requested object, permit display. Common for displays
     // of pending patch sets in Gerrit Code Review, or bookmarks to the commit a tag points at.
-    for (Ref ref : repo.getRefDatabase().getRefs()) {
-      ref = repo.getRefDatabase().peel(ref);
-      if (id.equals(ref.getObjectId()) || id.equals(ref.getPeeledObjectId())) {
-        return true;
-      }
+    Set<Ref> tipsWithSha1 = refDb.getTipsWithSha1(id);
+    if (tipsWithSha1.size() > 0) {
+      return true;
     }
 
     // Check heads first under the assumption that most requests are for refs close to a head. Tags
