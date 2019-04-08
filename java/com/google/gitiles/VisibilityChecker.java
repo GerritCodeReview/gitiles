@@ -81,14 +81,7 @@ public class VisibilityChecker {
   protected boolean isTipOfBranch(RefDatabase refDb, ObjectId id) throws IOException {
     // If any reference directly points at the requested object, permit display. Common for displays
     // of pending patch sets in Gerrit Code Review, or bookmarks to the commit a tag points at.
-    for (Ref ref : refDb.getRefs()) {
-      ref = refDb.peel(ref);
-      if (id.equals(ref.getObjectId()) || id.equals(ref.getPeeledObjectId())) {
-        return true;
-      }
-    }
-
-    return false;
+    return refDb.getTipsWithSha1(id).size() > 0;
   }
 
   /**
