@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d2c260ce_62a4e3a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-04-11T18:40:32Z",
+      "side": 1,
+      "message": "Done (by David himself in https://gerrit-review.googlesource.com/c/gitiles/+/220457/1)",
+      "parentUuid": "c71c53fe_d9682180",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "409e07f8_d7b1c2b8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2019-04-11T00:00:35Z",
       "side": 1,
       "message": "Before we can submit this change we will need to wait for the JGit 5.4 release and update WORKSPACE to use it. Otherwise we can build a snapshot of jgit\u0027s master branch and deploy it to the google maven storage (assuming it works; it didn\u0027t the last few times I tried).",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3de7d0b7_2e369870",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-04-11T18:40:32Z",
+      "side": 1,
+      "message": "Is there any time frame for the 5.4 release? how difficult is to make the snapshot? Can I help with that?\n\nFWIW I tried this locally with gitiles pointing to JGit master and all tests pass.",
+      "parentUuid": "409e07f8_d7b1c2b8",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -92,6 +140,30 @@
       "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4052a72e_c6c7e51c",
+        "filename": "javatests/com/google/gitiles/VisibilityCacheTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-04-11T18:40:32Z",
+      "side": 1,
+      "message": "This test is now in its own change (https://gerrit-review.googlesource.com/c/gitiles/+/220456/1, thanks @David!). This comment is already fixed there.",
+      "parentUuid": "2cd61b3b_d4380970",
+      "range": {
+        "startLine": 153,
+        "startChar": 5,
+        "endLine": 154,
+        "endChar": 18
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
