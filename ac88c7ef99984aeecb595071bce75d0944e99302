@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14151b50_5f6d75c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-11T00:00:35Z",
+      "side": 1,
+      "message": "Can this be done as a separate commit? Does it also rely on API that is not yet in a released JGit?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409e07f8_d7b1c2b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-11T00:00:35Z",
+      "side": 1,
+      "message": "Before we can submit this change we will need to wait for the JGit 5.4 release and update WORKSPACE to use it. Otherwise we can build a snapshot of jgit\u0027s master branch and deploy it to the google maven storage (assuming it works; it didn\u0027t the last few times I tried).",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd61b3b_d4380970",
+        "filename": "javatests/com/google/gitiles/VisibilityCacheTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-11T00:00:35Z",
+      "side": 1,
+      "message": "Remove the TODO here.\n\nAlso, if this method isn\u0027t expected to be called within the tests replace the \"return null\" with \"throw new NotImplementedException()\"?  Same at L169 and L174.",
+      "range": {
+        "startLine": 153,
+        "startChar": 5,
+        "endLine": 154,
+        "endChar": 18
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
