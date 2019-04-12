@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cf29bc4_93d94dc8",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-04-12T00:58:15Z",
+      "side": 1,
+      "message": "Can simplify:\n\n  if (!refDb.getTipsWithSha1(id).isEmpty()) {\n    return true;\n  }\n\nThis would be especially helpful with a getTipsWithSha1 implementation that lazily populates the set --- there, a check for emptiness is faster than a count.",
+      "revId": "6c9be5f78b272353331cc586cb2d79ebccfed117",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
