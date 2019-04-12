@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "ba9659af_a9c09a01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-12T01:17:34Z",
+      "side": 1,
+      "message": "\u003e how difficult is to make the snapshot? Can I help with that?\n\nIt\u0027s not difficult; see the documentation here [1]. The only problem is that the last times I tried to do it the upload failed with mysterious errors.  TBH it\u0027s probably better to just wait for the new official release.\n\n\n[1] https://gerrit-review.googlesource.com/Documentation/dev-release-jgit.html",
+      "parentUuid": "3de7d0b7_2e369870",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "ac88c7ef99984aeecb595071bce75d0944e99302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cd61b3b_d4380970",
         "filename": "javatests/com/google/gitiles/VisibilityCacheTest.java",
         "patchSetId": 1
