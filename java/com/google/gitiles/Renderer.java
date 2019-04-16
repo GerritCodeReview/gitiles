@@ -26,6 +26,7 @@ import com.google.common.hash.Funnels;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
+import com.google.common.html.types.LegacyConversions;
 import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
 import com.google.template.soy.tofu.SoyTofu;
@@ -92,7 +93,7 @@ public abstract class Renderer {
   }
 
   protected ImmutableMap<String, URL> templates;
-  protected ImmutableMap<String, String> globals;
+  protected ImmutableMap<String, Object> globals;
   private final ConcurrentMap<String, HashCode> hashes =
       new ConcurrentHashMap<>(SOY_FILENAMES.size());
 
@@ -113,9 +114,11 @@ public abstract class Renderer {
     }
     templates = b.build();
 
-    Map<String, String> allGlobals = Maps.newHashMap();
+    Map<String, Object> allGlobals = Maps.newHashMap();
     for (Map.Entry<String, String> e : STATIC_URL_GLOBALS.entrySet()) {
-      allGlobals.put(e.getKey(), staticPrefix + e.getValue());
+      allGlobals.put(
+          e.getKey(),
+          LegacyConversions.riskilyAssumeTrustedResourceUrl(staticPrefix + e.getValue()));
     }
     allGlobals.put("gitiles.SITE_TITLE", siteTitle);
     allGlobals.putAll(globals);
