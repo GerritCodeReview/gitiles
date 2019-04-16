@@ -24,7 +24,7 @@
       */
   {@param? customVariant: ?}  /** variant name for custom styling. */
   {@param breadcrumbs: ?}  /** navigation breadcrumbs for this page. */
-  {@param? css: ?}  /** optional list of CSS URLs to include. */
+  {@param? css: list<trusted_resource_uri>}  /** optional list of CSS URLs to include. */
   {@param? containerClass: ?}  /** optional class to append to the main container. */
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +38,10 @@
     {sp}- {msg desc="name of the application"}{gitiles.SITE_TITLE}{/msg}
   </title>
 
-  <link rel="stylesheet" type="text/css" href="{gitiles.BASE_CSS_URL |blessStringAsTrustedResourceUrlForLegacy}">
+  <link rel="stylesheet" type="text/css" href="{gitiles.BASE_CSS_URL}">
   {if $css and length($css)}
     {for $url in $css}
-      <link rel="stylesheet" type="text/css" href="{$url |blessStringAsTrustedResourceUrlForLegacy}">
+      <link rel="stylesheet" type="text/css" href="{$url}">
     {/for}
   {/if}
   {delcall gitiles.customHeadTagPart variant="$customVariant ?: ''" /}
