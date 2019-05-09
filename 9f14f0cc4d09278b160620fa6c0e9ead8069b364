@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6a1023f0_7c7b7935",
+        "filename": "java/com/google/gitiles/DiffServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-05-09T19:26:17Z",
+      "side": 1,
+      "message": "\u003e All of these catch/convert/rethrow cases could be pushed down into DefaultErrorHandlingFilter, but only if they don\u0027t change the function signature.\n\nWe can, but we shouldn\u0027t. As EJ item 61 suggests (\"Throw exceptions appropriate to the abstraction\"), leaking the JGit exceptions to DefaultErrorHandlingFilter violates the abstraction layer. For example, MissingObjectException might be (1) the HTTP request tries to see an object that doesn\u0027t exist (\u003d\u003d NOT_FOUND) or (2) during the object traversal, the server somehow doesn\u0027t have an object (\u003d\u003d SERVER_ERROR or the repository is corrupted). DefaultErrorHandlingFilter cannot tell a MissingObjectException is meant for (1) or (2). Only the direct caller of JGit API can tell if it\u0027s (1) or (2). This requires each call site to do the exception translation.",
+      "parentUuid": "3dce3571_cdba7a3b",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 7
+      },
+      "revId": "9f14f0cc4d09278b160620fa6c0e9ead8069b364",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "104c33f1_8a7f4d4d",
         "filename": "javatests/com/google/gitiles/MoreAssert.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9f14f0cc4d09278b160620fa6c0e9ead8069b364",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "984668dd_21ad3cc5",
+        "filename": "javatests/com/google/gitiles/MoreAssert.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-05-09T19:26:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "104c33f1_8a7f4d4d",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 1
+      },
+      "revId": "9f14f0cc4d09278b160620fa6c0e9ead8069b364",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
