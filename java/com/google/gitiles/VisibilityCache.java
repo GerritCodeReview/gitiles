@@ -27,9 +27,12 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.util.concurrent.ExecutionError;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -42,7 +45,9 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
-
+import org.eclipse.jgit.revwalk.ReachabilityChecker;
+import org.eclipse.jgit.revwalk.PedestrianReachabilityChecker;
+import org.eclipse.jgit.revwalk.BitmappedReachabilityChecker;
 /** Cache of per-user object visibility. */
 public class VisibilityCache {
   private static class Key {
@@ -182,27 +187,30 @@ public class VisibilityCache {
     if (ids.isEmpty()) {
       return false;
     }
-    walk.reset();
-    if (topoSort) {
-      walk.sort(RevSort.TOPO);
+
+    Collection<RevCommit> startCommits = objectIdsToCommits(walk, ids);
+    if (startCommits.isEmpty()) {
+      return false;
     }
-    walk.markStart(commit);
-    for (ObjectId id : ids) {
-      markUninteresting(walk, id);
-    }
-    // If the commit is reachable from any given tip, it will appear to be
-    // uninteresting to the RevWalk and no output will be produced.
-    return walk.next() == null;
+
+    ReachabilityChecker checker = walk.getObjectReader().getBitmapIndex() != null
+        ? new BitmappedReachabilityChecker(walk)
+            : new PedestrianReachabilityChecker(true, walk);
+
+
+    Optional<RevCommit> unreachable = checker.areAllReachable(Arrays.asList(commit), startCommits);
+    return !unreachable.isPresent();
   }
 
-  private static void markUninteresting(RevWalk walk, ObjectId id) throws IOException {
-    if (id == null) {
-      return;
+  private static Collection<RevCommit> objectIdsToCommits(RevWalk walk,  Collection<ObjectId> ids) throws IOException {
+    List<RevCommit> commits = new ArrayList<>(ids.size());
+    for (ObjectId id: ids) {
+      try {
+        commits.add(walk.parseCommit(id));
+      } catch (MissingObjectException | IncorrectObjectTypeException e) {
+        // Ignore non-commits or missing sha-1 as start points.
+      }
     }
-    try {
-      walk.markUninteresting(walk.parseCommit(id));
-    } catch (IncorrectObjectTypeException | MissingObjectException e) {
-      // Do nothing, doesn't affect reachability.
-    }
+    return commits;
   }
 }
