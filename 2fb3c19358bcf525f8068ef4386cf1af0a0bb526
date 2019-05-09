@@ -93,6 +93,30 @@
       "revId": "2fb3c19358bcf525f8068ef4386cf1af0a0bb526",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31484682_4b5203ed",
+        "filename": "java/com/google/gitiles/GitilesRequestFailureException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2019-05-09T23:59:57Z",
+      "side": 1,
+      "message": "I now realize this is a change in the HTTP error code returned by DiffServlet. Before it only could return SC_NOT_FOUND. I wonder if any callers rely on the exact status? I think Gitiles doesn\u0027t worry too much about backwards compatability. We just might want to highlight this in the Gerrit community in case anyone has a strong objection.",
+      "parentUuid": "87cda5d1_3c974a1a",
+      "range": {
+        "startLine": 131,
+        "startChar": 26,
+        "endLine": 131,
+        "endChar": 38
+      },
+      "revId": "2fb3c19358bcf525f8068ef4386cf1af0a0bb526",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
