@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd41eb8f_cf691160",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2019-05-09T17:52:50Z",
+      "side": 0,
+      "message": "I don\u0027t see where RevWalkException is now being handled.",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "2fb3c19358bcf525f8068ef4386cf1af0a0bb526",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e0eab20_e34eb5b3",
+        "filename": "java/com/google/gitiles/doc/DocServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2019-05-09T17:52:50Z",
+      "side": 0,
+      "message": "I had a question about where this is handled but I see  that it and RepositoryNotFound and ServiceMayNotContiue exceptions are all now handled in the DefaultErrorHandlinFilter class of the accompanying change.",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "2fb3c19358bcf525f8068ef4386cf1af0a0bb526",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}

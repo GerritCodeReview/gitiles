@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dce3571_cdba7a3b",
+        "filename": "java/com/google/gitiles/DiffServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2019-05-09T17:52:50Z",
+      "side": 1,
+      "message": "All of these catch/convert/rethrow cases could be pushed down into DefaultErrorHandlingFilter, but only if they don\u0027t change the function signature. Since they pretty much all JGit exceptions (unfortunately) derive from IOException and IOException is (unfortunately) in pretty much every function signature, we could do this. Or is your plan for revamping JGit\u0027s API and server exceptions going to play out in a way that we should be catch/rethrow exceptions at each call site?",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 7
+      },
+      "revId": "9f14f0cc4d09278b160620fa6c0e9ead8069b364",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "104c33f1_8a7f4d4d",
+        "filename": "javatests/com/google/gitiles/MoreAssert.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2019-05-09T17:52:50Z",
+      "side": 1,
+      "message": "Please add JavaDoc",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 1
+      },
+      "revId": "9f14f0cc4d09278b160620fa6c0e9ead8069b364",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
