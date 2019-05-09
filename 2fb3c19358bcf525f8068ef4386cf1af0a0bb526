@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b7061037_ca50fcc3",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1027112
+      },
+      "writtenOn": "2019-05-09T19:28:34Z",
+      "side": 0,
+      "message": "Actually, in this case, should I wrap it with GitilesRequestFailureException to avoid leakage?",
+      "parentUuid": "4422651a_be8c6c99",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "2fb3c19358bcf525f8068ef4386cf1af0a0bb526",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e0eab20_e34eb5b3",
         "filename": "java/com/google/gitiles/doc/DocServlet.java",
         "patchSetId": 5
