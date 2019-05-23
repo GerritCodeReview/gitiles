@@ -381,11 +381,12 @@ class GitilesFilter extends MetaFilter {
 
   private void setDefaultVisibilityCache() {
     if (visibilityCache == null) {
+      VisibilityChecker checker = new VisibilityChecker(false);
       if (config.getSubsections("cache").contains("visibility")) {
         visibilityCache =
-            new VisibilityCache(false, ConfigUtil.getCacheBuilder(config, "visibility"));
+            new VisibilityCache(checker, ConfigUtil.getCacheBuilder(config, "visibility"));
       } else {
-        visibilityCache = new VisibilityCache(false);
+        visibilityCache = new VisibilityCache(checker);
       }
     }
   }
