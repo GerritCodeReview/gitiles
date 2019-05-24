@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac60dbfd_0070c304",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-05-24T20:16:08Z",
+      "side": 1,
+      "message": "visibility (and likewise below)",
+      "range": {
+        "startLine": 101,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71687a99_f8b0056e",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-05-24T20:16:08Z",
+      "side": 1,
+      "message": "\"to use a checker with additional logging or metrics collection, for example.\"",
+      "range": {
+        "startLine": 113,
+        "startChar": 38,
+        "endLine": 113,
+        "endChar": 70
+      },
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0905db6_1929b923",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-05-24T20:16:08Z",
+      "side": 1,
+      "message": "Why is this becoming more visible? Should it e.g. be @VisibleForTesting?",
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f6d336_8e0a474c",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-05-24T20:16:08Z",
+      "side": 1,
+      "message": "optional: can spell this out more ---e.g.\n\n /**\n   * @param topoSort whether to use a more thorough reachability check\n   * by sorting in topological order\n   */",
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa2683d9_c0c54fce",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-05-24T20:16:08Z",
+      "side": 1,
+      "message": "not about this change: can this use use refDb.getTipsWithSha1?",
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
