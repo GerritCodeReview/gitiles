@@ -16,6 +16,24 @@
       "revId": "bd1f8b5b634bcb8dd3fe0cb678f52e49687e09bd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d295ffd_bdb5e0dd",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-24T18:16:12Z",
+      "side": 1,
+      "message": "I added new constructors to set the VisibilityChecker with a javadoc explaining.",
+      "parentUuid": "7a5b363f_07cec5e2",
+      "revId": "bd1f8b5b634bcb8dd3fe0cb678f52e49687e09bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
