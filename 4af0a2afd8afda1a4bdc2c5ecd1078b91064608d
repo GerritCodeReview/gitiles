@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d87a7e7_7a7b6f6c",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-25T04:05:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac60dbfd_0070c304",
+      "range": {
+        "startLine": 101,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71687a99_f8b0056e",
         "filename": "java/com/google/gitiles/VisibilityCache.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c62c60bd_8fbb1713",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-25T04:05:45Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "71687a99_f8b0056e",
+      "range": {
+        "startLine": 113,
+        "startChar": 38,
+        "endLine": 113,
+        "endChar": 70
+      },
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0905db6_1929b923",
         "filename": "java/com/google/gitiles/VisibilityCache.java",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "383a82b2_f0d25492",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-25T04:05:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0905db6_1929b923",
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "01bb2118_295f9533",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-25T04:05:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21f6d336_8e0a474c",
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa2683d9_c0c54fce",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08bece41_61277f31",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-25T04:05:45Z",
+      "side": 1,
+      "message": "I\u0027ll rebase the change introducing getTipsWithSha1() on top of this.\n\nThis change is JGit independent. The gitTipsWithSha1() is waiting for JGit\u0027s 5.4 release.",
+      "parentUuid": "aa2683d9_c0c54fce",
+      "revId": "4af0a2afd8afda1a4bdc2c5ecd1078b91064608d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

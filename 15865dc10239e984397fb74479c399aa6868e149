@@ -16,6 +16,24 @@
       "revId": "15865dc10239e984397fb74479c399aa6868e149",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7e86e21_a382644a",
+        "filename": "javatests/com/google/gitiles/VisibilityCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-05-25T04:05:45Z",
+      "side": 0,
+      "message": "The diagram format got lost and became a useless comment. Thanks for the \u003cpre\u003e tip.\n\nThis goes to another commit.",
+      "parentUuid": "bf84581a_b2682026",
+      "revId": "15865dc10239e984397fb74479c399aa6868e149",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
