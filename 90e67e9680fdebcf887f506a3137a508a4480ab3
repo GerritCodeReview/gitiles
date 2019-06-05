@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dc1cbc8_9c69fdfb",
+        "filename": "java/com/google/gitiles/DateFormatter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-06-05T06:15:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure we can use an immutable type anyway, since it\u0027s doing this on the value.",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "90e67e9680fdebcf887f506a3137a508a4480ab3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
