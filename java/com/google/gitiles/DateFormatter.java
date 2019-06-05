@@ -32,32 +32,18 @@ public class DateFormatter {
     ISO("yyyy-MM-dd HH:mm:ss");
 
     private final String fmt;
-    private final ThreadLocal<DateFormat> defaultFormat;
-    private final ThreadLocal<DateFormat> fixedTzFormat;
 
     Format(String fmt) {
       this.fmt = fmt;
-      this.defaultFormat = new ThreadLocal<>();
-      this.fixedTzFormat = new ThreadLocal<>();
     }
 
     private DateFormat getDateFormat(Optional<TimeZone> fixedTz) {
-      DateFormat df;
       if (fixedTz.isPresent()) {
-        df = fixedTzFormat.get();
-        if (df == null) {
-          df = new SimpleDateFormat(fmt);
-          fixedTzFormat.set(df);
-        }
+        DateFormat df = new SimpleDateFormat(fmt);
         df.setTimeZone(fixedTz.get());
-      } else {
-        df = defaultFormat.get();
-        if (df == null) {
-          df = new SimpleDateFormat(fmt + " Z");
-          defaultFormat.set(df);
-        }
+        return df;
       }
-      return df;
+      return new SimpleDateFormat(fmt + " Z");
     }
   }
 
