@@ -20,6 +20,7 @@ import static java.util.stream.Collectors.toList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Streams;
 import com.google.common.hash.HashCode;
+import com.google.common.html.types.TrustedResourceUrl;
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.tofu.SoyTofu;
 import java.io.File;
@@ -35,7 +36,7 @@ public class DebugRenderer extends Renderer {
       String siteTitle) {
     super(
         fileUrlMapper(soyTemplatesRoot + File.separator),
-        ImmutableMap.<String, String>of(),
+        ImmutableMap.<String, TrustedResourceUrl>of(),
         staticPrefix,
         Streams.stream(customTemplatesFilenames).map(fileUrlMapper()).collect(toList()),
         siteTitle);

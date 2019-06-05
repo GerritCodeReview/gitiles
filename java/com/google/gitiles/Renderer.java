@@ -26,7 +26,8 @@ import com.google.common.hash.Funnels;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
-import com.google.common.html.types.LegacyConversions;
+import com.google.common.html.types.TrustedResourceUrl;
+import com.google.common.html.types.TrustedResourceUrlBuilder;
 import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
 import com.google.template.soy.tofu.SoyTofu;
@@ -93,13 +94,13 @@ public abstract class Renderer {
   }
 
   protected ImmutableMap<String, URL> templates;
-  protected ImmutableMap<String, String> globals;
+  protected ImmutableMap<String, TrustedResourceUrl> globals;
   private final ConcurrentMap<String, HashCode> hashes =
       new ConcurrentHashMap<>(SOY_FILENAMES.size());
 
   protected Renderer(
       Function<String, URL> resourceMapper,
-      Map<String, String> globals,
+      Map<String, TrustedResourceUrl> globals,
       String staticPrefix,
       Iterable<URL> customTemplates,
       String siteTitle) {
@@ -114,11 +115,12 @@ public abstract class Renderer {
     }
     templates = b.build();
 
-    Map<String, String> allGlobals = Maps.newHashMap();
+    Map<String, TrustedResourceUrl> allGlobals = Maps.newHashMap();
     for (Map.Entry<String, String> e : STATIC_URL_GLOBALS.entrySet()) {
-      allGlobals.put(e.getKey(), staticPrefix + e.getValue());
+      TrustedResourceUrl url = new TrustedResourceUrlBuilder().append(staticPrefix).append(e.getValue()).build();
+      allGlobals.put(e.getKey(), url);
     }
-    allGlobals.put("gitiles.SITE_TITLE", siteTitle);
+    allGlobals.put("gitiles.SITE_TITLE", new TrustedResourceUrlBuilder(siteTitle).build());
     allGlobals.putAll(globals);
     this.globals = ImmutableMap.copyOf(allGlobals);
   }
@@ -215,7 +217,7 @@ public abstract class Renderer {
     for (String key : STATIC_URL_GLOBALS.keySet()) {
       staticUrls.put(
           key.replaceFirst("^gitiles\\.", ""),
-          LegacyConversions.riskilyAssumeTrustedResourceUrl(globals.get(key)));
+          globals.get(key));
     }
     return getTofu()
         .newRenderer(templateName)
