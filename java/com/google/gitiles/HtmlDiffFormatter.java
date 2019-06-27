@@ -112,6 +112,7 @@ final class HtmlDiffFormatter extends DiffFormatter {
                 .newRenderer("gitiles.diffHeader")
                 .setData(ImmutableMap.of("firstParts", parts, "rest", rest, "fileIndex", fileIndex))
                 .render()
+                .get()
                 .getBytes(UTF_8));
   }
 
