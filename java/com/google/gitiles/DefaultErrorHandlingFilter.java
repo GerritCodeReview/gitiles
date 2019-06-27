@@ -80,7 +80,7 @@ public class DefaultErrorHandlingFilter extends AbstractHttpFilter {
   }
 
   private Map<String, ?> startHtmlResponse(
-      HttpServletRequest req, HttpServletResponse res, Map<String, ?> soyData) throws IOException {
+      HttpServletRequest req, HttpServletResponse res, Map<String, ?> soyData) {
     res.setContentType(FormatType.HTML.getMimeType());
     res.setCharacterEncoding(UTF_8.name());
     BaseServlet.setNotCacheable(res);
