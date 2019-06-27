@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gitiles.CommitData.Field;
-import com.google.template.soy.tofu.SoyTofu;
+import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -82,27 +82,30 @@ public class LogSoyData {
       DateFormatter df,
       FooterBehavior footerBehavior)
       throws IOException {
-    renderer
-        .newRenderer("gitiles.logEntriesHeader")
-        .setData(toHeaderSoyData(paginator, revision))
-        .render(out);
-    out.flush();
+    out.write(
+        renderer
+            .newRenderer("gitiles.logEntriesHeader")
+            .setData(toHeaderSoyData(paginator, revision))
+            .render()
+            .get());
 
-    SoyTofu.Renderer entryRenderer = renderer.newRenderer("gitiles.logEntryWrapper");
+    SoySauce.Renderer entryRenderer = renderer.newRenderer("gitiles.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
-      entryRenderer.setData(toEntrySoyData(paginator, c, df)).render(out);
+      out.write(entryRenderer.setData(toEntrySoyData(paginator, c, df)).render().get());
       out.flush();
       renderedEntries = true;
     }
     if (!renderedEntries) {
-      renderer.newRenderer("gitiles.emptyLog").render(out);
+      renderer.newRenderer("gitiles.emptyLog").render().get();
     }
 
-    renderer
-        .newRenderer("gitiles.logEntriesFooter")
-        .setData(toFooterSoyData(paginator, revision, footerBehavior))
-        .render(out);
+    out.write(
+        renderer
+            .newRenderer("gitiles.logEntriesFooter")
+            .setData(toFooterSoyData(paginator, revision, footerBehavior))
+            .render()
+            .get());
   }
 
   private Map<String, Object> toHeaderSoyData(Paginator paginator, @Nullable String revision) {
