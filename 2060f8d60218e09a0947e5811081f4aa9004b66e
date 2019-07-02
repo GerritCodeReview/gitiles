@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a81742a5_f00a363e",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-02T01:40:53Z",
+      "side": 1,
+      "message": "render() is deprecated. Should we split into multiple methods like renderText / renderHtml / etc?\n\nProbably out of scope for this change, though.\n\nMore importantly: the old code streamed its output and the new code builds a single string. Should this use render(AdvisingAppendable) instead?",
+      "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
