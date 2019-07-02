@@ -16,6 +16,24 @@
       "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dd2605e_07811d70",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-07-02T01:55:36Z",
+      "side": 1,
+      "message": "I\u0027m not seeing deprecation warnings for render().\n\nYes, this should probably use AdvisingAppendable, but I didn\u0027t have time to figure out how to do that.",
+      "parentUuid": "a81742a5_f00a363e",
+      "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
