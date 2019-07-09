@@ -223,6 +223,9 @@ public class LogServlet extends BaseServlet {
   private static RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
       throws MissingObjectException, IOException {
     RevWalk walk = new RevWalk(repo);
+    if (isTrue(view, "first-parent")) {
+      walk.setFirstParent(true);
+    }
     try {
       walk.markStart(walk.parseCommit(view.getRevision().getId()));
       if (!Revision.isNull(view.getOldRevision())) {
