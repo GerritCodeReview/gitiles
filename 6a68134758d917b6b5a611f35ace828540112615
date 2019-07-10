@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9257122c_611cb463",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-10T18:10:19Z",
+      "side": 1,
+      "message": "optional: Can this be a class-level constant like the other params (FOLLOW_PARAM, etc)?\n\nOptional since it\u0027s consistent with topo-order etc --- i.e. maybe it would make sense to do that for all of them in a followup change instead of as part of this one.",
+      "range": {
+        "startLine": 226,
+        "startChar": 21,
+        "endLine": 226,
+        "endChar": 35
+      },
+      "revId": "6a68134758d917b6b5a611f35ace828540112615",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb51b4af_60eb2d23",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-10T18:10:19Z",
+      "side": 1,
+      "message": "Should these go up near the first-parent setting so all the flag handling happens at once? I.e.\n\n RevWalk walk \u003d new RevWalk(repo);\n ... set flags ...\n try {\n   walk.markStart(...);\n   walk.markUninteresting(...);\n }\n return walk;\n\nThat might make the function a little easier to take in at a glance.",
+      "revId": "6a68134758d917b6b5a611f35ace828540112615",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
