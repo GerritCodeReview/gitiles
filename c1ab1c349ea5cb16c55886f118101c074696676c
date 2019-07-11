@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4a265c8_f22e4efc",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-07-11T17:58:51Z",
+      "side": 1,
+      "message": "Since this is looping anyway, maybe using nextLineBreak()?",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 11
+      },
+      "revId": "c1ab1c349ea5cb16c55886f118101c074696676c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
