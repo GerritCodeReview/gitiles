@@ -49,6 +49,13 @@ public class BlobSoyData {
    */
   private static final int MAX_FILE_SIZE = 10 << 20;
 
+  /**
+   * Maximum number of lines to be displayed. Files larger than this will be displayed as binary
+   * files, even on a text content. For example really big XML files may be above this limit and
+   * will get displayed as binary.
+   */
+  private static final int MAX_LINE_COUNT = 10000;
+
   private final GitilesView view;
   private final ObjectReader reader;
 
@@ -71,6 +78,9 @@ public class BlobSoyData {
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
       content = !RawText.isBinary(raw) ? RawParseUtils.decode(raw) : null;
+      if (isContentTooLargeForDisplay(content)) {
+        content = null;
+      }
     } catch (LargeObjectException.OutOfMemory e) {
       throw e;
     } catch (LargeObjectException e) {
@@ -187,5 +197,27 @@ public class BlobSoyData {
     } else {
       return ext;
     }
+  }
+
+  private static boolean isContentTooLargeForDisplay(String content) {
+    if (content == null) {
+      return false;
+    }
+
+    int lines = 0;
+    int start = 0;
+    while (lines <= MAX_LINE_COUNT) {
+      int nl = nextLineBreak(content, start, content.length());
+      if (nl < 0) {
+        break;
+      }
+      lines++;
+      start = nl + 1;
+    }
+
+    if (lines <= MAX_LINE_COUNT) {
+      return false;
+    }
+    return true;
   }
 }
