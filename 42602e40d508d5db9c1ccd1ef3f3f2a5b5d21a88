@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14414f3a_497b96c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-07-11T22:40:34Z",
+      "side": 1,
+      "message": "Display text files with more than 10000 lines as raw.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 86
+      },
+      "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab635e85_7c3932bc",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-07-11T22:40:34Z",
+      "side": 1,
+      "message": "content could be null already",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 45
+      },
+      "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae013bde_ca5091fa",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-07-11T22:40:34Z",
+      "side": 1,
+      "message": "int lines \u003d 0;\nint nl \u003d -1;\nwhile (true) {\n  nl \u003d nextLineBreak(content, nl + 1, content.length());\n  if (nl \u003c 0) {\n    return false;\n  } else if (++lines \u003d\u003d MAX_LINE_COUNT) {\n    return true;\n  }\n}",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 5
+      },
+      "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
