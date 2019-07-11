@@ -22,6 +22,30 @@
       "revId": "c1ab1c349ea5cb16c55886f118101c074696676c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea59924_f5fa5006",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2019-07-11T22:32:05Z",
+      "side": 1,
+      "message": "nextLineBreak() is more featureful than needed here.\n\nhere is an alternative what I feel is too cryptic than needed:\n```\nprivate static boolean isContentTooLargeForDisplayAlternative(String content) {\n    int lines \u003d 0;\n    int start \u003d 0;\n    while (lines \u003c MAX_LINE_COUNT) {\n      int nl \u003d nextLineBreak(content, start, content.length());\n      if (nl \u003c 0) {\n        break;\n      }\n      lines ++;\n      start \u003d nl + 1;\n    }\n\n    if (lines \u003c MAX_LINE_COUNT) {\n      return false;\n    }\n    return true;\n  }\n```",
+      "parentUuid": "b4a265c8_f22e4efc",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 11
+      },
+      "revId": "c1ab1c349ea5cb16c55886f118101c074696676c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
