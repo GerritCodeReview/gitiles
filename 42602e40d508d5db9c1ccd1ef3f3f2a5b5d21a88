@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e23ec091_d2423ee3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2019-07-12T21:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14414f3a_497b96c7",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 86
+      },
+      "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab635e85_7c3932bc",
         "filename": "java/com/google/gitiles/BlobSoyData.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b5470989_f318ca79",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2019-07-12T21:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab635e85_7c3932bc",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 45
+      },
+      "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae013bde_ca5091fa",
         "filename": "java/com/google/gitiles/BlobSoyData.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c16b536_7dc8b0f3",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2019-07-12T21:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae013bde_ca5091fa",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 5
+      },
+      "revId": "42602e40d508d5db9c1ccd1ef3f3f2a5b5d21a88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
