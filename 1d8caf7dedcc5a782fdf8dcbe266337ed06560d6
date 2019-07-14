@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a797915_7c1888cb",
+        "filename": "java/com/google/gitiles/DefaultErrorHandlingFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-07-14T02:44:06Z",
+      "side": 1,
+      "message": "This could be less verbose by adding a variant of the renderHtml method that takes the FailureReason enum and calls the one at L105 with the status code and message.\n\nSame for the cases below at L73 and L94",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 61
+      },
+      "revId": "1d8caf7dedcc5a782fdf8dcbe266337ed06560d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
