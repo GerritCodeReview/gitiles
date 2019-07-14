@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c80f3422_2f2846dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-07-14T02:39:25Z",
+      "side": 1,
+      "message": "nit: please split the commit message into a subject and body separated by a blank line",
+      "revId": "7ec134be066249c391a7077f576c7765d3dafa1b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
