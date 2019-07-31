@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "f8164f7f_c2b6b7f8",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T05:01:55Z",
+      "side": 1,
+      "message": "\u003e The DelegatingAppendable and SoySauceTemplate classes don\u0027t exist in the version of soy that is public on github.\n\nOh, my bad. Yes, I was looking in the wrong place.\n\nI should have suggested LoggingAdvisingAppendable#delegating(Appendable) instead.",
+      "parentUuid": "b6d368a3_14e36040",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c289cc3d_92a75d93",
         "filename": "java/com/google/gitiles/LogSoyData.java",
         "patchSetId": 4
