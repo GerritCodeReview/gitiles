@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bff9dc36_0b9c53e0",
+        "filename": "java/com/google/gitiles/DebugRenderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "This part looks good.",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f878f98_4dfb61e5",
+        "filename": "java/com/google/gitiles/DefaultRenderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "Likewise.",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "701b7caf_1e487ad9",
+        "filename": "java/com/google/gitiles/HtmlDiffFormatter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "This doesn\u0027t stream, but the old code didn\u0027t stream, either. Good.",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c286283c_91427ecb",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "could use a short javadoc.\n\nOr better, can we use DelegatingAppendable (via SoySauceTemplate#render(Appendable, String, ContentKind, Map\u003cString, ?\u003e)) instead? A Writer is already an Appendable.",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c289cc3d_92a75d93",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "logEntriesHeader is indeed always HTML. Good.",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e395f3f_0f9519a2",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "Do all callers want HTML, or do some want text?\n\nE.g. renaming to renderHtml would make it easier to audit the callers.",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ad3520_504a6437",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "likewise",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eecb204b_8f8a0991",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "likewise",
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c398d6e_2a668390",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-07-31T01:23:28Z",
+      "side": 1,
+      "message": "stray parens",
+      "range": {
+        "startLine": 224,
+        "startChar": 15,
+        "endLine": 224,
+        "endChar": 16
+      },
+      "revId": "1d98528267caffe5c520d921a4f38cc85450381e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
