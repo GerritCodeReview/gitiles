@@ -52,6 +52,24 @@
       "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12294f45_e8ed78c9",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-08-29T02:07:57Z",
+      "side": 1,
+      "message": "Thanks for your patient work.",
+      "parentUuid": "e5630bb4_cbbbca64",
+      "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
