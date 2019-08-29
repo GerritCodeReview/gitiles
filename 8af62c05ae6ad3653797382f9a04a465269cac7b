@@ -52,6 +52,24 @@
       "revId": "8af62c05ae6ad3653797382f9a04a465269cac7b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57079068_bb86fe93",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-08-29T02:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b676f090_78422553",
+      "revId": "8af62c05ae6ad3653797382f9a04a465269cac7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
