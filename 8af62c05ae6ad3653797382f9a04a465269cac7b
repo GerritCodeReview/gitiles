@@ -34,6 +34,24 @@
       "revId": "8af62c05ae6ad3653797382f9a04a465269cac7b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b676f090_78422553",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-08-29T01:27:41Z",
+      "side": 1,
+      "message": "Yeah. That\u0027s how SoySauceTest does it.\n\nThe other possibility is that we could be blocked on result.result().future(), but I don\u0027t see how we\u0027d trigger that so it\u0027s probably not worth handling today.",
+      "parentUuid": "c37a76c5_75604dd7",
+      "revId": "8af62c05ae6ad3653797382f9a04a465269cac7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
