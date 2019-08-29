@@ -16,6 +16,24 @@
       "revId": "8af62c05ae6ad3653797382f9a04a465269cac7b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37a76c5_75604dd7",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-08-29T01:19:39Z",
+      "side": 1,
+      "message": "So rather than just ignoring it, check it and throw an exception if it didn\u0027t return true on isDone()?",
+      "parentUuid": "78af3ecf_395b0455",
+      "revId": "8af62c05ae6ad3653797382f9a04a465269cac7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
