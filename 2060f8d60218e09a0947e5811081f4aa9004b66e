@@ -70,6 +70,24 @@
       "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23f6a666_19eeee95",
+        "filename": "java/com/google/gitiles/LogSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-08-29T02:38:31Z",
+      "side": 1,
+      "message": "NP.  Thanks for the reviews.  There are still quite a few deprecation warnings; when I have time I\u0027ll push some more changes.",
+      "parentUuid": "12294f45_e8ed78c9",
+      "revId": "2060f8d60218e09a0947e5811081f4aa9004b66e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
