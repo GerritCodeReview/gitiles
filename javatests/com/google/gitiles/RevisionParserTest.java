@@ -60,6 +60,17 @@ public class RevisionParserTest {
   }
 
   @Test
+  public void parseBranchNameAsRef() throws Exception {
+    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit refs = repo.branch("refs").commit().create();
+    assertThat(parser.parse("refs/heads/master"))
+        .isEqualTo(new Result(Revision.peeled("refs/heads/master", master)));
+    assertThat(parser.parse("master")).isEqualTo(new Result(Revision.peeled("master", master)));
+    assertThat(parser.parse("refs/heads/refs"))
+        .isEqualTo(new Result(Revision.peeled("refs/heads/refs", refs)));
+  }
+
+  @Test
   public void parseRefParentExpression() throws Exception {
     RevCommit root = repo.commit().create();
     RevCommit parent1 = repo.commit().parent(root).create();
@@ -177,6 +188,42 @@ public class RevisionParserTest {
     assertThat(parser.parse("other..master"))
         .isEqualTo(
             new Result(Revision.peeled("master", commit), Revision.peeled("other", other), ""));
+  }
+
+  @Test
+  public void parseDiffRevisionsWithRefsAsBranch() throws Exception {
+    RevCommit parent = repo.commit().create();
+    RevCommit commit = repo.branch("master").commit().parent(parent).create();
+    RevCommit refs = repo.branch("refs").commit().parent(parent).create();
+
+    assertThat(parser.parse("refs/heads/master^..refs/heads/master"))
+        .isEqualTo(
+            new Result(
+                Revision.peeled("refs/heads/master", commit),
+                Revision.peeled("refs/heads/master^", parent),
+                ""));
+    assertThat(parser.parse("refs/heads/refs..master"))
+        .isEqualTo(
+            new Result(
+                Revision.peeled("master", commit), Revision.peeled("refs/heads/refs", refs), ""));
+    assertThat(parser.parse("refs..refs/heads/master"))
+        .isEqualTo(
+            new Result(
+                Revision.peeled("refs/heads/master", commit), Revision.peeled("refs", refs), ""));
+    assertThat(parser.parse("refs^..refs/heads/refs"))
+        .isEqualTo(
+            new Result(
+                Revision.peeled("refs/heads/refs", refs), Revision.peeled("refs^", parent), ""));
+    assertThat(parser.parse("refs/heads/refs..refs^"))
+        .isEqualTo(
+            new Result(
+                Revision.peeled("refs^", parent), Revision.peeled("refs/heads/refs", refs), ""));
+    assertThat(parser.parse("refs/heads/refs..refs/heads/refs^"))
+        .isEqualTo(
+            new Result(
+                Revision.peeled("refs/heads/refs^", parent),
+                Revision.peeled("refs/heads/refs", refs),
+                ""));
   }
 
   @Test
