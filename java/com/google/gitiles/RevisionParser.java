@@ -36,6 +36,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 /** Object to parse revisions out of Gitiles paths. */
 class RevisionParser {
   private static final Splitter OPERATOR_SPLITTER = Splitter.on(CharMatcher.anyOf("^~"));
+  private static final String REFS_HEAD_PREFIX = "refs/heads/";
 
   static class Result {
     private final Revision revision;
@@ -107,13 +108,24 @@ class RevisionParser {
     if (path.startsWith("/")) {
       path = path.substring(1);
     }
+
     try (RevWalk walk = new RevWalk(repo)) {
+      boolean hasRefsHeadsPrefix = false; // used when parsing a single branch
+      boolean oldRevHasRefsHeadsPrefix = false; // used when using a diff between 2 revisions
+      boolean newRevHasRefsHeadsPrefix = false;
+      boolean hasTwoRevisions = false;
+
+      if (path.startsWith(REFS_HEAD_PREFIX)) {
+        path = path.substring(REFS_HEAD_PREFIX.length());
+        hasRefsHeadsPrefix = true;
+      }
       walk.setRetainBody(false);
 
       Revision oldRevision = null;
 
       StringBuilder b = new StringBuilder();
       boolean first = true;
+      int dots = 0;
       for (String part : PathUtil.SPLITTER.split(path)) {
         if (part.isEmpty()) {
           return null; // No valid revision contains empty segments.
@@ -123,7 +135,7 @@ class RevisionParser {
         }
 
         if (oldRevision == null) {
-          int dots = part.indexOf("..");
+          dots = part.indexOf("..");
           int firstParent = part.indexOf("^!");
           if (dots == 0 || firstParent == 0) {
             return null;
@@ -137,9 +149,12 @@ class RevisionParser {
             if (old == null) {
               return null;
             }
-            oldRevision = Revision.peel(oldName, old, walk);
+            oldRevision =
+                Revision.peel((hasRefsHeadsPrefix ? REFS_HEAD_PREFIX : "") + oldName, old, walk);
             part = part.substring(dots + 2);
             b = new StringBuilder();
+            oldRevHasRefsHeadsPrefix = hasRefsHeadsPrefix;
+            hasRefsHeadsPrefix = false;
           } else if (firstParent > 0) {
             if (firstParent != part.length() - 2) {
               return null;
@@ -171,24 +186,47 @@ class RevisionParser {
                     Revision.peeled(name, c), oldRevision, path.substring(name.length() + 2));
             return isVisible(walk, result) ? result : null;
           }
+          hasTwoRevisions = path.substring(dots + 2).startsWith(REFS_HEAD_PREFIX);
         }
         b.append(part);
 
         String name = b.toString();
+        if (name.startsWith(REFS_HEAD_PREFIX)) {
+          name = name.substring(REFS_HEAD_PREFIX.length());
+          newRevHasRefsHeadsPrefix = true;
+        }
+
+        if (hasTwoRevisions && !newRevHasRefsHeadsPrefix) {
+          first = false;
+          continue;
+        }
+
         if (!isValidRevision(name)) {
           return null;
         }
-        RevObject obj = resolve(name, walk);
+
+        String fullRevisionName =
+            ((hasRefsHeadsPrefix && first) || newRevHasRefsHeadsPrefix ? REFS_HEAD_PREFIX : "")
+                + name;
+        RevObject obj = resolve(fullRevisionName, walk);
         if (obj != null) {
           int pathStart;
           if (oldRevision == null) {
             pathStart = name.length(); // foo
           } else {
             // foo..bar (foo may be empty)
-            pathStart = oldRevision.getName().length() + 2 + name.length();
+            pathStart =
+                oldRevision.getName().length()
+                    + 2
+                    + name.length()
+                    - (oldRevHasRefsHeadsPrefix ? REFS_HEAD_PREFIX.length() : 0)
+                    + (newRevHasRefsHeadsPrefix ? REFS_HEAD_PREFIX.length() : 0);
           }
           Result result =
-              new Result(Revision.peel(name, obj, walk), oldRevision, path.substring(pathStart));
+              new Result(
+                  Revision.peel(fullRevisionName, obj, walk),
+                  oldRevision,
+                  path.substring(pathStart));
           return isVisible(walk, result) ? result : null;
         }
         first = false;
