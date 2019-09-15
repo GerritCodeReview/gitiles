@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0117c4cb_bc43695b",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2019-09-15T20:07:40Z",
+      "side": 1,
+      "message": "It seems to me that all the logic related to parameter parsing should be done prior to setting up the RevWalk.",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "bea91ac34234e9baa60a6530ddc44cde74875c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
