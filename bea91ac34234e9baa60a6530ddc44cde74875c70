@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f58941b3_e343cef5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2019-09-16T23:24:38Z",
+      "side": 1,
+      "message": "Actually we just stumbled upon this as well. \nI will look into how to implement this. \nBtw as of now we do not check if :\n   ref (ref) contain a file `file` \nwe only check if ref exists and uses the rest as file.",
+      "parentUuid": "08482c11_b84ffd98",
+      "revId": "bea91ac34234e9baa60a6530ddc44cde74875c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0117c4cb_bc43695b",
         "filename": "java/com/google/gitiles/RevisionParser.java",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "bea91ac34234e9baa60a6530ddc44cde74875c70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b7bec9d_bab37a90",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2019-09-16T23:24:38Z",
+      "side": 1,
+      "message": "It needs revwalk to check if the branch exists (isVisible).",
+      "parentUuid": "0117c4cb_bc43695b",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "bea91ac34234e9baa60a6530ddc44cde74875c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
