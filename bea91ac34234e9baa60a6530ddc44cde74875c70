@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "08482c11_b84ffd98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-09-16T19:37:26Z",
+      "side": 1,
+      "message": "nit: The current subject line doesn\u0027t summarize what the change does. Maybe\n\n  RevisionParser: \"refs/heads/branch\" does not mean \"heads/branch\" file in \"refs\" branch\n\nThat then brings up the question, though: what if there is a \"refs\" branch and I want to refer to the \"heads/branch\" file within it? And what about the other prefixes in SEARCH_PATH (https://eclipse.googlesource.com/jgit/jgit/+/2e75fe6be19cd2551f29f1bb0e0175b15319984d/org.eclipse.jgit/src/org/eclipse/jgit/lib/RefDatabase.java#78), such as \"refs/tags/\"?\n\nI wonder if we can use SEARCH_PATH to guide the search:\n\n for each item in SEARCH_PATH:\n   for each splitting (ref, file) of `path`:\n     does ref (item+ref) contain a file `file`?\n       if yes, done\n     continue\n\nThat way, \"refs/heads/master/foo.c\" would look for, in order of preference (1) \"foo.c\" in \"refs/heads/master\" (2) \"heads/master/foo.c\" in \"refs/heads/refs/heads/master\" (3) etc",
+      "revId": "bea91ac34234e9baa60a6530ddc44cde74875c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0117c4cb_bc43695b",
         "filename": "java/com/google/gitiles/RevisionParser.java",
         "patchSetId": 5
