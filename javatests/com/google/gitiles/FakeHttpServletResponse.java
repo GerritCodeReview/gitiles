@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Locale;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.util.RawParseUtils;
@@ -87,6 +89,16 @@ public class FakeHttpServletResponse implements HttpServletResponse {
             public void write(int c) throws IOException {
               osWriter.write(c);
               osWriter.flush();
+            }
+
+            @Override
+            public boolean isReady() {
+              return true;
+            }
+
+            @Override
+            public void setWriteListener(WriteListener listener) {
+              throw new UnsupportedOperationException();
             }
           };
     }
@@ -240,6 +252,7 @@ public class FakeHttpServletResponse implements HttpServletResponse {
     committed = true;
   }
 
+  @Override
   public synchronized int getStatus() {
     return status;
   }
@@ -252,11 +265,27 @@ public class FakeHttpServletResponse implements HttpServletResponse {
     return RawParseUtils.decode(getActualBody());
   }
 
+  @Override
   public String getHeader(String name) {
     return Iterables.getFirst(headers.get(checkNotNull(name)), null);
   }
 
   private PrintWriter newPrintWriter() {
     return new PrintWriter(new OutputStreamWriter(actualBody, UTF_8));
+  }
+
+  @Override
+  public Collection<String> getHeaders(String name) {
+    return headers.get(checkNotNull(name));
+  }
+
+  @Override
+  public Collection<String> getHeaderNames() {
+    return headers.keys();
+  }
+
+  @Override
+  public void setContentLengthLong(long length) {
+    throw new UnsupportedOperationException();
   }
 }
