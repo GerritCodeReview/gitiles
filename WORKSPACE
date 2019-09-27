@@ -100,15 +100,9 @@ maven_jar(
 )
 
 maven_jar(
-    name = "servlet-api_2_5",
-    artifact = "org.eclipse.jetty.orbit:javax.servlet:2.5.0.v201103041518",
-    sha1 = "9c16011c06bc6fe5e9dba080fcb40ddb4b75dc85",
-)
-
-maven_jar(
-    name = "servlet-api_3_0",
-    artifact = "org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016",
-    sha1 = "0aaaa85845fb5c59da00193f06b8e5278d8bf3f8",
+    name = "servlet-api",
+    artifact = "org.apache.tomcat:tomcat-servlet-api:8.5.23",
+    sha1 = "021a212688ec94fe77aff74ab34cc74f6f940e60",
 )
 
 maven_jar(
