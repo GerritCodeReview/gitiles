@@ -22,6 +22,30 @@
       "revId": "fe33adf753bc4d7888502cbc3f1f5be00112a209",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "702fee6c_1ed387dd",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-10-08T08:28:27Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s the point. Gitiles doesn\u0027t use Gerri Plugin API. We could add something new in bazelts, to just load rules_python, then we could call this something from plugin API in bazlets, or here directly. Does it worth it?",
+      "parentUuid": "92bfbf42_c5512ea6",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "fe33adf753bc4d7888502cbc3f1f5be00112a209",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
