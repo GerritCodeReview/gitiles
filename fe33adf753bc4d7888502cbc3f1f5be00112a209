@@ -46,6 +46,30 @@
       "revId": "fe33adf753bc4d7888502cbc3f1f5be00112a209",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6e8a4cd_f08af8e1",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-10-08T08:29:33Z",
+      "side": 1,
+      "message": "I guess it\u0027s not worth it now, but certainly later if we find that we\u0027re doing the same again somewhere else.",
+      "parentUuid": "702fee6c_1ed387dd",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "fe33adf753bc4d7888502cbc3f1f5be00112a209",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
