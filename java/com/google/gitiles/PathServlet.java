@@ -33,6 +33,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -510,7 +511,8 @@ public class PathServlet extends BaseServlet {
   private void showFile(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id);
+    Map<String, ?> data =
+        new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id, Optional.of(wr.type));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(
         req,

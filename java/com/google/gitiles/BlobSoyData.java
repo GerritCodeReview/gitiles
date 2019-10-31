@@ -20,11 +20,13 @@ import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
+import com.google.gitiles.PathServlet.FileType;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -65,10 +67,10 @@ public class BlobSoyData {
   }
 
   public Map<String, Object> toSoyData(ObjectId blobId) throws MissingObjectException, IOException {
-    return toSoyData(null, blobId);
+    return toSoyData(null, blobId, Optional.empty());
   }
 
-  public Map<String, Object> toSoyData(String path, ObjectId blobId)
+  public Map<String, Object> toSoyData(String path, ObjectId blobId, Optional<FileType> fileType)
       throws MissingObjectException, IOException {
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
     data.put("sha", ObjectId.toString(blobId));
@@ -77,7 +79,12 @@ public class BlobSoyData {
     String content;
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
-      content = !RawText.isBinary(raw) ? RawParseUtils.decode(raw) : null;
+      content =
+          (fileType.isPresent() && fileType.get().equals(FileType.EXECUTABLE_FILE))
+                  || RawText.isBinary(raw)
+              ? null
+              : RawParseUtils.decode(raw);
+
       if (isContentTooLargeForDisplay(content)) {
         content = null;
       }

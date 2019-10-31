@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -82,7 +83,8 @@ public class BlameServlet extends BaseServlet {
 
       String title = "Blame - " + view.getPathPart();
       Map<String, ?> blobData =
-          new BlobSoyData(rw.getObjectReader(), view).toSoyData(view.getPathPart(), result.blobId);
+          new BlobSoyData(rw.getObjectReader(), view)
+              .toSoyData(view.getPathPart(), result.blobId, Optional.empty());
       if (blobData.get("lines") != null) {
         DateFormatter df = new DateFormatter(access, Format.ISO);
         renderHtml(
