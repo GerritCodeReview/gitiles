@@ -40,9 +40,13 @@ import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
 import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.eclipse.jgit.treewalk.filter.TreeFilter;
 import org.eclipse.jgit.util.QuotedString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Guava implementation of BlameCache, weighted by number of blame regions. */
 public class BlameCacheImpl implements BlameCache {
+  private static final Logger log = LoggerFactory.getLogger(BlameCacheImpl.class);
+
   public static CacheBuilder<Key, List<Region>> defaultBuilder() {
     return weigher(CacheBuilder.newBuilder()).maximumWeight(10 << 10);
   }
@@ -136,6 +140,10 @@ public class BlameCacheImpl implements BlameCache {
   public static List<Region> loadBlame(Key key, Repository repo) throws IOException {
     try (BlameGenerator gen = new BlameGenerator(repo, key.path)) {
       gen.push(null, key.commitId);
+      if (gen.getResultContents() == null) {
+        log.warn("path {} not found", key.path);
+        return ImmutableList.of();
+      }
       return loadRegions(gen);
     }
   }
