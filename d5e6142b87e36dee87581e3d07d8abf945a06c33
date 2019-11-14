@@ -16,6 +16,24 @@
       "revId": "d5e6142b87e36dee87581e3d07d8abf945a06c33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d151ddc5_90ff6c81",
+        "filename": "java/com/google/gitiles/blame/cache/BlameCacheImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-11-14T16:56:22Z",
+      "side": 1,
+      "message": "Do you prefer to remove the log completely, or reduce severity to debug?",
+      "parentUuid": "179f1996_bd0c78be",
+      "revId": "d5e6142b87e36dee87581e3d07d8abf945a06c33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
