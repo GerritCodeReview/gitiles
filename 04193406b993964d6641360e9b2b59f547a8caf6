@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1850bf04_33be4a03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-18T20:20:26Z",
+      "side": 1,
+      "message": "Do you include more context from the bug here? E.g. what is the symptom or error message without this change?\n\nIs there a way to cover this in tests so we don\u0027t regress?",
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45c853b_cce45c92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-18T20:20:26Z",
+      "side": 1,
+      "message": "Can put this as an actual footer:\n\n Bug: https://github.com/google/gitiles/issues/192",
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b12a5d5b_0ebd3975",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-18T20:20:26Z",
+      "side": 1,
+      "message": "long line\n\nInteresting! I would expect isLarge (hence LargeObjectException) to kick in for huge files. Sounds like the motivating case is somewhere in the middle.",
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
