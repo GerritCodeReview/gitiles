@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "e97df72e_c079ecc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-18T20:33:15Z",
+      "side": 1,
+      "message": "The problem here is the definitive loop in the prettify regex, that cannot handle huge files, like 300 MB generated xml files. Could you clarify?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d45c853b_cce45c92",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -47,6 +70,24 @@
       "writtenOn": "2019-11-18T20:20:26Z",
       "side": 1,
       "message": "long line\n\nInteresting! I would expect isLarge (hence LargeObjectException) to kick in for huge files. Sounds like the motivating case is somewhere in the middle.",
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1af52530_41f3995e",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-18T20:33:15Z",
+      "side": 1,
+      "message": "Yes, it is unexpected, that isLarge() in JGit doesn\u0027t throw LargeObjectException and this method:\n\n  loader.getCachedBytes(MAX_FILE_SIZE);\n\nreturns the content even if MAX_FILE_SIZE \u003d 10 MB, but the content is 300 MB. The code path in isLarge() is just asking if it fit in memory, and if it does, then the parameter MAX_FILE_SIZE is actually omitted.",
+      "parentUuid": "b12a5d5b_0ebd3975",
       "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
