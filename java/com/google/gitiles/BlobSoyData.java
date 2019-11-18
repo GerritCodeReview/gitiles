@@ -70,7 +70,7 @@ public class BlobSoyData {
     String content;
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
-      content = !RawText.isBinary(raw) ? RawParseUtils.decode(raw) : null;
+      content = (raw.length < MAX_FILE_SIZE && !RawText.isBinary(raw)) ? RawParseUtils.decode(raw) : null;
     } catch (LargeObjectException.OutOfMemory e) {
       throw e;
     } catch (LargeObjectException e) {
