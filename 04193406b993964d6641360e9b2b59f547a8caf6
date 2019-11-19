@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "4142908e_02172ca3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-19T20:28:14Z",
+      "side": 1,
+      "message": "Idea for a test case would be:\n\n* 1. generate on the fly XML file with size \u003e 10MB\n* 2. Add this file to a commit\n* 3. Retrieve the file from gitiles\n* 4. Verify that it is not prettified",
+      "parentUuid": "c069b6c0_af7cc27b",
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e97df72e_c079ecc7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
