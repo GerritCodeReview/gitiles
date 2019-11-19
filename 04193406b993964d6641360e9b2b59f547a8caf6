@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "10a1bc15_0653b4be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-19T18:57:13Z",
+      "side": 1,
+      "message": "@Jonathan I do not see any target for running tests in the Bazel BUILD: am I looking at the wrong place? Running tests from Eclipse, result in many failures: is that expected?",
+      "parentUuid": "eaebda87_1f6a0fdc",
+      "revId": "04193406b993964d6641360e9b2b59f547a8caf6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e97df72e_c079ecc7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
