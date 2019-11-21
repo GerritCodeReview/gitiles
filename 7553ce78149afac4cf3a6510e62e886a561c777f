@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05770613_1fe1c2b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-21T22:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9388db5c_7ad17e94",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e9aa166_bc30bd1e",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bab0c460_b381f9f7",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-21T22:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e9aa166_bc30bd1e",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 10
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "830fa28e_2bfcf4cf",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3830e4f9_c11a9135",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-21T22:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "830fa28e_2bfcf4cf",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
