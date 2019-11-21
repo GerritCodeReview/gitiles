@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9388db5c_7ad17e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-21T07:56:02Z",
+      "side": 1,
+      "message": "stop-the-world, to be sure that everyone understand what this means?",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9aa166_bc30bd1e",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-21T07:56:02Z",
+      "side": 1,
+      "message": "Nit: private static.",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 10
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830fa28e_2bfcf4cf",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-21T07:56:02Z",
+      "side": 1,
+      "message": "Run it through google-java-format. We always require parenthesis for if-statement. Also, use StringBuilder?",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
