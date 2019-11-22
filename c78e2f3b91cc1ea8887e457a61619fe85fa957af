@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5ab283e_1f753492",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-22T18:04:09Z",
+      "side": 1,
+      "message": "Both reachability checkers use topoSort by default and don\u0027t offer a way to adjust it. This is an API change in JGit (i.e. waiting for release).\n\nI\u0027ll leave this marked with a TODO. Either we make everybody use topoSort (is that ok?) or we pass it to the checkers.",
+      "parentUuid": "7c2f7db5_331b6658",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 27
+      },
+      "revId": "c78e2f3b91cc1ea8887e457a61619fe85fa957af",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "189137f9_3edcd57c",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c78e2f3b91cc1ea8887e457a61619fe85fa957af",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f21f2c6_2e79a239",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-22T18:04:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "189137f9_3edcd57c",
+      "range": {
+        "startLine": 111,
+        "startChar": 66,
+        "endLine": 111,
+        "endChar": 69
+      },
+      "revId": "c78e2f3b91cc1ea8887e457a61619fe85fa957af",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

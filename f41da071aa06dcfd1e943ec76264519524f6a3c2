@@ -16,6 +16,24 @@
       "revId": "f41da071aa06dcfd1e943ec76264519524f6a3c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb9422a_4fa5f07c",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-22T18:04:09Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "81a12999_11dba9a7",
+      "revId": "f41da071aa06dcfd1e943ec76264519524f6a3c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
