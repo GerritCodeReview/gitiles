@@ -17,6 +17,9 @@ package com.google.gitiles;
 import com.google.common.collect.ImmutableList;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Stream;
+import org.eclipse.jgit.annotations.Nullable;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
@@ -55,38 +58,60 @@ public class VisibilityChecker {
    *     or ids referring to other kinds of objects are ignored.
    * @return true if we can get to {@code commit} from the {@code starters}
    * @throws IOException a pack file or loose object could not be read
+   * @deprecated see {@link #isReachableFrom(String, RevWalk, RevCommit, Stream)}
    */
+  @Deprecated
   protected boolean isReachableFrom(
       String description, RevWalk walk, RevCommit commit, Collection<ObjectId> starters)
       throws IOException {
-    if (starters.isEmpty()) {
-      return false;
-    }
-
-    ImmutableList<RevCommit> startCommits = objectIdsToCommits(walk, starters);
-    if (startCommits.isEmpty()) {
-      return false;
-    }
-
-    return !walk.getObjectReader()
-        .createReachabilityChecker(walk)
-        .areAllReachable(ImmutableList.of(commit), startCommits.stream())
-        .isPresent();
+    Stream<RevCommit> startCommits =
+        starters.stream()
+            .map(
+                objId -> {
+                  try {
+                    return objectIdToRevCommit(walk, objId);
+                  } catch (IOException e) {
+                    return null;
+                  }
+                })
+            .filter(Objects::nonNull);
+    return isReachableFrom(description, walk, commit, startCommits);
   }
 
-  private static ImmutableList<RevCommit> objectIdsToCommits(RevWalk walk, Collection<ObjectId> ids)
-      throws IOException {
-    ImmutableList.Builder<RevCommit> commits = ImmutableList.builder();
-    for (ObjectId id : ids) {
-      try {
-        commits.add(walk.parseCommit(id));
-      } catch (MissingObjectException e) {
-        // TODO(ifrade): ResolveParser has already checked that the object exists in the repo.
-        // Report as AssertionError.
-      } catch (IncorrectObjectTypeException e) {
-        // Ignore, doesn't affect commit reachability
-      }
+  /**
+   * Check if {@code commit} is reachable starting from {@code starters}.
+   *
+   * @param description Description of the ids (e.g. "heads"). Mainly for tracing.
+   * @param walk The walk to use for the reachability check
+   * @param commit The starting commit. It *MUST* come from the walk in use
+   * @param starters visible commits. Anything reachable from these commits is visible. Missing ids
+   *     or ids referring to other kinds of objects are ignored.
+   * @return true if we can get to {@code commit} from the {@code starters}
+   * @throws IOException a pack file or loose object could not be read
+   */
+  protected boolean isReachableFrom(
+      String description, RevWalk walk, RevCommit commit, Stream<RevCommit> starters)
+      throws MissingObjectException, IncorrectObjectTypeException, IOException {
+    return walk.getObjectReader()
+        .createReachabilityChecker(walk)
+        .areAllReachable(ImmutableList.of(commit), starters)
+        .isEmpty();
+  }
+
+  @Nullable
+  private static RevCommit objectIdToRevCommit(RevWalk walk, ObjectId objectId) throws IOException {
+    if (objectId == null) {
+      return null;
     }
-    return commits.build();
+
+    try {
+      return walk.parseCommit(objectId);
+    } catch (MissingObjectException e) {
+      // ResolveParser has already checked that the object exists in the repo
+      throw new IllegalStateException(e);
+    } catch (IncorrectObjectTypeException e) {
+      // Ignore, doesn't affect commit reachability
+      return null;
+    }
   }
 }
