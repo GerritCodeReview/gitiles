@@ -14,13 +14,9 @@
 
 package com.google.gitiles;
 
-import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Objects.hash;
-import static java.util.stream.Collectors.toList;
-import static org.eclipse.jgit.lib.Constants.R_HEADS;
-import static org.eclipse.jgit.lib.Constants.R_TAGS;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.cache.Cache;
@@ -32,8 +28,11 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
+import org.eclipse.jgit.annotations.Nullable;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.RefDatabase;
@@ -163,34 +162,61 @@ public class VisibilityCache {
       return true;
     }
 
+
+    Stream<ObjectId> reachableTips = importantRefsFirst(refDb.getRefsByPrefix(RefDatabase.ALL))
+        .map(VisibilityCache::refToObjectId);
+
     // Check heads first under the assumption that most requests are for refs close to a head. Tags
     // tend to be much further back in history and just clutter up the priority queue in the common
     // case.
-    return checker.isReachableFrom("knownReachable", walk, commit, knownReachable)
-        || isReachableFromRefs("heads", walk, commit, refDb.getRefsByPrefix(R_HEADS).stream())
-        || isReachableFromRefs("tags", walk, commit, refDb.getRefsByPrefix(R_TAGS).stream())
-        || isReachableFromRefs(
-            "other", walk, commit, refDb.getRefs().stream().filter(r -> otherRefs(r)));
+    Stream<RevCommit> startCommits = Stream.concat(knownReachable.stream(), reachableTips)
+        .map(objId -> objectIdToRevCommit(walk, objId))
+        .filter(Objects::nonNull); // Ignore missing tips
+
+    return checker.isReachableFrom("known and sorted refs", walk, commit, startCommits);
   }
 
-  private static boolean refStartsWith(Ref ref, String prefix) {
-    return ref.getName().startsWith(prefix);
+  static Stream<Ref> importantRefsFirst(
+      Collection<Ref> visibleRefs) {
+    Predicate<Ref> startsWithRefsHeads = ref -> ref.getName()
+        .startsWith(Constants.R_HEADS);
+    Predicate<Ref> startsWithRefsTags = ref -> ref.getName()
+        .startsWith(Constants.R_TAGS);
+    Predicate<Ref> allOther = ref -> !startsWithRefsHeads.test(ref)
+        && !startsWithRefsTags.test(ref);
+
+    return Stream.concat(
+        visibleRefs.stream().filter(startsWithRefsHeads),
+        Stream.concat(
+            visibleRefs.stream().filter(startsWithRefsTags),
+            visibleRefs.stream().filter(allOther)));
   }
 
-  private static boolean otherRefs(Ref r) {
-    return !(refStartsWith(r, R_HEADS)
-        || refStartsWith(r, R_TAGS)
-        || refStartsWith(r, "refs/changes/"));
+  private static ObjectId refToObjectId(Ref ref) {
+    return ref.getObjectId() != null ? ref.getObjectId()
+            : ref.getPeeledObjectId();
   }
 
-  private boolean isReachableFromRefs(String desc, RevWalk walk, RevCommit commit, Stream<Ref> refs)
-      throws IOException {
-    return isReachableFrom(
-        desc, walk, commit, refs.map(r -> firstNonNull(r.getPeeledObjectId(), r.getObjectId())));
-  }
+  /**
+   * Translate an object id to a RevCommit.
+   *
+   * @param walk
+   *            walk on the relevant object storae
+   * @param objectId
+   *            Object Id
+   * @return RevCommit instance or null if the object is missing
+   */
+  @Nullable
+  private static RevCommit objectIdToRevCommit(RevWalk walk,
+          ObjectId objectId) {
+      if (objectId == null) {
+          return null;
+      }
 
-  private boolean isReachableFrom(String desc, RevWalk walk, RevCommit commit, Stream<ObjectId> ids)
-      throws IOException {
-    return checker.isReachableFrom(desc, walk, commit, ids.collect(toList()));
+      try {
+          return walk.parseCommit(objectId);
+      } catch (IOException e) {
+          return null;
+      }
   }
 }
