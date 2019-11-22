@@ -47,7 +47,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
+import org.eclipse.jgit.annotations.Nullable;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
@@ -98,34 +101,47 @@ public class VisibilityChecker {
    *     or ids pointing to wrong kind of objects are ignored.
    * @return true if we can get to {@code commit} from the {@code starters}
    * @throws IOException a pack file or loose object could not be read
+   *
+   * @deprecated see {@link #isReachableFrom(String, RevWalk, RevCommit, Stream)}
    */
   protected boolean isReachableFrom(
       String description, RevWalk walk, RevCommit commit, Collection<ObjectId> starters)
       throws IOException {
-    if (starters.isEmpty()) {
-      return false;
-    }
+    Stream<RevCommit> startCommits = starters.stream()
+        .map(objId -> objectIdToRevCommit(walk, objId))
+        .filter(Objects::nonNull);
+    return isReachableFrom(description, walk, commit, startCommits);
+  }
 
-    Collection<RevCommit> startCommits = objectIdsToCommits(walk, starters);
-    if (startCommits.isEmpty()) {
-      return false;
-    }
-
+  /**
+   * Check if {@code commit} is reachable starting from {@code starters}.
+   *
+   * @param description Description of the ids (e.g. "heads"). Mainly for tracing.
+   * @param walk The walk to use for the reachability check
+   * @param commit The starting commit. It *MUST* come from the walk in use
+   * @param starters visible commits. Anything reachable from these commits is visible. Missing ids
+   *     or ids pointing to wrong kind of objects are ignored.
+   * @return true if we can get to {@code commit} from the {@code starters}
+   * @throws IOException a pack file or loose object could not be read
+   */
+  protected boolean isReachableFrom(String description, RevWalk walk, RevCommit commit, Stream<RevCommit> starters)
+          throws MissingObjectException, IncorrectObjectTypeException, IOException {
     ReachabilityChecker checker = walk.createReachabilityChecker();
-
-    Optional<RevCommit> unreachable = checker.areAllReachable(Arrays.asList(commit), startCommits);
+    Optional<RevCommit> unreachable = checker.areAllReachable(Arrays.asList(commit), starters);
     return !unreachable.isPresent();
   }
 
-  private static Collection<RevCommit> objectIdsToCommits(RevWalk walk,  Collection<ObjectId> ids) throws IOException {
-    List<RevCommit> commits = new ArrayList<>(ids.size());
-    for (ObjectId id: ids) {
-      try {
-        commits.add(walk.parseCommit(id));
-      } catch (MissingObjectException | IncorrectObjectTypeException e) {
-        // Ignore non-commits or missing sha-1 as start points.
+  @Nullable
+  private static RevCommit objectIdToRevCommit(RevWalk walk,
+          ObjectId objectId) {
+      if (objectId == null) {
+          return null;
       }
-    }
-    return commits;
+
+      try {
+          return walk.parseCommit(objectId);
+      } catch (IOException e) {
+          return null;
+      }
   }
 }
