@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "65d53999_31723825",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:48:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d23d88f_3ce7e701",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 38
+      },
+      "revId": "9764a3ed98e73234fb23ea446fef8b3d4af5582e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ad463c3_c9ee578c",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:48:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b7577e_9d947960",
+      "range": {
+        "startLine": 95,
+        "startChar": 16,
+        "endLine": 95,
+        "endChar": 24
+      },
+      "revId": "9764a3ed98e73234fb23ea446fef8b3d4af5582e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12932c90_d02db14a",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
         "patchSetId": 13
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "867565ab_610e06d7",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:48:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12932c90_d02db14a",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "9764a3ed98e73234fb23ea446fef8b3d4af5582e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9135fbb_6071d9fb",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
         "patchSetId": 13
@@ -85,6 +157,24 @@
       "revId": "9764a3ed98e73234fb23ea446fef8b3d4af5582e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d5a967_edc2edab",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:48:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9135fbb_6071d9fb",
+      "revId": "9764a3ed98e73234fb23ea446fef8b3d4af5582e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
