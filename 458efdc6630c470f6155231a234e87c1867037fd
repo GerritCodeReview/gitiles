@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6659c6cd_b6516002",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:17:15Z",
+      "side": 1,
+      "message": "The Optional was the way to tell the caller what wasn\u0027t reachable. See UploadPack#checkNotAdvertisedWants, where it needs to return a \"want not valid xxxxx\" to the client.\n\nWe could rename the function, but I don\u0027t have good ideas: findUnreachable()? filterUnreachable? getUnreachable? discardReachable?\n\nIn JGit 5.6 we will change the API from Collection to Stream, so it is good moment to tune it.",
+      "parentUuid": "1a3699a5_a57e9cde",
+      "revId": "458efdc6630c470f6155231a234e87c1867037fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52769f01_eb2c0ca0",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
         "patchSetId": 11
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "c26f5909_2af239eb",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:17:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52769f01_eb2c0ca0",
+      "range": {
+        "startLine": 122,
+        "startChar": 17,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "458efdc6630c470f6155231a234e87c1867037fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aab127b7_482c3551",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
         "patchSetId": 11
@@ -62,6 +104,30 @@
       "revId": "458efdc6630c470f6155231a234e87c1867037fd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "316720f9_9d32a050",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2019-11-25T22:17:15Z",
+      "side": 1,
+      "message": "Thanks for the commet.\n\n#isVisible is only called from RevisionParser and the ids have already been parse in the RevWalk, so at this point there shouldn\u0027t be any MissingObjectException (unless I missed some calling path?). I added a TODO. A later commit can make it an AssertionError().\n\nThe objectIds can come directly from the URL, so they are not necessarily pointed by a reference. I removed the misleading \"pointing\" in the javadoc.",
+      "parentUuid": "aab127b7_482c3551",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 72
+      },
+      "revId": "458efdc6630c470f6155231a234e87c1867037fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
