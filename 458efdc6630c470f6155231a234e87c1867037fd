@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a3699a5_a57e9cde",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T21:32:19Z",
+      "side": 1,
+      "message": "can inline this:\n\n  ImmutableList\u003cRevCommit\u003e starts \u003d starts(walk, oids);\n  return !walk.createReachabilityChecker()\n    .areAllReachable(ImmutableList.of(commit), starts).isPresent();\n\nThe areAllReachable API is a bit confusing. The name suggests it will return a boolean, but instead, it returns an Optional\u003cRevCommit\u003e. Is it too late to simplify it?",
+      "revId": "458efdc6630c470f6155231a234e87c1867037fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52769f01_eb2c0ca0",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T21:32:19Z",
+      "side": 1,
+      "message": "Could this return an ImmutableList?",
+      "range": {
+        "startLine": 122,
+        "startChar": 17,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "458efdc6630c470f6155231a234e87c1867037fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab127b7_482c3551",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T21:32:19Z",
+      "side": 1,
+      "message": "What is a stray ref? I think the relevant point here is that we\u0027re only committing reachability for commits. Refs pointing to a tree *do* affect reachability, but not for commits.\n\nSo this comment can saying something like\n\n // Ignore, doesn\u0027t affect commit reachability.\n\nWhen would MissingObjectException occur? Do we actually need to catch that one? (If we\u0027re catching it to avoid unrelated changes in this commit, then that\u0027s good, but might be worth a TODO.)\n\nThe javadoc for isReachableFrom says \"Missing ids or ids pointing to wrong kind of objects are ignored\" --- are these actually always from refs, or do they sometimes come from some other source?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 72
+      },
+      "revId": "458efdc6630c470f6155231a234e87c1867037fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
