@@ -34,6 +34,24 @@
       "revId": "ff9462f1c3c6ddeabf2565434df6bb00a21579ed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1653604e_8a1c3867",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T18:54:24Z",
+      "side": 1,
+      "message": "Do you have a link to the followup change?",
+      "parentUuid": "fa3178e3_6b422d92",
+      "revId": "ff9462f1c3c6ddeabf2565434df6bb00a21579ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }

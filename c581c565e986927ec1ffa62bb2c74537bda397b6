@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "0c52de53_aea42234",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T18:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13caf93e_f8d64bc2",
+      "revId": "c581c565e986927ec1ffa62bb2c74537bda397b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bce7bdf_c2ca3e3c",
         "filename": "java/com/google/gitiles/VisibilityCache.java",
         "patchSetId": 6
@@ -79,6 +97,24 @@
       "revId": "c581c565e986927ec1ffa62bb2c74537bda397b6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50161a8c_5bed5d9c",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T18:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bce7bdf_c2ca3e3c",
+      "revId": "c581c565e986927ec1ffa62bb2c74537bda397b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -136,6 +172,24 @@
       "revId": "c581c565e986927ec1ffa62bb2c74537bda397b6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36d695c1_66e71ee9",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-25T18:54:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd59fbb9_53c9fb89",
+      "revId": "c581c565e986927ec1ffa62bb2c74537bda397b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
