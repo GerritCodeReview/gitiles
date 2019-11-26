@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56b81f74_cfed2d40",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-26T00:13:38Z",
+      "side": 1,
+      "message": "It doesn\u0027t have a boolean parameter any more.",
+      "range": {
+        "startLine": 101,
+        "startChar": 26,
+        "endLine": 101,
+        "endChar": 50
+      },
+      "revId": "9ca395d88389cd3d6fdcdb442f5ad57ef197dd7d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a92754_d4c31543",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2019-11-26T00:13:38Z",
+      "side": 1,
+      "message": "Likewise.",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "9ca395d88389cd3d6fdcdb442f5ad57ef197dd7d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
