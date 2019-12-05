@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a7272e4_2edd9dd3",
+        "filename": "resources/com/google/gitiles/templates/BlameDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep the original formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d3fad8_4b793f27",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "547ddbf1_c3659f99",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e58a3f_7690c34d",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8705eb_f660f59f",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d65afc2a_a82a574e",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69eae923_a0998a7b",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8719e7_2cf587b3",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ae51c06_4944c1c2",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92544864_11f62344",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e35bd0_0f21b64a",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7a61da9_92407c6d",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1017393
+      },
+      "writtenOn": "2019-12-05T08:32:10Z",
+      "side": 1,
+      "message": "Keep formatting.",
+      "revId": "f525cef02bcbfd87e9d3738aa422d9faa9889c6b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
