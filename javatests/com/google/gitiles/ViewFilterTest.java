@@ -16,7 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
-import static com.google.gitiles.MoreAssert.assertThrows;
+import static org.junit.Assert.assertThrows;
 
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.GitilesView.Type;
