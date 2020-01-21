@@ -642,7 +642,7 @@ public class GitilesView {
         url.append(repositoryName).append("/+describe");
         break;
       case REVISION:
-        url.append(repositoryName).append("/+/").append(revision.getName());
+        url.append(repositoryName).append("/+show/").append(revision.getName());
         break;
       case ARCHIVE:
         url.append(repositoryName).append("/+archive/").append(revision.getName());
@@ -652,12 +652,6 @@ public class GitilesView {
         url.append(firstNonNull(extension, DEFAULT_ARCHIVE_EXTENSION));
         break;
       case PATH:
-        url.append(repositoryName)
-            .append("/+/")
-            .append(revision.getName())
-            .append('/')
-            .append(path);
-        break;
       case SHOW:
         url.append(repositoryName)
             .append("/+show/")
@@ -666,7 +660,7 @@ public class GitilesView {
             .append(path);
         break;
       case DIFF:
-        url.append(repositoryName).append("/+/");
+        url.append(repositoryName).append("/+diff/");
         if (isFirstParent(revision, oldRevision)) {
           url.append(revision.getName()).append("^!");
         } else {
@@ -695,13 +689,7 @@ public class GitilesView {
             .append(path);
         break;
       case DOC:
-        url.append(repositoryName);
-        if (path != null && path.endsWith(".md")) {
-          url.append("/+/");
-        } else {
-          url.append("/+doc/");
-        }
-        url.append(revision.getName());
+        url.append(repositoryName).append("/+doc/").append(revision.getName());
         if (path != null) {
           url.append('/').append(path);
         }

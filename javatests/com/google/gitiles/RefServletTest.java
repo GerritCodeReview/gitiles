@@ -243,9 +243,11 @@ public class RefServletTest extends ServletTest {
 
     assertThat(buildBranchesSoyData())
         .containsExactly(
-            ref("/b/test/+/refs/heads/bar", "bar"), ref("/b/test/+/refs/heads/foo", "foo"))
+            ref("/b/test/+show/refs/heads/bar", "bar"), ref("/b/test/+show/refs/heads/foo", "foo"))
         .inOrder();
-    assertThat(buildTagsSoyData()).containsExactly(ref("/b/test/+/refs/tags/baz", "baz")).inOrder();
+    assertThat(buildTagsSoyData())
+        .containsExactly(ref("/b/test/+show/refs/tags/baz", "baz"))
+        .inOrder();
   }
 
   @Test
@@ -256,9 +258,11 @@ public class RefServletTest extends ServletTest {
 
     assertThat(buildBranchesSoyData())
         .containsExactly(
-            ref("/b/test/+/refs/heads/bar", "bar"), ref("/b/test/+/refs/heads/foo", "foo"))
+            ref("/b/test/+show/refs/heads/bar", "bar"), ref("/b/test/+show/refs/heads/foo", "foo"))
         .inOrder();
-    assertThat(buildTagsSoyData()).containsExactly(ref("/b/test/+/refs/tags/foo", "foo")).inOrder();
+    assertThat(buildTagsSoyData())
+        .containsExactly(ref("/b/test/+show/refs/tags/foo", "foo"))
+        .inOrder();
   }
 
   @Test
@@ -268,9 +272,11 @@ public class RefServletTest extends ServletTest {
     repo.branch("refs/tags/foo").commit().create();
 
     assertThat(buildBranchesSoyData())
-        .containsExactly(ref("/b/test/+/refs/heads/foo", "foo"))
+        .containsExactly(ref("/b/test/+show/refs/heads/foo", "foo"))
         .inOrder();
-    assertThat(buildTagsSoyData()).containsExactly(ref("/b/test/+/refs/tags/foo", "foo")).inOrder();
+    assertThat(buildTagsSoyData())
+        .containsExactly(ref("/b/test/+show/refs/tags/foo", "foo"))
+        .inOrder();
   }
 
   @Test
@@ -280,8 +286,8 @@ public class RefServletTest extends ServletTest {
 
     assertThat(buildBranchesSoyData())
         .containsExactly(
-            ref("/b/test/+/refs/heads/foo", "foo"),
-            ref("/b/test/+/refs/heads/refs/heads/foo", "refs/heads/foo"))
+            ref("/b/test/+show/refs/heads/foo", "foo"),
+            ref("/b/test/+show/refs/heads/refs/heads/foo", "refs/heads/foo"))
         .inOrder();
   }
 

@@ -93,12 +93,12 @@ public class LinkTest {
             .setFilePath("index.md")
             .build();
 
-    assertThat(md.href("/")).isEqualTo("/g/repo/+/HEAD/");
-    assertThat(md.href("/index.md")).isEqualTo("/g/repo/+/HEAD/index.md");
-    assertThat(md.href("/doc/index.md")).isEqualTo("/g/repo/+/HEAD/doc/index.md");
+    assertThat(md.href("/")).isEqualTo("/g/repo/+show/HEAD/");
+    assertThat(md.href("/index.md")).isEqualTo("/g/repo/+doc/HEAD/index.md");
+    assertThat(md.href("/doc/index.md")).isEqualTo("/g/repo/+doc/HEAD/doc/index.md");
 
     // GitilesView trims trailing '/' from path expressions.
-    assertThat(md.href("/doc/")).isEqualTo("/g/repo/+/HEAD/doc");
+    assertThat(md.href("/doc/")).isEqualTo("/g/repo/+show/HEAD/doc");
   }
 
   @Test
@@ -129,12 +129,12 @@ public class LinkTest {
 
   private static void testMarkdownInRoot(MarkdownToHtml md) {
     assertThat(md.href("#Help")).isEqualTo("#Help");
-    assertThat(md.href("setup.md#Help")).isEqualTo("/g/repo/+/HEAD/setup.md#Help");
+    assertThat(md.href("setup.md#Help")).isEqualTo("/g/repo/+doc/HEAD/setup.md#Help");
 
-    assertThat(md.href("setup.md")).isEqualTo("/g/repo/+/HEAD/setup.md");
-    assertThat(md.href("./setup.md")).isEqualTo("/g/repo/+/HEAD/setup.md");
-    assertThat(md.href("./")).isEqualTo("/g/repo/+/HEAD/");
-    assertThat(md.href(".")).isEqualTo("/g/repo/+/HEAD/");
+    assertThat(md.href("setup.md")).isEqualTo("/g/repo/+doc/HEAD/setup.md");
+    assertThat(md.href("./setup.md")).isEqualTo("/g/repo/+doc/HEAD/setup.md");
+    assertThat(md.href("./")).isEqualTo("/g/repo/+show/HEAD/");
+    assertThat(md.href(".")).isEqualTo("/g/repo/+show/HEAD/");
 
     assertThat(md.href("../")).isEqualTo("about:invalid#zSoyz");
     assertThat(md.href("../../")).isEqualTo("about:invalid#zSoyz");
@@ -144,17 +144,17 @@ public class LinkTest {
 
   private static void testMarkdownInTree(MarkdownToHtml md) {
     assertThat(md.href("#Help")).isEqualTo("#Help");
-    assertThat(md.href("setup.md#Help")).isEqualTo("/g/repo/+/HEAD/doc/setup.md#Help");
+    assertThat(md.href("setup.md#Help")).isEqualTo("/g/repo/+doc/HEAD/doc/setup.md#Help");
 
-    assertThat(md.href("setup.md")).isEqualTo("/g/repo/+/HEAD/doc/setup.md");
-    assertThat(md.href("./setup.md")).isEqualTo("/g/repo/+/HEAD/doc/setup.md");
-    assertThat(md.href("../setup.md")).isEqualTo("/g/repo/+/HEAD/setup.md");
-    assertThat(md.href("../tech/setup.md")).isEqualTo("/g/repo/+/HEAD/tech/setup.md");
+    assertThat(md.href("setup.md")).isEqualTo("/g/repo/+doc/HEAD/doc/setup.md");
+    assertThat(md.href("./setup.md")).isEqualTo("/g/repo/+doc/HEAD/doc/setup.md");
+    assertThat(md.href("../setup.md")).isEqualTo("/g/repo/+doc/HEAD/setup.md");
+    assertThat(md.href("../tech/setup.md")).isEqualTo("/g/repo/+doc/HEAD/tech/setup.md");
 
-    assertThat(md.href("./")).isEqualTo("/g/repo/+/HEAD/doc");
-    assertThat(md.href(".")).isEqualTo("/g/repo/+/HEAD/doc");
-    assertThat(md.href("../")).isEqualTo("/g/repo/+/HEAD/");
-    assertThat(md.href("..")).isEqualTo("/g/repo/+/HEAD/");
+    assertThat(md.href("./")).isEqualTo("/g/repo/+show/HEAD/doc");
+    assertThat(md.href(".")).isEqualTo("/g/repo/+show/HEAD/doc");
+    assertThat(md.href("../")).isEqualTo("/g/repo/+show/HEAD/");
+    assertThat(md.href("..")).isEqualTo("/g/repo/+show/HEAD/");
 
     assertThat(md.href("../../")).isEqualTo("about:invalid#zSoyz");
     assertThat(md.href("../..")).isEqualTo("about:invalid#zSoyz");
@@ -258,13 +258,15 @@ public class LinkTest {
             .setRequestUri("/g/repo/+/HEAD/docs/index.md")
             .build();
 
-    assertThat(md.href("help.md")).isEqualTo("help.md");
-    assertThat(md.href("/docs/help.md")).isEqualTo("help.md");
-    assertThat(md.href("technical/format.md")).isEqualTo("technical/format.md");
-    assertThat(md.href("/docs/technical/format.md")).isEqualTo("technical/format.md");
+    assertThat(md.href("help.md")).isEqualTo("/g/repo/+doc/HEAD/docs/help.md");
+    assertThat(md.href("/docs/help.md")).isEqualTo("/g/repo/+doc/HEAD/docs/help.md");
+    assertThat(md.href("technical/format.md"))
+        .isEqualTo("/g/repo/+doc/HEAD/docs/technical/format.md");
+    assertThat(md.href("/docs/technical/format.md"))
+        .isEqualTo("/g/repo/+doc/HEAD/docs/technical/format.md");
 
-    assertThat(md.href("../README.md")).isEqualTo("/g/repo/+/HEAD/README.md");
-    assertThat(md.href("../src/catalog.md")).isEqualTo("/g/repo/+/HEAD/src/catalog.md");
-    assertThat(md.href("/src/catalog.md")).isEqualTo("/g/repo/+/HEAD/src/catalog.md");
+    assertThat(md.href("../README.md")).isEqualTo("/g/repo/+doc/HEAD/README.md");
+    assertThat(md.href("../src/catalog.md")).isEqualTo("/g/repo/+doc/HEAD/src/catalog.md");
+    assertThat(md.href("/src/catalog.md")).isEqualTo("/g/repo/+doc/HEAD/src/catalog.md");
   }
 }

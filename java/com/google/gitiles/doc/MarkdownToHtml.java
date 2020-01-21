@@ -418,6 +418,8 @@ public class MarkdownToHtml implements Visitor {
     GitilesView.Builder b;
     if (view.getType() == GitilesView.Type.ROOTED_DOC) {
       b = GitilesView.rootedDoc();
+    } else if (dest.endsWith(".md")) {
+      b = GitilesView.doc();
     } else {
       b = GitilesView.path();
     }

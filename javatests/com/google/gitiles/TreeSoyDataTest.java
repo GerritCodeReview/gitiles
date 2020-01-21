@@ -54,13 +54,13 @@ public class TreeSoyDataTest {
             .setPathPart("a/b/c")
             .build();
     assertThat(resolveTargetUrl(view, "/foo")).isNull();
-    assertThat(resolveTargetUrl(view, "../../")).isEqualTo("/x/repo/+/m/a");
-    assertThat(resolveTargetUrl(view, ".././../")).isEqualTo("/x/repo/+/m/a");
-    assertThat(resolveTargetUrl(view, "..//../")).isEqualTo("/x/repo/+/m/a");
-    assertThat(resolveTargetUrl(view, "../../d")).isEqualTo("/x/repo/+/m/a/d");
-    assertThat(resolveTargetUrl(view, "../../..")).isEqualTo("/x/repo/+/m/");
-    assertThat(resolveTargetUrl(view, "../../d/e")).isEqualTo("/x/repo/+/m/a/d/e");
-    assertThat(resolveTargetUrl(view, "../d/../e/../")).isEqualTo("/x/repo/+/m/a/b");
+    assertThat(resolveTargetUrl(view, "../../")).isEqualTo("/x/repo/+show/m/a");
+    assertThat(resolveTargetUrl(view, ".././../")).isEqualTo("/x/repo/+show/m/a");
+    assertThat(resolveTargetUrl(view, "..//../")).isEqualTo("/x/repo/+show/m/a");
+    assertThat(resolveTargetUrl(view, "../../d")).isEqualTo("/x/repo/+show/m/a/d");
+    assertThat(resolveTargetUrl(view, "../../..")).isEqualTo("/x/repo/+show/m/");
+    assertThat(resolveTargetUrl(view, "../../d/e")).isEqualTo("/x/repo/+show/m/a/d/e");
+    assertThat(resolveTargetUrl(view, "../d/../e/../")).isEqualTo("/x/repo/+show/m/a/b");
     assertThat(resolveTargetUrl(view, "../../../../")).isNull();
     assertThat(resolveTargetUrl(view, "../../a/../../..")).isNull();
   }

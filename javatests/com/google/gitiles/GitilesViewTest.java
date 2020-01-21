@@ -193,13 +193,13 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isNull();
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"))
+            breadcrumb("master", "/b/foo/bar/+show/master"))
         .inOrder();
   }
 
@@ -241,14 +241,14 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isEqualTo("");
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master/");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"))
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"))
         .inOrder();
   }
 
@@ -272,15 +272,15 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isEqualTo("file");
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/file");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master/file");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"),
-            breadcrumb("file", "/b/foo/bar/+/master/file"))
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"),
+            breadcrumb("file", "/b/foo/bar/+show/master/file"))
         .inOrder();
   }
 
@@ -303,7 +303,7 @@ public class GitilesViewTest {
     assertThat(view.getRevision().getName()).isEqualTo("master");
     assertThat(view.getPathPart()).isEqualTo("README.md");
     assertThat(HOST.getParameters()).isEmpty();
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/README.md");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+doc/master/README.md");
   }
 
   @Test
@@ -390,18 +390,18 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/path/to/a/file");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master/path/to/a/file");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"),
-            breadcrumb("path", "/b/foo/bar/+/master/path"),
-            breadcrumb("to", "/b/foo/bar/+/master/path/to"),
-            breadcrumb("a", "/b/foo/bar/+/master/path/to/a"),
-            breadcrumb("file", "/b/foo/bar/+/master/path/to/a/file"))
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"),
+            breadcrumb("path", "/b/foo/bar/+show/master/path"),
+            breadcrumb("to", "/b/foo/bar/+show/master/path/to"),
+            breadcrumb("a", "/b/foo/bar/+show/master/path/to/a"),
+            breadcrumb("file", "/b/foo/bar/+show/master/path/to/a/file"))
         .inOrder();
   }
 
@@ -428,18 +428,18 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master%5E%21/path/to/a/file");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+diff/master%5E%21/path/to/a/file");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master^!", "/b/foo/bar/+/master%5E%21/"),
-            breadcrumb(".", "/b/foo/bar/+/master%5E%21/"),
-            breadcrumb("path", "/b/foo/bar/+/master%5E%21/path"),
-            breadcrumb("to", "/b/foo/bar/+/master%5E%21/path/to"),
-            breadcrumb("a", "/b/foo/bar/+/master%5E%21/path/to/a"),
-            breadcrumb("file", "/b/foo/bar/+/master%5E%21/path/to/a/file"))
+            breadcrumb("master^!", "/b/foo/bar/+diff/master%5E%21/"),
+            breadcrumb(".", "/b/foo/bar/+diff/master%5E%21/"),
+            breadcrumb("path", "/b/foo/bar/+diff/master%5E%21/path"),
+            breadcrumb("to", "/b/foo/bar/+diff/master%5E%21/path/to"),
+            breadcrumb("a", "/b/foo/bar/+diff/master%5E%21/path/to/a"),
+            breadcrumb("file", "/b/foo/bar/+diff/master%5E%21/path/to/a/file"))
         .inOrder();
   }
 
@@ -464,18 +464,18 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master%5E%21/path/to/a/file");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+diff/master%5E%21/path/to/a/file");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master^!", "/b/foo/bar/+/master%5E%21/"),
-            breadcrumb(".", "/b/foo/bar/+/master%5E%21/"),
-            breadcrumb("path", "/b/foo/bar/+/master%5E%21/path"),
-            breadcrumb("to", "/b/foo/bar/+/master%5E%21/path/to"),
-            breadcrumb("a", "/b/foo/bar/+/master%5E%21/path/to/a"),
-            breadcrumb("file", "/b/foo/bar/+/master%5E%21/path/to/a/file"))
+            breadcrumb("master^!", "/b/foo/bar/+diff/master%5E%21/"),
+            breadcrumb(".", "/b/foo/bar/+diff/master%5E%21/"),
+            breadcrumb("path", "/b/foo/bar/+diff/master%5E%21/path"),
+            breadcrumb("to", "/b/foo/bar/+diff/master%5E%21/path/to"),
+            breadcrumb("a", "/b/foo/bar/+diff/master%5E%21/path/to/a"),
+            breadcrumb("file", "/b/foo/bar/+diff/master%5E%21/path/to/a/file"))
         .inOrder();
   }
 
@@ -502,18 +502,18 @@ public class GitilesViewTest {
     assertThat(view.getPathPart()).isEqualTo("path/to/a/file");
     assertThat(HOST.getParameters()).isEmpty();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/efab5678..master/path/to/a/file");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+diff/efab5678..master/path/to/a/file");
     assertThat(view.getBreadcrumbs())
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("efab5678..master", "/b/foo/bar/+/efab5678..master/"),
-            breadcrumb(".", "/b/foo/bar/+/efab5678..master/"),
-            breadcrumb("path", "/b/foo/bar/+/efab5678..master/path"),
-            breadcrumb("to", "/b/foo/bar/+/efab5678..master/path/to"),
-            breadcrumb("a", "/b/foo/bar/+/efab5678..master/path/to/a"),
-            breadcrumb("file", "/b/foo/bar/+/efab5678..master/path/to/a/file"))
+            breadcrumb("efab5678..master", "/b/foo/bar/+diff/efab5678..master/"),
+            breadcrumb(".", "/b/foo/bar/+diff/efab5678..master/"),
+            breadcrumb("path", "/b/foo/bar/+diff/efab5678..master/path"),
+            breadcrumb("to", "/b/foo/bar/+diff/efab5678..master/path/to"),
+            breadcrumb("a", "/b/foo/bar/+diff/efab5678..master/path/to/a"),
+            breadcrumb("file", "/b/foo/bar/+diff/efab5678..master/path/to/a/file"))
         .inOrder();
   }
 
@@ -744,9 +744,9 @@ public class GitilesViewTest {
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"),
-            breadcrumb("dir", "/b/foo/bar/+/master/dir"),
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"),
+            breadcrumb("dir", "/b/foo/bar/+show/master/dir"),
             breadcrumb("file", "/b/foo/bar/+blame/master/dir/file"))
         .inOrder();
   }
@@ -812,30 +812,30 @@ public class GitilesViewTest {
             .setPathPart("/path/to/a/file")
             .build();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/path/to/a/file");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master/path/to/a/file");
     assertThat(view.getBreadcrumbs(ImmutableList.of(false, true, true)))
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"),
-            breadcrumb("path", "/b/foo/bar/+/master/path"),
-            breadcrumb("to", "/b/foo/bar/+/master/path/to?autodive=0"),
-            breadcrumb("a", "/b/foo/bar/+/master/path/to/a?autodive=0"),
-            breadcrumb("file", "/b/foo/bar/+/master/path/to/a/file"))
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"),
+            breadcrumb("path", "/b/foo/bar/+show/master/path"),
+            breadcrumb("to", "/b/foo/bar/+show/master/path/to?autodive=0"),
+            breadcrumb("a", "/b/foo/bar/+show/master/path/to/a?autodive=0"),
+            breadcrumb("file", "/b/foo/bar/+show/master/path/to/a/file"))
         .inOrder();
     assertThat(view.getBreadcrumbs(ImmutableList.of(true, false, false)))
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"),
-            breadcrumb("path", "/b/foo/bar/+/master/path?autodive=0"),
-            breadcrumb("to", "/b/foo/bar/+/master/path/to"),
-            breadcrumb("a", "/b/foo/bar/+/master/path/to/a"),
-            breadcrumb("file", "/b/foo/bar/+/master/path/to/a/file"))
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"),
+            breadcrumb("path", "/b/foo/bar/+show/master/path?autodive=0"),
+            breadcrumb("to", "/b/foo/bar/+show/master/path/to"),
+            breadcrumb("a", "/b/foo/bar/+show/master/path/to/a"),
+            breadcrumb("file", "/b/foo/bar/+show/master/path/to/a/file"))
         .inOrder();
   }
 
@@ -850,14 +850,14 @@ public class GitilesViewTest {
             .setPathPart("")
             .build();
 
-    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+/master/");
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+show/master/");
     assertThat(view.getBreadcrumbs(ImmutableList.<Boolean>of()))
         .containsExactly(
             breadcrumb("host", "/b/?format=HTML"),
             breadcrumb("foo", "/b/foo/"),
             breadcrumb("bar", "/b/foo/bar/"),
-            breadcrumb("master", "/b/foo/bar/+/master"),
-            breadcrumb(".", "/b/foo/bar/+/master/"))
+            breadcrumb("master", "/b/foo/bar/+show/master"),
+            breadcrumb(".", "/b/foo/bar/+show/master/"))
         .inOrder();
   }
 

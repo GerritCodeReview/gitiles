@@ -490,10 +490,11 @@ public class ViewFilterTest {
     RevCommit master = repo.branch("refs/heads/master").commit().parent(parent).create();
     GitilesView view;
 
-    assertThat(getView("/repo/+/master").toUrl()).isEqualTo("/b/repo/+/master");
-    assertThat(getView("/repo/+/" + master.name()).toUrl()).isEqualTo("/b/repo/+/" + master.name());
-    assertThat(getRedirectUrl("/repo/+/master~")).isEqualTo("/b/repo/+/" + parent.name());
-    assertThat(getRedirectUrl("/repo/+/master^")).isEqualTo("/b/repo/+/" + parent.name());
+    assertThat(getView("/repo/+/master").toUrl()).isEqualTo("/b/repo/+show/master");
+    assertThat(getView("/repo/+/" + master.name()).toUrl())
+        .isEqualTo("/b/repo/+show/" + master.name());
+    assertThat(getRedirectUrl("/repo/+/master~")).isEqualTo("/b/repo/+show/" + parent.name());
+    assertThat(getRedirectUrl("/repo/+/master^")).isEqualTo("/b/repo/+show/" + parent.name());
 
     view = getView("/repo/+log/master~..master/");
     assertThat(view.getRevision().getName()).isEqualTo("master");
