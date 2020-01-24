@@ -80,11 +80,11 @@ public class DescribeServlet extends BaseServlet {
     try {
       return repo.resolve(rev);
     } catch (RevisionSyntaxException e) {
-      throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER)
+      throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER, e)
           .withPublicErrorMessage(
               "Invalid revision syntax: %s", RefServlet.sanitizeRefForText(rev));
     } catch (AmbiguousObjectException e) {
-      throw new GitilesRequestFailureException(FailureReason.AMBIGUOUS_OBJECT)
+      throw new GitilesRequestFailureException(FailureReason.AMBIGUOUS_OBJECT, e)
           .withPublicErrorMessage(
               "Ambiguous short SHA-1 %s (%s)",
               e.getAbbreviatedObjectId(), Joiner.on(", ").join(e.getCandidates()));
