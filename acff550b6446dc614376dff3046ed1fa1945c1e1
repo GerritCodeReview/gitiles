@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2148817_a8e36c86",
+        "filename": "java/com/google/gitiles/DescribeServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-01-24T07:21:39Z",
+      "side": 1,
+      "message": "The exception is referenced here. Does it still cause the UnusedException warning?",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 16
+      },
+      "revId": "acff550b6446dc614376dff3046ed1fa1945c1e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c5d0ba_7d706245",
+        "filename": "tools/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-01-24T07:21:39Z",
+      "side": 1,
+      "message": "Replace tab with space",
+      "revId": "acff550b6446dc614376dff3046ed1fa1945c1e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
