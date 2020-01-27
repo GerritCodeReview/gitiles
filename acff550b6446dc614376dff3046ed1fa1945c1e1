@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e4861fdb_763fab69",
+        "filename": "java/com/google/gitiles/DescribeServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-01-27T07:27:37Z",
+      "side": 1,
+      "message": "Reverted. Done.",
+      "parentUuid": "f2148817_a8e36c86",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 16
+      },
+      "revId": "acff550b6446dc614376dff3046ed1fa1945c1e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70c5d0ba_7d706245",
         "filename": "tools/BUILD",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "acff550b6446dc614376dff3046ed1fa1945c1e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b708d03c_f48ae2a9",
+        "filename": "tools/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-01-27T07:27:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70c5d0ba_7d706245",
+      "revId": "acff550b6446dc614376dff3046ed1fa1945c1e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
