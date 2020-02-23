@@ -24,6 +24,7 @@ DEPS = [
 
 DEPS_ALL = DEPS + [
     "//lib:jgit-archive",
+    "//lib:diff-match-patch",
     "//lib/guice:guice",
 ]
 
