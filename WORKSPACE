@@ -1,6 +1,6 @@
 workspace(name = "gitiles")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
 
 http_archive(
     name = "rules_python",
@@ -136,6 +136,15 @@ maven_jar(
     name = "diffutils",
     artifact = "com.googlecode.java-diff-utils:diffutils:1.3.0",
     sha1 = "7e060dd5b19431e6d198e91ff670644372f60fbd",
+)
+
+http_file(
+    name = "diff-match-patch",
+    downloaded_file_path = "diff-match-patch.jar",
+    sha256 = "b3496a095c5ac6572e18837d6c6d9c4d88e3b8f4b28828c71a82a1ee59a43130",
+    urls = [
+        "https://github.com/davido/diff-match-patch/releases/download/v1.0.0/diff-match-patch-1.0.0.jar",
+    ],
 )
 
 maven_jar(

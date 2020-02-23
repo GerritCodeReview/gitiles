@@ -1,4 +1,4 @@
-load("@rules_java//java:defs.bzl", "java_library")
+load("@rules_java//java:defs.bzl", "java_import", "java_library")
 
 package(
     default_visibility = ["//visibility:public"],
@@ -94,4 +94,9 @@ java_library(
     name = "errorprone-annotations",
     visibility = ["//visibility:public"],
     exports = ["@error-prone-annotations//jar"],
+)
+
+java_import(
+    name = "diff-match-patch",
+    jars = ["@diff-match-patch//file"],
 )
