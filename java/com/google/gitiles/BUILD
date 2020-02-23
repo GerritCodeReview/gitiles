@@ -4,6 +4,7 @@ load("//tools:stamper.bzl", "stamp")
 
 DEPS = [
     "//java/com/google/gitiles/blame/cache",
+    "//java/com/google/gitiles/diff:intraline-diff",
     "//lib:autolink",
     "//lib:cm-autolink",
     "//lib:cm-yaml-front-matter",
