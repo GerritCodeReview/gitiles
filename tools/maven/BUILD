@@ -5,15 +5,18 @@ maven_package(
     src = {
         "blame-cache": "//java/com/google/gitiles/blame/cache:libcache-src.jar",
         "gitiles-servlet": "//java/com/google/gitiles:libservlet-src.jar",
+        "intraline-diff": "//java/com/google/gitiles/diff:libintraline-diff-src.jar",
     },
     doc = {
         "blame-cache": "//java/com/google/gitiles/blame/cache:cache-javadoc",
         "gitiles-servlet": "//java/com/google/gitiles:servlet-javadoc",
+        "intraline-diff": "//java/com/google/gitiles/diff:intraline-diff-javadoc",
     },
     group = "com.google.gitiles",
     jar = {
         "blame-cache": "//java/com/google/gitiles/blame/cache:cache-stamped",
         "gitiles-servlet": "//java/com/google/gitiles:servlet-stamped",
+        "intraline-diff": "//java/com/google/gitiles/diff:intraline-diff-stamped",
     },
     repository = "gerrit-maven-repository",
     url = "gs://gerrit-maven",

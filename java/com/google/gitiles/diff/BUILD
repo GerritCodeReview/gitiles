@@ -1,0 +1,30 @@
+load("@com_googlesource_gerrit_bazlets//tools:javadoc.bzl", "java_doc")
+load("@rules_java//java:defs.bzl", "java_library")
+load("//tools:stamper.bzl", "stamp")
+
+java_library(
+    name = "intraline-diff",
+    srcs = glob(["**/*.java"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//lib:guava",
+        "//lib:jgit",
+    ],
+)
+
+java_doc(
+    name = "intraline-diff-javadoc",
+    libs = [
+        ":intraline-diff",
+        "//lib:guava",
+        "//lib:jgit",
+    ],
+    pkgs = ["com.google.gitiles.diff"],
+    title = "Intraline Diff API Documentation",
+    visibility = ["//visibility:public"],
+)
+
+stamp(
+    name = "intraline-diff",
+    workspace = "gitiles",
+)

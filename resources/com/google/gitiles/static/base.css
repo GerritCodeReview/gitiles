@@ -47,7 +47,11 @@ html[data-theme="light"] {
   --diff-file-index: #444;
   --diff-hunk: #00c;
   --diff-delete: #c00;
+  --diff-delete-bg: #ffebee;
+  --diff-delete-mark-bg: #ffcdd2;
   --diff-insert: #080;
+  --diff-insert-bg: #d8fed8;
+  --diff-insert-mark-bg: #aaf2aa;
   --diff-change: #960;
   --diff-action-add: #060;
   --diff-action-delete: #600;
@@ -98,7 +102,11 @@ html[data-theme="light"] {
     --diff-file-index: #bdc1c6;
     --diff-hunk: #8ab4f8;
     --diff-delete: #f28b82;
+    --diff-delete-bg: #320404;
+    --diff-delete-mark-bg: #62110f;
     --diff-insert: #81c995;
+    --diff-insert-bg: #182b1f;
+    --diff-insert-mark-bg: #2c553a;
     --diff-change: #fdd663;
     --diff-action-add: #81c995;
     --diff-action-delete: #f28b82;
@@ -141,7 +149,11 @@ html[data-theme="dark"] {
   --diff-file-index: #bdc1c6;
   --diff-hunk: #8ab4f8;
   --diff-delete: #f28b82;
+  --diff-delete-bg: #320404;
+  --diff-delete-mark-bg: #62110f;
   --diff-insert: #81c995;
+  --diff-insert-bg: #182b1f;
+  --diff-insert-mark-bg: #2c553a;
   --diff-change: #fdd663;
   --diff-action-add: #81c995;
   --diff-action-delete: #f28b82;
@@ -752,11 +764,40 @@ a {
   color: var(--diff-hunk);
 }
 .Diff-delete {
-  color: var(--diff-delete);
+  background-color: var(--diff-delete-mark-bg);
+  color: var(--text-color);
+  display: inline-block;
+  min-width: 100%;
 }
 .Diff-insert {
-  color: var(--diff-insert);
+  background-color: var(--diff-insert-mark-bg);
+  color: var(--text-color);
+  display: inline-block;
+  min-width: 100%;
+}
+.Diff-delete.Diff-intraline {
+  background-color: var(--diff-delete-bg);
+}
+.Diff-insert.Diff-intraline {
+  background-color: var(--diff-insert-bg);
 }
 .Diff-change {
   color: var(--diff-change);
+}
+.Diff-change::before {
+  content: " ";
+}
+.Diff-delete::before {
+  color: var(--diff-delete);
+  content: "-";
+}
+.Diff-insert::before {
+  color: var(--diff-insert);
+  content: "+";
+}
+.Diff-delete .Diff-mark {
+  background-color: var(--diff-delete-mark-bg);
+}
+.Diff-insert .Diff-mark {
+  background-color: var(--diff-insert-mark-bg);
 }
