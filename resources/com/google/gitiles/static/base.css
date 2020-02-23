@@ -520,3 +520,18 @@ ul, ol {
 .Diff-insert {
   color: #080;
 }
+.Diff-change::before {
+  content: " ";
+}
+.Diff-delete::before {
+  content: "-";
+}
+.Diff-insert::before {
+  content: "+";
+}
+.Diff-delete .Diff-mark {
+  background-color: rgb(255, 170, 170);
+}
+.Diff-insert .Diff-mark {
+  background-color: rgb(170, 255, 170);
+}

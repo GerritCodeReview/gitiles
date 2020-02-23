@@ -1,4 +1,4 @@
-load("@rules_java//java:defs.bzl", "java_library")
+load("@rules_java//java:defs.bzl", "java_import", "java_library")
 
 package(
     default_visibility = ["//visibility:public"],
@@ -29,3 +29,8 @@ package(
     "ow2-asm-tree",
     "ow2-asm-util",
 ]]
+
+java_import(
+    name = "diff-match-patch",
+    jars = ["@diff-match-patch//file"],
+)

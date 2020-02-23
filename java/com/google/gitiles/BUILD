@@ -23,6 +23,7 @@ DEPS = [
 ]
 
 DEPS_ALL = DEPS + [
+    "//lib:diff-match-patch",
     "//lib/jgit:jgit-archive",
     "//lib/guice:guice",
 ]
