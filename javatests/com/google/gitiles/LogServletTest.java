@@ -80,6 +80,24 @@ public class LogServletTest extends ServletTest {
   }
 
   @Test
+  public void topoKeepBranchTogetherLog() throws Exception {
+    RevCommit a = repo.update("master", repo.commit().add("foo", "foo\n"));
+    RevCommit b1 = repo.update("master", repo.commit().parent(a).add("foo", "foo3\n"));
+    RevCommit c = repo.update("master", repo.commit().parent(a).add("foo", "foo2\n"));
+    RevCommit b2 = repo.update("master", repo.commit().parent(b1).add("foo", "foo4\n"));
+    RevCommit d = repo.update("master", repo.commit().parent(c).parent(b2).add("foo", "foo5\n"));
+
+    Log response = buildJson(LOG, "/repo/+log/master", "topo-order");
+    assertThat(response.log).hasSize(5);
+
+    verifyJsonCommit(response.log.get(0), d);
+    verifyJsonCommit(response.log.get(1), b2);
+    verifyJsonCommit(response.log.get(2), b1);
+    verifyJsonCommit(response.log.get(3), c);
+    verifyJsonCommit(response.log.get(4), a);
+  }
+
+  @Test
   public void follow() throws Exception {
     String contents = "contents";
     RevCommit c1 = repo.branch("master").commit().add("foo", contents).create();
