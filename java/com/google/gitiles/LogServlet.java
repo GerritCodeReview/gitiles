@@ -230,7 +230,7 @@ public class LogServlet extends BaseServlet {
       walk.setFirstParent(true);
     }
     if (isTrue(view, TOPO_ORDER_PARAM)) {
-      walk.sort(RevSort.TOPO, true);
+      walk.sort(RevSort.TOPO_KEEP_BRANCH_TOGETHER, true);
     }
     if (isTrue(view, REVERSE_PARAM)) {
       walk.sort(RevSort.REVERSE, true);
