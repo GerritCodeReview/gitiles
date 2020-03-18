@@ -72,6 +72,7 @@ public class LogServlet extends BaseServlet {
   private static final String NAME_STATUS_PARAM = "name-status";
   private static final String PRETTY_PARAM = "pretty";
   private static final String TOPO_ORDER_PARAM = "topo-order";
+  private static final String TOPO_KEEP_BRANCH_TOGETHER_PARAM = "topo-keep-branch-together";
   private static final String REVERSE_PARAM = "reverse";
   private static final String FIRST_PARENT_PARAM = "first-parent";
 
@@ -231,6 +232,9 @@ public class LogServlet extends BaseServlet {
     }
     if (isTrue(view, TOPO_ORDER_PARAM)) {
       walk.sort(RevSort.TOPO, true);
+    }
+    if (isTrue(view, TOPO_KEEP_BRANCH_TOGETHER_PARAM)) {
+      walk.sort(RevSort.TOPO_KEEP_BRANCH_TOGETHER, true);
     }
     if (isTrue(view, REVERSE_PARAM)) {
       walk.sort(RevSort.REVERSE, true);
