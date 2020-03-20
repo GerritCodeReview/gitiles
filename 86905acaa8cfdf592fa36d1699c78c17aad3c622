@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24a18fda_06c05232",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-03-20T18:44:39Z",
+      "side": 1,
+      "message": "Worth mentioning in the commit message that this makes the behavior more similar to \"git log --topo-order\".",
+      "revId": "86905acaa8cfdf592fa36d1699c78c17aad3c622",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
