@@ -16,6 +16,11 @@ package com.google.gitiles.doc;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.junit.TestRepository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 import com.google.gitiles.ServletTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -195,5 +200,20 @@ public class DocServletTest extends ServletTest {
 
     String html = buildHtml("/repo/+doc/master/README.md");
     assertThat(html).contains("<a href=\"about:invalid#zSoyz\">c</a>");
+  }
+
+  @Test
+  public void liveSnippet() throws Exception {
+    String markdown = "# Section 1\n ## Subsection 1\n Test only.";
+    String source = "void HoverButton::onKeyPress() {\n  return;\n}\n void HoverButton::onKeyRelease() {\n return;\n}\n";
+    RevCommit rc = repo.branch("master")
+        .commit()
+        .add("index.md", markdown)
+        .add("ui/controls/hover_button.cc", source)
+        .create();
+    RevWalk rw = repo.getRevWalk();
+    LiveSnippetHandler handler = new LiveSnippetHandler(rw.getObjectReader(), null, rc.getTree());
+    handler.parseQuery("index.md", "file://ui/controls/hover_button.cc content:^.*HoverButton::onKeyP.*");
+    assertThat(handler.getSnippet()).isEqualTo("void HoverButton::onKeyPress() {");
   }
 }

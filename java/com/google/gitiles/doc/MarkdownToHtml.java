@@ -133,6 +133,7 @@ public class MarkdownToHtml implements Visitor {
   private final String filePath;
   private final HtmlSanitizer htmlSanitizer;
   private final ImageLoader imageLoader;
+  private final LiveSnippetHandler liveSnippetHandler;
   private boolean outputNamedAnchor = true;
 
   protected MarkdownToHtml(Builder b) {
@@ -142,6 +143,7 @@ public class MarkdownToHtml implements Visitor {
     filePath = b.filePath;
     htmlSanitizer = b.htmlSanitizer;
     imageLoader = newImageLoader(b);
+    liveSnippetHandler = newLiveSnippetHandler(b);
   }
 
   protected HtmlBuilder html() {
@@ -151,6 +153,14 @@ public class MarkdownToHtml implements Visitor {
   private static ImageLoader newImageLoader(Builder b) {
     if (b.reader != null && b.view != null && b.config != null && b.root != null) {
       return new ImageLoader(b.reader, b.view, b.config, b.root);
+    }
+    return null;
+  }
+
+  private static LiveSnippetHandler newLiveSnippetHandler(Builder b) {
+    if (b.reader != null && b.view != null && b.config != null
+        && b.config.liveSnippet && b.root != null) {
+      return new LiveSnippetHandler(b.reader, b.view, b.root);
     }
     return null;
   }
@@ -308,6 +318,15 @@ public class MarkdownToHtml implements Visitor {
 
   @Override
   public void visit(FencedCodeBlock node) {
+    if (liveSnippetHandler != null
+        && node.getInfo().equals(LiveSnippetHandler.LANGUAGE_TYPE)) {
+      liveSnippetHandler.parseQuery(filePath, node.getLiteral());
+      String liveCode = liveSnippetHandler.getSnippet();
+      if (liveCode != null && !liveCode.isEmpty()) {
+        codeInPre(liveSnippetHandler.getLanguage(), liveCode);
+        return;
+      }
+    }
     codeInPre(node.getInfo(), node.getLiteral());
   }
 
