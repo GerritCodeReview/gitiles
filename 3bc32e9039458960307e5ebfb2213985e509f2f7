@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "642a24d9_3b3e6970",
+        "filename": "java/com/google/gitiles/doc/LiveSnippetHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-04-29T02:45:32Z",
+      "side": 1,
+      "message": "Add explicit braces around this block",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 13
+      },
+      "revId": "3bc32e9039458960307e5ebfb2213985e509f2f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
