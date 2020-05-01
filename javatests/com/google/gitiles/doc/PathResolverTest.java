@@ -38,6 +38,13 @@ public class PathResolverTest {
     assertThat(resolve("/doc/index.md", ".././foo.md")).isEqualTo("foo.md");
     assertThat(resolve("/a/b/c/index.md", "../../foo.md")).isEqualTo("a/foo.md");
     assertThat(resolve("/a/index.md", "../../../foo.md")).isNull();
+
+    assertThat(resolve("root/to/index.md", "ui/view.cc")).isEqualTo("root/to/ui/view.cc");
+    assertThat(resolve("root/to/index.md", "view.cc")).isEqualTo("root/to/view.cc");
+    assertThat(resolve("root/to/index.md", "//view.cc")).isEqualTo("view.cc");
+    assertThat(resolve("root/to/index.md", "/view.cc")).isEqualTo("view.cc");
+    assertThat(resolve("root/to/index.md", "../../ui/view.cc")).isEqualTo("ui/view.cc");
+    assertThat(resolve("root/to/index.md", "../../../ui/view.cc")).isNull();
   }
 
   @Test
