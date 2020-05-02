@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b732c4b0_d9f9b57b",
+        "filename": "java/com/google/gitiles/doc/LiveSnippetHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1032624
+      },
+      "writtenOn": "2020-05-02T23:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a28af29e_a1571e9b",
+      "range": {
+        "startLine": 89,
+        "startChar": 18,
+        "endLine": 89,
+        "endChar": 32
+      },
+      "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f858de69_c3168d1d",
         "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1312a236_e68ba98e",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1032624
+      },
+      "writtenOn": "2020-05-02T23:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f858de69_c3168d1d",
+      "range": {
+        "startLine": 327,
+        "startChar": 10,
+        "endLine": 327,
+        "endChar": 49
+      },
+      "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51af6957_c8bc2b19",
         "filename": "javatests/com/google/gitiles/doc/LiveSnippetHandlerTest.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b35093a_d5fcfff9",
+        "filename": "javatests/com/google/gitiles/doc/LiveSnippetHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1032624
+      },
+      "writtenOn": "2020-05-02T23:20:55Z",
+      "side": 1,
+      "message": "This test was moved to DocServletTest. No need anymore. Thanks for spotting this!",
+      "parentUuid": "51af6957_c8bc2b19",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
