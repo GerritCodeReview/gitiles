@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a28af29e_a1571e9b",
+        "filename": "java/com/google/gitiles/doc/LiveSnippetHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-05-02T10:40:42Z",
+      "side": 1,
+      "message": "nit: don\u0027t use String.format in log calls. The logger has a built-in string formatter that will only get invoked when the log level is enabled.",
+      "range": {
+        "startLine": 89,
+        "startChar": 18,
+        "endLine": 89,
+        "endChar": 32
+      },
+      "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f858de69_c3168d1d",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-05-02T10:40:42Z",
+      "side": 1,
+      "message": "!Strings.isNullOrEmpty(liveCode)",
+      "range": {
+        "startLine": 327,
+        "startChar": 10,
+        "endLine": 327,
+        "endChar": 49
+      },
+      "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51af6957_c8bc2b19",
+        "filename": "javatests/com/google/gitiles/doc/LiveSnippetHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-05-02T10:40:42Z",
+      "side": 1,
+      "message": "Is this test intentionally empty?",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "a14751e674e848bca16dc0f4b26a563df5e31708",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
