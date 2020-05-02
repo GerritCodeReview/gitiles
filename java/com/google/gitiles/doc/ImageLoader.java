@@ -16,8 +16,8 @@ package com.google.gitiles.doc;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.io.BaseEncoding;
+import com.google.gitiles.FileTypeMaps;
 import com.google.gitiles.GitilesView;
-import com.google.gitiles.MimeTypes;
 import java.io.IOException;
 import javax.annotation.Nullable;
 import org.eclipse.jgit.errors.LargeObjectException;
@@ -67,7 +67,7 @@ class ImageLoader {
       return null;
     }
 
-    String type = MimeTypes.getMimeType(path);
+    String type = FileTypeMaps.getMimeType(path);
     if (!ALLOWED_TYPES.contains(type)) {
       return null;
     }

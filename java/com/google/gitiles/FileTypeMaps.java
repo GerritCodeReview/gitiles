@@ -1,4 +1,4 @@
-// Copyright (C) 2016 The Android Open Source Project
+// Copyright (C) 2020 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,35 +21,49 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
-public class MimeTypes {
-  public static final String ANY = "application/octet-stream";
-  private static final ImmutableMap<String, String> TYPES;
+public class FileTypeMaps {
+  private static final String MIME_ANY = "application/octet-stream";
+  private static final ImmutableMap<String, String> MIME_TYPES;
+  private static final ImmutableMap<String, String> LANGUAGE_TYPES;
 
-  static {
+  private static ImmutableMap<String, String> initMap(String typePropertiesFile) {
     Properties p = new Properties();
-    try (InputStream in = MimeTypes.class.getResourceAsStream("mime-types.properties")) {
+    try (InputStream in = FileTypeMaps.class.getResourceAsStream(typePropertiesFile)) {
       p.load(in);
     } catch (IOException e) {
-      throw new RuntimeException("Cannot load mime-types.properties", e);
+      throw new RuntimeException("Cannot load language-types.properties", e);
     }
 
     ImmutableMap.Builder<String, String> m = ImmutableMap.builder();
     for (Map.Entry<Object, Object> e : p.entrySet()) {
       m.put(((String) e.getKey()).toLowerCase(), (String) e.getValue());
     }
-    TYPES = m.build();
+    return m.build();
   }
 
-  public static String getMimeType(String path) {
+  static {
+    MIME_TYPES = initMap("mime-types.properties");
+    LANGUAGE_TYPES = initMap("language-types.properties");
+  }
+
+  private static String getType(ImmutableMap<String, String> map, String path, String defaultVal) {
     int d = path.lastIndexOf('.');
     if (d == -1) {
-      return ANY;
+      return defaultVal;
     }
 
     String ext = path.substring(d + 1);
-    String type = TYPES.get(ext.toLowerCase());
-    return MoreObjects.firstNonNull(type, ANY);
+    String type = map.get(ext.toLowerCase());
+    return MoreObjects.firstNonNull(type, defaultVal);
   }
 
-  private MimeTypes() {}
+  public static String getMimeType(String path) {
+    return getType(MIME_TYPES, path, MIME_ANY);
+  }
+
+  public static String getLanguageType(String path) {
+    return getType(LANGUAGE_TYPES, path, "");
+  }
+
+  private FileTypeMaps() {}
 }
