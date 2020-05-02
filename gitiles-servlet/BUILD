@@ -84,5 +84,4 @@ java_doc(
     ],
     pkgs = ["com.google.gitiles"],
     title = "Gitiles API Documentation",
-    visibility = ["//visibility:public"],
 )
