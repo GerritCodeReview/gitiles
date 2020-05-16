@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19433cbe_66f9b297",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-05-16T04:56:32Z",
+      "side": 1,
+      "message": "\u003e Patch Set 1: Code-Review-1\n\u003e \n\u003e \u003e Patch Set 1: Verified-1\n\u003e \u003e \n\u003e \u003e Dev server fails with:\n\u003e \u003e \n\u003e \u003e  Exception in thread \"main\" java.lang.NoClassDefFoundError: javax/servlet/http/HttpSessionIdListener\n\u003e \u003e \tat org.eclipse.jetty.server.handler.ContextHandler.\u003cclinit\u003e(ContextHandler.java:115)\n\u003e \u003e \tat com.google.gitiles.dev.DevServer.staticHandler(DevServer.java:159)\n\u003e \u003e \tat com.google.gitiles.dev.DevServer.handler(DevServer.java:122)\n\u003e \u003e \tat com.google.gitiles.dev.DevServer.\u003cinit\u003e(DevServer.java:112)\n\u003e \u003e \tat com.google.gitiles.dev.Main.main(Main.java:21)\n\u003e \u003e  Caused by: java.lang.ClassNotFoundException: javax.servlet.http.HttpSessionIdListener\n\u003e \u003e \tat java.net.URLClassLoader.findClass(URLClassLoader.java:382)\n\u003e \u003e \tat java.lang.ClassLoader.loadClass(ClassLoader.java:418)\n\u003e \u003e \tat sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:355)\n\u003e \u003e \tat java.lang.ClassLoader.loadClass(ClassLoader.java:351)\n\u003e \u003e \t... 5 more\n\u003e \u003e \n\u003e \u003e I haven\u0027t tried to track it down yet.\n\u003e \n\u003e Is this because the servlet api is outdated? We should also update directly to 9.4.27.v20200227.\n\nYes, after rebasing on the servlet API change, this works.  I\u0027ve also upgraded to 9.4.27.\n\nThe servlet API change needs some more work though; see Jonathan\u0027s comments there.  I haven\u0027t addressed that yet.",
+      "revId": "24ae7037861675c256bd8d445499fc5588b07eda",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
