@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19fc4df7_8dc6a9da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2020-06-29T08:20:17Z",
+      "side": 1,
+      "message": "Gerrit itself provides fonts in weights 400 and 500, so it affects users that want to run\na Gerrit that does not load 3rd party resources (E.g.: through I4f4a0b7dd575cbc27641063e05d13b8a43a51d8b).\n\nWikimedia runs such a setup and we had users complain about it. Our downstream bug at\nhttps://phabricator.wikimedia.org/T256571\nhas screenshots and links showing the issues and differences.",
+      "revId": "0e3b53306f917e2cf54a2d8cb10cc3e62380b9e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
