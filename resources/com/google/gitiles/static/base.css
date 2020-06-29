@@ -55,7 +55,7 @@ ul, ol {
 }
 .u-pre {
   font-size: 10pt;
-  font-weight: 500;
+  font-weight: normal;
   white-space: pre;
 }
 .u-lineNum {
