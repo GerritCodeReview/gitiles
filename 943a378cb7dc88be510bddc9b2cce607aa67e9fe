@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce472b69_015016f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-07-21T15:51:35Z",
+      "side": 1,
+      "message": "What would happen if we left out the font-weight setting altogether? That would feel a little simpler.",
+      "revId": "943a378cb7dc88be510bddc9b2cce607aa67e9fe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
