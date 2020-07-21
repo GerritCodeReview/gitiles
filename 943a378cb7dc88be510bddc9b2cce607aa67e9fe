@@ -16,6 +16,24 @@
       "revId": "943a378cb7dc88be510bddc9b2cce607aa67e9fe",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae972a19_56505d7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2020-07-21T20:42:14Z",
+      "side": 1,
+      "message": "That works just the same. I\u0027ve dropped the `font-weight` in PS4.",
+      "parentUuid": "ce472b69_015016f5",
+      "revId": "943a378cb7dc88be510bddc9b2cce607aa67e9fe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
