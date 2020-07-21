@@ -16,6 +16,23 @@
       "revId": "0e3b53306f917e2cf54a2d8cb10cc3e62380b9e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "281089e9_8116ddd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2020-07-21T14:47:11Z",
+      "side": 1,
+      "message": "It would be great to land this change (it has all needed votes), but I lack `Submit` privilege.\n\nCould someone with `Submit` privilege be so kind and click Submit for me?\nThanks!",
+      "revId": "0e3b53306f917e2cf54a2d8cb10cc3e62380b9e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
