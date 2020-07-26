@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fe443b4_dba761c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1109490
+      },
+      "writtenOn": "2020-07-26T05:15:48Z",
+      "side": 1,
+      "message": "\u003e Change has been successfully merged by Dave Borowitz\n\n",
+      "revId": "51dda4d9c2253e2cd50fd980fd38a8bfae4b0155",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
