@@ -35,7 +35,7 @@ public class ConfigUtilTest {
 
     config.setString("core", "dht", "timeout", "500 ms");
     t = getDuration(config, "core", "dht", "timeout", def);
-    assertThat(t.toMillis()).isEqualTo(500);
+    assertThat(t).isEqualTo(Duration.ofMillis(500));
 
     config.setString("core", "dht", "timeout", "5.2 sec");
     try {
@@ -47,7 +47,7 @@ public class ConfigUtilTest {
 
     config.setString("core", "dht", "timeout", "1 min");
     t = getDuration(config, "core", "dht", "timeout", def);
-    assertThat(t.toMillis()).isEqualTo(60000);
+    assertThat(t).isEqualTo(Duration.ofMinutes(1));
   }
 
   @Test
@@ -57,15 +57,15 @@ public class ConfigUtilTest {
     Duration t;
 
     t = getDuration(config, "core", null, "blank", def);
-    assertThat(t.toMillis()).isEqualTo(1000);
+    assertThat(t).isEqualTo(Duration.ofSeconds(1));
 
     config.setString("core", null, "blank", "");
     t = getDuration(config, "core", null, "blank", def);
-    assertThat(t.toMillis()).isEqualTo(1000);
+    assertThat(t).isEqualTo(Duration.ofSeconds(1));
 
     config.setString("core", null, "blank", " ");
     t = getDuration(config, "core", null, "blank", def);
-    assertThat(t.toMillis()).isEqualTo(1000);
+    assertThat(t).isEqualTo(Duration.ofSeconds(1));
   }
 
   @Test
