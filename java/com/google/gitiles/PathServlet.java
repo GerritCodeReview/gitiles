@@ -578,7 +578,7 @@ public class PathServlet extends BaseServlet {
     }
     int lastSlash = path.lastIndexOf('/');
     if (lastSlash > 0) {
-      return path.substring(0, lastSlash - 1);
+      return path.substring(0, lastSlash);
     } else if (lastSlash == 0) {
       return "/";
     } else {
