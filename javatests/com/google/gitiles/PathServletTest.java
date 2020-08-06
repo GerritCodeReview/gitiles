@@ -149,12 +149,12 @@ public class PathServletTest extends ServletTest {
 
   @Test
   public void symlinkHtml() throws Exception {
-    final RevBlob link = repo.blob("foo");
+    final RevBlob link = repo.blob("./bar");
     repo.branch("master")
         .commit()
-        .add("foo", "contents")
+        .add("foo/bar", "contents")
         .edit(
-            new PathEdit("bar") {
+            new PathEdit("foo/baz") {
               @Override
               public void apply(DirCacheEntry ent) {
                 ent.setFileMode(FileMode.SYMLINK);
@@ -163,9 +163,10 @@ public class PathServletTest extends ServletTest {
             })
         .create();
 
-    Map<String, ?> data = buildData("/repo/+/master/bar");
+    Map<String, ?> data = buildData("/repo/+/master/foo/baz");
     assertThat(data).containsEntry("type", "SYMLINK");
-    assertThat(getBlobData(data)).containsEntry("target", "foo");
+    assertThat(getBlobData(data)).containsEntry("target", "./bar");
+    assertThat(getBlobData(data)).containsEntry("targetUrl", "/b/repo/+/master/foo/bar");
   }
 
   @Test
