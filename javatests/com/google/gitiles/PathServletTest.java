@@ -149,23 +149,12 @@ public class PathServletTest extends ServletTest {
 
   @Test
   public void symlinkHtml() throws Exception {
-    final RevBlob link = repo.blob("foo");
-    repo.branch("master")
-        .commit()
-        .add("foo", "contents")
-        .edit(
-            new PathEdit("bar") {
-              @Override
-              public void apply(DirCacheEntry ent) {
-                ent.setFileMode(FileMode.SYMLINK);
-                ent.setObjectId(link);
-              }
-            })
-        .create();
+    testSymlink("foo", "bar", "foo");
+  }
 
-    Map<String, ?> data = buildData("/repo/+/master/bar");
-    assertThat(data).containsEntry("type", "SYMLINK");
-    assertThat(getBlobData(data)).containsEntry("target", "foo");
+  @Test
+  public void relativeSymlinkHtml() throws Exception {
+    testSymlink("foo/bar", "foo/baz", "./bar");
   }
 
   @Test
@@ -408,6 +397,28 @@ public class PathServletTest extends ServletTest {
         buildResponse("/repo/+/master/foo", "format=text", SC_OK, "http://notlocalhost");
     assertThat(res.getHeader(HttpHeaders.CONTENT_TYPE)).isEqualTo("text/plain");
     assertThat(res.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN)).isEqualTo(null);
+  }
+
+  private void testSymlink(String linkTarget, String linkName, String linkContent)
+      throws Exception {
+    final RevBlob linkBlob = repo.blob(linkContent);
+    repo.branch("master")
+        .commit()
+        .add(linkTarget, "contents")
+        .edit(
+            new PathEdit(linkName) {
+              @Override
+              public void apply(DirCacheEntry ent) {
+                ent.setFileMode(FileMode.SYMLINK);
+                ent.setObjectId(linkBlob);
+              }
+            })
+        .create();
+
+    Map<String, ?> data = buildData("/repo/+/master/" + linkName);
+    assertThat(data).containsEntry("type", "SYMLINK");
+    assertThat(getBlobData(data)).containsEntry("target", linkContent);
+    assertThat(getBlobData(data)).containsEntry("targetUrl", "/b/repo/+/master/" + linkTarget);
   }
 
   private Map<String, ?> getBlobData(Map<String, ?> data) {
