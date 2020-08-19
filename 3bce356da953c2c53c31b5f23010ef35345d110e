@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e6cad3_badb1d60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1111845
+      },
+      "writtenOn": "2020-08-19T16:34:22Z",
+      "side": 1,
+      "message": "java / com / google / gitiles / doc / DocServlet.java ",
+      "revId": "3bce356da953c2c53c31b5f23010ef35345d110e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
