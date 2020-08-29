@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5ad4872_397c26dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-08-29T01:02:14Z",
+      "side": 1,
+      "message": "Passes \"bazel test ...\".",
+      "revId": "cfa034a4b3efcbe84f2e9e039e9839164881a280",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
