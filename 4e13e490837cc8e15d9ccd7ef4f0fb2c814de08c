@@ -16,6 +16,24 @@
       "revId": "4e13e490837cc8e15d9ccd7ef4f0fb2c814de08c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98a5cca3_b9fa5587",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-09-24T21:03:41Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t know if there are browser compatibility concerns with this.\n\nThe main barrier to adding formats here tends to be about security (e.g. with formats like svg that can be used for xss attacks). Webp should be safe so this change looks good to me.\n\nAuthors of actual pages using images can worry about browser compatibility. ;-)",
+      "parentUuid": "0fe3f1c8_0a556c85",
+      "revId": "4e13e490837cc8e15d9ccd7ef4f0fb2c814de08c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
