@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1a2b9f6_ab3268ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018572
+      },
+      "writtenOn": "2020-09-24T21:23:16Z",
+      "side": 1,
+      "message": "Thanks for updating the commit and review Jonathan.",
+      "revId": "b592dbecf0d6856d4aad37dcc67d407dd1a70021",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
