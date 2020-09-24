@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fe3f1c8_0a556c85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018572
+      },
+      "writtenOn": "2020-09-24T21:01:31Z",
+      "side": 1,
+      "message": "This will be available in Safari 14 [1], I don\u0027t know if there are browser compatibility concerns with this.\n\n[1] https://caniuse.com/?search\u003dwebp",
+      "revId": "4e13e490837cc8e15d9ccd7ef4f0fb2c814de08c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
