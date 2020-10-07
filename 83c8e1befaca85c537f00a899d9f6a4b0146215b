@@ -16,6 +16,23 @@
       "message": "Hi!\n\nI saw you just recently added webp support, I would like to also see svg working too. See https://github.com/google/gitiles/issues/151\n\nTim \u0027mithro\u0027 Ansell",
       "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76316eda_451c89d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018572
+      },
+      "writtenOn": "2020-10-07T01:47:05Z",
+      "side": 1,
+      "message": "I\u0027m not an owner here so can\u0027t comment on enabling this, but Documentation/markdown.md could use an update too:\nhttps://gerrit-review.googlesource.com/c/gitiles/+/282376",
+      "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
