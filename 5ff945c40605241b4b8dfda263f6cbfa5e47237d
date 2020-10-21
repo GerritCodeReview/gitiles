@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce11b60_0e6d8197",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-10-21T16:23:12Z",
+      "side": 1,
+      "message": "I\u0027m getting \u0027bazel test //...\u0027 failures locally, caused by mismatching locale settings I think, which I still need to investigate. Would you be able to Verify this change based on [1] \u0026co?\n\n[1] https://gerrit.googlesource.com/gitiles/+/refs/heads/master/Documentation/developer-guide.md#building",
+      "revId": "5ff945c40605241b4b8dfda263f6cbfa5e47237d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
