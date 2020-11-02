@@ -16,6 +16,23 @@
       "message": "TV dc",
       "revId": "9de65953ec071a09752deb5f2495235326dfcc75",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa704cf0_be6ab638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1099690
+      },
+      "writtenOn": "2020-11-02T02:22:45Z",
+      "side": 1,
+      "message": "git fetch https://gerrit.googlesource.com/gitiles refs/changes/20/37820/4 \u0026\u0026 git cherry-pick FETCH_HEAD",
+      "revId": "9de65953ec071a09752deb5f2495235326dfcc75",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
