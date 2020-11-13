@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51edbcaa_92e20f37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1120276
+      },
+      "writtenOn": "2020-11-13T05:57:59Z",
+      "side": 1,
+      "message": "git clone https://gerrit.googlesource.com/gitiles",
+      "revId": "73b57afce69d4624434da982dd842ecd7221e923",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
