@@ -127,7 +127,7 @@ class DevServer {
   private Handler appHandler() {
     DebugRenderer renderer =
         new DebugRenderer(
-            STATIC_PREFIX,
+            cfg.getString("gitiles", null, "canonicalPath") + STATIC_PREFIX,
             Arrays.asList(cfg.getStringList("gitiles", null, "customTemplates")),
             sourceRoot.resolve("resources/com/google/gitiles/templates").toString(),
             firstNonNull(cfg.getString("gitiles", null, "siteTitle"), "Gitiles"));
@@ -141,7 +141,7 @@ class DevServer {
     }
 
     ServletContextHandler handler = new ServletContextHandler();
-    handler.setContextPath("");
+    handler.setContextPath("/plugins/gitiles");
     handler.addServlet(new ServletHolder(servlet), "/*");
     return handler;
   }
@@ -156,7 +156,8 @@ class DevServer {
     }
     rh.setWelcomeFiles(new String[] {});
     rh.setDirectoriesListed(false);
-    ContextHandler handler = new ContextHandler("/+static");
+
+    ContextHandler handler = new ContextHandler("/plugins/gitiles/+static");
     handler.setHandler(rh);
     return handler;
   }

@@ -20,6 +20,20 @@ expression defined in `allowOriginRegex`.
 
 By default `allowOriginRegex` is unset, denying all cross-origin requests.
 
+### Reverse proxy path mapping
+
+When gitiles is behind a reverse proxy using a different path than the one it
+is serving request for (the context path), it must be given the path it is
+being served with publicly.
+
+For example, a gitiles listening on `https://127.0.0.1:8080/gitiles` and
+exposed as `https://www.example.org/g` would set:
+
+```
+[gitiles]
+  canonicalPath = /g
+```
+
 ## Markdown
 
 ### Disabling markdown

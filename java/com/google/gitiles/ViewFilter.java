@@ -103,9 +103,16 @@ public class ViewFilter extends AbstractHttpFilter {
 
     @SuppressWarnings("unchecked")
     Map<String, String[]> params = req.getParameterMap();
-    view.setHostName(urls.getHostName(req))
-        .setServletPath(req.getContextPath() + req.getServletPath())
-        .putAllParams(params);
+
+    view.setHostName(urls.getHostName(req));
+
+    if (urls.getPath(req) != null) {
+        view.setServletPath(urls.getPath(req));
+    } else {
+        view.setServletPath(req.getContextPath() + req.getServletPath());
+    }
+
+    view.putAllParams(params);
     if (normalize(view, res)) {
       return;
     }
