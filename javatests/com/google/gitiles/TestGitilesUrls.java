@@ -27,6 +27,11 @@ public class TestGitilesUrls implements GitilesUrls {
   }
 
   @Override
+  public String getPath(HttpServletRequest req) {
+    return null;
+  }
+
+  @Override
   public String getBaseGitUrl(HttpServletRequest req) {
     return "git://" + HOST_NAME + "/foo";
   }

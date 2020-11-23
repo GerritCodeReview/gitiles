@@ -74,6 +74,11 @@ public class LinkifierTest {
               }
 
               @Override
+              public String getPath(HttpServletRequest req) {
+                throw new UnsupportedOperationException();
+              }
+
+              @Override
               public String getHostName(HttpServletRequest req) {
                 throw new UnsupportedOperationException();
               }
