@@ -229,10 +229,7 @@ class GitilesFilter extends MetaFilter {
     }
     root.through(dispatchFilter);
 
-    serveRegex(REPO_REGEX)
-        .through(repositoryFilter)
-        .through(viewFilter)
-        .through(dispatchFilter);
+    serveRegex(REPO_REGEX).through(repositoryFilter).through(viewFilter).through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
@@ -329,11 +326,15 @@ class GitilesFilter extends MetaFilter {
     }
   }
 
-  private void setDefaultRenderer(FilterConfig filterConfig) {
+  private void setDefaultRenderer(FilterConfig filterConfig) throws ServletException {
     if (renderer == null) {
+      String view_path = config.getString("gitiles", null, "canonicalPath");
+      if (view_path == null) {
+        view_path = filterConfig.getServletContext().getContextPath() + STATIC_PREFIX;
+      }
       renderer =
           new DefaultRenderer(
-              filterConfig.getServletContext().getContextPath() + STATIC_PREFIX,
+              view_path,
               Arrays.stream(config.getStringList("gitiles", null, "customTemplates"))
                   .map(fileUrlMapper())
                   .collect(toList()),
@@ -347,6 +348,7 @@ class GitilesFilter extends MetaFilter {
         urls =
             new DefaultUrls(
                 config.getString("gitiles", null, "canonicalHostName"),
+                config.getString("gitiles", null, "canonicalPath"),
                 getBaseGitUrl(config),
                 config.getString("gitiles", null, "gerritUrl"));
       } catch (UnknownHostException e) {
