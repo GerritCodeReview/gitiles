@@ -28,15 +28,22 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class DefaultUrls implements GitilesUrls {
   private final String canonicalHostName;
+  private final String canonicalPath;
   private final String baseGitUrl;
   private final String baseGerritUrl;
 
-  public DefaultUrls(String canonicalHostName, String baseGitUrl, String baseGerritUrl)
+  public DefaultUrls(
+      String canonicalHostName, String canonicalPath, String baseGitUrl, String baseGerritUrl)
       throws UnknownHostException {
     if (canonicalHostName != null) {
       this.canonicalHostName = canonicalHostName;
     } else {
       this.canonicalHostName = InetAddress.getLocalHost().getCanonicalHostName();
+    }
+    if (canonicalPath != null) {
+      this.canonicalPath = canonicalPath;
+    } else {
+      this.canonicalPath = "";
     }
     this.baseGitUrl = checkNotNull(baseGitUrl, "baseGitUrl");
     this.baseGerritUrl = baseGerritUrl;
@@ -45,6 +52,11 @@ public class DefaultUrls implements GitilesUrls {
   @Override
   public String getHostName(HttpServletRequest req) {
     return canonicalHostName;
+  }
+
+  @Override
+  public String getPath(HttpServletRequest req) {
+    return canonicalPath;
   }
 
   @Override

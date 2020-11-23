@@ -55,6 +55,14 @@ public interface GitilesUrls {
   String getHostName(HttpServletRequest req);
 
   /**
+   * Return the publicly exposed path.
+   *
+   * @param req request.
+   * @return path; may be null.
+   */
+  String getPath(HttpServletRequest req);
+
+  /**
    * Return the base URL for git repositories on this host.
    *
    * @param req request.
