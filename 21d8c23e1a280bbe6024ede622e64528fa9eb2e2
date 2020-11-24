@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e298cf8c_71dfd99d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2020-11-24T15:13:06Z",
+      "side": 1,
+      "message": "That is a terrible preliminary hack w but it seems to work locally.  Most probably:\n\n- the canonical path should be known to GitilesView and various callers of GitilesView.setServletPath() be adjusted to set the canonical path and the servlet path instead of hacking through the filters\n- I have manually hacked the dev web server :/",
+      "revId": "21d8c23e1a280bbe6024ede622e64528fa9eb2e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
