@@ -31,10 +31,17 @@ import org.eclipse.jgit.transport.resolver.RepositoryResolver;
 
 /** Static utility methods for creating {@link GitilesServlet}s for testing. */
 public class TestGitilesServlet {
-  /** @see #create(TestRepository) */
+  /** @see #create(TestRepository,GitwebRedirectFilter,BranchRedirectFilter) */
   public static GitilesServlet create(final TestRepository<DfsRepository> repo)
       throws ServletException {
-    return create(repo, new GitwebRedirectFilter());
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirectFilter());
+  }
+
+  /** @see #create(TestRepository,GitwebRedirectFilter,BranchRedirectFilter) */
+  public static GitilesServlet create(
+      final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
+      throws ServletException {
+    return create(repo, gitwebRedirect, new BranchRedirectFilter());
   }
 
   /**
@@ -48,10 +55,13 @@ public class TestGitilesServlet {
    *
    * @param repo the test repo backing the servlet.
    * @param gitwebRedirect optional redirect filter for gitweb URLs.
+   * @param branchRedirect branch redirect filter
    * @return a servlet.
    */
   public static GitilesServlet create(
-      final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirectFilter branchRedirect)
       throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
@@ -74,7 +84,8 @@ public class TestGitilesServlet {
             null,
             null,
             null,
-            gitwebRedirect);
+            gitwebRedirect,
+            branchRedirect);
 
     servlet.init(
         new ServletConfig() {
