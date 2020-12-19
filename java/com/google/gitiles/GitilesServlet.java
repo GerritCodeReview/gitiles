@@ -51,7 +51,8 @@ public class GitilesServlet extends MetaServlet {
       @Nullable VisibilityCache visibilityCache,
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
-      @Nullable GitwebRedirectFilter gitwebRedirect) {
+      @Nullable GitwebRedirectFilter gitwebRedirect,
+      @Nullable BranchRedirectFilter branchRedirect) {
     this(
         config,
         renderer,
@@ -62,6 +63,7 @@ public class GitilesServlet extends MetaServlet {
         timeCache,
         blameCache,
         gitwebRedirect,
+        branchRedirect,
         null);
   }
 
@@ -75,6 +77,7 @@ public class GitilesServlet extends MetaServlet {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
+      @Nullable BranchRedirectFilter branchRedirect,
       @Nullable Filter errorHandler) {
     super(
         new GitilesFilter(
@@ -87,6 +90,7 @@ public class GitilesServlet extends MetaServlet {
             timeCache,
             blameCache,
             gitwebRedirect,
+            branchRedirect,
             errorHandler));
   }
 
