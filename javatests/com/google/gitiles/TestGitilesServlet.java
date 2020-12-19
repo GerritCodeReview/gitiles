@@ -34,7 +34,7 @@ public class TestGitilesServlet {
   /** @see #create(TestRepository) */
   public static GitilesServlet create(final TestRepository<DfsRepository> repo)
       throws ServletException {
-    return create(repo, new GitwebRedirectFilter());
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirectFilter());
   }
 
   /**
@@ -51,7 +51,9 @@ public class TestGitilesServlet {
    * @return a servlet.
    */
   public static GitilesServlet create(
-      final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirectFilter branchRedirect)
       throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
@@ -74,7 +76,8 @@ public class TestGitilesServlet {
             null,
             null,
             null,
-            gitwebRedirect);
+            gitwebRedirect,
+            branchRedirect);
 
     servlet.init(
         new ServletConfig() {
