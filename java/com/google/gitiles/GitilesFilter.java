@@ -1,4 +1,4 @@
-// Copyright 2012 Google Inc. All Rights Reserved.
+// Copyright 2021 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -176,6 +176,7 @@ class GitilesFilter extends MetaFilter {
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
   private Filter errorHandler;
+  private BranchRedirectFilter branchRedirect;
   private boolean initialized;
 
   GitilesFilter() {}
@@ -190,6 +191,7 @@ class GitilesFilter extends MetaFilter {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
+      @Nullable BranchRedirectFilter branchRedirect,
       @Nullable Filter errorHandler) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
@@ -203,6 +205,7 @@ class GitilesFilter extends MetaFilter {
       this.resolver = resolver;
     }
     this.errorHandler = errorHandler;
+    this.branchRedirect = branchRedirect;
   }
 
   @Override
@@ -224,13 +227,21 @@ class GitilesFilter extends MetaFilter {
     if (gitwebRedirect != null) {
       root.through(gitwebRedirect);
     }
+    if (branchRedirect != null) {
+      root.through(branchRedirect);
+    }
     root.through(dispatchFilter);
 
-    serveRegex(REPO_REGEX).through(repositoryFilter).through(viewFilter).through(dispatchFilter);
+    serveRegex(REPO_REGEX)
+        .through(repositoryFilter)
+        .through(viewFilter)
+        .through(branchRedirect)
+        .through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
         .through(viewFilter)
+        .through(branchRedirect)
         .through(dispatchFilter);
 
     initialized = true;
