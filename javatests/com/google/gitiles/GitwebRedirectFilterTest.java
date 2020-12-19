@@ -119,7 +119,8 @@ public class GitwebRedirectFilterTest {
 
   @Test
   public void stripDotGit() throws Exception {
-    servlet = TestGitilesServlet.create(repo, new GitwebRedirectFilter(true));
+    servlet =
+        TestGitilesServlet.create(repo, new GitwebRedirectFilter(true), new BranchRedirectFilter());
     assertRedirectsTo(
         GitilesView.repositoryIndex()
             .setHostName(HOST_NAME)
