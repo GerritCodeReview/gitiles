@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dbc0e86_06e3cac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1122052
+      },
+      "writtenOn": "2020-12-19T21:55:40Z",
+      "side": 1,
+      "message": "frissítések ",
+      "revId": "2b1d18cbc987a0706b9f62a741f3fb324939a9ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
