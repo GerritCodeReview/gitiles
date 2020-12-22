@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c26c2b_231a24f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-22T20:22:23Z",
+      "side": 1,
+      "message": "More context: https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag",
+      "revId": "a3ec654d809a951bf95bcd52951a9884b28bd336",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
