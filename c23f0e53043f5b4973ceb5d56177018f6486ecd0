@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "590c981a_d4c36698",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-22T20:21:53Z",
+      "side": 1,
+      "message": "Can the commit message say a little more (e.g., link to https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag)?\n\nIs this tested?",
+      "revId": "c23f0e53043f5b4973ceb5d56177018f6486ecd0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
