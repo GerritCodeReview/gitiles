@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "477845d6_9ba0ee42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:05:19Z",
+      "side": 1,
+      "message": "It would also be nice to have an example BranchRedirectFilter that uses gitiles.config, if that\u0027s straightforward to make (feel free to do it in a separate followup commit --- I don\u0027t mean to hold up this API for that).",
+      "revId": "daf20905e0a82ddc63e5f6d2f0764a37be2decd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
