@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec81ef3_d709b14f",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "nit: LLC",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 28
+      },
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "360d0058_2e7df2ab",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "Can this give a description of what this filter does and how I use it? For example, if I include this in my filter stack, what effect will it have?",
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6b14037_4b404e12",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "This helper constant shouldn\u0027t be public.\n\nOr even better, we can use JGit\u0027s Constants.R_HEADS instead (likewise for REFS).",
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff8d0bb0_b3eff883",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "optional: this can be `protected`",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 8
+      },
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01587994_4f44d8c7",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "naming nit: target doesn\u0027t tell me what operation this is the target of. Maybe\n\n  Optional\u003cString\u003e rewrittenRevision \u003d ...;\n  Optional\u003cString\u003e rewrittenOldRevision \u003d ...;\n\n?",
+      "range": {
+        "startLine": 65,
+        "startChar": 21,
+        "endLine": 65,
+        "endChar": 50
+      },
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc8be8a5_1eb415a0",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "Does this do the right thing when Revision.isNull(view.getRevision())? It might make sense to extract a helper to handle this:\n\n private static Optional\u003cString\u003e rewriteRevision(Repository repo, Revision rev, Optional\u003cFormatType\u003e format) {\n   if (isNull(rev)) {\n     return Optional.empty();\n   }\n   return getRedirectBranch(repo, rev.getName(), format);\n }",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 60
+      },
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8d25eb_74008399",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "naming nit: it\u0027s not clear to me what \"update target\" refers to. Maybe a name like\n\n  Revision rev \u003d rewriteRevision(view.getRevision, rewrittenRevision);\n\nwould be clearer.",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f031a18c_8dffe99e",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "Do we need this guessing logic? I suspect it would be simpler to make the subclass responsible for consistently providing a full ref name.",
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d7e3446_c0d5cd14",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "This duplicates getFormat from BaseServlet and seems like it could potentially fall out of sync.\n\nMaybe we can simplify a little? If the idea is that we only need to redirect for interactive use (and not API access), then we could check directly in `view.getParameters()` for whether `\"format\"` was passed in and isn\u0027t `\"html\"`, for example (or we could treat all `\"format\"` values as programatic access, including `\"html\"`).",
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383963ca_1ec07a66",
+        "filename": "javatests/com/google/gitiles/BranchRedirectFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "Nice!\n\nWhat happens with a request like `/+diff/master^!`, or `/+/master^^`, or `/+log/master`?",
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef64dabf_8c2fa611",
+        "filename": "javatests/com/google/gitiles/BranchRedirectFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-23T00:00:27Z",
+      "side": 1,
+      "message": "nit: LLC",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 28
+      },
+      "revId": "b5f84c21eb7591a77c9de4eb0c60d71ef83372e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
