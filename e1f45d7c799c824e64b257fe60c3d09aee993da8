@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddd04411_c0561f5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "You can take credit for the change (\"git commit --amend --reset-author\"). I\u0027ll poke around internally for the copybara setting to make it not anonymize the author next time.\n\nCan the commit message include a brief explanation of what this is for and how I would use it? E.g. this is a place to say\n* it\u0027s for helping users keep their old URLs working when migrating from branch names like \"studio-master-dev\" to \"studio-main-dev\"\n* to avoid confusing automation, it only affects interactive browsing, not `?format\u003dJSON` API calls\n* it\u0027s customizable and we anticipate that Gerrit\u0027s gitiles plugin will override the \u003cfoo\u003e class as part of the same effort as https://crbug.com/gerrit/13027",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8a0c9b20_3d5d02d7",
@@ -14,6 +31,193 @@
       "writtenOn": "2020-12-24T06:17:19Z",
       "side": 1,
       "message": "Thanks for reviewing jrn@\nHere are comments addressed.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "209d95d6_44c67bc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "Looks close to ready. Thanks for working on this --- I\u0027m excited.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5b4a53_eced74df",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "optional: I wonder whether this would be easier to use if it took a branch name instead of a ref name --- i.e., `\"master\"` instead of `\"refs/heads/master\"`.\n\nI think it\u0027s fine either way, just musing out loud.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb08c2d8_b27c323e",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "This seems complex, since it duplicates the parser in Repository#resolve. I realize I can take some blame for this, since I asked about this case.\n\nA few thoughts:\n1. I\u0027d expect URLs \"in the wild\" to not use these constructs very often, so we probably don\u0027t have to handle them. In other words, maybe it would make sense to only support cases like `branch`, `refs/heads/branch`, `branch1..branch2`, `refs/heads/branch1..branch2`, `branch..HEAD`, etc? Or we could go even simpler and start with some subset of that (e.g., `\"branch\"` only).\n2. I think it makes sense to include tests for this case (documenting whether the behavior is subject to change) even before we handle it. That makes later changes to tweak the behavior easier.\n3. If we want to handle a lot of expressions, then I think what you have here is on the right track (using heuristics instead of a full parser), but not quite right. For example, it extracts branch name `\"master~\"` from the revision `\"master~^\"`. Looking at https://www.kernel.org/pub/software/scm/git/docs/git-check-ref-format.html, I think the special characters to look out for are `^`, `~`, `:`, `@{`, and `..` (but that one\u0027s already handled by the time this function is called). That said, like described in (1) above, I think we can go simpler.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0cf9e0b_0a84d7a0",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc589c7d_497dc7a0",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "Can this end up redirecting-to-self? Is there a straightforward way of checking whether nothing changed?",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49565f93_93eecdfe",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "I think we can simplify further:\n\n private static boolean isForAutomation(HttpServletRequest req) {\n   return !FormatType.getFormatType(req).orElse(HTML).equals(HTML);\n }\n\nThis handles the `Accept` header (sorry I missed that before) and case-folding in `format` query params.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dabb29ff_8756c6cf",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "I think this would be slightly more readable as the second-to-last parameter, so that the errorHandler would still be last.\n\noptional, thinking out loud: Should the branch redirect mapping go into GitilesUrls? That\u0027s where some other host-specific url configuration goes.\n\nProbably not --- it seems more similar to GitwebRedirectFilter (compatibility redirects).",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9aac7a1_2a85ae51",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "This happens after the gitwebRedirect. Good.\n\nThat also answers another question for me: I wondered whether this functionality would make sense to be put in the ViewFilter. It wouldn\u0027t, since we\u0027re not changing the parsing: we\u0027re just serving a 301.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49c28ada_5918633f",
+        "filename": "java/com/google/gitiles/GitilesServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "likewise (on the subject of reordering params)",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "793ec400_9fca6879",
+        "filename": "javatests/com/google/gitiles/BranchRedirectFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "Should this say `format\u003dhtml` to better match interactive traffic?\n\nOr should some tests use `json` and others use `html`?",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea185bf1_fe4b7068",
+        "filename": "javatests/com/google/gitiles/GitwebRedirectFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2020-12-28T18:22:55Z",
+      "side": 1,
+      "message": "I think we should include an additional overload to not require this change.",
       "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
