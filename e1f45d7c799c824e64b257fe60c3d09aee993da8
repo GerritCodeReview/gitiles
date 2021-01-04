@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b84775_da374318",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "I can checkout code to my local but unable to push. This is what I get on git push:\n\n```\n$  git push --set-upstream origin change-292082\n...\nTo https://gerrit.googlesource.com/gitiles\n ! [remote rejected] change-292082 -\u003e change-292082 (prohibited by Gerrit: not permitted: create)\nerror: failed to push some refs to \u0027https://gerrit.googlesource.com/gitiles\u0027\n```\n\nSomething I am doing wrong?",
+      "parentUuid": "ddd04411_c0561f5d",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8a0c9b20_3d5d02d7",
@@ -69,6 +87,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a4e3bc7_8dfdfedb",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "Ahmm I\u0027ll keep it as a ref name.",
+      "parentUuid": "fe5b4a53_eced74df",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb08c2d8_b27c323e",
@@ -82,6 +118,24 @@
       "writtenOn": "2020-12-28T18:22:55Z",
       "side": 1,
       "message": "This seems complex, since it duplicates the parser in Repository#resolve. I realize I can take some blame for this, since I asked about this case.\n\nA few thoughts:\n1. I\u0027d expect URLs \"in the wild\" to not use these constructs very often, so we probably don\u0027t have to handle them. In other words, maybe it would make sense to only support cases like `branch`, `refs/heads/branch`, `branch1..branch2`, `refs/heads/branch1..branch2`, `branch..HEAD`, etc? Or we could go even simpler and start with some subset of that (e.g., `\"branch\"` only).\n2. I think it makes sense to include tests for this case (documenting whether the behavior is subject to change) even before we handle it. That makes later changes to tweak the behavior easier.\n3. If we want to handle a lot of expressions, then I think what you have here is on the right track (using heuristics instead of a full parser), but not quite right. For example, it extracts branch name `\"master~\"` from the revision `\"master~^\"`. Looking at https://www.kernel.org/pub/software/scm/git/docs/git-check-ref-format.html, I think the special characters to look out for are `^`, `~`, `:`, `@{`, and `..` (but that one\u0027s already handled by the time this function is called). That said, like described in (1) above, I think we can go simpler.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "928f2902_15102877",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb08c2d8_b27c323e",
       "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -120,6 +174,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e9575b_8112bc7a",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "good idea.",
+      "parentUuid": "cc589c7d_497dc7a0",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49565f93_93eecdfe",
@@ -137,6 +209,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0cf79d6_8cae6cb6",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49565f93_93eecdfe",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dabb29ff_8756c6cf",
@@ -150,6 +240,24 @@
       "writtenOn": "2020-12-28T18:22:55Z",
       "side": 1,
       "message": "I think this would be slightly more readable as the second-to-last parameter, so that the errorHandler would still be last.\n\noptional, thinking out loud: Should the branch redirect mapping go into GitilesUrls? That\u0027s where some other host-specific url configuration goes.\n\nProbably not --- it seems more similar to GitwebRedirectFilter (compatibility redirects).",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f03cb787_7f06d26f",
+        "filename": "java/com/google/gitiles/GitilesFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "Updated the ordering",
+      "parentUuid": "dabb29ff_8756c6cf",
       "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -188,6 +296,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d76f20_146a7dce",
+        "filename": "java/com/google/gitiles/GitilesServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49c28ada_5918633f",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "793ec400_9fca6879",
@@ -201,6 +327,24 @@
       "writtenOn": "2020-12-28T18:22:55Z",
       "side": 1,
       "message": "Should this say `format\u003dhtml` to better match interactive traffic?\n\nOr should some tests use `json` and others use `html`?",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f6987a_9fc8eb12",
+        "filename": "javatests/com/google/gitiles/BranchRedirectFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-04T23:03:11Z",
+      "side": 1,
+      "message": "will change this to HTML.\nthe overridden function getRedirectBranch() for test didn\u0027t account for format type. I\u0027ll add a test to verify that isForAutomation isn\u0027t redirected and update the overridden function getRedirectBranch()",
+      "parentUuid": "793ec400_9fca6879",
       "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
