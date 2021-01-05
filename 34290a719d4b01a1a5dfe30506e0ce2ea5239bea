@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5c3ce7_ee611bea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T20:28:55Z",
+      "side": 1,
+      "message": "nit: long lines --- commit messages should be wrapped at around 72 characters. We can come up with a commit message here if you want --- can you describe in your own words what this change makes possible? (The bullet points I gave were describing the key points but I think I\u0027d trust your own wording better. :))",
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "19bc9b4c_ed3cc692",
@@ -14,6 +31,63 @@
       "writtenOn": "2021-01-05T18:55:46Z",
       "side": 1,
       "message": "Thanks for your inputs Jonathan!",
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8443571_ca2bb346",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T20:28:55Z",
+      "side": 1,
+      "message": "2021 (happy new year!)",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efcf077c_e467c539",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T20:28:55Z",
+      "side": 1,
+      "message": "This still misparses strings like `HEAD~^`. I think my preference is to not handle `^` and `~` at all yet (see https://gerrit-review.googlesource.com/c/gitiles/+/292082/7/java/com/google/gitiles/BranchRedirectFilter.java#62 for more on this subject).",
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46731464_182e48fd",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T20:28:55Z",
+      "side": 1,
+      "message": "Appears to be missing https://gerrit-review.googlesource.com/c/gitiles/+/292082/7/java/com/google/gitiles/BranchRedirectFilter.java#125. Are there more changes that need to be `git commit --amend`ed in?",
       "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
