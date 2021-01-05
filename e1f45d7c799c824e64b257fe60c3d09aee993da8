@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5e749744_cc214287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-05T18:55:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21b84775_da374318",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8a0c9b20_3d5d02d7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -362,6 +380,24 @@
       "writtenOn": "2020-12-28T18:22:55Z",
       "side": 1,
       "message": "I think we should include an additional overload to not require this change.",
+      "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7bbb99e_b2a21208",
+        "filename": "javatests/com/google/gitiles/GitwebRedirectFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-05T18:55:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea185bf1_fe4b7068",
       "revId": "e1f45d7c799c824e64b257fe60c3d09aee993da8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
