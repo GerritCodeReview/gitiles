@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7567b596_3e89316e",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T21:30:46Z",
+      "side": 1,
+      "message": "optional: could instead do\n\n if (!hasRepository(req) || isForAutomation(req)) {\n   chain.doFilter(req, res);\n   return;\n }\n\nabove",
+      "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e63fee4a_6bdab7f0",
+        "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T21:30:46Z",
+      "side": 1,
+      "message": "I think this means to say `@see #create(TestRepository,GitwebRedirectFilter,BranchRedirectFilter)`",
+      "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed35a520_92c5a905",
+        "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T21:30:46Z",
+      "side": 1,
+      "message": "This can be replaced with a `@see` directive, like the above.",
+      "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

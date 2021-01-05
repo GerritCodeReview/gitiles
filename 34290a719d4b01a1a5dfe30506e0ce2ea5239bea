@@ -75,6 +75,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12cb57d3_9e10ae53",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T21:30:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efcf077c_e467c539",
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46731464_182e48fd",
@@ -88,6 +106,24 @@
       "writtenOn": "2021-01-05T20:28:55Z",
       "side": 1,
       "message": "Appears to be missing https://gerrit-review.googlesource.com/c/gitiles/+/292082/7/java/com/google/gitiles/BranchRedirectFilter.java#125. Are there more changes that need to be `git commit --amend`ed in?",
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd56b936_adaf83dd",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-05T21:30:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46731464_182e48fd",
       "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
