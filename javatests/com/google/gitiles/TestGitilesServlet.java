@@ -34,7 +34,7 @@ public class TestGitilesServlet {
   /** @see #create(TestRepository) */
   public static GitilesServlet create(final TestRepository<DfsRepository> repo)
       throws ServletException {
-    return create(repo, new GitwebRedirectFilter());
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirectFilter());
   }
 
   /**
@@ -52,6 +52,28 @@ public class TestGitilesServlet {
    */
   public static GitilesServlet create(
       final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
+      throws ServletException {
+    return create(repo, gitwebRedirect, new BranchRedirectFilter());
+  }
+
+  /**
+   * Create a servlet backed by a single test repository.
+   *
+   * <p>The servlet uses the same filter lists as a real servlet, but only knows about a single
+   * repo, having the name returned by {@link
+   * org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription#getRepositoryName()}. Pass a
+   * {@link FakeHttpServletRequest} and {@link FakeHttpServletResponse} to the servlet's {@code
+   * service} method to test.
+   *
+   * @param repo the test repo backing the servlet.
+   * @param gitwebRedirect optional redirect filter for gitweb URLs.
+   * @param branchRedirect branch redirect filter
+   * @return a servlet.
+   */
+  public static GitilesServlet create(
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirectFilter branchRedirect)
       throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
@@ -74,7 +96,8 @@ public class TestGitilesServlet {
             null,
             null,
             null,
-            gitwebRedirect);
+            gitwebRedirect,
+            branchRedirect);
 
     servlet.init(
         new ServletConfig() {
