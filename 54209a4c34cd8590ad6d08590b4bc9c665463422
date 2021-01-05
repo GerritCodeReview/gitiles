@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8603f615_6f2bb145",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-05T22:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7567b596_3e89316e",
+      "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e63fee4a_6bdab7f0",
@@ -35,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1566afd5_b0940c68",
+        "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-05T22:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e63fee4a_6bdab7f0",
+      "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed35a520_92c5a905",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-01-05T21:30:46Z",
       "side": 1,
       "message": "This can be replaced with a `@see` directive, like the above.",
+      "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebf747d_1ef4b2ea",
+        "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-05T22:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed35a520_92c5a905",
       "revId": "54209a4c34cd8590ad6d08590b4bc9c665463422",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
