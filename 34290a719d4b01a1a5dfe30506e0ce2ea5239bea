@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ed100e25_a3c5186d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-06T22:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f5c3ce7_ee611bea",
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "19bc9b4c_ed3cc692",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -48,6 +66,30 @@
       "writtenOn": "2021-01-05T20:28:55Z",
       "side": 1,
       "message": "2021 (happy new year!)",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "34290a719d4b01a1a5dfe30506e0ce2ea5239bea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3666c3c_546b4654",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-06T22:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8443571_ca2bb346",
       "range": {
         "startLine": 1,
         "startChar": 13,
