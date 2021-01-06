@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2402c019_6a0b4930",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-06T00:17:22Z",
+      "side": 1,
+      "message": "taking care of the nits",
+      "revId": "8b12451da27b2c779a58ac1d8476a06d1c8f0e2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
