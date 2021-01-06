@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a9f990_ce013d84",
+        "filename": "java/com/google/gitiles/GitilesServlet.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-06T00:09:13Z",
+      "side": 1,
+      "message": "On this file we can leave the existing copyright notice (2012)",
+      "revId": "41f054f58d1d95149a3d2d717b68c6f920cfb206",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e2d6fee_01270bee",
+        "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-01-06T00:09:13Z",
+      "side": 1,
+      "message": "likewise",
+      "revId": "41f054f58d1d95149a3d2d717b68c6f920cfb206",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
