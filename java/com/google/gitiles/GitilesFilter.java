@@ -191,7 +191,7 @@ class GitilesFilter extends MetaFilter {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
-      @Nullable BranchRedirectFilter branchRedirect,
+      BranchRedirectFilter branchRedirect,
       @Nullable Filter errorHandler) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
