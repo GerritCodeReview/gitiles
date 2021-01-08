@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e04c1b77_4e786847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-01-08T20:16:17Z",
+      "side": 1,
+      "message": "Passes bazel tests as well as this manual test case, locally.",
+      "revId": "eb9dbfdcba8811a7e45bd9ed9c0713685ae75515",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
