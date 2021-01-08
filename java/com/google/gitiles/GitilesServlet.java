@@ -52,7 +52,7 @@ public class GitilesServlet extends MetaServlet {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
-      @Nullable BranchRedirectFilter branchRedirect) {
+      BranchRedirectFilter branchRedirect) {
     this(
         config,
         renderer,
@@ -77,7 +77,7 @@ public class GitilesServlet extends MetaServlet {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
-      @Nullable BranchRedirectFilter branchRedirect,
+      BranchRedirectFilter branchRedirect,
       @Nullable Filter errorHandler) {
     super(
         new GitilesFilter(

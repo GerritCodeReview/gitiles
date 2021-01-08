@@ -19,6 +19,7 @@ import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
 import com.google.common.base.Strings;
 import com.google.common.html.types.UncheckedConversions;
+import com.google.gitiles.BranchRedirectFilter;
 import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
@@ -137,7 +138,9 @@ class DevServer {
     if (!Strings.isNullOrEmpty(docRoot)) {
       servlet = createRootedDocServlet(renderer, docRoot);
     } else {
-      servlet = new GitilesServlet(cfg, renderer, null, null, null, null, null, null, null);
+      servlet =
+          new GitilesServlet(
+              cfg, renderer, null, null, null, null, null, null, null, new BranchRedirectFilter());
     }
 
     ServletContextHandler handler = new ServletContextHandler();
