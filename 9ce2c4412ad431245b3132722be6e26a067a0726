@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01c303f0_99f18c34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-26T02:12:46Z",
+      "side": 1,
+      "message": "I think this will avoid an incorrectly classified binary file as text. ",
+      "revId": "9ce2c4412ad431245b3132722be6e26a067a0726",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
