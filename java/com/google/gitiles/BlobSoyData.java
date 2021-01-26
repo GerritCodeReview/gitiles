@@ -24,6 +24,7 @@ import com.google.common.collect.Maps;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.diff.RawText;
@@ -48,14 +49,20 @@ public class BlobSoyData {
    * will be displayed as binary files, even if the contents was text. For example really big XML
    * files may be above this limit and will get displayed as binary.
    */
-  @VisibleForTesting static final int MAX_FILE_SIZE = 10 << 20;
-
+  @VisibleForTesting
+  static final int MAX_FILE_SIZE = 10 << 20;
   /**
    * Maximum number of lines to be displayed. Files larger than this will be displayed as binary
    * files, even on a text content. For example really big XML files may be above this limit and
    * will get displayed as binary.
    */
   private static final int MAX_LINE_COUNT = 50000;
+
+  /**
+   * Maximum number of bytes to scan in the file to check for the string delimiter. This limits the
+   * file scan if the content is a falsely detected as text.
+   */
+  private static final int MAX_LENGTH_TO_CHECK_FOR_DELIMITER = 1000;
 
   private final GitilesView view;
   private final ObjectReader reader;
@@ -79,7 +86,7 @@ public class BlobSoyData {
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
       content =
-          (raw.length < MAX_FILE_SIZE && !RawText.isBinary(raw)) ? RawParseUtils.decode(raw) : null;
+          (raw.length < MAX_FILE_SIZE && isText(raw)) ? RawParseUtils.decode(raw) : null;
       if (isContentTooLargeForDisplay(content)) {
         content = null;
       }
@@ -104,6 +111,12 @@ public class BlobSoyData {
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
     }
     return data;
+  }
+
+  private boolean isText(byte[] raw) {
+    return !RawText.isBinary(raw) &&
+        new RawText(Arrays.copyOf(raw, Math.min(MAX_LENGTH_TO_CHECK_FOR_DELIMITER, raw.length)))
+            .getLineDelimiter() != null;
   }
 
   private SoyListData prettify(String path, String content) {
