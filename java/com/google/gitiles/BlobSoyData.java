@@ -79,7 +79,7 @@ public class BlobSoyData {
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
       content =
-          (raw.length < MAX_FILE_SIZE && !RawText.isBinary(raw)) ? RawParseUtils.decode(raw) : null;
+          (raw.length < MAX_FILE_SIZE && isText(raw)) ? RawParseUtils.decode(raw) : null;
       if (isContentTooLargeForDisplay(content)) {
         content = null;
       }
@@ -104,6 +104,10 @@ public class BlobSoyData {
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
     }
     return data;
+  }
+
+  private boolean isText(byte[] raw) {
+    return !RawText.isBinary(raw) && new RawText(raw).getLineDelimiter() != null;
   }
 
   private SoyListData prettify(String path, String content) {
