@@ -73,6 +73,30 @@
       },
       "revId": "9ce2c4412ad431245b3132722be6e26a067a0726",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b6f7b3_0edae8d9",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-01-26T22:44:26Z",
+      "side": 1,
+      "message": "Yeah, but this gets called only when the file size is less than the MAX_FILE_SIZE and determined to be a non-binary file. But yeah agreed it is an expensive call. \n\nThere is another API on RawText which fetches the last character to see the new line isCrLf but I am not very sure how that would work with different OS types. \n\nAnother option is to pass first 1000 bytes as bytes hoping that there is atleast one delimiter (but may not exist). Now when I see there could be a text file with no line break.",
+      "parentUuid": "be410e5e_7fbc5070",
+      "range": {
+        "startLine": 110,
+        "startChar": 37,
+        "endLine": 110,
+        "endChar": 53
+      },
+      "revId": "9ce2c4412ad431245b3132722be6e26a067a0726",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
