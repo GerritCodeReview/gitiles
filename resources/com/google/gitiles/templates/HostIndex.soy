@@ -13,10 +13,12 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/Common.soy';
+
 /**
  * HTML page for /.
  */
-{template .hostIndex stricthtml="false"}
+{template hostIndex stricthtml="false"}
   {@param hostName: ?}  /** host name. */
   {@param? menuEntries: ?}  /** menu entries. */
   {@param? customVariant: ?}  /** variant name for custom styling. */
@@ -24,7 +26,7 @@
   {@param? breadcrumbs: ?}  /** map of breadcrumbs for header. */
   {@param repositories: ?}  /** list of repository description maps with name, cloneUrl, and
       optional description values. */
-{call .header}
+{call common.header}
   {param title: $prefix ? $prefix : $hostName ? $hostName + ' Git repositories' : 'Git repositories' /}
   {param menuEntries: $menuEntries /}
   {param breadcrumbs: $breadcrumbs /}
@@ -62,7 +64,7 @@
   </div>
 {/if}
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}

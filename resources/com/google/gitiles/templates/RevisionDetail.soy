@@ -13,10 +13,13 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/Common.soy';
+import * as objDetail from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/ObjectDetail.soy';
+
 /**
  * Detail page about a single revision.
  */
-{template .revisionDetail stricthtml="false"}
+{template revisionDetail stricthtml="false"}
   {@param title: ?}  /** human-readable revision name. */
   {@param repositoryName: ?}  /** name of this repository. */
   {@param? menuEntries: ?}  /** menu entries. */
@@ -28,29 +31,29 @@
       "type" key with one of the org.eclipse.jgit.lib.Contants.TYPE_* constant strings, and a "data"
       key with an object whose keys correspond to the appropriate object detail template from
       ObjectDetail.soy. */
-  {@inject staticUrls: ?}
+  {@inject staticUrls: map<string, trusted_resource_uri>}
 {if $hasBlob}
-  {call .header data="all"}
-    {param css: [$staticUrls.PRETTIFY_CSS_URL] /}
+  {call common.header data="all"}
+    {param css: [$staticUrls['PRETTIFY_CSS_URL']] /}
   {/call}
 {elseif $hasReadme}
-  {call .header data="all"}
-    {param css: [$staticUrls.DOC_CSS_URL, $staticUrls.PRETTIFY_CSS_URL] /}
+  {call common.header data="all"}
+    {param css: [$staticUrls['DOC_CSS_URL'], $staticUrls['PRETTIFY_CSS_URL']] /}
   {/call}
 {else}
-  {call .header data="all" /}
+  {call common.header data="all" /}
 {/if}
 
 {for $object in $objects}
   {switch $object.type}
     {case 'commit'}
-      {call .commitDetail data="$object.data" /}
+      {call objDetail.commitDetail data="$object.data" /}
     {case 'tree'}
-      {call .treeDetail data="$object.data" /}
+      {call objDetail.treeDetail data="$object.data" /}
     {case 'blob'}
-      {call .blobDetail data="$object.data" /}
+      {call objDetail.blobDetail data="$object.data" /}
     {case 'tag'}
-      {call .tagDetail data="$object.data" /}
+      {call objDetail.tagDetail data="$object.data" /}
     {default}
       <div class="error">
         {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
@@ -58,7 +61,7 @@
   {/switch}
 {/for}
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}

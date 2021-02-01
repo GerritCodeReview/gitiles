@@ -109,7 +109,7 @@ final class HtmlDiffFormatter extends DiffFormatter {
     getOutputStream()
         .write(
             renderer
-                .newRenderer("gitiles.diffHeader")
+                .newRenderer(DiffDetailSoyInfo.DIFF_HEADER.getName())
                 .setData(ImmutableMap.of("firstParts", parts, "rest", rest, "fileIndex", fileIndex))
                 .renderHtml()
                 .get()

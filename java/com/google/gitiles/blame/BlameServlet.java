@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.gitiles.BaseServlet;
+import com.google.gitiles.BlameDetailSoyInfo;
 import com.google.gitiles.BlobSoyData;
 import com.google.gitiles.CommitSoyData;
 import com.google.gitiles.DateFormatter;
@@ -86,7 +87,7 @@ public class BlameServlet extends BaseServlet {
         renderHtml(
             req,
             res,
-            "gitiles.blameDetail",
+            BlameDetailSoyInfo.BLAME_DETAIL.getName(),
             ImmutableMap.of(
                 "title",
                 title,
@@ -100,7 +101,7 @@ public class BlameServlet extends BaseServlet {
         renderHtml(
             req,
             res,
-            "gitiles.blameDetail",
+            BlameDetailSoyInfo.BLAME_DETAIL.getName(),
             ImmutableMap.of(
                 "title", title,
                 "breadcrumbs", view.getBreadcrumbs(),

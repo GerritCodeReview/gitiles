@@ -16,7 +16,8 @@
 /**
  * Common header for Gitiles.
  */
-{template .header stricthtml="false"}
+{template header stricthtml="false"}
+  {@inject gitiles_SITE_TITLE: string}
   {@param title: ?}  /** title for this page. Always suffixed with repository name and a sitewide
       title. */
   {@param? repositoryName: ?}  /** repository name for this page, if applicable. */
@@ -26,7 +27,7 @@
   {@param breadcrumbs: ?}  /** navigation breadcrumbs for this page. */
   {@param? css: list<?>}  /** optional list of CSS URLs to include. */
   {@param? containerClass: ?}  /** optional class to append to the main container. */
-  {@inject staticUrls: ?}
+  {@inject staticUrls: map<string, trusted_resource_uri>}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,10 +37,12 @@
     {if $repositoryName}
       {sp}- {$repositoryName}
     {/if}
-    {sp}- {msg desc="name of the application"}{gitiles.SITE_TITLE}{/msg}
+    {sp}- {msg desc="name of the application"}
+      {$gitiles_SITE_TITLE}
+    {/msg}
   </title>
 
-  <link rel="stylesheet" type="text/css" href="{$staticUrls.BASE_CSS_URL}">
+  <link rel="stylesheet" type="text/css" href="{$staticUrls['BASE_CSS_URL']}">
   {if $css and length($css)}
     {for $url in $css}
       <link rel="stylesheet" type="text/css" href="{$url}">
@@ -99,9 +102,12 @@
  * Default custom header implementation for Gitiles.
  */
 {deltemplate gitiles.customHeader}
+  {@inject gitiles_SITE_TITLE: string}
 <!-- default customHeader -->
 <div class="Header-title">
-  {msg desc="short name of the application"}{gitiles.SITE_TITLE}{/msg}
+  {msg desc="short name of the application"}
+    {$gitiles_SITE_TITLE}
+  {/msg}
 </div>
 {/deltemplate}
 
@@ -148,7 +154,7 @@
  * The footer tag part can be customized by creating a customFooter
  * variant template.
  */
-{template .footer stricthtml="false"}
+{template footer stricthtml="false"}
   {@param? customVariant: ?}  /** variant name for custom styling. */
     </div> <!-- Container -->
   </div> <!-- Site-content -->
@@ -163,6 +169,6 @@
  * Insert this in a template to use with
  * Renderer#renderStreaming(HttpServletResponse, String).
  */
-{template .streamingPlaceholder}
+{template streamingPlaceholder}
 <br id="STREAMED_OUTPUT_BLOCK">
 {/template}

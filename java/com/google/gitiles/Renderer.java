@@ -21,12 +21,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.google.common.hash.Funnels;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
-import com.google.common.html.types.LegacyConversions;
+import com.google.common.html.types.TrustedResourceUrl;
+import com.google.common.html.types.TrustedResourceUrls;
 import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
 import com.google.template.soy.jbcsrc.api.SoySauce;
@@ -69,11 +69,11 @@ public abstract class Renderer {
           "RevisionDetail.soy",
           "RepositoryIndex.soy");
 
-  public static final ImmutableMap<String, String> STATIC_URL_GLOBALS =
+  public static final ImmutableMap<String, TrustedResourceUrl> STATIC_URL_GLOBALS =
       ImmutableMap.of(
-          "gitiles.BASE_CSS_URL", "base.css",
-          "gitiles.DOC_CSS_URL", "doc.css",
-          "gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css");
+          "BASE_CSS_URL", TrustedResourceUrls.fromConstant("base.css"),
+          "DOC_CSS_URL", TrustedResourceUrls.fromConstant("doc.css"),
+          "PRETTIFY_CSS_URL", TrustedResourceUrls.fromConstant("prettify/prettify.css"));
 
   protected static Function<String, URL> fileUrlMapper() {
     return fileUrlMapper("");
@@ -94,7 +94,7 @@ public abstract class Renderer {
   }
 
   protected ImmutableMap<String, URL> templates;
-  protected ImmutableMap<String, String> globals;
+  protected ImmutableMap<String, Object> ijData;
   private final ConcurrentMap<String, HashCode> hashes =
       new ConcurrentHashMap<>(SOY_FILENAMES.size());
 
@@ -115,13 +115,11 @@ public abstract class Renderer {
     }
     templates = b.build();
 
-    Map<String, String> allGlobals = Maps.newHashMap();
-    for (Map.Entry<String, String> e : STATIC_URL_GLOBALS.entrySet()) {
-      allGlobals.put(e.getKey(), staticPrefix + e.getValue());
-    }
-    allGlobals.put("gitiles.SITE_TITLE", siteTitle);
-    allGlobals.putAll(globals);
-    this.globals = ImmutableMap.copyOf(allGlobals);
+    this.ijData =
+        ImmutableMap.<String, Object>builder()
+            .put("gitiles_SITE_TITLE", siteTitle)
+            .put("staticUrls", STATIC_URL_GLOBALS)
+            .build();
   }
 
   public HashCode getTemplateHash(String soyFile) {
@@ -213,15 +211,7 @@ public abstract class Renderer {
   }
 
   SoySauce.Renderer newRenderer(String templateName) {
-    ImmutableMap.Builder<String, Object> staticUrls = ImmutableMap.builder();
-    for (String key : STATIC_URL_GLOBALS.keySet()) {
-      staticUrls.put(
-          key.replaceFirst("^gitiles\\.", ""),
-          LegacyConversions.riskilyAssumeTrustedResourceUrl(globals.get(key)));
-    }
-    return getSauce()
-        .renderTemplate(templateName)
-        .setIj(ImmutableMap.of("staticUrls", staticUrls.build()));
+    return getSauce().renderTemplate(templateName).setIj(ijData);
   }
 
   protected abstract SoySauce getSauce();

@@ -13,15 +13,17 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/Common.soy';
+
 /**
  * HTML page for error.
  */
-{template .error stricthtml="false"}
+{template error stricthtml="false"}
   {@param? title: ?}  /** page title. */
   {@param? menuEntries: ?}  /** menu entries. */
   {@param? customVariant: ?}  /** variant name for custom styling. */
   {@param? breadcrumbs: ?}  /** map of breadcrumbs for header. */
-{call .header}
+{call common.header}
   {param title: $title /}
   {param menuEntries: $menuEntries /}
   {param breadcrumbs: $breadcrumbs /}
@@ -33,7 +35,7 @@
   {/msg}
 </h1>
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}

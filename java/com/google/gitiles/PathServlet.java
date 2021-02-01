@@ -486,7 +486,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PathDetailSoyInfo.PATH_DETAIL.getName(),
         ImmutableMap.of(
             "title", !view.getPathPart().isEmpty() ? view.getPathPart() : "/",
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -515,7 +515,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PathDetailSoyInfo.PATH_DETAIL.getName(),
         ImmutableMap.of(
             "title", ViewFilter.getView(req).getPathPart(),
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -541,7 +541,7 @@ public class PathServlet extends BaseServlet {
       renderHtml(
           req,
           res,
-          "gitiles.pathDetail",
+          PathDetailSoyInfo.PATH_DETAIL.getName(),
           ImmutableMap.of(
               "title", ViewFilter.getView(req).getPathPart(),
               "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -564,7 +564,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PathDetailSoyInfo.PATH_DETAIL.getName(),
         ImmutableMap.of(
             "title", ViewFilter.getView(req).getPathPart(),
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -621,7 +621,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PathDetailSoyInfo.PATH_DETAIL.getName(),
         ImmutableMap.of(
             "title", view.getPathPart(),
             "type", FileType.GITLINK.toString(),

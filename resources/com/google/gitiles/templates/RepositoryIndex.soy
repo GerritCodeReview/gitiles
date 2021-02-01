@@ -13,10 +13,13 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/Common.soy';
+import * as refList from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/RefList.soy';
+
 /**
  * Index page for a repository.
  */
-{template .repositoryIndex stricthtml="false"}
+{template repositoryIndex stricthtml="false"}
   {@param repositoryName: ?}  /** name of this repository. */
   {@param? menuEntries: ?}  /** menu entries. */
   {@param? customVariant: ?}  /** variant name for custom styling. */
@@ -30,18 +33,18 @@
   {@param? moreTagsUrl: ?}  /** URL to show more branches, if necessary. */
   {@param hasLog: ?}  /** whether a log should be shown for HEAD. */
   {@param? readmeHtml: ?}  /** optional rendered README.md contents. */
-  {@inject staticUrls: ?}
+  {@inject staticUrls: map<string, trusted_resource_uri>}
 {if $readmeHtml}
-  {call .header data="all"}
+  {call common.header data="all"}
     {param title: $repositoryName /}
     {param repositoryName: null /}
     {param menuEntries: $menuEntries /}
     {param customVariant: $customVariant /}
     {param breadcrumbs: $breadcrumbs /}
-    {param css: [$staticUrls.DOC_CSS_URL] /}
+    {param css: [$staticUrls['DOC_CSS_URL']] /}
   {/call}
 {else}
-  {call .header}
+  {call common.header}
     {param title: $repositoryName /}
     {param repositoryName: null /}
     {param menuEntries: $menuEntries /}
@@ -72,11 +75,11 @@
 {if $hasLog and (length($branches) or length($tags))}
   <div class="RepoShortlog">
     <div class="RepoShortlog-refs">
-      {call .branches_ data="all" /}
-      {call .tags_ data="all" /}
+      {call branches_ data="all" /}
+      {call tags_ data="all" /}
     </div>
     <div class="RepoShortlog-log">
-      {call .streamingPlaceholder /}
+      {call common.streamingPlaceholder /}
       {if $readmeHtml}
         <div class="doc RepoIndexDoc">{$readmeHtml}</div>
       {/if}
@@ -84,16 +87,16 @@
   </div>
 
 {elseif $hasLog}
-  {call .streamingPlaceholder /}
+  {call common.streamingPlaceholder /}
 {elseif length($branches) or length($tags)}
-  {call .branches_ data="all" /}
-  {call .tags_ data="all" /}
+  {call branches_ data="all" /}
+  {call tags_ data="all" /}
 {else}
   <h1 class="EmptyRepo-header">Empty Repository</h1>
   <p class="EmptyRepo-description">This repository is empty. Push to it to show branches and history.</p>
 {/if}
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}
@@ -101,11 +104,11 @@
 /**
  * List of branches.
  */
-{template .branches_ visibility="private"}
+{template branches_ visibility="private"}
   {@param? branches: ?}  /** list of branch objects with url and name keys. */
   {@param? moreBranchesUrl: ?}  /** URL to show more branches, if necessary. */
   {if length($branches)}
-    {call .refList}
+    {call refList.refList}
       {param type: 'Branches' /}
       {param refs: $branches /}
     {/call}
@@ -118,11 +121,11 @@
 /**
  * List of tags.
  */
-{template .tags_ visibility="private"}
+{template tags_ visibility="private"}
   {@param? tags: ?}  /** list of branch objects with url and name keys. */
   {@param? moreTagsUrl: ?}  /** URL to show more tags, if necessary. */
   {if length($tags)}
-    {call .refList}
+    {call refList.refList}
       {param type: 'Tags' /}
       {param refs: $tags /}
     {/call}

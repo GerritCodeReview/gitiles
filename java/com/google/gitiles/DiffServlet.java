@@ -106,7 +106,8 @@ public class DiffServlet extends BaseServlet {
       }
 
       setCacheHeaders(req, res);
-      try (OutputStream out = startRenderStreamingHtml(req, res, "gitiles.diffDetail", data);
+      try (OutputStream out =
+              startRenderStreamingHtml(req, res, DiffDetailSoyInfo.DIFF_DETAIL.getName(), data);
           DiffFormatter diff = new HtmlDiffFormatter(renderer, view, out)) {
         formatDiff(repo, oldTree, newTree, view.getPathPart(), diff);
       }

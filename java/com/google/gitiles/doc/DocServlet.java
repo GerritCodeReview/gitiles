@@ -27,6 +27,7 @@ import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.BaseServlet;
+import com.google.gitiles.DocSoyInfo;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesRequestFailureException;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
@@ -60,7 +61,7 @@ public class DocServlet extends BaseServlet {
   private static final String INDEX_MD = "index.md";
   private static final String NAVBAR_MD = "navbar.md";
   private static final String SOY_FILE = "Doc.soy";
-  private static final String SOY_TEMPLATE = "gitiles.markdownDoc";
+  private static final String SOY_TEMPLATE = DocSoyInfo.MARKDOWN_DOC.getName();
 
   // Generation of ETag logic. Bump this only if DocServlet logic changes
   // significantly enough to impact cached pages. Soy template and source

@@ -20,8 +20,8 @@ import static java.util.stream.Collectors.toList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Streams;
 import com.google.common.hash.HashCode;
-import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.jbcsrc.api.SoySauce;
+import com.google.template.soy.jbcsrc.api.SoySauceBuilder;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -48,15 +48,13 @@ public class DebugRenderer extends Renderer {
 
   @Override
   protected SoySauce getSauce() {
-    SoyFileSet.Builder builder = SoyFileSet.builder().setCompileTimeGlobals(globals);
     for (URL template : templates.values()) {
       try {
         checkState(new File(template.toURI()).exists(), "Missing Soy template %s", template);
       } catch (URISyntaxException e) {
         throw new IllegalStateException(e);
       }
-      builder.add(template);
     }
-    return builder.build().compileTemplates();
+    return new SoySauceBuilder().build();
   }
 }

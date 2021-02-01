@@ -13,10 +13,13 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/Common.soy';
+import * as objDetail from 'third_party/java_src/gitiles/resources/com/google/gitiles/templates/ObjectDetail.soy';
+
 /**
  * Detail page showing blame info for a file.
  */
-{template .blameDetail stricthtml="false"}
+{template blameDetail stricthtml="false"}
   {@param title: ?}  /** human-readable revision name. */
   {@param repositoryName: ?}  /** name of this repository. */
   {@param? menuEntries: ?}  /** menu entries. */
@@ -34,14 +37,14 @@
         diffUrl: URL for a diff of this file at this commit.
         class: class name for tr. All keys but "class" are optional.
       */
-  {@inject staticUrls: ?}
+  {@inject staticUrls: map<string, trusted_resource_uri>}
 {if $regions}
-  {call .header data="all"}
-    {param css: [$staticUrls.PRETTIFY_CSS_URL] /}
+  {call common.header data="all"}
+    {param css: [$staticUrls['PRETTIFY_CSS_URL']] /}
     {param containerClass: 'Container--fullWidth' /}
   {/call}
 
-  {call .blobHeader data="$data" /}
+  {call objDetail.blobHeader data="$data" /}
 
   <table class="Blame">
     {for $line in $data.lines}
@@ -72,8 +75,8 @@
     {/for}
   </table>
 {else}
-  {call .header data="all" /}
-  {call .blobDetail data="$data" /}
+  {call common.header data="all" /}
+  {call objDetail.blobDetail data="$data" /}
   <div class="FileContents-binary">
     {msg desc="blame not available for binary file"}
       No blame information available
@@ -81,7 +84,7 @@
   </div>
 {/if}
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}

@@ -17,8 +17,8 @@ package com.google.gitiles;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;
-import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.jbcsrc.api.SoySauce;
+import com.google.template.soy.jbcsrc.api.SoySauceBuilder;
 import java.net.URL;
 import java.util.Map;
 
@@ -45,11 +45,7 @@ public class DefaultRenderer extends Renderer {
         staticPrefix,
         customTemplates,
         siteTitle);
-    SoyFileSet.Builder builder = SoyFileSet.builder().setCompileTimeGlobals(this.globals);
-    for (URL template : templates.values()) {
-      builder.add(template);
-    }
-    sauce = builder.build().compileTemplates();
+    sauce = new SoySauceBuilder().build();
   }
 
   @Override

@@ -97,7 +97,7 @@ public class DefaultErrorHandlingFilter extends AbstractHttpFilter {
       HttpServletRequest req, HttpServletResponse res, int status, String message)
       throws IOException {
     res.setStatus(status);
-    renderHtml(req, res, "gitiles.error", ImmutableMap.of("title", message));
+    renderHtml(req, res, ErrorSoyInfo.ERROR.getName(), ImmutableMap.of("title", message));
   }
 
   protected void renderHtml(

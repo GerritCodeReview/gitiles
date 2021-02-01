@@ -129,7 +129,7 @@ public class HostIndexServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.hostIndex",
+        HostIndexSoyInfo.HOST_INDEX.getName(),
         ImmutableMap.of(
             "hostName",
             hostName,
