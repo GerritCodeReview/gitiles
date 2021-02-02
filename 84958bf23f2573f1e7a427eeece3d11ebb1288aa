@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd68390f_bdfe1d27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1128710
+      },
+      "writtenOn": "2021-02-02T20:17:41Z",
+      "side": 1,
+      "message": "no actually I don\u0027t think there\u0027s any OS version of what we need. gonna abandon this for a smaller change.",
+      "parentUuid": "587797da_3f2b3423",
+      "revId": "84958bf23f2573f1e7a427eeece3d11ebb1288aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a019e8f7_0b1b0da1",
