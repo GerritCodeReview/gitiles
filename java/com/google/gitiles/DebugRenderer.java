@@ -55,7 +55,7 @@ public class DebugRenderer extends Renderer {
       } catch (URISyntaxException e) {
         throw new IllegalStateException(e);
       }
-      builder.add(template);
+      builder.add(template, toSoySrcPath(template));
     }
     return builder.build().compileTemplates();
   }
