@@ -13,10 +13,13 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'com/google/gitiles/templates/Common.soy';
+import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
+
 /**
  * Detail page showing diffs for a single commit.
  */
-{template .diffDetail stricthtml="false"}
+{template diffDetail stricthtml="false"}
   {@param title: ?}  /** human-readable revision name. */
   {@param repositoryName: ?}  /** name of this repository. */
   {@param? menuEntries: ?}  /** menu entries. */
@@ -24,14 +27,14 @@
   {@param breadcrumbs: ?}  /** breadcrumbs for this page. */
   {@param? commit: ?}  /** optional commit for which diffs are displayed, with keys corresponding to
       the gitiles.commitDetail template (minus "diffTree"). */
-{call .header data="all" /}
+  {call common.header data="all" /}
 
 {if $commit}
-  {call .commitDetail data="$commit" /}
+  {call objDetail.commitDetail data="$commit" /}
 {/if}
-{call .streamingPlaceholder /}
+  {call common.streamingPlaceholder /}
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}
@@ -39,7 +42,7 @@
 /**
  * File header for a single unified diff patch.
  */
-{template .diffHeader}
+{template diffHeader}
   {@param firstParts: ?}  /** parts of the first line of the header, with "text" and optional "url"
       fields. */
   {@param rest: ?}  /** remaining lines of the header, if any. */

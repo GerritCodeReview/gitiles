@@ -225,4 +225,14 @@ public abstract class Renderer {
   }
 
   protected abstract SoySauce getSauce();
+
+  /**
+   * Give a resource URL of a soy template file, returns the import path for use in a Soy import
+   * statement.
+   */
+  protected String toSoySrcPath(URL templateUrl) {
+    String filePath = templateUrl.getPath();
+    String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+    return "com/google/gitiles/templates/" + fileName;
+  }
 }

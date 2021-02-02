@@ -16,7 +16,7 @@
 /**
  * Common header for Gitiles.
  */
-{template .header stricthtml="false"}
+{template header stricthtml="false"}
   {@param title: ?}  /** title for this page. Always suffixed with repository name and a sitewide
       title. */
   {@param? repositoryName: ?}  /** repository name for this page, if applicable. */
@@ -148,7 +148,7 @@
  * The footer tag part can be customized by creating a customFooter
  * variant template.
  */
-{template .footer stricthtml="false"}
+{template footer stricthtml="false"}
   {@param? customVariant: ?}  /** variant name for custom styling. */
     </div> <!-- Container -->
   </div> <!-- Site-content -->
@@ -163,6 +163,6 @@
  * Insert this in a template to use with
  * Renderer#renderStreaming(HttpServletResponse, String).
  */
-{template .streamingPlaceholder}
+{template streamingPlaceholder}
 <br id="STREAMED_OUTPUT_BLOCK">
 {/template}
