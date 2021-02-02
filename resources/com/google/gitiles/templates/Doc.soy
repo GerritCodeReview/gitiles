@@ -13,6 +13,8 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'com/google/gitiles/templates/Common.soy';
+
 /**
  * Default Doc Footer
  */
@@ -36,7 +38,7 @@
 /**
  * Documentation page rendered from markdown.
  */
-{template .markdownDoc}
+{template markdownDoc}
   {@param? siteTitle: ?}  /** h1 title from navbar.md. */
   {@param pageTitle: ?}  /** h1 title from specific page. */
   {@param? logoUrl: ?}  /** url of image logo. */
@@ -77,7 +79,7 @@
   <div class="Site-content Site-Content--markdown">
     <div class="Container">
       <div class="doc">
-        {call .streamingPlaceholder /}
+        {call common.streamingPlaceholder /}
       </div>
     </div>
   </div>

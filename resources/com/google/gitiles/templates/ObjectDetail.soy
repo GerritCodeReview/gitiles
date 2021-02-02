@@ -16,7 +16,7 @@
 /**
  * Detailed listing of a commit.
  */
-{template .commitDetail}
+{template commitDetail}
   {@param author: ?}  /** map with "name", "email", and "time" keys for the commit author. */
   {@param committer: ?}  /** map with "name", "email", and "time" keys for the committer. */
   {@param sha: ?}  /** commit SHA-1. */
@@ -58,12 +58,16 @@
     </tr>
     <tr>
       <th class="Metadata-title">{msg desc="Header for commit author"}author{/msg}</th>
-      <td>{call .person_ data="$author" /}</td>
+      <td>
+        {call person_ data="$author" /}
+      </td>
       <td>{$author.time}</td>
     </tr>
     <tr>
       <th class="Metadata-title">{msg desc="Header for committer"}committer{/msg}</th>
-      <td>{call .person_ data="$committer" /}</td>
+      <td>
+        {call person_ data="$committer" /}
+      </td>
       <td>{$committer.time}</td>
     </tr>
     <tr>
@@ -86,7 +90,7 @@
     {/for}
   </table>
 </div>
-{call .message_}
+{call message_}
   {param className: 'u-pre u-monospace MetadataMessage' /}
   {param message: $message /}
 {/call}
@@ -146,7 +150,7 @@
 /**
  * Detailed listing of a tree.
  */
-{template .treeDetail}
+{template treeDetail}
   {@param sha: ?}  /** SHA of this path's tree. */
   {@param? logUrl: ?}  /** optional URL to a log for this path. */
   {@param? archiveUrl: ?}  /** optional URL to a download link of this tree as an archive. */
@@ -222,7 +226,7 @@
 /**
  * Common header for a blob shared between detail, blame, etc. views.
  */
-{template .blobHeader}
+{template blobHeader}
   {@param sha: ?}  /** SHA of this file's blob. */
   {@param? fileUrl: ?}  /** optional URL to a detail view of this file. */
   {@param? logUrl: ?}  /** optional URL to a log for this file. */
@@ -240,14 +244,14 @@
 /**
  * Detailed listing of a blob.
  */
-{template .blobDetail}
+{template blobDetail}
   {@param sha: ?}  /** SHA of this file's blob. */
   {@param? logUrl: ?}  /** optional URL to a log for this file. */
   {@param? blameUrl: ?}  /** optional URL to a blame for this file. */
   {@param lines: ?}  /** lines (may be empty), or null for a binary file. Each line is a list of
       entries with "classes" and "text" fields for pretty-printed spans. */
   {@param? size: ?}  /** for binary files only, size in bytes. */
-  {call .blobHeader data="all" /}
+  {call blobHeader data="all" /}
 
   {if $lines != null}
     {if $lines}
@@ -278,7 +282,7 @@
 /**
  * Detailed listing of an annotated tag.
  */
-{template .tagDetail}
+{template tagDetail}
   {@param sha: ?}  /** SHA of this tag. */
   {@param? tagger: ?}  /** optional map with "name", "email", and "time" keys for the tagger. */
   {@param object: ?}  /** SHA of the object this tag points to. */
@@ -293,7 +297,9 @@
     {if $tagger}
       <tr>
         <th class="Metadata-title">{msg desc="Header for tagger"}tagger{/msg}</th>
-        <td>{call .person_ data="$tagger" /}</td>
+        <td>
+          {call person_ data="$tagger" /}
+        </td>
         <td>{$tagger.time}</td>
       </tr>
     {/if}
@@ -305,7 +311,7 @@
   </table>
 </div>
 {if $message and length($message)}
-  {call .message_}
+  {call message_}
     {param className: 'u-pre u-monospace MetadataMessage' /}
     {param message: $message /}
   {/call}
@@ -315,7 +321,7 @@
 /**
  * Line about a git person identity.
  */
-{template .person_}
+{template person_}
   {@param name: ?}  /** name. */
   {@param email: ?}  /** email. */
 {$name}{if $email} &lt;{$email}&gt;{/if}
@@ -324,7 +330,7 @@
 /**
  * Preformatted message, possibly containing hyperlinks.
  */
-{template .message_ visibility="private"}
+{template message_ visibility="private"}
   {@param className: ?}  /** CSS class name for <pre> block. */
   {@param message: ?}  /** list of message parts, where each part contains:
       text: raw text of the part.

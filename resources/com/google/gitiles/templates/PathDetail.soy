@@ -13,10 +13,13 @@
 // limitations under the License.
 {namespace gitiles}
 
+import * as common from 'com/google/gitiles/templates/Common.soy';
+import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
+
 /**
  * Detail page for a path within a tree.
  */
-{template .pathDetail stricthtml="false"}
+{template pathDetail stricthtml="false"}
   {@param title: ?}  /** human-readable name of this path. */
   {@param repositoryName: ?}  /** name of this repository. */
   {@param? menuEntries: ?}  /** menu entries. */
@@ -28,30 +31,35 @@
       .symlinkDetail, or .gitlinkDetail as appropriate. */
   {@inject staticUrls: ?}
 {if $type == 'REGULAR_FILE' or $type == 'EXECUTABLE_FILE'}
-  {call .header data="all"}
+  {call common.header data="all"}
     {param css: [$staticUrls.PRETTIFY_CSS_URL] /}
   {/call}
 {elseif $data.readmeHtml}
-  {call .header data="all"}
+  {call common.header data="all"}
     {param css: [$staticUrls.DOC_CSS_URL, $staticUrls.PRETTIFY_CSS_URL] /}
   {/call}
 {else}
-  {call .header data="all" /}
+  {call common.header data="all" /}
 {/if}
 
 {switch $type}
-  {case 'TREE'}{call .treeDetail data="$data" /}
-  {case 'SYMLINK'}{call .symlinkDetail data="$data" /}
-  {case 'REGULAR_FILE'}{call .blobDetail data="$data" /}
-  {case 'EXECUTABLE_FILE'}{call .blobDetail data="$data" /}
-  {case 'GITLINK'}{call .gitlinkDetail data="$data" /}
+  {case 'TREE'}
+    {call objDetail.treeDetail data="$data" /}
+  {case 'SYMLINK'}
+    {call symlinkDetail data="$data" /}
+  {case 'REGULAR_FILE'}
+    {call objDetail.blobDetail data="$data" /}
+  {case 'EXECUTABLE_FILE'}
+    {call objDetail.blobDetail data="$data" /}
+  {case 'GITLINK'}
+    {call gitlinkDetail data="$data" /}
   {default}
     <div class="error">
       {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
     </div>
 {/switch}
 
-{call .footer}
+{call common.footer}
   {param customVariant: $customVariant /}
 {/call}
 {/template}
@@ -59,7 +67,7 @@
 /**
  * Detail for a symbolic link.
  */
-{template .symlinkDetail}
+{template symlinkDetail}
   {@param target: ?}  /** target of this symlink. */
   {@param? targetUrl: ?}  /** optional URL for the target, if it is within this repo. */
 <div class="symlink-detail">
@@ -71,7 +79,7 @@
 /**
  * Detail for a git submodule link.
  */
-{template .gitlinkDetail}
+{template gitlinkDetail}
   {@param sha: ?}  /** submodule commit SHA. */
   {@param remoteUrl: ?}  /** URL of the remote repository. */
   {@param? httpUrl: ?}  /** optional HTTP URL pointing to a web-browser-compatible URL of the remote
