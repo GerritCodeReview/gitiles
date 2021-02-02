@@ -97,6 +97,30 @@
       },
       "revId": "9ce2c4412ad431245b3132722be6e26a067a0726",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b3f3074_6f891ef8",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-02-02T17:21:57Z",
+      "side": 1,
+      "message": "How about checking on first few bytes of the string hoping to find a new line char.",
+      "parentUuid": "b3b6f7b3_0edae8d9",
+      "range": {
+        "startLine": 110,
+        "startChar": 37,
+        "endLine": 110,
+        "endChar": 53
+      },
+      "revId": "9ce2c4412ad431245b3132722be6e26a067a0726",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
