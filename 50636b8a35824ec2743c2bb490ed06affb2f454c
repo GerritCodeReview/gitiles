@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "468b9af1_d6436be1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1128710
+      },
+      "writtenOn": "2021-02-03T06:40:01Z",
+      "side": 1,
+      "message": "Update gitiles for Soy template import syntax. Soy is in the process of removing FQN template calls.",
+      "revId": "50636b8a35824ec2743c2bb490ed06affb2f454c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
