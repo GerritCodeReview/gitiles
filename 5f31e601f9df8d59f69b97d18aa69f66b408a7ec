@@ -16,6 +16,24 @@
       "message": "Running `bazel test ...` produces\n\n\u003e //javatests/com/google/gitiles:servlet_tests                             FAILED in 2.7s\n\nDetails:\n\n```\nThere were 84 failures:\n1) showParent_withRedirect(com.google.gitiles.BranchRedirectFilterTest)\ncom.google.template.soy.error.SoyCompilationException: errors during Soy compilation\ncom/google/gitiles/templates/BlameDetail.soy:16: error: parse error at \u0027i\u0027: expected {alias, {deltemplate, {template, or {element\nimport * as common from \u0027com/google/gitiles/templates/Common.soy\u0027;\n^\n\ncom/google/gitiles/templates/Common.soy:19: error: Template name \u0027header\u0027 must be relative to the file namespace, i.e. a dot followed by an identifier.\n{template header stricthtml\u003d\"false\"}\n          ^\n\ncom/google/gitiles/templates/Common.soy:151: error: Template name \u0027footer\u0027 must be relative to the file namespace, i.e. a dot followed by an identifier.\n{template footer stricthtml\u003d\"false\"}\n          ^\n[etc]\n```",
       "revId": "5f31e601f9df8d59f69b97d18aa69f66b408a7ec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de7c901_5224e9c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-02-04T17:56:16Z",
+      "side": 1,
+      "message": "Squashing in\n\n```\ndiff --git i/WORKSPACE w/WORKSPACE\nindex 453894b815..31ec3f2e6b 100644\n--- i/WORKSPACE\n+++ w/WORKSPACE\n@@ -126,8 +126,8 @@ maven_jar(\n \n maven_jar(\n     name \u003d \"soy\",\n-    artifact \u003d \"com.google.template:soy:2019-10-08\",\n-    sha1 \u003d \"4518bf8bac2dbbed684849bc209c39c4cb546237\",\n+    artifact \u003d \"com.google.template:soy:2020-08-24\",\n+    sha1 \u003d \"e774bf5cc95923d2685292883fe219e231346e50\",\n )\n \n maven_jar(\n```\n\ndoesn\u0027t fix it, alas (but was worth a try). Is there a newer release of Soy we should be using?",
+      "parentUuid": "2d326672_3f9aac4f",
+      "revId": "5f31e601f9df8d59f69b97d18aa69f66b408a7ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
