@@ -70,6 +70,24 @@
       "parentUuid": "f072aac2_574fc6a2",
       "revId": "5f31e601f9df8d59f69b97d18aa69f66b408a7ec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5bdb32_bb5b5472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1128710
+      },
+      "writtenOn": "2021-02-05T16:03:39Z",
+      "side": 1,
+      "message": "ok, we have a release that should work: 2021-02-01",
+      "parentUuid": "2f6c9c74_f4b0302f",
+      "revId": "5f31e601f9df8d59f69b97d18aa69f66b408a7ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
