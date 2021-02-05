@@ -107,6 +107,7 @@ public class BranchRedirectFilter extends AbstractHttpFilter {
   }
 
   private static boolean isForAutomation(HttpServletRequest req) {
-    return !FormatType.getFormatType(req).orElse(HTML).equals(HTML);
+    FormatType formatType = FormatType.getFormatType(req).orElse(HTML);
+    return formatType == FormatType.JSON || formatType == FormatType.TEXT;
   }
 }
