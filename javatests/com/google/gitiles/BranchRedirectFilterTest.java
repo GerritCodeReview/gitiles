@@ -19,8 +19,10 @@ import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_TEMPORARILY;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
+import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
 import java.util.Optional;
+import javax.annotation.Nullable;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
@@ -91,6 +93,19 @@ public class BranchRedirectFilterTest {
     assertThat(res.getStatus()).isEqualTo(SC_MOVED_PERMANENTLY);
     assertThat(res.getHeader(HttpHeaders.LOCATION))
         .isEqualTo("/b/repo/+/refs/heads/main/foo?format=html");
+  }
+
+  @Test
+  public void show_withRedirect_onDefaultFormatType() throws Exception {
+    repo.branch(MASTER).commit().add("foo", "contents").create();
+
+    String path = "/repo/+/refs/heads/master/foo";
+    FakeHttpServletRequest req = newHttpRequest(path, ORIGIN, null);
+    FakeHttpServletResponse res = new FakeHttpServletResponse();
+
+    servlet.service(req, res);
+    assertThat(res.getStatus()).isEqualTo(SC_MOVED_PERMANENTLY);
+    assertThat(res.getHeader(HttpHeaders.LOCATION)).isEqualTo("/b/repo/+/refs/heads/main/foo");
   }
 
   @Test
@@ -235,11 +250,13 @@ public class BranchRedirectFilterTest {
   }
 
   private static FakeHttpServletRequest newHttpRequest(
-      String path, String origin, String queryString) {
+      String path, String origin, @Nullable String queryString) {
     FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
     req.setHeader(HttpHeaders.ORIGIN, origin);
     req.setPathInfo(path);
-    req.setQueryString(queryString);
+    if (!Strings.isNullOrEmpty(queryString)) {
+      req.setQueryString(queryString);
+    }
     return req;
   }
 }
