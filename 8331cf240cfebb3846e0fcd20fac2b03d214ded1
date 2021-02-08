@@ -16,6 +16,23 @@
       "message": "Passes bazel tests locally, with java 8. Getting locale (or so, dates format) related test failures with java 11. The latter could be an issue local to my environment only.\n\nThe follow-up change is necessary locally to pass the manual test case again, described in that commit message.",
       "revId": "8331cf240cfebb3846e0fcd20fac2b03d214ded1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85563147_870310de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1129471
+      },
+      "writtenOn": "2021-02-08T19:23:29Z",
+      "side": 1,
+      "message": "292255: Revert \"Upgrade soy to 2020-08-24\" | https://gerrit-review.googlesource.com/c/gitiles/+/292255",
+      "revId": "8331cf240cfebb3846e0fcd20fac2b03d214ded1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
