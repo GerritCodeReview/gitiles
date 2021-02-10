@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4badac63_4bef1afe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-02-10T17:59:44Z",
+      "side": 1,
+      "message": "I asked out-of-line for more context and learned the following (so I\u0027m glad I asked!):\n\nWe were experiencing a 1.83GiB BlobSoyData in production, and you can imagine what kind of instability that created. But we don\u0027t have a test case reproducing it, only logs from when it happened a while ago (and we\u0027re trying to improve stability by preventing it happening again).\n\nGitiles tried not to load files larger than MAX_FILE_SIZE (10 MiB), but as described at https://gerrit-review.googlesource.com/c/gitiles/+/246032/3..7/java/com/google/gitiles/BlobSoyData.java#b73, we were not aggressive enough with that check. https://gerrit-review.googlesource.com/c/gitiles/+/246032 was meant to address this problem.\n\nIn general, I prefer that approach over the one in this change, since it\u0027s more reliable: instead of tightening the check for a text file and still missing large text files, we can guarantee that we won\u0027t have a large enough text or binary file to create that kind of memory usage. So I think this is fixed after all.\n\nMoral of the story: we should file issues like https://github.com/google/gitiles/issues/192 when starting this kind of work so that the community can catch when it\u0027s a duplicate. :)",
+      "revId": "b6f4e4b20aa27a875f0724063572c4cc5f8940d0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
