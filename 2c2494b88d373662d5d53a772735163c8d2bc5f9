@@ -16,6 +16,23 @@
       "message": "Sorry, I missed this one call in the previous PR.",
       "revId": "2c2494b88d373662d5d53a772735163c8d2bc5f9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f06d8ade_d0217ddb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-02-12T01:09:32Z",
+      "side": 1,
+      "message": "Is there a way we can catch this in tests? (Or is it more a matter of \"this will be required for a future Soy upgrade\".)",
+      "revId": "2c2494b88d373662d5d53a772735163c8d2bc5f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
