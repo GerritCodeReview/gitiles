@@ -31,7 +31,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 
 {if $tags}
   {for $tag in $tags}
-    {call gitiles.tagDetail data="$tag" /}
+    {call objDetail.tagDetail data="$tag" /}
   {/for}
 {/if}
 
