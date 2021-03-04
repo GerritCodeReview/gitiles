@@ -22,6 +22,30 @@
       },
       "revId": "f2a78d95eddc25cd6783f210411e4a52bbe6f7f4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3165ba24_99220b24",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-03-04T22:20:51Z",
+      "side": 1,
+      "message": "It means that the file is being requested from Gitiles to be in a non pretty display format and are not being displayed on the webpage. It could be from an tool to get file contents or download the file locally.\nWe had decided this that we will only redirect html contents.",
+      "parentUuid": "d4f8e78e_6734a330",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 20
+      },
+      "revId": "f2a78d95eddc25cd6783f210411e4a52bbe6f7f4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
