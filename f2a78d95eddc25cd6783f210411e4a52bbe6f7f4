@@ -46,6 +46,30 @@
       },
       "revId": "f2a78d95eddc25cd6783f210411e4a52bbe6f7f4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa31b302_4955147d",
+        "filename": "java/com/google/gitiles/BranchRedirectFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2021-03-04T22:27:41Z",
+      "side": 1,
+      "message": "In that case should DEFAULT be returning true?",
+      "parentUuid": "3165ba24_99220b24",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 20
+      },
+      "revId": "f2a78d95eddc25cd6783f210411e4a52bbe6f7f4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
