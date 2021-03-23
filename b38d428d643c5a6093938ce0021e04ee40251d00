@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1de25b7_88a61a26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1134470
+      },
+      "writtenOn": "2021-03-23T17:08:58Z",
+      "side": 1,
+      "message": "227658: Upgrade jetty to 9.4.18.v20190429 | https://gerrit-review.googlesource.com/c/gitiles/+/227658",
+      "revId": "b38d428d643c5a6093938ce0021e04ee40251d00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
