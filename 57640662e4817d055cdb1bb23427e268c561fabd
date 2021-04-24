@@ -33,6 +33,23 @@
       "message": "❇",
       "revId": "57640662e4817d055cdb1bb23427e268c561fabd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1fa9aac_e9df9032",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1135395
+      },
+      "writtenOn": "2021-04-24T06:15:42Z",
+      "side": 1,
+      "message": "git clone https://gerrit.googlesource.com/gitiles",
+      "revId": "57640662e4817d055cdb1bb23427e268c561fabd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
