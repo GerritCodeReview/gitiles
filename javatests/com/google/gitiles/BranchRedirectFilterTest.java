@@ -27,6 +27,7 @@ import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
 import org.eclipse.jgit.junit.TestRepository;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Before;
@@ -57,10 +58,10 @@ public class BranchRedirectFilterTest {
         new BranchRedirectFilter() {
           @Override
           protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
-            if (MASTER.equals(sourceBranch)) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
               return Optional.of(MAIN);
             }
-            if (FOO.equals(sourceBranch)) {
+            if (FOO.equals(toFullBranchName(sourceBranch))) {
               return Optional.of(BAR);
             }
             return Optional.empty();
@@ -106,6 +107,20 @@ public class BranchRedirectFilterTest {
     servlet.service(req, res);
     assertThat(res.getStatus()).isEqualTo(SC_MOVED_PERMANENTLY);
     assertThat(res.getHeader(HttpHeaders.LOCATION)).isEqualTo("/b/repo/+/refs/heads/main/foo");
+  }
+
+  @Test
+  public void show_withRedirect_UsingShortRefInUrl() throws Exception {
+    repo.branch(MASTER).commit().add("foo", "contents").create();
+
+    String path = "/repo/+/master/foo";
+    FakeHttpServletRequest req = newHttpRequest(path, ORIGIN, QUERY_STRING_HTML);
+    FakeHttpServletResponse res = new FakeHttpServletResponse();
+
+    servlet.service(req, res);
+    assertThat(res.getStatus()).isEqualTo(SC_MOVED_PERMANENTLY);
+    assertThat(res.getHeader(HttpHeaders.LOCATION))
+        .isEqualTo("/b/repo/+/refs/heads/main/foo?format=html");
   }
 
   @Test
@@ -247,6 +262,13 @@ public class BranchRedirectFilterTest {
     assertThat(res.getStatus()).isEqualTo(SC_MOVED_PERMANENTLY);
     assertThat(res.getHeader(HttpHeaders.LOCATION))
         .isEqualTo("/b/repo/+/refs/heads/main%7E2..refs/heads/main/?format=html");
+  }
+
+  private static String toFullBranchName(String sourceBranch) {
+    if (sourceBranch.startsWith(Constants.R_REFS)) {
+      return sourceBranch;
+    }
+    return Constants.R_HEADS + sourceBranch;
   }
 
   private static FakeHttpServletRequest newHttpRequest(
