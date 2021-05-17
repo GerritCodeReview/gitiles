@@ -16,6 +16,24 @@
       "message": "Is this field used any more?",
       "revId": "f65ff3b7bfc36f8426aa0199220b111e14ff92ee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "261db907_4acc7c5f",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1087688
+      },
+      "writtenOn": "2021-05-17T23:16:19Z",
+      "side": 1,
+      "message": "I think it\u0027s still used. E.g. line 221.",
+      "parentUuid": "6cc48c45_3903442e",
+      "revId": "f65ff3b7bfc36f8426aa0199220b111e14ff92ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
