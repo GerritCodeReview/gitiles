@@ -48,7 +48,7 @@ public class DebugRenderer extends Renderer {
 
   @Override
   protected SoySauce getSauce() {
-    SoyFileSet.Builder builder = SoyFileSet.builder().setCompileTimeGlobals(globals);
+    SoyFileSet.Builder builder = SoyFileSet.builder();
     for (URL template : templates.values()) {
       try {
         checkState(new File(template.toURI()).exists(), "Missing Soy template %s", template);

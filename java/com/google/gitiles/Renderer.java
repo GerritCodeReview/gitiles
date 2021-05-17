@@ -95,6 +95,7 @@ public abstract class Renderer {
 
   protected ImmutableMap<String, URL> templates;
   protected ImmutableMap<String, String> globals;
+  protected final String siteTitle;
   private final ConcurrentMap<String, HashCode> hashes =
       new ConcurrentHashMap<>(SOY_FILENAMES.size());
 
@@ -119,9 +120,9 @@ public abstract class Renderer {
     for (Map.Entry<String, String> e : STATIC_URL_GLOBALS.entrySet()) {
       allGlobals.put(e.getKey(), staticPrefix + e.getValue());
     }
-    allGlobals.put("gitiles.SITE_TITLE", siteTitle);
     allGlobals.putAll(globals);
     this.globals = ImmutableMap.copyOf(allGlobals);
+    this.siteTitle = siteTitle;
   }
 
   public HashCode getTemplateHash(String soyFile) {
@@ -221,7 +222,7 @@ public abstract class Renderer {
     }
     return getSauce()
         .renderTemplate(templateName)
-        .setIj(ImmutableMap.of("staticUrls", staticUrls.build()));
+        .setIj(ImmutableMap.of("staticUrls", staticUrls.build(), "SITE_TITLE", siteTitle));
   }
 
   protected abstract SoySauce getSauce();

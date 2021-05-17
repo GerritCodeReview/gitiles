@@ -27,6 +27,7 @@
   {@param? css: list<?>}  /** optional list of CSS URLs to include. */
   {@param? containerClass: ?}  /** optional class to append to the main container. */
   {@inject staticUrls: ?}
+  {@inject SITE_TITLE: string}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,9 @@
     {if $repositoryName}
       {sp}- {$repositoryName}
     {/if}
-    {sp}- {msg desc="name of the application"}{gitiles.SITE_TITLE}{/msg}
+    {sp}- {msg desc="name of the application"}
+      {$SITE_TITLE}
+    {/msg}
   </title>
 
   <link rel="stylesheet" type="text/css" href="{$staticUrls.BASE_CSS_URL}">
@@ -99,9 +102,12 @@
  * Default custom header implementation for Gitiles.
  */
 {deltemplate gitiles.customHeader}
+  {@inject SITE_TITLE: string}
 <!-- default customHeader -->
 <div class="Header-title">
-  {msg desc="short name of the application"}{gitiles.SITE_TITLE}{/msg}
+  {msg desc="short name of the application"}
+    {$SITE_TITLE}
+  {/msg}
 </div>
 {/deltemplate}
 
