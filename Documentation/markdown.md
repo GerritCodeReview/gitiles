@@ -40,6 +40,14 @@ simplify documentation writing.
 [Markdown Basics]: http://daringfireball.net/projects/markdown/basics
 [GitHub Flavored Markdown]: https://help.github.com/articles/github-flavored-markdown/
 
+### Plant UML
+
+![Plant UML](https://ptuml.hackmd.io/svg/U9npoazIqBLJ24uiIbImKl18pSd91m0rkGMq)
+
+```plantuml
+Plant UML
+```
+
 ### Paragraphs
 
 Paragraphs are one or more lines of consecutive text, followed by

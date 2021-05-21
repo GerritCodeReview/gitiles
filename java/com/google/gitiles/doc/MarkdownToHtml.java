@@ -311,6 +311,10 @@ public class MarkdownToHtml implements Visitor {
     codeInPre(node.getInfo(), node.getLiteral());
   }
 
+  public void visit(PlantumlFencedCodeBlock node) {
+    codeInPre(node.getInfo(), node.getLiteral());
+  }
+
   @Override
   public void visit(IndentedCodeBlock node) {
     codeInPre(null, node.getLiteral());
