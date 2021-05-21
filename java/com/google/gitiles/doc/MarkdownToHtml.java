@@ -24,8 +24,13 @@ import com.google.gitiles.GitilesView;
 import com.google.gitiles.ThreadSafePrettifyParser;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import com.google.gitiles.doc.html.SoyHtmlBuilder;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
 import javax.annotation.Nullable;
 import org.commonmark.ext.gfm.strikethrough.Strikethrough;
 import org.commonmark.ext.gfm.tables.TableBlock;
@@ -306,9 +311,185 @@ public class MarkdownToHtml implements Visitor {
     wrapChildren("li", node);
   }
 
+//  public String encode(byte data[]) {
+//    if (data == null) {
+//        return "";
+//    }
+//    final StringBuilder result = new StringBuilder(data.length * 2);
+//    for (byte b : data) {
+//        final String val = Integer.toHexString(b & 0xFF);
+//        if (val.length() == 1) {
+//            result.append("0");
+//        }
+//        result.append(val);
+//    }
+//    return result.toString();
+//  }
+//
+//  public String encode6bit(int b) {
+//    if (b < 10) {
+//      return Character.toString((char) (48 + b));
+//    }
+//    b -= 10;
+//    if (b < 26) {
+//      return Character.toString((char) (65 + b));
+//    }
+//    b -= 26;
+//    if (b < 26) {
+//      return Character.toString((char) (97 + b));
+//    }
+//    b -= 26;
+//    if (b == 0) {
+//      return "-";
+//    }
+//    if (b == 1) {
+//      return "_";
+//    }
+//    return "?";
+//  }
+//
+//  public String append3bytes(byte b1, byte b2, byte b3) {
+//    int c1 = b1 >> 2;
+//    int c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
+//    int c3 = ((b2 & 0xF) << 2) | (b3 >> 6);
+//    int c4 = b3 & 0x3F;
+//    String r = "";
+//    r += encode6bit(c1 & 0x3F);
+//    r += encode6bit(c2 & 0x3F);
+//    r += encode6bit(c3 & 0x3F);
+//    r += encode6bit(c4 & 0x3F);
+//    return r;
+//  }
+//
+//  public String encode64(byte data[]) {
+//    String r = "";
+//    final byte zero = 0;
+//    for (int i = 0; i < data.length; i += 3) {
+//      if (i + 2 == data.length) {
+//        r += append3bytes(data[i], data[i + 1], zero);
+//      } else if (i + 1 == data.length) {
+//        r += append3bytes(data[i], zero, zero);
+//      } else {
+//        r += append3bytes(data[i], data[i + 1], data[i + 2]);
+//      }
+//    }
+//    return r;
+//  }
+
+  public String encode(byte data[]) {
+    if (data == null) {
+        return "";
+    }
+    final StringBuilder result = new StringBuilder((data.length * 4 + 2) / 3);
+    for (int i = 0; i < data.length; i += 3) {
+        append3bytes(result, data[i] & 0xFF, i + 1 < data.length ? data[i + 1] & 0xFF : 0,
+                i + 2 < data.length ? data[i + 2] & 0xFF : 0);
+    }
+    return result.toString();
+  }
+
+  final static private char encode6bit[] = new char[64];
+
+  static {
+      for (byte b = 0; b < 64; b++) {
+          encode6bit[b] = encode6bit(b);
+      }
+  }
+
+  private void append3bytes(StringBuilder sb, int b1, int b2, int b3) {
+      final int c1 = b1 >> 2;
+      final int c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
+      final int c3 = ((b2 & 0xF) << 2) | (b3 >> 6);
+      final int c4 = b3 & 0x3F;
+      sb.append(encode6bit[c1 & 0x3F]);
+      sb.append(encode6bit[c2 & 0x3F]);
+      sb.append(encode6bit[c3 & 0x3F]);
+      sb.append(encode6bit[c4 & 0x3F]);
+  }
+
+  public static char encode6bit(byte b) {
+    assert b >= 0 && b < 64;
+    if (b < 10) {
+        return (char) ('0' + b);
+    }
+    b -= 10;
+    if (b < 26) {
+        return (char) ('A' + b);
+    }
+    b -= 26;
+    if (b < 26) {
+        return (char) ('a' + b);
+    }
+    b -= 26;
+    if (b == 0) {
+        return '-';
+    }
+    if (b == 1) {
+        return '_';
+    }
+    assert false;
+    return '?';
+  }
+
+  public String encodeHex(byte data[]) {
+    if (data == null) {
+        return "";
+    }
+    final StringBuilder result = new StringBuilder(data.length * 2);
+    for (byte b : data) {
+        final String val = Integer.toHexString(b & 0xFF);
+        if (val.length() == 1) {
+            result.append("0");
+        }
+        result.append(val);
+    }
+    return result.toString();
+  }
+
   @Override
   public void visit(FencedCodeBlock node) {
-    codeInPre(node.getInfo(), node.getLiteral());
+    if (node.getInfo().contentEquals(PlantumlFencedCodeBlockParserExtension.PLANTUML)) {
+      String srcString = "";
+//      try {
+//        byte[] input = node.getLiteral().getBytes("UTF-8");
+//        byte[] output = new byte[100];
+//        Deflater compresser = new Deflater();
+//        compresser.setInput(input);
+//        compresser.finish();
+//        int compressedDataLength = compresser.deflate(output);
+//        compresser.end();
+//        String outputString = new String(output, 0, compressedDataLength, "UTF-8");
+//        outputString = encode(outputString.getBytes());
+//        srcString = "https://www.plantuml.com/plantuml/svg/" + outputString;
+//      } catch (UnsupportedEncodingException e) {
+//        e.printStackTrace();
+//      }
+      final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//      final Deflater deflater = new Deflater(Deflater.HUFFMAN_ONLY);
+      final Deflater deflater = new Deflater();
+      deflater.setLevel(9);
+      final DeflaterOutputStream gz = new DeflaterOutputStream(baos, deflater);
+      try {
+        byte[] in = node.getLiteral().getBytes("UTF-8");
+        gz.write(in);
+        gz.close();
+        baos.close();
+        byte[] out = baos.toByteArray();
+//        String outputString = encode(out);
+        String outputString = encodeHex(in);
+        srcString = "https://www.plantuml.com/plantuml/svg/~h" + outputString;
+      } catch (IOException e) {
+        throw new IllegalStateException(e.toString());
+      }
+      html.open("img")
+//      .attribute("src", "https://ptuml.hackmd.io/svg/U9npoazIqBLJ24uiIbImKl18pSd91m0rkGMq")
+      .attribute("src", srcString)
+      .attribute("title", "")
+      .attribute("alt", "Plant UML");
+    }
+    else {
+      codeInPre(node.getInfo(), node.getLiteral());
+    }
   }
 
   @Override
