@@ -308,7 +308,15 @@ public class MarkdownToHtml implements Visitor {
 
   @Override
   public void visit(FencedCodeBlock node) {
-    codeInPre(node.getInfo(), node.getLiteral());
+    if (node.getInfo().contentEquals(PlantumlFencedCodeBlockParserExtension.PLANTUML)) {
+      html.open("img")
+      .attribute("src", "https://ptuml.hackmd.io/svg/U9npoazIqBLJ24uiIbImKl18pSd91m0rkGMq")
+      .attribute("title", "")
+      .attribute("alt", "Plant UML");
+    }
+    else {
+      codeInPre(node.getInfo(), node.getLiteral());
+    }
   }
 
   @Override
