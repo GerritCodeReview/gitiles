@@ -61,6 +61,7 @@ public class GitilesMarkdown {
     }
     if (cfg.toc) {
       ext.add(TocExtension.create());
+      ext.add(PlantumlFencedCodeBlockParserExtension.create());
     }
     return Parser.builder().extensions(ext).build().parse(md);
   }

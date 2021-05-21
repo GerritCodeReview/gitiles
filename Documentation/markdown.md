@@ -40,6 +40,15 @@ simplify documentation writing.
 [Markdown Basics]: http://daringfireball.net/projects/markdown/basics
 [GitHub Flavored Markdown]: https://help.github.com/articles/github-flavored-markdown/
 
+### Plant UML
+
+```plantuml
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+@enduml
+```
+
 ### Paragraphs
 
 Paragraphs are one or more lines of consecutive text, followed by
