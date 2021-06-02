@@ -50,6 +50,23 @@
       "message": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
       "revId": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e919b5dd_bc60e965",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1135440
+      },
+      "writtenOn": "2021-06-02T17:52:53Z",
+      "side": 1,
+      "message": "samsung SM-A125F",
+      "revId": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
