@@ -81,7 +81,7 @@
           <a href="{$parent.url}">{$parent.sha}</a>
           {sp}<span>
             [<a href="{$parent.diffUrl}">{msg desc="text for the parent diff link"}diff{/msg}</a>]
-            {if isNonnull($parent.blameUrl)}
+            {if $parent.blameUrl != null}
               {sp}[<a href="{$parent.blameUrl}">{msg desc="text for the parent blame link"}blame{/msg}</a>]
             {/if}
           </span>
