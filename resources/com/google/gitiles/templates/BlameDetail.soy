@@ -51,7 +51,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       {let $i: index($line) /}
       {let $region: $regions[$i] /}
       <tr class="Blame-region {$region.class}">
-        {if isNonnull($region.abbrevSha)}
+        {if $region.abbrevSha != null}
           <td class="Blame-author">{$region.author.name}</td>
           <td class="Blame-sha1"><a class="u-sha1 u-monospace Blame-sha1" href="{$region.commitUrl}">{$region.abbrevSha}</a></td>
           <td class="Blame-time">{$region.author.time}</td>
