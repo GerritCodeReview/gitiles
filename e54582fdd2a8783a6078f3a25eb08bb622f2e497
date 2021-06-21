@@ -67,6 +67,24 @@
       "message": "samsung SM-A125F",
       "revId": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48d3cd84_72745519",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1135440
+      },
+      "writtenOn": "2021-06-21T04:35:06Z",
+      "side": 1,
+      "message": "Operator kartu 3",
+      "parentUuid": "e919b5dd_bc60e965",
+      "revId": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
