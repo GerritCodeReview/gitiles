@@ -42,8 +42,8 @@ maven_jar(
 
 maven_jar(
     name = "guava",
-    artifact = "com.google.guava:guava:29.0-jre",
-    sha1 = "801142b4c3d0f0770dd29abea50906cacfddd447",
+    artifact = "com.google.guava:guava:30.1-jre",
+    sha1 = "00d0c3ce2311c9e36e73228da25a6e99b2ab826f",
 )
 
 maven_jar(
@@ -148,7 +148,7 @@ maven_jar(
     sha1 = "198ea005f41219f038f4291f0b0e9f3259730e92",
 )
 
-JGIT_VERS = "5.7.0.202003110725-r"
+JGIT_VERS = "5.12.0.202106070339-r"
 
 JGIT_REPO = MAVEN_CENTRAL
 
@@ -156,34 +156,34 @@ maven_jar(
     name = "jgit-lib",
     artifact = "org.eclipse.jgit:org.eclipse.jgit:" + JGIT_VERS,
     repository = JGIT_REPO,
-    sha1 = "8dfe333ee6850df171a3d6b696aca3f93e23abc3",
+    sha1 = "b7792da62103c956d3e58e29fb2e6e5c5f0e1317",
 )
 
 maven_jar(
     name = "jgit-servlet",
     artifact = "org.eclipse.jgit:org.eclipse.jgit.http.server:" + JGIT_VERS,
     repository = JGIT_REPO,
-    sha1 = "9c4ee5af7f0b42f4589acb255b7bb3543d7d70d6",
+    sha1 = "c50ee52951bdcd119af0181926c25e09ae913aab",
 )
 
 maven_jar(
     name = "jgit-junit",
     artifact = "org.eclipse.jgit:org.eclipse.jgit.junit:" + JGIT_VERS,
     repository = JGIT_REPO,
-    sha1 = "a90513295c1cba0b289430512f0aa9d984d7cba2",
+    sha1 = "1bb81c9104f318f16748dbaa43f95509a53e7aa0",
 )
 
 maven_jar(
     name = "jgit-archive",
     artifact = "org.eclipse.jgit:org.eclipse.jgit.archive:" + JGIT_VERS,
     repository = JGIT_REPO,
-    sha1 = "4456eb727ed1289121962d74a79c6add9ab3e0c2",
+    sha1 = "93f59b510a923bd757ea6b2a6e359d222daf2e1d",
 )
 
 maven_jar(
     name = "ewah",
-    artifact = "com.googlecode.javaewah:JavaEWAH:1.1.6",
-    sha1 = "94ad16d728b374d65bd897625f3fbb3da223a2b6",
+    artifact = "com.googlecode.javaewah:JavaEWAH:1.1.7",
+    sha1 = "570dde3cd706ae10c62fe19b150928cfdb415e87",
 )
 
 # When upgrading commons_compress, upgrade tukaani_xz to the
@@ -229,18 +229,18 @@ maven_jar(
     sha1 = "dfb0de47f433c2a37dd44449c88d84b698cd5cf7",
 )
 
-GUICE_VERSION = "4.2.3"
+GUICE_VERSION = "5.0.1"
 
 maven_jar(
     name = "guice-library",
     artifact = "com.google.inject:guice:" + GUICE_VERSION,
-    sha1 = "2ea992d6d7bdcac7a43111a95d182a4c42eb5ff7",
+    sha1 = "0dae7556b441cada2b4f0a2314eb68e1ff423429",
 )
 
 maven_jar(
     name = "guice-assistedinject",
     artifact = "com.google.inject.extensions:guice-assistedinject:" + GUICE_VERSION,
-    sha1 = "acbfddc556ee9496293ed1df250cc378f331d854",
+    sha1 = "62e02f2aceb7d90ba354584dacc018c1e94ff01c",
 )
 
 maven_jar(
