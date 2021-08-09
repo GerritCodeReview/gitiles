@@ -9,7 +9,7 @@ java_library(
         "//lib:guava",
         "//lib:guava-failureaccess",
         "//lib:html-types",
-        "//lib:servlet-api_3_0",
+        "//lib:servlet-api_3_1",
         "//lib/jetty:server",
         "//lib/jetty:servlet",
         "//lib/jgit",

@@ -8,7 +8,7 @@ java_library(
     name = "servlet",
     exports = [
         ":security",
-        "//lib:servlet-api_3_0",  # Different from the rest of gitiles-server.
+        "//lib:servlet-api_3_1",  # Different from the rest of gitiles-server.
         "@servlet//jar",
     ],
 )
