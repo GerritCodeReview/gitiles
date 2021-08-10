@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "239d8d48_acb4f2cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-08-10T18:08:07Z",
+      "side": 1,
+      "message": "Build and tests work:\n\n [~/work/gitiles ((0cadf59...))]$ bazel build gitiles\n Starting local Bazel server and connecting to it...\n INFO: Invocation ID: 0534388d-0e8a-4e05-82b1-50bc1e154fd4\n INFO: Analyzed target //:gitiles (75 packages loaded, 744 targets configured).\n INFO: Found 1 target...\n INFO: From Building java/com/google/gitiles/libservlet-class.jar (87 source files):\n java/com/google/gitiles/DateFormatter.java:35: warning: [ImmutableEnumChecker] enums should be immutable: \u0027Format\u0027 has field \u0027defaultFormat\u0027 of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027, the declaration of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027 is not annotated with @com.google.errorprone.annotations.Immutable\n     private final ThreadLocal\u003cDateFormat\u003e defaultFormat;\n                                           ^\n     (see https://errorprone.info/bugpattern/ImmutableEnumChecker)\n java/com/google/gitiles/DateFormatter.java:36: warning: [ImmutableEnumChecker] enums should be immutable: \u0027Format\u0027 has field \u0027fixedTzFormat\u0027 of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027, the declaration of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027 is not annotated with @com.google.errorprone.annotations.Immutable\n     private final ThreadLocal\u003cDateFormat\u003e fixedTzFormat;\n                                           ^\n     (see https://errorprone.info/bugpattern/ImmutableEnumChecker)\n Target //:gitiles up-to-date:\n   bazel-bin/gitiles.war\n INFO: Elapsed time: 6.747s, Critical Path: 0.63s\n INFO: 5 processes: 4 remote cache hit, 1 internal.\n INFO: Build completed successfully, 5 total actions\n\n [~/work/gitiles ((0cadf59...))]$ bazel test //...\n INFO: Invocation ID: d526d591-4297-45dc-93d3-22c61d188456\n INFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (14 packages loaded, 122 targets configured).\n INFO: Found 1 test target...\n Target //javatests/com/google/gitiles:servlet_tests up-to-date:\n   bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\n   bazel-bin/javatests/com/google/gitiles/servlet_tests\n INFO: Elapsed time: 0.928s, Critical Path: 0.11s\n INFO: 9 processes: 5 remote cache hit, 4 internal.\n INFO: Build completed successfully, 9 total actions\n //javatests/com/google/gitiles:servlet_tests                    (cached) PASSED in 0.0s\n \n Executed 0 out of 1 test: 1 test passes.\n There were tests whose specified size is too big. Use the --test_verbose_timeout_warnings command li\n INFO: Build completed successfully, 9 total actions",
+      "revId": "0cadf598f875dc8e47e822b35f1dbb3e45904691",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
