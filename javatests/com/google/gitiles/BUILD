@@ -34,6 +34,7 @@ junit_tests(
         ],
         exclude = ["**/ServletTest.java"],
     ),
+    size = "small",
     visibility = ["//visibility:public"],
     runtime_deps = ["//lib/junit:hamcrest-core"],
     deps = DEPS + [
