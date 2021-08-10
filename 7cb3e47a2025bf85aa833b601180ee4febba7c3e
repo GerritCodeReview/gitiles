@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608d32a4_c4ed230c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-08-10T18:16:28Z",
+      "side": 1,
+      "message": "I split dependency updates into two changes in case they need separate review like they do in Gerrit core. Both changes use versions from Gerrit core stable-3.4, so hopefully that\u0027s easy to review.\n\n $ bazel build gitiles\n INFO: Invocation ID: ea0959b2-1968-4e89-b06c-9445f221087c\n INFO: Analyzed target //:gitiles (46 packages loaded, 323 targets configured).\n INFO: Found 1 target...\n INFO: From Building java/com/google/gitiles/libservlet-class.jar (87 source files):\n java/com/google/gitiles/DateFormatter.java:35: warning: [ImmutableEnumChecker] enums should be immutable: \u0027Format\u0027 has field \u0027defaultFormat\u0027 of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027, the declaration of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027 is not annotated with @com.google.errorprone.annotations.Immutable\n     private final ThreadLocal\u003cDateFormat\u003e defaultFormat;\n                                           ^\n     (see https://errorprone.info/bugpattern/ImmutableEnumChecker)\n java/com/google/gitiles/DateFormatter.java:36: warning: [ImmutableEnumChecker] enums should be immutable: \u0027Format\u0027 has field \u0027fixedTzFormat\u0027 of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027, the declaration of type \u0027java.lang.ThreadLocal\u003cjava.text.DateFormat\u003e\u0027 is not annotated with @com.google.errorprone.annotations.Immutable\n     private final ThreadLocal\u003cDateFormat\u003e fixedTzFormat;\n                                           ^\n     (see https://errorprone.info/bugpattern/ImmutableEnumChecker)\n Target //:gitiles up-to-date:\n   bazel-bin/gitiles.war\n INFO: Elapsed time: 2.228s, Critical Path: 0.20s\n INFO: 3 processes: 2 remote cache hit, 1 internal.\n INFO: Build completed successfully, 3 total actions\n\n $ bazel test --cache_test_results\u003dNO //...\n INFO: Invocation ID: 8b700c18-a3ae-4a99-8526-3be378e9d91a\n INFO: Build option --cache_test_results has changed, discarding analysis cache.\n INFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (0 packages loaded, 834 targets configured).\n INFO: Found 1 test target...\n Target //javatests/com/google/gitiles:servlet_tests up-to-date:\n   bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\n   bazel-bin/javatests/com/google/gitiles/servlet_tests\n INFO: Elapsed time: 9.797s, Critical Path: 9.55s\n INFO: 2 processes: 1 internal, 1 darwin-sandbox.\n INFO: Build completed successfully, 2 total actions\n //javatests/com/google/gitiles:servlet_tests                             PASSED in 9.4s\n \n Executed 1 out of 1 test: 1 test passes.\n INFO: Build completed successfully, 2 total actions\n\n cd /path/to/repositories  # Don\u0027t run from the gitiles repo.\n /path/to/gitiles/tools/run_dev.sh\n # confirmed gitiles ran and looked correct, tried blame, log, etc",
+      "revId": "7cb3e47a2025bf85aa833b601180ee4febba7c3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
