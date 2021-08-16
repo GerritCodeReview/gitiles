@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1773fecc_7e7869c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-08-16T21:30:52Z",
+      "side": 1,
+      "message": " $ bazel test --cache_test_results\u003dNO //...\n INFO: Invocation ID: 69849f7e-7514-4db5-a30a-029dbd4c062a\n INFO: Build option --cache_test_results has changed, discarding analysis cache.\n INFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (0 packages loaded, 834 targets configured).\n INFO: Found 1 test target...\n Target //javatests/com/google/gitiles:servlet_tests up-to-date:\n   bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\n   bazel-bin/javatests/com/google/gitiles/servlet_tests\n INFO: Elapsed time: 10.850s, Critical Path: 10.58s\n INFO: 2 processes: 1 internal, 1 darwin-sandbox.\n INFO: Build completed successfully, 2 total actions\n //javatests/com/google/gitiles:servlet_tests                             PASSED in 10.5s\n \n INFO: Build completed successfully, 2 total actions",
+      "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
