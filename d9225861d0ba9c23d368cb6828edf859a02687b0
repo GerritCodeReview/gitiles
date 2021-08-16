@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16b0e9f_c4e31f38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-08-16T21:21:20Z",
+      "side": 1,
+      "message": "\u003e Patch Set 3:\n\u003e \n\u003e \u003e Patch Set 3:\n\u003e \u003e \n\u003e \u003e I upgraded JGit to 5.7.0 in [1] but it seems the API isn\u0027t in that version either.\n\u003e \u003e \n\u003e \u003e [1] https://gerrit-review.googlesource.com/c/gitiles/+/259941\n\u003e \n\u003e Correct. This didn\u0027t make the cut for 5.7. It is in JGit 5.8.\n\nI rebased this on the tip as it\u0027s been updated to use JGit 5.12: https://gerrit-review.googlesource.com/c/gitiles/+/314464/1/WORKSPACE\n\nCan you re-test?",
+      "revId": "d9225861d0ba9c23d368cb6828edf859a02687b0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
