@@ -33,6 +33,23 @@
       "message": "git fetch https://gerrit.googlesource.com/gitiles refs/changes/20/37820/4 \u0026\u0026 git cherry-pick FETCH_HEAD",
       "revId": "9de65953ec071a09752deb5f2495235326dfcc75",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb9e737c_1698d117",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1140011
+      },
+      "writtenOn": "2021-08-20T21:27:16Z",
+      "side": 1,
+      "message": "\u003e Uploaded patch set 2.\n\n",
+      "revId": "9de65953ec071a09752deb5f2495235326dfcc75",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
