@@ -24,8 +24,14 @@ import com.google.gitiles.FileJsonData.File;
 import com.google.gitiles.TreeJsonData.Tree;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
 import org.eclipse.jgit.lib.FileMode;
@@ -41,6 +47,7 @@ import org.junit.runners.JUnit4;
 @SuppressWarnings("unchecked")
 @RunWith(JUnit4.class)
 public class PathServletTest extends ServletTest {
+
   @Test
   public void rootTreeHtml() throws Exception {
     repo.branch("master").commit().add("foo", "contents").create();
@@ -137,6 +144,47 @@ public class PathServletTest extends ServletTest {
     Map<String, ?> data = (Map<String, ?>) buildData("/repo/+/master/foo").get("data");
     assertThat(data).containsEntry("lines", null);
     assertThat(data).containsEntry("size", "" + largeContentSize);
+  }
+
+  @Test
+  public void contentParsedWithBatches() throws Exception {
+    try (InputStream in = this.getClass().getResourceAsStream("stackOverflowContent.txt")) {
+      String stackOverflowContent =
+          new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
+              .lines()
+              .collect(Collectors.joining("\n"));
+      repo.branch("master").commit().add("foo", stackOverflowContent).create();
+
+      Map<String, ?> data = (Map<String, ?>) buildData("/repo/+/master/foo").get("data");
+      SoyListData lines = (SoyListData) data.get("lines");
+      assertThat(lines.length()).isNotNull();
+      assertThat(data.get("size")).isNull();
+
+      SoyListData spans = lines.getListData(0);
+      assertThat(spans.length()).isEqualTo(4);
+      assertThat(spans.getMapData(3).get("classes")).isEqualTo(StringData.forValue("typ"));
+      assertThat(spans.getMapData(3).get("text")).isEqualTo(StringData.forValue("Maintained"));
+    }
+  }
+
+  @Test
+  public void moreThanOneBatchHtml() throws Exception {
+    int twoBatchesContentSize = BlobSoyData.NUMBER_OF_LINES_PER_BATCH * 2;
+    repo.branch("master").commit().add("foo", generateLines(twoBatchesContentSize, 500)).create();
+
+    Map<String, ?> data = (Map<String, ?>) buildData("/repo/+/master/foo").get("data");
+    assertThat(data.get("lines")).isNotNull();
+    SoyListData lines = (SoyListData) data.get("lines");
+    assertThat(lines.length()).isEqualTo(twoBatchesContentSize);
+    assertThat(data.get("size")).isNull();
+  }
+
+  private static String generateLines(int numberOfLines, final int contentSize) {
+
+    return IntStream.range(0, numberOfLines)
+        .boxed()
+        .map(i -> generateContent(contentSize))
+        .collect(Collectors.joining("\n"));
   }
 
   private static String generateContent(int contentSize) {
