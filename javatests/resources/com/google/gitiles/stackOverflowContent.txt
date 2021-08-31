@@ -1,0 +1,195 @@
+S:  Maintained
+USB W996[87]CF DRIVER
+P:  Name1 Surname1
+M:  name1.surname1@email.address.it
+L:  linux-usb-devel@lists.sourceforge.net
+L:  video4linux-list@redhat.com
+W:  http://www.linux-projects.org
+S:  Maintained
+USB ZC0301 DRIVER
+P:  Name2 Surname2
+M:  name2.surname2@email.address.it
+L:  linux-usb-devel@lists.sourceforge.net
+L:  video4linux-list@redhat.com
+W:  http://www.linux-projects.org
+S:  Maintained
+USB ZD1201 DRIVER
+P:  Name3 Surname3
+M:  name3Surname3@email.org
+L:  linux-usb-users@lists.sourceforge.net
+L:  linux-usb-devel@lists.sourceforge.net
+W:  http://linux-lc100020.sourceforge.net
+S:  Maintained
+USER-MODE LINUX
+P:  Name4 Surname4
+M:  nSurname4@email.com
+L:  user-mode-linux-devel@lists.sourceforge.net
+L:  user-mode-linux-user@lists.sourceforge.net
+W:  http://user-mode-linux.sourceforge.net
+S:  Maintained
+    
+FAT/VFAT/MSDOS FILESYSTEM:
+P:  Name5 Surname5
+M:  name5surname5@mail.email.co.jp
+L:  linux-kernel@vger.kernel.org
+S:  Maintained
+VIA 82Cxxx AUDIO DRIVER (old OSS driver)
+P:  Name6 Surname6
+S:  Odd fixes
+VIA RHINE NETWORK DRIVER
+P:  Roger Luethi
+M:  ns@email.ch
+S:  Maintained
+VIAPRO SMBUS DRIVER
+P:  Name7 Surname7
+M:  name@linux-fr.org
+L:  i2c@lm-sensors.org
+S:  Maintained
+UCLINUX (AND M68KNOMMU)
+P:  Name8 Surname8
+M:  name@uclinux.org
+W:  http://www.uclinux.org/
+L:  uclinux-dev@uclinux.org  (subscribers-only)
+S:  Maintained
+UCLINUX FOR NEC V850
+P:  Name9 Surname9
+M:  uclinux@lsi.nec.co.jp
+W:  http://www.ic.nec.co.jp/micro/uclinux/eng/
+W:  http://www.ee.nec.de/uclinux/
+S:  Supported
+UCLINUX FOR RENESAS H8/300
+P:  Name9 Surname9
+M:  name@users.sourceforge.jp
+W:  http://uclinux-h8.sourceforge.jp/
+S:  Supported
+USB DIAMOND RIO500 DRIVER
+P:  Name10 Surname10
+M:  name@df.uba.ar
+L:  rio500-users@lists.sourceforge.net
+W:  http://rio500.sourceforge.net
+S:  Maintained
+VIDEO FOR LINUX
+P:  Name11 Surname11
+M:  name@infradead.org
+M:  v4l-dvb-maintainer@linuxtv.org
+L:  video4linux-list@redhat.com
+W:  http://linuxtv.org
+T:  git kernel.org:/pub/scm/linux/kernel/git/mchehab/v4l-dvb.git
+S:  Maintained
+VT1211 HARDWARE MONITOR DRIVER
+P:  Name12 Surname12
+M:  name@gmail.com
+L:  lm-sensors@lm-sensors.org
+S:  Maintained
+VT8231 HARDWARE MONITOR DRIVER
+P:  Name13 Surname13
+M:  name@planbit.co.uk
+L:  lm-sensors@lm-sensors.org
+S:  Maintained
+W1 DALLAS'S 1-WIRE BUS
+P:  Name14 Surname14
+M:  name@2ka.mipt.ru
+S:  Maintained
+W83791D HARDWARE MONITORING DRIVER
+P:  Name15 Surname15
+M:  name2@gmail.com
+L:  lm-sensors@lm-sensors.org
+S:  Maintained
+W83L51xD SD/MMC CARD INTERFACE DRIVER
+P:  Name16 Surname16
+M:  name16@name16.cx
+L:  wbsd-devel@list.drzeus.cx
+W:  http://projects.drzeus.cx/wbsd
+S:  Maintained
+WATCHDOG DEVICE DRIVERS
+P:  Name17 Surname17
+M:  name@iguana.be
+T:  git kernel.org:/pub/scm/linux/kernel/git/wim/linux-2.6-watchdog.git
+S:  Maintained
+WAVELAN NETWORK DRIVER & WIRELESS EXTENSIONS
+P:  Name17 Surname17
+M:  name@hpl.hp.com
+W:  http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/
+S:  Maintained
+WD7000 SCSI DRIVER
+P:  Name18 Surname18
+M:  name18@fly.cc.fer.hr
+L:  linux-scsi@vger.kernel.org
+S:  Maintained
+WISTRON LAPTOP BUTTON DRIVER
+P:  Name19 Surname19
+M:  name@surname.cz
+S:  Maintained
+WL3501 WIRELESS PCMCIA CARD DRIVER
+P:  Name20 Surname20
+M:  name@conectiva.com.br
+W:  http://advogato.org/person/acme
+S:  Maintained
+X.25 NETWORK LAYER
+P:  Name21 Surname21
+M:  name@baty.hanse.de
+L:  linux-x25@vger.kernel.org
+S:  Maintained
+XFS FILESYSTEM
+P:  Silicon Graphics Inc
+P:  Name22 Surname22
+M:  xfs-masters@oss.sgi.com
+L:  xfs@oss.sgi.com
+W:  http://oss.sgi.com/projects/xfs
+T:  git git://oss.sgi.com:8090/xfs/xfs-2.6
+S:  Supported
+X86 3-LEVEL PAGING (PAE) SUPPORT
+P:  Name23 Surname23
+M:  name@redhat.com
+S:  Maintained
+X86-64 port
+P:  Name24 Surname24
+M:  nk@suse.de
+L:  discuss@x86-64.org
+W:  http://www.x86-64.org
+S:  Maintained
+YAM DRIVER FOR AX.25
+P:  Name25 Surname25
+M:  nm1@f6fbb.org
+L:  linux-hams@vger.kernel.org
+S:  Maintained
+YEALINK PHONE DRIVER
+P:  Name26 Surname26
+M:  name3@gmail.com
+L:  usbb2k-api-dev@nongnu.org
+S:  Maintained
+Z8530 DRIVER FOR AX.25
+P:  Name27 Surname27
+M:  name@yaina.de
+W:  http://yaina.de/jreuter/
+W:  http://www.qsl.net/dl1bke/
+L:  linux-hams@vger.kernel.org
+S:  Maintained
+ZD1211RW WIRELESS DRIVER
+P:  Name28 Surname28
+M:  name@gentoo.org
+P:  Name29 Surname29
+M:  name@deine-taler.de
+W:  http://zd1211.ath.cx/wiki/DriverRewrite
+L:  zd1211-devs@lists.sourceforge.net (subscribers-only)
+S:  Maintained
+ZF MACHZ WATCHDOG
+P:  Name29 Surname29
+M:  name@netbank.com.br
+W:  http://cvs.conectiva.com.br/drivers/ZFL-watchdog/
+S:  Maintained
+ZR36067 VIDEO FOR LINUX DRIVER
+P:  Name30 Surname30
+M:  name@surname.bitfreak.net
+L:  mjpeg-users@lists.sourceforge.net
+W:  http://mjpeg.sourceforge.net/driver-zoran/
+S:  Maintained
+ZR36120 VIDEO FOR LINUX DRIVER
+P:  Name31 Surname31
+M:  name@polyware.nl
+W:  http://www.polyware.nl/~name/En/hobbies.html
+W:  http://www.polyware.nl/~name/hobbies.html
+S:  Maintained
+THE REST
+P:  Name32 Surname32
+S:  Buried alive in reporters
