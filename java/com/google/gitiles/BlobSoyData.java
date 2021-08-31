@@ -20,12 +20,14 @@ import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -56,6 +58,13 @@ public class BlobSoyData {
    * will get displayed as binary.
    */
   private static final int MAX_LINE_COUNT = 50000;
+
+  /**
+   * Number of lines per batch. File with more lines will be split into multiple batches and each
+   * batch will be processed separately. This will mitigate the StackOverflowException from regex
+   * matching issue.
+   */
+  @VisibleForTesting static final int NUMBER_OF_LINES_PER_BATCH = 100;
 
   private final GitilesView view;
   private final ObjectReader reader;
@@ -107,26 +116,40 @@ public class BlobSoyData {
   }
 
   private SoyListData prettify(String path, String content) {
-    List<ParseResult> results = parse(path, content);
     SoyListData lines = new SoyListData();
     SoyListData line = new SoyListData();
     lines.add(line);
 
     int last = 0;
-    for (ParseResult r : results) {
-      checkState(
-          r.getOffset() >= last,
-          "out-of-order ParseResult, expected %s >= %s",
-          r.getOffset(),
-          last);
-      writeResult(lines, null, content, last, r.getOffset());
-      last = r.getOffset() + r.getLength();
-      writeResult(lines, r.getStyleKeysString(), content, r.getOffset(), last);
+    int previousBatchLastOffset = 0;
+    List<String> contentParts = getContentBatches(content);
+    for (String contentPart : contentParts) {
+      List<ParseResult> results = parse(path, contentPart);
+      int offset = 0;
+      for (ParseResult r : results) {
+        offset = previousBatchLastOffset + r.getOffset();
+        checkState(offset >= last, "out-of-order ParseResult, expected %s >= %s", offset, last);
+        writeResult(lines, null, content, last, offset);
+        last = offset + r.getLength();
+        writeResult(lines, r.getStyleKeysString(), content, offset, last);
+      }
+      previousBatchLastOffset = last + 1;
     }
+
     if (last < content.length()) {
       writeResult(lines, null, content, last, content.length());
     }
     return lines;
+  }
+
+  private List<String> getContentBatches(String content) {
+    if (content.lines().count() <= NUMBER_OF_LINES_PER_BATCH) {
+      return ImmutableList.of(content);
+    }
+    return Lists.partition(content.lines().collect(Collectors.toList()), NUMBER_OF_LINES_PER_BATCH)
+        .stream()
+        .map(lines -> String.join("\n", lines))
+        .collect(Collectors.toList());
   }
 
   private List<ParseResult> parse(String path, String content) {
