@@ -16,6 +16,8 @@ java_library(
         ["**/*.java"],
         exclude = ["**/*Test.java"],
     ) + glob(["**/ServletTest.java"]),
+    resource_strip_prefix = "javatests/resources",
+    resources = ["//javatests/resources/com/google/gitiles"],
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
         "//lib:jsr305",
