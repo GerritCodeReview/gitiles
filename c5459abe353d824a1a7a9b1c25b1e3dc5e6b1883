@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc20525_13dc7287",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-09-06T16:25:45Z",
+      "side": 1,
+      "message": "Is there any chance that dividing the content into chunks will result in parts that are not highlighted or mis-highlighted? e.g imagine that `while` falls to two buckets - what/how it would be highlighted? As a keyword (intended) or as variable (not intended) provided that there is such visual distinction in the content highlighting ;)",
+      "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46efff1e_f862eb5a",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-09-06T16:25:45Z",
+      "side": 1,
+      "message": "Can it be made a file resource and loaded in the test?",
+      "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
