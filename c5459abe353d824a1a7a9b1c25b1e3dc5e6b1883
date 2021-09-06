@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c574934c_0b17c112",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-09-06T16:27:00Z",
+      "side": 1,
+      "message": "Forgot to uncheck the `Resovled` bit :/",
+      "parentUuid": "6bc20525_13dc7287",
+      "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46efff1e_f862eb5a",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
         "patchSetId": 1
