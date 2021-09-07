@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71c436c3_7347a467",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-07T22:14:39Z",
+      "side": 1,
+      "message": "I understand the problem that\u0027s why I always batch by line not by words. But I agree this can happen. I was trying to test that and I could not reproduce, but I cannot guarantee that for some languages it will not happen. The main question is what we prefer: to have in some edge cases wrong highlighting or StackOverflowException which is impacting JVM? Also if we see any other solution for that issue I\u0027m happy to try it out",
+      "parentUuid": "c574934c_0b17c112",
+      "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46efff1e_f862eb5a",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
         "patchSetId": 1
@@ -49,6 +67,24 @@
       "writtenOn": "2021-09-06T16:25:45Z",
       "side": 1,
       "message": "Can it be made a file resource and loaded in the test?",
+      "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60378bf5_064e9987",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-07T22:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46efff1e_f862eb5a",
       "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -66,6 +102,30 @@
       "writtenOn": "2021-09-06T17:47:45Z",
       "side": 1,
       "message": "Not sure we should use people names in here.\nCould we redact this list to something more agnostic?",
+      "range": {
+        "startLine": 120,
+        "startChar": 17,
+        "endLine": 120,
+        "endChar": 38
+      },
+      "revId": "c5459abe353d824a1a7a9b1c25b1e3dc5e6b1883",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44604fec_7973bd17",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-07T22:14:39Z",
+      "side": 1,
+      "message": "yes we can but this an open source file.",
+      "parentUuid": "60e87586_54495067",
       "range": {
         "startLine": 120,
         "startChar": 17,
