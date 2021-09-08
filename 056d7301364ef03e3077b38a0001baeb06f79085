@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4590ab5_b6bce524",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-08T00:50:32Z",
+      "side": 1,
+      "message": "The message is clear; however, it would be useful to introduce separate paragraphs to make it more readable.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be352ad5_4736eba6",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-08T00:50:32Z",
+      "side": 1,
+      "message": "What if the file contains very long lines? Would that still work?",
+      "range": {
+        "startLine": 67,
+        "startChar": 38,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1517afa9_47aa274b",
+        "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-08T00:50:32Z",
+      "side": 1,
+      "message": "Does this file really generate StackOverflow? 😮",
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239f9364_d4c8ef52",
+        "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-08T00:50:32Z",
+      "side": 1,
+      "message": "nit: spaces at end of line",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
