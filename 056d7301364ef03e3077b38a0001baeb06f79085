@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93ae6639_3c0a12be",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-08T08:54:28Z",
+      "side": 1,
+      "message": "yes I was thinking of that as well but it looks like it\u0027s related to the content not to the length. We can add another condition for batching in a follow up change",
+      "parentUuid": "be352ad5_4736eba6",
+      "range": {
+        "startLine": 67,
+        "startChar": 38,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1517afa9_47aa274b",
         "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
         "patchSetId": 3
@@ -66,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6971fb7_4675d9ff",
+        "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-08T08:54:28Z",
+      "side": 1,
+      "message": "yes, increase NUMBER_OF_LINES_PER_BATCH to 200 and you will see that the test will fail because of no highlighting and you will see stack overflow exception log",
+      "parentUuid": "1517afa9_47aa274b",
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "239f9364_d4c8ef52",
         "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
         "patchSetId": 3
@@ -77,6 +119,30 @@
       "writtenOn": "2021-09-08T00:50:32Z",
       "side": 1,
       "message": "nit: spaces at end of line",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fc326d7_0366a407",
+        "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-08T08:54:28Z",
+      "side": 1,
+      "message": "yes I can change that but this is original file which caused the issue so I didn\u0027t want to format it",
+      "parentUuid": "239f9364_d4c8ef52",
       "range": {
         "startLine": 30,
         "startChar": 0,
