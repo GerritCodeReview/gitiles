@@ -71,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "037510d2_72d58d41",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-09T08:58:14Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "93ae6639_3c0a12be",
+      "range": {
+        "startLine": 67,
+        "startChar": 38,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1517afa9_47aa274b",
@@ -102,6 +126,24 @@
       "side": 1,
       "message": "yes, increase NUMBER_OF_LINES_PER_BATCH to 200 and you will see that the test will fail because of no highlighting and you will see stack overflow exception log",
       "parentUuid": "1517afa9_47aa274b",
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eebac31_693d9d93",
+        "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-09T08:58:14Z",
+      "side": 1,
+      "message": "Could it be possible to generate the file rather than checking that into repository? It would be then a more explicit test: generate a file with more than 200 lines and it blows up, put the batching to 200 and it works.",
+      "parentUuid": "a6971fb7_4675d9ff",
       "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -143,6 +185,30 @@
       "side": 1,
       "message": "yes I can change that but this is original file which caused the issue so I didn\u0027t want to format it",
       "parentUuid": "239f9364_d4c8ef52",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "056d7301364ef03e3077b38a0001baeb06f79085",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "346eeae0_a8116019",
+        "filename": "javatests/resources/com/google/gitiles/stackOverflowContent.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-09-09T08:58:14Z",
+      "side": 1,
+      "message": "See above: I believe it would be more sensible to extract the info of WHAT is creating the problem in the file and generate a similar one in your tests.",
+      "parentUuid": "8fc326d7_0366a407",
       "range": {
         "startLine": 30,
         "startChar": 0,
