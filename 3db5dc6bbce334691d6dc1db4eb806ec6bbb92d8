@@ -16,6 +16,41 @@
       "message": " $ bazel test --cache_test_results\u003dNO //...\n INFO: Invocation ID: 69849f7e-7514-4db5-a30a-029dbd4c062a\n INFO: Build option --cache_test_results has changed, discarding analysis cache.\n INFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (0 packages loaded, 834 targets configured).\n INFO: Found 1 test target...\n Target //javatests/com/google/gitiles:servlet_tests up-to-date:\n   bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\n   bazel-bin/javatests/com/google/gitiles/servlet_tests\n INFO: Elapsed time: 10.850s, Critical Path: 10.58s\n INFO: 2 processes: 1 internal, 1 darwin-sandbox.\n INFO: Build completed successfully, 2 total actions\n //javatests/com/google/gitiles:servlet_tests                             PASSED in 10.5s\n \n INFO: Build completed successfully, 2 total actions",
       "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a186d2a5_8856fdfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1140741
+      },
+      "writtenOn": "2021-09-13T07:49:00Z",
+      "side": 1,
+      "message": "\u003e  $ bazel test --cache_test_results\u003dNO //...\n\u003e  INFO: Invocation ID: 69849f7e-7514-4db5-a30a-029dbd4c062a\n\u003e  INFO: Build option --cache_test_results has changed, discarding analysis cache.\n\u003e  INFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (0 packages loaded, 834 targets configured).\n\u003e  INFO: Found 1 test target...\n\u003e  Target //javatests/com/google/gitiles:servlet_tests up-to-date:\n\u003e    bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\n\u003e    bazel-bin/javatests/com/google/gitiles/servlet_tests\n\u003e  INFO: Elapsed time: 10.850s, Critical Path: 10.58s\n\u003e  INFO: 2 processes: 1 internal, 1 darwin-sandbox.\n\u003e  INFO: Build completed successfully, 2 total actions\n\u003e  //javatests/com/google/gitiles:servlet_tests                             PASSED in 10.5s\n\u003e  \n\u003e  INFO: Build completed successfully, 2 total actions",
+      "parentUuid": "1773fecc_7e7869c4",
+      "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3235d78b_2e11b642",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1140741
+      },
+      "writtenOn": "2021-09-13T07:49:00Z",
+      "side": 1,
+      "message": "Nicholas Olsen ",
+      "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
