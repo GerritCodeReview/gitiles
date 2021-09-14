@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9ebce9_3b2d1450",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-09-14T23:14:52Z",
+      "side": 1,
+      "message": "There\u0027s a whole bunch of background above this, but this is the only mention of a problem that would make me guess why you\u0027re making this change and it\u0027s still not enough for me to really know why. What\u0027s the StackOverflowException issue? Can you start your commit message with mentioning that first? The subject line should probably start with \"Fix:\" too if this is a bugfix.\n\nPlease remember that links to an issue are not a substitute for having the necessary content in the commit message.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
