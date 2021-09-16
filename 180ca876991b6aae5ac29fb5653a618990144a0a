@@ -92,6 +92,24 @@
       "parentUuid": "56084f7a_45f91a28",
       "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b142f3_71652938",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-16T20:57:30Z",
+      "side": 1,
+      "message": "\u003e Is there a viable approach to move away?\nI was considering that as well but to do that we have to find another highlighting library and replace java-prettify with that one. Problem is that we have to make sure that it does not have the same issue plus highlighting is similar",
+      "parentUuid": "13330e17_1f0ba86b",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
