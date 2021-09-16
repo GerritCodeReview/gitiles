@@ -110,6 +110,24 @@
       "parentUuid": "13330e17_1f0ba86b",
       "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "995e8bab_ca69a832",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-09-16T21:01:05Z",
+      "side": 1,
+      "message": "\u003e I am not sure the content batching is actually going to resolve/mitigate this issue\n\nI agree that is not solving the issue but it is improving the situation. I was testing this solution on files which I could find on gerrithub.io and it did work on them. Reducing the number of StackOverflowException is always a good thing ;)",
+      "parentUuid": "f6b142f3_71652938",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
