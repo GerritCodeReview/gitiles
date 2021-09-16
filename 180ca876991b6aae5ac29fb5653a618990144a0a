@@ -39,6 +39,41 @@
       "message": "I am not sure the content batching is actually going to resolve/mitigate this issue.\n\nThe stack overflow is caused by \"Catastrophic Backtracking\" [1], which often occurs when:\n\n```\nsomething towards the end of the string causes the string to not match.\n```\n\nThis issue not strictly related to the length of the content.\nIn fact, this is an example of catastrophic backtracking easily reproduced against a very short string [2].\n\nFor this reason, I don\u0027t think splitting into baches is the right solution.\n\nDave Borowitz was aware of the inherent complexity of this issue already in 2014 when he proposed and merged this workaround[3], rather than the actual fix to the problem.\n\nThis particular occurrence of \"StackOverFlow\" tested by this change deals with the regular expression used to decorate \"default-code\" (used for files with no extension). This regular expression heavily uses back-tracking and it is quite complex to reason about. [3]\n\nI have also spent a decent amount of time trying to figure out an alternative approach, but I failed.\n\nUnfortunately, by the look of things, I don\u0027t see any other viable approach other than trying to move away from java-prettify.\n\n\nThoughts?\n\n\n[1]https://community.appway.com/screen/kb/article/checking-strings-avoiding-catastrophic-backtracking-1482810891360\n\n[2]https://regex101.com/r/gj6kBf/1\n\n[3]https://pastebin.com/exKUFA1x",
       "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "561d93ce_d702f52c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-09-16T20:17:57Z",
+      "side": 1,
+      "message": "I am not sure the content batching is actually going to resolve/mitigate this issue.\n\nThe stack overflow is caused by \"Catastrophic Backtracking\" [1], which often occurs when:\n\n```\nsomething towards the end of the string causes the string to not match.\n```\n\nThis issue not strictly related to the length of the content.\nIn fact, this is an example of catastrophic backtracking easily reproduced against a very short string [2].\n\nFor this reason, I don\u0027t think splitting into baches is the right solution.\n\nDave Borowitz was aware of the inherent complexity of this issue already in 2014 when he proposed and merged this workaround[3], rather than the actual fix to the problem.\n\nThis particular occurrence of \"StackOverFlow\" tested by this change deals with the regular expression used to decorate \"default-code\" (used for files with no extension). This regular expression heavily uses back-tracking and it is quite complex to reason about. [3]\n\nI have also spent a decent amount of time trying to figure out an alternative approach, but I failed.\n\nUnfortunately, by the look of things, I don\u0027t see any other viable approach other than trying to move away from java-prettify.\n\n\nThoughts?\n\n\n[1]https://community.appway.com/screen/kb/article/checking-strings-avoiding-catastrophic-backtracking-1482810891360\n\n[2]https://regex101.com/r/gj6kBf/1\n\n[3]https://pastebin.com/exKUFA1x",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56084f7a_45f91a28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-09-16T20:17:57Z",
+      "side": 1,
+      "message": "Unresolving for visibility",
+      "parentUuid": "3e0420cc_6a4c91c1",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
