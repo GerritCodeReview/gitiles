@@ -41,6 +41,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "892e5d03_e6e9bcfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-09-19T10:05:57Z",
+      "side": 1,
+      "message": "Yeah I noticed the same.\nGitiles is configured to parse issues to github.\nThe issue however was recorded in monorail [1].\n\nIt seems like no other CR for gitiles have monorail issue numbers.\n\n[1]https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d14914",
+      "parentUuid": "4ec31097_5db04c67",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e0420cc_6a4c91c1",
