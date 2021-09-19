@@ -59,6 +59,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca7338f1_f102cbb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2021-09-19T10:09:10Z",
+      "side": 1,
+      "message": "then I would replace this by the full URL",
+      "parentUuid": "892e5d03_e6e9bcfe",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e0420cc_6a4c91c1",
