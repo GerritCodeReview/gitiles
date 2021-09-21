@@ -51,6 +51,23 @@
       "message": "Nicholas Olsen ",
       "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7386af4f_ce43e0fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060891
+      },
+      "writtenOn": "2021-09-21T12:21:48Z",
+      "side": 1,
+      "message": "merged",
+      "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
