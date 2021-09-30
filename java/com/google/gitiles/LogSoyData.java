@@ -36,6 +36,10 @@ import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 
+// TODO: This class support some, but not all pretty formats and don't
+//   support custom formats. Log UI for gitiles is quite different from console,
+//   so supporting same formats is not required, but this class should default
+//   on some format instead of rasing an error if format is not supported.
 public class LogSoyData {
   private static final ImmutableSet<Field> FIELDS =
       Sets.immutableEnumSet(
