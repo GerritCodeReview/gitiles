@@ -16,6 +16,58 @@
       "message": "Is this a regression? Do we know how it regressed?",
       "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56819d4e_3764ae61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-09-30T02:06:37Z",
+      "side": 1,
+      "message": "Thanks, I like this.\n\nIs it straightforward to cover in tests (in the javatests/ directory)? If not, then I think it\u0027s fine not to include any in this commit but it would be nice to have a TODO around the relevant code (in LogServlet.java) to add one.",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a73b249d_618c675c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-09-30T02:06:37Z",
+      "side": 1,
+      "message": "Using \"git log -Sfuller\" in gitiles, it looks like Gitiles never recognized this format, so this isn\u0027t a regression. Which leads one to wonder why other projects would expect gitiles to support such formats, if it never worked before...\n\n... until one realizes that chromium.googlesource.com *does* recognize these formats. In other words, chromium.googlesource.com has a custom template supporting the ?pretty\u003dfuller format. This change is meant to bring the same benefit to other projects using Gitiles, both to their benefit and Chromium\u0027s (to their benefit since they\u0027d get more formats, and to Chromium\u0027s since they can simplify their custom template). Can you update the commit message to add the context that these other projects\u0027 expectation comes from chromium.googlesource.com?",
+      "parentUuid": "eb7c9686_2a9dabd2",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60eb95fa_c7b017be",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-09-30T02:06:37Z",
+      "side": 1,
+      "message": "Can this share some code with the \u0027full\u0027 template? See https://github.com/google/closure-templates/blob/master/documentation/reference/templates.md for more details (in particular the {call} syntax).",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
