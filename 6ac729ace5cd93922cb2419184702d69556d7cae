@@ -122,6 +122,24 @@
       "parentUuid": "60eb95fa_c7b017be",
       "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa7e0e64_aa497888",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1089651
+      },
+      "writtenOn": "2021-10-01T23:53:04Z",
+      "side": 1,
+      "message": "Resolving to trigger attention",
+      "parentUuid": "aa48720f_a3d08dd4",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
