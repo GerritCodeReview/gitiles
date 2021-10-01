@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "295c9cbf_cc29b947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-10-01T23:56:38Z",
+      "side": 1,
+      "message": "Thanks. I don\u0027t see the TODO here --- did you forget to \"git add\"?",
+      "parentUuid": "5f740cd0_1eea625e",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60eb95fa_c7b017be",
         "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
         "patchSetId": 1
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "Resolving to trigger attention",
       "parentUuid": "aa48720f_a3d08dd4",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac381ac_b5899453",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-10-01T23:56:38Z",
+      "side": 1,
+      "message": "\u003e Can you point me to that template?\n\nAh, sorry for the lack of clarity. I mean the `?pretty\u003dfull` support, which is in this same file.",
+      "parentUuid": "aa7e0e64_aa497888",
       "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
