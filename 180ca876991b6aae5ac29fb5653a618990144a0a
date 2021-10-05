@@ -216,6 +216,23 @@
       "parentUuid": "995e8bab_ca69a832",
       "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba23e45_bd83e905",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-05T18:54:48Z",
+      "side": 1,
+      "message": "Should this change be shelved?",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
