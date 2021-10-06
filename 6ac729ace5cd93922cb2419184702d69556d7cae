@@ -107,6 +107,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f253d2a_afbd4015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1089651
+      },
+      "writtenOn": "2021-10-06T17:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "295c9cbf_cc29b947",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60eb95fa_c7b017be",
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "\u003e Can you point me to that template?\n\nAh, sorry for the lack of clarity. I mean the `?pretty\u003dfull` support, which is in this same file.",
       "parentUuid": "aa7e0e64_aa497888",
+      "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30ba5d4c_8db45d5e",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1089651
+      },
+      "writtenOn": "2021-10-06T17:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cac381ac_b5899453",
       "revId": "6ac729ace5cd93922cb2419184702d69556d7cae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
