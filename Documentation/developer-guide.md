@@ -115,10 +115,7 @@ git push origin HEAD:refs/for/master
 
 Gitiles artifacts are published to the [gerrit-maven
 bucket](http://gerrit-maven.storage.googleapis.com/). To release a new version,
-you must have write access to this bucket. See
-[Deploy Gerrit
-Artifacts](https://gerrit-review.googlesource.com/Documentation/dev-release-deploy-config.html)
-for PGP key setup and Google Cloud Storage access setup.
+you must have write access to this bucket.
 
 First, increment `GITILES_VERSION` in `version.bzl`. Technically, Gitiles uses
 the
@@ -132,8 +129,7 @@ Then, run:
 ./tools/maven/mvn.sh deploy
 ```
 
-Tag the release with a signed, annotated tag matching the version number, for
-example "v0.4-1".
+Tag the release with an annotated tag matching the version number.
 
 Once released, Maven projects can consume the new version as long as they point
 at the proper repository URL. Similarly, Bazel projects using the `maven_jar`
