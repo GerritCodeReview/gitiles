@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b730d9d_1589d270",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Before beginning to parse the notes, could we check if this Repository actually has notes?\n\n    if(repo.getRefDatabase().findRef(Constants.R_NOTES_COMMITS) !\u003d null) {\n      // Parse notes\n    }",
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "162c6549_03773bdb",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Use try-with-resource.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 32
+      },
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fbfa0ff_32d13841",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-10-29T14:07:25Z",
+      "side": 1,
+      "message": "repo.resolve(c.getName())",
+      "range": {
+        "startLine": 155,
+        "startChar": 44,
+        "endLine": 155,
+        "endChar": 47
+      },
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9961d611_1552f3a2",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-10-29T14:07:25Z",
+      "side": 1,
+      "message": "Rather than just appending notes to CommitData.message I think notes should be it\u0027s own attribute on CommitData and be handled separately in CommitJsonData.java and soy-templates (CommitSoyData.java and LogDetail.soy)",
+      "range": {
+        "startLine": 170,
+        "startChar": 10,
+        "endLine": 170,
+        "endChar": 74
+      },
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
