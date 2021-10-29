@@ -53,6 +53,7 @@ public class CommitSoyData {
           Field.TREE_URL,
           Field.PARENTS,
           Field.MESSAGE,
+          Field.NOTES, // Optional Field
           Field.LOG_URL,
           Field.ARCHIVE_URL,
           Field.ARCHIVE_TYPE);
@@ -137,11 +138,20 @@ public class CommitSoyData {
     if (cd.diffEntries != null) {
       data.put("diffTree", toSoyData(view, cd.diffEntries));
     }
-    checkState(
-        Sets.difference(fs, NESTED_FIELDS).size() == data.size(),
-        "bad commit data fields: %s != %s",
-        fs,
-        data.keySet());
+
+    int diffSetSize = Sets.difference(fs, NESTED_FIELDS).size();
+
+    if (fs.contains(
+        Field.NOTES)) { // Since NOTES is optional this is required for checkState to pass
+      diffSetSize -= 1;
+    }
+
+    checkState(diffSetSize == data.size(), "bad commit data fields: %s != %s", fs, data.keySet());
+
+    if (cd.notes != null && !cd.notes.isEmpty()) {
+      data.put("notes", cd.notes);
+    }
+
     return data;
   }
 
