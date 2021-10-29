@@ -47,7 +47,9 @@ import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.EmptyTreeIterator;
 import org.eclipse.jgit.util.io.NullOutputStream;
-
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.notes.Note;
+import org.eclipse.jgit.lib.ObjectLoader;
 /** Format-independent data about a single commit. */
 class CommitData {
   enum Field {
@@ -147,7 +149,27 @@ class CommitData {
       }
       if (fs.contains(Field.MESSAGE)) {
         walk.parseBody(c);
-        result.message = c.getFullMessage();
+        Git git = new Git(repo);
+        String sha1 = c.getName();
+        ObjectId oid = repo.resolve(sha1);
+        RevCommit commit = walk.parseCommit(oid);
+        String s;
+        try {
+          Note note = git.notesShow().setObjectId(commit).call();
+          ObjectLoader loader = repo.open(note.getData());
+          byte[] data = loader.getBytes();
+          s = new String(data, "utf-8");
+        } catch (Exception e) {
+          s = "";
+        }
+        String commitMsg = c.getFullMessage();
+        if (s.isEmpty()) {
+          result.message = commitMsg;
+        } else {
+          StringBuilder sb = new StringBuilder(commitMsg);
+          String completeMessage = sb.append("\nNotes:\n" + s).toString();
+          result.message = completeMessage;
+        }
       }
       if (fs.contains(Field.SHORT_MESSAGE)) {
         walk.parseBody(c);
