@@ -57,6 +57,11 @@ public class CommitSoyData {
           Field.ARCHIVE_URL,
           Field.ARCHIVE_TYPE);
 
+  static final ImmutableSet<Field> OPTIONAL_FIELDS =
+      Sets.immutableEnumSet(
+          Field.NOTES
+      );
+
   private static final ImmutableSet<Field> NESTED_FIELDS =
       Sets.immutableEnumSet(Field.PARENT_BLAME_URL);
 
@@ -75,16 +80,16 @@ public class CommitSoyData {
   }
 
   Map<String, Object> toSoyData(
-      HttpServletRequest req, RevWalk walk, RevCommit c, Set<Field> fs, DateFormatter df)
-      throws IOException {
+      HttpServletRequest req, RevWalk walk, RevCommit c, Set<Field> fs, Set<Field> of,
+      DateFormatter df) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     if (cdb == null) {
       cdb = new CommitData.Builder();
     }
 
-    CommitData cd = cdb.setArchiveFormat(archiveFormat).build(req, walk, c, fs);
+    CommitData cd = cdb.setArchiveFormat(archiveFormat).build(req, walk, c, fs, of);
 
-    Map<String, Object> data = Maps.newHashMapWithExpectedSize(fs.size());
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(fs.size() + of.size());
     if (cd.author != null) {
       data.put("author", toSoyData(cd.author, df));
     }
@@ -142,12 +147,16 @@ public class CommitSoyData {
         "bad commit data fields: %s != %s",
         fs,
         data.keySet());
+
+    if (cd.notes != null && !cd.notes.isEmpty()) {
+      data.put("notes", cd.notes);
+    }
     return data;
   }
 
   Map<String, Object> toSoyData(
       HttpServletRequest req, RevWalk walk, RevCommit commit, DateFormatter df) throws IOException {
-    return toSoyData(req, walk, commit, DEFAULT_FIELDS, df);
+    return toSoyData(req, walk, commit, DEFAULT_FIELDS, OPTIONAL_FIELDS, df);
   }
 
   // TODO(dborowitz): Extract this.
