@@ -41,6 +41,7 @@ import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.notes.NoteMap;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
@@ -60,6 +61,7 @@ class CommitData {
     DIFF_TREE,
     LOG_URL,
     MESSAGE,
+    NOTES,
     PARENTS,
     PARENT_BLAME_URL,
     SHA,
@@ -83,6 +85,7 @@ class CommitData {
   static class Builder {
     private ArchiveFormat archiveFormat;
     private Map<AnyObjectId, Set<Ref>> refsById;
+    private static final int MAX_NOTE_SIZE = 100;
 
     Builder setArchiveFormat(@Nullable ArchiveFormat archiveFormat) {
       this.archiveFormat = archiveFormat;
@@ -145,6 +148,19 @@ class CommitData {
       if (fs.contains(Field.TAGS)) {
         result.tags = getRefsById(repo, c, Constants.R_TAGS);
       }
+      if (fs.contains(Field.NOTES)) {
+        Ref notesRef = repo.getRefDatabase().exactRef(Constants.R_NOTES_COMMITS);
+        if (notesRef != null) {
+          try {
+            byte[] data =
+                NoteMap.read(walk.getObjectReader(), walk.parseCommit(notesRef.getObjectId()))
+                    .getCachedBytes(c, MAX_NOTE_SIZE);
+            result.notes = new String(data, "utf-8");
+          } catch (Exception e) {
+            result.notes = "";
+          }
+        }
+      }
       if (fs.contains(Field.MESSAGE)) {
         walk.parseBody(c);
         result.message = c.getFullMessage();
@@ -167,7 +183,6 @@ class CommitData {
       if (fs.contains(Field.DIFF_TREE)) {
         result.diffEntries = computeDiffEntries(repo, view, walk, c);
       }
-
       return result;
     }
 
@@ -251,6 +266,7 @@ class CommitData {
   List<RevCommit> parents;
   String shortMessage;
   String message;
+  String notes;
 
   List<Ref> branches;
   List<Ref> tags;
