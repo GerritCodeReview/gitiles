@@ -32,6 +32,7 @@
       text: raw text of the part.
       url: optional URL that should be linked to from the part.
       */
+  {@param notes: ?} /** the note to the corresponding commit */
   {@param diffTree: ?}  /** list of changed tree entries with the following keys:
       changeType: string matching an org.eclipse.jgit.diff.DiffEntry.ChangeType constant.
       path: (new) path of the tree entry.
@@ -90,6 +91,15 @@
   {param className: 'u-pre u-monospace MetadataMessage' /}
   {param message: $message /}
 {/call}
+
+{if $notes != ""}
+<h4>Note:</h4>
+  <div class="MetadataMessage">
+      <span>
+        {msg desc="The note should be displayed here"}{$notes}{/msg}
+      </span>
+  </div>
+{/if}
 
 {if $diffTree and length($diffTree)}
   <ul class="DiffTree">

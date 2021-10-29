@@ -53,6 +53,7 @@ public class CommitSoyData {
           Field.TREE_URL,
           Field.PARENTS,
           Field.MESSAGE,
+          Field.NOTES,
           Field.LOG_URL,
           Field.ARCHIVE_URL,
           Field.ARCHIVE_TYPE);
@@ -133,6 +134,9 @@ public class CommitSoyData {
       } else {
         data.put("message", cd.message);
       }
+    }
+    if (cd.notes != null) {
+      data.put("notes", cd.notes);
     }
     if (cd.diffEntries != null) {
       data.put("diffTree", toSoyData(view, cd.diffEntries));

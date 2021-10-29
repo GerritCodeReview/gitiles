@@ -47,7 +47,9 @@ import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.EmptyTreeIterator;
 import org.eclipse.jgit.util.io.NullOutputStream;
-
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.notes.Note;
+import org.eclipse.jgit.lib.ObjectLoader;
 /** Format-independent data about a single commit. */
 class CommitData {
   enum Field {
@@ -60,6 +62,7 @@ class CommitData {
     DIFF_TREE,
     LOG_URL,
     MESSAGE,
+    NOTES,
     PARENTS,
     PARENT_BLAME_URL,
     SHA,
@@ -145,6 +148,21 @@ class CommitData {
       if (fs.contains(Field.TAGS)) {
         result.tags = getRefsById(repo, c, Constants.R_TAGS);
       }
+      if (fs.contains(Field.NOTES)) {
+        if (repo.getRefDatabase().findRef(Constants.R_NOTES_COMMITS) != null) {
+          try (Git git = new Git(repo)) {
+            RevCommit commit = walk.parseCommit(repo.resolve(c.getName()));
+            try {
+              Note note = git.notesShow().setObjectId(commit).call();
+              ObjectLoader loader = repo.open(note.getData());
+              byte[] data = loader.getBytes();
+              result.notes = new String(data, "utf-8");
+            } catch (Exception e) {
+              result.notes = "";
+            }
+          }
+        }
+      }
       if (fs.contains(Field.MESSAGE)) {
         walk.parseBody(c);
         result.message = c.getFullMessage();
@@ -167,7 +185,6 @@ class CommitData {
       if (fs.contains(Field.DIFF_TREE)) {
         result.diffEntries = computeDiffEntries(repo, view, walk, c);
       }
-
       return result;
     }
 
@@ -251,6 +268,7 @@ class CommitData {
   List<RevCommit> parents;
   String shortMessage;
   String message;
+  String notes;
 
   List<Ref> branches;
   List<Ref> tags;
