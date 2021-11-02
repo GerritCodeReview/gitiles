@@ -297,7 +297,9 @@ ul, ol {
 .RefList-title {
   margin: 0;
 }
-.RefList-items {}
+.RefList-items {
+  word-wrap: break-word;
+}
 .RefList-item {
   padding: 2px 0;
 }
