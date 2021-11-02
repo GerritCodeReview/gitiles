@@ -62,6 +62,30 @@
       },
       "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f65366e_0debe5ec",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-02T14:50:17Z",
+      "side": 1,
+      "message": "Do you have any preference in which alternative I choose to implement? If I do the first one with \u0027if $notes and $notes !\u003d \"\" \u0027 then I don\u0027t have to add the other changes you suggested to the other files right?",
+      "parentUuid": "f3e5fb5e_bb1634bb",
+      "range": {
+        "startLine": 95,
+        "startChar": 1,
+        "endLine": 95,
+        "endChar": 16
+      },
+      "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
