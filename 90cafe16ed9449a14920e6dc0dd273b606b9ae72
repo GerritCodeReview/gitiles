@@ -41,6 +41,48 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b38d833_40db6060",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-02T08:42:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "162c6549_03773bdb",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 32
+      },
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e246bd28_3fa4d361",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-02T08:42:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b730d9d_1589d270",
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fbfa0ff_32d13841",
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "011f3598_8871cbdf",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-02T08:42:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fbfa0ff_32d13841",
+      "range": {
+        "startLine": 155,
+        "startChar": 44,
+        "endLine": 155,
+        "endChar": 47
+      },
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9961d611_1552f3a2",
@@ -77,6 +143,30 @@
       "writtenOn": "2021-10-29T14:07:25Z",
       "side": 1,
       "message": "Rather than just appending notes to CommitData.message I think notes should be it\u0027s own attribute on CommitData and be handled separately in CommitJsonData.java and soy-templates (CommitSoyData.java and LogDetail.soy)",
+      "range": {
+        "startLine": 170,
+        "startChar": 10,
+        "endLine": 170,
+        "endChar": 74
+      },
+      "revId": "90cafe16ed9449a14920e6dc0dd273b606b9ae72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfafc052_a93e3604",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-02T08:42:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9961d611_1552f3a2",
       "range": {
         "startLine": 170,
         "startChar": 10,
