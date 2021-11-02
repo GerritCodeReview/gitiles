@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d162acf_ca011531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1105741
+      },
+      "writtenOn": "2021-11-02T17:15:05Z",
+      "side": 1,
+      "message": "Thanks for the change @Pontus. +1 for the overall idea.",
+      "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10906a39_d03adda2",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-11-02T11:27:34Z",
       "side": 1,
       "message": "Treat empty as null?\n\n    cd.notes !\u003d null \u0026\u0026 !cd.isEmpty()",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 24
+      },
+      "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5afe750_ca9f7ade",
+        "filename": "java/com/google/gitiles/CommitJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1105741
+      },
+      "writtenOn": "2021-11-02T17:15:05Z",
+      "side": 1,
+      "message": "There is no isEmpty() on CommitData. Are you referring to cd.notes.isEmpty() ?",
+      "parentUuid": "10906a39_d03adda2",
       "range": {
         "startLine": 105,
         "startChar": 8,
