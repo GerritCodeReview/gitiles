@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83bae62e_f081164a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-02T15:30:04Z",
+      "side": 1,
+      "message": "Subject lines shouldn\u0027t be longer than 64 chars.\n\n    Add CSS to wrap ref names correctly\n    \n    Solves issue 112.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 93
+      },
+      "revId": "179d156476074c0673ddd68604f647ee845a2027",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
