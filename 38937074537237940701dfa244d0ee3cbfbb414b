@@ -89,6 +89,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e915719_1b30a82b",
+        "filename": "java/com/google/gitiles/CommitJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-03T10:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2207e344_d9a2b465",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 24
+      },
+      "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d0a8048_8439360f",
@@ -102,6 +126,24 @@
       "writtenOn": "2021-11-02T11:27:34Z",
       "side": 1,
       "message": "Treat empty as null?\n\n    if (cd.notes !\u003d null \u0026\u0026 !cd.isEmpty())",
+      "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e90a34_36577601",
+        "filename": "java/com/google/gitiles/CommitSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-03T10:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d0a8048_8439360f",
       "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -143,6 +185,30 @@
       "side": 1,
       "message": "Do you have any preference in which alternative I choose to implement? If I do the first one with \u0027if $notes and $notes !\u003d \"\" \u0027 then I don\u0027t have to add the other changes you suggested to the other files right?",
       "parentUuid": "f3e5fb5e_bb1634bb",
+      "range": {
+        "startLine": 95,
+        "startChar": 1,
+        "endLine": 95,
+        "endChar": 16
+      },
+      "revId": "38937074537237940701dfa244d0ee3cbfbb414b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80836bad_f08fa926",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-03T10:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f65366e_0debe5ec",
       "range": {
         "startLine": 95,
         "startChar": 1,
