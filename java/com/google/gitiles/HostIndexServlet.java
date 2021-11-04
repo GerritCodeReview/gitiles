@@ -185,7 +185,7 @@ public class HostIndexServlet extends BaseServlet {
   }
 
   private static String stripPrefix(@Nullable String prefix, String name) {
-    if (prefix != null && name.startsWith(prefix)) {
+    if (prefix != null && name.startsWith(prefix) && !prefix.equals(name)) {
       return name.substring(prefix.length() + 1);
     }
     return name;
