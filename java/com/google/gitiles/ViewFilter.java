@@ -139,11 +139,11 @@ public class ViewFilter extends AbstractHttpFilter {
     String command = getRegexGroup(req, 2);
     String path = getRegexGroup(req, 3);
 
-    if (command.isEmpty()) {
-      return parseNoCommand(req, repoName);
-    }
     if (!hasRepository(req)) {
       return null; // no repository? return null to 404.
+    }
+    if (command.isEmpty()) {
+      return parseNoCommand(req, repoName);
     }
     if (command.equals(CMD_ARCHIVE)) {
       return parseArchiveCommand(req, repoName, path);
