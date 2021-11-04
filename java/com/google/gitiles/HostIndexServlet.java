@@ -62,6 +62,10 @@ public class HostIndexServlet extends BaseServlet {
     if (prefix != null && descs.isEmpty()) {
       throw new GitilesRequestFailureException(FailureReason.REPOSITORY_NOT_FOUND);
     }
+    if (descs.isEmpty()) {
+      // Trying to view a hidden project should result in an exception
+      throw new GitilesRequestFailureException(FailureReason.NOT_AUTHORIZED);
+    }
     return descs;
   }
 
@@ -80,7 +84,7 @@ public class HostIndexServlet extends BaseServlet {
   protected void doHead(HttpServletRequest req, HttpServletResponse res) throws IOException {
     Optional<FormatType> format = getFormat(req);
     if (!format.isPresent()) {
-      throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
+      throw new GitilesRequestFailureException(FailureReason.OBJECT_NOT_FOUND);
     }
 
     GitilesView view = ViewFilter.getView(req);
