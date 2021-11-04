@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
 import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
+import java.lang.IllegalArgumentException;
 
 /** Serves the top level index page for a Gitiles host. */
 public class HostIndexServlet extends BaseServlet {
@@ -177,7 +178,11 @@ public class HostIndexServlet extends BaseServlet {
     if (prefix != null) {
       Map<String, RepositoryDescription> r = new LinkedHashMap<>();
       for (Map.Entry<String, RepositoryDescription> e : descs.entrySet()) {
-        r.put(stripPrefix(prefix, e.getKey()), e.getValue());
+        String name = e.getKey();
+        if (prefix.equals(name)) {
+          throw new IllegalArgumentException(prefix + " and " + name + " are identical.");
+        }
+        r.put(stripPrefix(prefix, name), e.getValue());
       }
       descs = r;
     }
