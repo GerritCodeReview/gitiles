@@ -120,8 +120,10 @@ public class DefaultAccess implements GitilesAccess {
       throws IOException {
     Map<String, RepositoryDescription> repos = Maps.newTreeMap(US_COLLATOR);
     for (Repository repo : scanRepositories(basePath, prefix, req)) {
-      repos.put(getRepositoryName(repo), buildDescription(repo, branches));
-      repo.close();
+      if (!getRepositoryName(repo).equals(prefix)) {
+        repos.put(getRepositoryName(repo), buildDescription(repo, branches));
+        repo.close();
+      }
     }
     return repos;
   }

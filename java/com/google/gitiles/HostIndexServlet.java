@@ -62,6 +62,10 @@ public class HostIndexServlet extends BaseServlet {
     if (prefix != null && descs.isEmpty()) {
       throw new GitilesRequestFailureException(FailureReason.REPOSITORY_NOT_FOUND);
     }
+    if (descs.isEmpty()) {
+      // Trying to view a hidden project should result in an exception
+      throw new GitilesRequestFailureException(FailureReason.NOT_AUTHORIZED);
+    }
     return descs;
   }
 
