@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80397429_2d35fd74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:05:46Z",
+      "side": 1,
+      "message": "Can a user cause this exception? If yes, how?",
+      "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
