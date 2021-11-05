@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8258ecb3_079531c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T10:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "367e26fa_cec567bf",
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c01f16c_9c442740",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-11-05T05:02:21Z",
       "side": 1,
       "message": "Since (I think) R_NOTES_COMMITS is exactly one full ref name, you want to use exactRef() instead of findRef().",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 41
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50133b3a_cba8d6e5",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T10:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c01f16c_9c442740",
       "range": {
         "startLine": 152,
         "startChar": 34,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2555217a_81440eb4",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T10:29:01Z",
+      "side": 1,
+      "message": "I get an error when doing NoteMap.read(walk.getObjectReader, notesRef.getObjectId()) since the second argument either has to be a RevCommit or a RevTree and not an ObjectId as it is now.\n\nHowever, instead of doing notesRef.getObjectId() I did instead walk.parseCommit(notesRef.getObjectId() and that seems to be working fine.",
+      "parentUuid": "27451d1c_14dc5e61",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d39d800d_749231d4",
         "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
         "patchSetId": 4
@@ -77,6 +143,30 @@
       "writtenOn": "2021-11-05T05:02:21Z",
       "side": 1,
       "message": "nit: notes for\n\nEven though \u0027notes\u0027 are at most a single git blob per commit, docs like the \u0027git-notes\u0027 manpage always use the plural.",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a795509_a7f22092",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T10:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39d800d_749231d4",
       "range": {
         "startLine": 35,
         "startChar": 28,
@@ -110,6 +200,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "952c574e_84601a69",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T10:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa22c728_6664b764",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 96,
+        "endChar": 10
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc44a270_543ff28a",
@@ -123,6 +237,30 @@
       "writtenOn": "2021-11-05T05:02:21Z",
       "side": 1,
       "message": "notes",
+      "range": {
+        "startLine": 99,
+        "startChar": 23,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c56250d_22712354",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T10:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc44a270_543ff28a",
       "range": {
         "startLine": 99,
         "startChar": 23,
