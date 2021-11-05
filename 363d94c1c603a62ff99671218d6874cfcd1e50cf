@@ -16,6 +16,24 @@
       "message": "Can a user cause this exception? If yes, how?",
       "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c85ca7_77198b3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T07:02:44Z",
+      "side": 1,
+      "message": "Yes the exception occurs when a user is trying to view a hidden project which results in a 500 ISE. The following error message is then shown: \n\njava.lang.StringIndexOutOfBoundsException: String index out of range: -1\n        at java.base/java.lang.String.substring(String.java:1841)\n        at com.google.gitiles.HostIndexServlet.stripPrefix(HostIndexServlet.java:189)\n        at com.google.gitiles.HostIndexServlet.toMapData(HostIndexServlet.java:71)\n        \n\nThis made me think that the reason for the error is that the prefix and the name are equal in the stripPrefix-method. When this is the case the user should be notified before it crashes.",
+      "parentUuid": "80397429_2d35fd74",
+      "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
