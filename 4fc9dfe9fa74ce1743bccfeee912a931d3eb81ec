@@ -16,6 +16,24 @@
       "message": "Can you verify this somehow? Screenshot before and after?",
       "revId": "4fc9dfe9fa74ce1743bccfeee912a931d3eb81ec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa913a8_b58a4a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T15:18:07Z",
+      "side": 1,
+      "message": "I have taken a before and after screenshot but I am not sure how to post them here. Do you want me to email them to you?",
+      "parentUuid": "ec2a3c62_1f1824e2",
+      "revId": "4fc9dfe9fa74ce1743bccfeee912a931d3eb81ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
