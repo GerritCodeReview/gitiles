@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2a3c62_1f1824e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T13:08:55Z",
+      "side": 1,
+      "message": "Can you verify this somehow? Screenshot before and after?",
+      "revId": "4fc9dfe9fa74ce1743bccfeee912a931d3eb81ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
