@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "367e26fa_cec567bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:02:21Z",
+      "side": 1,
+      "message": "nit: Add footer for the feature?\n\n Feature: Issue 45",
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c01f16c_9c442740",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:02:21Z",
+      "side": 1,
+      "message": "Since (I think) R_NOTES_COMMITS is exactly one full ref name, you want to use exactRef() instead of findRef().",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 41
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27451d1c_14dc5e61",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:02:21Z",
+      "side": 1,
+      "message": "I don\u0027t think this is the best way to get a note from JGit in gitiles. If you look at what ShowNoteCommand.call() is doing, it\u0027s repeating stuff you\u0027re doing here too. You\u0027re also doing some extra parsing/resolving work I think. Can you do this?\n\n Ref notesRef \u003d repo.getRefDatabase().exactRef(Constants.R_NOTES_COMMITS);\n if (notesRef !\u003d null) {\n   try {\n     byte[] data \u003d NoteMap\n         .read(walk.getObjectReader(), notesRef.getObjectId())\n         .getCachedBytes(c, MAX_NOTE_SZ); // need to pick a sane value for this max size\n     result.notes \u003d new String(data, \"utf-8\");\n   } catch (Exception e) {\n     result.notes \u003d \"\";\n   }\n }",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39d800d_749231d4",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:02:21Z",
+      "side": 1,
+      "message": "nit: notes for\n\nEven though \u0027notes\u0027 are at most a single git blob per commit, docs like the \u0027git-notes\u0027 manpage always use the plural.",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa22c728_6664b764",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:02:21Z",
+      "side": 1,
+      "message": "Notes",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 96,
+        "endChar": 10
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc44a270_543ff28a",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T05:02:21Z",
+      "side": 1,
+      "message": "notes",
+      "range": {
+        "startLine": 99,
+        "startChar": 23,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
