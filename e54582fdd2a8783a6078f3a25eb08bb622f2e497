@@ -46,6 +46,30 @@
       },
       "revId": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6211b4c_ff60a2ad",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T13:15:35Z",
+      "side": 0,
+      "message": "Ack, looks good, thanks!",
+      "parentUuid": "c0ad2304_52e35bad",
+      "range": {
+        "startLine": 93,
+        "startChar": 7,
+        "endLine": 93,
+        "endChar": 8
+      },
+      "revId": "e54582fdd2a8783a6078f3a25eb08bb622f2e497",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

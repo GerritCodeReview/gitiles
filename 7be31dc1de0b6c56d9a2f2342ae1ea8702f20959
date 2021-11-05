@@ -130,6 +130,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29be5cf5_c41bcbf5",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-05T13:15:35Z",
+      "side": 1,
+      "message": "\u003e I get an error when doing NoteMap.read(walk.getObjectReader, notesRef.getObjectId()) since the second argument either has to be a RevCommit or a RevTree and not an ObjectId as it is now.\n\u003e \n\u003e However, instead of doing notesRef.getObjectId() I did instead walk.parseCommit(notesRef.getObjectId() and that seems to be working fine.\n\nAh, I mis-copied that from JGit and didn\u0027t check the signatures correctly, thanks for fixing it.",
+      "parentUuid": "2555217a_81440eb4",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "7be31dc1de0b6c56d9a2f2342ae1ea8702f20959",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d39d800d_749231d4",
