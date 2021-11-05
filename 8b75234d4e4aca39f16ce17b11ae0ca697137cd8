@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f5830d_08e040c3",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T14:51:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e268459f_acc091ff",
+      "range": {
+        "startLine": 156,
+        "startChar": 39,
+        "endLine": 156,
+        "endChar": 42
+      },
+      "revId": "8b75234d4e4aca39f16ce17b11ae0ca697137cd8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b2565e_6046d12b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-05T13:15:35Z",
       "side": 1,
       "message": "I hadn\u0027t looked at the other desc fields before, but this wording is fairly different. Maybe it should be \"Text for the git notes\"?",
+      "range": {
+        "startLine": 99,
+        "startChar": 19,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "8b75234d4e4aca39f16ce17b11ae0ca697137cd8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63823bc9_ee0f3ce1",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-05T14:51:17Z",
+      "side": 1,
+      "message": "I agree, \"Text for the git notes\" is much better.",
+      "parentUuid": "92b2565e_6046d12b",
       "range": {
         "startLine": 99,
         "startChar": 19,
