@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c486d26_14fb1123",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-08T18:32:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "eaa0fb43_77e40906",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80397429_2d35fd74",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -72,6 +96,30 @@
       "writtenOn": "2021-11-08T11:20:17Z",
       "side": 1,
       "message": "The point was to handle the situation when a hidden project is requested more \"nicely\" than an ISE. Won\u0027t the IllegalArgumentException also cause an ISE?",
+      "range": {
+        "startLine": 183,
+        "startChar": 10,
+        "endLine": 183,
+        "endChar": 90
+      },
+      "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8586065d_88fbfa40",
+        "filename": "java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-08T18:32:45Z",
+      "side": 1,
+      "message": "We also need to handle it the same as if a project that does not exist is handled.",
+      "parentUuid": "a123d835_7c3e6313",
       "range": {
         "startLine": 183,
         "startChar": 10,
