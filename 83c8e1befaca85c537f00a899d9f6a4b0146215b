@@ -68,6 +68,24 @@
       "parentUuid": "a262e611_14f6deac",
       "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fad1ca0_4d6ba661",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1093346
+      },
+      "writtenOn": "2021-11-08T12:42:21Z",
+      "side": 1,
+      "message": "AFAIU, when svg is rendered inside an image tag none of the scripts are executed. \"Content-Security-Policy: default-src \u0027none\u0027; img-src data:; style-src \u0027unsafe-inline\u0027\" can be used to add extra safety.\n\n* https://digi.ninja/blog/svg_xss.php\n* https://svg.digi.ninja/svg",
+      "parentUuid": "14516e92_373b3f45",
+      "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
