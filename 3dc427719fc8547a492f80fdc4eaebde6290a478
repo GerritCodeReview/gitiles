@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26f1bbbe_6e522272",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-08T18:31:40Z",
+      "side": 1,
+      "message": "Is this sufficiently large? Even for the fairly small external ids in Gerrit, we use a size defined as \u0027MAX_NOTE_SZ \u003d 1 \u003c\u003c 19\u0027 which is 524288.",
+      "range": {
+        "startLine": 88,
+        "startChar": 45,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "3dc427719fc8547a492f80fdc4eaebde6290a478",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

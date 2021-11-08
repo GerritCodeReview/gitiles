@@ -117,6 +117,30 @@
       },
       "revId": "8b75234d4e4aca39f16ce17b11ae0ca697137cd8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d91c43_2fcc1f63",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2021-11-08T18:31:40Z",
+      "side": 1,
+      "message": "Looks like you updated line 35, but not this line? I think line 35 was good in PS6.",
+      "parentUuid": "ce0d2392_6e772849",
+      "range": {
+        "startLine": 99,
+        "startChar": 19,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "8b75234d4e4aca39f16ce17b11ae0ca697137cd8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
