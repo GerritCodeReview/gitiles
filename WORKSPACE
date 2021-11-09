@@ -18,8 +18,13 @@ load_bazlets(
 
 load(
     "@com_googlesource_gerrit_bazlets//tools:maven_jar.bzl",
-    "MAVEN_CENTRAL",
     "maven_jar",
+)
+
+# JGit external repository consumed from git submodule
+local_repository(
+    name = "jgit",
+    path = "modules/jgit",
 )
 
 maven_jar(
@@ -106,7 +111,7 @@ maven_jar(
 )
 
 maven_jar(
-    name = "servlet-api_3_1",
+    name = "servlet-api",
     artifact = "javax.servlet:javax.servlet-api:3.1.0",
     sha1 = "3cd63d075497751784b2fa84be59432f4905bf7c",
 )
@@ -148,40 +153,8 @@ maven_jar(
     sha1 = "198ea005f41219f038f4291f0b0e9f3259730e92",
 )
 
-JGIT_VERS = "5.12.0.202106070339-r"
-
-JGIT_REPO = MAVEN_CENTRAL
-
 maven_jar(
-    name = "jgit-lib",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "b7792da62103c956d3e58e29fb2e6e5c5f0e1317",
-)
-
-maven_jar(
-    name = "jgit-servlet",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit.http.server:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "c50ee52951bdcd119af0181926c25e09ae913aab",
-)
-
-maven_jar(
-    name = "jgit-junit",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit.junit:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "1bb81c9104f318f16748dbaa43f95509a53e7aa0",
-)
-
-maven_jar(
-    name = "jgit-archive",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit.archive:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "93f59b510a923bd757ea6b2a6e359d222daf2e1d",
-)
-
-maven_jar(
-    name = "ewah",
+    name = "javaewah",
     artifact = "com.googlecode.javaewah:JavaEWAH:1.1.7",
     sha1 = "570dde3cd706ae10c62fe19b150928cfdb415e87",
 )
@@ -218,7 +191,7 @@ maven_jar(
 SL_VERS = "1.7.26"
 
 maven_jar(
-    name = "slf4j-api",
+    name = "log-api",
     artifact = "org.slf4j:slf4j-api:" + SL_VERS,
     sha1 = "77100a62c2e6f04b53977b9f541044d7d722693d",
 )

@@ -6,7 +6,7 @@ package(
 
 java_library(
     name = "slf4j-api",
-    exports = ["@slf4j-api//jar"],
+    exports = ["@log-api//jar"],
 )
 
 java_library(
