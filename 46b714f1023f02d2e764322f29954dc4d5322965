@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c427d20_df58e567",
+        "filename": "java/com/google/gitiles/DefaultAccess.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-09T14:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a9d29f_7a00fd76",
+      "revId": "46b714f1023f02d2e764322f29954dc4d5322965",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc07c5aa_c4cc58eb",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-11-09T13:30:00Z",
       "side": 1,
       "message": "NOT_AUTHORIZED is a 401 which implies to the caller that there\u0027s something there you\u0027re not authorized to see which is unfortunate.\nIn this case there are no projects to see (for the caller) so it should be 404 so as not to leak the existence of projects the caller cannot see, for instance FailureReason.OBJECT_NOT_FOUND:\n\n    /** Object is not found. */\n    OBJECT_NOT_FOUND(SC_NOT_FOUND, \"Object is not found\")",
+      "range": {
+        "startLine": 67,
+        "startChar": 61,
+        "endLine": 67,
+        "endChar": 76
+      },
+      "revId": "46b714f1023f02d2e764322f29954dc4d5322965",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3edb2717_a426ad8c",
+        "filename": "java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-09T14:10:32Z",
+      "side": 1,
+      "message": "Sorry my bad, I misunderstood you before but it is fixed now.",
+      "parentUuid": "dc07c5aa_c4cc58eb",
       "range": {
         "startLine": 67,
         "startChar": 61,
