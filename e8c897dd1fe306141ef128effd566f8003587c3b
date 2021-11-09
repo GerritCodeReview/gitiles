@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44348a54_a18ef913",
+        "filename": "java/com/google/gitiles/RepositoryFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-09T12:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ff7e049_027df7b6",
+      "revId": "e8c897dd1fe306141ef128effd566f8003587c3b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b5e870a_6d58454a",
@@ -35,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e056f6_889f3c35",
+        "filename": "java/com/google/gitiles/RepositoryFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-09T12:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b5e870a_6d58454a",
+      "revId": "e8c897dd1fe306141ef128effd566f8003587c3b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ec3d740_c317f85a",
@@ -48,6 +84,30 @@
       "writtenOn": "2021-11-09T09:24:40Z",
       "side": 1,
       "message": "Although this was my suggestion, having slept on it I don\u0027t know that this will work.\n\nWhat adds to the confusion is that \"repoName\" should really be named \"prefix\" or \"nameSpace\".\nThe case that parseNoCommand is trying to solve is when \"repoName\" is a dir or namespace. If you have a project-name like \"backend/services/service-a\" and \"repoName\" is \"backend/services/\" parseNoCommand tries to enumerate the projects in \"backend/services\" and uses \"backend/services\" as \"prefix\".\n\nWhen we hit a hidden project we end up in a special case were \"repoName\" is an actual repository. What (probably) happens is that the enumeration of \"repoName\" finds the project backend/services/service-a but since this is also the \"prefix\" the assumptions breaks down since the code tries to find the project name of the project-path by removing the prefix and the IndexOutOfBoundsException is thrown since prefix \u003d\u003d repoName.\n\nWith this fix I believe you aren\u0027t able to \"enumerate\" projects in a sub-dir.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 5
+      },
+      "revId": "e8c897dd1fe306141ef128effd566f8003587c3b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e1939fd_6db1e516",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-09T12:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ec3d740_c317f85a",
       "range": {
         "startLine": 145,
         "startChar": 0,
