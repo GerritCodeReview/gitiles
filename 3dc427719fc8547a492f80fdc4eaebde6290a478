@@ -22,6 +22,30 @@
       },
       "revId": "3dc427719fc8547a492f80fdc4eaebde6290a478",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "739259ac_db9cca92",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-09T06:58:17Z",
+      "side": 1,
+      "message": "Didn\u0027t know which value to chose, but yes 100 is a bit small. I change to your suggestion.",
+      "parentUuid": "26f1bbbe_6e522272",
+      "range": {
+        "startLine": 88,
+        "startChar": 45,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "3dc427719fc8547a492f80fdc4eaebde6290a478",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
