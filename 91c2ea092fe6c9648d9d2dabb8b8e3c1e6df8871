@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ba6da75_5046b372",
+        "filename": "java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-09T14:21:17Z",
+      "side": 1,
+      "message": "Or more \"correctly\":\n\n    // There are no projects that the caller can see at this path",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 70
+      },
+      "revId": "91c2ea092fe6c9648d9d2dabb8b8e3c1e6df8871",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7f1684_7fc75ede",
+        "filename": "java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-09T14:21:17Z",
+      "side": 1,
+      "message": "You changed the wrong FailureReason, should be the FailureReason at line 67 😊",
+      "revId": "91c2ea092fe6c9648d9d2dabb8b8e3c1e6df8871",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

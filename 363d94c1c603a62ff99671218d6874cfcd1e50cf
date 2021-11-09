@@ -107,6 +107,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aca6ecf_e532122a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-09T14:21:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2c85ca7_77198b3b",
+      "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a123d835_7c3e6313",
@@ -168,6 +186,30 @@
       "side": 1,
       "message": "\u003e We also need to handle it the same as if a project that does not exist is handled.\n\nI have removed the IllegalArgumentException and done as Sven suggested and swaped to if-statements. I think this will solve the problem.",
       "parentUuid": "8586065d_88fbfa40",
+      "range": {
+        "startLine": 183,
+        "startChar": 10,
+        "endLine": 183,
+        "endChar": 90
+      },
+      "revId": "363d94c1c603a62ff99671218d6874cfcd1e50cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49b9eb7e_d2426b7a",
+        "filename": "java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-09T14:21:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "828802f4_22966648",
       "range": {
         "startLine": 183,
         "startChar": 10,
