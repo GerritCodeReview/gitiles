@@ -15,15 +15,15 @@ DEPS = [
     "//lib:gfm-tables",
     "//lib:gfm-strikethrough",
     "//lib:prettify",
-    "//lib/jgit:jgit",
-    "//lib/jgit:jgit-servlet",
+    "//lib:jgit",
+    "//lib:jgit-servlet",
     "//lib/slf4j:slf4j-api",
     "//lib/soy:soy",
     "//java/com/google/gitiles/blame/cache",
 ]
 
 DEPS_ALL = DEPS + [
-    "//lib/jgit:jgit-archive",
+    "//lib:jgit-archive",
     "//lib/guice:guice",
 ]
 

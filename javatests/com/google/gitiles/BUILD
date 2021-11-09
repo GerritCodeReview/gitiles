@@ -5,8 +5,8 @@ DEPS = [
     "//lib:gson",
     "//lib:guava",
     "//lib:guava-failureaccess",
-    "//lib/jgit:jgit",
-    "//lib/jgit:jgit-servlet",
+    "//lib:jgit",
+    "//lib:jgit-servlet",
     "//lib/soy:soy",
 ]
 
@@ -21,7 +21,7 @@ java_library(
         "//lib:jsr305",
         "//lib:servlet-api_2_5",
         "//lib/truth",
-        "//lib/jgit:junit",
+        "//lib:jgit-junit",
         "//lib/junit",
     ],
 )
@@ -42,7 +42,7 @@ junit_tests(
         ":testutil",
         "//lib:servlet-api_2_5",
         "//lib/truth",
-        "//lib/jgit:junit",
+        "//lib:jgit-junit",
         "//lib/junit",
     ],
 )
