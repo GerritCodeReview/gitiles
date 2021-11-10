@@ -41,6 +41,14 @@ public class TreeSoyData {
    */
   private static final int MAX_SYMLINK_TARGET_LENGTH = 72;
 
+  private static final Map<String, Integer> TYPE_WEIGHT =
+      Map.of(
+          "TREE", 0,
+          "GITLINK", 1,
+          "SYMLINK", 2,
+          "REGULAR_FILE", 3,
+          "EXECUTABLE_FILE", 3);
+
   /**
    * Maximum number of bytes to load from a blob that claims to be a symlink. If the blob is larger
    * than this byte limit it will be displayed as a binary file instead of as a symlink.
@@ -63,6 +71,10 @@ public class TreeSoyData {
     int lastSlash = target.lastIndexOf('/');
     // TODO(dborowitz): Doesn't abbreviate a long last path component.
     return lastSlash >= 0 ? "..." + target.substring(lastSlash) : target;
+  }
+
+  static int sortByType(Map<String, String> m1, Map<String, String> m2) {
+    return TYPE_WEIGHT.get(m1.get("type")).compareTo(TYPE_WEIGHT.get(m2.get("type")));
   }
 
   private final ObjectReader reader;
@@ -90,7 +102,7 @@ public class TreeSoyData {
       throws MissingObjectException, IOException {
     ReadmeHelper readme =
         new ReadmeHelper(reader, view, MarkdownConfig.get(cfg), rootTree, requestUri);
-    List<Object> entries = Lists.newArrayList();
+    List<Map<String, String>> entries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
     while (tw.next()) {
       FileType type = FileType.forEntry(tw);
@@ -128,6 +140,8 @@ public class TreeSoyData {
       }
       entries.add(entry);
     }
+
+    entries.sort(TreeSoyData::sortByType);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(3);
     data.put("sha", treeId.name());

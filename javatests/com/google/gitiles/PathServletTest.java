@@ -64,8 +64,8 @@ public class PathServletTest extends ServletTest {
     assertThat(data).containsEntry("type", "TREE");
     List<Map<String, ?>> entries = getTreeEntries(data);
     assertThat(entries).hasSize(2);
-    assertThat(entries.get(0).get("name")).isEqualTo("baz");
-    assertThat(entries.get(1).get("name")).isEqualTo("foo/");
+    assertThat(entries.get(0).get("name")).isEqualTo("foo/");
+    assertThat(entries.get(1).get("name")).isEqualTo("baz");
 
     data = buildData("/repo/+/master/foo");
     assertThat(data).containsEntry("type", "TREE");
