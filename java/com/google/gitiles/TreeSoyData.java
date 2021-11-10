@@ -24,6 +24,8 @@ import com.google.common.collect.Maps;
 import com.google.gitiles.PathServlet.FileType;
 import com.google.gitiles.doc.MarkdownConfig;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -40,6 +42,8 @@ public class TreeSoyData {
    * for display in a tree listing.
    */
   private static final int MAX_SYMLINK_TARGET_LENGTH = 72;
+  private static final List<String> TYPE_ORDER =
+    Lists.newArrayList("TREE", "SYMLINK", "REGULAR_FILE", "EXECUTABLE_FILE", "GITLINK");
 
   /**
    * Maximum number of bytes to load from a blob that claims to be a symlink. If the blob is larger
@@ -63,6 +67,14 @@ public class TreeSoyData {
     int lastSlash = target.lastIndexOf('/');
     // TODO(dborowitz): Doesn't abbreviate a long last path component.
     return lastSlash >= 0 ? "..." + target.substring(lastSlash) : target;
+  }
+
+  static int sortByType(Map<String, String> m1, Map<String, String> m2) {
+    return Integer.valueOf(
+            TYPE_ORDER.indexOf(m1.get("type")))
+              .compareTo(
+                Integer.valueOf(
+                  TYPE_ORDER.indexOf(m2.get("type"))));
   }
 
   private final ObjectReader reader;
@@ -90,7 +102,7 @@ public class TreeSoyData {
       throws MissingObjectException, IOException {
     ReadmeHelper readme =
         new ReadmeHelper(reader, view, MarkdownConfig.get(cfg), rootTree, requestUri);
-    List<Object> entries = Lists.newArrayList();
+    List<Map<String, String>> entries = Lists.newArrayList();
     GitilesView.Builder urlBuilder = GitilesView.path().copyFrom(view);
     while (tw.next()) {
       FileType type = FileType.forEntry(tw);
@@ -128,6 +140,8 @@ public class TreeSoyData {
       }
       entries.add(entry);
     }
+
+    entries.sort(TreeSoyData::sortByType);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(3);
     data.put("sha", treeId.name());
