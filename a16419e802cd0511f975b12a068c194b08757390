@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08a09f6f_31ab6948",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-10T13:47:55Z",
+      "side": 1,
+      "message": "I don\u0027t see why entries is declared as List\u003cObject\u003e, what happens if you change the declaration to List\u003cMap\u003cString\u003e\u003e? It \"shouldn\u0027t\" change anything.",
+      "parentUuid": "0d7cece9_d1ddae18",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd0d1a67_91f9f10e",
         "filename": "java/com/google/gitiles/TreeSoyData.java",
         "patchSetId": 3
