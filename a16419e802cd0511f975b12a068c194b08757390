@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f94b2721_a2c04edb",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-10T13:53:03Z",
+      "side": 1,
+      "message": "Works fine. Wasn\u0027t sure if I was allowed to change it or not. But this makes the code a lot cleaner. \n\nI moved the logic to a static method according to your second suggestion, I think it will be easier to test it.",
+      "parentUuid": "08a09f6f_31ab6948",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd0d1a67_91f9f10e",
         "filename": "java/com/google/gitiles/TreeSoyData.java",
         "patchSetId": 3
