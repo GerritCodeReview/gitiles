@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d7cece9_d1ddae18",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-10T13:34:11Z",
+      "side": 1,
+      "message": "I did initially try to implement it according to your first suggestion but I ran into troubles. Since entries is defined to be of type List\u003cObject\u003e I get the following error when trying to run the code if the comparator is defined as Comparator\u003cMap\u003cString, String\u003e\u003e:\n\nerror: no suitable method found for sort(List\u003cObject\u003e,\u003canonymous Comparator\u003cMap\u003cString,String\u003e\u003e\u003e)\n    Collections.sort(entries, new Comparator\u003cMap\u003cString, String\u003e\u003e()\n    \nSo I think I need to keep it as Object and do the casting unless I change the declaration of entries. Do you prefer that I keep it as it is now or should change the declaration?",
+      "parentUuid": "740d2416_832e2ef6",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd0d1a67_91f9f10e",
         "filename": "java/com/google/gitiles/TreeSoyData.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-11-10T13:11:41Z",
       "side": 1,
       "message": "Make this a class-member?\n\n    private static final List\u003cString\u003e TYPE_ORDER \u003d Lists.newArrayList(\"TREE\", ...",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 94
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82081628_4d0d53d4",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-10T13:34:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd0d1a67_91f9f10e",
       "range": {
         "startLine": 135,
         "startChar": 6,
