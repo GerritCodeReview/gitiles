@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bd7a9bb_3baf8aad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-10T13:11:41Z",
+      "side": 1,
+      "message": "Could you add a test for the order?\n\nhttps://gerrit-review.googlesource.com/c/gitiles/+/323184/3/javatests/com/google/gitiles/TreeSoyDataTest.java",
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740d2416_832e2ef6",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-10T13:11:41Z",
+      "side": 1,
+      "message": "Why not:\n\n    new Comparator\u003cMap\u003cString,String\u003e\u003e()\n\nThen you don\u0027t have to cast in the compare(Map\u003cString,String\u003e e1, Map\u003cString,String\u003e e1) method.\n\nAlternatively you could put this in a Static method and use the functional interface properties of Comparator (untested code).\n\n    static int sortByType(Map\u003cString,String\u003e e1, Map\u003cString,String\u003e e2) {\n         return Integer.valueOf(definedOrder.indexOf(e1.get(\"type\")))\n                ...\n\nand:\n\n    entries.sort(TreeSoyData::sortByType)",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd0d1a67_91f9f10e",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-10T13:11:41Z",
+      "side": 1,
+      "message": "Make this a class-member?\n\n    private static final List\u003cString\u003e TYPE_ORDER \u003d Lists.newArrayList(\"TREE\", ...",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 136,
+        "endChar": 94
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
