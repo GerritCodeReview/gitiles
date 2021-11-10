@@ -24,6 +24,8 @@ import com.google.common.collect.Maps;
 import com.google.gitiles.PathServlet.FileType;
 import com.google.gitiles.doc.MarkdownConfig;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -128,6 +130,26 @@ public class TreeSoyData {
       }
       entries.add(entry);
     }
+
+    Collections.sort(entries, new Comparator<Object>() {
+      List<String> definedOrder =
+          Lists.newArrayList("TREE", "SYMLINK", "REGULAR_FILE", "EXECUTABLE_FILE", "GITLINK");
+
+      @Override
+      public int compare(Object e1, Object e2) {
+        if (e1 instanceof Map<?, ?> && e2 instanceof Map<?, ?>) {
+          Map<String, String> m1 = (Map<String, String>) e1;
+          Map<String, String> m2 = (Map<String, String>) e2;
+          return Integer.valueOf(
+              definedOrder.indexOf(m1.get("type")))
+              .compareTo(
+                Integer.valueOf(
+                  definedOrder.indexOf(m2.get("type"))));
+        } else {
+          return 0; // Should never occur
+        }
+      }
+    });
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(3);
     data.put("sha", treeId.name());
