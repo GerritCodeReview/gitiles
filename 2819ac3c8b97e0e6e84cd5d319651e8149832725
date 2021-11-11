@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc98535_a4849804",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-11T12:00:09Z",
+      "side": 1,
+      "message": "Starting to look good.",
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "561e57f7_c5a5db6b",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-11T12:00:09Z",
+      "side": 1,
+      "message": "SYMLINK is a tricky one as it can be both a file and a dir at the end of it.\nI\u0027d vote for having it below GITLINK",
+      "range": {
+        "startLine": 47,
+        "startChar": 5,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bf9a01c_e0b32baa",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-11T12:00:09Z",
+      "side": 1,
+      "message": "IMO these should have the same weight",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "022378fd_9ba8f290",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-11T12:00:09Z",
+      "side": 1,
+      "message": "GITLINK is a git-submodule link and is always seen as a TREE in the git workspace.\nIMO it should be right below dirs (TREE).\nhttps://archive.eclipse.org/jgit/site/5.9.0.202009080501-r/apidocs/org/eclipse/jgit/lib/FileMode.html",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 16
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ab75f8_af02e069",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-11T12:00:09Z",
+      "side": 1,
+      "message": "Why the integer cast?\nIt should be as easy as (don\u0027t know if the order is right but):\n\n    TYPE_WEIGHT.get(m1) - TYPE_WEIGHT.get(m2)",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
