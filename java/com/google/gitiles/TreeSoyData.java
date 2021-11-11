@@ -74,7 +74,13 @@ public class TreeSoyData {
   }
 
   static int sortByType(Map<String, String> m1, Map<String, String> m2) {
-    return TYPE_WEIGHT.get(m1.get("type")).compareTo(TYPE_WEIGHT.get(m2.get("type")));
+    int compValue = TYPE_WEIGHT.get(m1.get("type")).compareTo(TYPE_WEIGHT.get(m2.get("type")));
+    if (compValue == 0) {
+      String s1 = m1.get("name");
+      String s2 = m2.get("name");
+      return s1.compareToIgnoreCase(s2);
+    }
+    return compValue;
   }
 
   private final ObjectReader reader;
