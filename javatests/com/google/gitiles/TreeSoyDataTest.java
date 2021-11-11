@@ -17,7 +17,7 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gitiles.TreeSoyData.getTargetDisplayName;
 import static com.google.gitiles.TreeSoyData.resolveTargetUrl;
-import static com.google.gitiles.TreeSoyData.sortByType;
+import static com.google.gitiles.TreeSoyData.sortByTypeAlpha;
 
 import com.google.common.base.Strings;
 import java.util.Map;
@@ -75,17 +75,24 @@ public class TreeSoyDataTest {
     Map<String, String> m3 = new HashMap<String, String>();
     Map<String, String> m4 = new HashMap<String, String>();
     Map<String, String> m5 = new HashMap<String, String>();
+    Map<String, String> m6 = new HashMap<String, String>();
     m1.put("type", "TREE");
+    m1.put("name", "aa");
     m2.put("type", "TREE");
+    m2.put("name", "BB");
     m3.put("type", "SYMLINK");
     m4.put("type", "REGULAR_FILE");
     m5.put("type", "GITLINK");
-    assertThat(sortByType(m1, m2)).isEqualTo(0);
-    assertThat(sortByType(m2, m3)).isEqualTo(-1);
-    assertThat(sortByType(m3, m4)).isEqualTo(-1);
-    assertThat(sortByType(m4, m1)).isEqualTo(1);
-    assertThat(sortByType(m1, m4)).isEqualTo(-1);
-    assertThat(sortByType(m5, m2)).isEqualTo(1);
-    assertThat(sortByType(m2, m5)).isEqualTo(-1);
+    m6.put("type", "TREE");
+    m6.put("name", "AA");
+    assertThat(sortByTypeAlpha(m1, m2)).isEqualTo(-1);
+    assertThat(sortByTypeAlpha(m2, m3)).isEqualTo(-1);
+    assertThat(sortByTypeAlpha(m3, m4)).isEqualTo(-1);
+    assertThat(sortByTypeAlpha(m4, m1)).isEqualTo(1);
+    assertThat(sortByTypeAlpha(m1, m4)).isEqualTo(-1);
+    assertThat(sortByTypeAlpha(m5, m2)).isEqualTo(1);
+    assertThat(sortByTypeAlpha(m2, m5)).isEqualTo(-1);
+    assertThat(sortByTypeAlpha(m1, m6)).isEqualTo(0);
+    assertThat(sortByTypeAlpha(m2, m1)).isEqualTo(1);
   }
 }
