@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c2ce7a6_aa39c9e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T12:20:37Z",
+      "side": 1,
+      "message": "Thanks, I ran the code through the formatter now as well and made some adjustments according to its suggestions.",
+      "parentUuid": "fcc98535_a4849804",
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "561e57f7_c5a5db6b",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-11-11T12:00:09Z",
       "side": 1,
       "message": "SYMLINK is a tricky one as it can be both a file and a dir at the end of it.\nI\u0027d vote for having it below GITLINK",
+      "range": {
+        "startLine": 47,
+        "startChar": 5,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c8c4d2f_a89c2755",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T12:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "561e57f7_c5a5db6b",
       "range": {
         "startLine": 47,
         "startChar": 5,
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0029f149_c7eaaffa",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T12:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bf9a01c_e0b32baa",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "022378fd_9ba8f290",
@@ -87,6 +153,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bceee29d_bf5b73b8",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T12:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "022378fd_9ba8f290",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 16
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6ab75f8_af02e069",
@@ -100,6 +190,30 @@
       "writtenOn": "2021-11-11T12:00:09Z",
       "side": 1,
       "message": "Why the integer cast?\nIt should be as easy as (don\u0027t know if the order is right but):\n\n    TYPE_WEIGHT.get(m1) - TYPE_WEIGHT.get(m2)",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "2819ac3c8b97e0e6e84cd5d319651e8149832725",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6584895_316b71e5",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T12:20:37Z",
+      "side": 1,
+      "message": "No reason at all simply missed it but it is removed now.",
+      "parentUuid": "b6ab75f8_af02e069",
       "range": {
         "startLine": 78,
         "startChar": 11,
