@@ -16,6 +16,23 @@
       "message": "Nice",
       "revId": "4c5c8d22ac8a3712756c3c6cee6dfb466f77f6f3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96cd89bd_db0a678b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1027718
+      },
+      "writtenOn": "2021-11-11T14:46:29Z",
+      "side": 1,
+      "message": "Thanks you for implementing this FR! I\u0027m not familiar with the code so can\u0027t give technical advice, but if the feature is implemented as expected SGTM.",
+      "revId": "4c5c8d22ac8a3712756c3c6cee6dfb466f77f6f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
