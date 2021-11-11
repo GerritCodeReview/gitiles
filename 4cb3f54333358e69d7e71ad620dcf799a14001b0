@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4dbad8f_d170e070",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T11:43:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "214008a2_a5027b13",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 88
+      },
+      "revId": "4cb3f54333358e69d7e71ad620dcf799a14001b0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b4067da_440b28b1",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-11-11T11:18:11Z",
       "side": 1,
       "message": "there\u0027s no assert for sortByType(m1, m4)",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 48
+      },
+      "revId": "4cb3f54333358e69d7e71ad620dcf799a14001b0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f68f5fa9_a68c5b01",
+        "filename": "javatests/com/google/gitiles/TreeSoyDataTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T11:43:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b4067da_440b28b1",
       "range": {
         "startLine": 85,
         "startChar": 4,
