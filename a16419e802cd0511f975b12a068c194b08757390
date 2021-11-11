@@ -131,6 +131,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0041acec_6fd13be1",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-11T09:30:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f94b2721_a2c04edb",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "a16419e802cd0511f975b12a068c194b08757390",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd0d1a67_91f9f10e",
