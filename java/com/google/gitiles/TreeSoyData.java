@@ -73,8 +73,18 @@ public class TreeSoyData {
     return lastSlash >= 0 ? "..." + target.substring(lastSlash) : target;
   }
 
-  static int sortByType(Map<String, String> m1, Map<String, String> m2) {
-    return TYPE_WEIGHT.get(m1.get("type")).compareTo(TYPE_WEIGHT.get(m2.get("type")));
+  static int sortByTypeAlpha(Map<String, String> m1, Map<String, String> m2) {
+    int weightDiff = TYPE_WEIGHT.get(m1.get("type")).compareTo(TYPE_WEIGHT.get(m2.get("type")));
+    if (weightDiff == 0) {
+      String s1 = m1.get("name");
+      String s2 = m2.get("name");
+      if (m1.get("type").equals("TREE")) {
+        s1 = s1.endsWith("/") ? s1.substring(0, s1.length() - 1) : s1;
+        s1 = s1.endsWith("/") ? s1.substring(0, s1.length() - 1) : s1;
+      }
+      return s1.compareToIgnoreCase(s2);
+    }
+    return weightDiff;
   }
 
   private final ObjectReader reader;
@@ -141,7 +151,7 @@ public class TreeSoyData {
       entries.add(entry);
     }
 
-    entries.sort(TreeSoyData::sortByType);
+    entries.sort(TreeSoyData::sortByTypeAlpha);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(3);
     data.put("sha", treeId.name());
