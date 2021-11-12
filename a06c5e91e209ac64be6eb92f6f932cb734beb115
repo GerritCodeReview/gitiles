@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8358542d_f7c9d34f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-12T15:34:30Z",
+      "side": 1,
+      "message": "Just a couple of nits",
+      "revId": "a06c5e91e209ac64be6eb92f6f932cb734beb115",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88669191_3df5435a",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-12T15:34:30Z",
+      "side": 1,
+      "message": "sortByTypeAlpha or similar?",
+      "range": {
+        "startLine": 76,
+        "startChar": 13,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "a06c5e91e209ac64be6eb92f6f932cb734beb115",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "896b84db_727b0049",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2021-11-12T15:34:30Z",
+      "side": 1,
+      "message": "weightDiff?",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "a06c5e91e209ac64be6eb92f6f932cb734beb115",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
