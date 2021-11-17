@@ -39,6 +39,30 @@
       },
       "revId": "5c7412feb489687467929e537f7778645f3f415a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb6d866c_66a3b4d8",
+        "filename": "java/com/google/gitiles/HostIndexServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1142356
+      },
+      "writtenOn": "2021-11-17T08:31:30Z",
+      "side": 1,
+      "message": "I have been thinking about your input and after consulting with Sven we have realized that this is something that should be handle in the plugin for Gerrit and not here. I will abandon this change and start working with the plugin instead. Thanks for your input.",
+      "parentUuid": "c7a3fbd0_8265e7d3",
+      "range": {
+        "startLine": 67,
+        "startChar": 61,
+        "endLine": 67,
+        "endChar": 77
+      },
+      "revId": "5c7412feb489687467929e537f7778645f3f415a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
