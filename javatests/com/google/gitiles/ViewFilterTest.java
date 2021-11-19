@@ -73,6 +73,16 @@ public class ViewFilterTest {
   }
 
   @Test
+  public void autoCommand_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    RevCommit head = repo.branch("HEAD").commit().parent(parent).create();
+
+    GitilesView view = getView("/repo/+/master");
+    assertThat(view.getType()).isEqualTo(Type.REVISION);
+    assertThat(view.getRevision().getName()).isEqualTo(head.name());
+  }
+
+  @Test
   public void hostIndex() throws Exception {
     GitilesView view = getView("/");
     assertThat(view.getType()).isEqualTo(Type.HOST_INDEX);

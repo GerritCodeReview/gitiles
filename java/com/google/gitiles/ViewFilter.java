@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.http.server.glue.WrappedRequest;
+import org.eclipse.jgit.lib.Constants;
 
 /** Filter to parse URLs and convert them to {@link GitilesView}s. */
 public class ViewFilter extends AbstractHttpFilter {
@@ -97,6 +98,12 @@ public class ViewFilter extends AbstractHttpFilter {
   public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
       throws IOException, ServletException {
     GitilesView.Builder view = parse(req);
+    String path = getRegexGroup(req, 3);
+    // parse at HEAD only when the path is provided. Path begins with "/" which is excluded.
+    if (view == null && !Strings.isNullOrEmpty(path) && path.length() > 1) {
+      path = "/" + Constants.HEAD;
+      view = parse(req, path);
+    }
     if (view == null) {
       throw new GitilesRequestFailureException(FailureReason.CANNOT_PARSE_GITILES_VIEW);
     }
@@ -132,12 +139,16 @@ public class ViewFilter extends AbstractHttpFilter {
   }
 
   private GitilesView.Builder parse(HttpServletRequest req) throws IOException {
+    String path = getRegexGroup(req, 3);
+    return parse(req, path);
+  }
+
+  private GitilesView.Builder parse(HttpServletRequest req, String path) throws IOException {
     String repoName = trimLeadingSlash(getRegexGroup(req, 1));
     if (repoName.isEmpty()) {
       return GitilesView.hostIndex();
     }
     String command = getRegexGroup(req, 2);
-    String path = getRegexGroup(req, 3);
 
     if (command.isEmpty()) {
       return parseNoCommand(req, repoName);
