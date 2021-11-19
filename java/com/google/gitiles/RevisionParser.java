@@ -21,8 +21,12 @@ import static java.util.Objects.hash;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.RevisionSyntaxException;
@@ -36,6 +40,10 @@ import org.eclipse.jgit.revwalk.RevWalk;
 /** Object to parse revisions out of Gitiles paths. */
 class RevisionParser {
   private static final Splitter OPERATOR_SPLITTER = Splitter.on(CharMatcher.anyOf("^~"));
+
+  // The ref name part of a revision expression ends at the first
+  // appearance of ^, ~, :, or @{ (see git-check-ref-format(1)).
+  private static final Pattern END_OF_REF = Pattern.compile("[\\^~:]|@\\{");
 
   static class Result {
     private final Revision revision;
@@ -96,21 +104,28 @@ class RevisionParser {
   private final Repository repo;
   private final GitilesAccess access;
   private final VisibilityCache cache;
+  private final BranchRedirect branchRedirect;
 
-  RevisionParser(Repository repo, GitilesAccess access, VisibilityCache cache) {
+  RevisionParser(
+      Repository repo, GitilesAccess access, VisibilityCache cache, BranchRedirect branchRedirect) {
     this.repo = checkNotNull(repo, "repo");
     this.access = checkNotNull(access, "access");
     this.cache = checkNotNull(cache, "cache");
+    this.branchRedirect = checkNotNull(branchRedirect, "branchRedirect");
   }
 
   Result parse(String path) throws IOException {
     if (path.startsWith("/")) {
       path = path.substring(1);
     }
+    if (Strings.isNullOrEmpty(path)) {
+      return null;
+    }
     try (RevWalk walk = new RevWalk(repo)) {
       walk.setRetainBody(false);
 
       Revision oldRevision = null;
+      Revision oldRevisionRedirected = null;
 
       StringBuilder b = new StringBuilder();
       boolean first = true;
@@ -130,14 +145,24 @@ class RevisionParser {
           } else if (dots > 0) {
             b.append(part, 0, dots);
             String oldName = b.toString();
-            if (!isValidRevision(oldName)) {
+            String oldNameRedirect = getRedirectFor(oldName);
+
+            if (!isValidRevision(oldNameRedirect)) {
               return null;
             }
-            RevObject old = resolve(oldName, walk);
+            RevObject old = resolve(oldNameRedirect, walk);
             if (old == null) {
               return null;
             }
+            /*
+             * Retain oldRevision with the old name (non-redirected-path) since it is used in
+             * determining the Revision path (start index of the path from the name).
+             * For example: For a master -> main redirect,
+             * original path: /master/index.c is updated to /main/index.c
+             * To parse the ref/path to build Revision object we look at the original path.
+             */
             oldRevision = Revision.peel(oldName, old, walk);
+            oldRevisionRedirected = Revision.peel(oldNameRedirect, old, walk);
             part = part.substring(dots + 2);
             b = new StringBuilder();
           } else if (firstParent > 0) {
@@ -149,7 +174,9 @@ class RevisionParser {
             if (!isValidRevision(name)) {
               return null;
             }
-            RevObject obj = resolve(name, walk);
+
+            String nameRedirected = getRedirectFor(name);
+            RevObject obj = resolve(nameRedirected, walk);
             if (obj == null) {
               return null;
             }
@@ -162,13 +189,15 @@ class RevisionParser {
             }
             RevCommit c = (RevCommit) obj;
             if (c.getParentCount() > 0) {
-              oldRevision = Revision.peeled(name + "^", c.getParent(0));
+              oldRevisionRedirected = Revision.peeled(nameRedirected + "^", c.getParent(0));
             } else {
-              oldRevision = Revision.NULL;
+              oldRevisionRedirected = Revision.NULL;
             }
             Result result =
                 new Result(
-                    Revision.peeled(name, c), oldRevision, path.substring(name.length() + 2));
+                    Revision.peeled(nameRedirected, c),
+                    oldRevisionRedirected,
+                    path.substring(name.length() + 2));
             return isVisible(walk, result) ? result : null;
           }
         }
@@ -178,7 +207,9 @@ class RevisionParser {
         if (!isValidRevision(name)) {
           return null;
         }
-        RevObject obj = resolve(name, walk);
+        String nameRedirected = getRedirectFor(name);
+
+        RevObject obj = resolve(nameRedirected, walk);
         if (obj != null) {
           int pathStart;
           if (oldRevision == null) {
@@ -188,7 +219,10 @@ class RevisionParser {
             pathStart = oldRevision.getName().length() + 2 + name.length();
           }
           Result result =
-              new Result(Revision.peel(name, obj, walk), oldRevision, path.substring(pathStart));
+              new Result(
+                  Revision.peel(nameRedirected, obj, walk),
+                  oldRevisionRedirected,
+                  path.substring(pathStart));
           return isVisible(walk, result) ? result : null;
         }
         first = false;
@@ -232,5 +266,30 @@ class RevisionParser {
       return cache.isVisible(repo, walk, access, result.getOldRevision().getId(), id);
     }
     return true;
+  }
+
+  /**
+   * It replaces the ref in the revision expression to the redirected refName, without changing the
+   * behavior of the expression.
+   *
+   * <p>For eg: branch redirect {master -> main} would yield {master -> main}, {refs/heads/master^
+   * -> refs/heads/main^}, {refs/heads/master^ -> refs/heads/main^}. It does expand to a full
+   * refName even for shorter refNames.
+   */
+  private String getRedirectFor(String revisionExpression) {
+    String refName = refPart(revisionExpression);
+    Optional<String> redirect = branchRedirect.getRedirectBranch(repo, refName);
+    if (redirect.isPresent()) {
+      return revisionExpression.replace(refName, redirect.get());
+    }
+    return revisionExpression;
+  }
+
+  private static String refPart(String revisionExpression) {
+    Matcher m = END_OF_REF.matcher(revisionExpression);
+    if (!m.find()) { // no terminator -> the whole string is a ref name.
+      return revisionExpression;
+    }
+    return revisionExpression.substring(0, m.start());
   }
 }

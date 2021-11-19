@@ -85,12 +85,17 @@ public class ViewFilter extends AbstractHttpFilter {
   private final GitilesUrls urls;
   private final GitilesAccess.Factory accessFactory;
   private final VisibilityCache visibilityCache;
+  private final BranchRedirect branchRedirect;
 
   public ViewFilter(
-      GitilesAccess.Factory accessFactory, GitilesUrls urls, VisibilityCache visibilityCache) {
+      GitilesAccess.Factory accessFactory,
+      GitilesUrls urls,
+      VisibilityCache visibilityCache,
+      BranchRedirect branchRedirect) {
     this.urls = checkNotNull(urls, "urls");
     this.accessFactory = checkNotNull(accessFactory, "accessFactory");
     this.visibilityCache = checkNotNull(visibilityCache, "visibilityCache");
+    this.branchRedirect = checkNotNull(branchRedirect, "branchRedirect");
   }
 
   @Override
@@ -101,7 +106,6 @@ public class ViewFilter extends AbstractHttpFilter {
       throw new GitilesRequestFailureException(FailureReason.CANNOT_PARSE_GITILES_VIEW);
     }
 
-    @SuppressWarnings("unchecked")
     Map<String, String[]> params = req.getParameterMap();
     view.setHostName(urls.getHostName(req))
         .setServletPath(req.getContextPath() + req.getServletPath())
@@ -320,7 +324,14 @@ public class ViewFilter extends AbstractHttpFilter {
       throws IOException {
     RevisionParser revParser =
         new RevisionParser(
-            ServletUtils.getRepository(req), accessFactory.forRequest(req), visibilityCache);
+            ServletUtils.getRepository(req),
+            accessFactory.forRequest(req),
+            visibilityCache,
+            getBranchRedirect(req));
     return revParser.parse(checkLeadingSlash(path));
+  }
+
+  private BranchRedirect getBranchRedirect(HttpServletRequest req) {
+    return BranchRedirect.isForAutomation(req) ? BranchRedirect.EMPTY : branchRedirect;
   }
 }
