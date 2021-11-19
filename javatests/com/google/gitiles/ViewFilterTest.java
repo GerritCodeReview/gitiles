@@ -21,11 +21,14 @@ import static com.google.gitiles.MoreAssert.assertThrows;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.GitilesView.Type;
 import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.ServletException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
 import org.eclipse.jgit.junit.TestRepository;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +56,7 @@ public class ViewFilterTest {
   @Test
   public void autoCommand() throws Exception {
     RevCommit parent = repo.commit().create();
-    RevCommit master = repo.branch("refs/heads/master").commit().parent(parent).create();
+    RevCommit master = repo.branch(MASTER).commit().parent(parent).create();
     String hex = master.name();
     String hexBranch = hex.substring(0, 10);
     repo.branch(hexBranch).commit().create();
@@ -157,7 +160,7 @@ public class ViewFilterTest {
 
   @Test
   public void showBranches() throws Exception {
-    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit master = repo.branch(MASTER).commit().create();
     RevCommit stable = repo.branch("refs/heads/stable").commit().create();
     GitilesView view;
 
@@ -175,7 +178,7 @@ public class ViewFilterTest {
 
     view = getView("/repo/+show/refs/heads/master");
     assertThat(view.getType()).isEqualTo(Type.REVISION);
-    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/master");
+    assertThat(view.getRevision().getName()).isEqualTo(MASTER);
     assertThat(view.getRevision().getId()).isEqualTo(master);
     assertThat(view.getPathPart()).isNull();
 
@@ -227,7 +230,7 @@ public class ViewFilterTest {
 
   @Test
   public void path() throws Exception {
-    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit master = repo.branch(MASTER).commit().create();
     repo.branch("refs/heads/stable").commit().create();
     GitilesView view;
 
@@ -257,7 +260,7 @@ public class ViewFilterTest {
 
   @Test
   public void doc() throws Exception {
-    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit master = repo.branch(MASTER).commit().create();
     repo.branch("refs/heads/stable").commit().create();
     GitilesView view;
 
@@ -287,7 +290,7 @@ public class ViewFilterTest {
 
   @Test
   public void multipleSlashes() throws Exception {
-    repo.branch("refs/heads/master").commit().create();
+    repo.branch(MASTER).commit().create();
     assertThat(getView("//").getType()).isEqualTo(Type.HOST_INDEX);
     assertThat(getView("//repo").getType()).isEqualTo(Type.REPOSITORY_INDEX);
     assertThat(getView("//repo//").getType()).isEqualTo(Type.REPOSITORY_INDEX);
@@ -301,7 +304,7 @@ public class ViewFilterTest {
   @Test
   public void diff() throws Exception {
     RevCommit parent = repo.commit().create();
-    RevCommit master = repo.branch("refs/heads/master").commit().parent(parent).create();
+    RevCommit master = repo.branch(MASTER).commit().parent(parent).create();
     GitilesView view;
 
     view = getView("/repo/+diff/master^..master");
@@ -330,7 +333,7 @@ public class ViewFilterTest {
 
     view = getView("/repo/+diff/refs/heads/master^..refs/heads/master");
     assertThat(view.getType()).isEqualTo(Type.DIFF);
-    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/master");
+    assertThat(view.getRevision().getName()).isEqualTo(MASTER);
     assertThat(view.getRevision().getId()).isEqualTo(master);
     assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/master^");
     assertThat(view.getOldRevision().getId()).isEqualTo(parent);
@@ -339,7 +342,7 @@ public class ViewFilterTest {
 
   @Test
   public void diffAgainstEmptyCommit() throws Exception {
-    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit master = repo.branch(MASTER).commit().create();
     GitilesView view = getView("/repo/+diff/master^!");
     assertThat(view.getType()).isEqualTo(Type.DIFF);
     assertThat(view.getRevision().getName()).isEqualTo("master");
@@ -351,7 +354,7 @@ public class ViewFilterTest {
   @Test
   public void log() throws Exception {
     RevCommit parent = repo.commit().create();
-    RevCommit master = repo.branch("refs/heads/master").commit().parent(parent).create();
+    RevCommit master = repo.branch(MASTER).commit().parent(parent).create();
     GitilesView view;
 
     view = getView("/repo/+log");
@@ -411,7 +414,7 @@ public class ViewFilterTest {
 
     view = getView("/repo/+log/refs/heads/master^..refs/heads/master");
     assertThat(view.getType()).isEqualTo(Type.LOG);
-    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/master");
+    assertThat(view.getRevision().getName()).isEqualTo(MASTER);
     assertThat(view.getRevision().getId()).isEqualTo(master);
     assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/master^");
     assertThat(view.getOldRevision().getId()).isEqualTo(parent);
@@ -420,7 +423,7 @@ public class ViewFilterTest {
 
   @Test
   public void archive() throws Exception {
-    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit master = repo.branch(MASTER).commit().create();
     repo.branch("refs/heads/branch").commit().create();
     GitilesView view;
 
@@ -465,7 +468,7 @@ public class ViewFilterTest {
 
   @Test
   public void blame() throws Exception {
-    RevCommit master = repo.branch("refs/heads/master").commit().create();
+    RevCommit master = repo.branch(MASTER).commit().create();
     repo.branch("refs/heads/branch").commit().create();
     GitilesView view;
 
@@ -487,7 +490,7 @@ public class ViewFilterTest {
   @Test
   public void testNormalizeParents() throws Exception {
     RevCommit parent = repo.commit().create();
-    RevCommit master = repo.branch("refs/heads/master").commit().parent(parent).create();
+    RevCommit master = repo.branch(MASTER).commit().parent(parent).create();
     GitilesView view;
 
     assertThat(getView("/repo/+/master").toUrl()).isEqualTo("/b/repo/+/master");
@@ -504,18 +507,208 @@ public class ViewFilterTest {
     assertThat(view.getOldRevision().getName()).isEqualTo("master^");
   }
 
+  private static final String MASTER = "refs/heads/master";
+  private static final String MAIN = "refs/heads/main";
+
+  @Test
+  public void autoCommand_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    RevCommit master = repo.branch(MASTER).commit().parent(parent).create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+    RevCommit someBranch =
+        repo.branch("refs/heads/some@branch")
+            .commit()
+            .parent(main)
+            .add("README", "This is a test README")
+            .create();
+    repo.branch("refs/heads/another@level").commit().parent(someBranch).create();
+
+    String hex = master.name();
+    String hexBranch = hex.substring(0, 10);
+    repo.branch(hexBranch).commit().create();
+
+    BranchRedirect branchRedirect =
+        new BranchRedirect() {
+          @Override
+          protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            if ("refs/heads/some@branch".equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            return Optional.empty();
+          }
+        };
+
+    GitilesView view = getView("/repo/+/master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.REVISION);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+
+    view = getView("/repo/+/master/index.c", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getPathPart()).isEqualTo("index.c");
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+
+    view = getView("/repo/+/some@branch", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.REVISION);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+
+    view = getView("/repo/+/master/master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getPathPart()).isEqualTo("master");
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+
+    FakeHttpServletResponse response = getResponse("/repo/+/master^1", branchRedirect);
+    assertThat(response.getHeader(HttpHeaders.LOCATION))
+        .contains("/b/repo/+/" + parent.toObjectId().name());
+
+    response = getResponse("/repo/+/master~1", branchRedirect);
+    assertThat(response.getHeader(HttpHeaders.LOCATION))
+        .contains("/b/repo/+/" + parent.toObjectId().name());
+
+    response = getResponse("/repo/+/another@level^1~2", branchRedirect);
+    assertThat(response.getHeader(HttpHeaders.LOCATION))
+        .contains("/b/repo/+/" + parent.toObjectId().name());
+
+    assertThrows(
+        GitilesRequestFailureException.class,
+        () -> getView("/repo/+/some@branch:README", branchRedirect));
+
+    assertThrows(
+        GitilesRequestFailureException.class, () -> getView("/repo/+/master@{1}", branchRedirect));
+  }
+
+  @Test
+  public void diff_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    repo.branch(MASTER).commit().parent(parent).create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+    BranchRedirect branchRedirect =
+        new BranchRedirect() {
+          @Override
+          protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            return Optional.empty();
+          }
+        };
+
+    GitilesView view;
+
+    view = getView("/repo/+diff/master^..master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+diff/master..master^", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getRevision().getId()).isEqualTo(parent);
+    assertThat(view.getOldRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getOldRevision().getId()).isEqualTo(main);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+diff/master^..master/", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+diff/master^..master/foo", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEqualTo("foo");
+
+    view = getView("/repo/+diff/refs/heads/master^..refs/heads/master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEmpty();
+  }
+
+  @Test
+  public void path_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+    repo.branch(MASTER).commit().parent(parent).create();
+    BranchRedirect branchRedirect =
+        new BranchRedirect() {
+          @Override
+          protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            return Optional.empty();
+          }
+        };
+
+    repo.branch("refs/heads/stable").commit().create();
+    GitilesView view;
+
+    view = getView("/repo/+show/master/", branchRedirect);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+show/master/foo", branchRedirect);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getPathPart()).isEqualTo("foo");
+  }
+
+  private static String toFullBranchName(String sourceBranch) {
+    if (sourceBranch.startsWith(Constants.R_REFS)) {
+      return sourceBranch;
+    }
+    return Constants.R_HEADS + sourceBranch;
+  }
+
   private String getRedirectUrl(String pathAndQuery) throws ServletException, IOException {
-    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, new BranchRedirect());
     assertThat(result.getResponse().getStatus()).isEqualTo(302);
     return result.getResponse().getHeader(HttpHeaders.LOCATION);
   }
 
   private GitilesView getView(String pathAndQuery) throws ServletException, IOException {
-    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, new BranchRedirect());
     FakeHttpServletResponse resp = result.getResponse();
     assertWithMessage("expected non-redirect status, got " + resp.getStatus())
         .that(resp.getStatus() < 300 || resp.getStatus() >= 400)
         .isTrue();
     return result.getView();
+  }
+
+  private GitilesView getView(String pathAndQuery, BranchRedirect branchRedirect)
+      throws ServletException, IOException {
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, branchRedirect);
+    FakeHttpServletResponse resp = result.getResponse();
+    assertWithMessage("expected non-redirect status, got " + resp.getStatus())
+        .that(resp.getStatus() < 300 || resp.getStatus() >= 400 || resp.getStatus() == 302)
+        .isTrue();
+    return result.getView();
+  }
+
+  private FakeHttpServletResponse getResponse(String pathAndQuery, BranchRedirect branchRedirect)
+      throws ServletException, IOException {
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, branchRedirect);
+    return result.getResponse();
   }
 }
