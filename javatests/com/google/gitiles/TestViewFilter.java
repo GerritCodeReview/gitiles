@@ -58,14 +58,18 @@ public class TestViewFilter {
     }
   }
 
-  public static Result service(TestRepository<? extends DfsRepository> repo, String pathAndQuery)
+  public static Result service(
+      TestRepository<? extends DfsRepository> repo,
+      String pathAndQuery,
+      BranchRedirect branchRedirect)
       throws IOException, ServletException {
     TestServlet servlet = new TestServlet();
     ViewFilter vf =
         new ViewFilter(
             new TestGitilesAccess(repo.getRepository()),
             TestGitilesUrls.URLS,
-            new VisibilityCache());
+            new VisibilityCache(),
+            branchRedirect);
     MetaFilter mf = new MetaFilter();
 
     for (Pattern p : ImmutableList.of(ROOT_REGEX, REPO_REGEX, REPO_PATH_REGEX)) {
