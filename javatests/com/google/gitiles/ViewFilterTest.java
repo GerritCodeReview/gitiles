@@ -21,11 +21,14 @@ import static com.google.gitiles.MoreAssert.assertThrows;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.GitilesView.Type;
 import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.ServletException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
 import org.eclipse.jgit.junit.TestRepository;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Before;
 import org.junit.Test;
@@ -504,18 +507,171 @@ public class ViewFilterTest {
     assertThat(view.getOldRevision().getName()).isEqualTo("master^");
   }
 
+  private static final String MASTER = "refs/heads/master";
+  private static final String MAIN = "refs/heads/main";
+
+  @Test
+  public void autoCommand_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    RevCommit master = repo.branch("refs/heads/master").commit().parent(parent).create();
+    RevCommit main = repo.branch("refs/heads/main").commit().parent(parent).create();
+    String hex = master.name();
+    String hexBranch = hex.substring(0, 10);
+    repo.branch(hexBranch).commit().create();
+
+    BranchRedirect branchRedirect =
+        new BranchRedirect() {
+          @Override
+          protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            return Optional.empty();
+          }
+        };
+
+    GitilesView view = getView("/repo/+/master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.REVISION);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+
+    view = getView("/repo/+/master/index.c", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+
+    String path = "/repo/+/master^1";
+    FakeHttpServletResponse response = getResponse(path, branchRedirect);
+    assertThat(response.getHeader(HttpHeaders.LOCATION))
+        .contains("/b/repo/+/" + parent.toObjectId().name());
+  }
+
+  @Test
+  public void diff_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    repo.branch("refs/heads/master").commit().parent(parent).create();
+    RevCommit main = repo.branch("refs/heads/main").commit().parent(parent).create();
+    BranchRedirect branchRedirect =
+        new BranchRedirect() {
+          @Override
+          protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            return Optional.empty();
+          }
+        };
+
+    GitilesView view;
+
+    view = getView("/repo/+diff/master^..master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/main");
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+diff/master..master^", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getRevision().getId()).isEqualTo(parent);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main");
+    assertThat(view.getOldRevision().getId()).isEqualTo(main);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+diff/master^..master/", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/main");
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+diff/master^..master/foo", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/main");
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEqualTo("foo");
+
+    view = getView("/repo/+diff/refs/heads/master^..refs/heads/master", branchRedirect);
+    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getRevision().getName()).isEqualTo("refs/heads/main");
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getOldRevision().getName()).isEqualTo("refs/heads/main^");
+    assertThat(view.getOldRevision().getId()).isEqualTo(parent);
+    assertThat(view.getPathPart()).isEmpty();
+  }
+
+  @Test
+  public void path_branchRedirect() throws Exception {
+    RevCommit parent = repo.commit().create();
+    RevCommit main = repo.branch("refs/heads/main").commit().parent(parent).create();
+    repo.branch("refs/heads/master").commit().parent(parent).create();
+    BranchRedirect branchRedirect =
+        new BranchRedirect() {
+          @Override
+          protected Optional<String> getRedirectBranch(Repository repo, String sourceBranch) {
+            if (MASTER.equals(toFullBranchName(sourceBranch))) {
+              return Optional.of(MAIN);
+            }
+            return Optional.empty();
+          }
+        };
+
+    repo.branch("refs/heads/stable").commit().create();
+    GitilesView view;
+
+    view = getView("/repo/+show/master/", branchRedirect);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getPathPart()).isEmpty();
+
+    view = getView("/repo/+show/master/foo", branchRedirect);
+    assertThat(view.getRevision().getName()).isEqualTo(MAIN);
+    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getRevision().getId()).isEqualTo(main);
+    assertThat(view.getPathPart()).isEqualTo("foo");
+  }
+
+  private static String toFullBranchName(String sourceBranch) {
+    if (sourceBranch.startsWith(Constants.R_REFS)) {
+      return sourceBranch;
+    }
+    return Constants.R_HEADS + sourceBranch;
+  }
+
   private String getRedirectUrl(String pathAndQuery) throws ServletException, IOException {
-    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, new BranchRedirect());
     assertThat(result.getResponse().getStatus()).isEqualTo(302);
     return result.getResponse().getHeader(HttpHeaders.LOCATION);
   }
 
   private GitilesView getView(String pathAndQuery) throws ServletException, IOException {
-    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery);
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, new BranchRedirect());
     FakeHttpServletResponse resp = result.getResponse();
     assertWithMessage("expected non-redirect status, got " + resp.getStatus())
         .that(resp.getStatus() < 300 || resp.getStatus() >= 400)
         .isTrue();
     return result.getView();
+  }
+
+  private GitilesView getView(String pathAndQuery, BranchRedirect branchRedirect)
+      throws ServletException, IOException {
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, branchRedirect);
+    FakeHttpServletResponse resp = result.getResponse();
+    assertWithMessage("expected non-redirect status, got " + resp.getStatus())
+        .that(resp.getStatus() < 300 || resp.getStatus() >= 400 || resp.getStatus() == 302)
+        .isTrue();
+    return result.getView();
+  }
+
+  private FakeHttpServletResponse getResponse(String pathAndQuery, BranchRedirect branchRedirect)
+      throws ServletException, IOException {
+    TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, branchRedirect);
+    return result.getResponse();
   }
 }
