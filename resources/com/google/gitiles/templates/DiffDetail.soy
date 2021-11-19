@@ -49,8 +49,8 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {@param fileIndex: ?}  /** position of the file within the difference. */
 <pre class="u-pre u-monospace Diff">
   <a name="F{$fileIndex}" class="Diff-fileIndex"></a>
-  {for $part in $firstParts}
-    {if not isFirst($part)}{sp}{/if}
+  {for $part, $index in $firstParts}
+    {if $index > 0}{sp}{/if}
     {if $part.url}
       <a href="{$part.url}">{$part.text}</a>
     {else}
