@@ -46,7 +46,8 @@ public class RevisionParserTest {
         new RevisionParser(
             repo.getRepository(),
             new TestGitilesAccess(repo.getRepository()).forRequest(null),
-            new VisibilityCache(CacheBuilder.newBuilder().maximumSize(0)));
+            new VisibilityCache(CacheBuilder.newBuilder().maximumSize(0)),
+            new BranchRedirect());
   }
 
   @Test

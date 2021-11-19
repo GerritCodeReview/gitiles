@@ -176,7 +176,7 @@ class GitilesFilter extends MetaFilter {
   private BlameCache blameCache;
   private GitwebRedirectFilter gitwebRedirect;
   private Filter errorHandler;
-  private BranchRedirectFilter branchRedirect;
+  private BranchRedirect branchRedirect;
   private boolean initialized;
 
   GitilesFilter() {}
@@ -191,7 +191,7 @@ class GitilesFilter extends MetaFilter {
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
-      BranchRedirectFilter branchRedirect,
+      BranchRedirect branchRedirect,
       @Nullable Filter errorHandler) {
     this.config = checkNotNull(config, "config");
     this.renderer = renderer;
@@ -220,28 +220,23 @@ class GitilesFilter extends MetaFilter {
     }
 
     Filter repositoryFilter = new RepositoryFilter(resolver);
-    Filter viewFilter = new ViewFilter(accessFactory, urls, visibilityCache);
+    Filter viewFilter = new ViewFilter(accessFactory, urls, visibilityCache, branchRedirect);
     Filter dispatchFilter = new DispatchFilter(filters, servlets);
 
     ServletBinder root = serveRegex(ROOT_REGEX).through(viewFilter);
     if (gitwebRedirect != null) {
       root.through(gitwebRedirect);
     }
-    if (branchRedirect != null) {
-      root.through(branchRedirect);
-    }
     root.through(dispatchFilter);
 
     serveRegex(REPO_REGEX)
         .through(repositoryFilter)
         .through(viewFilter)
-        .through(branchRedirect)
         .through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
         .through(viewFilter)
-        .through(branchRedirect)
         .through(dispatchFilter);
 
     initialized = true;

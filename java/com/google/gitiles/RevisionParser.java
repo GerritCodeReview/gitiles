@@ -21,8 +21,10 @@ import static java.util.Objects.hash;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.RevisionSyntaxException;
@@ -96,21 +98,37 @@ class RevisionParser {
   private final Repository repo;
   private final GitilesAccess access;
   private final VisibilityCache cache;
+  private final BranchRedirect branchRedirect;
 
-  RevisionParser(Repository repo, GitilesAccess access, VisibilityCache cache) {
+  RevisionParser(
+      Repository repo, GitilesAccess access, VisibilityCache cache, BranchRedirect branchRedirect) {
     this.repo = checkNotNull(repo, "repo");
     this.access = checkNotNull(access, "access");
     this.cache = checkNotNull(cache, "cache");
+    this.branchRedirect = branchRedirect;
+  }
+
+  private String getRedirectFor(String rawBranchName) {
+    String refName = rawBranchName.replaceAll("[^a-zA-Z/]+", "");
+    Optional<String> redirect = branchRedirect.getRedirectBranch(repo, refName);
+    if (redirect.isPresent()) {
+      return rawBranchName.replace(refName, redirect.get());
+    }
+    return rawBranchName;
   }
 
   Result parse(String path) throws IOException {
     if (path.startsWith("/")) {
       path = path.substring(1);
     }
+    if (Strings.isNullOrEmpty(path)) {
+      return null;
+    }
     try (RevWalk walk = new RevWalk(repo)) {
       walk.setRetainBody(false);
 
       Revision oldRevision = null;
+      Revision oldRevisionRedirected = null;
 
       StringBuilder b = new StringBuilder();
       boolean first = true;
@@ -130,14 +148,18 @@ class RevisionParser {
           } else if (dots > 0) {
             b.append(part, 0, dots);
             String oldName = b.toString();
-            if (!isValidRevision(oldName)) {
+            String redirectOldName = getRedirectFor(oldName);
+
+            if (!isValidRevision(redirectOldName)) {
               return null;
             }
-            RevObject old = resolve(oldName, walk);
+            RevObject old = resolve(redirectOldName, walk);
             if (old == null) {
               return null;
             }
+            // retain oldRevision since it is used in determining leftover path string
             oldRevision = Revision.peel(oldName, old, walk);
+            oldRevisionRedirected = Revision.peel(redirectOldName, old, walk);
             part = part.substring(dots + 2);
             b = new StringBuilder();
           } else if (firstParent > 0) {
@@ -149,7 +171,9 @@ class RevisionParser {
             if (!isValidRevision(name)) {
               return null;
             }
-            RevObject obj = resolve(name, walk);
+
+            String nameRedirected = getRedirectFor(name);
+            RevObject obj = resolve(nameRedirected, walk);
             if (obj == null) {
               return null;
             }
@@ -162,13 +186,15 @@ class RevisionParser {
             }
             RevCommit c = (RevCommit) obj;
             if (c.getParentCount() > 0) {
-              oldRevision = Revision.peeled(name + "^", c.getParent(0));
+              oldRevisionRedirected = Revision.peeled(nameRedirected + "^", c.getParent(0));
             } else {
-              oldRevision = Revision.NULL;
+              oldRevisionRedirected = Revision.NULL;
             }
             Result result =
                 new Result(
-                    Revision.peeled(name, c), oldRevision, path.substring(name.length() + 2));
+                    Revision.peeled(nameRedirected, c),
+                    oldRevisionRedirected,
+                    path.substring(name.length() + 2));
             return isVisible(walk, result) ? result : null;
           }
         }
@@ -178,7 +204,9 @@ class RevisionParser {
         if (!isValidRevision(name)) {
           return null;
         }
-        RevObject obj = resolve(name, walk);
+        String redirectName = getRedirectFor(name);
+
+        RevObject obj = resolve(redirectName, walk);
         if (obj != null) {
           int pathStart;
           if (oldRevision == null) {
@@ -188,7 +216,10 @@ class RevisionParser {
             pathStart = oldRevision.getName().length() + 2 + name.length();
           }
           Result result =
-              new Result(Revision.peel(name, obj, walk), oldRevision, path.substring(pathStart));
+              new Result(
+                  Revision.peel(redirectName, obj, walk),
+                  oldRevisionRedirected,
+                  path.substring(pathStart));
           return isVisible(walk, result) ? result : null;
         }
         first = false;
