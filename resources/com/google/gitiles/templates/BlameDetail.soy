@@ -47,8 +47,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {call objDetail.blobHeader data="$data" /}
 
   <table class="Blame">
-    {for $line in $data.lines}
-      {let $i: index($line) /}
+    {for $line, $i in $data.lines}
       {let $region: $regions[$i] /}
       <tr class="Blame-region {$region.class}">
         {if $region.abbrevSha != null}

@@ -266,8 +266,8 @@
   {if $lines != null}
     {if $lines}
       <table class="FileContents">
-        {for $line in $lines}
-          {let $n: index($line) + 1 /}
+        {for $line, $index in $lines}
+          {let $n: $index + 1 /}
           <tr class="u-pre u-monospace FileContents-line">
             <td class="u-lineNum u-noSelect FileContents-lineNum"
                 data-line-number="{$n}" onclick="window.location.hash='#{$n}'"></td>

@@ -29,6 +29,7 @@ import com.google.common.hash.Hashing;
 import com.google.common.html.types.LegacyConversions;
 import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
+import com.google.template.soy.jbcsrc.api.LegacySoyJavaStringCaller;
 import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.File;
 import java.io.IOException;
@@ -213,6 +214,7 @@ public abstract class Renderer {
     };
   }
 
+  @LegacySoyJavaStringCaller
   SoySauce.Renderer newRenderer(String templateName) {
     ImmutableMap.Builder<String, Object> staticUrls = ImmutableMap.builder();
     for (String key : STATIC_URL_GLOBALS.keySet()) {

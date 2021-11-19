@@ -26,6 +26,7 @@ import java.util.Objects;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.RevisionSyntaxException;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -106,6 +107,9 @@ class RevisionParser {
   Result parse(String path) throws IOException {
     if (path.startsWith("/")) {
       path = path.substring(1);
+    }
+    if (Constants.HEAD.equals(path)) {
+      path = repo.getFullBranch();
     }
     try (RevWalk walk = new RevWalk(repo)) {
       walk.setRetainBody(false);
