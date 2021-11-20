@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de718e7_ecd630a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-11-20T00:25:00Z",
+      "side": 1,
+      "message": "Thanks! I\u0027m glad you\u0027re working on this.",
+      "revId": "1581ae015a6a71f32f816aa6e5b41f710cf99e03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced44e0a_241adb7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-11-20T00:25:00Z",
+      "side": 1,
+      "message": "nit: long line (should wrap into multiple lines instead)\n\nMore importantly: I\u0027m finding the implementation a bit hard to follow. Is the underlying issue that a GitilesView isn\u0027t created for a deleted branch? In that case, should we be letting the BranchRedirectFilter kick in before that point?",
+      "revId": "1581ae015a6a71f32f816aa6e5b41f710cf99e03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
