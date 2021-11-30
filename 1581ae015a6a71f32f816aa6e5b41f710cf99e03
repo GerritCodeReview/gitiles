@@ -51,6 +51,24 @@
       "parentUuid": "ced44e0a_241adb7c",
       "revId": "1581ae015a6a71f32f816aa6e5b41f710cf99e03",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad333da8_1698764f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-11-30T21:11:12Z",
+      "side": 1,
+      "message": "\u003e since it does rely on getting a GitilesView to build a redirect URL\n\nIs that fixable (either by creating a GitilesView for a deleted branch or by providing a utility function that gives BranchRedirectFilter what it needs without a GitilesView)?",
+      "parentUuid": "9ae05845_8976c4d2",
+      "revId": "1581ae015a6a71f32f816aa6e5b41f710cf99e03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
