@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9f35059_6eed8efd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1070142
+      },
+      "writtenOn": "2021-12-03T07:07:43Z",
+      "side": 1,
+      "message": "\u003e Uploaded patch 0 2.\n\n",
+      "revId": "071d0932f32c79e75fa8033283b67b8138a5c141",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
