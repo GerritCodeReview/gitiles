@@ -16,6 +16,23 @@
       "message": " $ bazel test --cache_test_results\u003dNO //...\n Starting local Bazel server and connecting to it...\n INFO: Invocation ID: 6b12f9b7-12f7-4ffb-8317-27ef19a2732f\n INFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (79 packages loaded, 834 targets configured).\n INFO: Found 1 test target...\n Target //javatests/com/google/gitiles:servlet_tests up-to-date:\n   bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\n   bazel-bin/javatests/com/google/gitiles/servlet_tests\n INFO: Elapsed time: 15.810s, Critical Path: 9.75s\n INFO: 2 processes: 1 internal, 1 darwin-sandbox.\n INFO: Build completed successfully, 2 total actions\n //javatests/com/google/gitiles:servlet_tests                             PASSED in 9.3s\n \n INFO: Build completed successfully, 2 total actions",
       "revId": "5bc0d6e6dee3d50b4bf964b1041d13bd083ee5e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "761677b4_d3fe4a6d",
+        "filename": "javatests/com/google/gitiles/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1140963
+      },
+      "writtenOn": "2021-12-09T01:20:57Z",
+      "side": 1,
+      "message": "314824: servlet_tests: Use size\u003dsmall | https://gerrit-review.googlesource.com/c/gitiles/+/314824",
+      "revId": "5bc0d6e6dee3d50b4bf964b1041d13bd083ee5e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
