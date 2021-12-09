@@ -76,9 +76,9 @@
     <div class="Container {if $containerClass}{$containerClass}{/if}">
       {if $breadcrumbs and length($breadcrumbs)}
         <div class="Breadcrumbs">
-          {for $entry in $breadcrumbs}
-            {if not isFirst($entry)}{sp}/{sp}{/if}
-            {if not isLast($entry)}
+          {for $entry, $index in $breadcrumbs}
+            {if $index > 0}{sp}/{sp}{/if}
+            {if $index  < length($breadcrumbs) - 1}
               <a class="Breadcrumbs-crumb" href="{$entry.url}">{$entry.text}</a>
             {else}
               <span class="Breadcrumbs-crumb">{$entry.text}</span>
