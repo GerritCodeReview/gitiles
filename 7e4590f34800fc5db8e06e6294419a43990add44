@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ee625a9_da00784a",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-12-10T01:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a11bb389_f6ebf109",
+      "revId": "7e4590f34800fc5db8e06e6294419a43990add44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f27b5352_c736ec63",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-12-10T00:46:31Z",
       "side": 1,
       "message": "What is this part doing? Can you give an example (e.g. via a doc comment describing what this private function does)?",
+      "revId": "7e4590f34800fc5db8e06e6294419a43990add44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca16a1f_e0699b26",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2021-12-10T01:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f27b5352_c736ec63",
       "revId": "7e4590f34800fc5db8e06e6294419a43990add44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
