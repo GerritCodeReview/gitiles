@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e20ef7d_3a590fcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-12-16T23:24:57Z",
+      "side": 1,
+      "message": "Ideally we\u0027d retain the 301 redirects, but I can see how that would be more complicated and this looks like an improvement without that. So I think this is a good way to go for now.\n\nSome implementation comments below.",
+      "revId": "17fecb215338d015a3166eecf523d4040699d7f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb30319c_8bdb67cb",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-12-16T23:24:57Z",
+      "side": 1,
+      "message": "optional: oldNameRedirected?",
+      "range": {
+        "startLine": 142,
+        "startChar": 19,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "17fecb215338d015a3166eecf523d4040699d7f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b4cf66c_52af3d31",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-12-16T23:24:57Z",
+      "side": 1,
+      "message": "Can this comment be more explicit?",
+      "revId": "17fecb215338d015a3166eecf523d4040699d7f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89956b1_e1b1058a",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-12-16T23:24:57Z",
+      "side": 1,
+      "message": "nameRedirected as well? (for consistency)",
+      "range": {
+        "startLine": 198,
+        "startChar": 15,
+        "endLine": 198,
+        "endChar": 27
+      },
+      "revId": "17fecb215338d015a3166eecf523d4040699d7f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab03a68e_1652fb10",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-12-16T23:24:57Z",
+      "side": 1,
+      "message": "This seems error-prone --- for example, if I do something like refs/heads/master^{commit} then it would parse as \"refs/heads/mastercommit\".\n\nCan we do it without a regex instead?",
+      "revId": "17fecb215338d015a3166eecf523d4040699d7f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3075846_2de83e9e",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2021-12-16T23:24:57Z",
+      "side": 1,
+      "message": "missing checkNotNull",
+      "revId": "17fecb215338d015a3166eecf523d4040699d7f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
