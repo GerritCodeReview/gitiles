@@ -105,12 +105,6 @@ maven_jar(
 )
 
 maven_jar(
-    name = "servlet-api_2_5",
-    artifact = "org.eclipse.jetty.orbit:javax.servlet:2.5.0.v201103041518",
-    sha1 = "9c16011c06bc6fe5e9dba080fcb40ddb4b75dc85",
-)
-
-maven_jar(
     name = "servlet-api",
     artifact = "javax.servlet:javax.servlet-api:3.1.0",
     sha1 = "3cd63d075497751784b2fa84be59432f4905bf7c",
