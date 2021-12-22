@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Locale;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.util.RawParseUtils;
@@ -84,6 +86,16 @@ public class FakeHttpServletResponse implements HttpServletResponse {
       outputStream =
           new ServletOutputStream() {
             @Override
+            public boolean isReady() {
+              throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public void setWriteListener(WriteListener listener) {
+              throw new UnsupportedOperationException();
+            }
+
+            @Override
             public void write(int c) throws IOException {
               osWriter.write(c);
               osWriter.flush();
@@ -131,6 +143,11 @@ public class FakeHttpServletResponse implements HttpServletResponse {
   public void setContentLength(int length) {
     headers.removeAll(HttpHeaders.CONTENT_LENGTH);
     headers.put(HttpHeaders.CONTENT_LENGTH, Integer.toString(length));
+  }
+
+  @Override
+  public void setContentLengthLong(long length) {
+    throw new UnsupportedOperationException();
   }
 
   @Override
@@ -240,6 +257,7 @@ public class FakeHttpServletResponse implements HttpServletResponse {
     committed = true;
   }
 
+  @Override
   public synchronized int getStatus() {
     return status;
   }
@@ -252,8 +270,19 @@ public class FakeHttpServletResponse implements HttpServletResponse {
     return RawParseUtils.decode(getActualBody());
   }
 
+  @Override
   public String getHeader(String name) {
     return Iterables.getFirst(headers.get(checkNotNull(name)), null);
+  }
+
+  @Override
+  public Collection<String> getHeaders(String name) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Collection<String> getHeaderNames() {
+    throw new UnsupportedOperationException();
   }
 
   private PrintWriter newPrintWriter() {
