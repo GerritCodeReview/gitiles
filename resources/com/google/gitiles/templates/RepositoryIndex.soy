@@ -111,6 +111,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
     {call refList.refList}
       {param type: 'Branches' /}
       {param refs: $branches /}
+      {param variant: 'responsive' /}
     {/call}
     {if $moreBranchesUrl}
       <a href="{$moreBranchesUrl}">{msg desc="link to view more branches"}More...{/msg}</a>
@@ -128,6 +129,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
     {call refList.refList}
       {param type: 'Tags' /}
       {param refs: $tags /}
+      {param variant: 'responsive' /}
     {/call}
     {if $moreTagsUrl}
       <a href="{$moreTagsUrl}">{msg desc="link to view more tags"}More...{/msg}</a>
