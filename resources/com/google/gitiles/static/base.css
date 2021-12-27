@@ -73,6 +73,9 @@ ul, ol {
 .u-monospace {
   font-family: 'Source Code Pro', monospace;
 }
+.u-md-2Rows {
+  grid-row: span 2;
+}
 
 /* Common.soy */
 
@@ -483,6 +486,31 @@ ul, ol {
 }
 .InlineReadme-path {
   color: #666;
+}
+@media (max-width: 600px) {
+  .Metadata-table {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .Metadata tbody, .Metadata tr {
+    display: contents;
+  }
+
+  .Metadata-title {
+    grid-column: 1/2;
+  }
+
+  .Metadata-cell {
+    grid-column: 2/3;
+  }
+
+  .Metadata-cell:last-child {
+    margin-bottom: 5px;
+  }
+
+  .Metadata-unicell {
+    grid-column: 1/3;
+  }
 }
 
 /* BlameDetail.soy */
