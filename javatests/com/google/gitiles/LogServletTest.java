@@ -37,9 +37,9 @@ import org.junit.runners.JUnit4;
 public class LogServletTest extends ServletTest {
   private static final TypeToken<Log> LOG = new TypeToken<Log>() {};
   private static final String MAIN = "main";
-  private static final String AUTHOR_METADATA_ELEMENT = "<th class=\"Metadata-title\">author</th>";
+  private static final String AUTHOR_METADATA_ELEMENT = "<dt class=\"Metadata-title\">author</dt>";
   private static final String COMMITTER_METADATA_ELEMENT =
-      "<th class=\"Metadata-title\">committer</th>";
+      "<dt class=\"Metadata-title\">committer</dt>";
 
   @Test
   public void basicLog() throws Exception {
