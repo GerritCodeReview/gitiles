@@ -44,13 +44,13 @@
   {@param archiveUrl: ?}  /** URL to a download link of this commit as an archive. */
   {@param archiveType: ?}  /** type of the archive to download. */
 <div class="u-monospace Metadata">
-  <table>
+  <table class="Metadata-table">
     <tr>
-      <th class="Metadata-title">{msg desc="Header for commit SHA entry"}commit{/msg}</th>
-      <td>
+      <th class="Metadata-title u-md-2Rows">{msg desc="Header for commit SHA entry"}commit{/msg}</th>
+      <td class="Metadata-cell">
         {$sha}
       </td>
-      <td>
+      <td class="Metadata-cell">
         <span>
           [<a href="{$logUrl}">{msg desc="text for the log link"}log{/msg}</a>]
         </span>
@@ -58,27 +58,27 @@
       </td>
     </tr>
     <tr>
-      <th class="Metadata-title">{msg desc="Header for commit author"}author{/msg}</th>
-      <td>
+      <th class="Metadata-title u-md-2Rows">{msg desc="Header for commit author"}author{/msg}</th>
+      <td class="Metadata-cell">
         {call person_ data="$author" /}
       </td>
-      <td>{$author.time}</td>
+      <td class="Metadata-cell">{$author.time}</td>
     </tr>
     <tr>
-      <th class="Metadata-title">{msg desc="Header for committer"}committer{/msg}</th>
-      <td>
+      <th class="Metadata-title u-md-2Rows">{msg desc="Header for committer"}committer{/msg}</th>
+      <td class="Metadata-cell">
         {call person_ data="$committer" /}
       </td>
-      <td>{$committer.time}</td>
+      <td class="Metadata-cell">{$committer.time}</td>
     </tr>
     <tr>
       <th class="Metadata-title">{msg desc="Header for tree SHA entry"}tree{/msg}</th>
-      <td><a href="{$treeUrl}">{$tree}</a></td>
+      <td class="Metadata-cell"><a href="{$treeUrl}">{$tree}</a></td>
     </tr>
     {for $parent in $parents}
       <tr>
         <th class="Metadata-title">{msg desc="Header for parent SHA"}parent{/msg}</th>
-        <td>
+        <td class="Metadata-cell">
           <a href="{$parent.url}">{$parent.sha}</a>
           {sp}<span>
             [<a href="{$parent.diffUrl}">{msg desc="text for the parent diff link"}diff{/msg}</a>]
@@ -311,25 +311,25 @@
   {@param object: ?}  /** SHA of the object this tag points to. */
   {@param message: ?}  /** tag message. */
 <div class="u-monospace Metadata">
-  <table>
+  <table class="Metadata-table">
     <tr>
-      <th class="Metadata-title">{msg desc="Header for tag SHA entry"}tag{/msg}</th>
-      <td class="sha">{$sha}</td>
-      <td>{sp}</td>
+      <th class="Metadata-title u-md-2Rows">{msg desc="Header for tag SHA entry"}tag{/msg}</th>
+      <td class="sha Metadata-cell">{$sha}</td>
+      <td class="Metadata-cell">{sp}</td>
     </tr>
     {if $tagger}
       <tr>
-        <th class="Metadata-title">{msg desc="Header for tagger"}tagger{/msg}</th>
-        <td>
+        <th class="Metadata-title u-md-2Rows">{msg desc="Header for tagger"}tagger{/msg}</th>
+        <td class="Metadata-cell">
           {call person_ data="$tagger" /}
         </td>
-        <td>{$tagger.time}</td>
+        <td class="Metadata-cell">{$tagger.time}</td>
       </tr>
     {/if}
     <tr>
-      <th class="Metadata-title">{msg desc="Header for tagged object SHA"}object{/msg}</th>
-      <td class="sha">{$object}</td>
-      <td>{sp}</td>
+      <th class="Metadata-title u-md-2Rows">{msg desc="Header for tagged object SHA"}object{/msg}</th>
+      <td class="sha Metadata-cell">{$object}</td>
+      <td class="Metadata-cell">{sp}</td>
     </tr>
   </table>
 </div>
