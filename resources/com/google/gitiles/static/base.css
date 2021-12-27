@@ -374,10 +374,28 @@ ul, ol {
 .Metadata {
   margin-bottom: 15px;
 }
+.Metadata-descriptionList {
+  display: grid;
+  grid-template-columns: max-content minmax(auto, max-content) auto;
+  gap: 2px 12px;
+}
+.Metadata-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
 .Metadata-title {
+  grid-column: 1;
   font-weight: bold;
-  padding-right: 10px;
   text-align: right;
+}
+.Metadata-description {
+  grid-column: 2 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+.Metadata-descriptionCell {
+  grid-column: auto;
 }
 .MetadataMessage {
   background-color: #fafafa;
@@ -483,6 +501,15 @@ ul, ol {
 }
 .InlineReadme-path {
   color: #666;
+}
+
+@media (max-width: 700px) {
+  .Metadata-descriptionList {
+    grid-template-columns: max-content auto;
+  }
+  .Metadata-descriptionCell {
+    grid-column: 2;
+  }
 }
 
 /* BlameDetail.soy */
