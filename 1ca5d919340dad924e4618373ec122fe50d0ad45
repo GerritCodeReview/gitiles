@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f6f3fbb_3716c34f",
+        "filename": "resources/com/google/gitiles/static/base.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2021-12-27T23:20:36Z",
+      "side": 1,
+      "message": "There is an accessibility issue in Safari with using display:contents, since Safari doesn\u0027t correctly implement the spec: https://bugs.webkit.org/show_bug.cgi?id\u003d185679.",
+      "range": {
+        "startLine": 496,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 22
+      },
+      "revId": "1ca5d919340dad924e4618373ec122fe50d0ad45",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
