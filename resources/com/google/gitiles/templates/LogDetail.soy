@@ -254,62 +254,63 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       score: the similarity score of the rename or copy.
       */
 <div class="u-monospace Metadata">
-<table>
-  <tr>
-    <th class="Metadata-title">{msg desc="Header for commit SHA entry"}commit{/msg}</th>
-    <td class="sha1">
-      <a href="{$url}">{$sha}</a>
-    </td>
-    <td>
-      {if length($branches)}
-        {for $branch in $branches}
-          {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>
-        {/for}
-      {/if}
-      {if length($tags)}
-        {for $tag in $tags}
-          {sp}<a href="{$tag.url}" class="tag-label">{$tag.name}</a>
-        {/for}
-      {else}
-        {sp}
-      {/if}
-    </td>
-  </tr>
-  <tr>
-    <th class="Metadata-title">{msg desc="Header for commit author"}author{/msg}</th>
-    <td>
-      {call objDetail.person_ data="$author" /}
-    </td>
-    <td>{$author.time}</td>
-  </tr>
-  <tr>
-    <th class="Metadata-title">{msg desc="Header for committer"}committer{/msg}</th>
-    <td>
-      {call objDetail.person_ data="$committer" /}
-    </td>
-    <td>{$committer.time}</td>
-  </tr>
-  {if $rename}
-    <tr>
-      <td colspan="3">
-        <span class="CommitLog-rename">
-          [
-          {switch $rename.changeType}
-            {case 'RENAME'}
-              Renamed
-            {case 'COPY'}
-              Copied
-          {/switch}
-          {if $rename.score != 100}
-            {sp}({$rename.score}%)
-          {/if}
-          {sp}from {$rename.oldPath}]
-        </span>
-      </td>
-    </tr>
-  {/if}
-
-</table>
+<dl class="Metadata-descriptionList">
+  <div class="Metadata-row">
+    <dt class="Metadata-title">{msg desc="Header for commit SHA entry"}commit{/msg}</dt>
+    <dd class="Metadata-description">
+      <div class="sha1 Metadata-descriptionCell">
+        <a href="{$url}">{$sha}</a>
+      </div>
+      <div class="Metadata-descriptionCell">
+        {if length($branches)}
+          {for $branch in $branches}
+            {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>
+          {/for}
+        {/if}
+        {if length($tags)}
+          {for $tag in $tags}
+            {sp}<a href="{$tag.url}" class="tag-label">{$tag.name}</a>
+          {/for}
+        {else}
+          {sp}
+        {/if}
+      </div>
+    </dd>
+  </div>
+  <div class="Metadata-row">
+    <dt class="Metadata-title">{msg desc="Header for commit author"}author{/msg}</dt>
+    <dd class="Metadata-description">
+      <div class="Metadata-descriptionCell">
+        {call objDetail.person_ data="$author" /}
+      </div>
+      <div class="Metadata-descriptionCell">{$author.time}</div>
+    </dd>
+  </div>
+  <div class="Metadata-row">
+    <dt class="Metadata-title">{msg desc="Header for committer"}committer{/msg}</dt>
+    <dd class="Metadata-description">
+      <div class="Metadata-descriptionCell">
+        {call objDetail.person_ data="$committer" /}
+      </div>
+      <div class="Metadata-descriptionCell">{$committer.time}</div>
+    </dd>
+  </div>
+</dl>
+{if $rename}
+  <span class="CommitLog-rename">
+    [
+    {switch $rename.changeType}
+      {case 'RENAME'}
+        Renamed
+      {case 'COPY'}
+        Copied
+    {/switch}
+    {if $rename.score != 100}
+      {sp}({$rename.score}%)
+    {/if}
+    {sp}from {$rename.oldPath}]
+  </span>
+{/if}
 </div>
 <pre class="u-pre u-monospace MetadataMessage">
   {$message}
