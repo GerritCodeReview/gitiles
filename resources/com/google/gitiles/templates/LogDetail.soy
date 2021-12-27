@@ -201,13 +201,13 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       score: the similarity score of the rename or copy.
       */
 <div class="u-monospace Metadata">
-<table>
+<table class="Metadata-table">
   <tr>
-    <th class="Metadata-title">{msg desc="Header for commit SHA entry"}commit{/msg}</th>
-    <td class="sha1">
+    <th class="Metadata-title u-md-2Rows">{msg desc="Header for commit SHA entry"}commit{/msg}</th>
+    <td class="sha1 Metadata-cell">
       <a href="{$url}">{$sha}</a>
     </td>
-    <td>
+    <td class="Metadata-cell">
       {if length($branches)}
         {for $branch in $branches}
           {sp}<a href="{$branch.url}" class="branch-label">{$branch.name}</a>
@@ -223,23 +223,23 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
     </td>
   </tr>
   <tr>
-    <th class="Metadata-title">{msg desc="Header for commit author"}author{/msg}</th>
-    <td>
+    <th class="Metadata-title u-md-2Rows">{msg desc="Header for commit author"}author{/msg}</th>
+    <td class="Metadata-cell">
       {call objDetail.person_ data="$author" /}
     </td>
-    <td>{$author.time}</td>
+    <td class="Metadata-cell">{$author.time}</td>
   </tr>
   <tr>
-    <th class="Metadata-title">{msg desc="Header for committer"}committer{/msg}</th>
-    <td>
+    <th class="Metadata-title u-md-2Rows">{msg desc="Header for committer"}committer{/msg}</th>
+    <td class="Metadata-cell">
       {call objDetail.person_ data="$committer" /}
     </td>
-    <td>{$committer.time}</td>
+    <td class="Metadata-cell">{$committer.time}</td>
   </tr>
 
   {if $rename}
     <tr>
-      <td colspan="3">
+      <td class="Metadata-unicell" colspan="3">
         <span class="CommitLog-rename">
           [
           {switch $rename.changeType}
