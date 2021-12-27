@@ -20,8 +20,9 @@
   padding-top: 0;
 }
 .Header-nav ul {
-  max-width: 980px;
+  max-width: 1020px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 .Header-nav li {
   display: inline-block;

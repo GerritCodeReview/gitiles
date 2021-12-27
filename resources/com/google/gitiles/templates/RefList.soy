@@ -60,7 +60,8 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
 {template refList}
   {@param type: ?}  /** name of this type of refs, e.g. "Branches" */
   {@param refs: ?}  /** list of branch objects with url, name, and optional isHead keys. */
-  <div class="RefList">
+  {@param variant:= 'column'} /** style variant ("column" or "responsive"). **/
+  <div class="RefList RefList--{$variant}">
     <h3 class="RefList-title">{$type}</h3>
     <ul class="RefList-items">
     {for $ref in $refs}
