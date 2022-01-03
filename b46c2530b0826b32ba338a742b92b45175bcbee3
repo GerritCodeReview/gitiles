@@ -33,6 +33,23 @@
       "message": "https://gerrit-review.googlesource.com/c/gitiles/+/326020",
       "revId": "b46c2530b0826b32ba338a742b92b45175bcbee3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef88c2b2_76c1172f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144007
+      },
+      "writtenOn": "2022-01-03T14:54:27Z",
+      "side": 1,
+      "message": "cool",
+      "revId": "b46c2530b0826b32ba338a742b92b45175bcbee3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
