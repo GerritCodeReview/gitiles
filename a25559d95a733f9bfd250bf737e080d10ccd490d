@@ -16,6 +16,23 @@
       "message": "Adding jrn as a reviewer, as per https://github.com/google/gitiles/issues/235#issuecomment-1001805369. If you think someone else would be better suited to review this please tell me.\n\nThanks in advance! :)",
       "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "067b18fd_2b485311",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-01-06T18:50:34Z",
+      "side": 1,
+      "message": "Sven, maybe you (or someone on your team) wants to review?",
+      "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
