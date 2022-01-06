@@ -33,6 +33,24 @@
       "message": "Sven, maybe you (or someone on your team) wants to review?",
       "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bc21850_f8903d4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-06T21:58:39Z",
+      "side": 1,
+      "message": "Thanks Nasser, I\u0027ll take a look.",
+      "parentUuid": "067b18fd_2b485311",
+      "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
