@@ -33,6 +33,24 @@
       "message": "Tests pass locally for me.",
       "revId": "d9225861d0ba9c23d368cb6828edf859a02687b0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2072c6a9_7cd78750",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-07T13:31:41Z",
+      "side": 1,
+      "message": "Tests pass.",
+      "parentUuid": "e16b0e9f_c4e31f38",
+      "revId": "d9225861d0ba9c23d368cb6828edf859a02687b0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
