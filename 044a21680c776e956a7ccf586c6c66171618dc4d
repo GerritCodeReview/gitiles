@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21279a80_0b061e6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-07T06:04:21Z",
+      "side": 1,
+      "message": "Thanks much.\n\nOne last bit. This should be the last one --- sorry I missed it before.\n\nWhile we\u0027re here, would it make sense to add a test or two covering the subtle cases we noticed (e.g., ref name repeated in path, ref name with @ in it)?",
+      "revId": "044a21680c776e956a7ccf586c6c66171618dc4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca72e305_cd4189bf",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-07T06:04:21Z",
+      "side": 1,
+      "message": "If the refName appears later in the string as well, this would cause it to get replaced again. Fortunately, since we already know that the revisionExpression starts with refName, I think we can take advantage of that to simplify:\n\n  return redirect.get() + revisionExpression.substring(refName.length);",
+      "revId": "044a21680c776e956a7ccf586c6c66171618dc4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
