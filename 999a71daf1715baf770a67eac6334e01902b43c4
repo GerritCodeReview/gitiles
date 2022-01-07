@@ -33,6 +33,24 @@
       "message": "Unrelated change snuck in? (Likewise for the other similar conversions.)",
       "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e595ca_b0c2bf62",
+        "filename": "javatests/com/google/gitiles/ViewFilterTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T20:43:35Z",
+      "side": 1,
+      "message": "I thought its cleaner to have a constant instead of writing full ref string. I was doing it for new methods.. This conversion replaced the older ones. Not a good idea?",
+      "parentUuid": "b8acb209_435e5cab",
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
