@@ -50,6 +50,24 @@
       "message": "This is my first gerrit change proposal, and I have never committed to GoB before, so please LMK what I need to do to trigger remote testing runs, or perform them locally on my gLinux box. I\u0027m not entirely sure whether copybara maintained a local git clone when it did its work. \u003cinsert dog in lab coat meme\u003e\n\n(oh, and this never sent)",
       "revId": "dbf11b434a7577b24b2b02edd189b05652a9f993",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "702e8716_566487f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-07T18:06:35Z",
+      "side": 1,
+      "message": "No worries. Realistically speaking, the \"let\u0027s\" here is about what people more active in the Gitiles project will do, so you can just watch the magic happen. :)",
+      "parentUuid": "47918652_20276297",
+      "revId": "dbf11b434a7577b24b2b02edd189b05652a9f993",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
