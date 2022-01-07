@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "107b897b_80f6e8cb",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f3732be_ac0f5389",
+      "range": {
+        "startLine": 156,
+        "startChar": 15,
+        "endLine": 156,
+        "endChar": 18
+      },
+      "revId": "862462a22f476f2f2b15313a7dca8192797db3bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdbe0d01_9a7319ce",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-06T23:40:55Z",
       "side": 1,
       "message": "micronit: there should be a single space instead of two spaces here",
+      "range": {
+        "startLine": 158,
+        "startChar": 64,
+        "endLine": 158,
+        "endChar": 66
+      },
+      "revId": "862462a22f476f2f2b15313a7dca8192797db3bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13136a3e_cba31756",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdbe0d01_9a7319ce",
       "range": {
         "startLine": 158,
         "startChar": 64,
@@ -81,6 +129,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79c0eab4_9eefcc15",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T01:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f54710af_5837650b",
+      "revId": "862462a22f476f2f2b15313a7dca8192797db3bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d28a80da_7ec8d04b",
@@ -94,6 +160,24 @@
       "writtenOn": "2022-01-06T23:40:55Z",
       "side": 1,
       "message": "Here\u0027s how I\u0027d write it:\n\n import com.google.common.base.CharMatcher;\n import static com.google.common.base.CharMatcher.anyOf;\n \n private static String refPart(String revisionExpression) {\n   // The ref name part of a revision expression ends at the first\n   // appearance of ^, ~, :, or @{ (see git-check-ref-format(1)).\n   CharMatcher special \u003d CharMatcher.anyOf(\"^~:@\");\n   int i \u003d 0;\n   while (true) {\n     i \u003d special.indexIn(revisionExpression, i);\n     if (i \u003d\u003d -1) {\n       // no terminator -\u003e the whole string is a ref name.\n       return revisionExpression;\n     } else if (revisionExpression.charAt(i) \u003d\u003d \u0027@\u0027\n                \u0026\u0026 (i \u003d\u003d revisionExpression.length\n                    || revisionExpression.charAt(i+1) !\u003d \u0027{\u0027)) {\n       // an @ not followed by { is a normal character. Keep searching.\n       continue;\n     } else {\n       return revisionExpression.substring(0, i);\n     }\n   }\n }\n\nThough that should be a little faster than a regex, a regex is shorter, so it\u0027s probably better. :) With a regex, I\u0027d want to only compile it once:\n\n  // The ref name part of a revision expression ends at the first\n  // appearance of ^, ~, :, or @{ (see git-check-ref-format(1)).\n  private static final Pattern END_OF_REF \u003d Pattern.compile(\"[^~:]|@\\\\{\");\n  \n  private static String refPart(String revisionExpression) {\n    Matcher m \u003d END_OF_REF.matcher(revisionExpression);\n    if (!m.find()) { // no terminator -\u003e the whole string is a ref name.\n      return revisionExpression;\n    }\n    return revisionExpression.substring(0, matcher.start();\n  }\n\nThe key bits:\n* even though this is a short function, factoring it out helps readability\n* factoring out the private static Pattern constant means the pattern only has to be compiled once (and that we can catch errors faster in case by some anomaly it stops compiling)",
+      "revId": "862462a22f476f2f2b15313a7dca8192797db3bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62eadf41_1b24c7ee",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T01:35:12Z",
+      "side": 1,
+      "message": "ahh yes! taking approach #2\nFixing the regex to \"[\\\\^~:]|@\\\\{\"",
+      "parentUuid": "d28a80da_7ec8d04b",
       "revId": "862462a22f476f2f2b15313a7dca8192797db3bf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
