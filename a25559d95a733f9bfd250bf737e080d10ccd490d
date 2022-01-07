@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40f34397_ce067cf5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2022-01-07T22:06:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1b3e1b9_c9c26cdf",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 65
+      },
+      "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05f62c62_ebce4f24",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-07T09:18:42Z",
       "side": 1,
       "message": "zoomed",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "552dd39a_c6a27a3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2022-01-07T22:06:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f62c62_ebce4f24",
       "range": {
         "startLine": 14,
         "startChar": 2,
@@ -112,6 +160,24 @@
       "writtenOn": "2022-01-07T10:26:29Z",
       "side": 1,
       "message": "Thanks for the contribution(s).\nI don\u0027t see any issues (beyond the spelling error in commit message), but I\u0027m not a good candidate for reviewing CSS ;-).",
+      "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b609995b_8380ea04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2022-01-07T22:06:27Z",
+      "side": 1,
+      "message": "You\u0027re welcome! Thanks for taking a look and suggesting those changes.",
+      "parentUuid": "4534939f_ebd5dd2c",
       "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
