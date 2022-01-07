@@ -51,6 +51,24 @@
       "parentUuid": "b8acb209_435e5cab",
       "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "489512d5_6e06553d",
+        "filename": "javatests/com/google/gitiles/ViewFilterTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-07T20:49:41Z",
+      "side": 1,
+      "message": "Seems like a fine idea, but since it\u0027s orthogonal to this change, it would be better to do in a separate commit. But that\u0027s a tiny enough nit that I think we should test (`bazel test ...`) and merge this as-is.",
+      "parentUuid": "01e595ca_b0c2bf62",
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
