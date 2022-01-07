@@ -16,6 +16,23 @@
       "message": "Let\u0027s update the commit message a bit. It would also be worth checking whether we need a change to the WORKSPACE file --- I suspect this won\u0027t build without updating what version of the Servlet API we depend on (but that will be a very nice thing to happen!).",
       "revId": "dbf11b434a7577b24b2b02edd189b05652a9f993",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab49880_bf071271",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-07T12:02:14Z",
+      "side": 1,
+      "message": "javatests/com/google/gitiles/FakeHttpServletRequest.java:38: error: symbol not found javax.servlet.AsyncContext\nimport javax.servlet.AsyncContext;\n       ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:149: error: could not resolve AsyncContext\n  public AsyncContext startAsync() {\n         ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:154: error: could not resolve AsyncContext\n  public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)\n         ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:170: error: could not resolve AsyncContext\n  public AsyncContext getAsyncContext() {\n         ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:39: error: symbol not found javax.servlet.DispatcherType\nimport javax.servlet.DispatcherType;\n       ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:175: error: could not resolve DispatcherType\n  public DispatcherType getDispatcherType() {\n         ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:51: error: symbol not found javax.servlet.http.Part\nimport javax.servlet.http.Part;\n       ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:453: error: could not resolve Part\n  public Collection\u003cPart\u003e getParts() throws IOException, ServletException {\n                    ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:458: error: could not resolve Part\n  public Part getPart(String name) throws IOException, ServletException {\n         ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:50: error: symbol not found javax.servlet.http.HttpUpgradeHandler\nimport javax.servlet.http.HttpUpgradeHandler;\n       ^\njavatests/com/google/gitiles/FakeHttpServletRequest.java:463: error: could not resolve HttpUpgradeHandler\n  public \u003cT extends HttpUpgradeHandler\u003e T upgrade(Class\u003cT\u003e httpUpgradeHandlerClass)\n                    ^\nTarget //javatests/com/google/gitiles:servlet_tests failed to build",
+      "revId": "dbf11b434a7577b24b2b02edd189b05652a9f993",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
