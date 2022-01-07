@@ -36,3 +36,11 @@ def revision(directory, parent):
 
 
 print("STABLE_BUILD_GITILES_LABEL %s" % revision(ROOT, ROOT))
+for kind in ['modules']:
+    kind_dir = os.path.join(ROOT, kind)
+    for d in os.listdir(kind_dir):
+        p = os.path.join(kind_dir, d)
+        if os.path.isdir(p):
+            v = revision(p, ROOT)
+            print('STABLE_BUILD_%s_LABEL %s' % (os.path.basename(p).upper(),
+                                                v if v else 'unknown'))
