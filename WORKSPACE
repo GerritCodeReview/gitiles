@@ -18,8 +18,13 @@ load_bazlets(
 
 load(
     "@com_googlesource_gerrit_bazlets//tools:maven_jar.bzl",
-    "MAVEN_CENTRAL",
     "maven_jar",
+)
+
+# JGit external repository consumed from git submodule
+local_repository(
+    name = "jgit",
+    path = "modules/jgit",
 )
 
 maven_jar(
@@ -148,38 +153,6 @@ maven_jar(
     sha1 = "198ea005f41219f038f4291f0b0e9f3259730e92",
 )
 
-JGIT_VERS = "5.12.0.202106070339-r"
-
-JGIT_REPO = MAVEN_CENTRAL
-
-maven_jar(
-    name = "jgit-lib",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "b7792da62103c956d3e58e29fb2e6e5c5f0e1317",
-)
-
-maven_jar(
-    name = "jgit-servlet",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit.http.server:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "c50ee52951bdcd119af0181926c25e09ae913aab",
-)
-
-maven_jar(
-    name = "jgit-junit",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit.junit:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "1bb81c9104f318f16748dbaa43f95509a53e7aa0",
-)
-
-maven_jar(
-    name = "jgit-archive",
-    artifact = "org.eclipse.jgit:org.eclipse.jgit.archive:" + JGIT_VERS,
-    repository = JGIT_REPO,
-    sha1 = "93f59b510a923bd757ea6b2a6e359d222daf2e1d",
-)
-
 maven_jar(
     name = "javaewah",
     artifact = "com.googlecode.javaewah:JavaEWAH:1.1.7",
@@ -210,9 +183,41 @@ maven_jar(
 )
 
 maven_jar(
+    name = "hamcrest-library",
+    artifact = "org.hamcrest:hamcrest-library:1.3",
+    sha1 = "4785a3c21320980282f9f33d0d1264a69040538f",
+)
+
+maven_jar(
     name = "hamcrest-core",
     artifact = "org.hamcrest:hamcrest-core:1.3",
     sha1 = "42a25dc3219429f0e5d060061f71acb49bf010a0",
+)
+
+maven_jar(
+    name = "mockito",
+    artifact = "org.mockito:mockito-core:2.23.0",
+    sha1 = "497ddb32fd5d01f9dbe99a2ec790aeb931dff1b1",
+)
+
+BYTE_BUDDY_VERSION = "1.9.0"
+
+maven_jar(
+    name = "bytebuddy",
+    artifact = "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
+    sha1 = "8cb0d5baae526c9df46ae17693bbba302640538b",
+)
+
+maven_jar(
+    name = "bytebuddy-agent",
+    artifact = "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
+    sha1 = "37b5703b4a6290be3fffc63ae9c6bcaaee0ff856",
+)
+
+maven_jar(
+    name = "objenesis",
+    artifact = "org.objenesis:objenesis:2.6",
+    sha1 = "639033469776fd37c08358c6b92a4761feb2af4b",
 )
 
 SL_VERS = "1.7.26"
