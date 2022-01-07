@@ -97,6 +97,23 @@
       "parentUuid": "067b18fd_2b485311",
       "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4534939f_ebd5dd2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-07T10:26:29Z",
+      "side": 1,
+      "message": "Thanks for the contribution(s).\nI don\u0027t see any issues (beyond the spelling error in commit message), but I\u0027m not a good candidate for reviewing CSS ;-).",
+      "revId": "a25559d95a733f9bfd250bf737e080d10ccd490d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
