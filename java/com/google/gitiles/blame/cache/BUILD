@@ -8,7 +8,7 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//lib:guava",
-        "//lib/jgit",
+        "//lib:jgit",
     ],
 )
 
@@ -17,7 +17,7 @@ java_doc(
     libs = [
         ":cache",
         "//lib:guava",
-        "//lib/jgit:jgit",
+        "//lib:jgit",
     ],
     pkgs = ["com.google.gitiles.blame.cache"],
     title = "Blame Cache API Documentation",
