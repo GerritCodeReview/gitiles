@@ -31,17 +31,17 @@ import org.eclipse.jgit.transport.resolver.RepositoryResolver;
 
 /** Static utility methods for creating {@link GitilesServlet}s for testing. */
 public class TestGitilesServlet {
-  /** @see #create(TestRepository,GitwebRedirectFilter,BranchRedirectFilter) */
+  /** @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
   public static GitilesServlet create(final TestRepository<DfsRepository> repo)
       throws ServletException {
-    return create(repo, new GitwebRedirectFilter(), new BranchRedirectFilter());
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirect());
   }
 
-  /** @see #create(TestRepository,GitwebRedirectFilter,BranchRedirectFilter) */
+  /** @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
   public static GitilesServlet create(
       final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
       throws ServletException {
-    return create(repo, gitwebRedirect, new BranchRedirectFilter());
+    return create(repo, gitwebRedirect, new BranchRedirect());
   }
 
   /**
@@ -61,7 +61,7 @@ public class TestGitilesServlet {
   public static GitilesServlet create(
       final TestRepository<DfsRepository> repo,
       GitwebRedirectFilter gitwebRedirect,
-      BranchRedirectFilter branchRedirect)
+      BranchRedirect branchRedirect)
       throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
