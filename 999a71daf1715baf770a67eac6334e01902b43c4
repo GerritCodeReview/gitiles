@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1dc9a5_b4382cfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-07T20:04:11Z",
+      "side": 1,
+      "message": "Looks good. Thanks for your patient work.",
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8acb209_435e5cab",
+        "filename": "javatests/com/google/gitiles/ViewFilterTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-07T20:04:11Z",
+      "side": 1,
+      "message": "Unrelated change snuck in? (Likewise for the other similar conversions.)",
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
