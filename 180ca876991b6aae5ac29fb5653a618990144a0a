@@ -77,6 +77,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e17b9d_b818fe0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-07T12:49:49Z",
+      "side": 1,
+      "message": "To be a little bit picky.\nThat [1] is a gitiles-plugins issue, whereas this is really a gitiles issue. Gitiles issues are still tracked in the GitHub issue-tracker[1].\nYou should probably open a gitiles issue in the gitiles issue-tracker and reference that one from here and also from the gitiles-plugin issue[1].\n\nThe gitiles-plugin issue [1] should be referenced in the message of the commit where gitiles-servlet is upgraded to a version containing the fix.\n\n[1] https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d14914\n[2] https://github.com/google/gitiles/issues",
+      "parentUuid": "ca7338f1_f102cbb4",
+      "revId": "180ca876991b6aae5ac29fb5653a618990144a0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e0420cc_6a4c91c1",
