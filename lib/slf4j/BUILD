@@ -6,13 +6,13 @@ package(
 
 java_library(
     name = "slf4j-api",
-    exports = ["@slf4j-api//jar"],
+    exports = ["@log-api//jar"],
 )
 
 java_library(
     name = "slf4j-simple",
     runtime_deps = [
         ":slf4j-api",
-        "@slf4j-simple//jar",
+        "@log-api//jar",
     ],
 )
