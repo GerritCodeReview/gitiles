@@ -33,92 +33,29 @@
       "message": "Thanks you for implementing this FR! I\u0027m not familiar with the code so can\u0027t give technical advice, but if the feature is implemented as expected SGTM.",
       "revId": "4c5c8d22ac8a3712756c3c6cee6dfb466f77f6f3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
-    }
-  ],
-  "submitRequirementResults": [
-    {
-      "submitRequirement": {
-        "name": "Code-Review",
-        "description": {
-          "value": "At least one maximum vote for label \u0027Code-Review\u0027 is required"
-        },
-        "applicabilityExpression": {},
-        "submittabilityExpression": {
-          "expressionString": "label:Code-Review\u003dMAX,user\u003dnon_uploader AND -label:Code-Review\u003dMIN"
-        },
-        "overrideExpression": {},
-        "allowOverrideInChildProjects": true
-      },
-      "applicabilityExpressionResult": {},
-      "submittabilityExpressionResult": {
-        "expression": {
-          "expressionString": "label:Code-Review\u003dMAX,user\u003dnon_uploader AND -label:Code-Review\u003dMIN"
-        },
-        "status": "PASS",
-        "errorMessage": {},
-        "passingAtoms": [
-          "label:Code-Review\u003dMAX,user\u003dnon_uploader"
-        ],
-        "failingAtoms": [
-          "label:Code-Review\u003dMIN"
-        ]
-      },
-      "overrideExpressionResult": {},
-      "patchSetCommitId": "4c5c8d22ac8a3712756c3c6cee6dfb466f77f6f3",
-      "legacy": {
-        "value": false
-      },
-      "forced": {}
     },
     {
-      "submitRequirement": {
-        "name": "Verified",
-        "description": {
-          "value": "CI result status for build and tests is passing"
-        },
-        "applicabilityExpression": {
-          "value": {
-            "expressionString": "-branch:refs/meta/config"
-          }
-        },
-        "submittabilityExpression": {
-          "expressionString": "label:Verified\u003dMAX AND -label:Verified\u003dMIN"
-        },
-        "overrideExpression": {},
-        "allowOverrideInChildProjects": true
+      "unresolved": true,
+      "key": {
+        "uuid": "72cbef87_21108086",
+        "filename": "java/com/google/gitiles/TreeSoyData.java",
+        "patchSetId": 6
       },
-      "applicabilityExpressionResult": {
-        "value": {
-          "expression": {
-            "expressionString": "-branch:refs/meta/config"
-          },
-          "status": "PASS",
-          "errorMessage": {},
-          "passingAtoms": [],
-          "failingAtoms": [
-            "branch:refs/meta/config"
-          ]
-        }
+      "lineNbr": 45,
+      "author": {
+        "id": 1004034
       },
-      "submittabilityExpressionResult": {
-        "expression": {
-          "expressionString": "label:Verified\u003dMAX AND -label:Verified\u003dMIN"
-        },
-        "status": "PASS",
-        "errorMessage": {},
-        "passingAtoms": [
-          "label:Verified\u003dMAX"
-        ],
-        "failingAtoms": [
-          "label:Verified\u003dMIN"
-        ]
+      "writtenOn": "2022-01-07T16:39:07Z",
+      "side": 1,
+      "message": "What is the minimal Java version gitiles supports on the master branch ?\nMap#of was introduced in Java 9 hence this doesn\u0027t compile on Java 8.",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 12
       },
-      "overrideExpressionResult": {},
-      "patchSetCommitId": "4c5c8d22ac8a3712756c3c6cee6dfb466f77f6f3",
-      "legacy": {
-        "value": false
-      },
-      "forced": {}
+      "revId": "4c5c8d22ac8a3712756c3c6cee6dfb466f77f6f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
