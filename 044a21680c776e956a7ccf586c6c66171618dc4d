@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0d51e03_197ca105",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T20:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21279a80_0b061e6d",
+      "revId": "044a21680c776e956a7ccf586c6c66171618dc4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca72e305_cd4189bf",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-01-07T06:04:21Z",
       "side": 1,
       "message": "If the refName appears later in the string as well, this would cause it to get replaced again. Fortunately, since we already know that the revisionExpression starts with refName, I think we can take advantage of that to simplify:\n\n  return redirect.get() + revisionExpression.substring(refName.length);",
+      "revId": "044a21680c776e956a7ccf586c6c66171618dc4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "716a1919_c7729041",
+        "filename": "java/com/google/gitiles/RevisionParser.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-01-07T20:00:37Z",
+      "side": 1,
+      "message": "will take this change.. revision expression here does not have the filename so not sure how can there be another refName that could appear again. \nAnyways the statement that you provided is cleaner and less ambiguity since it would only occur once.",
+      "parentUuid": "ca72e305_cd4189bf",
       "revId": "044a21680c776e956a7ccf586c6c66171618dc4d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
