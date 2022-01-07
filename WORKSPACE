@@ -106,7 +106,7 @@ maven_jar(
 )
 
 maven_jar(
-    name = "servlet-api_3_1",
+    name = "servlet-api",
     artifact = "javax.servlet:javax.servlet-api:3.1.0",
     sha1 = "3cd63d075497751784b2fa84be59432f4905bf7c",
 )
@@ -181,7 +181,7 @@ maven_jar(
 )
 
 maven_jar(
-    name = "ewah",
+    name = "javaewah",
     artifact = "com.googlecode.javaewah:JavaEWAH:1.1.7",
     sha1 = "570dde3cd706ae10c62fe19b150928cfdb415e87",
 )
@@ -218,7 +218,7 @@ maven_jar(
 SL_VERS = "1.7.26"
 
 maven_jar(
-    name = "slf4j-api",
+    name = "log-api",
     artifact = "org.slf4j:slf4j-api:" + SL_VERS,
     sha1 = "77100a62c2e6f04b53977b9f541044d7d722693d",
 )
