@@ -17,7 +17,7 @@ DEPS = [
     "//lib:prettify",
     "//lib/jgit:jgit",
     "//lib/jgit:jgit-servlet",
-    "//lib/slf4j:slf4j-api",
+    "//lib:slf4j-api",
     "//lib/soy:soy",
     "//java/com/google/gitiles/blame/cache",
 ]

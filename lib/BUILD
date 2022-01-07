@@ -18,7 +18,7 @@ package(
     "html-types",
     "jsr305",
     "servlet-api_2_5",
-    "servlet-api_3_1",
+    "servlet-api",
     "gson",
     "guava",
     "guava-failureaccess",
@@ -29,3 +29,16 @@ package(
     "ow2-asm-tree",
     "ow2-asm-util",
 ]]
+
+java_library(
+    name = "slf4j-api",
+    exports = ["@log-api//jar"],
+)
+
+java_library(
+    name = "slf4j-simple",
+    runtime_deps = [
+        ":slf4j-api",
+        "@log-api//jar",
+    ],
+)
