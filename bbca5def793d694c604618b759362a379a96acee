@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ce7309_02a71a9a",
+        "filename": "lib/slf4j/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-08T10:06:42Z",
+      "side": 1,
+      "message": "See comment in follow-up change. lib/slf4j:slf4j-api is expected to be in another package: lib:slf4j-api by JGit bazel build. My suggestion is to move the both rules below to lib/BUILD and remove this BUILD file and adapt the gitiles build.",
+      "revId": "bbca5def793d694c604618b759362a379a96acee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b406fc68_3753ad27",
+        "filename": "lib/slf4j/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-08T10:06:42Z",
+      "side": 1,
+      "message": "Why was this changed? Restore the base version.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "bbca5def793d694c604618b759362a379a96acee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
