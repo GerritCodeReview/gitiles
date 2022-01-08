@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3777843_2fd74fc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-08T10:10:06Z",
+      "side": 1,
+      "message": "Also, if workspace status command code part:\n\n  for kind in [\u0027modules\u0027]:\n    kind_dir \u003d os.path.join(ROOT, kind)\n    \nis removed from previous change, it should be re-added here for JGit stamp machinery to work.",
+      "revId": "3f714312e73c581efa2e89f89010b0360c443ea4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b98e60f7_20e843bc",
+        "filename": "lib/BUILD",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-08T10:10:06Z",
+      "side": 1,
+      "message": "This is copied from lib/slf4j package and thus duplicated. We shouldn\u0027t duplicate rules, and unnecessary complicate build process. If we need to update the rule definition, we would need to do it twice: for gitiles own build and for JGit build linked as git submodule.\n\nSuggestion 1: Now, that JGit linked module requires this dependency to be in package lib:slf4j-api and not in package lib/slf4j:slf4j-api, we resolve that package entirely in gitiles build, and not just copy the rule. Hence: move both rules definitions slf4j-api and slf4j-simple to lib package, remove lib/slf4j/BUILD and adapt gitiles build to the new locations. This should be done in its own change (previous change in this series?) as preparation for this change.\n\nSuggestion 2: We could define an alias, from lib:slf4j-api to lib/slf4j:slf4j-api but given that there are only two java libraries, I would strongly prefer suggestion 1, to not add yet another level of indirection and complicate the build.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 1
+      },
+      "revId": "3f714312e73c581efa2e89f89010b0360c443ea4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
