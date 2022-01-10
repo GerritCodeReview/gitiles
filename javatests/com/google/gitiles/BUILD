@@ -28,13 +28,13 @@ java_library(
 
 junit_tests(
     name = "servlet_tests",
+    size = "small",
     srcs = glob(
         [
             "**/*Test.java",
         ],
         exclude = ["**/ServletTest.java"],
     ),
-    size = "small",
     visibility = ["//visibility:public"],
     runtime_deps = ["//lib/junit:hamcrest-core"],
     deps = DEPS + [
