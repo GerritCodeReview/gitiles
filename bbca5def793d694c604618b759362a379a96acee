@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d2e769c_02ef5fe2",
+        "filename": "lib/slf4j/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T13:08:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45ce7309_02a71a9a",
+      "revId": "bbca5def793d694c604618b759362a379a96acee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b406fc68_3753ad27",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-01-08T10:06:42Z",
       "side": 1,
       "message": "Why was this changed? Restore the base version.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "bbca5def793d694c604618b759362a379a96acee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1234d508_e59768bc",
+        "filename": "lib/slf4j/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T13:08:30Z",
+      "side": 1,
+      "message": "if I don\u0027t rename this the build fails:\n\n $ bazelisk build gitiles\n INFO: Invocation ID: 162a5fc0-6424-4f47-9d7d-1d89fb144062\n ERROR: /Users/xxx/src/git/gitiles/lib/slf4j/BUILD:12:13: no such package \u0027@slf4j-api//jar\u0027: The repository \u0027@slf4j-api\u0027 could not be resolved and referenced by \u0027//lib/slf4j:slf4j-simple\u0027\n ERROR: Analysis of target \u0027//:gitiles\u0027 failed; build aborted: Analysis failed\n INFO: Elapsed time: 0.162s\n INFO: 0 processes.\n FAILED: Build did NOT complete successfully (1 packages loaded, 2 targets configured)",
+      "parentUuid": "b406fc68_3753ad27",
       "range": {
         "startLine": 16,
         "startChar": 8,
