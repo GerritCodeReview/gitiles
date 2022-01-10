@@ -34,6 +34,24 @@
       "parentUuid": "2ea2324e_e9dae0bc",
       "revId": "cb2b55bc73b12d62ab44fbf60c8f5f1e296d383f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "170d53ee_03439302",
+        "filename": "tools/workspace_status.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T13:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee9e42ff_2cb43ff3",
+      "revId": "cb2b55bc73b12d62ab44fbf60c8f5f1e296d383f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
