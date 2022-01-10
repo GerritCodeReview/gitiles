@@ -19,7 +19,7 @@ import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
 import com.google.common.base.Strings;
 import com.google.common.html.types.UncheckedConversions;
-import com.google.gitiles.BranchRedirectFilter;
+import com.google.gitiles.BranchRedirect;
 import com.google.gitiles.DebugRenderer;
 import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
@@ -140,7 +140,7 @@ class DevServer {
     } else {
       servlet =
           new GitilesServlet(
-              cfg, renderer, null, null, null, null, null, null, null, new BranchRedirectFilter());
+              cfg, renderer, null, null, null, null, null, null, null, new BranchRedirect());
     }
 
     ServletContextHandler handler = new ServletContextHandler();
