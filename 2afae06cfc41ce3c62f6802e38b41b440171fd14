@@ -16,6 +16,23 @@
       "message": "verified build and tests succeed",
       "revId": "2afae06cfc41ce3c62f6802e38b41b440171fd14",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3c39d4b_efa9799a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T13:54:54Z",
+      "side": 1,
+      "message": "do we miss some CI configuration that validation isn\u0027t running there ?",
+      "revId": "2afae06cfc41ce3c62f6802e38b41b440171fd14",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
