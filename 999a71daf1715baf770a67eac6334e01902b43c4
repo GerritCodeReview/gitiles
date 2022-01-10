@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b28309e2_1bcda558",
+        "filename": "java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-10T13:18:33Z",
+      "side": 1,
+      "message": "This change broke the dev-server!",
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8acb209_435e5cab",
         "filename": "javatests/com/google/gitiles/ViewFilterTest.java",
         "patchSetId": 14
@@ -86,92 +103,6 @@
       "parentUuid": "01e595ca_b0c2bf62",
       "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
-    }
-  ],
-  "submitRequirementResults": [
-    {
-      "submitRequirement": {
-        "name": "Code-Review",
-        "description": {
-          "value": "At least one maximum vote for label \u0027Code-Review\u0027 is required"
-        },
-        "applicabilityExpression": {},
-        "submittabilityExpression": {
-          "expressionString": "label:Code-Review\u003dMAX,user\u003dnon_uploader AND -label:Code-Review\u003dMIN"
-        },
-        "overrideExpression": {},
-        "allowOverrideInChildProjects": true
-      },
-      "applicabilityExpressionResult": {},
-      "submittabilityExpressionResult": {
-        "expression": {
-          "expressionString": "label:Code-Review\u003dMAX,user\u003dnon_uploader AND -label:Code-Review\u003dMIN"
-        },
-        "status": "PASS",
-        "errorMessage": {},
-        "passingAtoms": [
-          "label:Code-Review\u003dMAX,user\u003dnon_uploader"
-        ],
-        "failingAtoms": [
-          "label:Code-Review\u003dMIN"
-        ]
-      },
-      "overrideExpressionResult": {},
-      "patchSetCommitId": "999a71daf1715baf770a67eac6334e01902b43c4",
-      "legacy": {
-        "value": false
-      },
-      "forced": {}
-    },
-    {
-      "submitRequirement": {
-        "name": "Verified",
-        "description": {
-          "value": "CI result status for build and tests is passing"
-        },
-        "applicabilityExpression": {
-          "value": {
-            "expressionString": "-branch:refs/meta/config"
-          }
-        },
-        "submittabilityExpression": {
-          "expressionString": "label:Verified\u003dMAX AND -label:Verified\u003dMIN"
-        },
-        "overrideExpression": {},
-        "allowOverrideInChildProjects": true
-      },
-      "applicabilityExpressionResult": {
-        "value": {
-          "expression": {
-            "expressionString": "-branch:refs/meta/config"
-          },
-          "status": "PASS",
-          "errorMessage": {},
-          "passingAtoms": [],
-          "failingAtoms": [
-            "branch:refs/meta/config"
-          ]
-        }
-      },
-      "submittabilityExpressionResult": {
-        "expression": {
-          "expressionString": "label:Verified\u003dMAX AND -label:Verified\u003dMIN"
-        },
-        "status": "PASS",
-        "errorMessage": {},
-        "passingAtoms": [
-          "label:Verified\u003dMAX"
-        ],
-        "failingAtoms": [
-          "label:Verified\u003dMIN"
-        ]
-      },
-      "overrideExpressionResult": {},
-      "patchSetCommitId": "999a71daf1715baf770a67eac6334e01902b43c4",
-      "legacy": {
-        "value": false
-      },
-      "forced": {}
     }
   ]
 }
