@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3930f520_ebe1ea34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T14:27:35Z",
+      "side": 1,
+      "message": "- what\u0027s the difference between letter and char in this context (I am not a native speaker) ?\n- which problem does this fix ?",
+      "revId": "0b3ec8e6154b802675678d5cc39c7ffe7ade1070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
