@@ -22,9 +22,9 @@ import org.eclipse.jgit.lib.Repository;
 
 /**
  * Utility that provides information to replace the URL string that contains a branch name to a new
- * branch name. The updated branch mapping is provided by {@code
- * BranchRedirectFilter#getRedirectBranch} method. If it should update the branch then it is the
- * caller's responsibility to update the URL with updated branch name as redirect.
+ * branch name. The updated branch mapping is provided by {@code BranchRedirect#getRedirectBranch}
+ * method. If it should update the branch then it is the caller's responsibility to update the URL
+ * with updated branch name as redirect.
  *
  * <p>This implementation does not provide a branch redirect mapping. Hence, including this as-is
  * would be a no-op. To make this effective {@code BranchRedirect#getRedirectBranch} needs to be
