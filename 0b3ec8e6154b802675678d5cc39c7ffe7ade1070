@@ -52,6 +52,24 @@
       "parentUuid": "123dd1e0_bde39099",
       "revId": "0b3ec8e6154b802675678d5cc39c7ffe7ade1070",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cef8c81f_afe3b6d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-10T14:54:04Z",
+      "side": 1,
+      "message": "But we are doing the opposite, that was true before the fix.\nHow about the more readable:\n\n    Sort subdirectories alphabetically\n    \n?",
+      "parentUuid": "41195c99_d6ff3274",
+      "revId": "0b3ec8e6154b802675678d5cc39c7ffe7ade1070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
