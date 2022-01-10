@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae7019f_d98cefd8",
+        "filename": "lib/BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-10T22:05:28Z",
+      "side": 1,
+      "message": "Same comment as in previous patch set. It should be reverted. You just removed the dependency to @slf4j-simple//jar. Is it not needed?\n\nAnd I cannot reproduce your failure from your comment. If I revert line 42 and  apply this diff:\n\n  diff --git a/lib/BUILD b/lib/BUILD\n  index 2a59807..282643d 100644\n  --- a/lib/BUILD\n  +++ b/lib/BUILD\n  @@ -39,6 +39,6 @@ java_library(\n       name \u003d \"slf4j-simple\",\n       runtime_deps \u003d [\n           \":slf4j-api\",\n  -        \"@log-api//jar\",\n  +        \"@slf4j-simple//jar\",\n       ],\n    )\n\nAnd all works just fine here:\n\n  $ bazelisk build gitiles\nINFO: Invocation ID: 444df84e-5855-4fcf-a392-a51bfc141b9c\nINFO: Analyzed target //:gitiles (0 packages loaded, 0 targets configured).\nINFO: Found 1 target...\nTarget //:gitiles up-to-date:\n  bazel-bin/gitiles.war\nINFO: Elapsed time: 1.500s, Critical Path: 0.36s\nINFO: 1 process: 1 internal.\nINFO: Build completed successfully, 1 total action",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "31e8947ff5139fbd66d062a7865060ba25574871",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
