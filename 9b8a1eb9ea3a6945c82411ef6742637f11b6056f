@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de79e320_5b0157ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2022-01-10T19:41:08Z",
+      "side": 1,
+      "message": "I am not familiar with gitiles, but CSS looks good. I haven\u0027t tested it.",
+      "revId": "9b8a1eb9ea3a6945c82411ef6742637f11b6056f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
