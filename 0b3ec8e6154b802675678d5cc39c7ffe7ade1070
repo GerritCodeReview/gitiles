@@ -34,6 +34,24 @@
       "parentUuid": "3930f520_ebe1ea34",
       "revId": "0b3ec8e6154b802675678d5cc39c7ffe7ade1070",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41195c99_d6ff3274",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T14:50:35Z",
+      "side": 1,
+      "message": "thanks, now I understand, maybe this could be reworded to\n\n Sort subdirectories with capital before lowercase letters",
+      "parentUuid": "123dd1e0_bde39099",
+      "revId": "0b3ec8e6154b802675678d5cc39c7ffe7ade1070",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
