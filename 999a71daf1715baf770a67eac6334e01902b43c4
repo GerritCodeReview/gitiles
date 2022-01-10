@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9e14653_1a10f92b",
+        "filename": "java/com/google/gitiles/BranchRedirect.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-10T13:34:16Z",
+      "side": 1,
+      "message": "BranchRedirect",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b28309e2_1bcda558",
         "filename": "java/com/google/gitiles/dev/DevServer.java",
         "patchSetId": 14
@@ -48,6 +71,24 @@
       "writtenOn": "2022-01-10T13:18:33Z",
       "side": 1,
       "message": "This change broke the dev-server!",
+      "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62979cb8_783317b6",
+        "filename": "java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-10T13:34:16Z",
+      "side": 1,
+      "message": "A good pattern is when you are removing something always do a git grep to check for lingering references in code and documentation:\n\n    $ git grep BranchRedirectFilter\n    java/com/google/gitiles/BranchRedirect.java: * BranchRedirectFilter#getRedirectBranch} method. If it should update the branch then it is the\n    java/com/google/gitiles/dev/DevServer.java:import com.google.gitiles.BranchRedirectFilter;\n    java/com/google/gitiles/dev/DevServer.java:              cfg, renderer, null, null, null, null, null, null, null, new BranchRedirectFilter());",
+      "parentUuid": "b28309e2_1bcda558",
       "revId": "999a71daf1715baf770a67eac6334e01902b43c4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
