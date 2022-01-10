@@ -16,6 +16,23 @@
       "message": "verified locally that build and tests succeed",
       "revId": "7063a86db719ac02323ebc53976010b363bd3088",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "990c8522_7b90a1c6",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-10T14:21:52Z",
+      "side": 1,
+      "message": "Should we also update org.tukaani:xz to 1.9 when we are already upgrading commons-compress ? JGit updated to this version in 5.13.0.202109080827-r.",
+      "revId": "7063a86db719ac02323ebc53976010b363bd3088",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
