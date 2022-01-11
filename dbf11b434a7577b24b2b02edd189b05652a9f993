@@ -68,6 +68,24 @@
       "parentUuid": "47918652_20276297",
       "revId": "dbf11b434a7577b24b2b02edd189b05652a9f993",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd001772_0e57b29c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-11T00:50:50Z",
+      "side": 1,
+      "message": "Excellent. This is the last outstanding change (well, unless new ones have crept in since the last TGP) before we can roll back our servlet 3.1 internal patch that provided these default methods.\n\nIf this isn\u0027t fairly straightforward for the Gitiles team to do, copybara patches can be added google3-side until it can be. LMK if that\u0027s preferred.",
+      "parentUuid": "702e8716_566487f8",
+      "revId": "dbf11b434a7577b24b2b02edd189b05652a9f993",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
