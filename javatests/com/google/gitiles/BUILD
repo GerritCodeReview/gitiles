@@ -19,7 +19,7 @@ java_library(
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
         "//lib:jsr305",
-        "//lib:servlet-api_3_1",
+        "//lib:servlet-api",
         "//lib/truth",
         "//lib/jgit:junit",
         "//lib/junit",
@@ -40,7 +40,7 @@ junit_tests(
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
         ":testutil",
-        "//lib:servlet-api_2_5",
+        "//lib:servlet-api",
         "//lib/truth",
         "//lib/jgit:junit",
         "//lib/junit",
