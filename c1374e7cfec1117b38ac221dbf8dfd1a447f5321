@@ -34,6 +34,29 @@
       "parentUuid": "e43ba552_0f709ec1",
       "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbce6581_f50a7082",
+        "filename": "javatests/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-12T16:55:27Z",
+      "side": 1,
+      "message": "Ah, this change wasn\u0027t part of the LSC because google3/third_party/java_src/gitiles/javatests/com/google/gitiles/BUILD depends on //third_party/java/servlet/servlet_api and that had already been updated to 3.1 in cr/413384218.\n\nIs there anything that ensures that these deps stay in sync with the resolved deps in google3/third_party/java_src/gitiles/javatests/com/google/gitiles/BUILD?\n\ne.g., that //lib/junit\u0027s version is the same version as //third_party/java/junit?\n\nGiven that go/oneversion is a thing, and that google3 is pinned to a specific version set, and gitiles is imported into google3, you\u0027re essentially opting into the exact versions that google3 uses or hoping that the version skew, if any, doesn\u0027t break anything. Do you have to test google3/third_party/java/gitiles clients independently of external gitiles clients to ensure sanity?",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
