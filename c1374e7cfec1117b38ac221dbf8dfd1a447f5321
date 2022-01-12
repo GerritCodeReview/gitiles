@@ -16,6 +16,24 @@
       "message": "Tests pass now but I agree with Jonathan that commit message would benefit from being a bit more clear about what you are trying to accomplish, just altering a couple of test-classes doesn\u0027t seem to be related to any larger initiative.\nAre you attempting to move to servlet:3.1.0 entirely (see my follow-up change)?",
       "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a8d6aa_5db28a9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-12T16:42:06Z",
+      "side": 1,
+      "message": "google3 has already moved to servlet 3.1 entirely, but when we did so, we did it with a google-internal patch to implement some of the abstract methods introduced in that version so we didn\u0027t have to atomically implement it in a bunch of clients.\n\nThis message was apparently not captured in the copybara-generated commit, but this came out of a google3 LSC, specifically child cr/417877794, which referenced go/lsc-servlet-api-v3.1 step #8.\n\nHow do I look at your follow-up change?",
+      "parentUuid": "e43ba552_0f709ec1",
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
