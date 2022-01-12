@@ -16,6 +16,24 @@
       "message": "Hi Giuseppe! I think Gitiles already highlights Go code via the (old) java-prettify library. The thing is only comments are highlighted due to a decision made by the maintainer of the library (I\u0027ve explained more about this in the linked GitHub issue).\n\nI think the purpose of the function you modified is to work around several extensions not being recognized by the library, but in the case of Go the extension is already recognized. Also, take into account that extension() already returned \"go\" for ext\u003d\"go\" due to the last else clause.",
       "revId": "b77077d3526659cedfb0923f7cc96f5ff9aa1d29",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d2ac55_b2de1fc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144290
+      },
+      "writtenOn": "2022-01-12T23:05:03Z",
+      "side": 1,
+      "message": "Gotcha, thanks for clarifying.",
+      "parentUuid": "425b21fe_d0058b5e",
+      "revId": "b77077d3526659cedfb0923f7cc96f5ff9aa1d29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
