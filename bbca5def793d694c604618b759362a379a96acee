@@ -81,6 +81,30 @@
       },
       "revId": "bbca5def793d694c604618b759362a379a96acee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f54c9583_1df8d1c9",
+        "filename": "lib/slf4j/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-01-12T15:46:18Z",
+      "side": 1,
+      "message": "don\u0027t remember what I did when this build failed, reverted in latest PS",
+      "parentUuid": "1234d508_e59768bc",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "bbca5def793d694c604618b759362a379a96acee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
