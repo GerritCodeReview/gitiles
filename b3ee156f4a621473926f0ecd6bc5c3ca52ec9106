@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7215395b_9660cfdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-12T16:18:37Z",
+      "side": 1,
+      "message": "LGTM. I would like to defer the approval to someone from Google.",
+      "revId": "b3ee156f4a621473926f0ecd6bc5c3ca52ec9106",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
