@@ -446,7 +446,7 @@ inserting the base64 encoding of the image using a `data:` URI.  Only
 PNG (`*.png`), JPEG (`*.jpg` or `*.jpeg`), GIF (`*.gif`) and WebP (`*.webp`)
 image formats are supported when referenced from the Git repository.
 
-Unsupported extensions or files larger than [image size](#Image-size)
+Unsupported extensions or files larger than [image size](config.md#Image-size)
 limit (default 256K) will display a broken image.
 
 *** note
