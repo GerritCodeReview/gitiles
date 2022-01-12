@@ -17,7 +17,6 @@ package(
     "gfm-tables",
     "html-types",
     "jsr305",
-    "servlet-api_2_5",
     "servlet-api_3_1",
     "gson",
     "guava",

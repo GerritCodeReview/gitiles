@@ -40,7 +40,7 @@ junit_tests(
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
         ":testutil",
-        "//lib:servlet-api_2_5",
+        "//lib:servlet-api_3_1",
         "//lib/truth",
         "//lib/jgit:junit",
         "//lib/junit",

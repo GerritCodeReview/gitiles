@@ -30,7 +30,7 @@ DEPS_ALL = DEPS + [
 java_library(
     name = "servlet-api",
     neverlink = 1,
-    exports = ["//lib:servlet-api_2_5"],
+    exports = ["//lib:servlet-api_3_1"],
 )
 
 java_library(
