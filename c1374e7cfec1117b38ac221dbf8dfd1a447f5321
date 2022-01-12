@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a2721c53_41941c14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-12T17:04:12Z",
+      "side": 1,
+      "message": "Also, copybara\u0027s logic for drafting the commit message is encoded at https://source.corp.google.com/piper///depot/google3/third_party/java_src/gitiles/copy.bara.sky;l\u003d138-181;rcl\u003d321244284. If you want future upstreamed PRs to include more data from the Piper CL description, you\u0027ll have to amend that. The specific culprit is the metadata.scrubber which neuters all but the first line of the P4 description.",
+      "parentUuid": "39a8d6aa_5db28a9a",
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbce6581_f50a7082",
         "filename": "javatests/com/google/gitiles/BUILD",
         "patchSetId": 2
