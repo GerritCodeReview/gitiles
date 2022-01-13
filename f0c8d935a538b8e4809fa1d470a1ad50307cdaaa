@@ -16,6 +16,24 @@
       "message": "I noticed that gitiles with this change still sorts longer paths before shorter paths if the shorter path matches the beginning of the longer one.\n\nE.g. directories in the jgit master branch are sorted by gitiles like this:\n\n ...\n org.eclipse.jgit.ant.test/\n org.eclipse.jgit.ant/\n org.eclipse.jgit.archive/\n org.eclipse.jgit.benchmarks/\n org.eclipse.jgit.coverage/\n org.eclipse.jgit.gpg.bc.test/\n org.eclipse.jgit.gpg.bc/\n org.eclipse.jgit.http.apache/\n org.eclipse.jgit.http.server/\n ...\n org.eclipse.jgit/\n ...\n \n I would expect the shorter paths to come first, that\u0027s how e.g.\n MacOS Finder or Eclipse sort paths:\n\n ...\n org.eclipse.jgit/\n org.eclipse.jgit.ant/\n org.eclipse.jgit.ant.test/\n org.eclipse.jgit.archive/\n org.eclipse.jgit.benchmarks/\n org.eclipse.jgit.coverage/\n org.eclipse.jgit.gpg.bc/\n org.eclipse.jgit.gpg.bc.test/\n org.eclipse.jgit.http.apache/\n org.eclipse.jgit.http.server/\n ...\n\n",
       "revId": "f0c8d935a538b8e4809fa1d470a1ad50307cdaaa",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40c92635_16ab94d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-13T14:26:15Z",
+      "side": 1,
+      "message": "I think it\u0027s more than reasonable that gitiles should sort them shorter-first also.\nI\u0027ll fix.",
+      "parentUuid": "1cd0460c_0971bec8",
+      "revId": "f0c8d935a538b8e4809fa1d470a1ad50307cdaaa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
