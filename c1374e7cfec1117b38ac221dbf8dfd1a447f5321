@@ -92,6 +92,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e73444e_b50d5d7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-14T08:25:32Z",
+      "side": 1,
+      "message": "\u003e I was under the, now obvious, misunderstanding that this was a wholly internal repo. 😞\n\nNo worries.\nDoes this mean that this change wasn\u0027t meant to end up upstream?\n\n\u003e It makes sense you would not have access to these tools, but rather whoever set up the synchronization between \"the monorepo\" and here did and is buying into some odd ligatures.\n\u003e \n\u003e Thanks for the pointer to your change, and yes, if that change plus this one compiles and tests, I would highly suggest it.\n\nCould you update the commit message so that it reflects what you are trying to accomplish?\nOr should we squash this change into the \"Switch to javax.servlet:3.1.0\" change? If so, should we maintain the commit-message footers from this change?",
+      "parentUuid": "92f00437_e1820261",
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbce6581_f50a7082",
         "filename": "javatests/com/google/gitiles/BUILD",
         "patchSetId": 2
@@ -151,6 +169,30 @@
       "side": 1,
       "message": "In this case, it\u0027s not strictly true because all we\u0027re doing is adding methods that would be overrides in v3.1 but aren\u0027t in v2.5 and so all you might get is a warning/error that you\u0027re incorrectly using `@Override` for a non-override (which could be suppressed and might require some special `javacopts` setting to your BUILD to do so). They\u0027d be harmless in v2.5.\n\nThat said, I\u0027m not sure how y\u0027all had references to both v2.5 and v3.1 and didn\u0027t end up with issues… super careful deps ordering to be sure that the \"right\" one was first? No colocation in a single .jar?",
       "parentUuid": "a6bc119c_c0c44e8a",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21dbccea_a1c58709",
+        "filename": "javatests/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-14T08:25:32Z",
+      "side": 1,
+      "message": "\u003e In this case, it\u0027s not strictly true because all we\u0027re doing is adding methods that would be overrides in v3.1 but aren\u0027t in v2.5 and so all you might get is a warning/error that you\u0027re incorrectly using `@Override` for a non-override (which could be suppressed and might require some special `javacopts` setting to your BUILD to do so). They\u0027d be harmless in v2.5.\n\u003e \n\nThe change, among other things, imports AsyncContext which wasn\u0027t available before 3.0 [1], that naturally doesn\u0027t compile with v2.5.\n\n[1] https://docs.oracle.com/javaee/7/api/javax/servlet/AsyncContext.html\n\n\u003e That said, I\u0027m not sure how y\u0027all had references to both v2.5 and v3.1 and didn\u0027t end up with issues… super careful deps ordering to be sure that the \"right\" one was first? No colocation in a single .jar?\n\nI wasn\u0027t aware of the double dependencies until I started poking around in the gitiles changes in preparation for a new release so I\u0027m equally clueless as to why.",
+      "parentUuid": "1e57ec0b_1c656320",
       "range": {
         "startLine": 22,
         "startChar": 8,
