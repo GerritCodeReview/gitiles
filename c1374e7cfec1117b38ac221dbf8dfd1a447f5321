@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "92f00437_e1820261",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-14T02:43:17Z",
+      "side": 1,
+      "message": "I was under the, now obvious, misunderstanding that this was a wholly internal repo. 😞 It makes sense you would not have access to these tools, but rather whoever set up the synchronization between \"the monorepo\" and here did and is buying into some odd ligatures.\n\nThanks for the pointer to your change, and yes, if that change plus this one compiles and tests, I would highly suggest it.",
+      "parentUuid": "d2fa1dc2_0274dc9e",
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbce6581_f50a7082",
         "filename": "javatests/com/google/gitiles/BUILD",
         "patchSetId": 2
@@ -109,6 +127,30 @@
       "side": 1,
       "message": "I know nothing about internal googleness, but in the world outside of Google I do know that if you update the test-classes to use the 3.1.0 API you\u0027ll have to update this dependency to 3.1.0 or the test-cases won\u0027t compile.",
       "parentUuid": "dbce6581_f50a7082",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e57ec0b_1c656320",
+        "filename": "javatests/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-14T02:43:17Z",
+      "side": 1,
+      "message": "In this case, it\u0027s not strictly true because all we\u0027re doing is adding methods that would be overrides in v3.1 but aren\u0027t in v2.5 and so all you might get is a warning/error that you\u0027re incorrectly using `@Override` for a non-override (which could be suppressed and might require some special `javacopts` setting to your BUILD to do so). They\u0027d be harmless in v2.5.\n\nThat said, I\u0027m not sure how y\u0027all had references to both v2.5 and v3.1 and didn\u0027t end up with issues… super careful deps ordering to be sure that the \"right\" one was first? No colocation in a single .jar?",
+      "parentUuid": "a6bc119c_c0c44e8a",
       "range": {
         "startLine": 22,
         "startChar": 8,
