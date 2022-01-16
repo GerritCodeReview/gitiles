@@ -110,6 +110,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "59d76849_8d73d5fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112887
+      },
+      "writtenOn": "2022-01-16T02:18:07Z",
+      "side": 1,
+      "message": "\u003e \u003e I was under the, now obvious, misunderstanding that this was a wholly internal repo. 😞\n\u003e \n\u003e No worries.\n\u003e Does this mean that this change wasn\u0027t meant to end up upstream?\n\nIt is my understanding that it is meant to be upstream.\n\u003e \n\u003e \u003e It makes sense you would not have access to these tools, but rather whoever set up the synchronization between \"the monorepo\" and here did and is buying into some odd ligatures.\n\u003e \u003e \n\u003e \u003e Thanks for the pointer to your change, and yes, if that change plus this one compiles and tests, I would highly suggest it.\n\u003e \n\u003e Could you update the commit message so that it reflects what you are trying to accomplish?\n\nI have done so, but…\n\n\u003e Or should we squash this change into the \"Switch to javax.servlet:3.1.0\" change? If so, should we maintain the commit-message footers from this change?\n\nYes, I think this is what should be done. Pulling in the \"minimal throwing implementations text\" into \"Switch to javax.servlet:3.1.0\" is probably sufficient.",
+      "parentUuid": "9e73444e_b50d5d7f",
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbce6581_f50a7082",
         "filename": "javatests/com/google/gitiles/BUILD",
         "patchSetId": 2
