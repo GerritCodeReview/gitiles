@@ -1,4 +1,4 @@
-build --workspace_status_command=./tools/workspace-status.sh
+build --workspace_status_command="python3 ./tools/workspace_status.py"
 build --repository_cache=~/.gerritcodereview/bazel-cache/repository
 build --experimental_strict_action_env
 build --action_env=PATH
