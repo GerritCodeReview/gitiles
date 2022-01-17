@@ -16,6 +16,23 @@
       "message": "LGTM. I would like to defer the approval to someone from Google.",
       "revId": "b3ee156f4a621473926f0ecd6bc5c3ca52ec9106",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93df8ffa_cb8efcec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2022-01-17T14:25:21Z",
+      "side": 1,
+      "message": "should be OK for Google. We don\u0027t use upstream BUILD files.",
+      "revId": "b3ee156f4a621473926f0ecd6bc5c3ca52ec9106",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
