@@ -128,6 +128,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6e91dce1_6a7bf997",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-17T08:26:36Z",
+      "side": 1,
+      "message": "Thanks!\nI\u0027ll squash them and re-upload.",
+      "parentUuid": "59d76849_8d73d5fb",
+      "revId": "c1374e7cfec1117b38ac221dbf8dfd1a447f5321",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbce6581_f50a7082",
         "filename": "javatests/com/google/gitiles/BUILD",
         "patchSetId": 2
