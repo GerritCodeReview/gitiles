@@ -116,9 +116,9 @@ ul, ol {
   padding: 20px;
 }
 .Site-header--withNavbar .Header {
-  max-width: 980px;
+  max-width: 1020px;
   margin: 0 auto;
-  padding: 10px 0;
+  padding: 10px 20px;
 }
 .Header-title,
 .Header-image {
@@ -286,6 +286,24 @@ ul, ol {
   font-size: 14px;
   font-style: italic;
 }
+@media (max-width: 550px) {
+  .RepoShortlog {
+    flex-direction: column;
+    -ms-flex-direction: column;
+  }
+  .RepoShortlog-refs {
+    width: auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  .RepoShortlog-refs > .RefList:last-child {
+    margin-bottom: 0;
+  }
+  .RepoShortlog-log {
+    width: auto;
+  }
+}
 
 /* RefList.soy */
 
@@ -301,6 +319,12 @@ ul, ol {
 }
 .RefList-item {
   padding: 2px 0;
+}
+@media (max-width: 550px) {
+  .RefList--responsive .RefList-item {
+    display: inline-block;
+    margin-right: 6px;
+  }
 }
 
 /* LogDetail.soy */
