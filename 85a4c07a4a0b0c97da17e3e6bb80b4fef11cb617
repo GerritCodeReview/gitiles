@@ -67,6 +67,40 @@
       "message": "Thanks, both!",
       "revId": "85a4c07a4a0b0c97da17e3e6bb80b4fef11cb617",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb59697_2cbd602e",
+        "filename": "javatests/com/google/gitiles/FakeHttpServletRequest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-19T20:30:00Z",
+      "side": 1,
+      "message": "nit: odd whitespace. Does google-java-format do this differently?",
+      "revId": "85a4c07a4a0b0c97da17e3e6bb80b4fef11cb617",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14760256_6c69a3d4",
+        "filename": "javatests/com/google/gitiles/FakeHttpServletRequest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-19T20:30:00Z",
+      "side": 1,
+      "message": "likewise",
+      "revId": "85a4c07a4a0b0c97da17e3e6bb80b4fef11cb617",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
