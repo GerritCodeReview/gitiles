@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b202b369_c221ff4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-19T10:26:32Z",
+      "side": 1,
+      "message": "Fixed merge-conflict with https://gerrit-review.googlesource.com/q/topic:jgit-as-submodule",
+      "revId": "85a4c07a4a0b0c97da17e3e6bb80b4fef11cb617",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
