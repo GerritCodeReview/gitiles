@@ -50,6 +50,23 @@
       "message": "LG and thanks!",
       "revId": "85a4c07a4a0b0c97da17e3e6bb80b4fef11cb617",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20824624_f54b1b10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-01-19T20:28:36Z",
+      "side": 1,
+      "message": "Thanks, both!",
+      "revId": "85a4c07a4a0b0c97da17e3e6bb80b4fef11cb617",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
