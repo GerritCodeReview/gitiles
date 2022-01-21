@@ -1,7 +1,6 @@
-# Maven style API version (e.g. '2.x-SNAPSHOT').
+# Maven style API version (e.g. '1.0.0', '1.1.0-SNAPSHOT').
 #
-# Used by :install and :deploy when talking to the destination repository. As
-# we currently have no stable releases, we use the "build number" scheme
-# described at:
-# https://www.mojohaus.org/versions-maven-plugin/version-rules.html
-GITILES_VERSION = "0.4-1"
+# Used by :install and :deploy when talking to the destination repository.
+# Project uses semantic versioning described at:
+# https://semver.org
+GITILES_VERSION = "1.0.0"
