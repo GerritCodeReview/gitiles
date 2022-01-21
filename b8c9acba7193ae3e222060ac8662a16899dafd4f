@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcb12d55_5518a3d1",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-01-21T16:37:04Z",
+      "side": 1,
+      "message": "I assume \"no stable releases\" is referring to the branching model? Otherwise we should change with 1.0.\n\nunrelated to this change: I think \"build number\" was renamed \"numeric\" on the link below.",
+      "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
