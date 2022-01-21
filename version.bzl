@@ -4,4 +4,4 @@
 # we currently have no stable releases, we use the "build number" scheme
 # described at:
 # https://www.mojohaus.org/versions-maven-plugin/version-rules.html
-GITILES_VERSION = "0.4-1"
+GITILES_VERSION = "1.0.0"
