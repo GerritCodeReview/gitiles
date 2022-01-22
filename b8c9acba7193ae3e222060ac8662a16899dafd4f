@@ -16,6 +16,23 @@
       "message": "I assume \"no stable releases\" is referring to the branching model? Otherwise we should change with 1.0.\n\nunrelated to this change: I think \"build number\" was renamed \"numeric\" on the link below.",
       "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3069a30_7923bfad",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-22T18:58:00Z",
+      "side": 1,
+      "message": "Why don\u0027t we make it consistent with gerrit and prolog-caffee that is using semver: [1] and make it 1.0.0:\n\n* MAJOR version when you make incompatible API changes,\n* MINOR version when you add functionality in a backwards compatible manner, and\n* PATCH version when you make backwards compatible bug fixes.\n\nGerrit: 3.5.0 and prolog-caffee: 1.4.4.\n\n[1] https://semver.org",
+      "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
