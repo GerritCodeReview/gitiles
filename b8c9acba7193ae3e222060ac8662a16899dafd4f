@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccee632c_b8302a72",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-25T09:17:09Z",
+      "side": 1,
+      "message": "Same here:\n\n  An error occurred\n  Error 403: not permitted: create on refs/heads/stable-1.0\n  \nCan someone from Google please create stable-1.0 branch?",
+      "parentUuid": "7bf8dc43_c413c24a",
+      "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e3069a30_7923bfad",
         "filename": "version.bzl",
         "patchSetId": 1
