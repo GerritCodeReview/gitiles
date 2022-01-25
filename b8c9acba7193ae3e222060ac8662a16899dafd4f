@@ -105,6 +105,24 @@
       "parentUuid": "75cbe212_d1a1d48f",
       "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f0d4c1_ec895ee7",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-25T08:53:05Z",
+      "side": 1,
+      "message": "Done\nI was waiting for input from jrn.",
+      "parentUuid": "f71d9ae6_e8875309",
+      "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
