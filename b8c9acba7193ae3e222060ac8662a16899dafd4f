@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62c915c8_a8bec5d8",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-01-26T14:46:41Z",
+      "side": 1,
+      "message": "\u003e IIUC you are suggesting that we cut a stable-1.0 branch for this change?\n\nOnly if we need one. If we were going to create a stable-1.0, then I was indicating we should remove this comment. If there\u0027s no stable-1.0, the comment is fine.",
+      "parentUuid": "ccee632c_b8302a72",
+      "revId": "b8c9acba7193ae3e222060ac8662a16899dafd4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e3069a30_7923bfad",
         "filename": "version.bzl",
         "patchSetId": 1
