@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "789f6d26_3e6433d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2022-01-27T09:42:36Z",
+      "side": 1,
+      "message": "thanks for adding me. What are you looking for? I think this doesn\u0027t matter for Google? Do you want me to create a stable-1.0 branch?",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
