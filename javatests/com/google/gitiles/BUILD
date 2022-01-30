@@ -7,7 +7,8 @@ DEPS = [
     "//lib:guava-failureaccess",
     "//lib:jgit",
     "//lib:jgit-servlet",
-    "//lib/soy:soy",
+    "//lib/flogger",
+    "//lib/soy",
 ]
 
 java_library(
