@@ -67,6 +67,24 @@
       "message": "\u003e Uploaded patch set 2.\n\n",
       "revId": "9de65953ec071a09752deb5f2495235326dfcc75",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70472464_5a42a0f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1099690
+      },
+      "writtenOn": "2022-01-30T01:55:57Z",
+      "side": 1,
+      "message": "https://gerrit-review.googlesource.com/c/gitiles/+/37820/comments/fa704cf0_be6ab638",
+      "parentUuid": "fa704cf0_be6ab638",
+      "revId": "9de65953ec071a09752deb5f2495235326dfcc75",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
