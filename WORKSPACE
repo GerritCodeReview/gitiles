@@ -57,8 +57,8 @@ maven_jar(
 
 maven_jar(
     name = "guava",
-    artifact = "com.google.guava:guava:30.1-jre",
-    sha1 = "00d0c3ce2311c9e36e73228da25a6e99b2ab826f",
+    artifact = "com.google.guava:guava:31.1-jre",
+    sha1 = "60458f877d055d0c9114d9e1a2efb737b4bc282c",
 )
 
 maven_jar(
@@ -128,8 +128,40 @@ maven_jar(
 
 maven_jar(
     name = "soy",
-    artifact = "com.google.template:soy:2021-02-01",
-    sha1 = "8e833744832ba88059205a1e30e0898f925d8cb5",
+    artifact = "com.google.template:soy:2022-07-20",
+    sha1 = "f64eb90da6d91beddf11653865c90f26d26710cf",
+)
+
+FLOGGER_VERS = "0.7.4"
+
+maven_jar(
+    name = "log4j",
+    artifact = "ch.qos.reload4j:reload4j:1.2.18.0",
+    sha1 = "03b2b708403ab00eb0678bffdbbd567070bbdfab",
+)
+
+maven_jar(
+    name = "flogger",
+    artifact = "com.google.flogger:flogger:" + FLOGGER_VERS,
+    sha1 = "cec29ed8b58413c2e935d86b12d6b696dc285419",
+)
+
+maven_jar(
+    name = "flogger-log4j-backend",
+    artifact = "com.google.flogger:flogger-log4j-backend:" + FLOGGER_VERS,
+    sha1 = "7486b1c0138647cd7714eccb8ce37b5f2ae20a76",
+)
+
+maven_jar(
+    name = "flogger-google-extensions",
+    artifact = "com.google.flogger:google-extensions:" + FLOGGER_VERS,
+    sha1 = "c49493bd815e3842b8406e21117119d560399977",
+)
+
+maven_jar(
+    name = "flogger-system-backend",
+    artifact = "com.google.flogger:flogger-system-backend:" + FLOGGER_VERS,
+    sha1 = "4bee7ebbd97c63ca7fb17529aeb49a57b670d061",
 )
 
 maven_jar(
