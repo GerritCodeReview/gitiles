@@ -18,7 +18,8 @@ DEPS = [
     "//lib:jgit",
     "//lib:jgit-servlet",
     "//lib:slf4j-api",
-    "//lib/soy:soy",
+    "//lib/flogger",
+    "//lib/soy",
     "//java/com/google/gitiles/blame/cache",
 ]
 
