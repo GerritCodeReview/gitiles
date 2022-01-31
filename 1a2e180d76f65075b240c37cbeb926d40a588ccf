@@ -34,6 +34,24 @@
       "parentUuid": "2e24c663_382d0947",
       "revId": "1a2e180d76f65075b240c37cbeb926d40a588ccf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db3027cf_a4fb106c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-01-31T08:53:07Z",
+      "side": 1,
+      "message": "Oh, realized now you get a different set of errors here than at [1]\n\n[1] https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d15639",
+      "parentUuid": "ad0bfb92_84f7f8dc",
+      "revId": "1a2e180d76f65075b240c37cbeb926d40a588ccf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
