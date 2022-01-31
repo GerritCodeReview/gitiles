@@ -16,6 +16,23 @@
       "message": "Tests pass locally for me",
       "revId": "2a34000698208b90d5f13ab0a5c575ab374cc3a7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "528fdcd3_f5e0e3c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-31T12:26:47Z",
+      "side": 1,
+      "message": "Thanks, Sven. There is a similar issue 15621 in Gerrit. Can it be similarly fixed there as well?",
+      "revId": "2a34000698208b90d5f13ab0a5c575ab374cc3a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
