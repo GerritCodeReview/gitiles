@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class Renderer {
   // Must match .streamingPlaceholder.
-  private static final String PLACEHOLDER = "id=\"STREAMED_OUTPUT_BLOCK\"";
+  private static final String PLACEHOLDER = "id=\"STREAMED-OUTPUT-BLOCK\"";
 
   private static final ImmutableList<String> SOY_FILENAMES =
       ImmutableList.of(
