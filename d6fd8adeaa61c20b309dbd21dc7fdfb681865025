@@ -33,6 +33,24 @@
       "message": "We need urgently new gitiles release, to update gitiles-plugin. Due to recent closure-template:soy dependency update in change 328339, gerrit@HEAD doesn\u0027t start any more: [1]. The migration was done in change 326020, but no gitiles release was conducted yet. I wrote issue 15639.\n\n[1] https://paste.opendev.org/show/812437",
       "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46015f60_738a05ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-01-31T22:12:17Z",
+      "side": 1,
+      "message": "That change should be reverted ASAP until a new gitiles release is made. We shouldn\u0027t rush this release because another change broke this. I also don\u0027t understand how that change passed CI if Gerrit doesn\u0027t start.",
+      "parentUuid": "21efeb99_f7f818a9",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
