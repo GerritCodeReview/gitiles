@@ -69,6 +69,24 @@
       "parentUuid": "46015f60_738a05ab",
       "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a81a433_c304d78f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-01-31T23:30:26Z",
+      "side": 1,
+      "message": "\u003e There are number of non automic events, that just can\u0027t be done simulatenously:\n\nI don\u0027t think there\u0027s a need for atomic or simultaneous in this situation. I think a gitiles release needs to happen first, which also seems true based on the comment here https://gerrit.googlesource.com/gerrit/+/refs/changes/39/328339/5/tools/nongoogle.bzl#169 (which seems to have been ignored).",
+      "parentUuid": "1445be4c_619ba9ce",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
