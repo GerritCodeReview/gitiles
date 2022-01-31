@@ -51,6 +51,24 @@
       "parentUuid": "21efeb99_f7f818a9",
       "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1445be4c_619ba9ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-31T22:30:38Z",
+      "side": 1,
+      "message": "For one, gerrit@HEAD doesn\u0027t start when gerrit-gitiles-plugin is included. If you remove the gerrit-gitiles-plugin has no problem to start.\n\nFor another, change 329375 synced the guava and closure-templates:soy were synced. \n\nI will upload in a moment a custom gitiles release to my GitHub fork and update it gerrit.\n\nThere are number of non automic events, that just can\u0027t be done simulatenously:\n\n* Bump guava in gerrit\n* Bump closure-templates:soy in gerrit\n* Bump guava in gitiles\n* Bump closure-templates:soy in gitiles\n* Add missing dependencies to log4j and flogger to gitiles\n* Fix new issues introduced by new closure-templates:soy release in gitiles\n* Approve and merge all changes in gitiles\n* Conduct new release of gitiles\n* Bump gitiles version in gerrit to new released version\n* Adapt gerrit-gitiles-plugin if needed",
+      "parentUuid": "46015f60_738a05ab",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
