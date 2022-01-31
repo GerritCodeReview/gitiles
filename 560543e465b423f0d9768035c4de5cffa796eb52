@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48f585e_924ed9f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-31T12:05:16Z",
+      "side": 1,
+      "message": "Verified, that I can release gitiles with this commit and with latest bazlets commit.",
+      "revId": "560543e465b423f0d9768035c4de5cffa796eb52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
