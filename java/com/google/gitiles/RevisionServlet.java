@@ -134,7 +134,7 @@ public class RevisionServlet extends BaseServlet {
       renderHtml(
           req,
           res,
-          "gitiles.revisionDetail",
+          "com.google.gitiles.templates.RevisionDetail.revisionDetail",
           ImmutableMap.of(
               "title", view.getRevision().getName(),
               "objects", soyObjects,

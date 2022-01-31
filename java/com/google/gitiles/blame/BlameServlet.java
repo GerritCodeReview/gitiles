@@ -86,7 +86,7 @@ public class BlameServlet extends BaseServlet {
         renderHtml(
             req,
             res,
-            "gitiles.blameDetail",
+            "com.google.gitiles.templates.BlameDetail.blameDetail",
             ImmutableMap.of(
                 "title",
                 title,
@@ -100,7 +100,7 @@ public class BlameServlet extends BaseServlet {
         renderHtml(
             req,
             res,
-            "gitiles.blameDetail",
+            "com.google.gitiles.templates.BlameDetail.blameDetail",
             ImmutableMap.of(
                 "title", title,
                 "breadcrumbs", view.getBreadcrumbs(),

@@ -68,6 +68,7 @@ public class PathServlet extends BaseServlet {
 
   static final String MODE_HEADER = "X-Gitiles-Path-Mode";
   static final String TYPE_HEADER = "X-Gitiles-Object-Type";
+  static final String PATH_DETAIL = "com.google.gitiles.templates.PathDetail.pathDetail";
 
   /**
    * Submodule URLs where we know there is a web page if the user visits the repository URL verbatim
@@ -486,7 +487,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PATH_DETAIL,
         ImmutableMap.of(
             "title", !view.getPathPart().isEmpty() ? view.getPathPart() : "/",
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -515,7 +516,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PATH_DETAIL,
         ImmutableMap.of(
             "title", ViewFilter.getView(req).getPathPart(),
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -541,7 +542,7 @@ public class PathServlet extends BaseServlet {
       renderHtml(
           req,
           res,
-          "gitiles.pathDetail",
+          PATH_DETAIL,
           ImmutableMap.of(
               "title", ViewFilter.getView(req).getPathPart(),
               "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -564,7 +565,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PATH_DETAIL,
         ImmutableMap.of(
             "title", ViewFilter.getView(req).getPathPart(),
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
@@ -621,7 +622,7 @@ public class PathServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.pathDetail",
+        PATH_DETAIL,
         ImmutableMap.of(
             "title", view.getPathPart(),
             "type", FileType.GITLINK.toString(),
