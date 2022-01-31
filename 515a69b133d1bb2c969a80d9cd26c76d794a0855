@@ -16,6 +16,23 @@
       "message": "Tests pass locally for me",
       "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d113ad8d_563f37b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-01-31T12:34:18Z",
+      "side": 1,
+      "message": "Thanks Sven for fixing the tests in previous change!\n\nI would like to defer the approval to other Gitiles maintainers.",
+      "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
