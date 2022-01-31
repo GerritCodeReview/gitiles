@@ -68,7 +68,7 @@ public class RefServlet extends BaseServlet {
     renderHtml(
         req,
         res,
-        "gitiles.refsDetail",
+        "com.google.gitiles.templates.RefList.refsDetail",
         ImmutableMap.of("branches", getBranchesSoyData(req, 0), "tags", tags));
   }
 

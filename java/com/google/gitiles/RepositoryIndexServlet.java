@@ -129,7 +129,8 @@ public class RepositoryIndexServlet extends BaseServlet {
       if (paginator != null) {
         DateFormatter df = new DateFormatter(access, Format.DEFAULT);
         try (OutputStream out =
-            startRenderStreamingHtml(req, res, "gitiles.repositoryIndex", data)) {
+            startRenderStreamingHtml(
+                req, res, "com.google.gitiles.templates.RepositoryIndex.repositoryIndex", data)) {
           Writer w = newWriter(out, res);
           new LogSoyData(req, access, "oneline")
               .renderStreaming(
@@ -137,7 +138,7 @@ public class RepositoryIndexServlet extends BaseServlet {
           w.flush();
         }
       } else {
-        renderHtml(req, res, "gitiles.repositoryIndex", data);
+        renderHtml(req, res, "com.google.gitiles.templates.RepositoryIndex.repositoryIndex", data);
       }
     }
   }

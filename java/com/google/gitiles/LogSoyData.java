@@ -93,23 +93,24 @@ public class LogSoyData {
     LoggingAdvisingAppendable out = LoggingAdvisingAppendable.delegating(writer);
     renderHtml(
         renderer
-            .newRenderer("gitiles.logEntriesHeader")
+            .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesHeader")
             .setData(toHeaderSoyData(paginator, revision)),
         out);
 
-    SoySauce.Renderer entryRenderer = renderer.newRenderer("gitiles.logEntryWrapper");
+    SoySauce.Renderer entryRenderer =
+        renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
       renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), out);
       renderedEntries = true;
     }
     if (!renderedEntries) {
-      renderHtml(renderer.newRenderer("gitiles.emptyLog"), out);
+      renderHtml(renderer.newRenderer("com.google.gitiles.templates.LogDetail.emptyLog"), out);
     }
 
     renderHtml(
         renderer
-            .newRenderer("gitiles.logEntriesFooter")
+            .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesFooter")
             .setData(toFooterSoyData(paginator, revision, footerBehavior)),
         out);
   }
