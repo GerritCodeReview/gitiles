@@ -60,7 +60,7 @@ public class DocServlet extends BaseServlet {
   private static final String INDEX_MD = "index.md";
   private static final String NAVBAR_MD = "navbar.md";
   private static final String SOY_FILE = "Doc.soy";
-  private static final String SOY_TEMPLATE = "gitiles.markdownDoc";
+  private static final String SOY_TEMPLATE = "com.google.gitiles.templates.Doc.markdownDoc";
 
   // Generation of ETag logic. Bump this only if DocServlet logic changes
   // significantly enough to impact cached pages. Soy template and source

@@ -124,7 +124,9 @@ public class LogServlet extends BaseServlet {
 
       data.put("title", title);
 
-      try (OutputStream out = startRenderStreamingHtml(req, res, "gitiles.logDetail", data)) {
+      try (OutputStream out =
+          startRenderStreamingHtml(
+              req, res, "com.google.gitiles.templates.LogDetail.logDetail", data)) {
         Writer w = newWriter(out, res);
         new LogSoyData(req, access, pretty)
             .renderStreaming(paginator, null, renderer, w, df, LogSoyData.FooterBehavior.NEXT);
