@@ -87,6 +87,24 @@
       "parentUuid": "1445be4c_619ba9ce",
       "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77fd45af_0127aec6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-02-01T00:26:27Z",
+      "side": 1,
+      "message": "\u003e \u003e There are number of non automic events, that just can\u0027t be done simulatenously:\n\u003e \n\u003e I don\u0027t think there\u0027s a need for atomic or simultaneous in this situation. I think a gitiles release needs to happen first, which also seems true based on the comment here https://gerrit.googlesource.com/gerrit/+/refs/changes/39/328339/5/tools/nongoogle.bzl#169 (which seems to have been ignored).\n\nIn case this wasn\u0027t clear, the comment on that line is \"# Keep this version of Soy synchronized with the version used in Gitiles.\" which means I expect any update of the soy version in Gerrit should include a gitiles version update in the same change.",
+      "parentUuid": "2a81a433_c304d78f",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
