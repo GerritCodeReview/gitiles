@@ -33,6 +33,46 @@
       "message": "Thanks Sven for fixing the tests in previous change!\n\nI would like to defer the approval to other Gitiles maintainers.",
       "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df3062ab_610ad0e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-02-01T00:03:34Z",
+      "side": 1,
+      "message": "Sorry for the vote downgrade, noticed an issue.",
+      "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef60c094_6b6bf49b",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-02-01T00:03:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be Apache v2? https://github.com/davido/closure-templates/blob/6e3dc449fcf6ed0096b190438413eefec9a05924/COPYING",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 29
+      },
+      "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
