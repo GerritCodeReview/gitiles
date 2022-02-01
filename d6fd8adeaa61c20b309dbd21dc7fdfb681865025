@@ -123,6 +123,24 @@
       "parentUuid": "77fd45af_0127aec6",
       "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08390094_e20427b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-02-01T10:29:10Z",
+      "side": 1,
+      "message": "\u003e I will upload in a moment a custom gitiles release to my GitHub fork and update it gerrit.\n\nThe currently ongoing release shouldn\u0027t be that far off once this is merged, should it?",
+      "parentUuid": "b9729bee_7f50347e",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
