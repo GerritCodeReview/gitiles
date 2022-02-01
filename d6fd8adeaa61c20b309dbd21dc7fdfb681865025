@@ -159,6 +159,24 @@
       "parentUuid": "08390094_e20427b7",
       "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "903d1401_9856f585",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-02-01T12:04:02Z",
+      "side": 1,
+      "message": "Right. I would also like to update bazlets series (moved to stable-3.3 branches and merge up to master) first. Otherwise, I was not able to conduct gitiles release on my laptop.",
+      "parentUuid": "cb386ee7_f8afe3d3",
+      "revId": "d6fd8adeaa61c20b309dbd21dc7fdfb681865025",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
