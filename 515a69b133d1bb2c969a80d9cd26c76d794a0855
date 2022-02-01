@@ -73,6 +73,30 @@
       },
       "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16d5a513_410635be",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-02-01T07:59:01Z",
+      "side": 1,
+      "message": "Done, see the definition of used Bazel rule: [1]. I also added a comment and links to both issue, why we have to use temporarily closure-templates:soy release from HEAD.\n\n[1] https://github.com/bazelbuild/bazel/blob/15b70bb63e5495290900de9303cbebb0ff12210b/tools/build_defs/repo/java.bzl#L81",
+      "parentUuid": "ef60c094_6b6bf49b",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 29
+      },
+      "revId": "515a69b133d1bb2c969a80d9cd26c76d794a0855",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
