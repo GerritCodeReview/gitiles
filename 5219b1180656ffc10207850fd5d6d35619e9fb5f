@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129b1d9c_34d2f2e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-02-02T17:20:58Z",
+      "side": 1,
+      "message": "Admittedly, this should have been my first comment, but I\u0027m still going to ask it now. Why are we so concerned with upgrading guava that we\u0027re taking all these extra steps with custom releases? This message doesn\u0027t provide any justification for updating guava versions.",
+      "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
