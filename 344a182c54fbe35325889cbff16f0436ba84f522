@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2222056_10224432",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2022-02-08T13:34:44Z",
+      "side": 1,
+      "message": "I don\u0027t think we care about the version from the perspective of google, so I\u0027ll remove myself here.",
+      "revId": "344a182c54fbe35325889cbff16f0436ba84f522",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
