@@ -34,6 +34,24 @@
       "parentUuid": "129b1d9c_34d2f2e6",
       "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94b35c5_5523afbd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-02-08T14:14:09Z",
+      "side": 1,
+      "message": "The only reason for that is future proof of feasibility to bump the dependency in the emergency case. Thanks these efforts we know today: we cannot just bump guava version without bumping closure-templates:soy, for that we don\u0027t have official release yet.",
+      "parentUuid": "e171a3a8_3b23c125",
+      "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
