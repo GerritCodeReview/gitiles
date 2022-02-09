@@ -70,6 +70,24 @@
       "parentUuid": "a94b35c5_5523afbd",
       "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de208b8d_0779cf85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-02-09T00:15:12Z",
+      "side": 1,
+      "message": "\u003e Do we need a reason beyond \"it makes sense to keep your dependencies up-to-date\"?\n\nThanks for asking Sven, I\u0027m happy to explain more. I agree with David and I think it\u0027s great to regularly try out new versions and discover issues. That helps us later when we do discover a need for upgrading a dependency. If we have an opportunity to upgrade a dependency and there\u0027s low cost (effort for authors/reviewers), low risk, and no debt, I absolutely agree we should aim to keep those up to date.\n\nWhen we\u0027re considering adding debt (such as creating custom releases of dependency artifacts) or there\u0027s increased risk or effort, I think we need to have more scrutiny on why we\u0027re doing the upgrade. Perhaps that risk/effort/debt is warranted, but as seems to be the conclusion in this case, it won\u0027t always be.",
+      "parentUuid": "aded50d6_83631f77",
+      "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
