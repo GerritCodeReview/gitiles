@@ -120,11 +120,9 @@ you must have write access to this bucket. See
 Artifacts](https://gerrit-review.googlesource.com/Documentation/dev-release-deploy-config.html)
 for PGP key setup and Google Cloud Storage access setup.
 
-First, increment `GITILES_VERSION` in `version.bzl`. Technically, Gitiles uses
-the
-["build number" scheme](http://mojo.codehaus.org/versions-maven-plugin/version-rules.html),
-which in practice just means incrementing the last component (after the `-`) by
-one. Get your change reviewed and submitted.
+First, increment `GITILES_VERSION` in `version.bzl`, Gitiles uses
+[Semantic Versioning](https://semver.org).
+Get your change reviewed and submitted.
 
 Then, run:
 
