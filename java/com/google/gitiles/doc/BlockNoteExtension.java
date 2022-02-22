@@ -73,7 +73,7 @@ public class BlockNoteExtension implements ParserExtension {
       }
       if (state.getIndent() <= indent) {
         int s = state.getNextNonSpaceIndex();
-        CharSequence line = state.getLine();
+        CharSequence line = state.getLine().getContent();
         if ("***".contentEquals(line.subSequence(s, line.length()))) {
           done = true;
           return BlockContinue.atIndex(line.length());
@@ -97,7 +97,7 @@ public class BlockNoteExtension implements ParserExtension {
     @Override
     public BlockStart tryStart(ParserState state, MatchedBlockParser matched) {
       int s = state.getNextNonSpaceIndex();
-      CharSequence line = state.getLine();
+      CharSequence line = state.getLine().getContent();
       CharSequence text = line.subSequence(s, line.length());
       if (text.length() < 3 || !"***".contentEquals(text.subSequence(0, 3))) {
         return BlockStart.none();
