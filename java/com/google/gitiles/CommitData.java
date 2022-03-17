@@ -203,7 +203,7 @@ class CommitData {
           .toUrl();
     }
 
-    private List<Ref> getRefsById(Repository repo, ObjectId id, String prefix) {
+    private List<Ref> getRefsById(Repository repo, ObjectId id, String prefix) throws IOException {
       if (refsById == null) {
         refsById = repo.getAllRefsByPeeledObjectId();
       }

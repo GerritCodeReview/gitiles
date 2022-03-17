@@ -36,7 +36,7 @@ junit_tests(
         exclude = ["**/ServletTest.java"],
     ),
     visibility = ["//visibility:public"],
-    runtime_deps = ["//lib/junit:hamcrest-core"],
+    runtime_deps = ["//lib/junit:hamcrest"],
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
         ":testutil",

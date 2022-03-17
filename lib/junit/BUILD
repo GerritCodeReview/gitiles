@@ -10,6 +10,6 @@ java_library(
 )
 
 java_library(
-    name = "hamcrest-core",
-    exports = ["@hamcrest-core//jar"],
+    name = "hamcrest",
+    exports = ["@hamcrest//jar"],
 )
