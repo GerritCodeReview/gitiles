@@ -1,6 +1,24 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea405832_1479c563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-03-17T00:20:17Z",
+      "side": 1,
+      "message": "Is this change ready to be revived?",
+      "revId": "d06a95a72e63f1ac60168c0aed31146787a00e6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "62803586_e30a434e",
         "filename": "java/com/google/gitiles/VisibilityChecker.java",
@@ -14,8 +32,7 @@
       "side": 1,
       "message": "Still needs to be done, for example using the https://github.com/google/guava/issues/2828#issuecomment-304187823 approach.",
       "revId": "d06a95a72e63f1ac60168c0aed31146787a00e6a",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
