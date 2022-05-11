@@ -27,6 +27,10 @@ local_repository(
     path = "modules/jgit",
 )
 
+register_toolchains("//tools:error_prone_warnings_toolchain_java11_definition")
+
+register_toolchains("//tools:error_prone_warnings_toolchain_java17_definition")
+
 maven_jar(
     name = "commons-lang3",
     artifact = "org.apache.commons:commons-lang3:3.8.1",
