@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5177ede1_b8cb8cf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-05-11T09:16:36Z",
+      "side": 1,
+      "message": "To see this change in action on LibreOffice.\n\nConsider this change in diff view: [1] that changes some parts of the line.\nAnd here is the gitiles diff view with patched gitiles version: [2].\n\nThe purpose of this change is to upstream this feature.\n\n[1] https://gerrit.libreoffice.org/c/core/+/134130/4/sc/source/core/data/queryiter.cxx\n[2] https://git.libreoffice.org/core/+/eca5d33eb1744fafc1b1e55a112c712f6023c62e%5E%21",
+      "revId": "e25c5938e27a68c3393c838721b66229bf20c945",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
