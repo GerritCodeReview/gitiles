@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1819fd6f_eedb2f29",
+        "filename": ".bazelrc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-05-11T15:15:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6651c16e_24231961",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "fd0c70d8d0f7b86c98e2bde736e02f77e06e8562",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7c95663f_76649eb6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -37,6 +61,23 @@
       "writtenOn": "2022-05-11T15:09:57Z",
       "side": 1,
       "message": "- both build and test on java 17 work like a charm :-)\n\n$ bazelisk build --config\u003djava17 //:gitiles\n$ bazelisk test --config\u003djava17 //...\n\n- minor nit in comments",
+      "revId": "fd0c70d8d0f7b86c98e2bde736e02f77e06e8562",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "721f328e_e983a2a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-05-11T15:15:37Z",
+      "side": 1,
+      "message": "Thanks for verifying!",
       "revId": "fd0c70d8d0f7b86c98e2bde736e02f77e06e8562",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
