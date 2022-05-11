@@ -50,6 +50,23 @@
       "message": "we upgraded to 1.21 at google now, so we could go ahead with this.",
       "revId": "f950839098229c4e0ce062b9ad4d87883719d906",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "690f16cc_8c8d2eb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-05-11T11:10:53Z",
+      "side": 1,
+      "message": "Google put the corresponding update in the core on hold, see https://gerrit-review.googlesource.com/c/gerrit/+/327700\n\n@Han-Wen: or were your issues resolved ? If yes, could you provide LC+1 on that core change ?",
+      "revId": "f950839098229c4e0ce062b9ad4d87883719d906",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
