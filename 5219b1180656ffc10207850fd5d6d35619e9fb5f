@@ -88,6 +88,24 @@
       "parentUuid": "aded50d6_83631f77",
       "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9b9901_7f66cd1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-05-12T09:09:30Z",
+      "side": 1,
+      "message": "Thanks for explaining your point Nasser.\nSorry for not replying earlier, I don\u0027t believe Gerrit notified me about these comments.\nI agree that we should only consider custom releases when necessary.\n\nGenerally I have found the not updating dependencies often enough is a larger issue than the opposite, and I\u0027d consider stale dependencies a debt in itself. It\u0027s a cost that you are postponing to the future.",
+      "parentUuid": "de208b8d_0779cf85",
+      "revId": "5219b1180656ffc10207850fd5d6d35619e9fb5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
