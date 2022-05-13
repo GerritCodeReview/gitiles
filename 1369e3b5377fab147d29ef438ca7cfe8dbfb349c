@@ -22,6 +22,30 @@
       },
       "revId": "1369e3b5377fab147d29ef438ca7cfe8dbfb349c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5997b3_c45bf109",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-05-13T08:28:44Z",
+      "side": 1,
+      "message": "Zuul inter-project dependency magic. Zuul just checkout he referenced change on zuul-job project before checkout this change on gitiles project.\n\nNote, though, this was only done for testing and will be removed, once all pending Zuul changes are merged.",
+      "parentUuid": "e0032648_531f8fb3",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 11
+      },
+      "revId": "1369e3b5377fab147d29ef438ca7cfe8dbfb349c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
