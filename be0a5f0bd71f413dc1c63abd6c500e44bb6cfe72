@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58c3838f_dc32de22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1148366
+      },
+      "writtenOn": "2022-05-15T06:49:29Z",
+      "side": 1,
+      "message": " Thank you, I have been trying to update my phone to Android 11 and failed several times ",
+      "revId": "be0a5f0bd71f413dc1c63abd6c500e44bb6cfe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
