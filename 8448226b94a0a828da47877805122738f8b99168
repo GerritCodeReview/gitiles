@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0166bf23_733f7f0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-05-16T15:14:32Z",
+      "side": 1,
+      "message": "We should probably get LC+1 on the Gerrit change [1] before merging this?\n\n[1] 336947: WIP: Upgrade guava to 31.1-jre | https://gerrit-review.googlesource.com/c/gerrit/+/336947",
+      "revId": "8448226b94a0a828da47877805122738f8b99168",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
