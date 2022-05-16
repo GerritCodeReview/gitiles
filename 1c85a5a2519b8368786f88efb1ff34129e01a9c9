@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9d6b0c_dedf8352",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-05-16T15:07:09Z",
+      "side": 1,
+      "message": "I think like we touched on during the hackathon, it would be better if we could re-use Gerrit\u0027s same functionality for this (and even better if we could somehow re-use the caches too when running as a plugin).\n\nI don\u0027t know how much work that is, so maybe it\u0027s ok to do this first and then consolidate, but I fear that consolidation won\u0027t ever happen.",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "1c85a5a2519b8368786f88efb1ff34129e01a9c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
