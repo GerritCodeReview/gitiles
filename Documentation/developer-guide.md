@@ -6,9 +6,20 @@
 
 Gitiles requires [Bazel](https://bazel.build/) to build.
 
-You need to use Java for building Gitiles. You can install Bazel from
-bazel.build: https://bazel.build/versions/master/docs/install.html
+You can install Bazel from bazel.build:
+https://bazel.build/versions/master/docs/install.html
 
+You need to use Java for building Gitiles.
+
+Build rules require `python` to be Python version 3. On Debian, this can be
+addressed by `sudo apt install python-is-python3`.
+
+Make sure to initialize and update the git submodules:
+```
+git submodule update --init
+```
+
+Finally you can build `gitiles` and run all tests with:
 ```
   bazel build //:gitiles
   bazel test //...
