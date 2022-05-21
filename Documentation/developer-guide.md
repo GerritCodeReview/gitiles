@@ -21,6 +21,12 @@ The best way to build and run gitiles is to use bazelisk.
 $ go install github.com/bazelbuild/bazelisk@latest
 $ export PATH=$PATH:$(go env GOPATH)/bin
 ```
+
+Make sure to initialize and update the git submodules:
+```
+git submodule update --init
+```
+
 You are now ready to build and test.
 
 ```
