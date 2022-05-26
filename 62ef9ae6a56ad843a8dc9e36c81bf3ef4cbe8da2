@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c11c005_c9e56107",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-05-26T22:13:46Z",
+      "side": 1,
+      "message": "What was the error you saw? This was something in rules_python?\n\nIf you\u0027re trying to actually use the eclipse project generation with python3, you might need to change line 21 in `tools/eclipse/project.sh` to have a `python3` prefix so that it doesn\u0027t rely on `/usr/bin/env python`.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "62ef9ae6a56ad843a8dc9e36c81bf3ef4cbe8da2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
