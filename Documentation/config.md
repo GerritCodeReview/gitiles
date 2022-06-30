@@ -7,6 +7,15 @@ options.
 
 ## Core configuration
 
+### Site Title
+
+The title of the site. Default: `Gitiles`.
+
+```
+[gitiles]
+  siteTitle = Acme Inc. Git Browser
+```
+
 ### Fixed time zone
 
 By default dates are formatted including the local user time zone as that
