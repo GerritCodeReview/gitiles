@@ -16,6 +16,25 @@ The title of the site. Default: `Gitiles`.
   siteTitle = Acme Inc. Git Browser
 ```
 
+### URLs
+
+`canonicalHostName`.
+Default: `null`, determine the hostname from the local host.
+
+`baseGitUrl` the base URL for git repositories.
+
+`gerritUrl`, URL prefix to linkify Gerrit `Change-Id` headers in commit
+messages. If you are using the Gerrit Gitiles plugin, this is set based on
+Gerrit's configuration.
+Default: `null`, do not link `Change-Id`.
+
+```
+[gitiles]
+  canonicalHostName = gitiles.example.org
+  gerritUrl = https://gerrit.example.org/r/
+  baseGitUrl = git://git.example.org/
+```
+
 ### Fixed time zone
 
 By default date are formatted including the local user time zone as that
