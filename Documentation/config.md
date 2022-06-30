@@ -7,6 +7,22 @@ options.
 
 ## Core configuration
 
+### Fixed time zone
+
+By default date are formatted including the local user time zone as that
+matches git tools. Some users/administrators may prefer normalizing to a
+particular timezone so times are directly comparing without doing timezone
+arithmetic.
+
+Setting `fixedTimeZone` to a valid Java TimeZone ID causes all dates in the UI
+to be implicitly converted to this timezone, and the now-redundant timezone
+offset to be dropped from the output.
+
+```
+[gitiles]
+  fixedTimeZone = UTC
+```
+
 ### Cross-Origin Resource Sharing (CORS)
 
 Gitiles sets the `Access-Control-Allow-Origin` header to the
