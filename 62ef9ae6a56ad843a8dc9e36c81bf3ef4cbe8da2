@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f15f6db_cc1be07d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-06-30T16:16:35Z",
+      "side": 1,
+      "message": "_e",
+      "revId": "62ef9ae6a56ad843a8dc9e36c81bf3ef4cbe8da2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c11c005_c9e56107",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-05-26T22:13:46Z",
       "side": 1,
       "message": "What was the error you saw? This was something in rules_python?\n\nIf you\u0027re trying to actually use the eclipse project generation with python3, you might need to change line 21 in `tools/eclipse/project.sh` to have a `python3` prefix so that it doesn\u0027t rely on `/usr/bin/env python`.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "62ef9ae6a56ad843a8dc9e36c81bf3ef4cbe8da2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d66ce477_03eb35ec",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-06-30T16:16:35Z",
+      "side": 1,
+      "message": "\u003e What was the error you saw? This was something in rules_python?\n\nSorry it too me so long to come.  I have tried again without /usr/bin/python, the error comes from maven_jar:\n\n INFO: Repository servlet instantiated at:\n   /home/hashar/projects/gitiles/WORKSPACE:257:10: in \u003ctoplevel\u003e\n Repository rule maven_jar defined at:\n   /home/hashar/.cache/bazel/_bazel_hashar/b6d5a66f5eb76a8f4731a5580caf013d/external/com_googlesource_gerrit_bazlets/tools/maven_jar.bzl:163:28: in \u003ctoplevel\u003e\n ERROR: An error occurred during the fetch of repository \u0027servlet\u0027:\n    Traceback (most recent call last):\n \tFile \"/home/hashar/.cache/bazel/_bazel_hashar/b6d5a66f5eb76a8f4731a5580caf013d/external/com_googlesource_gerrit_bazlets/tools/maven_jar.bzl\", line 148, column 22, in _maven_jar_impl\n \t\tout \u003d ctx.execute(args)\n Error in execute: Argument 0 of execute is neither a path, label, nor string.\n ERROR: /home/hashar/projects/gitiles/WORKSPACE:257:10: fetching maven_jar rule //external:servlet: Traceback (most recent call last):\n\t File \"/home/hashar/.cache/bazel/_bazel_hashar/b6d5a66f5eb76a8f4731a5580caf013d/external/com_googlesource_gerrit_bazlets/tools/maven_jar.bzl\", line 148, column 22, in _maven_jar_impl\n\t\t out \u003d ctx.execute(args)\n Error in execute: Argument 0 of execute is neither a path, label, nor string.\n\n\nThat happens in _maven_jar_impl when trying to execute the download script. The python is empty at:\n\n python \u003d ctx.which(\"python\")\n \n And indeed from my shell:\n \n $ command -v python; echo $?\n 1\n $\n\nDebian Bullseye 11 still support Python 2.7 but no more provides /usr/bin/python by default. That has to be explicitly enabled by installing the \"python-is-python3 package\".\n\nMaybe Bazel has some built-in python related rule which is able to find the python3/python binary instead of resorting to which().\n\n\n\ntools/eclipse/project.sh has the same issue:\n\n $ ./tools/eclipse/project.sh \n Loading: 0 packages loaded\n Loading: 0 packages loaded\n Loading: 0 packages loaded\n /usr/bin/env: ‘python’: No such file or directory\n\nCause project.py has:\n\n #!/usr/bin/env python\n\n\nSo it sounds sane to always install python-is-python3 on Debian ;)",
+      "parentUuid": "7c11c005_c9e56107",
       "range": {
         "startLine": 14,
         "startChar": 0,
