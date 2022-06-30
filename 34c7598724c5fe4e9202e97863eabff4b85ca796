@@ -1,9 +1,12 @@
 {
   "checks": {
     "zuul-check:gitiles": {
-      "state": "NOT_STARTED",
+      "state": "SCHEDULED",
+      "message": "Change has been enqueued in check",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/340179,1",
+      "started": "2022-06-30T20:48:37Z",
       "created": "2022-06-30T20:17:08Z",
-      "updated": "2022-06-30T20:47:58Z"
+      "updated": "2022-06-30T20:48:38Z"
     }
   }
 }
