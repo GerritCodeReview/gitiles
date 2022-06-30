@@ -47,6 +47,18 @@ Default: `false`, repositories need to be explicitly marked for export.
 exportAll = true
 ```
 
+### Custom templating
+
+The web views are defined via Soy templates, you inject your own version which
+will be passed to the renderer. See `.soy` files in the source code for
+available templates
+
+```
+[gitiles]
+customTemplates = path/to/somefile.soy
+customTemplates = path/to/another.soy
+```
+
 ### Fixed time zone
 
 By default date are formatted including the local user time zone as that
