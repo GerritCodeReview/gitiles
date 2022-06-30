@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ef1cd66_bdc7ecf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-06-30T17:28:41Z",
+      "side": 1,
+      "message": "I haven\u0027t looked at this one in ages, I should complete it. I have:\n\n- added gitiles and Apache config files to emulate a reverse proxy\n- made the DevServer context path configurable via [gitiles].contextPath\n\nI should still address:\n\n\u003e The canonical path should be known to GitilesView and various callers of GitilesView.setServletPath() be adjusted to set the canonical path and the servlet path instead of hacking through the filters\n\n\n",
+      "revId": "8862d3e3ea39abcb014a29050e4f32f89d2cd9c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
