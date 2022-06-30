@@ -20,6 +20,17 @@ expression defined in `allowOriginRegex`.
 
 By default `allowOriginRegex` is unset, denying all cross-origin requests.
 
+### Gitweb redirector
+
+Redirect requests to old gitweb URLs after having migrated to Gitiles. Matching
+URLs will be redirected permanently to their Gitiles equivalent.
+Default: `true`.
+
+```
+[gitiles]
+redirectGitweb = false
+```
+
 ## Markdown
 
 ### Disabling markdown
