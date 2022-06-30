@@ -35,6 +35,18 @@ Default: `null`, do not link `Change-Id`.
   baseGitUrl = git://git.example.org/
 ```
 
+### Repositories export
+
+Set `exportAll` to instruct jGit to export all repositories, ignoring the check
+for existence of `git-daemon-export-ok` file at the root of the repository.
+
+Default: `false`, repositories need to be explicitly marked for export.
+
+```
+[gitiles]
+exportAll = true
+```
+
 ### Fixed time zone
 
 By default date are formatted including the local user time zone as that
