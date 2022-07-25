@@ -37,8 +37,6 @@ import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,7 +45,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /** Tests for {@link Linkifier}. */
-@RunWith(JUnit4.class)
 public class RefServletTest {
   private TestRepository<DfsRepository> repo;
   private GitilesServlet servlet;
