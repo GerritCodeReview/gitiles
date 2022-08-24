@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import org.eclipse.jgit.blame.BlameGenerator;
+import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Repository;
@@ -133,14 +134,23 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  public static List<Region> loadBlame(Key key, Repository repo) throws IOException {
+  public static List<Region> loadBlame(Key key, AnyObjectId blameCommit, Repository repo)
+      throws IOException {
+    if (blameCommit == null) {
+      return loadBlame(key, repo);
+    }
+
     try (BlameGenerator gen = new BlameGenerator(repo, key.path)) {
-      gen.push(null, key.commitId);
+      gen.push(null, blameCommit);
       if (gen.getResultContents() == null) {
         return ImmutableList.of();
       }
       return loadRegions(gen);
     }
+  }
+
+  public static List<Region> loadBlame(Key key, Repository repo) throws IOException {
+    return loadBlame(key, key.commitId, repo);
   }
 
   private static class PooledCommit {
@@ -192,7 +202,8 @@ public class BlameCacheImpl implements BlameCache {
       if (last != null) {
         checkState(last.getEnd() <= r.getStart());
         if (last.getEnd() < r.getStart()) {
-          result.add(new Region(null, null, null, last.getEnd(), r.getStart()));
+          result.add(
+              new Region(null, null, null, /* start= */ last.getEnd(), /* end= */ r.getStart()));
         }
       }
       result.add(r);
