@@ -16,6 +16,23 @@
       "message": "trigger build",
       "revId": "b5091edb870550967fa088fd5d4cd04b6176f60c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5ee5115_541f80b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-08-30T23:15:39Z",
+      "side": 1,
+      "message": "The Zuul build failure doesn\u0027t seem relevant to my change here.\nThe bazelisk build/test passes on my local.\n\nCan we please merge this change and I will let someone else handle Zuul problems which is orthogonal to this change.",
+      "revId": "b5091edb870550967fa088fd5d4cd04b6176f60c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
