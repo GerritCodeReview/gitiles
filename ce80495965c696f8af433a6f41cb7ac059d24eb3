@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9146cd7f_e230ef30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1081543
+      },
+      "writtenOn": "2022-08-31T17:34:47Z",
+      "side": 1,
+      "message": "As explained in another change:\n\nThe Zuul build failure doesn\u0027t seem relevant to my change here.\nThe bazelisk build/test passes on my local.\n\nCan we please merge this change and I will let someone else handle Zuul problems which is orthogonal to this change.",
+      "revId": "ce80495965c696f8af433a6f41cb7ac059d24eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
