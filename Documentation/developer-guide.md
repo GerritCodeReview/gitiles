@@ -7,11 +7,39 @@
 Gitiles requires [Bazel](https://bazel.build/) to build.
 
 You need to use Java for building Gitiles. You can install Bazel from
-bazel.build: https://bazel.build/versions/master/docs/install.html
+bazel.build: https://bazel.build/versions/master/docs/install.html .
+Alternatively, you can use apt.
 
 ```
-  bazel build //:gitiles
-  bazel test //...
+$ sudo apt-get update
+$ sudo apt-get install bazel
+```
+
+The best way to build and run gitiles is to use bazelisk.
+
+```
+$ go install github.com/bazelbuild/bazelisk@latest
+$ export PATH=$PATH:$(go env GOPATH)/bin
+```
+
+```
+$ bazelisk build //:gitiles
+$ bazelisk test //...
+```
+
+## Troubleshooting
+
+If you encounter build errors such as:
+
+```
+Error in execute: Argument 0 of execute is neither a path, label, nor string.
+```
+
+Make sure you are using python2. For internal developers, the command
+is:
+
+```
+sudo apt-get install python-is-python2
 ```
 
 
@@ -27,6 +55,14 @@ http://localhost:8080/ to view your local copy of gitiles, which
 will serve any repositories under `/path/to/repositories`.
 
 To run unit tests, refer to the aforementioned bazel test command.
+
+## Pushing your changes
+This repository does not work with repo. To push your CL to staging,
+us the following command.
+
+```
+git push origin HEAD:refs/for/master
+```
 
 
 ## Eclipse IDE
