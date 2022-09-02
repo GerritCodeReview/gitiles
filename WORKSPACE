@@ -27,6 +27,12 @@ local_repository(
     path = "modules/jgit",
 )
 
+# Java-Prettify external repository consumed from git submodule
+local_repository(
+  name = "java-prettify",
+  path = "modules/java-prettify",
+)
+
 register_toolchains("//tools:error_prone_warnings_toolchain_java11_definition")
 
 register_toolchains("//tools:error_prone_warnings_toolchain_java17_definition")
@@ -66,13 +72,6 @@ maven_jar(
     artifact = "com.google.code.findbugs:jsr305:3.0.1",
     attach_source = False,
     sha1 = "f7be08ec23c21485b9b5a1cf1654c2ec8c58168d",
-)
-
-# When upgrading prettify it should also be updated in plugins/gitiles
-maven_jar(
-    name = "prettify",
-    artifact = "com.github.twalcari:java-prettify:1.2.2",
-    sha1 = "b8ba1c1eb8b2e45cfd465d01218c6060e887572e",
 )
 
 COMMONMARK_VERSION = "0.10.0"
