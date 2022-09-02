@@ -21,13 +21,18 @@ package(
     "gson",
     "guava",
     "guava-failureaccess",
-    "prettify",
     "ow2-asm",
     "ow2-asm-analysis",
     "ow2-asm-commons",
     "ow2-asm-tree",
     "ow2-asm-util",
 ]]
+
+java_library(
+  name = "prettify",
+  visibility = ["//visibility:public"],
+  exports = ["@java-prettify"],
+)
 
 java_library(
     name = "slf4j-api",
