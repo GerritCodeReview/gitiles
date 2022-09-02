@@ -16,6 +16,24 @@
       "message": "Yay!\n\nCan this change also hook it up into the build, following the pattern of https://gerrit-review.googlesource.com/c/gitiles/+/327618?",
       "revId": "9ef86cf15aa58fbde0329cca315e12f91aec2dab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d902ac28_b598989d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1021893
+      },
+      "writtenOn": "2022-09-02T21:09:12Z",
+      "side": 1,
+      "message": "Sure, I will amend this when https://gerrit-review.googlesource.com/c/java-prettify/+/344554 does in.",
+      "parentUuid": "d299c70d_7167e933",
+      "revId": "9ef86cf15aa58fbde0329cca315e12f91aec2dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
