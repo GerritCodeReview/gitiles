@@ -16,6 +16,23 @@
       "message": "Thanks for this! Please update the WORKSPACE file to use the new commonmark version as well.",
       "revId": "21348ad414059efd0e9bdd15b25a80e0d82b91bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c71e791_297d8470",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1151062
+      },
+      "writtenOn": "2022-09-05T20:45:47Z",
+      "side": 1,
+      "message": "Bản Quyền ✓© AIphanbade ™",
+      "revId": "21348ad414059efd0e9bdd15b25a80e0d82b91bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
