@@ -16,6 +16,23 @@
       "message": "Thanks! Has this been tested locally? (If so, feel free to vote Verified+1.)",
       "revId": "d9b7621b21565034bed11c39121e3b79a9807e70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3898851f_b110cb3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1151545
+      },
+      "writtenOn": "2022-09-07T21:39:39Z",
+      "side": 1,
+      "message": "Comment removed by: Dmitrii Filippov; Reason: spam",
+      "revId": "d9b7621b21565034bed11c39121e3b79a9807e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
