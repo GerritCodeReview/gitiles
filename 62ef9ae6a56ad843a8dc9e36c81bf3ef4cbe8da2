@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71dff71d_b4bb8162",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-08T14:04:35Z",
+      "side": 1,
+      "message": "No worries it happens! I have slightly adjusted the doc since the build rules work fine with Python 3. What it requires is having \"python\" to resolve when on Debian there  is no /usr/bin/python provided. ;)",
+      "parentUuid": "d9ce387e_045a062a",
+      "revId": "62ef9ae6a56ad843a8dc9e36c81bf3ef4cbe8da2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c11c005_c9e56107",
