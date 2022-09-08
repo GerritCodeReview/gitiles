@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6361e2da_8bc01c0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-08T14:40:39Z",
+      "side": 1,
+      "message": "CI fails cause there is no /usr/bin/python available (see also https://gerrit-review.googlesource.com/c/gitiles/+/337621 ).\n\nThe Bazlets are a bit outdated and received a fix to use \"python3\" instead of \"python\": https://gerrit-review.googlesource.com/c/bazlets/+/329373\n\nThat should fix the CI build failure but I don\u0027t know what kind of side effects that might have.",
+      "revId": "1da888c125c4a140b548c08a2ef7b763fdb6d5cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
