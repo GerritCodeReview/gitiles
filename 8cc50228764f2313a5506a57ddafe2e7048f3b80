@@ -68,6 +68,29 @@
       "message": "{{Shortcut|WP:PHANWIKI}}",
       "revId": "8cc50228764f2313a5506a57ddafe2e7048f3b80",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04457e48_9854dc4b",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-08T14:05:55Z",
+      "side": 1,
+      "message": "The rule works with either python2 or python3 but it does require /usr/bin/python to be present.\n\nI have amended my old change and rebased on top of this one. https://gerrit-review.googlesource.com/c/gitiles/+/337621\n\nThanks for the doc update!",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 3
+      },
+      "revId": "8cc50228764f2313a5506a57ddafe2e7048f3b80",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
