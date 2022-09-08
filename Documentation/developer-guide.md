@@ -36,11 +36,12 @@ If you encounter build errors such as:
 Error in execute: Argument 0 of execute is neither a path, label, nor string.
 ```
 
-Make sure you are using python2. For debian users, the command
-is:
+Make sure you have `python` available in your PATH. Since Debian 11 and Ubuntu
+20.04 LTS (focal), there is no `/usr/bin/python` provided by default. You can
+install a package to provide a link to Python 3:
 
 ```
-sudo apt-get install python-is-python2
+sudo apt-get install python-is-python3
 ```
 
 Upon uploading your new CL, if you encounter a message related to a
