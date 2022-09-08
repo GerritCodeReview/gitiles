@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58158771_ab3f792a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-08T14:09:56Z",
+      "side": 1,
+      "message": "Merely instructs to run git submodule update --init before invoking bazel :]",
+      "revId": "890cc1232005b379252e74f94ee380d9513123bf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
