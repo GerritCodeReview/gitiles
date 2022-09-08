@@ -33,6 +33,23 @@
       "message": "Lovely! Thank you.",
       "revId": "daac590fc1b5dffc202efdce1f03c007fe22fcfb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a008afe_2984097f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-08T14:38:12Z",
+      "side": 1,
+      "message": "That was quick!\n\nFor the CI build failure, the bazlets repo changed from ctx.which(\"python\") to ctx.which(\"python3\"). https://gerrit-review.googlesource.com/c/gitiles/+/345039 updates it for gitiles.",
+      "revId": "daac590fc1b5dffc202efdce1f03c007fe22fcfb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
