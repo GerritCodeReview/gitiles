@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b69bec9a_a76ea893",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1139611
+      },
+      "writtenOn": "2022-09-21T09:43:00Z",
+      "side": 1,
+      "message": "message -\u003e messages",
+      "revId": "ef9895535b35fe4b1d9ae1fca1c330d9a8256034",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97db2571_d3187b03",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1139611
+      },
+      "writtenOn": "2022-09-21T09:43:00Z",
+      "side": 1,
+      "message": "Gerrit own -\u003e Gerrit\u0027s",
+      "revId": "ef9895535b35fe4b1d9ae1fca1c330d9a8256034",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
