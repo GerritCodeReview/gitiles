@@ -16,6 +16,23 @@
       "message": "Nice!",
       "revId": "c3915fbf883ea68de63ee91402856fff2a9b6bfa",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ca9d1a_b9f594bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-09-23T00:30:03Z",
+      "side": 1,
+      "message": "Zuul says `ERROR: /home/zuul/src/gerrit.googlesource.com/gitiles/WORKSPACE:31:17: fetching local_repository rule //external:java-prettify: java.io.IOException: No WORKSPACE file found in /home/zuul/.cache/bazel/_bazel_zuul/db7a9e890cc9e37da339606d432de439/external/java-prettify`.\n\nLet me see if I can reproduce that locally.",
+      "revId": "c3915fbf883ea68de63ee91402856fff2a9b6bfa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
