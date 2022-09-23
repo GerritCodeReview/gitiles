@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c05ba8_9571d792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T09:03:16Z",
+      "side": 1,
+      "message": "I think I have to resend the whole series nicely rebased on each others cause Zuul apparently doesn\u0027t like changes in the middle of the series.",
+      "revId": "54574ed34c0ca31f9015efb1fc5b5ccb0c4d6b00",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
