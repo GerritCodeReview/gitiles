@@ -22,6 +22,30 @@
       },
       "revId": "e2958222b3c63d5320bc14361364582d8660abf9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a7e5695_8c649ac4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T09:09:27Z",
+      "side": 1,
+      "message": "Oops, I mixed up the setting name and the documentation title",
+      "parentUuid": "d8d877d1_47c6897a",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "e2958222b3c63d5320bc14361364582d8660abf9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
