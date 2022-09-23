@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97943c7_8f6d1333",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:50:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b69bec9a_a76ea893",
+      "revId": "ef9895535b35fe4b1d9ae1fca1c330d9a8256034",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97db2571_d3187b03",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-21T09:43:00Z",
       "side": 1,
       "message": "Gerrit own -\u003e Gerrit\u0027s",
+      "revId": "ef9895535b35fe4b1d9ae1fca1c330d9a8256034",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c98d82ee_f5472d2c",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:50:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97db2571_d3187b03",
       "revId": "ef9895535b35fe4b1d9ae1fca1c330d9a8256034",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
