@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73730e7f_b7f15b56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "375be6e4_6cea6b67",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "df475189169bf5fb6614129cb12ae2e9b6598f3c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f055d5e_2a52fc36",
@@ -47,6 +71,47 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec6c2420_c745ca9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f055d5e_2a52fc36",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "df475189169bf5fb6614129cb12ae2e9b6598f3c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33d6e31_89d7b978",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:48:18Z",
+      "side": 1,
+      "message": "Thank you both for the typos reviews!",
+      "revId": "df475189169bf5fb6614129cb12ae2e9b6598f3c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c93ab96f_318bbc28",
@@ -64,6 +129,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "464b50d9_5493f3c5",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c93ab96f_318bbc28",
+      "revId": "df475189169bf5fb6614129cb12ae2e9b6598f3c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df3d9a9b_94440f0c",
@@ -77,6 +160,24 @@
       "writtenOn": "2022-09-21T09:42:53Z",
       "side": 1,
       "message": "comparing -\u003e comparable",
+      "revId": "df475189169bf5fb6614129cb12ae2e9b6598f3c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86f36219_6b3fd772",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-09-23T08:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df3d9a9b_94440f0c",
       "revId": "df475189169bf5fb6614129cb12ae2e9b6598f3c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
