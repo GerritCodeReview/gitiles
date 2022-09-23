@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66b85a63_14c3a3e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-09-23T00:46:00Z",
+      "side": 1,
+      "message": "Zuul failure is because https://ci.gerritcodereview.com/t/gerrit/job/gitiles-build doesn\u0027t list java-prettify in \"Required Projects\". We can add it to `required-projects` and `gerrit-project-mapping` in https://gerrit.googlesource.com/zuul/jobs/+/HEAD/zuul.d/jobs.yaml.",
+      "revId": "9c1fcdde9c5a8b445fe2dcde043fed6336ad36e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
