@@ -189,9 +189,7 @@ public class BlobSoyData {
     int slash = path.lastIndexOf('/');
     int dot = path.lastIndexOf('.');
     String ext = ((0 < dot) && (slash < dot)) ? path.substring(dot + 1) : null;
-    if ("txt".equalsIgnoreCase(ext)) {
-      return null;
-    } else if ("mk".equalsIgnoreCase(ext)) {
+    if ("mk".equalsIgnoreCase(ext)) {
       return "sh";
     } else if ("Makefile".equalsIgnoreCase(path)
         || ((0 < slash) && "Makefile".equalsIgnoreCase(path.substring(slash + 1)))) {
