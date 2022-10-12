@@ -7,6 +7,74 @@ options.
 
 ## Core configuration
 
+### Site Title
+
+The title of the site. Default: `Gitiles`.
+
+```
+[gitiles]
+  siteTitle = Acme Inc. Git Browser
+```
+
+### URLs
+
+`canonicalHostName`.
+Default: `null`, determine the hostname from the local host.
+
+`baseGitUrl` the base URL for git repositories.
+
+`gerritUrl`, URL prefix to linkify Gerrit `Change-Id` headers in commit
+messages. If you are using the Gerrit Gitiles plugin, this is set based on
+Gerrit's configuration.
+Default: `null`, do not link `Change-Id`.
+
+```
+[gitiles]
+  canonicalHostName = gitiles.example.org
+  gerritUrl = https://gerrit.example.org/r/
+  baseGitUrl = git://git.example.org/
+```
+
+### Repositories export
+
+Set `exportAll` to instruct jGit to export all repositories, ignoring the check
+for existence of `git-daemon-export-ok` file at the root of the repository.
+
+Default: `false`, repositories need to be explicitly marked for export.
+
+```
+[gitiles]
+exportAll = true
+```
+
+### Custom templating
+
+The web views are defined via Soy templates, you inject your own version which
+will be passed to the renderer. See `.soy` files in the source code for
+available templates
+
+```
+[gitiles]
+customTemplates = path/to/somefile.soy
+customTemplates = path/to/another.soy
+```
+
+### Fixed time zone
+
+By default dates are formatted including the local user time zone as that
+matches git tools. Some users/administrators may prefer normalizing to a
+particular timezone so times are directly comparable without doing timezone
+arithmetic.
+
+Setting `fixedTimeZone` to a valid Java TimeZone ID causes all dates in the UI
+to be implicitly converted to this timezone, and the now-redundant timezone
+offset to be dropped from the output.
+
+```
+[gitiles]
+  fixedTimeZone = UTC
+```
+
 ### Cross-Origin Resource Sharing (CORS)
 
 Gitiles sets the `Access-Control-Allow-Origin` header to the
