@@ -70,6 +70,24 @@
       "parentUuid": "9bde5c8c_f4d2f388",
       "revId": "4afca893a54c9ad4e025e5750e5c3a913982d483",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aa0b6cf_89a14458",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-10-12T09:23:30Z",
+      "side": 1,
+      "message": "It seems to have been some sort of mix between previous patch-sets of this change being in the git stack whereas the latest was based on master together with the topic.\nPersonally I shy away from using topic. I find that very rarely does it bring extra value but it does complicate things due to its global scope and its ties with the submit-pipeline.\n\nOn a second note, since I submitted this change you should be able to rebase the rest of the changes (if Chris hasn\u0027t CR+2:ed them) and since I\u0027m no longer author my CR+2 takes effect once more...",
+      "parentUuid": "75e45b1c_cbc6c7e2",
+      "revId": "4afca893a54c9ad4e025e5750e5c3a913982d483",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
