@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d2535eb_db04bd82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2022-10-12T08:45:01Z",
+      "side": 1,
+      "message": "Tested locally, CI is broken:\nhttps://gerrit-review.googlesource.com/c/gitiles/+/344594",
+      "revId": "da9134f714ecdbb9784dda83e1f57995a145c44e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
