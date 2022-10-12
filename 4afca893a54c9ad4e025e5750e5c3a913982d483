@@ -52,6 +52,24 @@
       "parentUuid": "07877c53_cb403922",
       "revId": "4afca893a54c9ad4e025e5750e5c3a913982d483",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75e45b1c_cbc6c7e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2022-10-12T09:12:28Z",
+      "side": 1,
+      "message": "\u003e There was something fishy going on 340180 claimed that it couldn\u0027t be submitted since 340175 wasn\u0027t submitable, but 340175 claimed that it couldn\u0027t be submitted since 340180 couldn\u0027t be submitable but last I checked the commit graph is a DAG so that cyclic dependency shouldn\u0027t be possible.\n\nI have noticed the submittability issue. It was at first telling me 340175 and 340180 were not submittable while the others were. I should have taken a screenshot and captured a few traces. Maybe there is a logic flow in the topic submission or it is a cache related problem.\n\nWe will see once CI is unbroken :]\n\nThank you for troubleshooting and trying to fix the chain!",
+      "parentUuid": "9bde5c8c_f4d2f388",
+      "revId": "4afca893a54c9ad4e025e5750e5c3a913982d483",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
