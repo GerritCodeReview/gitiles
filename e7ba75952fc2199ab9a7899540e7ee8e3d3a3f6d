@@ -16,6 +16,24 @@
       "message": "We usually try to list what new things we get from the update. Can you please add some info like that here?",
       "revId": "e7ba75952fc2199ab9a7899540e7ee8e3d3a3f6d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e9cb3f5_4b9eb367",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1021893
+      },
+      "writtenOn": "2022-10-20T04:05:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b23546f_b5083448",
+      "revId": "e7ba75952fc2199ab9a7899540e7ee8e3d3a3f6d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
