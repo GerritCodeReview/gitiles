@@ -67,8 +67,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
 
 <div class="CloneRepo">
   <div class="CloneRepo-title">Clone this repo:</div>
-  <input type="text" class="u-monospace CloneRepo-command"
-         onclick="this.focus();if(this.selectionStart==this.selectionEnd){lb}this.select(){rb}"
+  <input id="clone-repo-input" type="text" class="u-monospace CloneRepo-command"
          readonly="readonly" value="git clone {$cloneUrl}">
 </div>
 
@@ -99,6 +98,19 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
 {call common.footer}
   {param customVariant: $customVariant /}
 {/call}
+
+<script>
+  {lb}
+    let f = document.getElementById("clone-repo-input");
+    f.onclick = () => {lb}
+      f.focus();
+      if (f.selectionStart === f.selectionEnd) {lb}
+          f.select();
+      {rb}
+    {rb};
+  {rb}
+</script>
+
 {/template}
 
 /**

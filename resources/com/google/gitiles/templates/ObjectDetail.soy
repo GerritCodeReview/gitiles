@@ -270,7 +270,7 @@
           {let $n: $index + 1 /}
           <tr class="u-pre u-monospace FileContents-line">
             <td class="u-lineNum u-noSelect FileContents-lineNum"
-                data-line-number="{$n}" onclick="window.location.hash='#{$n}'"></td>
+                data-line-number="{$n}"></td>
             <td class="FileContents-lineContents" id="{$n}">
               {for $span in $line}
                 <span class="{$span.classes}">{$span.text}</span>
@@ -279,6 +279,14 @@
           </tr>
         {/for}
       </table>
+      <script>
+        for (let lineNumEl of document.querySelectorAll('td.u-lineNum')) {lb}
+          lineNumEl.onclick = () => {lb}
+            window.location.hash =
+                `#${lb}lineNumEl.getAttribute('data-line-number'){rb}`;
+          {rb};
+        {rb}
+      </script>
     {else}
       <div class="FileContents-empty">Empty file</div>
     {/if}
