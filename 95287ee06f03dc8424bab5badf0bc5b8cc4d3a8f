@@ -16,6 +16,24 @@
       "message": "This seems unrelated?",
       "revId": "95287ee06f03dc8424bab5badf0bc5b8cc4d3a8f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc305418_f87acf05",
+        "filename": "resources/com/google/gitiles/templates/ObjectDetail.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1148215
+      },
+      "writtenOn": "2022-11-16T09:20:53Z",
+      "side": 1,
+      "message": "Forgot to remove corresponding `onclick` attribute. Fixed",
+      "parentUuid": "b8ccf108_2fb56f05",
+      "revId": "95287ee06f03dc8424bab5badf0bc5b8cc4d3a8f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
