@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eedaa760_c5dc359f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1154411
+      },
+      "writtenOn": "2022-11-28T11:42:13Z",
+      "side": 1,
+      "message": "‪Ballasari Mb‬ \u003cballasarimb@gmail.com\u003e",
+      "revId": "da33290427d4c70e4285c9a6570e09aefbd0699b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
