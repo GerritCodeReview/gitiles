@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e851f2_88570ffc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-12-02T21:23:39Z",
+      "side": 1,
+      "message": "Would you be willing to upload a change to bump Gerrit to this version too? It\u0027s in the `tools/deps.bzl` file.",
+      "revId": "aa1ee99d18af4912c8a2e84e73ede3eca4133e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d789c34_ff0f1eb8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2022-12-02T21:23:39Z",
+      "side": 1,
+      "message": "Anything notable for gitiles?",
+      "revId": "aa1ee99d18af4912c8a2e84e73ede3eca4133e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
