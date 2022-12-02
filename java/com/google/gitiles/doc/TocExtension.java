@@ -56,7 +56,7 @@ public class TocExtension implements ParserExtension {
     @Override
     public BlockStart tryStart(ParserState state, MatchedBlockParser matched) {
       if (state.getIndent() == 0) {
-        CharSequence line = state.getLine();
+        CharSequence line = state.getLine().getContent();
         int s = state.getNextNonSpaceIndex();
         if ("[TOC]".contentEquals(line.subSequence(s, line.length()))) {
           return BlockStart.of(new TocParser()).atIndex(line.length());

@@ -49,6 +49,7 @@ import org.commonmark.node.HtmlInline;
 import org.commonmark.node.Image;
 import org.commonmark.node.IndentedCodeBlock;
 import org.commonmark.node.Link;
+import org.commonmark.node.LinkReferenceDefinition;
 import org.commonmark.node.ListBlock;
 import org.commonmark.node.ListItem;
 import org.commonmark.node.Node;
@@ -389,6 +390,11 @@ public class MarkdownToHtml implements Visitor {
         .attribute("title", node.getTitle());
     visitChildren(node);
     html.close("a");
+  }
+
+  @Override
+  public void visit(LinkReferenceDefinition node) {
+    // Ignored in rendered output
   }
 
   @VisibleForTesting

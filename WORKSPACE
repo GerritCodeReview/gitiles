@@ -74,37 +74,37 @@ maven_jar(
     sha1 = "f7be08ec23c21485b9b5a1cf1654c2ec8c58168d",
 )
 
-COMMONMARK_VERSION = "0.10.0"
+COMMONMARK_VERSION = "0.21.0"
 
 # When upgrading commonmark it should also be updated in plugins/gitiles
 maven_jar(
     name = "commonmark",
-    artifact = "com.atlassian.commonmark:commonmark:" + COMMONMARK_VERSION,
-    sha1 = "119cb7bedc3570d9ecb64ec69ab7686b5c20559b",
+    artifact = "org.commonmark:commonmark:" + COMMONMARK_VERSION,
+    sha1 = "c98f0473b17c87fe4fa2fc62a7c6523a2fe018f0",
 )
 
 maven_jar(
     name = "cm-autolink",
-    artifact = "com.atlassian.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
-    sha1 = "a6056a5efbd68f57d420bc51bbc54b28a5d3c56b",
+    artifact = "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
+    sha1 = "55c0312cf443fa3d5af0daeeeca00d6deee3cf90",
 )
 
 maven_jar(
     name = "autolink",
-    artifact = "org.nibor.autolink:autolink:0.7.0",
-    sha1 = "649f9f13422cf50c926febe6035662ae25dc89b2",
+    artifact = "org.nibor.autolink:autolink:0.10.0",
+    sha1 = "6579ea7079be461e5ffa99f33222a632711cc671",
 )
 
 maven_jar(
     name = "gfm-strikethrough",
-    artifact = "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
-    sha1 = "40837da951b421b545edddac57012e15fcc9e63c",
+    artifact = "org.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
+    sha1 = "953f4b71e133a98fcca93f3c3f4e58b895b76d1f",
 )
 
 maven_jar(
     name = "gfm-tables",
-    artifact = "com.atlassian.commonmark:commonmark-ext-gfm-tables:" + COMMONMARK_VERSION,
-    sha1 = "c075db2a3301100cf70c7dced8ecf86b494458a2",
+    artifact = "org.commonmark:commonmark-ext-gfm-tables:" + COMMONMARK_VERSION,
+    sha1 = "fb7d65fa89a4cfcd2f51535d2549b570cf1dbd1a",
 )
 
 maven_jar(

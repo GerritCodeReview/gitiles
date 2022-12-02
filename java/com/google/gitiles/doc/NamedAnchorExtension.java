@@ -56,12 +56,9 @@ public class NamedAnchorExtension implements ParserExtension {
     }
 
     @Override
-    public int getDelimiterUse(DelimiterRun opener, DelimiterRun closer) {
-      return 1;
-    }
-
-    @Override
-    public void process(Text opener, Text closer, int delimiterUse) {
+    public int process(DelimiterRun openingRun, DelimiterRun closingRun) {
+      Text opener = openingRun.getOpener();
+      Text closer = closingRun.getCloser();
       Node content = opener.getNext();
       if (content instanceof Text && content.getNext() == closer) {
         Matcher m = ID.matcher(((Text) content).getLiteral());
@@ -72,13 +69,14 @@ public class NamedAnchorExtension implements ParserExtension {
           anchor.setName(m.group(1));
           opener.insertAfter(anchor);
           MarkdownUtil.trimPreviousWhitespace(opener);
-          return;
+          return 1;
         }
       }
 
       // If its not exactly one well formed Text node; restore the delimiter text.
       opener.insertAfter(new Text("{"));
       closer.insertBefore(new Text("}"));
+      return 1;
     }
   }
 }
