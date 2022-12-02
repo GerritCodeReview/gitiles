@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef633077_1c7a2e85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2022-12-02T23:19:22Z",
+      "side": 1,
+      "message": "Sure. It seems gerrit uses releases of gitiles instead of master. I\u0027ll find somebody to push a new release of gitiles (I don\u0027t have permissions).",
+      "parentUuid": "70e851f2_88570ffc",
+      "revId": "aa1ee99d18af4912c8a2e84e73ede3eca4133e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d789c34_ff0f1eb8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2022-12-02T21:23:39Z",
       "side": 1,
       "message": "Anything notable for gitiles?",
+      "revId": "aa1ee99d18af4912c8a2e84e73ede3eca4133e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47596c9d_e8d4a2bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2022-12-02T23:19:22Z",
+      "side": 1,
+      "message": "Updated the commit message with more specific improvements.",
+      "parentUuid": "6d789c34_ff0f1eb8",
       "revId": "aa1ee99d18af4912c8a2e84e73ede3eca4133e68",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
