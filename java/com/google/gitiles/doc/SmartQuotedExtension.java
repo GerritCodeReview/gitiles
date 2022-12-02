@@ -77,13 +77,9 @@ public class SmartQuotedExtension implements ParserExtension {
     }
 
     @Override
-    public int getDelimiterUse(DelimiterRun opener, DelimiterRun closer) {
+    public int process(DelimiterRun openingRun, DelimiterRun closingRun) {
+      quote(type, openingRun.getOpener(), closingRun.getCloser());
       return 1;
-    }
-
-    @Override
-    public void process(Text opener, Text closer, int delimiterUse) {
-      quote(type, opener, closer);
     }
   }
 }

@@ -86,7 +86,7 @@ public class MultiColumnExtension implements ParserExtension {
       }
       if (state.getIndent() == 0) {
         int s = state.getNextNonSpaceIndex();
-        CharSequence line = state.getLine();
+        CharSequence line = state.getLine().getContent();
         if (MARKER.contentEquals(line.subSequence(s, line.length()))) {
           done = true;
           return BlockContinue.atIndex(line.length());
@@ -157,7 +157,7 @@ public class MultiColumnExtension implements ParserExtension {
       }
 
       int s = state.getNextNonSpaceIndex();
-      CharSequence line = state.getLine();
+      CharSequence line = state.getLine().getContent();
       CharSequence text = line.subSequence(s, line.length());
       if (text.length() < MARKER.length()
           || !MARKER.contentEquals(text.subSequence(0, MARKER.length()))) {
