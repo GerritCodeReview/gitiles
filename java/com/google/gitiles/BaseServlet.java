@@ -228,7 +228,7 @@ public abstract class BaseServlet extends HttpServlet {
       throws IOException {
     req.setAttribute(STREAMING_ATTRIBUTE, true);
     return renderer.renderHtmlStreaming(
-        res, false, templateName, startHtmlResponse(req, res, soyData));
+        req, res, false, templateName, startHtmlResponse(req, res, soyData));
   }
 
   /**
@@ -261,7 +261,7 @@ public abstract class BaseServlet extends HttpServlet {
       gzip = true;
     }
     return renderer.renderHtmlStreaming(
-        res, gzip, templateName, startHtmlResponse(req, res, soyData));
+        req, res, gzip, templateName, startHtmlResponse(req, res, soyData));
   }
 
   private Map<String, ?> startHtmlResponse(
