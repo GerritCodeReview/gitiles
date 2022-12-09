@@ -227,7 +227,7 @@ public abstract class BaseServlet extends HttpServlet {
       HttpServletRequest req, HttpServletResponse res, String templateName, Map<String, ?> soyData)
       throws IOException {
     req.setAttribute(STREAMING_ATTRIBUTE, true);
-    return renderer.renderHtmlStreaming(
+    return renderer.renderHtmlStreaming(req,
         res, false, templateName, startHtmlResponse(req, res, soyData));
   }
 
@@ -260,7 +260,7 @@ public abstract class BaseServlet extends HttpServlet {
       res.setHeader(HttpHeaders.CONTENT_ENCODING, "gzip");
       gzip = true;
     }
-    return renderer.renderHtmlStreaming(
+    return renderer.renderHtmlStreaming(req,
         res, gzip, templateName, startHtmlResponse(req, res, soyData));
   }
 

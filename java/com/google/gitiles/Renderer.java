@@ -37,6 +37,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
@@ -148,17 +149,18 @@ public abstract class Renderer {
     return h.hash();
   }
 
-  public String renderHtml(String templateName, Map<String, ?> soyData) {
-    return newRenderer(templateName).setData(soyData).renderHtml().get().toString();
-  }
-
   void renderHtml(
       HttpServletRequest req, HttpServletResponse res, String templateName, Map<String, ?> soyData)
       throws IOException {
     res.setContentType("text/html");
     res.setCharacterEncoding("UTF-8");
     byte[] data =
-        newRenderer(templateName).setData(soyData).renderHtml().get().toString().getBytes(UTF_8);
+        newRenderer(templateName, Optional.of(req))
+            .setData(soyData)
+            .renderHtml()
+            .get()
+            .toString()
+            .getBytes(UTF_8);
     if (BaseServlet.acceptsGzipEncoding(req)) {
       res.addHeader(HttpHeaders.VARY, HttpHeaders.ACCEPT_ENCODING);
       res.setHeader(HttpHeaders.CONTENT_ENCODING, "gzip");
@@ -169,14 +171,16 @@ public abstract class Renderer {
   }
 
   OutputStream renderHtmlStreaming(
+      HttpServletRequest req,
       HttpServletResponse res, String templateName, Map<String, ?> soyData) throws IOException {
-    return renderHtmlStreaming(res, false, templateName, soyData);
+    return renderHtmlStreaming(req, res, false, templateName, soyData);
   }
 
   OutputStream renderHtmlStreaming(
+      HttpServletRequest req,
       HttpServletResponse res, boolean gzip, String templateName, Map<String, ?> soyData)
       throws IOException {
-    String html = newRenderer(templateName).setData(soyData).renderHtml().get().toString();
+    String html = newRenderer(templateName, Optional.of(req)).setData(soyData).renderHtml().get().toString();
     int id = html.indexOf(PLACEHOLDER);
     checkArgument(id >= 0, "Template must contain %s", PLACEHOLDER);
 
@@ -214,15 +218,26 @@ public abstract class Renderer {
   }
 
   SoySauce.Renderer newRenderer(String templateName) {
+    return newRenderer(templateName, Optional.empty());
+  }
+
+  SoySauce.Renderer newRenderer(String templateName, Optional<HttpServletRequest> req) {
     ImmutableMap.Builder<String, Object> staticUrls = ImmutableMap.builder();
     for (String key : STATIC_URL_GLOBALS.keySet()) {
       staticUrls.put(
           key.replaceFirst("^gitiles\\.", ""),
           LegacyConversions.riskilyAssumeTrustedResourceUrl(globals.get(key)));
     }
+    ImmutableMap.Builder<String, Object> ij = ImmutableMap.<String, Object>builder()
+        .put("staticUrls", staticUrls.build())
+        .put("SITE_TITLE", siteTitle);
+    Optional<String> nonce = req.map((r) -> (String) r.getAttribute("nonce"));
+    if (nonce.isPresent() && nonce.get() != null) {
+      ij.put("csp_nonce", nonce);
+    }
     return getSauce()
         .renderTemplate(templateName)
-        .setIj(ImmutableMap.of("staticUrls", staticUrls.build(), "SITE_TITLE", siteTitle));
+        .setIj(ij.build());
   }
 
   protected abstract SoySauce getSauce();
