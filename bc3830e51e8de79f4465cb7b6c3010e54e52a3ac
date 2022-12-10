@@ -16,6 +16,23 @@
       "message": "khắc phục ",
       "revId": "bc3830e51e8de79f4465cb7b6c3010e54e52a3ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59c5eba8_7ad8c017",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1091816
+      },
+      "writtenOn": "2022-12-10T16:19:04Z",
+      "side": 1,
+      "message": "Adamlaska.ivanov@gmail.com",
+      "revId": "bc3830e51e8de79f4465cb7b6c3010e54e52a3ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
