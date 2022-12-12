@@ -70,6 +70,30 @@
       },
       "revId": "b07bdd9003b7a549fda5c913773d93861a4f545e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dbd5600_01c91ef3",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2022-12-12T10:40:16Z",
+      "side": 0,
+      "message": "Ack.",
+      "parentUuid": "d3de3417_76bde165",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 3
+      },
+      "revId": "b07bdd9003b7a549fda5c913773d93861a4f545e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
