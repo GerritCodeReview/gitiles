@@ -238,7 +238,7 @@ public abstract class Renderer {
             .put("SITE_TITLE", siteTitle);
     Optional<String> nonce = req.map((r) -> (String) r.getAttribute("nonce"));
     if (nonce.isPresent() && nonce.get() != null) {
-      ij.put("csp_nonce", nonce);
+      ij.put("csp_nonce", nonce.get());
     }
     return getSauce().renderTemplate(templateName).setIj(ij.build());
   }
