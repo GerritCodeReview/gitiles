@@ -22,6 +22,30 @@
       },
       "revId": "b07bdd9003b7a549fda5c913773d93861a4f545e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37bde98d_66c424bf",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2022-12-12T07:39:33Z",
+      "side": 0,
+      "message": "Should removing this unused method be a change on its own (e.g. a predecessor change)?",
+      "parentUuid": "1a31f057_3fe8b157",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 3
+      },
+      "revId": "b07bdd9003b7a549fda5c913773d93861a4f545e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
