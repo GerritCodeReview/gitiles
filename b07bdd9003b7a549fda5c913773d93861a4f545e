@@ -46,6 +46,30 @@
       },
       "revId": "b07bdd9003b7a549fda5c913773d93861a4f545e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3de3417_76bde165",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1148215
+      },
+      "writtenOn": "2022-12-12T10:38:38Z",
+      "side": 0,
+      "message": "This seems like a super small \"cleanup\" kind of change, that doesn\u0027t really deserve it\u0027s own change. (Especially since part of the motivation for removing it is in this change).\n\nI can also keep the method. Though I don\u0027t like having unused convenience methods around (just adds a maintenance burden imo)",
+      "parentUuid": "37bde98d_66c424bf",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 3
+      },
+      "revId": "b07bdd9003b7a549fda5c913773d93861a4f545e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

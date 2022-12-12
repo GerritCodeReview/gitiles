@@ -16,6 +16,24 @@
       "message": "Can you please provide a few more details what this change is about and why it\u0027s needed? E.g. what is CSP, what is the nonce attribute about, when do you have a filter for this and why it\u0027s useful to have it?",
       "revId": "7ed03efb9596ce7701a1452321014b8509583604",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1173b65b_16c0a494",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1148215
+      },
+      "writtenOn": "2022-12-12T10:38:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c527659_8efb55ed",
+      "revId": "7ed03efb9596ce7701a1452321014b8509583604",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
