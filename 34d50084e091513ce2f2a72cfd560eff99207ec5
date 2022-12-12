@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c2ae84c_75b896f4",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2022-12-12T23:33:36Z",
+      "side": 1,
+      "message": "Should this say `ij.put(\"csp_nonce\", nonce.get());`?",
+      "revId": "34d50084e091513ce2f2a72cfd560eff99207ec5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
