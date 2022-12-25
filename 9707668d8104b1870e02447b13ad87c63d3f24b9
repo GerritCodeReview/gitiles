@@ -67,6 +67,23 @@
       "message": "gracias por su atención",
       "revId": "9707668d8104b1870e02447b13ad87c63d3f24b9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0396f035_ed523ae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155291
+      },
+      "writtenOn": "2022-12-25T18:16:44Z",
+      "side": 1,
+      "message": "Chartee Rodgawe",
+      "revId": "9707668d8104b1870e02447b13ad87c63d3f24b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
