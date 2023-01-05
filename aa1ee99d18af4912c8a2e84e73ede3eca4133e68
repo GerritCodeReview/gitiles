@@ -54,6 +54,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8837468f_f8ffb2c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2023-01-05T19:33:26Z",
+      "side": 1,
+      "message": "I\u0027ll mark this as resolved, so I can merge this change. If gerrit uses a released version gitiles, it shouldn\u0027t cause trouble.",
+      "parentUuid": "f04f5e2e_32abe5fe",
+      "revId": "aa1ee99d18af4912c8a2e84e73ede3eca4133e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d789c34_ff0f1eb8",
