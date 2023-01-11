@@ -20,7 +20,9 @@ import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import com.google.common.io.BaseEncoding;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
@@ -57,6 +59,10 @@ public class BlobSoyData {
    */
   private static final int MAX_LINE_COUNT = 50000;
 
+  /** Allowed image extensions to render */
+  private static final ImmutableSet<String> ALLOWED_IMAGE_TYPES =
+      ImmutableSet.of("image/gif", "image/jpeg", "image/png", "image/jpg");
+
   private final GitilesView view;
   private final ObjectReader reader;
 
@@ -76,8 +82,14 @@ public class BlobSoyData {
 
     ObjectLoader loader = reader.open(blobId, Constants.OBJ_BLOB);
     String content;
+    String imageBlob = null;
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
+
+      String type = MimeTypes.getMimeType(path);
+      if (ALLOWED_IMAGE_TYPES.contains(type)) {
+        imageBlob = "data:" + type + ";base64," + BaseEncoding.base64().encode(raw);
+      }
       content =
           (raw.length < MAX_FILE_SIZE && !RawText.isBinary(raw)) ? RawParseUtils.decode(raw) : null;
       if (isContentTooLargeForDisplay(content)) {
@@ -102,6 +114,7 @@ public class BlobSoyData {
       data.put("fileUrl", GitilesView.path().copyFrom(view).toUrl());
       data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
+      data.put("imgBlob", imageBlob);
     }
     return data;
   }
