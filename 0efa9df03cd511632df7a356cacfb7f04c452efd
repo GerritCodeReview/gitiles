@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e4ecae1_6e8d6236",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-01-11T12:09:48Z",
+      "side": 1,
+      "message": "maybe we should add image/tiff and image/webp",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "756680c5_1439a926",
         "filename": "java/com/google/gitiles/BlobSoyData.java",
         "patchSetId": 1
@@ -31,6 +48,23 @@
       "writtenOn": "2023-01-11T12:04:10Z",
       "side": 1,
       "message": "It is better to not initialize local variable and let the compiler produce an error if the variable value is not set in some code paths. Having an \"else\" branch at the line 92 and setting this variable to null there is a better approach IMHO.",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1969d4f6_e4c242cc",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-01-11T12:09:48Z",
+      "side": 1,
+      "message": "Use ImageLoader to load image and encode it ?\nThis also limits the size of the image data.\n\nsee https://gerrit-review.googlesource.com/c/gitiles/+/64611",
       "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
