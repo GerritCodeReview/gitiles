@@ -257,6 +257,7 @@
 {template blobDetail}
   {@param sha: ?}  /** SHA of this file's blob. */
   {@param? logUrl: ?}  /** optional URL to a log for this file. */
+  {@param? imgBlob: ?}  /** optional image blob to render. */
   {@param? blameUrl: ?}  /** optional URL to a blame for this file. */
   {@param lines: ?}  /** lines (may be empty), or null for a binary file. Each line is a list of
       entries with "classes" and "text" fields for pretty-printed spans. */
@@ -292,7 +293,11 @@
     {/if}
   {else}
     <div class="FileContents-binary">
-      {msg desc="size of binary file in bytes"}{$size}-byte binary file{/msg}
+      {if $imgBlob}
+        <img src="{$imgBlob}"/>
+      {else}
+        {msg desc="size of binary file in bytes"}{$size}-byte binary file{/msg}
+      {/if}
     </div>
   {/if}
 {/template}
