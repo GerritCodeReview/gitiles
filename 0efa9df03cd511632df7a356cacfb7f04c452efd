@@ -141,6 +141,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e30a6d73_f656d9ec",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-01-12T14:14:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "46a1c276_cfe96921",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4309220_79d2cae1",
