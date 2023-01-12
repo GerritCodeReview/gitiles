@@ -35,6 +35,42 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8910f67a_660608a0",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-01-12T14:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "344de6bb_88105ae2",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b8fcb2_c1efb237",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-01-12T14:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e4ecae1_6e8d6236",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "756680c5_1439a926",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-01-11T12:04:10Z",
       "side": 1,
       "message": "It is better to not initialize local variable and let the compiler produce an error if the variable value is not set in some code paths. Having an \"else\" branch at the line 92 and setting this variable to null there is a better approach IMHO.",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6bc8019_135365ed",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-01-12T14:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "756680c5_1439a926",
       "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46a1c276_cfe96921",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-01-12T14:02:49Z",
+      "side": 1,
+      "message": "I did take a look at ImageLoader, but it is not very decoupled from markdown - it requires a MarkdownConfig and RevTree.\nCurrent implementation limits the size of image data with MAX_FILE_SIZE now, the same as any other content.",
+      "parentUuid": "1969d4f6_e4c242cc",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4309220_79d2cae1",
         "filename": "java/com/google/gitiles/BlobSoyData.java",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2023-01-11T12:04:10Z",
       "side": 1,
       "message": "Shall this be set when imageBlob is null?",
+      "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bc43409_bf82ecf0",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-01-12T14:02:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4309220_79d2cae1",
       "revId": "0efa9df03cd511632df7a356cacfb7f04c452efd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
