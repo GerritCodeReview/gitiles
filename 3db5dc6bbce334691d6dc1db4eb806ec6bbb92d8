@@ -153,6 +153,23 @@
       "message": "hxbdhh473",
       "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e93281_410a934c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155890
+      },
+      "writtenOn": "2023-01-17T01:28:51Z",
+      "side": 1,
+      "message": "265079: Bump version to 0.4 | https://gerrit-review.googlesource.com/c/gitiles/+/265079",
+      "revId": "3db5dc6bbce334691d6dc1db4eb806ec6bbb92d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
