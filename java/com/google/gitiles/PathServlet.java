@@ -178,6 +178,8 @@ public class PathServlet extends BaseServlet {
           writeTreeText(req, res, wr);
           break;
         case GITLINK:
+          writeCommitText(req, res, wr);
+          break;
         default:
           throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
       }
@@ -226,6 +228,16 @@ public class PathServlet extends BaseServlet {
     }
   }
 
+  private void writeCommitText(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
+      throws IOException {
+    setTypeHeader(res, wr.type.mode.getObjectType());
+    setModeHeader(res, wr.type);
+    try (Writer writer = startRenderText(req, res);
+        OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+      wr.tw.getObjectId(0).copyTo(out);
+    }
+  }
+
   @Override
   protected void doGetJson(HttpServletRequest req, HttpServletResponse res) throws IOException {
     GitilesView view = ViewFilter.getView(req);
@@ -263,8 +275,18 @@ public class PathServlet extends BaseServlet {
               TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
               TreeJsonData.Tree.class);
           break;
-        case EXECUTABLE_FILE:
         case GITLINK:
+          renderJson(
+              req,
+              res,
+              GitlinkJsonData.toJsonData(
+                  view.getRepositoryName(),
+                  getGitlinkRemoteUrl(req, wr),
+                  wr.tw.getObjectId(0).name(),
+                  wr.path),
+              GitlinkJsonData.Gitlink.class);
+          break;
+        case EXECUTABLE_FILE:
         case SYMLINK:
         default:
           throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
@@ -589,6 +611,29 @@ public class PathServlet extends BaseServlet {
 
   private void showGitlink(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
+    String remoteUrl = getGitlinkRemoteUrl(req, wr);
+    Map<String, Object> data = Maps.newHashMap();
+    data.put("sha", ObjectId.toString(wr.id));
+    data.put("remoteUrl", remoteUrl);
+
+    // TODO(dborowitz): Guess when we can put commit SHAs in the URL.
+    String httpUrl = resolveHttpUrl(remoteUrl);
+    if (httpUrl != null) {
+      data.put("httpUrl", httpUrl);
+    }
+
+    // TODO(sop): Allow caching links by SHA-1 when no S cookie is sent.
+    renderHtml(
+        req,
+        res,
+        PATH_DETAIL,
+        ImmutableMap.of(
+            "title", ViewFilter.getView(req).getPathPart(),
+            "type", FileType.GITLINK.toString(),
+            "data", data));
+  }
+
+  private String getGitlinkRemoteUrl(HttpServletRequest req, WalkResult wr) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     String modulesUrl;
     String remoteUrl = null;
@@ -607,26 +652,7 @@ public class PathServlet extends BaseServlet {
     } catch (ConfigInvalidException e) {
       throw new IOException(e);
     }
-
-    Map<String, Object> data = Maps.newHashMap();
-    data.put("sha", ObjectId.toString(wr.id));
-    data.put("remoteUrl", remoteUrl != null ? remoteUrl : modulesUrl);
-
-    // TODO(dborowitz): Guess when we can put commit SHAs in the URL.
-    String httpUrl = resolveHttpUrl(remoteUrl);
-    if (httpUrl != null) {
-      data.put("httpUrl", httpUrl);
-    }
-
-    // TODO(sop): Allow caching links by SHA-1 when no S cookie is sent.
-    renderHtml(
-        req,
-        res,
-        PATH_DETAIL,
-        ImmutableMap.of(
-            "title", view.getPathPart(),
-            "type", FileType.GITLINK.toString(),
-            "data", data));
+    return remoteUrl != null ? remoteUrl : modulesUrl;
   }
 
   private static String resolveHttpUrl(String remoteUrl) {
