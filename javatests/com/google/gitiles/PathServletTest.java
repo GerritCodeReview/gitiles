@@ -21,6 +21,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
 import com.google.common.io.BaseEncoding;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.FileJsonData.File;
+import com.google.gitiles.GitlinkJsonData.Gitlink;
 import com.google.gitiles.TreeJsonData.Tree;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
@@ -248,7 +249,7 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
-  public void nonBlobText() throws Exception {
+  public void commitText() throws Exception {
     String gitmodules =
         "[submodule \"gitiles\"]\n"
             + "  path = gitiles\n"
@@ -268,8 +269,12 @@ public class PathServletTest extends ServletTest {
             })
         .create();
 
+    assertThat(buildBlob("/repo/+/master/gitiles", "160000")).isEqualTo(gitilesSha);
+  }
+
+  @Test
+  public void notFoundText() throws Exception {
     assertNotFound("/repo/+/master/nonexistent", "format=text");
-    assertNotFound("/repo/+/master/gitiles", "format=text");
   }
 
   @Test
@@ -380,6 +385,34 @@ public class PathServletTest extends ServletTest {
     assertThat(tree.entries.get(0).type).isEqualTo("blob");
     assertThat(tree.entries.get(0).id).isEqualTo(repo.get(c.getTree(), "foo/bar").name());
     assertThat(tree.entries.get(0).name).isEqualTo("bar");
+  }
+
+  @Test
+  public void commitJson() throws Exception {
+    String gitmodules =
+        "[submodule \"gitiles\"]\n"
+            + "  path = gitiles\n"
+            + "  url = https://gerrit.googlesource.com/gitiles\n";
+    final String gitilesSha = "2b2f34bba3c2be7e2506ce6b1f040949da350cf9";
+    repo.branch("master")
+        .commit()
+        .add("foo/bar", "contents")
+        .add(".gitmodules", gitmodules)
+        .edit(
+            new PathEdit("gitiles") {
+              @Override
+              public void apply(DirCacheEntry ent) {
+                ent.setFileMode(FileMode.GITLINK);
+                ent.setObjectId(ObjectId.fromString(gitilesSha));
+              }
+            })
+        .create();
+
+    Gitlink commit = buildJson(Gitlink.class, "/repo/+/master/gitiles");
+    assertThat(commit.repo).isEqualTo("repo");
+    assertThat(commit.url).isEqualTo("https://gerrit.googlesource.com/gitiles");
+    assertThat(commit.revision).isEqualTo(gitilesSha);
+    assertThat(commit.path).isEqualTo("gitiles");
   }
 
   @Test
