@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83beb29f_ac423498",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1088583
+      },
+      "writtenOn": "2023-01-21T02:22:53Z",
+      "side": 1,
+      "message": "added detail",
+      "parentUuid": "ff1e0718_7286581d",
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dd81c54_70b665e5",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-21T01:28:22Z",
       "side": 1,
       "message": "This should say `Google-Bug-Id` instead of `Bug` (that helps with automation and means non-Googlers know not to expect anything there).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9212efe6_664edc22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1088583
+      },
+      "writtenOn": "2023-01-21T02:22:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dd81c54_70b665e5",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c1f065b_00749e52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1088583
+      },
+      "writtenOn": "2023-01-21T02:22:53Z",
+      "side": 1,
+      "message": "np, I appreciate the proactive code review :)",
+      "parentUuid": "3009c270_bbaf33e6",
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e7d51ae_7339d5c1",
@@ -81,6 +141,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "456d71e9_c33130cf",
+        "filename": "java/com/google/gitiles/GitlinkJsonData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1088583
+      },
+      "writtenOn": "2023-01-21T02:22:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e7d51ae_7339d5c1",
+      "range": {
+        "startLine": 1,
+        "startChar": 29,
+        "endLine": 1,
+        "endChar": 32
+      },
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd724dd9_be6b9010",
@@ -94,6 +178,24 @@
       "writtenOn": "2023-01-21T01:28:22Z",
       "side": 1,
       "message": "Since this isn\u0027t public API, the requirements are not as stringent, but it would be nice for this to have a brief javadoc about what it\u0027s intended to be used for.\n\nNot about this change: this kind of class would probably be simpler using @AutoValue. Gitiles doesn\u0027t use that today, so that would take us too far afield from what this change does.",
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a78dd9_5fe3fa94",
+        "filename": "java/com/google/gitiles/GitlinkJsonData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1088583
+      },
+      "writtenOn": "2023-01-21T02:22:53Z",
+      "side": 1,
+      "message": "Added a brief comment (and @AutoValue seems neat)",
+      "parentUuid": "bd724dd9_be6b9010",
       "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
