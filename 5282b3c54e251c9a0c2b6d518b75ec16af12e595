@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff1e0718_7286581d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2023-01-21T01:28:22Z",
+      "side": 1,
+      "message": "Can the commit message say a little more? E.g. a pointer to Skia autoroller as an example of why this is useful.",
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd81c54_70b665e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2023-01-21T01:28:22Z",
+      "side": 1,
+      "message": "This should say `Google-Bug-Id` instead of `Bug` (that helps with automation and means non-Googlers know not to expect anything there).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3009c270_bbaf33e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2023-01-21T01:28:22Z",
+      "side": 1,
+      "message": "A few nits, but otherwise looks good. Thanks for implementing this!",
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e7d51ae_7339d5c1",
+        "filename": "java/com/google/gitiles/GitlinkJsonData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2023-01-21T01:28:22Z",
+      "side": 1,
+      "message": "LLC",
+      "range": {
+        "startLine": 1,
+        "startChar": 29,
+        "endLine": 1,
+        "endChar": 32
+      },
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd724dd9_be6b9010",
+        "filename": "java/com/google/gitiles/GitlinkJsonData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2023-01-21T01:28:22Z",
+      "side": 1,
+      "message": "Since this isn\u0027t public API, the requirements are not as stringent, but it would be nice for this to have a brief javadoc about what it\u0027s intended to be used for.\n\nNot about this change: this kind of class would probably be simpler using @AutoValue. Gitiles doesn\u0027t use that today, so that would take us too far afield from what this change does.",
+      "revId": "5282b3c54e251c9a0c2b6d518b75ec16af12e595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
