@@ -183,7 +183,7 @@ Then, run:
 ```
 
 Tag the release with a signed, annotated tag matching the version number, for
-example "v0.4-1".
+example "v1.1.0".
 
 Once released, Maven projects can consume the new version as long as they point
 at the proper repository URL. Similarly, Bazel projects using the `maven_jar`
