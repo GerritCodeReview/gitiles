@@ -34,6 +34,24 @@
       "parentUuid": "bb660ac5_5146f155",
       "revId": "f4cbf4b8940003ff875109c23e0662cd4e8155a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "803638b0_529bdfd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1088583
+      },
+      "writtenOn": "2023-01-31T18:30:30Z",
+      "side": 1,
+      "message": "chatted with ronald, merging and trying to deploy",
+      "parentUuid": "50d851db_85740e48",
+      "revId": "f4cbf4b8940003ff875109c23e0662cd4e8155a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
