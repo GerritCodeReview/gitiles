@@ -50,6 +50,23 @@
       "message": "that is so very nice fir me that is excellent",
       "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01e3fd9_4f84cc61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1156441
+      },
+      "writtenOn": "2023-02-02T08:37:11Z",
+      "side": 1,
+      "message": "привет сладенькая киска",
+      "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
