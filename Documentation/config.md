@@ -59,6 +59,28 @@ customTemplates = path/to/somefile.soy
 customTemplates = path/to/another.soy
 ```
 
+### Custom styling
+
+It's possible to inject custom styles within the template. To do this add
+the following to `gitiles.config`:
+```
+[gitiles]
+    customTemplates = path/to/afile.soy
+[template]
+    customVariant=aVariant
+```
+Where `customVariant` is the variable defined in the default
+templates themselves. Then you can define `afile.soy` as follows:
+```
+{namespace gitiles}
+{deltemplate gitiles.customHeadTagPart variant="'aVariant'"}
+
+<link rel="stylesheet" type="text/css" href="static/file.css" />
+
+{/deltemplate}
+```
+It is also possible to define a `<style>` tag there if desired.
+
 ### Fixed time zone
 
 By default dates are formatted including the local user time zone as that
