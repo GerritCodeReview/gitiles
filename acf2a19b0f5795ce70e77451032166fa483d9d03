@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4501d184_4e01e47a",
+        "filename": "Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-03-07T08:36:47Z",
+      "side": 1,
+      "message": "Is it worth pointing out the double-single quote notation?\nPeople might not notice it or just decide to remove one of the other thinking not both of them are necessary.",
+      "range": {
+        "startLine": 76,
+        "startChar": 48,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "acf2a19b0f5795ce70e77451032166fa483d9d03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
