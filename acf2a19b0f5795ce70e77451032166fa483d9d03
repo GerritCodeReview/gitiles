@@ -22,6 +22,30 @@
       },
       "revId": "acf2a19b0f5795ce70e77451032166fa483d9d03",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc5b081_6faf3721",
+        "filename": "Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2023-03-07T08:42:47Z",
+      "side": 1,
+      "message": "Good point and I also thought the same, I believe that in Soy Templating this is somewhat standard practice, so eventually opted against it. But happy to add it in if people think it\u0027s useful.",
+      "parentUuid": "4501d184_4e01e47a",
+      "range": {
+        "startLine": 76,
+        "startChar": 48,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "acf2a19b0f5795ce70e77451032166fa483d9d03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
