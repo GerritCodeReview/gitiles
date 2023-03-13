@@ -67,6 +67,23 @@
       "message": "привет сладенькая киска",
       "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6331c95_1b9f7c17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1158130
+      },
+      "writtenOn": "2023-03-13T19:47:21Z",
+      "side": 1,
+      "message": "Yes",
+      "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
