@@ -135,6 +135,23 @@
       "message": "القاهرة نمبر وان",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adda94f8_2f6e354c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1158158
+      },
+      "writtenOn": "2023-03-14T09:10:25Z",
+      "side": 1,
+      "message": "ok",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
