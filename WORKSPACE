@@ -29,8 +29,8 @@ local_repository(
 
 # Java-Prettify external repository consumed from git submodule
 local_repository(
-  name = "java-prettify",
-  path = "modules/java-prettify",
+    name = "java-prettify",
+    path = "modules/java-prettify",
 )
 
 register_toolchains("//tools:error_prone_warnings_toolchain_java11_definition")
@@ -51,8 +51,8 @@ maven_jar(
 
 maven_jar(
     name = "gson",
-    artifact = "com.google.code.gson:gson:2.8.5",
-    sha1 = "f645ed69d595b24d4cf8b3fbb64cc505bede8829",
+    artifact = "com.google.code.gson:gson:2.9.0",
+    sha1 = "8a1167e089096758b49f9b34066ef98b2f4b37aa",
 )
 
 maven_jar(
@@ -140,8 +140,8 @@ maven_jar(
 
 maven_jar(
     name = "protobuf",
-    artifact = "com.google.protobuf:protobuf-java:3.6.1",
-    sha1 = "0d06d46ecfd92ec6d0f3b423b4cd81cb38d8b924",
+    artifact = "com.google.protobuf:protobuf-java:3.19.4",
+    sha1 = "748e4e0b9e4fa6b9b1fe65690aa04a9db56cfc4d",
 )
 
 maven_jar(
@@ -152,8 +152,8 @@ maven_jar(
 
 maven_jar(
     name = "javaewah",
-    artifact = "com.googlecode.javaewah:JavaEWAH:1.1.7",
-    sha1 = "570dde3cd706ae10c62fe19b150928cfdb415e87",
+    artifact = "com.googlecode.javaewah:JavaEWAH:1.1.12",
+    sha1 = "9feecc2b24d6bc9ff865af8d082f192238a293eb",
 )
 
 # When upgrading commons_compress, upgrade tukaani_xz to the
@@ -191,18 +191,18 @@ maven_jar(
     sha1 = "497ddb32fd5d01f9dbe99a2ec790aeb931dff1b1",
 )
 
-BYTE_BUDDY_VERSION = "1.9.0"
+BYTE_BUDDY_VERSION = "1.10.7"
 
 maven_jar(
     name = "bytebuddy",
     artifact = "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
-    sha1 = "8cb0d5baae526c9df46ae17693bbba302640538b",
+    sha1 = "1eefb7dd1b032b33c773ca0a17d5cc9e6b56ea1a",
 )
 
 maven_jar(
     name = "bytebuddy-agent",
     artifact = "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
-    sha1 = "37b5703b4a6290be3fffc63ae9c6bcaaee0ff856",
+    sha1 = "c472fad33f617228601172682aa64f8b78508045",
 )
 
 maven_jar(
@@ -211,18 +211,18 @@ maven_jar(
     sha1 = "639033469776fd37c08358c6b92a4761feb2af4b",
 )
 
-SL_VERS = "1.7.26"
+SL_VERS = "1.7.36"
 
 maven_jar(
     name = "log-api",
     artifact = "org.slf4j:slf4j-api:" + SL_VERS,
-    sha1 = "77100a62c2e6f04b53977b9f541044d7d722693d",
+    sha1 = "6c62681a2f655b49963a5983b8b0950a6120ae14",
 )
 
 maven_jar(
     name = "slf4j-simple",
     artifact = "org.slf4j:slf4j-simple:" + SL_VERS,
-    sha1 = "dfb0de47f433c2a37dd44449c88d84b698cd5cf7",
+    sha1 = "a41f9cfe6faafb2eb83a1c7dd2d0dfd844e2a936",
 )
 
 GUICE_VERSION = "5.0.1"
@@ -251,78 +251,78 @@ maven_jar(
     sha1 = "6975da39a7040257bd51d21a231b76c915872d38",
 )
 
-JETTY_VERSION = "9.4.36.v20210114"
+JETTY_VERSION = "9.4.49.v20220914"
 
 maven_jar(
     name = "servlet",
     artifact = "org.eclipse.jetty:jetty-servlet:" + JETTY_VERSION,
-    sha1 = "b189e52a5ee55ae172e4e99e29c5c314f5daf4b9",
+    sha1 = "53ca0898f02e72b6830551031ee0062430134a05",
 )
 
 maven_jar(
     name = "security",
     artifact = "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,
-    sha1 = "42030d6ed7dfc0f75818cde0adcf738efc477574",
+    sha1 = "057a67eeb12078b620131664b3b7a37ea4c5aefe",
 )
 
 maven_jar(
     name = "server",
     artifact = "org.eclipse.jetty:jetty-server:" + JETTY_VERSION,
-    sha1 = "88a7d342974aadca658e7386e8d0fcc5c0788f41",
+    sha1 = "502f99eed028139e71a4afebefa291ace12b9c1c",
 )
 
 maven_jar(
     name = "continuation",
     artifact = "org.eclipse.jetty:jetty-continuation:" + JETTY_VERSION,
-    sha1 = "84dcd3bc44258d6e2e552f59c77966c4ed252373",
+    sha1 = "0df64c20caeba57b681abc252bffd51d19f5be70",
 )
 
 maven_jar(
     name = "http",
     artifact = "org.eclipse.jetty:jetty-http:" + JETTY_VERSION,
-    sha1 = "1eee89a55e04ff94df0f85d95200fc48acb43d86",
+    sha1 = "ef1e3bde212115eb4bb0740aaf79029b624d4e30",
 )
 
 maven_jar(
     name = "io",
     artifact = "org.eclipse.jetty:jetty-io:" + JETTY_VERSION,
-    sha1 = "84a8faf9031eb45a5a2ddb7681e22c483d81ab3a",
+    sha1 = "cb33d9a3bdb6e2173b9b9cfc94c0b45f9a21a1af",
 )
 
 maven_jar(
     name = "util",
     artifact = "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
-    sha1 = "925257fbcca6b501a25252c7447dbedb021f7404",
+    sha1 = "29008dbc6dfac553d209f54193b505d73c253a41",
 )
 
-OW2_VERS = "9.0"
+OW2_VERS = "9.2"
 
 maven_jar(
     name = "ow2-asm",
     artifact = "org.ow2.asm:asm:" + OW2_VERS,
-    sha1 = "af582ff60bc567c42d931500c3fdc20e0141ddf9",
+    sha1 = "81a03f76019c67362299c40e0ba13405f5467bff",
 )
 
 maven_jar(
     name = "ow2-asm-analysis",
     artifact = "org.ow2.asm:asm-analysis:" + OW2_VERS,
-    sha1 = "4630afefbb43939c739445dde0af1a5729a0fb4e",
+    sha1 = "7487dd756daf96cab9986e44b9d7bcb796a61c10",
 )
 
 maven_jar(
     name = "ow2-asm-commons",
     artifact = "org.ow2.asm:asm-commons:" + OW2_VERS,
-    sha1 = "5a34a3a9ac44f362f35d1b27932380b0031a3334",
+    sha1 = "f4d7f0fc9054386f2893b602454d48e07d4fbead",
 )
 
 maven_jar(
     name = "ow2-asm-tree",
     artifact = "org.ow2.asm:asm-tree:" + OW2_VERS,
-    sha1 = "9df939f25c556b0c7efe00701d47e77a49837f24",
+    sha1 = "d96c99a30f5e1a19b0e609dbb19a44d8518ac01e",
 )
 
 maven_jar(
     name = "ow2-asm-util",
     artifact = "org.ow2.asm:asm-util:" + OW2_VERS,
-    sha1 = "7c059a94ab5eed3347bf954e27fab58e52968848",
+    sha1 = "fbc178fc5ba3dab50fd7e8a5317b8b647c8e8946",
 )
