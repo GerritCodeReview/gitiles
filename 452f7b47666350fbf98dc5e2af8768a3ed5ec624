@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271c4e08_012563af",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2023-04-28T21:38:42Z",
+      "side": 1,
+      "message": "this isn\u0027t on stable-3.8, but the rest of your updates are. That probably means we should release a gitiles version to be included in 3.8.0 with these library bumps and without the guice 5.1.0 bump.",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 22
+      },
+      "revId": "452f7b47666350fbf98dc5e2af8768a3ed5ec624",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
