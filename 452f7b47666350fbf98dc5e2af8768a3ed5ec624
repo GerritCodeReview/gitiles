@@ -46,6 +46,30 @@
       },
       "revId": "452f7b47666350fbf98dc5e2af8768a3ed5ec624",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39c84a58_325f7967",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2023-05-01T20:25:29Z",
+      "side": 1,
+      "message": "Sure, but let\u0027s not hold up the rest of the library bumps for that decision.",
+      "parentUuid": "0f5febfe_41eb984f",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 22
+      },
+      "revId": "452f7b47666350fbf98dc5e2af8768a3ed5ec624",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
