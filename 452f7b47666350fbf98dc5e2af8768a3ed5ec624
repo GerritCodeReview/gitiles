@@ -70,6 +70,30 @@
       },
       "revId": "452f7b47666350fbf98dc5e2af8768a3ed5ec624",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c31d249_a6a7ab5d",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-05-02T04:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39c84a58_325f7967",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 22
+      },
+      "revId": "452f7b47666350fbf98dc5e2af8768a3ed5ec624",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
