@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7710a37_4188d4a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160413
+      },
+      "writtenOn": "2023-05-13T16:55:29Z",
+      "side": 1,
+      "message": "update apps",
+      "revId": "3dda899cd87c6dd06d7f8e1ba762addb929c7f71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
