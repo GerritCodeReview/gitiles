@@ -1,6 +1,24 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dad7957_5ae1bbe3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1160855
+      },
+      "writtenOn": "2023-05-27T06:00:10Z",
+      "side": 1,
+      "message": "https://gerrit-review.googlesource.com/c/gitiles/+/76410/comment/7e0ac1d3_3abd41a9/",
+      "revId": "7e5730a76adc2b64285b16bae797f444a09d21ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
       "key": {
         "uuid": "7e0ac1d3_3abd41a9",
         "filename": "/COMMIT_MSG",
@@ -20,8 +38,48 @@
         "endChar": 53
       },
       "revId": "7e5730a76adc2b64285b16bae797f444a09d21ee",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb92071d_7e4ef140",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1160855
+      },
+      "writtenOn": "2023-05-27T06:00:10Z",
+      "side": 1,
+      "message": "https://phabricator-dot-kythe-repo.appspot.com/D820",
+      "parentUuid": "7e0ac1d3_3abd41a9",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "7e5730a76adc2b64285b16bae797f444a09d21ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87e94dcb_5645634e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160855
+      },
+      "writtenOn": "2023-05-27T06:00:10Z",
+      "side": 1,
+      "message": "76410: DO NOT SUBMIT - Add kythe dir and a script to run kythe and serve. | https://gerrit-review.googlesource.com/c/gitiles/+/76410",
+      "revId": "7e5730a76adc2b64285b16bae797f444a09d21ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
