@@ -69,6 +69,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ea97c2_8d7ebeef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160871
+      },
+      "writtenOn": "2023-05-28T16:07:43Z",
+      "side": 1,
+      "message": "destek lütfen",
+      "revId": "acf2a19b0f5795ce70e77451032166fa483d9d03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4501d184_4e01e47a",
