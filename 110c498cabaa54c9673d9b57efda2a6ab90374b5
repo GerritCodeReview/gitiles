@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27592dd4_7dbecd93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2023-06-01T15:56:01Z",
+      "side": 1,
+      "message": "Apparently I have started that back in November 2020 and kind of forgot about it.\n\nI have fixed the `gitiles.canonicalPath` config which defaults to \"null\" and ended up injected in the static url. The config is now only used to then set the static path. I have tested it locally using the Apache and gitiles config provided in `./tools/` and the navigation works with all links pointing to the public `/g/*` URLs.",
+      "revId": "110c498cabaa54c9673d9b57efda2a6ab90374b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
