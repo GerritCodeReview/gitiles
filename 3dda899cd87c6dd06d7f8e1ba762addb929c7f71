@@ -16,6 +16,23 @@
       "message": "update apps",
       "revId": "3dda899cd87c6dd06d7f8e1ba762addb929c7f71",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf22f85_4598e5cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1161020
+      },
+      "writtenOn": "2023-06-02T05:31:05Z",
+      "side": 1,
+      "message": "app",
+      "revId": "3dda899cd87c6dd06d7f8e1ba762addb929c7f71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
