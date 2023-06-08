@@ -241,6 +241,41 @@
       "tag": "mailMessageId\u003d\u003cCACnZx3jei5tmPBr8r1gdFPR62gZN80aNG7f1_ONdzjSF81BVSQ@mail.gmail.com\u003e",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4351df75_4a9a37ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1161231
+      },
+      "writtenOn": "2023-06-08T13:46:49Z",
+      "side": 1,
+      "message": "راضيhttps://gerrit-review.googlesource.com/c/gitiles/+/247599/comments/e3910314_f76a6375",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c0e9ae5_39b4700d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1161231
+      },
+      "writtenOn": "2023-06-08T13:46:49Z",
+      "side": 1,
+      "message": "\u003e القاهرة نمبر وان\n\nالجيزه",
+      "parentUuid": "e3910314_f76a6375",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
