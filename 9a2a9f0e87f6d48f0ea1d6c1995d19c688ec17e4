@@ -16,6 +16,24 @@
       "message": "I filed this issue 17046 for the build breakage.",
       "revId": "9a2a9f0e87f6d48f0ea1d6c1995d19c688ec17e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ece7fb_c5f1b297",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2023-06-14T08:28:58Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d17046",
+      "parentUuid": "7db78e23_46bad250",
+      "revId": "9a2a9f0e87f6d48f0ea1d6c1995d19c688ec17e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
