@@ -51,6 +51,23 @@
       "message": "Don\u0027t forget to tag `v1.3.0` once this is merged for traceability.",
       "revId": "9a2a9f0e87f6d48f0ea1d6c1995d19c688ec17e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4630493e_fa713aa6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2023-06-22T05:33:28Z",
+      "side": 1,
+      "message": "Please tag this with v1.3.0 once merged.",
+      "revId": "9a2a9f0e87f6d48f0ea1d6c1995d19c688ec17e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
