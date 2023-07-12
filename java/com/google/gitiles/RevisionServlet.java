@@ -168,6 +168,9 @@ public class RevisionServlet extends BaseServlet {
     try (RevWalk walk = new RevWalk(repo)) {
       DateFormatter df = new DateFormatter(getAccess(req), Format.DEFAULT);
       RevObject obj = walk.parseAny(view.getRevision().getId());
+      if (obj.getType() == OBJ_TAG) {
+        obj = ((RevTag) obj).getObject();
+      }
       switch (obj.getType()) {
         case OBJ_COMMIT:
           renderJson(
