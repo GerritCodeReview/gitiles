@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82aba92c_38302cea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1163105
+      },
+      "writtenOn": "2023-07-15T22:39:46Z",
+      "side": 1,
+      "message": "SM-A125F",
+      "revId": "2e5f39bd2ebb6817981dab842a6a857f6062364a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
