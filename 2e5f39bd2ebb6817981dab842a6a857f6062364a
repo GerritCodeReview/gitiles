@@ -16,6 +16,23 @@
       "message": "SM-A125F",
       "revId": "2e5f39bd2ebb6817981dab842a6a857f6062364a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c5f7054_a9d5029b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1163105
+      },
+      "writtenOn": "2023-07-17T23:09:03Z",
+      "side": 1,
+      "message": "SM-A125F",
+      "revId": "2e5f39bd2ebb6817981dab842a6a857f6062364a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
