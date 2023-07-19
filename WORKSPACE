@@ -57,8 +57,8 @@ maven_jar(
 
 maven_jar(
     name = "guava",
-    artifact = "com.google.guava:guava:30.1-jre",
-    sha1 = "00d0c3ce2311c9e36e73228da25a6e99b2ab826f",
+    artifact = "com.google.guava:guava:32.1.1-jre",
+    sha1 = "ad575652d84153075dd41ec6177ccb15251262b2",
 )
 
 maven_jar(
@@ -128,8 +128,8 @@ maven_jar(
 
 maven_jar(
     name = "soy",
-    artifact = "com.google.template:soy:2021-02-01",
-    sha1 = "8e833744832ba88059205a1e30e0898f925d8cb5",
+    artifact = "com.google.template:soy:2022-10-26",
+    sha1 = "97aeac718fb38f14be98d24df2cd81b469820f54",
 )
 
 maven_jar(
@@ -325,4 +325,36 @@ maven_jar(
     name = "ow2-asm-util",
     artifact = "org.ow2.asm:asm-util:" + OW2_VERS,
     sha1 = "fbc178fc5ba3dab50fd7e8a5317b8b647c8e8946",
+)
+
+FLOGGER_VERS = "0.7.4"
+
+maven_jar(
+    name = "log4j",
+    artifact = "ch.qos.reload4j:reload4j:1.2.19",
+    sha1 = "4eae9978468c5e885a6fb44df7e2bbc07a20e6ce",
+)
+
+maven_jar(
+    name = "flogger",
+    artifact = "com.google.flogger:flogger:" + FLOGGER_VERS,
+    sha1 = "cec29ed8b58413c2e935d86b12d6b696dc285419",
+)
+
+maven_jar(
+    name = "flogger-log4j-backend",
+    artifact = "com.google.flogger:flogger-log4j-backend:" + FLOGGER_VERS,
+    sha1 = "7486b1c0138647cd7714eccb8ce37b5f2ae20a76",
+)
+
+maven_jar(
+    name = "flogger-system-backend",
+    artifact = "com.google.flogger:flogger-system-backend:" + FLOGGER_VERS,
+    sha1 = "4bee7ebbd97c63ca7fb17529aeb49a57b670d061",
+)
+
+maven_jar(
+    name = "flogger-google-extensions",
+    artifact = "com.google.flogger:google-extensions:" + FLOGGER_VERS,
+    sha1 = "c49493bd815e3842b8406e21117119d560399977",
 )

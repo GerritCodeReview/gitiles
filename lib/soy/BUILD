@@ -10,8 +10,13 @@ java_library(
         "@soy//jar",
     ],
     runtime_deps = [
+        "@flogger-google-extensions//jar",
+        "@flogger-log4j-backend//jar",
+        "@flogger-system-backend//jar",
+        "@flogger//jar",
         "@html-types//jar",
         "@icu4j//jar",
+        "@log4j//jar",
         "@ow2-asm-analysis//jar",
         "@ow2-asm-commons//jar",
         "@ow2-asm-tree//jar",
