@@ -50,6 +50,23 @@
       "message": "hi",
       "revId": "717a30f1dee700e8bdef92aab96247d69be15c2b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1df46c_a9258694",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1161625
+      },
+      "writtenOn": "2023-07-19T11:49:19Z",
+      "side": 1,
+      "message": "ช่วยให้เลิกใช้บททดสอบการหลอมสูตรค่าอาหารที\nIm seeram",
+      "revId": "717a30f1dee700e8bdef92aab96247d69be15c2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
