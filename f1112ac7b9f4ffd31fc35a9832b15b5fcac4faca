@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eb45d3b_f278bebd",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1148215
+      },
+      "writtenOn": "2023-07-19T08:04:48Z",
+      "side": 1,
+      "message": "I would rather this explained the purpose, even if it\u0027s not used in this variant.\n\nMaybe both: \"\u003cwhat it is\u003e; unused in this variant\"",
+      "range": {
+        "startLine": 111,
+        "startChar": 27,
+        "endLine": 111,
+        "endChar": 49
+      },
+      "revId": "f1112ac7b9f4ffd31fc35a9832b15b5fcac4faca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
