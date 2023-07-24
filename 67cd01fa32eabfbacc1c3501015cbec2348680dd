@@ -33,6 +33,24 @@
       "message": "Given that there is no test in this change, how can we be sure it fixes the issue, and how can we be sure it stays fixed?",
       "revId": "67cd01fa32eabfbacc1c3501015cbec2348680dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5a7f0f_6f0fe5d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1115570
+      },
+      "writtenOn": "2023-07-24T15:26:57Z",
+      "side": 1,
+      "message": "Hi Han-Wen, thanks for chiming in. Don\u0027t worry, you don\u0027t have to sell me on the positives of testing: I even said \"Feel free to suggest some testing\" in my CL description.\n\nContext: this is not my codebase, I\u0027m fixing a bug that has been affecting my users since March (and which has had zero traction from the gerrit/gitiles team): please see b/273569892 for the small saga if you haven\u0027t already.\n\n\u003e how can we be sure it fixes the issue\n\nAs per my CL description, I manually tested this with the case which is failing for my users.\n\n\u003e how can we be sure it stays fixed?\n\nThis is the better question, thank you for asking for automated tests :)\n\nAs per my CL description, I didn\u0027t add a test because I couldn\u0027t find a pre-existing test which covered this code. Please feel free to suggest which file to add a test to, as well as what test cases you\u0027d like it to contain. Given I am not familiar with this codebase at all, specific suggestions are going to be very helpful to me: I\u0027ll need a bit more help to get started.",
+      "parentUuid": "9e54c9d5_da51e2c6",
+      "revId": "67cd01fa32eabfbacc1c3501015cbec2348680dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
