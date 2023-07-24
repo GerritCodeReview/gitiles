@@ -47,7 +47,8 @@ public class LogSoyData {
           Field.AUTHOR,
           Field.COMMITTER,
           Field.BRANCHES,
-          Field.TAGS);
+          Field.TAGS,
+          Field.PARENTS);
   private static final ImmutableSet<Field> VERBOSE_FIELDS = Field.setOf(FIELDS, Field.DIFF_TREE);
 
   /** Behavior for the footer link when rendering streaming log data. */
