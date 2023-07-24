@@ -16,6 +16,23 @@
       "message": "I think this is a reasonable workaround until the deeper issue is understood.",
       "revId": "67cd01fa32eabfbacc1c3501015cbec2348680dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e54c9d5_da51e2c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024147
+      },
+      "writtenOn": "2023-07-24T09:28:43Z",
+      "side": 1,
+      "message": "Given that there is no test in this change, how can we be sure it fixes the issue, and how can we be sure it stays fixed?",
+      "revId": "67cd01fa32eabfbacc1c3501015cbec2348680dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
