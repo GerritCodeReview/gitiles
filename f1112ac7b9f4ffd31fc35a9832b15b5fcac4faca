@@ -46,6 +46,30 @@
       },
       "revId": "f1112ac7b9f4ffd31fc35a9832b15b5fcac4faca",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbc551b_6baabd81",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1148215
+      },
+      "writtenOn": "2023-07-25T07:40:01Z",
+      "side": 1,
+      "message": "I am a bit confused. You\u0027ve marked this as done, but you didn\u0027t update the docstring. Did you forget to push the most recent version?",
+      "parentUuid": "112c523a_9d47e320",
+      "range": {
+        "startLine": 111,
+        "startChar": 27,
+        "endLine": 111,
+        "endChar": 49
+      },
+      "revId": "f1112ac7b9f4ffd31fc35a9832b15b5fcac4faca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
