@@ -310,6 +310,24 @@
       "message": "Ibe27421653fab4221d08070f2864992e98b48464",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b9cf247_2ffe4cbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1164629
+      },
+      "writtenOn": "2023-08-08T03:38:16Z",
+      "side": 1,
+      "message": "247599: Set version to 0.2-7.1 | https://gerrit-review.googlesource.com/c/gitiles/+/247599",
+      "parentUuid": "39962f25_5efb1d07",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
