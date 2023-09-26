@@ -18,9 +18,18 @@ set -e
 
 ROOT="$(cd $(dirname "$0")/..; pwd)"
 PROPERTIES=
-if [ "x$1" != "x" ]; then
-  PROPERTIES="--jvm_flag=-Dcom.google.gitiles.configPath=$1"
-fi
+
+NUMBER_OF_ARGUMENTS=$#
+while test $# -gt 0
+do
+    case "$1" in
+        --debug) PROPERTIES="$PROPERTIES --debug"
+            ;;
+        *) if [ "$NUMBER_OF_ARGUMENTS" -eq "$#" ]; then PROPERTIES="--jvm_flag=-Dcom.google.gitiles.configPath=$1"; fi
+            ;;
+    esac
+    shift
+done
 
 PROPERTIES="$PROPERTIES --jvm_flag=-Dcom.google.gitiles.sourcePath=$ROOT"
 
@@ -29,4 +38,5 @@ PROPERTIES="$PROPERTIES --jvm_flag=-Dcom.google.gitiles.sourcePath=$ROOT"
   bazel build java/com/google/gitiles/dev
 )
 
+set -x
 "$ROOT/bazel-bin/java/com/google/gitiles/dev/dev" $PROPERTIES
