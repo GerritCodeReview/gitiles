@@ -17,12 +17,8 @@
 set -e
 
 ROOT="$(cd $(dirname "$0")/..; pwd)"
-PROPERTIES=
-if [ "x$1" != "x" ]; then
-  PROPERTIES="--jvm_flag=-Dcom.google.gitiles.configPath=$1"
-fi
 
-PROPERTIES="$PROPERTIES --jvm_flag=-Dcom.google.gitiles.sourcePath=$ROOT"
+PROPERTIES="--jvm_flag=-Dcom.google.gitiles.sourcePath=$ROOT $@"
 
 (
   cd "$ROOT"
