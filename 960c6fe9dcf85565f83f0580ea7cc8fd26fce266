@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed396099_0e448316",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-09-27T14:14:19Z",
+      "side": 1,
+      "message": "This is a breaking change for everyone that has used to using this script in the previous way.\n\nIMO, instead of removing the `PROPERTIES` variable, this change should only add `$@` to the end of the arguments list. This way both ways will work.\n\nAlso would be good to update the dev documentation so that it reflects how `run_dev` can be used to start gitiles in debug mode.",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
