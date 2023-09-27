@@ -34,6 +34,24 @@
       "parentUuid": "ed396099_0e448316",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "785f3abb_86186b62",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-09-27T14:52:42Z",
+      "side": 1,
+      "message": "\u003e  But what can we do about $1? Keeping $1 ($1 is optional) and appending $@ is not compatible.\n\nAccording to this [stackexchange answer](https://unix.stackexchange.com/questions/68322/how-can-i-remove-an-element-from-an-array-completely), this should be possible by:\n```\nset -- \"${@:2}\"\n```",
+      "parentUuid": "c2989761_f531e43a",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
