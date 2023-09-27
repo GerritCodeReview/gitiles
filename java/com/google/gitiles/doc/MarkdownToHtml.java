@@ -20,6 +20,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.html.types.SafeHtml;
+import com.google.common.html.types.UncheckedConversions;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.ThreadSafePrettifyParser;
 import com.google.gitiles.doc.html.HtmlBuilder;
@@ -397,6 +398,18 @@ public class MarkdownToHtml implements Visitor {
     // Ignored in rendered output
   }
 
+  private void visit(HtmlPreBlock node) {
+    html.open("pre").attribute("class", node.className);
+    html.appendAndEscape(node.literal);
+    html.close("pre");
+  }
+
+  private void visit(HtmlSafeScript node) {
+    html.open("script", false).attribute("type", node.type);
+    html.append(UncheckedConversions.safeHtmlFromStringKnownToSatisfyTypeContract(node.literal));
+    html.close("script", false);
+  }
+
   @VisibleForTesting
   String href(String target) {
     if (target.startsWith("#")
@@ -576,6 +589,10 @@ public class MarkdownToHtml implements Visitor {
       visit((TableBlock) node);
     } else if (node instanceof TocBlock) {
       toc.format();
+    } else if (node instanceof HtmlPreBlock) {
+      visit((HtmlPreBlock) node);
+    } else if (node instanceof HtmlSafeScript) {
+      visit((HtmlSafeScript) node);
     } else {
       throw new IllegalArgumentException("cannot render " + node.getClass());
     }

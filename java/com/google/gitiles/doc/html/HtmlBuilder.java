@@ -78,7 +78,7 @@ public abstract class HtmlBuilder {
           "span");
 
   private static final ImmutableSet<String> ALLOWED_ATTRIBUTES =
-      ImmutableSet.of("id", "class", "role");
+      ImmutableSet.of("id", "class", "role", "type");
 
   private static final ImmutableSet<String> SELF_CLOSING_TAGS = ImmutableSet.of("img", "br", "hr");
 
@@ -129,7 +129,14 @@ public abstract class HtmlBuilder {
 
   /** Begin a new HTML tag. */
   public HtmlBuilder open(String tagName) {
-    checkArgument(ALLOWED_TAGS.contains(tagName), "invalid HTML tag %s", tagName);
+    return open(tagName, true);
+  }
+
+  /** Begin a new HTML tag. */
+  public HtmlBuilder open(String tagName, boolean sanitize) {
+    if (sanitize) {
+      checkArgument(ALLOWED_TAGS.contains(tagName), "invalid HTML tag %s", tagName);
+    }
     finishActiveTag();
     try {
       htmlBuf.append('<').append(tagName);
@@ -215,8 +222,14 @@ public abstract class HtmlBuilder {
 
   /** Close an open tag with {@code </tag>} */
   public HtmlBuilder close(String tag) {
-    checkArgument(
-        ALLOWED_TAGS.contains(tag) && !SELF_CLOSING_TAGS.contains(tag), "invalid HTML tag %s", tag);
+    return close(tag, true);
+  }
+
+  public HtmlBuilder close(String tag, boolean sanitize) {
+    if (sanitize) {
+      checkArgument(
+              ALLOWED_TAGS.contains(tag) && !SELF_CLOSING_TAGS.contains(tag), "invalid HTML tag %s", tag);
+    }
 
     finishActiveTag();
     try {
