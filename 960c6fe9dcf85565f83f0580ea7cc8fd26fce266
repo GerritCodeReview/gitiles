@@ -88,6 +88,24 @@
       "parentUuid": "6fdd3307_6e99f0ba",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e020e0e2_bf451844",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-09-27T15:27:28Z",
+      "side": 1,
+      "message": "The main use case for this change is the ability to run `tools/run_dev.sh --debug`. \nIMHO, what you are suggesting will not allow `tools/run_dev.sh --debug` to work. With your suggestion, `tools/run_dev.sh --debug` will be turned into `$ROOT/bazel-bin/java/com/google/gitiles/dev/dev --jvm_flag\u003d-Dcom.google.gitiles.configPath\u003d--debug` which will fail. I want to be able to use `--debug` without passing a `configPath`.",
+      "parentUuid": "74d99b5c_a722fc43",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
