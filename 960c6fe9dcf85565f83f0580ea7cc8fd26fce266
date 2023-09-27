@@ -52,6 +52,24 @@
       "parentUuid": "c2989761_f531e43a",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fdd3307_6e99f0ba",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-09-27T15:13:23Z",
+      "side": 1,
+      "message": "If we do that, `$1` becomes mandatory (while it was not before this change) which is a breaking change, am I wrong? For the record, before this change, `$1` represents the value passed to `--jvm_flag\u003d-Dcom.google.gitiles.configPath`.",
+      "parentUuid": "785f3abb_86186b62",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
