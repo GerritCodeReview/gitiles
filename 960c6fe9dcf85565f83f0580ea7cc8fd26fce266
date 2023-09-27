@@ -70,6 +70,24 @@
       "parentUuid": "785f3abb_86186b62",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74d99b5c_a722fc43",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-09-27T15:16:55Z",
+      "side": 1,
+      "message": "Nope, at least in my testing you can skip all args and it should also work. Have a play with this simple script:\n```sh\necho \"1: $@\"\necho \"2: ${@:2}\"\n```\n\nWe can keep the `if` statement and then add `${@:}` on the end of the line and we should be fine.",
+      "parentUuid": "6fdd3307_6e99f0ba",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
