@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99537307_a92a0fd7",
+        "filename": "java/com/google/gitiles/doc/MermaidExtension.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-28T09:53:31Z",
+      "side": 1,
+      "message": "This should be bundled into the build as NPM dependency",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 94
+      },
+      "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
