@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf23bec_df3f2d53",
+        "filename": "java/com/google/gitiles/doc/HtmlPreBlock.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-09-28T11:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b584f54_50a42b4d",
+      "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c3f156d_a7a52dcd",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-28T11:00:36Z",
       "side": 1,
       "message": "we don\u0027t use @author tags but instead rely on git to record who authored what",
+      "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f16ef6_5acfa121",
+        "filename": "java/com/google/gitiles/doc/HtmlPreBlock.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-09-28T11:11:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c3f156d_a7a52dcd",
       "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
