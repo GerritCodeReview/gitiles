@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b32632_c8ab318d",
+        "filename": "java/com/google/gitiles/doc/HtmlPreBlock.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2023-09-28T12:34:45Z",
+      "side": 1,
+      "message": "nit: needs GJF formatting?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "b3dce303f6c43e0a335952ed14fbbe2def8ab90e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b4e3c7_25ddfbc4",
+        "filename": "java/com/google/gitiles/doc/HtmlSafeScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2023-09-28T12:34:45Z",
+      "side": 1,
+      "message": "nit: needs GJF formatting?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "b3dce303f6c43e0a335952ed14fbbe2def8ab90e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
