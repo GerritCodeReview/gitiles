@@ -106,6 +106,24 @@
       "parentUuid": "74d99b5c_a722fc43",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae534d15_3e0a0ef9",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-09-28T07:39:15Z",
+      "side": 1,
+      "message": "What would you say if we can _detect_ the debug flag on any position? Then, append it to the `PROPERTIES`.\n\n```sh\nif [[ $@ \u003d~ \"--debug\" ]]\nthen\n  echo \"has DEBUG\"\nelse\n  echo \"no DEBUG\"\nfi\n```\n\nThis way we can preserve the old interface and still be able to use `--debug` to enable debug.",
+      "parentUuid": "e020e0e2_bf451844",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
