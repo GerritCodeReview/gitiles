@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b584f54_50a42b4d",
+        "filename": "java/com/google/gitiles/doc/HtmlPreBlock.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-09-28T11:00:36Z",
+      "side": 1,
+      "message": "missing license header, also below",
+      "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3f156d_a7a52dcd",
+        "filename": "java/com/google/gitiles/doc/HtmlPreBlock.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-09-28T11:00:36Z",
+      "side": 1,
+      "message": "we don\u0027t use @author tags but instead rely on git to record who authored what",
+      "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99537307_a92a0fd7",
         "filename": "java/com/google/gitiles/doc/MermaidExtension.java",
         "patchSetId": 3
