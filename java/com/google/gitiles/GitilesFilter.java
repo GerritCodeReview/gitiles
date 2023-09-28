@@ -131,12 +131,14 @@ class GitilesFilter extends MetaFilter {
   private static class DispatchFilter extends AbstractHttpFilter {
     private final ListMultimap<GitilesView.Type, Filter> filters;
     private final Map<GitilesView.Type, HttpServlet> servlets;
+    private final Filter metaInfResourcesFilter;
 
     private DispatchFilter(
         ListMultimap<GitilesView.Type, Filter> filters,
         Map<GitilesView.Type, HttpServlet> servlets) {
       this.filters = LinkedListMultimap.create(filters);
       this.servlets = ImmutableMap.copyOf(servlets);
+      this.metaInfResourcesFilter = new CacheableMetaInfResources();
       for (GitilesView.Type type : GitilesView.Type.values()) {
         checkState(servlets.containsKey(type), "Missing handler for view %s", type);
       }
@@ -145,13 +147,18 @@ class GitilesFilter extends MetaFilter {
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
         throws IOException, ServletException {
+
+      metaInfResourcesFilter.doFilter(req, res, (request, response) -> doDispatch(req, res));
+    }
+
+    private void doDispatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
       GitilesView view = checkNotNull(ViewFilter.getView(req));
       final Iterator<Filter> itr = filters.get(view.getType()).iterator();
       final HttpServlet servlet = servlets.get(view.getType());
       new FilterChain() {
         @Override
         public void doFilter(ServletRequest req, ServletResponse res)
-            throws IOException, ServletException {
+                throws IOException, ServletException {
           if (itr.hasNext()) {
             itr.next().doFilter(req, res, this);
           } else {
