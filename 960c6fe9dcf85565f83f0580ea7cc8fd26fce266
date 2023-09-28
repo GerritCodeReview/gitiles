@@ -124,6 +124,24 @@
       "parentUuid": "e020e0e2_bf451844",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452a5357_b8fe7510",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-09-28T08:19:31Z",
+      "side": 1,
+      "message": "The purpose of this change was to allow to pass *any* `$ROOT/bazel-bin/java/com/google/gitiles/dev/dev` supported flags via `tools/run_dev.sh`.\n\n`$ROOT/bazel-bin/java/com/google/gitiles/dev/dev` currently support the following flags:\n\n```\n# --debug               Launch the JVM in remote debugging mode listening\n# --debug\u003d\u003cport\u003e        to the specified port or the port set in the\n#                       DEFAULT_JVM_DEBUG_PORT environment variable (e.g.\n#                       \u0027export DEFAULT_JVM_DEBUG_PORT\u003d8000\u0027) or else the\n#                       default port of 5005.  The JVM starts suspended\n#                       unless the DEFAULT_JVM_DEBUG_SUSPEND environment\n#                       variable is set to \u0027n\u0027.\n# --main_advice\u003d\u003cclass\u003e Run an alternate main class with the usual main\n#                       program and arguments appended as arguments.\n# --main_advice_classpath\u003d\u003cclasspath\u003e\n#                       Prepend additional class path entries.\n# --jvm_flag\u003d\u003cflag\u003e     Pass \u003cflag\u003e to the \"java\" command itself.\n#                       \u003cflag\u003e may contain spaces. Can be used multiple times.\n# --jvm_flags\u003d\u003cflags\u003e   Pass space-separated flags to the \"java\" command\n#                       itself. Can be used multiple times.\n# --singlejar           Start the program from the packed-up deployment\n#                       jar rather than from the classpath.\n# --print_javabin       Print the location of java executable binary and exit.\n# --classpath_limit\u003d\u003clength\u003e\n#                       Specify the maximum classpath length. If the classpath\n#                       is shorter, this script passes it to Java as a command\n#                       line flag, otherwise it creates a classpath jar.\n```\n\nIf we do what you suggest, only `--debug` will be supported, isn\u0027t it?",
+      "parentUuid": "ae534d15_3e0a0ef9",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
