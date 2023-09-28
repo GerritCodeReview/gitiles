@@ -142,6 +142,24 @@
       "parentUuid": "ae534d15_3e0a0ef9",
       "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "283dbc65_70ff5a89",
+        "filename": "tools/run_dev.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-09-28T14:10:50Z",
+      "side": 1,
+      "message": "Or do you want to apply your suggestion for available flag ?",
+      "parentUuid": "452a5357_b8fe7510",
+      "revId": "960c6fe9dcf85565f83f0580ea7cc8fd26fce266",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
