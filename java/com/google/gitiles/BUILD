@@ -25,7 +25,6 @@ DEPS = [
 
 DEPS_ALL = DEPS + [
     "//lib:jgit-archive",
-    "//lib/guice:guice",
 ]
 
 java_library(
