@@ -257,32 +257,6 @@ maven_jar(
     sha1 = "a41f9cfe6faafb2eb83a1c7dd2d0dfd844e2a936",
 )
 
-GUICE_VERSION = "5.0.1"
-
-maven_jar(
-    name = "guice-library",
-    artifact = "com.google.inject:guice:" + GUICE_VERSION,
-    sha1 = "0dae7556b441cada2b4f0a2314eb68e1ff423429",
-)
-
-maven_jar(
-    name = "guice-assistedinject",
-    artifact = "com.google.inject.extensions:guice-assistedinject:" + GUICE_VERSION,
-    sha1 = "62e02f2aceb7d90ba354584dacc018c1e94ff01c",
-)
-
-maven_jar(
-    name = "aopalliance",
-    artifact = "aopalliance:aopalliance:1.0",
-    sha1 = "0235ba8b489512805ac13a8f9ea77a1ca5ebe3e8",
-)
-
-maven_jar(
-    name = "javax-inject",
-    artifact = "javax.inject:javax.inject:1",
-    sha1 = "6975da39a7040257bd51d21a231b76c915872d38",
-)
-
 JETTY_VERSION = "9.4.49.v20220914"
 
 maven_jar(
