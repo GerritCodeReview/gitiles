@@ -20,6 +20,7 @@ DEPS = [
     "//lib:slf4j-api",
     "//lib/soy:soy",
     "//java/com/google/gitiles/blame/cache",
+    "//lib:mermaid",
 ]
 
 DEPS_ALL = DEPS + [
