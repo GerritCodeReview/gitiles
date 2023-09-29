@@ -75,6 +75,9 @@ class GitilesFilter extends MetaFilter {
   private static final String CMD = "\\+[a-z0-9-]*";
 
   @VisibleForTesting
+  static final Pattern CACHEABLE_META_INF_RESOURCES_REGEX = Pattern.compile("^/\\+cmir(/.*)");
+
+  @VisibleForTesting
   static final Pattern ROOT_REGEX =
       Pattern.compile(
           ""
@@ -223,16 +226,15 @@ class GitilesFilter extends MetaFilter {
     Filter viewFilter = new ViewFilter(accessFactory, urls, visibilityCache, branchRedirect);
     Filter dispatchFilter = new DispatchFilter(filters, servlets);
 
+    serveRegex(CACHEABLE_META_INF_RESOURCES_REGEX).with(new CacheableMetaInfResources());
+
     ServletBinder root = serveRegex(ROOT_REGEX).through(viewFilter);
     if (gitwebRedirect != null) {
       root.through(gitwebRedirect);
     }
     root.through(dispatchFilter);
 
-    serveRegex(REPO_REGEX)
-        .through(repositoryFilter)
-        .through(viewFilter)
-        .through(dispatchFilter);
+    serveRegex(REPO_REGEX).through(repositoryFilter).through(viewFilter).through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
