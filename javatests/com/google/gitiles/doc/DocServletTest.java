@@ -196,4 +196,32 @@ public class DocServletTest extends ServletTest {
     String html = buildHtml("/repo/+doc/master/README.md");
     assertThat(html).contains("<a href=\"about:invalid#zSoyz\">c</a>");
   }
+
+  @Test
+  public void mermaid() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add(
+            "README.md",
+            "```mermaid\n"
+                + "graph TD;\n"
+                + "    A-->B;\n"
+                + "    A-->C;\n"
+                + "    B-->D;\n"
+                + "    C-->D;\n"
+                + "```")
+        .create();
+
+    String html = buildHtml("/repo/+doc/master/README.md");
+    assertThat(html)
+        .containsMatch(
+            "<pre class=\"mermaid\">graph TD;\\s+"
+                + "A--&gt;B;\\s+"
+                + "A--&gt;C;\\s+"
+                + "B--&gt;D;\\s+"
+                + "C--&gt;D;\\s+"
+                + "</pre>");
+
+    assertThat(html).containsMatch("<script type=\"module\">import mermaid from '.+'</script>");
+  }
 }
