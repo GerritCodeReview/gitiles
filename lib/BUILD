@@ -10,6 +10,7 @@ package(
 ) for n in [
     "autolink",
     "commonmark",
+    "commons-codec",
     "commons-lang3",
     "commons-text",
     "cm-autolink",
@@ -29,9 +30,9 @@ package(
 ]]
 
 java_library(
-  name = "prettify",
-  visibility = ["//visibility:public"],
-  exports = ["@java-prettify"],
+    name = "prettify",
+    visibility = ["//visibility:public"],
+    exports = ["@java-prettify"],
 )
 
 java_library(

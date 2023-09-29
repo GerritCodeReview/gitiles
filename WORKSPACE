@@ -38,6 +38,12 @@ register_toolchains("//tools:error_prone_warnings_toolchain_java11_definition")
 register_toolchains("//tools:error_prone_warnings_toolchain_java17_definition")
 
 maven_jar(
+    name = "commons-codec",
+    artifact = "commons-codec:commons-codec:1.15",
+    sha1 = "49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d",
+)
+
+maven_jar(
     name = "commons-lang3",
     artifact = "org.apache.commons:commons-lang3:3.8.1",
     sha1 = "6505a72a097d9270f7a9e7bf42c4238283247755",
