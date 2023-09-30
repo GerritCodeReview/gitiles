@@ -296,8 +296,8 @@ public abstract class BaseServlet extends HttpServlet {
    *
    * @param req in-progress request.
    * @param res in-progress response.
-   * @param src @see com.google.gson.Gson#toJson(Object, Type, Appendable)
-   * @param typeOfSrc @see com.google.gson.Gson#toJson(Object, Type, Appendable)
+   * @param src source, @see com.google.gson.Gson#toJson(Object, Type, Appendable)
+   * @param typeOfSrc type of source, @see com.google.gson.Gson#toJson(Object, Type, Appendable)
    */
   protected void renderJson(
       HttpServletRequest req, HttpServletResponse res, Object src, Type typeOfSrc)
@@ -357,7 +357,7 @@ public abstract class BaseServlet extends HttpServlet {
    * @param res in-progress response.
    * @param statusCode HTTP status code.
    * @param message full message text.
-   * @throws IOException
+   * @throws IOException if an IO error occurred.
    */
   protected void renderTextError(
       HttpServletRequest req, HttpServletResponse res, int statusCode, String message)
