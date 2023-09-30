@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableMap;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Test;
@@ -68,6 +69,7 @@ public class LinkifierTest {
     Linkifier l =
         new Linkifier(
             new GitilesUrls() {
+              @Nullable
               @Override
               public String getBaseGerritUrl(HttpServletRequest req) {
                 return null;

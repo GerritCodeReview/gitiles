@@ -32,6 +32,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -146,7 +147,7 @@ public class GitwebRedirectFilter extends AbstractHttpFilter {
     return Iterables.getFirst(params.get(checkNotNull(name)), null);
   }
 
-  private static Revision toRevision(String rev) {
+  private static @Nullable Revision toRevision(String rev) {
     if (Strings.isNullOrEmpty(rev)) {
       return null;
     } else if ("HEAD".equals(rev) || rev.startsWith("refs/")) {

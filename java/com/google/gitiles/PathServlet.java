@@ -34,6 +34,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.errors.ConfigInvalidException;
@@ -103,7 +104,7 @@ public class PathServlet extends BaseServlet {
       this.mode = mode;
     }
 
-    static FileType forEntry(TreeWalk tw) {
+    static @Nullable FileType forEntry(TreeWalk tw) {
       int mode = tw.getRawMode(0);
       for (FileType type : values()) {
         if (type.mode.equals(mode)) {
@@ -296,7 +297,7 @@ public class PathServlet extends BaseServlet {
     }
   }
 
-  private static RevTree getRoot(GitilesView view, RevWalk rw) throws IOException {
+  private static @Nullable RevTree getRoot(GitilesView view, RevWalk rw) throws IOException {
     RevObject obj = rw.peel(rw.parseAny(view.getRevision().getId()));
     switch (obj.getType()) {
       case OBJ_COMMIT:
@@ -380,7 +381,8 @@ public class PathServlet extends BaseServlet {
    * to help the auto-dive routine as well.
    */
   private static class WalkResult implements AutoCloseable {
-    private static WalkResult recursivePath(RevWalk rw, GitilesView view) throws IOException {
+    private static @Nullable WalkResult recursivePath(RevWalk rw, GitilesView view)
+        throws IOException {
       RevTree root = getRoot(view, rw);
       String path = view.getPathPart();
 
@@ -410,7 +412,7 @@ public class PathServlet extends BaseServlet {
       return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.<Boolean>of());
     }
 
-    private static WalkResult forPath(RevWalk rw, GitilesView view, boolean recursive)
+    private static @Nullable WalkResult forPath(RevWalk rw, GitilesView view, boolean recursive)
         throws IOException {
       if (recursive) {
         return recursivePath(rw, view);
@@ -520,8 +522,8 @@ public class PathServlet extends BaseServlet {
                     .toSoyData(wr.id, wr.tw)));
   }
 
-  private CanonicalTreeParser getOnlyChildSubtree(ObjectReader reader, ObjectId id, byte[] prefix)
-      throws IOException {
+  private @Nullable CanonicalTreeParser getOnlyChildSubtree(
+      ObjectReader reader, ObjectId id, byte[] prefix) throws IOException {
     CanonicalTreeParser p = new CanonicalTreeParser(prefix, reader, id);
     if (p.eof() || p.getEntryFileMode() != FileMode.TREE) {
       return null;
@@ -655,7 +657,7 @@ public class PathServlet extends BaseServlet {
     return remoteUrl != null ? remoteUrl : modulesUrl;
   }
 
-  private static String resolveHttpUrl(String remoteUrl) {
+  private static @Nullable String resolveHttpUrl(String remoteUrl) {
     if (remoteUrl == null) {
       return null;
     }

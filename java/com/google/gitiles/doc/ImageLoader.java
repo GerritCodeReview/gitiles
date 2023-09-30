@@ -57,7 +57,7 @@ class ImageLoader {
     return SoyConstants.IMAGE_URI_INNOCUOUS_OUTPUT;
   }
 
-  private String inlineMaybe(@Nullable String markdownPath, String imagePath) {
+  private @Nullable String inlineMaybe(@Nullable String markdownPath, String imagePath) {
     if (config.imageLimit <= 0) {
       return null;
     }

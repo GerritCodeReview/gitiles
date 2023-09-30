@@ -18,6 +18,7 @@ import com.google.common.collect.ImmutableList;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
+import javax.annotation.Nullable;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -90,7 +91,7 @@ public class TestGitilesServlet {
     servlet.init(
         new ServletConfig() {
           @Override
-          public String getInitParameter(String name) {
+          public @Nullable String getInitParameter(String name) {
             return null;
           }
 
@@ -100,7 +101,7 @@ public class TestGitilesServlet {
           }
 
           @Override
-          public ServletContext getServletContext() {
+          public @Nullable ServletContext getServletContext() {
             return null;
           }
 

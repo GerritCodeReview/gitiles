@@ -149,7 +149,7 @@ public class MarkdownToHtml implements Visitor {
     return html;
   }
 
-  private static ImageLoader newImageLoader(Builder b) {
+  private static @Nullable ImageLoader newImageLoader(Builder b) {
     if (b.reader != null && b.view != null && b.config != null && b.root != null) {
       return new ImageLoader(b.reader, b.view, b.config, b.root);
     }
@@ -170,7 +170,7 @@ public class MarkdownToHtml implements Visitor {
   }
 
   /** Render the document AST to sanitized HTML. */
-  public SafeHtml toSoyHtml(Node node) {
+  public @Nullable SafeHtml toSoyHtml(Node node) {
     if (node != null) {
       SoyHtmlBuilder out = new SoyHtmlBuilder();
       renderToHtml(out, node);

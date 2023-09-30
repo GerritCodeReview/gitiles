@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -183,7 +184,7 @@ public class BlameServlet extends BaseServlet {
     return new RegionResult(regions, lastCommitBlobId);
   }
 
-  private static ObjectId resolveBlob(GitilesView view, RevWalk rw, ObjectId commitId)
+  private static @Nullable ObjectId resolveBlob(GitilesView view, RevWalk rw, ObjectId commitId)
       throws IOException {
     try {
       if (commitId == null || Strings.isNullOrEmpty(view.getPathPart())) {

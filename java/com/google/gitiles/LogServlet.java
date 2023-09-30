@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.diff.DiffConfig;
@@ -178,7 +179,8 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static GitilesView getView(HttpServletRequest req, Repository repo) throws IOException {
+  private static @Nullable GitilesView getView(HttpServletRequest req, Repository repo)
+      throws IOException {
     GitilesView view = ViewFilter.getView(req);
     if (!Revision.isNull(view.getRevision())) {
       return view;
@@ -225,7 +227,7 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
+  private static @Nullable RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
       throws MissingObjectException, IOException {
     RevWalk walk = new RevWalk(repo);
     if (isTrue(view, FIRST_PARENT_PARAM)) {
@@ -307,8 +309,8 @@ public class LogServlet extends BaseServlet {
     return Boolean.TRUE.equals(StringUtils.toBooleanOrNull(v));
   }
 
-  private static Paginator newPaginator(Repository repo, GitilesView view, GitilesAccess access)
-      throws IOException {
+  private static @Nullable Paginator newPaginator(
+      Repository repo, GitilesView view, GitilesAccess access) throws IOException {
     if (view == null) {
       return null;
     }

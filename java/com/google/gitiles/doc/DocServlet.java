@@ -158,7 +158,8 @@ public class DocServlet extends BaseServlet {
     return h.hash().toString();
   }
 
-  private MarkdownFile findNavbar(RevWalk rw, RevTree root, String path) throws IOException {
+  private @Nullable MarkdownFile findNavbar(RevWalk rw, RevTree root, String path)
+      throws IOException {
     if (!Strings.isNullOrEmpty(path)) {
       // Traverse up the path until we find a NAVBAR_MD.
       StringBuilder pathRemaining = new StringBuilder(path);
@@ -229,8 +230,8 @@ public class DocServlet extends BaseServlet {
     return MoreObjects.firstNonNull(title, srcFile.path);
   }
 
-  @Nullable
-  private static MarkdownFile findFile(RevWalk rw, RevTree root, String path) throws IOException {
+  private static @Nullable MarkdownFile findFile(RevWalk rw, RevTree root, String path)
+      throws IOException {
     if (Strings.isNullOrEmpty(path)) {
       path = INDEX_MD;
     }

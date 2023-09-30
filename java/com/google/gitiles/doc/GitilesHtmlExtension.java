@@ -17,6 +17,7 @@ package com.google.gitiles.doc;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.commonmark.Extension;
 import org.commonmark.node.AbstractVisitor;
 import org.commonmark.node.HardLineBreak;
@@ -145,7 +146,7 @@ public class GitilesHtmlExtension implements ParserExtension {
     }
   }
 
-  private static IframeBlock iframe(String html) {
+  private static @Nullable IframeBlock iframe(String html) {
     IframeBlock iframe = new IframeBlock();
     Matcher m = ATTR.matcher(html);
     while (m.find()) {

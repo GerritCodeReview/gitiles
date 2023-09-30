@@ -22,6 +22,7 @@ import com.google.common.base.Strings;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.util.Map;
+import javax.annotation.Nullable;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -135,7 +136,7 @@ public class ViewFilter extends AbstractHttpFilter {
     return false;
   }
 
-  private GitilesView.Builder parse(HttpServletRequest req) throws IOException {
+  private @Nullable GitilesView.Builder parse(HttpServletRequest req) throws IOException {
     String repoName = trimLeadingSlash(getRegexGroup(req, 1));
     if (repoName.isEmpty()) {
       return GitilesView.hostIndex();
@@ -179,7 +180,7 @@ public class ViewFilter extends AbstractHttpFilter {
     return GitilesView.repositoryIndex().setRepositoryName(repoName);
   }
 
-  private GitilesView.Builder parseArchiveCommand(
+  private @Nullable GitilesView.Builder parseArchiveCommand(
       HttpServletRequest req, String repoName, String path) throws IOException {
     String ext = null;
     for (String e : ArchiveFormat.allExtensions()) {
@@ -203,8 +204,8 @@ public class ViewFilter extends AbstractHttpFilter {
         .setExtension(ext);
   }
 
-  private GitilesView.Builder parseAutoCommand(HttpServletRequest req, String repoName, String path)
-      throws IOException {
+  private @Nullable GitilesView.Builder parseAutoCommand(
+      HttpServletRequest req, String repoName, String path) throws IOException {
     // Note: if you change the mapping for +, make sure to change
     // GitilesView.toUrl() correspondingly.
     if (path.isEmpty()) {
@@ -227,7 +228,7 @@ public class ViewFilter extends AbstractHttpFilter {
     return b;
   }
 
-  private GitilesView.Builder parseBlameCommand(
+  private @Nullable GitilesView.Builder parseBlameCommand(
       HttpServletRequest req, String repoName, String path) throws IOException {
     if (path.isEmpty()) {
       return null;
@@ -242,7 +243,7 @@ public class ViewFilter extends AbstractHttpFilter {
         .setPathPart(result.getPath());
   }
 
-  private GitilesView.Builder parseDescribeCommand(String repoName, String path) {
+  private @Nullable GitilesView.Builder parseDescribeCommand(String repoName, String path) {
     if (isEmptyOrSlash(path)) {
       return null;
     }
@@ -254,7 +255,8 @@ public class ViewFilter extends AbstractHttpFilter {
     return parseDiffCommand(repoName, parseRevision(req, path));
   }
 
-  private GitilesView.Builder parseDiffCommand(String repoName, RevisionParser.Result result) {
+  private @Nullable GitilesView.Builder parseDiffCommand(
+      String repoName, RevisionParser.Result result) {
     if (result == null) {
       return null;
     }
@@ -265,8 +267,8 @@ public class ViewFilter extends AbstractHttpFilter {
         .setPathPart(result.getPath());
   }
 
-  private GitilesView.Builder parseLogCommand(HttpServletRequest req, String repoName, String path)
-      throws IOException {
+  private @Nullable GitilesView.Builder parseLogCommand(
+      HttpServletRequest req, String repoName, String path) throws IOException {
     if (isEmptyOrSlash(path)) {
       return GitilesView.log().setRepositoryName(repoName);
     }
@@ -290,7 +292,8 @@ public class ViewFilter extends AbstractHttpFilter {
     return parseShowCommand(repoName, parseRevision(req, path));
   }
 
-  private GitilesView.Builder parseShowCommand(String repoName, RevisionParser.Result result) {
+  private @Nullable GitilesView.Builder parseShowCommand(
+      String repoName, RevisionParser.Result result) {
     if (result == null || result.getOldRevision() != null) {
       return null;
     }
@@ -308,7 +311,8 @@ public class ViewFilter extends AbstractHttpFilter {
     return parseDocCommand(repoName, parseRevision(req, path));
   }
 
-  private GitilesView.Builder parseDocCommand(String repoName, RevisionParser.Result result) {
+  private @Nullable GitilesView.Builder parseDocCommand(
+      String repoName, RevisionParser.Result result) {
     if (result == null || result.getOldRevision() != null) {
       return null;
     }

@@ -26,6 +26,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.diff.DiffFormatter;
@@ -140,7 +141,7 @@ public class DiffServlet extends BaseServlet {
     }
   }
 
-  private static TreeWalk newTreeWalk(RevWalk walk, GitilesView view) throws IOException {
+  private static @Nullable TreeWalk newTreeWalk(RevWalk walk, GitilesView view) throws IOException {
     if (view.getPathPart().isEmpty()) {
       return null;
     }

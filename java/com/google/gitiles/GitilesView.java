@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.revwalk.RevObject;
@@ -561,7 +562,7 @@ public class GitilesView {
     return oldRevision;
   }
 
-  public String getRevisionRange() {
+  public @Nullable String getRevisionRange() {
     if (Revision.isNull(oldRevision)) {
       if (type == Type.LOG || type == Type.DIFF) {
         // For types that require two revisions, NULL indicates the empty

@@ -28,6 +28,7 @@ import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -194,7 +195,7 @@ public class BlobSoyData {
     return n < end ? n : -1;
   }
 
-  private static String extension(String path, String content) {
+  private static @Nullable String extension(String path, String content) {
     if (content.startsWith("#!/bin/sh") || content.startsWith("#!/bin/bash")) {
       return "sh";
     } else if (content.startsWith("#!/usr/bin/perl")) {
