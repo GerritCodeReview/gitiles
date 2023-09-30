@@ -203,7 +203,7 @@ class TocFormatter {
       } else {
         int i = 1;
         for (TocEntry entry : headers) {
-          ids.put(entry.header, entry.id + "-" + (i++));
+          ids.put(entry.header, entry.id + "-" + i++);
         }
       }
     }
