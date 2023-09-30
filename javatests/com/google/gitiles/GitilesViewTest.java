@@ -19,7 +19,6 @@ import static com.google.common.truth.Truth.assertThat;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
-import com.google.gitiles.GitilesView.Type;
 import org.eclipse.jgit.lib.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +34,7 @@ public class GitilesViewTest {
   public void emptyServletPath() throws Exception {
     GitilesView view = GitilesView.hostIndex().setServletPath("").setHostName("host").build();
     assertThat(view.getServletPath()).isEqualTo("");
-    assertThat(view.getType()).isEqualTo(Type.HOST_INDEX);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.HOST_INDEX);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isNull();
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
@@ -49,7 +48,7 @@ public class GitilesViewTest {
   @Test
   public void hostIndex() throws Exception {
     assertThat(HOST.getServletPath()).isEqualTo("/b");
-    assertThat(HOST.getType()).isEqualTo(Type.HOST_INDEX);
+    assertThat(HOST.getType()).isEqualTo(GitilesView.Type.HOST_INDEX);
     assertThat(HOST.getHostName()).isEqualTo("host");
     assertThat(HOST.getRepositoryName()).isNull();
     assertThat(HOST.getRevision()).isEqualTo(Revision.NULL);
@@ -96,7 +95,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("repo");
     assertThat(view.getRevision()).isEqualTo(Revision.named("master"));
@@ -137,7 +136,7 @@ public class GitilesViewTest {
         GitilesView.repositoryIndex().copyFrom(HOST).setRepositoryName("foo/bar").build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.REPOSITORY_INDEX);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.REPOSITORY_INDEX);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
@@ -158,7 +157,7 @@ public class GitilesViewTest {
     GitilesView view = GitilesView.refs().copyFrom(HOST).setRepositoryName("foo/bar").build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.REFS);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.REFS);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
@@ -185,7 +184,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.REVISION);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.REVISION);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -213,7 +212,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.DESCRIBE);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.DESCRIBE);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
@@ -233,7 +232,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.PATH);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -264,7 +263,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.PATH);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -296,7 +295,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.DOC);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.DOC);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -318,7 +317,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.DOC);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.DOC);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -340,7 +339,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.SHOW);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.SHOW);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -361,7 +360,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.ROOTED_DOC);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.ROOTED_DOC);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRevision().getId()).isEqualTo(id);
     assertThat(view.getRevision().getName()).isEqualTo("master");
@@ -382,7 +381,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.PATH);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.PATH);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -419,7 +418,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.DIFF);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -455,7 +454,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.DIFF);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -493,7 +492,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.DIFF);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.DIFF);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -528,7 +527,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -558,7 +557,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -589,7 +588,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -626,7 +625,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -654,7 +653,7 @@ public class GitilesViewTest {
     GitilesView view = GitilesView.log().copyFrom(HOST).setRepositoryName("foo/bar").build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision()).isEqualTo(Revision.NULL);
@@ -683,7 +682,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.ARCHIVE);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.ARCHIVE);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -707,7 +706,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.ARCHIVE);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.ARCHIVE);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -730,7 +729,7 @@ public class GitilesViewTest {
             .build();
 
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.BLAME);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.BLAME);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
@@ -769,7 +768,7 @@ public class GitilesViewTest {
 
     // Fields returned by getters are not escaped.
     assertThat(view.getServletPath()).isEqualTo("/b");
-    assertThat(view.getType()).isEqualTo(Type.LOG);
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.LOG);
     assertThat(view.getHostName()).isEqualTo("host");
     assertThat(view.getRepositoryName()).isEqualTo("foo?bar");
     assertThat(view.getRevision().getId()).isEqualTo(id);
