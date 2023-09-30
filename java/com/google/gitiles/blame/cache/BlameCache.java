@@ -20,9 +20,17 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 
 public interface BlameCache {
-  /** @return the blame of a path at a given commit. */
+  /**
+   * Gets the blame of a path at a given commit.
+   *
+   * @return the blame of a path at a given commit.
+   */
   List<Region> get(Repository repo, ObjectId commitId, String path) throws IOException;
 
-  /** @return the last commit that modified a path, starting at the given commit. */
+  /**
+   * Gets the last commit that modified a path.
+   *
+   * @return the last commit that modified a path, starting at the given commit.
+   */
   ObjectId findLastCommit(Repository repo, ObjectId commitId, String path) throws IOException;
 }

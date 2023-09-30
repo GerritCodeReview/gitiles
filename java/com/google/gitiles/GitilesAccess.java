@@ -68,21 +68,31 @@ public interface GitilesAccess {
       throws ServiceNotEnabledException, ServiceNotAuthorizedException, IOException;
 
   /**
+   * Get user key.
+   *
    * @return an opaque object that uniquely identifies the end-user making the request, and supports
    *     {@link Object#equals(Object)} and {@link Object#hashCode()}. Never null.
    */
   Object getUserKey();
 
-  /** @return the repository name associated with the request. */
+  /**
+   * Get repository name.
+   *
+   * @return the repository name associated with the request.
+   */
   String getRepositoryName();
 
   /**
+   * Get repository description.
+   *
    * @return the description attached to the repository of this request.
    * @throws IOException an error occurred reading the description string from the repository.
    */
   RepositoryDescription getRepositoryDescription() throws IOException;
 
   /**
+   * Get configuration.
+   *
    * @return configuration to apply to the host/repository for this request.
    * @throws IOException an error occurred reading the configuration.
    */

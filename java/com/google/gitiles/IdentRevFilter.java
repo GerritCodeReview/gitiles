@@ -51,7 +51,11 @@ public abstract class IdentRevFilter extends RevFilter {
     return this;
   }
 
-  /** @return whether the given person matches the author filter. */
+  /**
+   * Whether the given person matches the author filter.
+   *
+   * @return whether the given person matches the author filter.
+   */
   @VisibleForTesting
   boolean matchesPerson(PersonIdent person) {
     // Equivalent to --fixed-strings, to avoid pathological performance of Java

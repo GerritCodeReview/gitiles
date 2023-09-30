@@ -617,7 +617,11 @@ public class GitilesView {
     return b.toString();
   }
 
-  /** @return an escaped, relative URL representing this view. */
+  /**
+   * Create relative URL representing this view.
+   *
+   * @return an escaped, relative URL representing this view.
+   */
   public String toUrl() {
     StringBuilder url = new StringBuilder(servletPath).append('/');
     ListMultimap<String, String> params = this.params;
@@ -726,6 +730,8 @@ public class GitilesView {
   }
 
   /**
+   * Get breadcrumbs.
+   *
    * @return a list of maps with "text" and "url" keys for all file paths leading up to the path
    *     represented by this view. All URLs allow auto-diving into one-entry subtrees; see also
    *     {@link #getBreadcrumbs(List)}.
@@ -737,6 +743,8 @@ public class GitilesView {
   private static final EnumSet<Type> NON_HTML_TYPES = EnumSet.of(Type.DESCRIBE, Type.ARCHIVE);
 
   /**
+   * Get breadcrumbs.
+   *
    * @param hasSingleTree list of booleans, one per path entry in this view's path excluding the
    *     leaf. True entries indicate the tree at that path only has a single entry that is another
    *     tree.

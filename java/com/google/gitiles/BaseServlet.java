@@ -133,6 +133,8 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   /**
+   * Get default format
+   *
    * @param req in-progress request.
    * @return the default {@link FormatType} used when {@code ?format=} is not specified.
    */
@@ -317,6 +319,8 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   /**
+   * Start to render text.
+   *
    * @see #startRenderText(HttpServletRequest, HttpServletResponse)
    * @param req in-progress request.
    * @param res in-progress response.

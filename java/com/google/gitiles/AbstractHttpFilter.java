@@ -42,7 +42,12 @@ abstract class AbstractHttpFilter implements Filter {
     // Default implementation does nothing.
   }
 
-  /** @see #doFilter(ServletRequest, ServletResponse, FilterChain) */
+  /**
+   * The FilterChain passed in to this method allows the Filter to pass on the request and response
+   * to the next entity in the chain.
+   *
+   * @see #doFilter(ServletRequest, ServletResponse, FilterChain)
+   */
   public abstract void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
       throws IOException, ServletException;
 }

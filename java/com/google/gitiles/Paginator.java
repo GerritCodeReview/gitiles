@@ -160,6 +160,8 @@ class Paginator implements Iterable<RevCommit> {
   }
 
   /**
+   * Get previous start.
+   *
    * @return the ID at the start of the page of results preceding this one, or null if this is the
    *     first page.
    */
@@ -168,6 +170,8 @@ class Paginator implements Iterable<RevCommit> {
   }
 
   /**
+   * Get next start.
+   *
    * @return the ID at the start of the page of results after this one, or null if this is the last
    *     page.
    */
@@ -176,12 +180,18 @@ class Paginator implements Iterable<RevCommit> {
     return nextStart;
   }
 
-  /** @return entry corresponding to a rename or copy at the given commit. */
+  /**
+   * Get rename.
+   *
+   * @return entry corresponding to a rename or copy at the given commit.
+   */
   public DiffEntry getRename(ObjectId commitId) {
     return renamed != null ? renamed.get(commitId) : null;
   }
 
   /**
+   * Get iterator over the commits in this walk.
+   *
    * @return an iterator over the commits in this walk.
    * @throws RevWalkException if an error occurred, wrapping the checked exception from {@link
    *     #next()}.

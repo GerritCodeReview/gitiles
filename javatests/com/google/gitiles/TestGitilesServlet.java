@@ -31,13 +31,13 @@ import org.eclipse.jgit.transport.resolver.RepositoryResolver;
 
 /** Static utility methods for creating {@link GitilesServlet}s for testing. */
 public class TestGitilesServlet {
-  /** @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
+  /** Create GitilesServlet, @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
   public static GitilesServlet create(final TestRepository<DfsRepository> repo)
       throws ServletException {
     return create(repo, new GitwebRedirectFilter(), new BranchRedirect());
   }
 
-  /** @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
+  /** Create GitilesServlet, @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
   public static GitilesServlet create(
       final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
       throws ServletException {

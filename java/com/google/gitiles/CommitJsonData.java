@@ -64,7 +64,7 @@ public class CommitJsonData {
     List<Diff> treeDiff;
   }
 
-  /** @see DiffEntry */
+  /** Diff @see DiffEntry */
   static class Diff {
     String type;
     String oldId;
@@ -108,7 +108,7 @@ public class CommitJsonData {
     if (cd.message != null) {
       result.message = cd.message;
     }
-    if (cd.notes != null && !cd.notes.isEmpty()){
+    if (cd.notes != null && !cd.notes.isEmpty()) {
       result.notes = cd.notes;
     }
     if (cd.diffEntries != null) {
