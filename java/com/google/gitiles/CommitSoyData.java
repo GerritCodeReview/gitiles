@@ -185,7 +185,7 @@ public class CommitSoyData {
       if (parents.size() == 1) {
         parentName = view.getRevision().getName() + "^";
       } else {
-        parentName = view.getRevision().getName() + "^" + (i++);
+        parentName = view.getRevision().getName() + "^" + i++;
       }
       diff.setOldRevision(parentName, parent);
 
