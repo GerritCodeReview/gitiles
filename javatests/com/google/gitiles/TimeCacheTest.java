@@ -48,6 +48,7 @@ public class TimeCacheTest {
    */
   private long start;
 
+  @SuppressWarnings("JavaUtilDate")
   @Before
   public void setUp() throws Exception {
     repo = new TestRepository<>(new InMemoryRepository(new DfsRepositoryDescription("test")));
