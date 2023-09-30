@@ -53,7 +53,7 @@ public class TimeCacheTest {
     repo = new TestRepository<>(new InMemoryRepository(new DfsRepositoryDescription("test")));
     walk = new RevWalk(repo.getRepository());
     cache = new TimeCache();
-    start = repo.getDate().getTime() / 1000;
+    start = repo.getInstant().toEpochMilli() / 1000;
   }
 
   private long getTime(ObjectId id) throws IOException {

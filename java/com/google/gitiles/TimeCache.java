@@ -65,7 +65,7 @@ public class TimeCache {
               RevTag tag = (RevTag) o;
               PersonIdent ident = tag.getTaggerIdent();
               if (ident != null) {
-                return ident.getWhen().getTime() / 1000;
+                return ident.getWhenAsInstant().toEpochMilli() / 1000;
               }
               o = tag.getObject();
               walk.parseHeaders(o);
