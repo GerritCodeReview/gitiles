@@ -19,6 +19,7 @@ import com.google.gitiles.doc.GitilesMarkdown;
 import com.google.gitiles.doc.MarkdownConfig;
 import com.google.gitiles.doc.MarkdownToHtml;
 import java.io.IOException;
+import javax.annotation.Nullable;
 import org.eclipse.jgit.errors.CorruptObjectException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -87,6 +88,7 @@ class ReadmeHelper {
     return readmePath;
   }
 
+  @Nullable
   SafeHtml render() {
     try {
       byte[] raw = reader.open(readmeId, Constants.OBJ_BLOB).getCachedBytes(config.inputLimit);

@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.commonmark.node.Heading;
 import org.commonmark.node.Node;
 import org.eclipse.jgit.util.RawParseUtils;
@@ -75,7 +76,7 @@ class Navbar {
     return data;
   }
 
-  private Object logo() {
+  private @Nullable Object logo() {
     if (logoUrl == null) {
       return null;
     }

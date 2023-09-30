@@ -26,6 +26,7 @@ import com.google.gitiles.doc.MarkdownConfig;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
@@ -55,7 +56,7 @@ public class TreeSoyData {
    */
   static final int MAX_SYMLINK_SIZE = 16 << 10;
 
-  static String resolveTargetUrl(GitilesView view, String target) {
+  static @Nullable String resolveTargetUrl(GitilesView view, String target) {
     String resolved = PathUtil.simplifyPathUpToRoot(target, view.getPathPart());
     if (resolved == null) {
       return null;

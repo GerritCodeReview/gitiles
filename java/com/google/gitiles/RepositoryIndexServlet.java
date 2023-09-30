@@ -31,6 +31,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -154,7 +155,7 @@ public class RepositoryIndexServlet extends BaseServlet {
     return list.size() > REF_LIMIT ? list.subList(0, REF_LIMIT) : list;
   }
 
-  private static Map<String, Object> renderReadme(
+  private static @Nullable Map<String, Object> renderReadme(
       HttpServletRequest req, RevWalk walk, GitilesView view, Config cfg, RevObject head)
       throws IOException {
     RevTree rootTree;

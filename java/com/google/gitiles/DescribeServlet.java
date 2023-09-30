@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.api.Git;
@@ -91,7 +92,7 @@ public class DescribeServlet extends BaseServlet {
     }
   }
 
-  private String describe(Repository repo, GitilesView view, HttpServletRequest req)
+  private @Nullable String describe(Repository repo, GitilesView view, HttpServletRequest req)
       throws IOException {
     if (!getBooleanParam(view, CONTAINS_PARAM)) {
       throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER);

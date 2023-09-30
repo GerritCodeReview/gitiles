@@ -19,13 +19,14 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.io.Files;
 import java.util.StringTokenizer;
+import javax.annotation.Nullable;
 
 /** Static utilities for dealing with pathnames. */
 class PathUtil {
   private static final CharMatcher MATCHER = CharMatcher.is('/');
   static final Splitter SPLITTER = Splitter.on(MATCHER);
 
-  static String simplifyPathUpToRoot(String path, String root) {
+  static @Nullable String simplifyPathUpToRoot(String path, String root) {
     if (path.startsWith("/")) {
       return null;
     }

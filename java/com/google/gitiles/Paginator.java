@@ -121,7 +121,8 @@ class Paginator implements Iterable<RevCommit> {
    * @throws IncorrectObjectTypeException See {@link RevWalk#next()}.
    * @throws IOException See {@link RevWalk#next()}.
    */
-  public RevCommit next() throws MissingObjectException, IncorrectObjectTypeException, IOException {
+  public @Nullable RevCommit next()
+      throws MissingObjectException, IncorrectObjectTypeException, IOException {
     if (done) {
       return null;
     }
@@ -185,7 +186,7 @@ class Paginator implements Iterable<RevCommit> {
    *
    * @return entry corresponding to a rename or copy at the given commit.
    */
-  public DiffEntry getRename(ObjectId commitId) {
+  public @Nullable DiffEntry getRename(ObjectId commitId) {
     return renamed != null ? renamed.get(commitId) : null;
   }
 

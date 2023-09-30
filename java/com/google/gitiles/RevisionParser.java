@@ -27,6 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.RevisionSyntaxException;
@@ -114,6 +115,7 @@ class RevisionParser {
     this.branchRedirect = checkNotNull(branchRedirect, "branchRedirect");
   }
 
+  @Nullable
   Result parse(String path) throws IOException {
     if (path.startsWith("/")) {
       path = path.substring(1);
@@ -231,7 +233,7 @@ class RevisionParser {
     }
   }
 
-  private RevObject resolve(String name, RevWalk walk) throws IOException {
+  private @Nullable RevObject resolve(String name, RevWalk walk) throws IOException {
     try {
       ObjectId id = repo.resolve(name);
       return id != null ? walk.parseAny(id) : null;

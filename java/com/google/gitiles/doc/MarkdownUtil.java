@@ -16,13 +16,14 @@ package com.google.gitiles.doc;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
+import javax.annotation.Nullable;
 import org.commonmark.node.Heading;
 import org.commonmark.node.Node;
 import org.commonmark.node.Text;
 
 class MarkdownUtil {
   /** Combine child nodes as string; this must be escaped for HTML. */
-  static String getInnerText(Node node) {
+  static @Nullable String getInnerText(Node node) {
     if (node == null || node.getFirstChild() == null) {
       return null;
     }
@@ -42,7 +43,7 @@ class MarkdownUtil {
     }
   }
 
-  static String getTitle(Node node) {
+  static @Nullable String getTitle(Node node) {
     if (node instanceof Heading) {
       if (((Heading) node).getLevel() == 1) {
         return getInnerText(node);

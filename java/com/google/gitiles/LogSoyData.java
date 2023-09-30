@@ -144,7 +144,7 @@ public class LogSoyData {
         "entry", entry);
   }
 
-  private Map<String, Object> toRenameSoyData(DiffEntry entry) {
+  private @Nullable Map<String, Object> toRenameSoyData(DiffEntry entry) {
     if (entry == null) {
       return null;
     }

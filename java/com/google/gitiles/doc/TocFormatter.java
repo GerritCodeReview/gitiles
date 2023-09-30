@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.commonmark.node.Heading;
 import org.commonmark.node.Node;
@@ -149,7 +150,7 @@ class TocFormatter {
     }
   }
 
-  private static NamedAnchor findAnchor(Node node) {
+  private static @Nullable NamedAnchor findAnchor(Node node) {
     for (Node c = node.getFirstChild(); c != null; c = c.getNext()) {
       if (c instanceof NamedAnchor) {
         return (NamedAnchor) c;

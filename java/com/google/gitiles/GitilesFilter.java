@@ -229,10 +229,7 @@ class GitilesFilter extends MetaFilter {
     }
     root.through(dispatchFilter);
 
-    serveRegex(REPO_REGEX)
-        .through(repositoryFilter)
-        .through(viewFilter)
-        .through(dispatchFilter);
+    serveRegex(REPO_REGEX).through(repositoryFilter).through(viewFilter).through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
