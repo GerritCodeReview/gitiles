@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import com.google.common.base.Enums;
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public enum FormatType {
       return set(req, Optional.of(DEFAULT));
     }
 
-    for (String p : accept.split("[ ,;][ ,;]*")) {
+    for (String p : Splitter.onPattern("[ ,;][ ,;]*").split(accept)) {
       for (FormatType type : FormatType.values()) {
         if (p.equals(type.mimeType)) {
           return set(req, Optional.of(type != HTML ? type : DEFAULT));
