@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/** Tests for {@PathServlet}. */
+/** Tests for {@link PathServlet}. */
 @SuppressWarnings("unchecked")
 @RunWith(JUnit4.class)
 public class PathServletTest extends ServletTest {
