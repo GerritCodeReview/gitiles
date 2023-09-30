@@ -20,6 +20,8 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
+import com.google.errorprone.annotations.FormatMethod;
+import com.google.errorprone.annotations.FormatString;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -102,7 +104,9 @@ public final class GitilesRequestFailureException extends RuntimeException {
     this.reason = reason;
   }
 
-  public GitilesRequestFailureException withPublicErrorMessage(String format, Object... params) {
+  @FormatMethod
+  public GitilesRequestFailureException withPublicErrorMessage(
+      @FormatString String format, Object... params) {
     this.publicErrorMessage = String.format(format, params);
     return this;
   }

@@ -6,6 +6,7 @@ DEPS = [
     "//lib:autolink",
     "//lib:commons-lang3",
     "//lib:commons-text",
+    "//lib:errorprone-annotations",
     "//lib:gson",
     "//lib:guava",
     "//lib:html-types",

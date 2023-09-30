@@ -38,6 +38,12 @@ register_toolchains("//tools:error_prone_warnings_toolchain_java11_definition")
 register_toolchains("//tools:error_prone_warnings_toolchain_java17_definition")
 
 maven_jar(
+    name = "error-prone-annotations",
+    artifact = "com.google.errorprone:error_prone_annotations:2.22.0",
+    sha1 = "bfb9e4281a4cea34f0ec85b3acd47621cfab35b4",
+)
+
+maven_jar(
     name = "commons-codec",
     artifact = "commons-codec:commons-codec:1.15",
     sha1 = "49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d",
