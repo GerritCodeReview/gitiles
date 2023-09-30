@@ -251,7 +251,7 @@ public abstract class HtmlBuilder {
 
   private static final Pattern HTML_ENTITY = Pattern.compile("&[a-z]+;");
 
-  /** Append constant entity reference like {@code &nbsp;}. */
+  /** Append constant entity reference like <code>&amp;nbsp&#59;</code>. */
   public void entity(String entity) {
     checkArgument(HTML_ENTITY.matcher(entity).matches(), "invalid entity %s", entity);
     finishActiveTag();
