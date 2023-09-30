@@ -17,7 +17,6 @@ package com.google.gitiles.doc;
 import static com.google.gitiles.doc.SmartQuoted.Type.DOUBLE;
 import static com.google.gitiles.doc.SmartQuoted.Type.SINGLE;
 
-import com.google.gitiles.doc.SmartQuoted.Type;
 import org.commonmark.Extension;
 import org.commonmark.node.Node;
 import org.commonmark.node.Text;
@@ -40,7 +39,7 @@ public class SmartQuotedExtension implements ParserExtension {
     builder.customDelimiterProcessor(new QuotedProcessor(DOUBLE, '"'));
   }
 
-  private static void quote(Type type, Text opener, Text closer) {
+  private static void quote(SmartQuoted.Type type, Text opener, Text closer) {
     SmartQuoted quote = new SmartQuoted();
     quote.setType(type);
     for (Node t = opener.getNext(); t != null && t != closer; ) {
