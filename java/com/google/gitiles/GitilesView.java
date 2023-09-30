@@ -374,6 +374,7 @@ public class GitilesView {
       return build().toUrl();
     }
 
+    @SuppressWarnings("AnnotateFormatMethod")
     private void checkView(boolean expr, String msg, Object... args) {
       if (!expr) {
         throw new InvalidViewException(String.format(msg, args));
