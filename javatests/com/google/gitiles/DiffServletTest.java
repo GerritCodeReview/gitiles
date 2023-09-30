@@ -24,7 +24,6 @@ import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.DiffEntry.Side;
 import org.eclipse.jgit.diff.Edit;
-import org.eclipse.jgit.diff.Edit.Type;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.Patch;
@@ -66,7 +65,7 @@ public class DiffServletTest extends ServletTest {
 
     RawText rt = new RawText(contents.getBytes(UTF_8));
     Edit e = getOnlyElement(getOnlyElement(f.getHunks()).toEditList());
-    assertThat(e.getType()).isEqualTo(Type.INSERT);
+    assertThat(e.getType()).isEqualTo(Edit.Type.INSERT);
     assertThat(rt.getString(e.getBeginB(), e.getEndB(), false)).isEqualTo(contents);
   }
 
@@ -87,7 +86,7 @@ public class DiffServletTest extends ServletTest {
 
     RawText rt2 = new RawText(contents2.getBytes(UTF_8));
     Edit e = getOnlyElement(getOnlyElement(f.getHunks()).toEditList());
-    assertThat(e.getType()).isEqualTo(Type.INSERT);
+    assertThat(e.getType()).isEqualTo(Edit.Type.INSERT);
     assertThat(rt2.getString(e.getBeginB(), e.getEndB(), false)).isEqualTo("contents\n");
   }
 
