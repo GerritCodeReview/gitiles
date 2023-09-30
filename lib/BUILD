@@ -89,3 +89,9 @@ java_library(
     name = "commons-compress",
     exports = ["@commons-compress//jar"],
 )
+
+java_library(
+    name = "errorprone-annotations",
+    visibility = ["//visibility:public"],
+    exports = ["@error-prone-annotations//jar"],
+)
