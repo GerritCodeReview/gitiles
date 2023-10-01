@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac8e154_5da2ec54",
+        "filename": "java/com/google/gitiles/FormatType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-10-01T08:50:01Z",
+      "side": 1,
+      "message": "Could this be extract as static instance and be reused?",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 53
+      },
+      "revId": "bb67889e364b4dd8764a77552dc90841ee0499ff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
