@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179ca65c_0d43ed33",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-10-01T08:46:25Z",
+      "side": 1,
+      "message": "I know, you used the same version as used in gerrit. Alternatively, we could use the latest one: 2.22.0 (and update the version used in gerrit later)?",
+      "range": {
+        "startLine": 42,
+        "startChar": 62,
+        "endLine": 42,
+        "endChar": 68
+      },
+      "revId": "86c78284d495fd47e397b54b779f92a67b086267",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
