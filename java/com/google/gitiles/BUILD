@@ -20,6 +20,7 @@ DEPS = [
     "//lib:jgit",
     "//lib:jgit-servlet",
     "//lib:jsr305",
+    "//lib:mermaid",
     "//lib:prettify",
     "//lib:slf4j-api",
     "//lib/soy",
