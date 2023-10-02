@@ -351,3 +351,11 @@ maven_jar(
     sha1 = "e51f5b0ae0b0c1960687ae970a2a3434d39d8abb",
 )
 
+# When upgrading mermaid, upgrade com.google.gitiles.doc.MermaidExtension#MJS_PATH to the
+# corresponding version
+maven_jar(
+    name = "mermaid",
+    artifact = "org.webjars.npm:mermaid:11.12.3",
+    attach_source = False,
+    sha1 = "0a9e1c0c243151c56c46e44d9ae532302d1c15df",
+)

@@ -17,6 +17,9 @@ package com.google.gitiles.doc;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.gitiles.ServletTest;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -194,5 +197,39 @@ public class DocServletTest extends ServletTest {
 
     String html = buildHtml("/repo/+doc/master/README.md");
     assertThat(html).contains("<a href=\"about:invalid#zSoyz\">c</a>");
+  }
+
+  @Test
+  public void mermaid() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add(
+            "README.md",
+            """
+        ```mermaid
+        graph TD;
+            A-->B;
+            A-->C;
+            B-->D;
+            C-->D;
+        ```
+        """)
+        .create();
+
+    String html = buildHtml("/repo/+doc/master/README.md");
+    assertThat(html)
+        .contains(
+            """
+			<pre class="mermaid">graph TD;
+			    A--&gt;B;
+			    A--&gt;C;
+			    B--&gt;D;
+			    C--&gt;D;
+			</pre>""");
+
+    assertThat(html)
+        .contains(
+            "<script type=\"module\">import mermaid from '%s'</script>"
+                .formatted(MermaidExtension.MJS_PATH));
   }
 }

@@ -19,6 +19,7 @@ package(
     "gfm-tables",
     "html-types",
     "jsr305",
+    "mermaid",
     "servlet-api",
     "gson",
     "guava",

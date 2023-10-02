@@ -15,6 +15,7 @@ DEPS = [
     "//lib:cm-autolink",
     "//lib:gfm-tables",
     "//lib:gfm-strikethrough",
+    "//lib:mermaid",
     "//lib:prettify",
     "//lib:jgit",
     "//lib:jgit-servlet",

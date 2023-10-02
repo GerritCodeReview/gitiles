@@ -82,6 +82,7 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
         config.setBoolean("markdown", null, "multicolumn", true);
         config.setBoolean("markdown", null, "namedanchor", true);
         config.setBoolean("markdown", null, "smartquote", true);
+        config.setBoolean("markdown", null, "mermaid", true);
         config.setStringList(
             "gitiles", null, "allowOriginRegex", ImmutableList.of("http://localhost"));
         return config;
