@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda2f08f_5648aeb4",
+        "filename": "tools/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-10-02T13:46:30Z",
+      "side": 1,
+      "message": "I removed unused Google Guice dependency recently. Should dependency injection related Bug patterns be omitted?",
+      "revId": "708616bfea9ad3d73c4cf65ca63296324dc50cea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
