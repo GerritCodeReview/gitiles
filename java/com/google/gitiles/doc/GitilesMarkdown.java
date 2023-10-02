@@ -62,6 +62,9 @@ public class GitilesMarkdown {
     if (cfg.toc) {
       ext.add(TocExtension.create());
     }
+    if (cfg.mermaid) {
+      ext.add(MermaidExtension.create());
+    }
     return Parser.builder().extensions(ext).build().parse(md);
   }
 

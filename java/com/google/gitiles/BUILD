@@ -22,6 +22,7 @@ DEPS = [
     "//lib/flogger",
     "//lib/soy",
     "//java/com/google/gitiles/blame/cache",
+    "//lib:mermaid",
 ]
 
 DEPS_ALL = DEPS + [
