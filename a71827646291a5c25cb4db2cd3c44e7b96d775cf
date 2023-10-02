@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a9be7d5_98fbda2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-10-02T13:34:20Z",
+      "side": 1,
+      "message": "We have added recently Instant method to PersonIdent.java. Can it be used here?\n\nhttps://gerrit.googlesource.com/jgit/+/refs/heads/master/org.eclipse.jgit/src/org/eclipse/jgit/lib/PersonIdent.java",
+      "revId": "a71827646291a5c25cb4db2cd3c44e7b96d775cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
