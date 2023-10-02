@@ -16,6 +16,24 @@
       "message": "Do we specify what browsers and versions are supported by Gitiles?\n\nI\u0027m asking because the [JS modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#browser_compatibility) are not supported in every browsers",
       "revId": "d46530ddf8056ccb6840037de58da8ba90c0eb15",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe6d9728_14cd2b70",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-02T20:52:26Z",
+      "side": 1,
+      "message": "According to the provided link, `import` is supported by all listed browsers, isn\u0027t it? Therefore, I don\u0027t think we should specify a list of supported browsers.",
+      "parentUuid": "8b6586f7_5474030f",
+      "revId": "d46530ddf8056ccb6840037de58da8ba90c0eb15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

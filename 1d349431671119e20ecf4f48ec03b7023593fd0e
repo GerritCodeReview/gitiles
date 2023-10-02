@@ -92,6 +92,30 @@
       },
       "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0d2c22_b51fe588",
+        "filename": "java/com/google/gitiles/doc/MermaidExtension.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-02T20:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99537307_a92a0fd7",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 94
+      },
+      "revId": "1d349431671119e20ecf4f48ec03b7023593fd0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

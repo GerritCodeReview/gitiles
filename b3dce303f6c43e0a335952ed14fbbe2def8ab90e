@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "579937ee_917c0f2a",
+        "filename": "java/com/google/gitiles/doc/HtmlPreBlock.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-02T20:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92b32632_c8ab318d",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "b3dce303f6c43e0a335952ed14fbbe2def8ab90e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38b4e3c7_25ddfbc4",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-28T12:34:45Z",
       "side": 1,
       "message": "nit: needs GJF formatting?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "b3dce303f6c43e0a335952ed14fbbe2def8ab90e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3972f5_70623bab",
+        "filename": "java/com/google/gitiles/doc/HtmlSafeScript.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-02T20:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b4e3c7_25ddfbc4",
       "range": {
         "startLine": 19,
         "startChar": 0,
