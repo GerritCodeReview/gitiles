@@ -223,16 +223,15 @@ class GitilesFilter extends MetaFilter {
     Filter viewFilter = new ViewFilter(accessFactory, urls, visibilityCache, branchRedirect);
     Filter dispatchFilter = new DispatchFilter(filters, servlets);
 
+    CacheableMetaInfResources.addTo(this);
+
     ServletBinder root = serveRegex(ROOT_REGEX).through(viewFilter);
     if (gitwebRedirect != null) {
       root.through(gitwebRedirect);
     }
     root.through(dispatchFilter);
 
-    serveRegex(REPO_REGEX)
-        .through(repositoryFilter)
-        .through(viewFilter)
-        .through(dispatchFilter);
+    serveRegex(REPO_REGEX).through(repositoryFilter).through(viewFilter).through(dispatchFilter);
 
     serveRegex(REPO_PATH_REGEX)
         .through(repositoryFilter)
