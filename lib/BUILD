@@ -27,6 +27,7 @@ package(
     "ow2-asm-commons",
     "ow2-asm-tree",
     "ow2-asm-util",
+    "mermaid",
 ]]
 
 java_library(
