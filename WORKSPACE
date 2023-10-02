@@ -344,3 +344,9 @@ maven_jar(
     artifact = "org.ow2.asm:asm-util:" + OW2_VERS,
     sha1 = "fbc178fc5ba3dab50fd7e8a5317b8b647c8e8946",
 )
+
+maven_jar(
+    name = "mermaid",
+    artifact = "org.webjars.npm:mermaid:10.4.0",
+    sha1 = "1dc63c81834059c6b7798f0ce0d743c3910af3b9",
+)
