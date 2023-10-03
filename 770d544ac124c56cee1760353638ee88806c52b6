@@ -16,6 +16,24 @@
       "message": "nit: wrap line after 80 characters",
       "revId": "770d544ac124c56cee1760353638ee88806c52b6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ab3c4f_74456e02",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-03T09:03:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "680b579f_506f8993",
+      "revId": "770d544ac124c56cee1760353638ee88806c52b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
