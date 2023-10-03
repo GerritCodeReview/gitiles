@@ -53,6 +53,13 @@ ul, ol {
   color: #000;
   font-size: 13px;
 }
+@media (prefers-color-scheme: dark) {
+  .u-sha1 {
+    background-color: #03060a !important;
+    color: #ccc !important;
+    border: solid 1px #000 !important;
+  }
+}
 .u-pre {
   font-size: 10pt;
   white-space: pre;
@@ -91,6 +98,21 @@ ul, ol {
   background: #eee;
   -ms-flex: none;
   flex: none;
+}
+@media (prefers-color-scheme: dark) {
+  .Site {
+    background: #0d1118 !important;
+    color: #ccc !important;
+  }
+
+  .Site-header,
+  .Site-footer {
+    background: #03060a !important;
+  }
+
+  .Site-content a {
+    color: #ccc !important;
+  }
 }
 .Site-header--withNavbar {
   background: #fff;
@@ -153,13 +175,6 @@ ul, ol {
   display: inline-block;
   margin-left: 15px;
 }
-.Header-menuItem--noAction {
-  color: inherit;
-}
-.Breadcrumbs {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
 .Breadcrumbs-crumb {
   color: #00e;
 }
@@ -169,6 +184,30 @@ ul, ol {
 }
 .Footer {
   color: #666;
+}
+@media (prefers-color-scheme: dark) {
+  .Footer a {
+    color: #ccc !important;
+  }
+
+  .Header-menuItem {
+    color: #ccc !important;
+  }
+
+  .Breadcrumbs-crumb {
+    color: #ccc !important;
+  }
+
+  .Breadcrumbs-crumb:last-child {
+    color: #ccc !important;
+  }
+}
+.Header-menuItem--noAction {
+  color: inherit;
+}
+.Breadcrumbs {
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 .Footer-poweredBy {
   -ms-flex: 1;
@@ -233,6 +272,15 @@ ul, ol {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+@media (prefers-color-scheme: dark) {
+  .RepoList-itemDescription {
+    color: #ccc !important;
+  }
+
+  .RepoList-item--header:hover, .RepoList-item:hover {
+    background: #03060a !important;
+  }
+}
 
 /* RepositoryIndex.soy */
 
@@ -248,6 +296,12 @@ ul, ol {
   margin-bottom: 20px;
   padding: 10px;
 }
+@media (prefers-color-scheme: dark) {
+  .CloneRepo {
+    background: #0d1118 !important;
+    color: #ccc !important;
+  }
+}
 .CloneRepo-title {
   margin-bottom: 2px;
 }
@@ -259,9 +313,27 @@ ul, ol {
   padding: 10px;
   width: 100%;
 }
+@media (prefers-color-scheme: dark) {
+  .CloneRepo-command {
+    border: 1px solid #000 !important;
+    background-color: #03060a !important;
+    color: #ccc !important;
+  }
+
+  .CommitLog-sha1 {
+    border: 1px solid #000 !important;
+    background-color: #03060a !important;
+    color: #ccc !important;
+  }
+}
 .RepoShortlog {
   display: -ms-flexbox;
   display: flex;
+}
+@media (prefers-color-scheme: dark) {
+  .RepoShortlog a {
+    color: #ccc !important;
+  }
 }
 .RepoShortlog-refs {
   -ms-flex: none !important;
@@ -340,6 +412,11 @@ ul, ol {
 .CommitLog-item--oneline:hover {
   background: #eee;
 }
+@media (prefers-color-scheme: dark) {
+  .CommitLog-item--oneline:hover {
+    background-color: #03060a !important;
+  }
+}
 .CommitLog-item--full {
   margin-bottom: 20px;
 }
@@ -387,6 +464,13 @@ ul, ol {
   padding: 12px;
   white-space: pre-wrap;
 }
+@media (prefers-color-scheme: dark) {
+  .MetadataMessage {
+    border: 1px solid #000 !important;
+    background-color: #03060a !important;
+    color: #ccc !important;
+  }
+}
 .DiffTree {
   margin: 10px 0 5px;
 }
@@ -418,6 +502,15 @@ ul, ol {
 }
 .FileList-item:hover {
   background: #eee;
+}
+@media (prefers-color-scheme: dark) {
+  .FileList-item a {
+    color: #ccc !important;
+  }
+
+  .FileList-item:hover {
+    background: #03060a !important;
+  }
 }
 .FileList-item::before {
   left: -22px;
@@ -454,6 +547,11 @@ ul, ol {
   border-collapse: collapse;
   border-spacing: 0;
   margin: 10px 0;
+}
+@media (prefers-color-scheme: dark) {
+  .FileContents {
+    background-color: #666 !important;
+  }
 }
 .FileContents-line {
   border: none;
@@ -497,6 +595,14 @@ ul, ol {
 }
 .Blame-region--bg2 {
   background: #f1f2f3;
+}
+@media (prefers-color-scheme: dark) {
+  .Blame-region--bg1 {
+    background: #666;
+  }
+  .Blame-region--bg2 {
+    background: #444;
+  }
 }
 .Blame-sha1,
 .Blame-author,
