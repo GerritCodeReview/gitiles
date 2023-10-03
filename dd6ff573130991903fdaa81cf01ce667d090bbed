@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4872236_6e92eb7e",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-03T09:14:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de85ffef_9581f495",
+      "range": {
+        "startLine": 74,
+        "startChar": 71,
+        "endLine": 74,
+        "endChar": 72
+      },
+      "revId": "dd6ff573130991903fdaa81cf01ce667d090bbed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1441ff0a_f1596f0a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-03T09:12:26Z",
       "side": 1,
       "message": "nit: remove trailing whitespace\n\n```suggestion\nruntime, make sure to assign value `n` to environment variable\n```",
+      "range": {
+        "startLine": 75,
+        "startChar": 62,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "dd6ff573130991903fdaa81cf01ce667d090bbed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b6d452_1c1b942c",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1057319
+      },
+      "writtenOn": "2023-10-03T09:14:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1441ff0a_f1596f0a",
       "range": {
         "startLine": 75,
         "startChar": 62,
