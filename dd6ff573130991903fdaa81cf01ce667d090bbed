@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de85ffef_9581f495",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-03T09:12:26Z",
+      "side": 1,
+      "message": "nit: remove trailing whitespace\n\n```suggestion\nremote debugger connects to port 5005. If you don\u0027t want to suspend the\n```",
+      "range": {
+        "startLine": 74,
+        "startChar": 71,
+        "endLine": 74,
+        "endChar": 72
+      },
+      "revId": "dd6ff573130991903fdaa81cf01ce667d090bbed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1441ff0a_f1596f0a",
+        "filename": "Documentation/developer-guide.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-03T09:12:26Z",
+      "side": 1,
+      "message": "nit: remove trailing whitespace\n\n```suggestion\nruntime, make sure to assign value `n` to environment variable\n```",
+      "range": {
+        "startLine": 75,
+        "startChar": 62,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "dd6ff573130991903fdaa81cf01ce667d090bbed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
