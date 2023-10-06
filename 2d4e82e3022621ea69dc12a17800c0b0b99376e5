@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "897383f7_beb68133",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1168037
+      },
+      "writtenOn": "2023-10-06T18:54:26Z",
+      "side": 1,
+      "message": "https://gerrit-review.googlesource.com/c/gitiles/+/376814/comments/d7cc3269_a51a7b88",
+      "revId": "2d4e82e3022621ea69dc12a17800c0b0b99376e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
