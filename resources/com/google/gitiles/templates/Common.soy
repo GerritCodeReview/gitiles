@@ -49,13 +49,13 @@
       <link rel="stylesheet" type="text/css" href="{$url}">
     {/for}
   {/if}
-  {delcall gitiles.customHeadTagPart variant="$customVariant ?: ''" /}
+  {delcall gitiles.customHeadTagPart variant="$customVariant ??: ''" /}
 
 </head>
 <body class="Site">
   <header class="Site-header">
     <div class="Header">
-      {delcall gitiles.customHeader variant="$customVariant ?: ''" /}
+      {delcall gitiles.customHeader variant="$customVariant ??: ''" /}
 
       {if $menuEntries and length($menuEntries)}
         <div class="Header-menu">
@@ -159,7 +159,7 @@
   {@param? customVariant: ?}  /** variant name for custom styling. */
     </div> <!-- Container -->
   </div> <!-- Site-content -->
-  {delcall gitiles.customFooter variant="$customVariant ?: ''" /}
+  {delcall gitiles.customFooter variant="$customVariant ??: ''" /}
 </body>
 </html>
 {/template}
