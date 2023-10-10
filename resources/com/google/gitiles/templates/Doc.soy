@@ -59,7 +59,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   <link rel="stylesheet" type="text/css" href="{$staticUrls.BASE_CSS_URL}" />
   <link rel="stylesheet" type="text/css" href="{$staticUrls.DOC_CSS_URL}" />
   <link rel="stylesheet" type="text/css" href="{$staticUrls.PRETTIFY_CSS_URL}" />
-  {delcall gitiles.customHeadTagPart variant="$customVariant ?: ''" /}
+  {delcall gitiles.customHeadTagPart variant="$customVariant ?? ''" /}
 </head>
 <body class="Site">
   <header class="Site-header {if $navbarHtml}Site-header--withNavbar{/if}">
@@ -84,7 +84,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
       </div>
     </div>
   </div>
-  {delcall gitiles.customDocFooter variant="$customVariant ?: ''" /}
+  {delcall gitiles.customDocFooter variant="$customVariant ?? ''" /}
   {if $analyticsId}
     /* From https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
     <script>

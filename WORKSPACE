@@ -140,8 +140,8 @@ maven_jar(
 
 maven_jar(
     name = "soy",
-    artifact = "com.google.template:soy:2022-07-20",
-    sha1 = "f64eb90da6d91beddf11653865c90f26d26710cf",
+    artifact = "com.google.template:soy:2023-09-13",
+    sha1 = "b88a029df7408c58452f80d6518723f1386d69b5",
 )
 
 FLOGGER_VERS = "0.7.4"
