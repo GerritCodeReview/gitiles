@@ -16,6 +16,24 @@
       "message": "Are these zuul pipeline tests flaky? I just built gitiles locally and had no issues. See https://paste.googleplex.com/4604404530413568",
       "revId": "05796acc845b10f700588760efcae716949e7bd9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "867df50e_7ee4e77c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2023-10-11T22:06:26Z",
+      "side": 1,
+      "message": "It is failing testing \"//javatests/com/google/gitiles:servlet_tests\", could you try \"bazelisk test //javatests/com/google/gitiles:servlet_tests\" ?",
+      "parentUuid": "d8aa50d0_6c02fcae",
+      "revId": "05796acc845b10f700588760efcae716949e7bd9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
