@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d697a5_b4dbd918",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-11T12:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a9be7d5_98fbda2f",
+      "revId": "a71827646291a5c25cb4db2cd3c44e7b96d775cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "231fe46b_a3823549",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-10-05T21:19:24Z",
       "side": 1,
       "message": "Not needed, if you replace the `ident.getWhen()` with `ident.getWhenAsInstant()` below.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 35
+      },
+      "revId": "a71827646291a5c25cb4db2cd3c44e7b96d775cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7058589_5599378d",
+        "filename": "java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-11T12:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "231fe46b_a3823549",
       "range": {
         "startLine": 56,
         "startChar": 2,
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24473109_c1133d84",
+        "filename": "java/com/google/gitiles/TimeCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-11T12:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a04f5e88_4dcb6ba4",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 48
+      },
+      "revId": "a71827646291a5c25cb4db2cd3c44e7b96d775cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05482a3b_f0f10319",
@@ -87,6 +153,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb9ed3d3_0c440bd6",
+        "filename": "javatests/com/google/gitiles/TimeCacheTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-11T12:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05482a3b_f0f10319",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 35
+      },
+      "revId": "a71827646291a5c25cb4db2cd3c44e7b96d775cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6452402a_35c796af",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-10-05T21:19:24Z",
       "side": 1,
       "message": "`repo.getInstant().toEpochMilli()`.",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "a71827646291a5c25cb4db2cd3c44e7b96d775cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f1854ec_2f427503",
+        "filename": "javatests/com/google/gitiles/TimeCacheTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-11T12:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6452402a_35c796af",
       "range": {
         "startLine": 57,
         "startChar": 12,
