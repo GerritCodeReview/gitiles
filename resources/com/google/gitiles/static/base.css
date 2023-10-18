@@ -18,6 +18,7 @@
 
 @import "//fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,cyrillic-ext,greek-ext,cyrillic,greek,vietnamese,latin-ext";
 @import "//fonts.googleapis.com/css?family=Source+Code+Pro";
+
 *,
 *::after,
 *::before {
@@ -49,8 +50,6 @@ ul, ol {
 /* Utility classes */
 
 .u-sha1 {
-  background-color: #f1f2f3;
-  color: #000;
   font-size: 13px;
 }
 .u-pre {
@@ -58,8 +57,8 @@ ul, ol {
   white-space: pre;
 }
 .u-lineNum {
-  border-right: 1px solid #f1f2f3;
-  color: #666;
+  border-right-style: 1px;
+  border-right-width: solid;
   display: inline-block;
   min-width: 3em;
   text-align: right;
@@ -77,8 +76,6 @@ ul, ol {
 /* Common.soy */
 
 .Site {
-  background: #fff;
-  color: #000;
   display: -ms-flexbox;
   display: flex;
   font: 14px/1.54 'Open Sans', sans-serif;
@@ -88,12 +85,8 @@ ul, ol {
 }
 .Site-header,
 .Site-footer {
-  background: #eee;
   -ms-flex: none;
   flex: none;
-}
-.Site-header--withNavbar {
-  background: #fff;
 }
 .Site-content {
   -ms-flex: 1 0 auto;
@@ -128,7 +121,6 @@ ul, ol {
   flex: 1;
 }
 .Header-anchor {
-  color: #666;
   font-size: 32px;
   font-weight: 300;
   text-decoration: none;
@@ -139,7 +131,6 @@ ul, ol {
   vertical-align: middle;
 }
 .Header-nav {
-  background: #eee;
   padding: 15px 0;
 }
 .Header-menu {
@@ -149,26 +140,15 @@ ul, ol {
   justify-content: flex-end;
 }
 .Header-menuItem {
-  color: #00e;
   display: inline-block;
   margin-left: 15px;
-}
-.Header-menuItem--noAction {
-  color: inherit;
 }
 .Breadcrumbs {
   font-size: 18px;
   margin-bottom: 20px;
 }
-.Breadcrumbs-crumb {
-  color: #00e;
-}
 .Breadcrumbs-crumb:last-child {
-  color: #000;
   font-weight: bold;
-}
-.Footer {
-  color: #666;
 }
 .Footer-poweredBy {
   -ms-flex: 1;
@@ -204,15 +184,9 @@ ul, ol {
 .RepoList-item:visited {
   text-decoration: none;
 }
-.RepoList-item:hover {
-  background: #eee;
-}
 .RepoList-item--header {
   font-weight: bold;
   margin: 0;
-}
-.RepoList-item--header:hover {
-  background: #fff;
 }
 .RepoList-itemName,
 .RepoList-itemDescription {
@@ -227,7 +201,6 @@ ul, ol {
   text-decoration: none;
 }
 .RepoList-itemDescription {
-  color: #000;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
@@ -241,10 +214,8 @@ ul, ol {
 }
 .RepoMirroredFrom {
   margin: 10px 0;
-  color: #666;
 }
 .CloneRepo {
-  background: #eee;
   margin-bottom: 20px;
   padding: 10px;
 }
@@ -252,7 +223,8 @@ ul, ol {
   margin-bottom: 2px;
 }
 .CloneRepo-command {
-  border: 1px solid #ccc;
+  border-style: 1px;
+  border-width: solid;
   border-radius: 4px;
   display: block;
   font-size: inherit;
@@ -277,7 +249,8 @@ ul, ol {
   width: 80%;
 }
 .RepoIndexDoc {
-  border-top: 1px solid #ddd;
+  border-top-style: 1px;
+  border-top-width: solid;
   margin-top: 20px;
   padding-top: 5px;
 }
@@ -293,7 +266,8 @@ ul, ol {
   }
   .RepoShortlog-refs {
     width: auto;
-    border-bottom: 1px solid #ddd;
+    border-bottom-style: 1px;
+    border-bottom-width: solid;
     margin-bottom: 20px;
     padding-bottom: 20px;
   }
@@ -337,9 +311,6 @@ ul, ol {
 .CommitLog-item {
   padding: 2px 0;
 }
-.CommitLog-item--oneline:hover {
-  background: #eee;
-}
 .CommitLog-item--full {
   margin-bottom: 20px;
 }
@@ -353,15 +324,6 @@ ul, ol {
   margin-right: 3px;
   padding: 2px 4px;
   text-align: center;
-}
-.CommitLog-time {
-  color: #666;
-}
-.CommitLog-branchLabel {
-  color: #dd4b39;
-}
-.CommitLog-tagLabel {
-  color: #093;
 }
 .CommitLog-rename {
   font-size: 0.9em;
@@ -380,9 +342,8 @@ ul, ol {
   text-align: right;
 }
 .MetadataMessage {
-  background-color: #fafafa;
-  border: 1px solid #ccc;
-  color: #000;
+  border-style: 1px;
+  border-width: solid;
   margin: 0;
   padding: 12px;
   white-space: pre-wrap;
@@ -392,16 +353,6 @@ ul, ol {
 }
 .DiffTree-action {
   margin-left: .5em;
-}
-.DiffTree-action--add {
-  color: #060;
-}
-.DiffTree-action--delete {
-  color: #600;
-}
-.DiffTree-action--rename,
-.DiffTree-action--copy {
-  color: #006;
 }
 .DiffSummary {}
 .TreeDetail-sha1,
@@ -416,9 +367,6 @@ ul, ol {
   padding: 1px 0;
   position: relative;
 }
-.FileList-item:hover {
-  background: #eee;
-}
 .FileList-item::before {
   left: -22px;
   position: absolute;
@@ -426,29 +374,6 @@ ul, ol {
 }
 .FileList-itemLink {
   display: block;
-}
-/* Tree icons are taken from the public domain Tango icons:
- * http://tango.freedesktop.org/Tango_Icon_Library
- * Compressed with pngcrush -brute -rem tEXt -rem tIME -rem iTXt -rem zTXt */
-.FileList-item--gitTree::before {
-  /* places/folder.png */
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAAb5JREFUOMulkr1KA0EQgGdvTwwnYmER0gQsrFKmSy+pLESw9Qm0F/ICNnba+h6iEOuAEWslKJKTOyJJvIT72d1xZuOFC0giOLA77O7Mt/PnNptN+I+49Xr9GhH3f3mb0v1ht9vtLAUYYw5ItkgDL3KyD8PhcLvdbl/WarXT3DjLMnAcR/f7/YfxeKwtgC5RKQVhGILWeg4hQ6hUKjWyucmhLFEUuWR3QYBWAZABQ9i5CCmXy16pVALP80BKaaG+70MQBLvzFMjRKKXh8j6FSYKF7ITdEWLa4/ktokN74wiqjSMpnVcbQZqmEJHz+ckeCPFjWKwULpyspAqhdXVXdcnZcPjsIgn+2BsVA8jVYuWlgJ3yBj0icgq2uoK+lg4t+ZvLomSKamSQ4AI5BcMADtMhyNoSgNIISUaFNtwlazcDcBc4gjjVwCWid2usCWroYEhnaqbzFJLUzAHIXRDChXCcQP8zhkSZ5eNLgHAUzwDcRu4CoIRn/wsGUQIIy4Vr9TH6SYFCNzw4nALn5627K4vIttOUOwfa5YnrDYzt/9OLv9I5l8kk5hZ3XLO20b7tbR7zHLy/BX8G0IeBEM7ZN1NGIaFUaKLgAAAAAElFTkSuQmCC);
-}
-.FileList-item--symlink::before {
-  /* actions/edit-redo.png */
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAABZUlEQVQ4y2NgIAL4zWL7D8TGDOQCqAEg7Ey2Aes+58AMcSSkmB2I3YB4HhCfh9kOMoCgIUAJMyDe2D+b58jKe553133M+r/uU/b/zV+L/y97n/i/+JIYbkOAAl5AfGLNTde/69+n/1/4MuD/gtsqKBhkALIh5S0M1jDN2kC8a+UNt/8b36f+X3JP5f/0u1pwjeuvS8E1g3DpZQm4ITAD5s09ZPBq49uE/0vvq4E1gPCJC5z/yy+IoGgG4a5HJqjeCJ3Pc2vjy+T/ux4Y/j99Rfz/7GtK/xfeUkbBN+8pY9cMAkFzuT5uepPy/+w1lf+TF3L/Q4p3OD5zRQ67Zlg873vk9n/mMlaQ5EcgLgZiA2R5nJphCjbfNP8LVeCBJyUa40xpO+5afQXS/8jKC0DJg+uPKx+bOJf1HDYXEJPW46JW8LcduKYzbdZMph4gn4ccQxSAOAuIo4FYdvsKFpYdK1iYCekDACq5JXDHGJhDAAAAAElFTkSuQmCC);
-}
-.FileList-item--regularFile::before {
-  /* mimetypes/text-x-generic.png */
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVQ4ja2TSw7CIBRFu0r3wyIYsAMHDl1CC92IDqC0wAbQi4Fo5VOMJGcAyT33vQEDY+xCCPGdnIZ48NB7kPkSLMvipZQBpVQC70Br7Y0xZQGC4zj6aZoCnPMPhBBtwb41NoN1XesCBHPNhyfI7fziFu6HJti3IgS0vrcFuZ3Btm2JpmC/M5jnOdEU5JoRstYmigKES80x7JyrC+IE7+1xAoSrgp//AqX02vsbn5nz8K/zAP9CzjbgFoHjAAAAAElFTkSuQmCC);
-}
-.FileList-item--executableFile::before {
-  /* mimetypes/text-x-script.png */
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA7ADsAOwdIxY2AAAACXBIWXMAAAsTAAALEwEAmpwYAAABOklEQVQ4T5WTTYqDQBBGPdKcZnIJdy7EVRByBQPi0iwHAlGT0YBHcG82kkV2VnffoKar7FYzIQYLPtqffq+rEJ04jn/CMMSV+XZs0YO1RcyLoO/7MdAD9gAI8wiK+CyYA0IDFABhrmFBAHNYbwYTIxFyWN8KwAiEmIEaknqVUposCoBBGE8cIGUipUKp5IJAzOe2JxI0pG1b3Gw2+Hg8FjoQzy0rLVAavt0GuGkaXrfb7avAzs0CNcHtDD4ejwzTve/7X/9GGFqn2QmkDmzbBJ9OJ8yyDNM0Rdd1J8mzgDqQPDNJLFwUBZ7PZ7xcLizwPI9gfj+NYAX2k+kx7vc7byrLEquqwuv1ivv9HpMk4ec6Uwfvqus63lzXNeZ5zoIRpoqiKP/09wVBwNDhcOB1t9v9OmuLTnw62dQfVIHPYx/I/0kAAAAASUVORK5CYII=);
-}
-.FileList-item--gitlink::before {
-  /* emblems/emblem-symbolic-link.png */
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAABO0lEQVQ4T7WT3U6EMBCF92m99yGMZuODGL01eueyXqjvwc+WUlooUPkfZxq3sQEvJLHJSQvlfDOnDbub/dUFCrZof3t9uaPF1kFeBwjD8E+apukfAVEUQRzHkCQJJKfEznES43tUGP0OIOMheIGn50e4f7izCo4H4GkKDEXPBIviCIZh8AFkfv94g5Qx4Jw7AOn4Grh1iqATdrUAEJmxFLIsgzzPQSnpQc4SIkMIh7ZtfQCjys6soNQlVFW1AEgpQWQCjDE+gHIKIaxZo7mu69UOiqJwRXxAxnFDQllS5XUzSeO+kmoJoOzUni41NE1tM9JBTdMII85d14FpjI2lihUA9wCNA8zzDOM4WkBjvgFqrQO8ulzmNgLl/8SPyTT0WL3vLLBGsNZ6HUBV1tT3vROd/Fk/AZt/Z/J+AUN8ayghXmezAAAAAElFTkSuQmCC);
 }
 .FileContents {
   border-collapse: collapse;
@@ -464,7 +389,6 @@ ul, ol {
 }
 /* Used to prevent copying the line number. */
 .FileContents-lineNum::before {
-  color: #aaa;
   content: attr(data-line-number);
   cursor: pointer;
 }
@@ -473,16 +397,11 @@ ul, ol {
   min-height: 1em;
   padding-left: 10px;
 }
-.FileContents-lineContents:target {
-  background: #cfd8dc;
-}
 .InlineReadme {
-  border-top: 1px solid #ddd;
+  border-top-style: 1px;
+  border-top-width: solid;
   margin: 10px 0;
   padding: 7px 0;
-}
-.InlineReadme-path {
-  color: #666;
 }
 
 /* BlameDetail.soy */
@@ -491,12 +410,6 @@ ul, ol {
   border-collapse: collapse;
   font-size: 8pt;
   margin: 0 auto;
-}
-.Blame-region--bg1 {
-  background: #fff;
-}
-.Blame-region--bg2 {
-  background: #f1f2f3;
 }
 .Blame-sha1,
 .Blame-author,
@@ -528,20 +441,170 @@ ul, ol {
   margin: 10px 0;
 }
 .Diff-fileIndex {
-  color: #444;
   font-weight: bold;
 }
 .Diff-unified {
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
+  border-bottom-style: 1px;
+  border-bottom-width: solid;
+  border-top-style: 1px;
+  border-top-width: solid;
   padding: 10px 0;
 }
-.Diff-hunk {
-  color: #00c;
+/* Tree icons are taken from the public domain Tango icons:
+ * http://tango.freedesktop.org/Tango_Icon_Library
+ * Compressed with pngcrush -brute -rem tEXt -rem tIME -rem iTXt -rem zTXt */
+.FileList-item--gitTree::before {
+  /* places/folder.png */
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAAb5JREFUOMulkr1KA0EQgGdvTwwnYmER0gQsrFKmSy+pLESw9Qm0F/ICNnba+h6iEOuAEWslKJKTOyJJvIT72d1xZuOFC0giOLA77O7Mt/PnNptN+I+49Xr9GhH3f3mb0v1ht9vtLAUYYw5ItkgDL3KyD8PhcLvdbl/WarXT3DjLMnAcR/f7/YfxeKwtgC5RKQVhGILWeg4hQ6hUKjWyucmhLFEUuWR3QYBWAZABQ9i5CCmXy16pVALP80BKaaG+70MQBLvzFMjRKKXh8j6FSYKF7ITdEWLa4/ktokN74wiqjSMpnVcbQZqmEJHz+ckeCPFjWKwULpyspAqhdXVXdcnZcPjsIgn+2BsVA8jVYuWlgJ3yBj0icgq2uoK+lg4t+ZvLomSKamSQ4AI5BcMADtMhyNoSgNIISUaFNtwlazcDcBc4gjjVwCWid2usCWroYEhnaqbzFJLUzAHIXRDChXCcQP8zhkSZ5eNLgHAUzwDcRu4CoIRn/wsGUQIIy4Vr9TH6SYFCNzw4nALn5627K4vIttOUOwfa5YnrDYzt/9OLv9I5l8kk5hZ3XLO20b7tbR7zHLy/BX8G0IeBEM7ZN1NGIaFUaKLgAAAAAElFTkSuQmCC);
 }
-.Diff-delete {
-  color: #c00;
+.FileList-item--symlink::before {
+  /* actions/edit-redo.png */
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAABZUlEQVQ4y2NgIAL4zWL7D8TGDOQCqAEg7Ey2Aes+58AMcSSkmB2I3YB4HhCfh9kOMoCgIUAJMyDe2D+b58jKe553133M+r/uU/b/zV+L/y97n/i/+JIYbkOAAl5AfGLNTde/69+n/1/4MuD/gtsqKBhkALIh5S0M1jDN2kC8a+UNt/8b36f+X3JP5f/0u1pwjeuvS8E1g3DpZQm4ITAD5s09ZPBq49uE/0vvq4E1gPCJC5z/yy+IoGgG4a5HJqjeCJ3Pc2vjy+T/ux4Y/j99Rfz/7GtK/xfeUkbBN+8pY9cMAkFzuT5uepPy/+w1lf+TF3L/Q4p3OD5zRQ67Zlg873vk9n/mMlaQ5EcgLgZiA2R5nJphCjbfNP8LVeCBJyUa40xpO+5afQXS/8jKC0DJg+uPKx+bOJf1HDYXEJPW46JW8LcduKYzbdZMph4gn4ccQxSAOAuIo4FYdvsKFpYdK1iYCekDACq5JXDHGJhDAAAAAElFTkSuQmCC);
 }
-.Diff-insert {
-  color: #080;
+.FileList-item--regularFile::before {
+  /* mimetypes/text-x-generic.png */
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVQ4ja2TSw7CIBRFu0r3wyIYsAMHDl1CC92IDqC0wAbQi4Fo5VOMJGcAyT33vQEDY+xCCPGdnIZ48NB7kPkSLMvipZQBpVQC70Br7Y0xZQGC4zj6aZoCnPMPhBBtwb41NoN1XesCBHPNhyfI7fziFu6HJti3IgS0vrcFuZ3Btm2JpmC/M5jnOdEU5JoRstYmigKES80x7JyrC+IE7+1xAoSrgp//AqX02vsbn5nz8K/zAP9CzjbgFoHjAAAAAElFTkSuQmCC);
+}
+.FileList-item--executableFile::before {
+  /* mimetypes/text-x-script.png */
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA7ADsAOwdIxY2AAAACXBIWXMAAAsTAAALEwEAmpwYAAABOklEQVQ4T5WTTYqDQBBGPdKcZnIJdy7EVRByBQPi0iwHAlGT0YBHcG82kkV2VnffoKar7FYzIQYLPtqffq+rEJ04jn/CMMSV+XZs0YO1RcyLoO/7MdAD9gAI8wiK+CyYA0IDFABhrmFBAHNYbwYTIxFyWN8KwAiEmIEaknqVUposCoBBGE8cIGUipUKp5IJAzOe2JxI0pG1b3Gw2+Hg8FjoQzy0rLVAavt0GuGkaXrfb7avAzs0CNcHtDD4ejwzTve/7X/9GGFqn2QmkDmzbBJ9OJ8yyDNM0Rdd1J8mzgDqQPDNJLFwUBZ7PZ7xcLizwPI9gfj+NYAX2k+kx7vc7byrLEquqwuv1ivv9HpMk4ec6Uwfvqus63lzXNeZ5zoIRpoqiKP/09wVBwNDhcOB1t9v9OmuLTnw62dQfVIHPYx/I/0kAAAAASUVORK5CYII=);
+}
+.FileList-item--gitlink::before {
+  /* emblems/emblem-symbolic-link.png */
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAABO0lEQVQ4T7WT3U6EMBCF92m99yGMZuODGL01eueyXqjvwc+WUlooUPkfZxq3sQEvJLHJSQvlfDOnDbub/dUFCrZof3t9uaPF1kFeBwjD8E+apukfAVEUQRzHkCQJJKfEznES43tUGP0OIOMheIGn50e4f7izCo4H4GkKDEXPBIviCIZh8AFkfv94g5Qx4Jw7AOn4Grh1iqATdrUAEJmxFLIsgzzPQSnpQc4SIkMIh7ZtfQCjys6soNQlVFW1AEgpQWQCjDE+gHIKIaxZo7mu69UOiqJwRXxAxnFDQllS5XUzSeO+kmoJoOzUni41NE1tM9JBTdMII85d14FpjI2lihUA9wCNA8zzDOM4WkBjvgFqrQO8ulzmNgLl/8SPyTT0WL3vLLBGsNZ6HUBV1tT3vROd/Fk/AZt/Z/J+AUN8ayghXmezAAAAAElFTkSuQmCC);
+}
+@media (prefers-color-scheme: light)
+{
+  .u-sha1 {
+    background-color: #f1f2f3;
+    color: #000;
+  }
+  .u-lineNum {
+    border-right-color: #f1f2f3;
+    color: #666;
+  }
+  .CloneRepo-command {
+    border-color: #ccc;
+  }
+  .Site {
+    background: #fff;
+    color: #000;
+  }
+  .Site-header,
+  .Site-footer {
+    background: #eee;
+  }
+  .Site-header--withNavbar {
+    background: #fff;
+  }
+  .Header-anchor {
+    color: #666;
+  }
+  .Header-nav {
+    background: #eee;
+  }
+  .Header-menuItem {
+    color: #00e;
+  }
+  .Header-menuItem--noAction {
+    color: inherit;
+  }
+  .Breadcrumbs-crumb {
+    color: #00e;
+  }
+  .Breadcrumbs-crumb:last-child {
+    color: #000;
+  }
+  .Footer {
+    color: #666;
+  }
+  .RepoList-item:hover {
+    background: #eee;
+  }
+  .RepoList-item--header:hover {
+    background: #fff;
+  }
+  .RepoList-itemDescription {
+    color: #000;
+  }
+  .RepoMirroredFrom {
+    color: #666;
+  }
+  .CloneRepo {
+    background: #eee;
+  }
+  .RepoIndexDoc {
+    border-top-color: #ddd;
+  }
+  @media (max-width: 550px) {
+    .RepoShortlog-refs {
+      border-bottom-color: #ddd;
+    }
+  }
+  .CommitLog-item--oneline:hover {
+    background: #eee;
+  }
+  .CommitLog-time {
+    color: #666;
+  }
+  .CommitLog-branchLabel {
+    color: #dd4b39;
+  }
+  .CommitLog-tagLabel {
+    color: #093;
+  }
+  .MetadataMessage {
+    background-color: #fafafa;
+    border-color: #ccc;
+    color: #000;
+  }
+  .DiffTree-action--add {
+    color: #060;
+  }
+  .DiffTree-action--delete {
+    color: #600;
+  }
+  .DiffTree-action--rename,
+  .DiffTree-action--copy {
+    color: #006;
+  }
+  .FileList-item:hover {
+    background: #eee;
+  }
+  .FileContents-lineNum::before {
+    color: #aaa;
+  }
+  .FileContents-lineContents:target {
+    background: #cfd8dc;
+  }
+  .InlineReadme {
+    border-top-color: #ddd;
+  }
+  .InlineReadme-path {
+    color: #666;
+  }
+
+  .Blame-region--bg1 {
+    background: #fff;
+  }
+  .Blame-region--bg2 {
+    background: #f1f2f3;
+  }
+
+  .Diff-fileIndex {
+    color: #444;
+  }
+  .Diff-unified {
+    border-bottom-color: #ddd;
+    border-top-color: #ddd;
+  }
+  .Diff-hunk {
+    color: #00c;
+  }
+  .Diff-delete {
+    color: #c00;
+  }
+  .Diff-insert {
+    color: #080;
+  }
 }
