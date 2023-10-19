@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e1a082_7eb6c562",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1168889
+      },
+      "writtenOn": "2023-10-19T08:56:50Z",
+      "side": 1,
+      "message": "Related: https://gerrit-review.googlesource.com/q/Ia6243e904fc47644a0cb078743c6c892191e06e3",
+      "revId": "70f265a8bf56e846b35547475b6050a5d8556b16",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
