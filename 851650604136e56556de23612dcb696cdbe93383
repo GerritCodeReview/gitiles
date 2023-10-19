@@ -16,6 +16,24 @@
       "message": "@dariusz.luksza@gmail.com , could you point me to someone able to submit this change?",
       "revId": "851650604136e56556de23612dcb696cdbe93383",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6952c37e_ab73d583",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-19T19:13:32Z",
+      "side": 1,
+      "message": "I think that @david.ostrovsky@gmail.com should have rights to +2 here",
+      "parentUuid": "12fc9436_17f6dc6f",
+      "revId": "851650604136e56556de23612dcb696cdbe93383",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
