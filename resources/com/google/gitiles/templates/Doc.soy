@@ -18,14 +18,14 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
 /**
  * Default Doc Footer
  */
-{deltemplate gitiles.customDocFooter}
+{template customDocFooter modifiable="true" legacydeltemplatenamespace="gitiles.customDocFooter" usevarianttype="string"}
   {@param? sourceUrl: ?}  /** url for source view of the page. */
   {@param? logUrl: ?}  /** url for log history of page. */
   {@param? blameUrl: ?}  /** url for blame of page source. */
 <!-- default customDocFooter -->
 <footer class="Site-footer">
   <div class="Footer">
-    {delcall gitiles.footerPoweredBy /}
+    {call common.footerPoweredBy /}
     <div class="Footer-links">
       {if $sourceUrl}<a class="Footer-link" href="{$sourceUrl}">{msg desc="text for the source link"}source{/msg}</a>{/if}
       {if $logUrl}<a class="Footer-link" href="{$logUrl}">{msg desc="text for the log link"}log{/msg}</a>{/if}
@@ -33,7 +33,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
     </div>
   </div>
 </footer>
-{/deltemplate}
+{/template}
 
 /**
  * Documentation page rendered from markdown.
@@ -59,7 +59,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   <link rel="stylesheet" type="text/css" href="{$staticUrls.BASE_CSS_URL}" />
   <link rel="stylesheet" type="text/css" href="{$staticUrls.DOC_CSS_URL}" />
   <link rel="stylesheet" type="text/css" href="{$staticUrls.PRETTIFY_CSS_URL}" />
-  {delcall gitiles.customHeadTagPart variant="$customVariant ?: ''" /}
+  {call common.customHeadTagPart variant="'' + ($customVariant ?? '')" /}
 </head>
 <body class="Site">
   <header class="Site-header {if $navbarHtml}Site-header--withNavbar{/if}">
@@ -84,7 +84,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
       </div>
     </div>
   </div>
-  {delcall gitiles.customDocFooter variant="$customVariant ?: ''" /}
+  {call customDocFooter variant="'' + ($customVariant ?? '')" /}
   {if $analyticsId}
     /* From https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
     <script>
