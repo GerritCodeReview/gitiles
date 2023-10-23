@@ -49,13 +49,13 @@
       <link rel="stylesheet" type="text/css" href="{$url}">
     {/for}
   {/if}
-  {delcall gitiles.customHeadTagPart variant="$customVariant ?: ''" /}
+  {call customHeadTagPart variant="'' + ($customVariant ?? '')" /}
 
 </head>
 <body class="Site">
   <header class="Site-header">
     <div class="Header">
-      {delcall gitiles.customHeader variant="$customVariant ?: ''" /}
+      {call customHeader variant="'' + ($customVariant ?? '')" /}
 
       {if $menuEntries and length($menuEntries)}
         <div class="Header-menu">
@@ -95,14 +95,14 @@
  * This can be used to include per-project CSS/JS by
  * providing custom variants.
  */
-{deltemplate gitiles.customHeadTagPart}
+{template customHeadTagPart modifiable="true" legacydeltemplatenamespace="gitiles.customHeadTagPart" usevarianttype="string"}
   <!-- default customHeadTagPart -->
-{/deltemplate}
+{/template}
 
 /**
  * Default custom header implementation for Gitiles.
  */
-{deltemplate gitiles.customHeader}
+{template customHeader modifiable="true" legacydeltemplatenamespace="gitiles.customHeader" usevarianttype="string"}
   {@inject SITE_TITLE: string}
 <!-- default customHeader -->
 <div class="Header-title">
@@ -110,44 +110,44 @@
     {$SITE_TITLE}
   {/msg}
 </div>
-{/deltemplate}
+{/template}
 
 /**
  * Footer 'powered by' element
  *
  * Please call this in custom variants as well.
  */
-{deltemplate gitiles.footerPoweredBy}
+{template footerPoweredBy modifiable="true" legacydeltemplatenamespace="gitiles.footerPoweredBy"}
 <span class="Footer-poweredBy">
   Powered by <a href="https://gerrit.googlesource.com/gitiles/">Gitiles</a>
 </span>
-{/deltemplate}
+{/template}
 
 /**
  * Footer format badge
  *
  * You can use this in custom footers as well.
  */
-{deltemplate gitiles.footerFormatBadge}
+{template footerFormatBadge modifiable="true" legacydeltemplatenamespace="gitiles.footerFormatBadge"}
 <span class="Footer-formats">
   <a class="u-monospace Footer-formatsItem" href="?format=TEXT">{msg desc="text format"}txt{/msg}</a>
     {sp}
   <a class="u-monospace Footer-formatsItem" href="?format=JSON">{msg desc="JSON format"}json{/msg}</a>
 </span>
-{/deltemplate}
+{/template}
 
 /**
  * Default Footer
  */
-{deltemplate gitiles.customFooter}
+{template customFooter modifiable="true" legacydeltemplatenamespace="gitiles.customFooter" usevarianttype="string"}
 <!-- default customFooter -->
 <footer class="Site-footer">
   <div class="Footer">
-   {delcall gitiles.footerPoweredBy /}
-   {delcall gitiles.footerFormatBadge /}
+    {call footerPoweredBy /}
+    {call footerFormatBadge /}
   </div>
 </footer>
-{/deltemplate}
+{/template}
 
 /**
  * Main footer.
@@ -159,7 +159,7 @@
   {@param? customVariant: ?}  /** variant name for custom styling. */
     </div> <!-- Container -->
   </div> <!-- Site-content -->
-  {delcall gitiles.customFooter variant="$customVariant ?: ''" /}
+  {call customFooter variant="'' + ($customVariant ?? '')" /}
 </body>
 </html>
 {/template}
