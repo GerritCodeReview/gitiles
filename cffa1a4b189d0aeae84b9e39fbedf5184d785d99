@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b012718_2ea92e63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2023-10-24T15:51:48Z",
+      "side": 1,
+      "message": "The commit message has usually this shape:\n\nComponent: Short description\n\u003cblank line\u003e\nDescription of the problem, in present tense. What is happening now and why is bad.\n\u003cblank line\u003e\nDescription of the fix, usually in imperative\n\nIn this case something title could be:\nSoy: bump version and use new \"??\" operator\n\nCould we split both things? bump the version in one change (if it is API compatible) and the code in another?",
+      "revId": "cffa1a4b189d0aeae84b9e39fbedf5184d785d99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8038d8d6_1c221b3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2023-10-24T15:51:48Z",
+      "side": 1,
+      "message": "Thanks! A first round of comments.",
+      "revId": "cffa1a4b189d0aeae84b9e39fbedf5184d785d99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b85652ef_28dd96cb",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2023-10-24T15:51:48Z",
+      "side": 1,
+      "message": "This (and the other Visibility* edit) seem unrelated to the change.",
+      "revId": "cffa1a4b189d0aeae84b9e39fbedf5184d785d99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
