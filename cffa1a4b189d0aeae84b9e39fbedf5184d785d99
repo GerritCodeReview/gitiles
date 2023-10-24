@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fee549d1_0800c229",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1166895
+      },
+      "writtenOn": "2023-10-24T21:38:10Z",
+      "side": 1,
+      "message": "I updated the description, I think we need to have both in the same change since it breaks the tests otherwise.",
+      "parentUuid": "9b012718_2ea92e63",
+      "revId": "cffa1a4b189d0aeae84b9e39fbedf5184d785d99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8038d8d6_1c221b3e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2023-10-24T15:51:48Z",
       "side": 1,
       "message": "This (and the other Visibility* edit) seem unrelated to the change.",
+      "revId": "cffa1a4b189d0aeae84b9e39fbedf5184d785d99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d72e1c88_591e8aca",
+        "filename": "java/com/google/gitiles/VisibilityCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1166895
+      },
+      "writtenOn": "2023-10-24T21:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b85652ef_28dd96cb",
       "revId": "cffa1a4b189d0aeae84b9e39fbedf5184d785d99",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
