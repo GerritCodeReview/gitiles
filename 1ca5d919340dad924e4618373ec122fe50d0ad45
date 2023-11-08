@@ -22,6 +22,30 @@
       },
       "revId": "1ca5d919340dad924e4618373ec122fe50d0ad45",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9489719_ec40e373",
+        "filename": "resources/com/google/gitiles/static/base.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-08T08:35:51Z",
+      "side": 1,
+      "message": "The Safari issue was fixed last year and referenced remaining issues were fixed this year.",
+      "parentUuid": "8f6f3fbb_3716c34f",
+      "range": {
+        "startLine": 496,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 22
+      },
+      "revId": "1ca5d919340dad924e4618373ec122fe50d0ad45",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
