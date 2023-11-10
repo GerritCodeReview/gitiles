@@ -17,6 +17,7 @@ java_library(
         "//lib/jetty:server",
         "//lib/jetty:servlet",
         "//lib/soy",
+        "@jsr305//jar",
     ],
 )
 
