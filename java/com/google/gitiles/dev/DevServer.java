@@ -38,6 +38,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nullable;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jetty.server.Handler;
@@ -211,7 +212,7 @@ class DevServer {
         }
 
         @Override
-        public Object getUserKey() {
+        public @Nullable Object getUserKey() {
           return null;
         }
 
