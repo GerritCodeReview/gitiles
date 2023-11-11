@@ -14,6 +14,7 @@
 
 package com.google.gitiles;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -67,10 +69,14 @@ public class BlobSoyData {
 
   private final GitilesView view;
   private final ObjectReader reader;
+  private final GitilesUrls urls;
+  private final HttpServletRequest req;
 
-  public BlobSoyData(ObjectReader reader, GitilesView view) {
+  public BlobSoyData(ObjectReader reader, GitilesView view, @Nullable GitilesUrls urls, @Nullable HttpServletRequest req) {
     this.reader = reader;
     this.view = view;
+    this.urls = checkNotNull(urls, "urls");
+    this.req = checkNotNull(req, "req");
   }
 
   public Map<String, Object> toSoyData(ObjectId blobId) throws MissingObjectException, IOException {
@@ -85,6 +91,21 @@ public class BlobSoyData {
     ObjectLoader loader = reader.open(blobId, Constants.OBJ_BLOB);
     String content;
     String imageBlob;
+    String baseGerritUrl = urls.getBaseGerritUrl(req);
+    String editUrl = null;
+    /**
+      * Build an edit URL of the form:
+      * https://gerrit.mycompany.com/admin/repos/edit/repo/my/repo/branch/refs/heads/master/file/Jenkinsfile
+      */
+    if (baseGerritUrl != null) {
+      StringBuilder url = new StringBuilder(baseGerritUrl).append("admin/repos/edit/repo/");
+      url.append(view.getRepositoryName()).append('/');
+      url.append("branch/");
+      url.append(view.getRevision().getName()).append('/');
+      url.append("file/");
+      url.append(path);
+      editUrl = url.toString();
+    }
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
 
@@ -119,6 +140,9 @@ public class BlobSoyData {
       data.put("fileUrl", GitilesView.path().copyFrom(view).toUrl());
       data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
+      if (editUrl != null) {
+        data.put("editUrl", editUrl);
+      }
       if (imageBlob != null) {
         data.put("imgBlob", imageBlob);
       }

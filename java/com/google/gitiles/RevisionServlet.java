@@ -110,7 +110,7 @@ public class RevisionServlet extends BaseServlet {
                       "type",
                       Constants.TYPE_BLOB,
                       "data",
-                      new BlobSoyData(walk.getObjectReader(), view).toSoyData(obj)));
+                      new BlobSoyData(walk.getObjectReader(), view, null, null).toSoyData(obj)));
               hasBlob = true;
               break;
             case OBJ_TAG:
