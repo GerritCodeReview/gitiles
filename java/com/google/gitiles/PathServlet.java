@@ -31,6 +31,8 @@ import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -49,6 +51,8 @@ import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.ObjectReader;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevObject;
@@ -532,10 +536,44 @@ public class PathServlet extends BaseServlet {
     return p.eof() ? p : null;
   }
 
+  private @Nullable URI createEditUrl(HttpServletRequest req, GitilesView view)
+      throws IOException, URISyntaxException {
+      String baseGerritUrl = this.urls.getBaseGerritUrl(req);
+      RefDatabase refdb = ServletUtils.getRepository(req).getRefDatabase();
+      Ref head = refdb.exactRef(Constants.HEAD);
+      Ref headLeaf = head != null && head.isSymbolic() ? head.getLeaf() : null;
+      URI editURL;
+
+      editURL = null;
+      if (baseGerritUrl == null || headLeaf == null) {
+        return editURL;
+      }
+
+      /**
+        * Build an edit URL of the form:
+        * https://gerrit.mycompany.com/admin/repos/edit/repo/my/repo/branch/refs/heads/master/file/Jenkinsfile
+        */
+      String url =
+        baseGerritUrl
+        + "admin/repos/edit/repo/"
+        + view.getRepositoryName()
+        + "/branch/"
+        + headLeaf.getName()
+        + "/file/"
+        + view.getPathPart();
+
+      try {
+        editURL = new URI(url);
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+      return editURL;
+  }
+
   private void showFile(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
-      throws IOException {
+      throws IOException, URISyntaxException {
     GitilesView view = ViewFilter.getView(req);
-    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id);
+    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id, createEditUrl(req, view));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(
         req,
