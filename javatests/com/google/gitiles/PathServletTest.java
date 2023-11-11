@@ -21,6 +21,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
 import com.google.common.io.BaseEncoding;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.FileJsonData.File;
+import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.GitlinkJsonData.Gitlink;
 import com.google.gitiles.TreeJsonData.Tree;
 import com.google.template.soy.data.SoyListData;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevBlob;
@@ -100,6 +102,20 @@ public class PathServletTest extends ServletTest {
     assertThat(spans.length()).isEqualTo(1);
     assertThat(spans.getMapData(0).get("classes")).isEqualTo(StringData.forValue("pln"));
     assertThat(spans.getMapData(0).get("text")).isEqualTo(StringData.forValue("contents"));
+  }
+
+  @Test
+  public void editUrl() throws Exception {
+    Config config = new Config();
+    config.setString("gitiles", null, "gerritUrl", "http://test-host-review/");
+    new GitilesServlet(config, null, null, null, null, null, null, null, null, new BranchRedirect());
+    repo.branch("master").commit().add("editFoo", "editFoo\ncontents\n").create();
+    Map<String, ?> data = buildData("/repo/+/master/editFoo");
+    assertThat(data).containsEntry("type", "REGULAR_FILE");
+
+    String editUrl = (String) getBlobData(data).get("editUrl");
+    String testUrl = "http://test-host-review/admin/repos/edit/repo/repo/branch/refs/heads/master/file/editFoo";
+    assertThat(testUrl).isEqualTo(editUrl);
   }
 
   @Test
