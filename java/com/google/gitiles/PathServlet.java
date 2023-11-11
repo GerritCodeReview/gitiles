@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.gitiles.GitilesUrls.escapeName;
 import static com.google.gitiles.TreeSoyData.resolveTargetUrl;
 import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
@@ -31,6 +32,8 @@ import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -49,6 +52,8 @@ import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.ObjectReader;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevObject;
@@ -61,11 +66,14 @@ import org.eclipse.jgit.treewalk.filter.TreeFilter;
 import org.eclipse.jgit.util.QuotedString;
 import org.eclipse.jgit.util.RawParseUtils;
 import org.eclipse.jgit.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Serves an HTML page with detailed information about a path within a tree. */
 // TODO(dborowitz): Handle non-UTF-8 names.
 public class PathServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
+  private static final Logger log = LoggerFactory.getLogger(PathServlet.class);
 
   static final String MODE_HEADER = "X-Gitiles-Path-Mode";
   static final String TYPE_HEADER = "X-Gitiles-Object-Type";
@@ -532,10 +540,36 @@ public class PathServlet extends BaseServlet {
     return p.eof() ? p : null;
   }
 
+  private @Nullable URI createEditUrl(HttpServletRequest req, GitilesView view)
+      throws IOException {
+      String baseGerritUrl = this.urls.getBaseGerritUrl(req);
+      if (baseGerritUrl == null) {
+        return null;
+      }
+      RefDatabase refdb = ServletUtils.getRepository(req).getRefDatabase();
+      Ref head = refdb.exactRef(Constants.HEAD);
+      if (head == null) {
+        return null;
+      }
+
+      try {
+        URI editUrl = new URI(baseGerritUrl);
+        String path =
+          String.format("/admin/repos/edit/repo/%s/branch/%s/file/%s",
+            view.getRepositoryName(),
+            head.getLeaf().getName(),
+            view.getPathPart());
+        return editUrl.resolve(escapeName(path));
+      } catch (URISyntaxException use) {
+        log.warn("Malformed Edit URL", use);
+      }
+      return null;
+  }
+
   private void showFile(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id);
+    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id, createEditUrl(req, view));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(
         req,

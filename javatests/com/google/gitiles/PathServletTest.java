@@ -103,6 +103,18 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
+  public void editUrl() throws Exception {
+    repo.branch("master").commit().add("editFoo", "Content").create();
+    repo.reset("refs/heads/master");
+
+    Map<String, ?> data = buildData("/repo/+/master/editFoo");
+
+    String editUrl = (String) getBlobData(data).get("editUrl");
+    String testUrl = "http://test-host-review/admin/repos/edit/repo/repo/branch/refs/heads/master/file/editFoo";
+    assertThat(editUrl).isEqualTo(testUrl);
+  }
+
+  @Test
   public void fileWithMaxLines() throws Exception {
     int MAX_LINE_COUNT = 50000;
     StringBuilder contentBuilder = new StringBuilder();

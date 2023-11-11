@@ -26,6 +26,7 @@ import com.google.common.io.BaseEncoding;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -79,6 +80,11 @@ public class BlobSoyData {
 
   public Map<String, Object> toSoyData(String path, ObjectId blobId)
       throws MissingObjectException, IOException {
+    return toSoyData(path, blobId, null);
+  }
+
+  public Map<String, Object> toSoyData(String path, ObjectId blobId, @Nullable URI editUrl)
+      throws MissingObjectException, IOException {
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
     data.put("sha", ObjectId.toString(blobId));
 
@@ -119,6 +125,9 @@ public class BlobSoyData {
       data.put("fileUrl", GitilesView.path().copyFrom(view).toUrl());
       data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
+      if (editUrl != null) {
+        data.put("editUrl", editUrl.toString());
+      }
       if (imageBlob != null) {
         data.put("imgBlob", imageBlob);
       }
