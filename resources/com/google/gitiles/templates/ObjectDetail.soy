@@ -242,12 +242,14 @@
   {@param? logUrl: ?}  /** optional URL to a log for this file. */
   {@param? blameUrl: ?}  /** optional URL to a blame for this file. */
   {@param? docUrl: ?}  /** optional URL to view rendered file. */
+  {@param? editUrl: ?} /** optional URL to create a change in Gerrit. */
 <div class="u-sha1 u-monospace BlobSha1">
   {msg desc="SHA-1 for the file's blob"}blob: {$sha}{/msg}
   {if $fileUrl}{sp}[<a href="{$fileUrl}">{msg desc="detail view of a file"}file{/msg}</a>]{/if}
   {if $logUrl}{sp}[<a href="{$logUrl}">{msg desc="history for a file"}log{/msg}</a>]{/if}
   {if $blameUrl}{sp}[<a href="{$blameUrl}">{msg desc="blame for a file"}blame{/msg}</a>]{/if}
   {if $docUrl}{sp}[<a href="{$docUrl}">{msg desc="view rendered file"}view{/msg}</a>]{/if}
+  {if $editUrl}{sp}[<a href="{$editUrl}">{msg desc="edit file in Gerrit"}edit{/msg}</a>]{/if}
 </div>
 {/template}
 
