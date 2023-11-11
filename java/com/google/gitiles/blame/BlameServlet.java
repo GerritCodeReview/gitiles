@@ -81,7 +81,7 @@ public class BlameServlet extends BaseServlet {
 
       String title = "Blame - " + view.getPathPart();
       Map<String, ?> blobData =
-          new BlobSoyData(rw.getObjectReader(), view).toSoyData(view.getPathPart(), result.blobId);
+          new BlobSoyData(rw.getObjectReader(), view, null, null).toSoyData(view.getPathPart(), result.blobId);
       if (blobData.get("lines") != null) {
         DateFormatter df = new DateFormatter(access, Format.ISO);
         renderHtml(
