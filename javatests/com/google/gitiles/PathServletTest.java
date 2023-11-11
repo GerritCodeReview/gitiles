@@ -15,6 +15,8 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gitiles.GitilesUrls.escapeName;
+import static com.google.gitiles.TestGitilesUrls.URLS;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
@@ -27,13 +29,16 @@ import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevBlob;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -42,6 +47,16 @@ import org.junit.runners.JUnit4;
 @SuppressWarnings("unchecked")
 @RunWith(JUnit4.class)
 public class PathServletTest extends ServletTest {
+  private Config config;
+  private String baseGerritUrl;
+
+  @Before
+  public void setup() {
+    HttpServletRequest req = FakeHttpServletRequest.newRequest(repo.getRepository());
+    baseGerritUrl = URLS.getBaseGerritUrl(req);
+    config = new Config();
+    config.setString("gitiles", null, "gerritUrl", baseGerritUrl);
+  }
   @Test
   public void rootTreeHtml() throws Exception {
     repo.branch("master").commit().add("foo", "contents").create();
@@ -100,6 +115,17 @@ public class PathServletTest extends ServletTest {
     assertThat(spans.length()).isEqualTo(1);
     assertThat(spans.getMapData(0).get("classes")).isEqualTo(StringData.forValue("pln"));
     assertThat(spans.getMapData(0).get("text")).isEqualTo(StringData.forValue("contents"));
+  }
+
+  @Test
+  public void editUrl() throws Exception {
+    repo.branch("master").commit().add("editFoo", "editFoo\ncontents\n").create();
+    Map<String, ?> data = buildData("/repo/+/master/editFoo");
+    assertThat(data).containsEntry("type", "REGULAR_FILE");
+
+    String editUrl = (String) getBlobData(data).get("editUrl");
+    String constructedUrl = baseGerritUrl + "admin/repos/edit/repo/TestRepo/branch/refs/heads/master/file/editFoo";
+    assertThat(constructedUrl).isEqualTo(editUrl);
   }
 
   @Test
