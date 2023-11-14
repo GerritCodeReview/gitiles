@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61a2b34_1f3da6c7",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-14T16:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8724376a_e3ee3c7d",
+      "revId": "a28f0bfc8fe0f917eea952384fdb21bbc7f0b8fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d81628a_b723f604",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-14T14:53:56Z",
       "side": 1,
       "message": "```suggestion\n\n      if (baseGerritUrl \u003d\u003d null || headLeaf \u003d\u003d null) {\n        return null;\n      }\n\n      try {\n        URI editURL \u003d new URI(baseGerritUrl);\n        String path \u003d\n          String.format(EDIT_PATH_TEMPLATE,\n            view.getRepositoryName(),\n            headLeaf.getName(),\n            view.getPathPart())\n        editUrl.resolve(path)\n        return editUrl\n      } catch (URISyntaxException use) {\n        log.warn(\"Malformed Edit URL\", use)\n      }\n      return null;\n```",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 570,
+        "endChar": 21
+      },
+      "revId": "a28f0bfc8fe0f917eea952384fdb21bbc7f0b8fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15368bde_f681f50d",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-14T16:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d81628a_b723f604",
       "range": {
         "startLine": 545,
         "startChar": 0,

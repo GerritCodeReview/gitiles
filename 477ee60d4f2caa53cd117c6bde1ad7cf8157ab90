@@ -70,6 +70,30 @@
       },
       "revId": "477ee60d4f2caa53cd117c6bde1ad7cf8157ab90",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d77c9b_9e35b408",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-14T16:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d949578f_e711d253",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "477ee60d4f2caa53cd117c6bde1ad7cf8157ab90",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

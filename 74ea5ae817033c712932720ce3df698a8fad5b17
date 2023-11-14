@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4baa516a_7d2bc963",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-14T16:21:36Z",
+      "side": 1,
+      "message": "Thanks. I do still get:\n```\njava/com/google/gitiles/PathServlet.java:152: error: unreported exception URISyntaxException; must be caught or declared to be thrown\n          showFile(req, res, wr);\n```",
+      "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
