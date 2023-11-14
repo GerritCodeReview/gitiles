@@ -46,6 +46,30 @@
       },
       "revId": "477ee60d4f2caa53cd117c6bde1ad7cf8157ab90",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d949578f_e711d253",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2023-11-14T14:53:56Z",
+      "side": 1,
+      "message": "You don\u0027t need to propagate the URISyntaxException. If this exception is thrown the URI is malformed `thrown to indicate that a string could not be parsed as a URI reference`.\nIf this Exception is thrown the URI is invalid and effectively `null`, return null and log a warning.",
+      "parentUuid": "7462dcc5_805dbd83",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "477ee60d4f2caa53cd117c6bde1ad7cf8157ab90",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
