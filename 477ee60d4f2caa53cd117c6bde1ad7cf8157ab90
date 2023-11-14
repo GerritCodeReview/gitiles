@@ -22,6 +22,30 @@
       },
       "revId": "477ee60d4f2caa53cd117c6bde1ad7cf8157ab90",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7462dcc5_805dbd83",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-14T14:02:03Z",
+      "side": 1,
+      "message": "Thanks a lot for the fantastic explanation, which allowed me to progress quite far! However, I am hitting a wall with URI construction, because it wants me to catch a `URISyntaxException`.\n\nIf I go ahead and declare `throws URISyntaxException` in all relevant methods, I end up in a situation where I would have to declare it for `doGet()` and I can\u0027t as it comes from `HttpServlet`.",
+      "parentUuid": "53f4ec41_8eca404a",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "477ee60d4f2caa53cd117c6bde1ad7cf8157ab90",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
