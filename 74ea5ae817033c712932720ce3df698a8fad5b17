@@ -36,6 +36,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed7e4fe_46a23b67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-15T10:44:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8728aee_84464901",
+      "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34235280_bfdd4c88",
@@ -49,6 +67,24 @@
       "writtenOn": "2023-11-15T10:25:23Z",
       "side": 1,
       "message": "Unrelated change.",
+      "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b280b9b_be889fad",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-15T10:44:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34235280_bfdd4c88",
       "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }

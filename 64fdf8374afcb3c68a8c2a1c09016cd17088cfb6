@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "789ddf41_831f1eb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2023-11-15T10:44:26Z",
+      "side": 1,
+      "message": "Thanks again. Due to errorprone complaining, I had to move `EDIT_PATH_TEMPLATE` constant to inline.\n\nEverything seems to be working fine with or without a `gerritUrl` defined in gitiles.config!",
+      "revId": "64fdf8374afcb3c68a8c2a1c09016cd17088cfb6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
