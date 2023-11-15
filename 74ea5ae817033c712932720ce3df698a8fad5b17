@@ -16,6 +16,41 @@
       "message": "Thanks. I do still get:\n```\njava/com/google/gitiles/PathServlet.java:152: error: unreported exception URISyntaxException; must be caught or declared to be thrown\n          showFile(req, res, wr);\n```",
       "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8728aee_84464901",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2023-11-15T10:25:23Z",
+      "side": 1,
+      "message": "UriSyntaxException is no longer thrown but you haven\u0027t removed the method declarations that they do for [PathServlet#createEditUrl()](https://gerrit-review.googlesource.com/c/gitiles/+/392465/4/java/com/google/gitiles/PathServlet.java#544) and [PathServlet#showFile()](https://gerrit-review.googlesource.com/c/gitiles/+/392465/4/java/com/google/gitiles/PathServlet.java#544).\n\nYour editor should have warned you that the exception is declared but never actually thrown.",
+      "parentUuid": "4baa516a_7d2bc963",
+      "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34235280_bfdd4c88",
+        "filename": "java/com/google/gitiles/BlobSoyData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2023-11-15T10:25:23Z",
+      "side": 1,
+      "message": "Unrelated change.",
+      "revId": "74ea5ae817033c712932720ce3df698a8fad5b17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
