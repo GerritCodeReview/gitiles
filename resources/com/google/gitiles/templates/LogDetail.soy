@@ -62,10 +62,10 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
  * Wrapper for a single log entry with pretty format and variant.
  */
 {template logEntryWrapper}
-  {@param variant: ?}  /** variant name for log entry template. */
+  {@param variant: string}  /** variant name for log entry template. */
   {@param entry: ?}  /** log entry; see .logEntry. */
 <li class="CommitLog-item CommitLog-item--{$variant}">
-  {delcall gitiles.logEntry variant="$variant ?: 'default'" data="$entry" /}
+  {call logEntry variant="$variant" data="$entry" /}
 </li>
 {/template}
 
@@ -84,7 +84,6 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 {/if}
 {/template}
 
-
 /**
  * Single log entry indicating the full log is empty.
  */
@@ -92,11 +91,10 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 <li class="CommitLog-item CommitLog-item--empty">{msg desc="informational text for when the log is empty"}No commits.{/msg}</li>
 {/template}
 
-
 /**
  * Single pretty log entry, similar to --pretty=oneline.
  */
-{deltemplate gitiles.logEntry variant="'oneline'"}
+{template oneLineLogEntry visibility="private" modifies="logEntry" variant="'oneline'"}
   {@param abbrevSha: ?}  /** abbreviated SHA-1. */
   {@param sha: ?}  /** commit SHA-1. */
   {@param url: ?}  /** URL to commit detail page. */
@@ -147,13 +145,13 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   </span>
 {/if}
 
-{/deltemplate}
+{/template}
 
 
 /**
  * Default single log entry (oneline format).
  */
-{deltemplate gitiles.logEntry variant="'default'"}
+{template logEntry modifiable="true" legacydeltemplatenamespace="gitiles.LogEntry" usevarianttype="string"}
   {@param abbrevSha: ?}  /** abbreviated SHA-1. */
   {@param sha: ?}  /** commit SHA-1. */
   {@param url: ?}  /** URL to commit detail page. */
@@ -173,14 +171,14 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       newPath: the new path after the rename or copy.
       score: the similarity score of the rename or copy.
       */
-{delcall gitiles.logEntry variant="'oneline'" data="all" /}
-{/deltemplate}
+  {call logEntry variant="'oneline'" data="all" /}
+{/template}
 
 
 /**
  * Single pretty log entry, similar to --pretty=full.
  */
-{deltemplate gitiles.logEntry variant="'full'"}
+{template fullLogEntry visibility="private" modifies="logEntry" variant="'full'"}
   {@param abbrevSha: ?}  /** abbreviated SHA-1. */
   {@param sha: ?}  /** commit SHA-1. */
   {@param url: ?}  /** URL to commit detail page. */
@@ -236,7 +234,6 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
     </td>
     <td>{$committer.time}</td>
   </tr>
-
   {if $rename}
     <tr>
       <td colspan="3">
@@ -262,4 +259,71 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 <pre class="u-pre u-monospace MetadataMessage">
   {$message}
 </pre>
-{/deltemplate}
+{/template}
+
+/**
+ * Single pretty log entry, similar to --pretty=fuller
+ */
+{template fullerLogEntry visibility="private" modifies="logEntry" variant="'fuller'"}
+  {@param abbrevSha: ?}  /** abbreviated SHA-1. */
+  {@param sha: ?}  /** commit SHA-1. */
+  {@param url: ?}  /** URL to commit detail page. */
+  {@param shortMessage: ?}  /** short commit message. */
+  {@param message: ?}  /** list of commit message parts, where each part contains: text: raw text of
+      the part. url: optional URL that should be linked to from the part. */
+  {@param author: ?}  /** author information with at least "name" and "relativeTime" keys. */
+  {@param committer: ?}  /** committer information with at least "time" and "relativeTime" keys. */
+  {@param branches: ?}  /** list of branches for this entry, with "name" and "url" keys. */
+  {@param tags: ?}  /** list of tags for this entry, with "name" and "url" keys. */
+  {@param diffTree: ?}  /** list of changed tree entries with the following keys: changeType: string
+      matching an org.eclipse.jgit.diff.DiffEntry.ChangeType constant. path: (new) path of the tree
+      entry. oldPath: old path, only for renames and copies. url: URL to a detail page for the tree
+      entry. diffUrl: URL to a diff page for the tree entry's diff in this commit. */
+  {@param rename: ?}  /** if this entry was a rename or a copy of the path, an object containg:
+      changeType: the change type, "RENAME" or "COPY". oldPath: the old path prior to the rename or
+      copy. newPath: the new path after the rename or copy. score: the similarity score of the
+      rename or copy. */
+  {call logEntry variant="'full'" data="all" /}
+{if $diffTree and length($diffTree)}
+  <ul class="DiffTree">
+    {for $entry in $diffTree}
+      <li>
+        <a href="{$entry.url}">{$entry.path}</a>
+        {switch $entry.changeType}
+          {case 'ADD'}
+            <span class="DiffTree-action DiffTree-action--add">
+              {msg desc="Text for a new tree entry"}
+                [Added - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'MODIFY'}
+            <span class="DiffTree-action DiffTree-action--modify">
+              {msg desc="Text for a modified tree entry"}
+                [<a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'DELETE'}
+            <span class="DiffTree-action DiffTree-action--delete">
+              {msg desc="Text for a deleted tree entry"}
+                [Deleted - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'RENAME'}
+            <span class="DiffTree-action DiffTree-action--rename">
+              {msg desc="Text for a renamed tree entry"}
+                [Renamed from {$entry.oldPath} - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {case 'COPY'}
+            <span class="DiffTree-action DiffTree-action--copy">
+              {msg desc="Text for a copied tree entry"}
+                [Copied from {$entry.oldPath} - <a href="{$entry.diffUrl}">diff</a>]
+              {/msg}
+            </span>
+          {default}
+        {/switch}
+      </li>
+    {/for}
+  </ul>
+{/if}
+{/template}
