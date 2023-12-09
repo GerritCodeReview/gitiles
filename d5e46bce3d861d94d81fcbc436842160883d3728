@@ -33,6 +33,23 @@
       "message": "Ibe27421653fab4221d08070f2864992e98b48464",
       "revId": "d5e46bce3d861d94d81fcbc436842160883d3728",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c03dc7e_40035ca9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3222550
+      },
+      "writtenOn": "2023-12-09T07:55:12Z",
+      "side": 1,
+      "message": "git clone https://chromium.googlesource.com/aosp/platform/external/minijail \u0026\u0026 (cd minijail \u0026\u0026 f\u003d`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)",
+      "revId": "d5e46bce3d861d94d81fcbc436842160883d3728",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
