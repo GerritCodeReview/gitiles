@@ -105,7 +105,7 @@
   </div>
 {/if}
 
-{if $diffTree and length($diffTree)}
+{if $diffTree && length($diffTree)}
   <ul class="DiffTree">
     {for $entry in $diffTree}
       <li>
@@ -333,7 +333,7 @@
     </tr>
   </table>
 </div>
-{if $message and length($message)}
+{if $message && length($message)}
   {call message_}
     {param className: 'u-pre u-monospace MetadataMessage' /}
     {param message: $message /}

@@ -44,7 +44,7 @@
   </title>
 
   <link rel="stylesheet" type="text/css" href="{$staticUrls.BASE_CSS_URL}">
-  {if $css and length($css)}
+  {if $css && length($css)}
     {for $url in $css}
       <link rel="stylesheet" type="text/css" href="{$url}">
     {/for}
@@ -57,7 +57,7 @@
     <div class="Header">
       {delcall gitiles.customHeader variant="$customVariant ?: ''" /}
 
-      {if $menuEntries and length($menuEntries)}
+      {if $menuEntries && length($menuEntries)}
         <div class="Header-menu">
         {for $entry in $menuEntries}
           {sp}
@@ -75,7 +75,7 @@
 
   <div class="Site-content">
     <div class="Container {if $containerClass}{$containerClass}{/if}">
-      {if $breadcrumbs and length($breadcrumbs)}
+      {if $breadcrumbs && length($breadcrumbs)}
         <div class="Breadcrumbs">
           {for $entry, $index in $breadcrumbs}
             {if $index > 0}{sp}/{sp}{/if}

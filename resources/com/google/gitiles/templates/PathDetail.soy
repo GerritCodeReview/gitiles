@@ -30,7 +30,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {@param data: ?}  /** path data, matching the params for one of .treeDetail, .blobDetail,
       .symlinkDetail, or .gitlinkDetail as appropriate. */
   {@inject staticUrls: ?}
-{if $type == 'REGULAR_FILE' or $type == 'EXECUTABLE_FILE'}
+{if $type == 'REGULAR_FILE' || $type == 'EXECUTABLE_FILE'}
   {call common.header data="all"}
     {param css: [$staticUrls.PRETTIFY_CSS_URL] /}
   {/call}

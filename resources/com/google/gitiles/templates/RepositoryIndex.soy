@@ -71,7 +71,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
          readonly="readonly" value="git clone {$cloneUrl}">
 </div>
 
-{if $hasLog and (length($branches) or length($tags))}
+{if $hasLog && (length($branches) || length($tags))}
   <div class="RepoShortlog">
     <div class="RepoShortlog-refs">
       {call branches_ data="all" /}
@@ -87,7 +87,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
 
 {elseif $hasLog}
   {call common.streamingPlaceholder /}
-{elseif length($branches) or length($tags)}
+{elseif length($branches) || length($tags)}
   {call branches_ data="all" /}
   {call tags_ data="all" /}
 {else}
