@@ -34,6 +34,24 @@
       "parentUuid": "cec7a7b6_85a7b288",
       "revId": "70d9a1bd11252334699373e6f553f27968479661",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7e5595_c6c08fcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3231194
+      },
+      "writtenOn": "2023-12-12T18:30:26Z",
+      "side": 1,
+      "message": "\u003e This passes `blaze test ...` in third_party// both locally and in TAP\n\u003e \n\u003e I\u0027ve been unable to get the tests running in the gitles repo though. Think this is still safe to merge?",
+      "parentUuid": "bd96a6cc_407b3376",
+      "revId": "70d9a1bd11252334699373e6f553f27968479661",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
