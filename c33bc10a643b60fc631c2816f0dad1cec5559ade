@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025c87f3_cc729fd0",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1162625
+      },
+      "writtenOn": "2023-12-13T18:58:31Z",
+      "side": 1,
+      "message": "Is this some extra whitespace that snuck in?",
+      "range": {
+        "startLine": 97,
+        "startChar": 87,
+        "endLine": 97,
+        "endChar": 90
+      },
+      "revId": "c33bc10a643b60fc631c2816f0dad1cec5559ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beef691c_ee48a853",
+        "filename": "resources/com/google/gitiles/templates/LogDetail.soy",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1162625
+      },
+      "writtenOn": "2023-12-13T18:58:31Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 154,
+        "startChar": 107,
+        "endLine": 154,
+        "endChar": 109
+      },
+      "revId": "c33bc10a643b60fc631c2816f0dad1cec5559ade",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
