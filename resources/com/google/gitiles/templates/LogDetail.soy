@@ -62,10 +62,10 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
  * Wrapper for a single log entry with pretty format and variant.
  */
 {template logEntryWrapper}
-  {@param variant: ?}  /** variant name for log entry template. */
+  {@param variant: string}  /** variant name for log entry template. */
   {@param entry: ?}  /** log entry; see .logEntry. */
 <li class="CommitLog-item CommitLog-item--{$variant}">
-  {delcall gitiles.logEntry variant="$variant ?: 'default'" data="$entry" /}
+  {call logEntry variant="$variant" data="$entry" /}
 </li>
 {/template}
 
@@ -84,7 +84,6 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 {/if}
 {/template}
 
-
 /**
  * Single log entry indicating the full log is empty.
  */
@@ -92,11 +91,10 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 <li class="CommitLog-item CommitLog-item--empty">{msg desc="informational text for when the log is empty"}No commits.{/msg}</li>
 {/template}
 
-
 /**
  * Single pretty log entry, similar to --pretty=oneline.
  */
-{deltemplate gitiles.logEntry variant="'oneline'"}
+{template oneLineLogEntry visibility="private" modifies="logEntry" variant="'oneline'"}
   {@param abbrevSha: ?}  /** abbreviated SHA-1. */
   {@param sha: ?}  /** commit SHA-1. */
   {@param url: ?}  /** URL to commit detail page. */
@@ -147,13 +145,13 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   </span>
 {/if}
 
-{/deltemplate}
+{/template}
 
 
 /**
  * Default single log entry (oneline format).
  */
-{deltemplate gitiles.logEntry variant="'default'"}
+{template logEntry modifiable="true" legacydeltemplatenamespace="gitiles.LogEntry" usevarianttype="string"}
   {@param abbrevSha: ?}  /** abbreviated SHA-1. */
   {@param sha: ?}  /** commit SHA-1. */
   {@param url: ?}  /** URL to commit detail page. */
@@ -173,14 +171,14 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       newPath: the new path after the rename or copy.
       score: the similarity score of the rename or copy.
       */
-{delcall gitiles.logEntry variant="'oneline'" data="all" /}
-{/deltemplate}
+  {call logEntry variant="'oneline'" data="all" /}
+{/template}
 
 
 /**
  * Single pretty log entry, similar to --pretty=full.
  */
-{deltemplate gitiles.logEntry variant="'full'"}
+{template fullLogEntry visibility="private" modifies="logEntry" variant="'full'"}
   {@param abbrevSha: ?}  /** abbreviated SHA-1. */
   {@param sha: ?}  /** commit SHA-1. */
   {@param url: ?}  /** URL to commit detail page. */
@@ -236,7 +234,6 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
     </td>
     <td>{$committer.time}</td>
   </tr>
-
   {if $rename}
     <tr>
       <td colspan="3">
@@ -262,4 +259,4 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 <pre class="u-pre u-monospace MetadataMessage">
   {$message}
 </pre>
-{/deltemplate}
+{/template}
