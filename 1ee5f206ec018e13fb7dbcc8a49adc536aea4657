@@ -33,6 +33,42 @@
       "message": "Looks like the Monorail migration automation tripped up here. The bug ID 235 was referencing https://github.com/google/gitiles/issues/235\n\nThe Github issues don\u0027t seem to have been migrated.",
       "revId": "1ee5f206ec018e13fb7dbcc8a49adc536aea4657",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0433def9_97aeedf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2023-12-16T22:46:26Z",
+      "side": 1,
+      "message": "Thanks Edwin! I wasn\u0027t clear enough, but I referenced [issue 235 in GitHub](https://github.com/google/gitiles/issues/235) instead of Monorail, sorry about that. I\u0027ll update the footer with a link to GitHub instead.\n\nPS: I just saw that I left this comment as a draft some months ago, so I\u0027m publishing it now anyways :P",
+      "parentUuid": "a384f62a_d7d317b3",
+      "revId": "1ee5f206ec018e13fb7dbcc8a49adc536aea4657",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0abe6af_cd962cbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2023-12-16T22:46:26Z",
+      "side": 1,
+      "message": "Thanks, fixed :)",
+      "parentUuid": "05da2aec_69993632",
+      "revId": "1ee5f206ec018e13fb7dbcc8a49adc536aea4657",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
