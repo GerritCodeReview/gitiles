@@ -148,8 +148,8 @@ FLOGGER_VERS = "0.7.4"
 
 maven_jar(
     name = "log4j",
-    artifact = "ch.qos.reload4j:reload4j:1.2.18.0",
-    sha1 = "03b2b708403ab00eb0678bffdbbd567070bbdfab",
+    artifact = "ch.qos.reload4j:reload4j:1.2.25",
+    sha1 = "45921e383a1001c2a599fc4c6cf59af80cdd1cf1",
 )
 
 maven_jar(
