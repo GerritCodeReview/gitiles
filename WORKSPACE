@@ -190,8 +190,8 @@ maven_jar(
 
 maven_jar(
     name = "icu4j",
-    artifact = "com.ibm.icu:icu4j:57.1",
-    sha1 = "198ea005f41219f038f4291f0b0e9f3259730e92",
+    artifact = "com.ibm.icu:icu4j:74.2",
+    sha1 = "97222d018f7f43cae88cacd1fad39717b001ffc4",
 )
 
 maven_jar(
