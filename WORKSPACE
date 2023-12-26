@@ -231,8 +231,8 @@ maven_jar(
 
 maven_jar(
     name = "mockito",
-    artifact = "org.mockito:mockito-core:2.23.0",
-    sha1 = "497ddb32fd5d01f9dbe99a2ec790aeb931dff1b1",
+    artifact = "org.mockito:mockito-core:5.6.0",
+    sha1 = "550b7a0eb22e1d72d33dcc2e5ef6954f73100d76",
 )
 
 BYTE_BUDDY_VERSION = "1.10.7"
