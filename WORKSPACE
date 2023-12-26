@@ -204,8 +204,8 @@ maven_jar(
 # corresponding version
 maven_jar(
     name = "commons-compress",
-    artifact = "org.apache.commons:commons-compress:1.21",
-    sha1 = "4ec95b60d4e86b5c95a0e919cb172a0af98011ef",
+    artifact = "org.apache.commons:commons-compress:1.25.0",
+    sha1 = "9d35aec423da6c8a7f93d7e9e1c6b1d9fe14bb5e",
 )
 
 # Transitive dependency of commons_compress. Should only be
