@@ -71,7 +71,7 @@ public class LogSoyData {
     this.view = checkNotNull(ViewFilter.getView(req));
     checkNotNull(pretty);
     Config config = access.getConfig();
-    fields = config.getBoolean("logFormat", pretty, "verbose", false) ? VERBOSE_FIELDS : FIELDS;
+    fields = config.getBoolean("logFormat", pretty, "verbose", false) || pretty.equals("fuller") ? VERBOSE_FIELDS : FIELDS;
     variant = firstNonNull(config.getString("logFormat", pretty, "variant"), pretty);
   }
 
