@@ -32,6 +32,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -296,6 +297,12 @@ public class GitilesView {
 
     public Builder replaceParam(String key, String value) {
       params.replaceValues(key, ImmutableList.of(value));
+      return this;
+    }
+
+    @CanIgnoreReturnValue
+    public Builder removeParam(String key) {
+      params.removeAll(key);
       return this;
     }
 
