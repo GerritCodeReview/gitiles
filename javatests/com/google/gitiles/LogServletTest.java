@@ -195,4 +195,17 @@ public class LogServletTest extends ServletTest {
                 + parent.toObjectId().getName()
                 + "\">");
   }
+
+  @Test
+  public void fullerQueryParameterProducesFullerVariantLog() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html" + "&pretty=fuller", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--fuller\">");
+  }
 }
