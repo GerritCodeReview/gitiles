@@ -71,7 +71,10 @@ public class LogSoyData {
     this.view = checkNotNull(ViewFilter.getView(req));
     checkNotNull(pretty);
     Config config = access.getConfig();
-    fields = config.getBoolean("logFormat", pretty, "verbose", false) || pretty.equals("fuller") ? VERBOSE_FIELDS : FIELDS;
+    fields =
+        config.getBoolean("logFormat", pretty, "verbose", false) || pretty.equals("fuller")
+            ? VERBOSE_FIELDS
+            : FIELDS;
     variant = firstNonNull(config.getString("logFormat", pretty, "variant"), pretty);
   }
 
@@ -120,7 +123,9 @@ public class LogSoyData {
     ObjectId prev = paginator.getPreviousStart();
     if (prev != null) {
       GitilesView.Builder prevView = copyAndCanonicalizeView(revision);
-      if (!prevView.getRevision().getId().equals(prev)) {
+      if (prevView.getRevision().getId().equals(prev)) {
+        prevView.removeParam(LogServlet.START_PARAM);
+      } else {
         prevView.replaceParam(LogServlet.START_PARAM, prev.name());
       }
       data.put("previousUrl", prevView.toUrl());

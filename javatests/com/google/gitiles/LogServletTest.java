@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.CommitJsonData.Log;
@@ -30,6 +31,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class LogServletTest extends ServletTest {
   private static final TypeToken<Log> LOG = new TypeToken<Log>() {};
+  private static final String MAIN = "main";
 
   @Test
   public void basicLog() throws Exception {
@@ -135,5 +137,34 @@ public class LogServletTest extends ServletTest {
     assertThat(jsonCommit.committer.email).isEqualTo(commit.getCommitterIdent().getEmailAddress());
     assertThat(jsonCommit.committer.time).isEqualTo(df.format(commit.getCommitterIdent()));
     assertThat(jsonCommit.message).isEqualTo(commit.getFullMessage());
+  }
+
+  @Test
+  public void verifyPreviousButtonAction() throws Exception {
+    repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit grandParent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit parent =
+        repo.branch(MAIN).commit().parent(grandParent).add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    int numCommitsPerPage = 2;
+    String path =
+        "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res =
+        buildResponse(
+            path,
+            "format=html" + "&n=" + numCommitsPerPage + "&s=" + parent.toObjectId().getName(),
+            SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains(
+            "<a class=\"LogNav-prev\""
+                + " href=\"/b/repo/+log/"
+                + grandParent.toObjectId().getName()
+                + ".."
+                + main.toObjectId().getName()
+                + "/?format=html"
+                + "&amp;n=2"
+                + "\">");
   }
 }
