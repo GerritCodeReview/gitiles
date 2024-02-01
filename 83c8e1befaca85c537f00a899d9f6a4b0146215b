@@ -86,6 +86,23 @@
       "parentUuid": "14516e92_373b3f45",
       "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b082bb5a_a54b773f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-02-01T10:55:57Z",
+      "side": 1,
+      "message": "There is renewed interest in this change: https://issues.gerritcodereview.com/issues/322403885 is it still a work in progress?",
+      "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
