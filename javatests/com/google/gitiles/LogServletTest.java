@@ -32,6 +32,9 @@ import org.junit.runners.JUnit4;
 public class LogServletTest extends ServletTest {
   private static final TypeToken<Log> LOG = new TypeToken<Log>() {};
   private static final String MAIN = "main";
+  private static final String AUTHOR_METADATA_ELEMENT = "<th class=\"Metadata-title\">author</th>";
+  private static final String COMMITTER_METADATA_ELEMENT =
+      "<th class=\"Metadata-title\">committer</th>";
 
   @Test
   public void basicLog() throws Exception {
@@ -194,5 +197,69 @@ public class LogServletTest extends ServletTest {
                 + "&amp;s="
                 + parent.toObjectId().getName()
                 + "\">");
+  }
+
+  @Test
+  public void prettyDefaultUsesDefaultCssClass() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--default\">");
+    assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
+    assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
+  }
+
+  @Test
+  public void prettyExplicitlyDefaultUsesDefaultCssClass() throws Exception {
+    testPrettyHtmlOutput(
+        "default", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
+  }
+
+  @Test
+  public void prettyOnelineUsesOnelineCssClass() throws Exception {
+    testPrettyHtmlOutput(
+        "oneline", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
+  }
+
+  @Test
+  public void prettyCustomTypeUsesCustomCssClass() throws Exception {
+    testPrettyHtmlOutput(
+        "aCustomPrettyType", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
+  }
+
+  @Test
+  public void prettyFullerUsesFullerCssClass() throws Exception {
+    testPrettyHtmlOutput("fuller", /* shouldShowAuthor= */ true, /* shouldShowCommitter= */ true);
+  }
+
+  private void testPrettyHtmlOutput(
+      String prettyType, boolean shouldShowAuthor, boolean shouldShowCommitter) throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res =
+        buildResponse(path, "format=html" + "&pretty=" + prettyType, SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--" + prettyType + "\">");
+
+    if (shouldShowAuthor) {
+      assertThat(res.getActualBodyString()).contains(AUTHOR_METADATA_ELEMENT);
+    } else {
+      assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
+    }
+
+    if (shouldShowCommitter) {
+      assertThat(res.getActualBodyString()).contains(COMMITTER_METADATA_ELEMENT);
+    } else {
+      assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
+    }
   }
 }
