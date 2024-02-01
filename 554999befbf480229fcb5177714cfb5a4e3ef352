@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "031b9d1f_4abc7a4a",
+        "filename": "javatests/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1165636
+      },
+      "writtenOn": "2024-02-01T19:30:37Z",
+      "side": 1,
+      "message": "Can you create a helper function for these tests to reduce duplicate code?\nSeems like the only difference is the parameter string.",
+      "range": {
+        "startLine": 239,
+        "startChar": 79,
+        "endLine": 239,
+        "endChar": 86
+      },
+      "revId": "554999befbf480229fcb5177714cfb5a4e3ef352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
