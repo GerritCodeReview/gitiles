@@ -103,6 +103,23 @@
       "message": "There is renewed interest in this change: https://issues.gerritcodereview.com/issues/322403885 is it still a work in progress?",
       "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "761acc9e_c535ec79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1073779
+      },
+      "writtenOn": "2024-02-01T21:23:42Z",
+      "side": 1,
+      "message": "it is working well on gerrit 3.6 but stop working on 3.8",
+      "revId": "83c8e1befaca85c537f00a899d9f6a4b0146215b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
