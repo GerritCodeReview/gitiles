@@ -158,7 +158,6 @@ public class DocServletTest extends ServletTest {
     repo.branch("master").commit().add("index.md", markdown).create();
 
     String html = buildHtml("/repo/+/master/index.md");
-    System.out.println(html);
     assertThat(html)
         .contains(
             "<ul><li><p>one</p><div class=\"aside\">remember this</div>"
