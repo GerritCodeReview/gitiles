@@ -32,6 +32,9 @@ import org.junit.runners.JUnit4;
 public class LogServletTest extends ServletTest {
   private static final TypeToken<Log> LOG = new TypeToken<Log>() {};
   private static final String MAIN = "main";
+  private static final String AUTHOR_METADATA_ELEMENT = "<th class=\"Metadata-title\">author</th>";
+  private static final String COMMITTER_METADATA_ELEMENT =
+      "<th class=\"Metadata-title\">committer</th>";
 
   @Test
   public void basicLog() throws Exception {
@@ -194,5 +197,81 @@ public class LogServletTest extends ServletTest {
                 + "&amp;s="
                 + parent.toObjectId().getName()
                 + "\">");
+  }
+
+  @Test
+  public void prettyDefaultUsesDefaultCssClass() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--default\">");
+    assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
+    assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
+  }
+
+  @Test
+  public void prettyExplicitlyDefaultUsesDefaultCssClass() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html" + "&pretty=default", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--default\">");
+    assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
+    assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
+  }
+
+  @Test
+  public void prettyOnelineUsesOnelineCssClass() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html" + "&pretty=oneline", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--oneline\">");
+    assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
+    assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
+  }
+
+  @Test
+  public void prettyCustomTypeUsesCustomCssClass() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res =
+        buildResponse(path, "format=html" + "&pretty=aCustomPrettyType", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--aCustomPrettyType\">");
+    assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
+    assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
+  }
+
+  @Test
+  public void prettyFullerUsesFullerCssClass() throws Exception {
+    RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
+    RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
+
+    String path =
+        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html" + "&pretty=fuller", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("<li class=\"CommitLog-item CommitLog-item--fuller\">");
+    assertThat(res.getActualBodyString()).contains(AUTHOR_METADATA_ELEMENT);
+    assertThat(res.getActualBodyString()).contains(COMMITTER_METADATA_ELEMENT);
   }
 }
