@@ -22,6 +22,30 @@
       },
       "revId": "554999befbf480229fcb5177714cfb5a4e3ef352",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d006f2c5_f47bc654",
+        "filename": "javatests/com/google/gitiles/LogServletTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 3269412
+      },
+      "writtenOn": "2024-02-01T22:03:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "031b9d1f_4abc7a4a",
+      "range": {
+        "startLine": 239,
+        "startChar": 79,
+        "endLine": 239,
+        "endChar": 86
+      },
+      "revId": "554999befbf480229fcb5177714cfb5a4e3ef352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
