@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3086ae4_a85cd752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3294971
+      },
+      "writtenOn": "2024-02-06T12:11:15Z",
+      "side": 1,
+      "message": "git clone https://android.googlesource.com/kkernel/prebuilts/common-modules/virtual-device/mainline/arm64",
+      "revId": "2e56e66997536548517aa9a582c7a62cd008caed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
