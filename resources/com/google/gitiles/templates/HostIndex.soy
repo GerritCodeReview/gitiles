@@ -34,7 +34,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
 {/call}
 
 {if length($repositories)}
-  {if not $breadcrumbs}
+  {if !$breadcrumbs}
     <h1>
       {msg desc="Git repositories available on the host"}
         Git repositories on {$hostName}
