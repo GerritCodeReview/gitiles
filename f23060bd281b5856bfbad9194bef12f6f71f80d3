@@ -16,6 +16,24 @@
       "message": "Yay! Tested?",
       "revId": "f23060bd281b5856bfbad9194bef12f6f71f80d3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec07c730_bafbe589",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3269412
+      },
+      "writtenOn": "2024-02-10T01:04:28Z",
+      "side": 1,
+      "message": "Yep, updated commit message on this and child CL",
+      "parentUuid": "b9da27cd_d6d1fcfc",
+      "revId": "f23060bd281b5856bfbad9194bef12f6f71f80d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
