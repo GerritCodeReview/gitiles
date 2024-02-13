@@ -212,7 +212,7 @@ class DevServer {
 
         @Override
         public Object getUserKey() {
-          return null;
+          return "";
         }
 
         @Override
