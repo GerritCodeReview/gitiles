@@ -16,8 +16,7 @@ for details.
 
 ## Bugs
 
-Use the [issue tracker at github](https://github.com/google/gitiles/issues) to
-file bugs.
+Use [issues.gerritcodereview.com](https://issues.gerritcodereview.com/issues?q=componentid:1370019) and report issues under `Applications > gitiles`.
 
 ## Contributing to Gitiles
 
