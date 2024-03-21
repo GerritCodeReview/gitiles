@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa937010_b64a025a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3354454
+      },
+      "writtenOn": "2024-03-21T07:28:59Z",
+      "side": 1,
+      "message": "//support@rikka.app",
+      "revId": "76346b0810deec731737c9bb2bf54cc46a2c88cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
