@@ -15,8 +15,8 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.common.io.BaseEncoding;
 import com.google.common.net.HttpHeaders;

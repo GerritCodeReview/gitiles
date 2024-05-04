@@ -16,9 +16,9 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Default implementation of {@link GitilesUrls}.

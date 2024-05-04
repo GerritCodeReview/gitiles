@@ -14,7 +14,7 @@
 
 package com.google.gitiles;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /** {@link GitilesUrls} for testing. */
 public class TestGitilesUrls implements GitilesUrls {

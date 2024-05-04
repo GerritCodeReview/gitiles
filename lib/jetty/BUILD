@@ -9,7 +9,7 @@ java_library(
     exports = [
         ":security",
         "//lib:servlet-api",
-        "@external_deps//:org_eclipse_jetty_jetty_servlet",
+        "@external_deps//:org_eclipse_jetty_ee10_jetty_ee10_servlet",
     ],
 )
 
@@ -24,15 +24,9 @@ java_library(
 java_library(
     name = "server",
     exports = [
-        ":continuation",
         ":http",
         "@external_deps//:org_eclipse_jetty_jetty_server",
     ],
-)
-
-java_library(
-    name = "continuation",
-    exports = ["@external_deps//:org_eclipse_jetty_jetty_continuation"],
 )
 
 java_library(

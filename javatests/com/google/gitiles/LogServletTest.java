@@ -15,7 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.CommitJsonData.Log;
@@ -131,8 +131,7 @@ public class LogServletTest extends ServletTest {
     PersonIdent matchingAuthor = new PersonIdent("Matching Author", "matching.author@example.com");
     PersonIdent otherAuthor = new PersonIdent("Other Author", "other.author@example.com");
 
-    RevCommit c1 =
-        repo.branch("master").commit().author(matchingAuthor).add("foo", "one").create();
+    RevCommit c1 = repo.branch("master").commit().author(matchingAuthor).add("foo", "one").create();
     repo.branch("master").commit().author(otherAuthor).add("foo", "two").create();
 
     Log response =

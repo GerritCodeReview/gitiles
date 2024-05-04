@@ -16,8 +16,8 @@ package com.google.gitiles;
 
 import static com.google.gitiles.FormatType.HTML;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.lib.Repository;
 
 /**

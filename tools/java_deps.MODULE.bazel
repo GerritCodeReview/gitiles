@@ -12,7 +12,7 @@ FLOGGER_VERSION = "0.7.4"
 
 SLF4J_VERSION = "2.0.17"
 
-JETTY_VERSION = "9.4.57.v20241219"
+JETTY_VERSION = "12.1.9"
 
 OW2_ASM_VERSION = "9.9.1"
 
@@ -41,11 +41,6 @@ _GITILES_FORCED_ARTIFACTS = [
     "net.bytebuddy:byte-buddy",
     "net.bytebuddy:byte-buddy-agent",
     "org.apache.commons:commons-lang3",
-    "org.eclipse.jetty:jetty-http",
-    "org.eclipse.jetty:jetty-io",
-    "org.eclipse.jetty:jetty-security",
-    "org.eclipse.jetty:jetty-server",
-    "org.eclipse.jetty:jetty-util",
     "org.mockito:mockito-core",
     "org.objenesis:objenesis",
     "org.slf4j:slf4j-api",
@@ -86,7 +81,7 @@ maven.install(
         "commons-codec:commons-codec:1.18.0",
         "commons-io:commons-io:2.21.0",
         "io.github.java-diff-utils:java-diff-utils:4.16",
-        "javax.servlet:javax.servlet-api:4.0.1",
+        "jakarta.servlet:jakarta.servlet-api:6.1.0",
         "junit:junit:4.13.2",
         "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
         "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
@@ -97,12 +92,11 @@ maven.install(
         "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-tables:" + COMMONMARK_VERSION,
-        "org.eclipse.jetty:jetty-continuation:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-http:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-io:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-server:" + JETTY_VERSION,
-        "org.eclipse.jetty:jetty-servlet:" + JETTY_VERSION,
+        "org.eclipse.jetty.ee10:jetty-ee10-servlet:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
         "org.hamcrest:hamcrest:3.0",
         "org.mockito:mockito-core:5.21.0",

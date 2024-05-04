@@ -19,7 +19,7 @@ package(
     ("gfm-tables", "@external_deps//:org_commonmark_commonmark_ext_gfm_tables"),
     ("html-types", "@external_deps//:com_google_common_html_types_types"),
     ("jsr305", "@external_deps//:com_google_code_findbugs_jsr305"),
-    ("servlet-api", "@external_deps//:javax_servlet_javax_servlet_api"),
+    ("servlet-api", "@external_deps//:jakarta_servlet_jakarta_servlet_api"),
     ("gson", "@external_deps//:com_google_code_gson_gson"),
     ("guava", "@external_deps//:com_google_guava_guava"),
     ("guava-failureaccess", "@external_deps//:com_google_guava_failureaccess"),

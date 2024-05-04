@@ -11,6 +11,7 @@ java_library(
         "//lib:html-types",
         "//lib:jgit",
         "//lib:jgit-servlet",
+        "//lib:jsr305",
         "//lib:servlet-api",
         "//lib:slf4j-api",
         "//lib:slf4j-simple",
