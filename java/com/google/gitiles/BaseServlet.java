@@ -19,10 +19,10 @@ import static com.google.gitiles.FormatType.DEFAULT;
 import static com.google.gitiles.FormatType.HTML;
 import static com.google.gitiles.FormatType.JSON;
 import static com.google.gitiles.FormatType.TEXT;
+import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 import static org.eclipse.jgit.util.HttpSupport.ENCODING_GZIP;
 
 import com.google.common.base.Joiner;
@@ -33,6 +33,10 @@ import com.google.common.net.HttpHeaders;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,10 +49,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /** Base servlet class for Gitiles servlets that serve Soy templates. */
 public abstract class BaseServlet extends HttpServlet {

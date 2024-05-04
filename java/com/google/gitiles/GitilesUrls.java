@@ -16,9 +16,9 @@ package com.google.gitiles;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import javax.servlet.http.HttpServletRequest;
 
 /** Interface for URLs displayed on source browsing pages. */
 public interface GitilesUrls {

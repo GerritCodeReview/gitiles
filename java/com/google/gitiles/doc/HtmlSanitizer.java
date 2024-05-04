@@ -15,7 +15,7 @@
 package com.google.gitiles.doc;
 
 import com.google.common.html.types.SafeHtml;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /** Verifies a user content HTML block is safe. */
 public interface HtmlSanitizer {

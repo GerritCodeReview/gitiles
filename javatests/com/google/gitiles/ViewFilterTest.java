@@ -19,9 +19,9 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.gitiles.MoreAssert.assertThrows;
 
 import com.google.common.net.HttpHeaders;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.util.Optional;
-import javax.servlet.ServletException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;

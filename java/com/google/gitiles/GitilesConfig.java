@@ -16,10 +16,10 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import jakarta.servlet.FilterConfig;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import javax.servlet.FilterConfig;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;

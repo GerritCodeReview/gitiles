@@ -18,8 +18,8 @@ import com.google.common.base.Enums;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
 
 /** Type of formatting to use in the response to the client. */
 public enum FormatType {
