@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15a142b_3774017a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1131441
+      },
+      "writtenOn": "2024-05-08T19:02:50Z",
+      "side": 1,
+      "message": "Hi, it looks like I don\u0027t have submit permissions on this CL.  Someone will need to submit for me.",
+      "revId": "c27f65e6093e84e3a4ccb9f5d759e98c1f1f4a48",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
