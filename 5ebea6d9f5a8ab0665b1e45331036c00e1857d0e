@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "126681f4_89fd86ef",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-14T17:37:58Z",
+      "side": 1,
+      "message": "I can\u0027t find anything that I could apply easily. `javatests/com/google/gitiles/TestGitilesAccess.java` has an override for `getConfig()` in `GitilesAccess`, but I don\u0027t know how to apply the same idea in this case.",
+      "parentUuid": "c2ffff39_b17c3750",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
