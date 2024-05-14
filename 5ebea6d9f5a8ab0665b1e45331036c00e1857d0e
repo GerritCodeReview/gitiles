@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2ffff39_b17c3750",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-05-14T16:41:34Z",
+      "side": 1,
+      "message": "\u003e So yeah, I don\u0027t know how to make the test use a config with `gerritUrl` set. The `@Before` block I added is fabulated code for it.\n\nI\u0027m not sure either. Can you do a similar thing as what `RefServletTest` does with `TestGitilesUrls.URLS`?",
+      "parentUuid": "e03d5adf_09fb8f59",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
