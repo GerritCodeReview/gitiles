@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ebf2714_37ff7a0d",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-14T13:01:47Z",
+      "side": 1,
+      "message": "After the changes to `java/com/google/gitiles/PathServlet.java`, servlet tests now fail with `NullPointerException`, pointing to line 557, `head.getLeaf().getName(),`. Any idea on how to take tests into account here?\n\nMy added test is also unfinished. I don\u0027t know how to get the name of the `repo` test repository object. I\u0027m not seeing anything suitable in https://archive.eclipse.org/jgit/site/5.1.2.201810061102-r/apidocs/org/eclipse/jgit/junit/TestRepository.html\n\nI hope it\u0027s otherwise going to a sensible direction.",
+      "parentUuid": "0ced2ab7_ff721e02",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
@@ -37,6 +61,24 @@
       "writtenOn": "2024-05-03T18:29:58Z",
       "side": 1,
       "message": "`getLeaf()` handles checking `isSymbolic()` for you, so don\u0027t duplicate that.\n\nOnce you also apply the fix for my comment below, you\u0027ll have a specific non-null check for `head` after line 546 and then you can safely update line 557 with `head.getLeaf().getName()`.",
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc62afe9_81323cf5",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-14T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd2a3b6f_63b2b647",
       "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd09bd4_a0f247eb",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-14T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35eb8ca1_94e4caa3",
+      "range": {
+        "startLine": 549,
+        "startChar": 10,
+        "endLine": 549,
+        "endChar": 31
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "067d7193_7a78bd44",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-05-03T18:29:58Z",
       "side": 1,
       "message": "Does this get passed through `escapeName()` or is it escaped some other way?",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 32
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1d2d53_aef1c230",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-14T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "067d7193_7a78bd44",
       "range": {
         "startLine": 554,
         "startChar": 0,
