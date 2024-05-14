@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41186470_ed53fc93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-14T09:33:34Z",
+      "side": 1,
+      "message": "Jack changed the return value to empty string in https://gerrit.googlesource.com/gitiles/+/c27f65e6093e84e3a4ccb9f5d759e98c1f1f4a48 so let\u0027s abandon this.",
+      "revId": "bb6043c7f11617d38e14fc552c11b917bba6df6f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
