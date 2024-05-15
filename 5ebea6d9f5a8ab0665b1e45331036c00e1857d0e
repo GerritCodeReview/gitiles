@@ -266,6 +266,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "964873bd_eeed9963",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-15T13:47:54Z",
+      "side": 1,
+      "message": "No problem, thanks for helping. I hope I did it the way you intended. `editURL` is still `null` in the data built by `buildData`.",
+      "parentUuid": "78a6349b_aa6f3b49",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
