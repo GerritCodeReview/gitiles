@@ -242,6 +242,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78a6349b_aa6f3b49",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-05-15T12:35:22Z",
+      "side": 1,
+      "message": "Sorry, that was a wild goose-chase.\nTry setting the config value in this config object before handing it to the GitilesServlet ctor that in turn will pass it along to GitilesFilter that will read it to create the DefaultUrls object with the correct URLs.\nhttps://gerrit.googlesource.com/gitiles/+/0cf4be54b650e8bc47d6eca47a150e0a2ae711a3/javatests/com/google/gitiles/TestGitilesServlet.java#70",
+      "parentUuid": "bff56ae5_edcc465f",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
