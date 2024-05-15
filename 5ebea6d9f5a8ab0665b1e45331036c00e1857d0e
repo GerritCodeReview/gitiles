@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bff56ae5_edcc465f",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-15T12:11:21Z",
+      "side": 1,
+      "message": "I have a couple of non-working approaches for your inspiration.\n\nI don\u0027t know what I should do after setting the system property `com.google.gitiles.configPath`.\n\nAs an alternative, I tried FileBasedConfig, but hit a wall there as well.\n\nI checked with `canRead()` that the file can be read from the absolute path, but `buildData()` seems to ignore the loaded config.\n\nGetting `com.google.gitiles.sourcePath` is a problem in itself as it doesn\u0027t seem to be required and I don\u0027t even know how to set it when running tests. Some kind of `--jvm_flag\u003d-Dcom.google.gitiles.sourcePath\u003d...`, but where/how?\n\nAt least I now know that the name of the repo used in the test suite is \"repo\" after printing out the object.",
+      "parentUuid": "b5d8730b_da7ab154",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
