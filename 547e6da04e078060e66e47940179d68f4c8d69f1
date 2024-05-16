@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b8c2aa2_092325c2",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-05-16T12:36:30Z",
+      "side": 1,
+      "message": "The current issue is that `head` is null here since you didn\u0027t set it in the repo in the testcase at PathServletTest.\nBut should this really be `HEAD` shouldn\u0027t it be the current branch (if branch) being viewed?\nSetting HEAD by issuing `repo.reset(\"refs/heads/master\") only sets the Ref HEAD to the commit-id of `master` which is not a valid edit-url (needs to be a branch).\nDon\u0027t know how to get the commit:ish from the gitilesUrl but it should be possible. Afterwhich you\u0027ll need to verify that the commit:ish is indeed a branch and not a commit-id or a tag.",
+      "range": {
+        "startLine": 551,
+        "startChar": 10,
+        "endLine": 551,
+        "endChar": 14
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0345530b_26e3bca9",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-05-16T12:36:30Z",
+      "side": 1,
+      "message": "You\u0027ll need to somehow set HEAD (currently, but I don\u0027t know if HEAD is what should be used. Perhaps as a fall-back if the commit:ish of the gitiles-url isn\u0027t a branch).\n`repo.reset(...)` sets `HEAD` but sets it to a commit-id which you cannot create a valid edit-url from, so by adding `repo.reset(...)` you get an edit-url but it won\u0027t work against Gerrit.\nI don\u0027t know how to set `HEAD` to f.i. `refs/heads/master` and collect it in PathServlet to build a valid edit-url.\n\nAlso the `assertThat` is backwards, should be `assertThat($ACTUAL_VALUE).isEqualTo($EXPECTED_VALUE);`\n\n```suggestion\n    repo.branch(\"master\").commit().add(\"editFoo\", \"Content\").create();\n    repo.reset(\"refs/heads/master\");\n\n    Map\u003cString, ?\u003e data \u003d buildData(\"/repo/+/master/editFoo\");\n\n    String editUrl \u003d (String) getBlobData(data).get(\"editUrl\");\n    String testUrl \u003d \"http://test-host-review/admin/repos/edit/repo/repo/branch/refs/heads/master/file/editFoo\";\n    assertThat(editUrl).isEqualTo(testUrl);\n```",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96b9a9da_ebbacd3c",
         "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
         "patchSetId": 10
