@@ -314,6 +314,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a964aece_43830012",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-16T08:17:22Z",
+      "side": 1,
+      "message": "Ok, so somehow passing `TestGitilesUrls.URLS` to `PathServlet` constructor while in `PathServletTest.java` (no idea how to do it).",
+      "parentUuid": "98a51e5e_accc5d2e",
+      "range": {
+        "startLine": 542,
+        "startChar": 24,
+        "endLine": 542,
+        "endChar": 37
+      },
+      "revId": "5ebea6d9f5a8ab0665b1e45331036c00e1857d0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2a3b6f_63b2b647",
         "filename": "java/com/google/gitiles/PathServlet.java",
         "patchSetId": 6
