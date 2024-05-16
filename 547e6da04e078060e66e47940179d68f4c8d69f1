@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b9a9da_ebbacd3c",
+        "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-05-16T05:45:52Z",
+      "side": 1,
+      "message": "```suggestion\n  public static GitilesServlet create(\n      final TestRepository\u003cDfsRepository\u003e repo,\n      GitwebRedirectFilter gitwebRedirect,\n      BranchRedirect branchRedirect)\n      throws ServletException {\n    final String repoName \u003d repo.getRepository().getDescription().getRepositoryName();\n    GitilesServlet servlet \u003d\n        new GitilesServlet(\n            getTestConfig(),\n            new DefaultRenderer(\n                GitilesServlet.STATIC_PREFIX, ImmutableList.\u003cURL\u003eof(), repoName + \" test site\"),\n            TestGitilesUrls.URLS,\n            new TestGitilesAccess(repo.getRepository()),\n            new RepositoryResolver\u003cHttpServletRequest\u003e() {\n              @Override\n              public Repository open(HttpServletRequest req, String name)\n                  throws RepositoryNotFoundException {\n                if (!repoName.equals(name)) {\n                  throw new RepositoryNotFoundException(name);\n                }\n                return repo.getRepository();\n              }\n            },\n            null,\n            null,\n            null,\n            gitwebRedirect,\n            branchRedirect);\n\n    servlet.init(\n        new ServletConfig() {\n          @Override\n          public @Nullable String getInitParameter(String name) {\n            return null;\n          }\n\n          @Override\n          public Enumeration\u003cString\u003e getInitParameterNames() {\n            return Collections.enumeration(ImmutableList.\u003cString\u003eof());\n          }\n\n          @Override\n          public @Nullable ServletContext getServletContext() {\n            return null;\n          }\n\n          @Override\n          public String getServletName() {\n            return TestGitilesServlet.class.getName();\n          }\n        });\n    return servlet;\n  }\n  \n  public static Config getTestConfig() {\n    Config config \u003d new Config();\n    config.setString(\"gitiles\", null, \"gerritUrl\", TestGitilesUrls.URLS.getBaseGerritUrl(null));\n  }\n```",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 3
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
