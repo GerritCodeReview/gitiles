@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "960eb875_578b9975",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-05-27T12:01:18Z",
+      "side": 1,
+      "message": "I am not certain that HEAD is the correct thing to use, it would be more clear if the viewed branch is used ([see other comment](https://gerrit-review.googlesource.com/c/gitiles/+/392465/comment/2b8c2aa2_092325c2/)).\nIt will confuse users if they are looking at a file in `stable-3.10` in gitiles and press `EDIT` and a change against `master` is created.",
+      "parentUuid": "d33f2db1_3a463b35",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96b9a9da_ebbacd3c",
         "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
         "patchSetId": 10
