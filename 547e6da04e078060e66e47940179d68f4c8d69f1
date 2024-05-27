@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d33f2db1_3a463b35",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-27T11:53:53Z",
+      "side": 1,
+      "message": "Yeah, the problem is that unlike `Repository`, JGit\u0027s `TestRepository` does not have a method for checkout. But I guess the interesting thing here is to have an edit-url and not so much, if it works against Gerrit. So should I update the expected string to be non-working one?",
+      "parentUuid": "0345530b_26e3bca9",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96b9a9da_ebbacd3c",
         "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
         "patchSetId": 10
