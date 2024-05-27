@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c959831_896edb77",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-05-27T12:11:54Z",
+      "side": 1,
+      "message": "The thing is that you should return null if HEAD doesn\u0027t point to a branch.\n\n```suggestion\n      if (head \u003d\u003d null || !head.getLeaf().getName().startsWith(\"refs/heads/\")) {\n```",
+      "range": {
+        "startLine": 551,
+        "startChar": 10,
+        "endLine": 551,
+        "endChar": 23
+      },
+      "revId": "b968bdfa6c8b4c65f660e418287abb3ebcb8494e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
