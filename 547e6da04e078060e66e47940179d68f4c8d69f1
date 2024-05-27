@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a96d58d_c06e04ad",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-05-27T12:36:09Z",
+      "side": 1,
+      "message": "Yes, sorry about lack of focus. Uploaded a new failing patchset.",
+      "parentUuid": "960eb875_578b9975",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96b9a9da_ebbacd3c",
         "filename": "javatests/com/google/gitiles/TestGitilesServlet.java",
         "patchSetId": 10
