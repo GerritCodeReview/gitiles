@@ -192,19 +192,7 @@ public class FakeHttpServletResponse implements HttpServletResponse {
   }
 
   @Override
-  @Deprecated
-  public String encodeRedirectUrl(String url) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public String encodeURL(String url) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  @Deprecated
-  public String encodeUrl(String url) {
     throw new UnsupportedOperationException();
   }
 
@@ -246,13 +234,6 @@ public class FakeHttpServletResponse implements HttpServletResponse {
 
   @Override
   public synchronized void setStatus(int sc) {
-    status = sc;
-    committed = true;
-  }
-
-  @Override
-  @Deprecated
-  public synchronized void setStatus(int sc, String msg) {
     status = sc;
     committed = true;
   }

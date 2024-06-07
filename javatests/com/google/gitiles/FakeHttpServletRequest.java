@@ -27,6 +27,7 @@ import com.google.common.collect.Maps;
 import jakarta.servlet.AsyncContext;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConnection;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
@@ -236,12 +237,6 @@ public class FakeHttpServletRequest implements HttpServletRequest {
   }
 
   @Override
-  @Deprecated
-  public String getRealPath(String path) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public String getRemoteAddr() {
     return "5.6.7.8";
   }
@@ -428,12 +423,6 @@ public class FakeHttpServletRequest implements HttpServletRequest {
   }
 
   @Override
-  @Deprecated
-  public boolean isRequestedSessionIdFromUrl() {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
     throw new UnsupportedOperationException();
   }
@@ -471,6 +460,21 @@ public class FakeHttpServletRequest implements HttpServletRequest {
 
   @Override
   public boolean isUserInRole(String role) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public String getRequestId() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public String getProtocolRequestId() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public ServletConnection getServletConnection() {
     throw new UnsupportedOperationException();
   }
 }

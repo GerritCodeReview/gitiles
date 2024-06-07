@@ -24,16 +24,10 @@ java_library(
 java_library(
     name = "server",
     exports = [
-#        ":continuation",
         ":http",
         "@server//jar",
     ],
 )
-
-#java_library(
-#    name = "continuation",
-#    exports = ["@continuation//jar"],
-#)
 
 java_library(
     name = "http",

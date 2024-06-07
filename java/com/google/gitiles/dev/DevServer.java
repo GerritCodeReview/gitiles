@@ -26,11 +26,11 @@ import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
 import com.google.gitiles.doc.HtmlSanitizer;
+import jakarta.servlet.Servlet;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -39,15 +39,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.Servlet;
+import javax.annotation.Nullable;
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.resource.PathResource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
@@ -152,13 +152,9 @@ class DevServer {
   private Handler staticHandler() throws IOException {
     Path staticRoot = sourceRoot.resolve("resources/com/google/gitiles/static");
     ResourceHandler rh = new ResourceHandler();
-    try {
-      rh.setBaseResource(new PathResource(staticRoot.toUri().toURL()));
-    } catch (URISyntaxException e) {
-      throw new IOException(e);
-    }
+    rh.setBaseResource(ResourceFactory.of(rh).newResource(staticRoot));
     rh.setWelcomeFiles(new String[] {});
-    rh.setDirectoriesListed(false);
+    rh.setDirAllowed(false);
     ContextHandler handler = new ContextHandler("/+static");
     handler.setHandler(rh);
     return handler;
@@ -211,6 +207,7 @@ class DevServer {
         }
 
         @Override
+        @Nullable
         public Object getUserKey() {
           return null;
         }
