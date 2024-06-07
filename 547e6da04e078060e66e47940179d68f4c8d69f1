@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6067f499_6499a200",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-06-07T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b8c2aa2_092325c2",
+      "range": {
+        "startLine": 551,
+        "startChar": 10,
+        "endLine": 551,
+        "endChar": 14
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0345530b_26e3bca9",
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "Sorry, I should have explained: it fails because in the test the commit-ish is \"master\" while in PathServlet we are now testing for `startsWith(\"refs/heads/\")` and returning null otherwise.",
       "parentUuid": "0a7c609d_9731e7cd",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "547e6da04e078060e66e47940179d68f4c8d69f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aecad1e3_d97f5644",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-06-07T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c544658_877891ea",
       "range": {
         "startLine": 109,
         "startChar": 0,
