@@ -16,6 +16,23 @@
       "message": "شكر",
       "revId": "84fb315541de4364c63a55bda7b96a1a44e0637a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f236d94b_26021b80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3509254
+      },
+      "writtenOn": "2024-06-28T08:10:56Z",
+      "side": 1,
+      "message": "https://duo.app.goo.gl/bKv0LCI9hE2STB3ukqbkfD",
+      "revId": "84fb315541de4364c63a55bda7b96a1a44e0637a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
