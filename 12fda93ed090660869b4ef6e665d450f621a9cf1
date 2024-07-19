@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c49becf_9d40c08d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3541183
+      },
+      "writtenOn": "2024-07-19T13:08:48Z",
+      "side": 1,
+      "message": "mga puking ina niyo",
+      "revId": "12fda93ed090660869b4ef6e665d450f621a9cf1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
