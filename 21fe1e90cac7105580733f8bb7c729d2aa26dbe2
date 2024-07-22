@@ -362,6 +362,23 @@
       "message": "ماذا يعني  من هاذا ايش الفايده منه",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e09203db_eef03fbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3541723
+      },
+      "writtenOn": "2024-07-22T06:42:03Z",
+      "side": 1,
+      "message": "LG v60",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
