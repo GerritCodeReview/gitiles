@@ -101,6 +101,23 @@
       "message": "Ah wey",
       "revId": "84fb315541de4364c63a55bda7b96a1a44e0637a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d7bbb5_3684a0bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3513228
+      },
+      "writtenOn": "2024-08-04T22:11:46Z",
+      "side": 1,
+      "message": "392465: Add link to file view for creating a Gerrit change/edit | https://gerrit-review.googlesource.com/c/gitiles/+/392465",
+      "revId": "84fb315541de4364c63a55bda7b96a1a44e0637a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
