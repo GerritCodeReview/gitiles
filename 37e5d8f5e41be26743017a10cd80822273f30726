@@ -16,6 +16,23 @@
       "message": "https://gerrit-review.googlesource.com/c/gitiles/+/408337/comments/b9da27cd_d6d1fcfc",
       "revId": "37e5d8f5e41be26743017a10cd80822273f30726",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04287ff4_328890d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1142878
+      },
+      "writtenOn": "2024-08-11T20:03:07Z",
+      "side": 1,
+      "message": "\u003c!-- Google tag (gtag.js) --\u003e\n\u003cscript async src\u003d\"https://www.googletagmanager.com/gtag/js?id\u003dG-CN1HC8JERX\"\u003e\n\u003c/script\u003e\n\u003cscript\u003e\n  window.dataLayer \u003d window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag(\u0027js\u0027, new Date());\n\n  gtag(\u0027config\u0027, \u0027G-CN1HC8JERX\u0027);\n\u003c/script\u003e",
+      "revId": "37e5d8f5e41be26743017a10cd80822273f30726",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
