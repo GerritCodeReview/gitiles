@@ -163,7 +163,7 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  private static List<Region> loadRegions(BlameGenerator gen) throws IOException {
+  public static List<Region> loadRegions(BlameGenerator gen) throws IOException {
     Map<ObjectId, PooledCommit> commits = Maps.newHashMap();
     Interner<String> strings = Interners.newStrongInterner();
     int lineCount = gen.getResultContents().size();
