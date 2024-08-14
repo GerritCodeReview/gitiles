@@ -53,7 +53,7 @@ public class Region implements Serializable, Comparable<Region> {
     return start;
   }
 
-  int getEnd() {
+  public int getEnd() {
     return start + count;
   }
 
