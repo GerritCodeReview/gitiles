@@ -285,7 +285,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       rename or copy. */
 {call logEntry variant="'full'" data="all" /}
 
-{if $diffTree and length($diffTree)}
+{if $diffTree && length($diffTree)}
   <ul class="DiffTree">
     {for $entry in $diffTree}
       <li>
