@@ -22,7 +22,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gitiles.CommitData.Field;
-import com.google.template.soy.data.LoggingAdvisingAppendable;
 import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.IOException;
 import java.io.Writer;
@@ -78,7 +77,7 @@ public class LogSoyData {
     variant = firstNonNull(config.getString("logFormat", pretty, "variant"), pretty);
   }
 
-  private void renderHtml(SoySauce.Renderer renderer, LoggingAdvisingAppendable out)
+  private void renderHtml(SoySauce.Renderer renderer, Appendable out)
       throws IOException {
     if (!renderer.renderHtml(out).result().isDone()) {
       throw new IOException("failed to render HTML");
@@ -93,29 +92,28 @@ public class LogSoyData {
       DateFormatter df,
       FooterBehavior footerBehavior)
       throws IOException {
-    LoggingAdvisingAppendable out = LoggingAdvisingAppendable.delegating(writer);
     renderHtml(
         renderer
             .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesHeader")
             .setData(toHeaderSoyData(paginator, revision)),
-        out);
+        writer);
 
     SoySauce.Renderer entryRenderer =
         renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
-      renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), out);
+      renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), writer);
       renderedEntries = true;
     }
     if (!renderedEntries) {
-      renderHtml(renderer.newRenderer("com.google.gitiles.templates.LogDetail.emptyLog"), out);
+      renderHtml(renderer.newRenderer("com.google.gitiles.templates.LogDetail.emptyLog"), writer);
     }
 
     renderHtml(
         renderer
             .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesFooter")
             .setData(toFooterSoyData(paginator, revision, footerBehavior)),
-        out);
+            writer);
   }
 
   private Map<String, Object> toHeaderSoyData(Paginator paginator, @Nullable String revision) {
