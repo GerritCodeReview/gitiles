@@ -68,9 +68,10 @@ public class VisibilityChecker {
       return false;
     }
 
-    return !walk.createReachabilityChecker()
-        .areAllReachable(ImmutableList.of(commit), startCommits)
-        .isPresent();
+    return walk.getObjectReader()
+        .createReachabilityChecker(walk)
+        .areAllReachable(ImmutableList.of(commit), startCommits.stream())
+        .isEmpty();
   }
 
   private static ImmutableList<RevCommit> objectIdsToCommits(RevWalk walk, Collection<ObjectId> ids)
