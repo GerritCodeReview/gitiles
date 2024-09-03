@@ -61,6 +61,24 @@
       ],
       "revId": "62bafef7fd7d3c054ac6c2ee1df6d66c590bea52",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1846d1c_da86a50d",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-09-03T17:53:44Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "5fdd529f_b6cdf52f",
+      "revId": "62bafef7fd7d3c054ac6c2ee1df6d66c590bea52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
