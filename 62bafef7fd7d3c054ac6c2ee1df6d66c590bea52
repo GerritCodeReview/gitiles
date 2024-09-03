@@ -1,0 +1,66 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f83efb_06252e24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-09-03T17:38:55Z",
+      "side": 1,
+      "message": "Also, I am trying to fix the last TODO in https://gerrit-review.git.corp.google.com/c/gitiles/+/246495 , which removes the deprecated usage AND improves perf prioritizing refs.\n\nWe can either submit that one, or submit this and rebase.",
+      "revId": "62bafef7fd7d3c054ac6c2ee1df6d66c590bea52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdd529f_b6cdf52f",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-09-03T17:38:55Z",
+      "side": 1,
+      "message": "nit (as some analyzers complain): instead of !x.y.z.isPresent(), use \"x.y.z.isEmpty()\"",
+      "fixSuggestions": [
+        {
+          "fixId": "ba86cf84_cc99f171",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "java/com/google/gitiles/VisibilityChecker.java",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 72,
+                "endChar": 0
+              },
+              "replacement": "    return walk.getObjectReader()\n"
+            },
+            {
+              "path": "java/com/google/gitiles/VisibilityChecker.java",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "        .isEmpty();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "62bafef7fd7d3c054ac6c2ee1df6d66c590bea52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
