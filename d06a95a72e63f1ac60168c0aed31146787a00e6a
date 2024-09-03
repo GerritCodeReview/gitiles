@@ -33,6 +33,24 @@
       "message": "Still needs to be done, for example using the https://github.com/google/guava/issues/2828#issuecomment-304187823 approach.",
       "revId": "d06a95a72e63f1ac60168c0aed31146787a00e6a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebf548ff_aec67811",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-09-03T17:55:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62803586_e30a434e",
+      "revId": "d06a95a72e63f1ac60168c0aed31146787a00e6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
