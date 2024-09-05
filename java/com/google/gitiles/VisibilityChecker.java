@@ -26,7 +26,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 
 /**
  * Checks for object visibility
- *
+ *?
  * <p>Objects are visible if they are reachable from any of the references visible to the user.
  */
 public class VisibilityChecker {
