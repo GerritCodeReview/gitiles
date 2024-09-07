@@ -185,7 +185,7 @@
       "submitRequirement": {
         "name": "Review-Enforcement",
         "description": {
-          "value": "Two Google employees must approve the change. Uploading the change or voting positively on Code-Review count as approval."
+          "value": "Two Google employees must approve the change. Uploading the change or voting positively on Code-Review count as approval. Using a trusted device is required, see go/gerrit-onboarding#review-enforcement."
         },
         "applicabilityExpression": {
           "value": {
@@ -233,7 +233,7 @@
         "value": {"expression":{"expressionString":"-branch:refs/meta/config"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["branch:refs/meta/config"]}
       },
       "submittabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"label:Verified=MAX AND -label:Verified=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Verified=MAX","label:Verified=MIN"]}
+        "value": {"expression":{"expressionString":"label:Verified=MAX AND -label:Verified=MIN"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["label:Verified=MAX"],"failingAtoms":["label:Verified=MIN"]}
       },
       "overrideExpressionResult": {},
       "patchSetCommitId": "59af77e2261161eae327c50e72cfbad6b2091172",
