@@ -45,8 +45,8 @@ maven_jar(
 
 maven_jar(
     name = "commons-codec",
-    artifact = "commons-codec:commons-codec:1.15",
-    sha1 = "49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d",
+    artifact = "commons-codec:commons-codec:1.16.0",
+    sha1 = "4e3eb3d79888d76b54e28b350915b5dc3919c9de",
 )
 
 maven_jar(
@@ -63,8 +63,8 @@ maven_jar(
 
 maven_jar(
     name = "gson",
-    artifact = "com.google.code.gson:gson:2.9.0",
-    sha1 = "8a1167e089096758b49f9b34066ef98b2f4b37aa",
+    artifact = "com.google.code.gson:gson:2.10.1",
+    sha1 = "b3add478d4382b78ea20b1671390a858002feb6c",
 )
 
 maven_jar(
@@ -148,8 +148,8 @@ FLOGGER_VERS = "0.7.4"
 
 maven_jar(
     name = "log4j",
-    artifact = "ch.qos.reload4j:reload4j:1.2.18.0",
-    sha1 = "03b2b708403ab00eb0678bffdbbd567070bbdfab",
+    artifact = "ch.qos.reload4j:reload4j:1.2.25",
+    sha1 = "45921e383a1001c2a599fc4c6cf59af80cdd1cf1",
 )
 
 maven_jar(
@@ -190,22 +190,22 @@ maven_jar(
 
 maven_jar(
     name = "icu4j",
-    artifact = "com.ibm.icu:icu4j:57.1",
-    sha1 = "198ea005f41219f038f4291f0b0e9f3259730e92",
+    artifact = "com.ibm.icu:icu4j:74.2",
+    sha1 = "97222d018f7f43cae88cacd1fad39717b001ffc4",
 )
 
 maven_jar(
     name = "javaewah",
-    artifact = "com.googlecode.javaewah:JavaEWAH:1.1.12",
-    sha1 = "9feecc2b24d6bc9ff865af8d082f192238a293eb",
+    artifact = "com.googlecode.javaewah:JavaEWAH:1.2.3",
+    sha1 = "13a27c856e0c8808cee9a64032c58eee11c3adc9",
 )
 
 # When upgrading commons_compress, upgrade tukaani_xz to the
 # corresponding version
 maven_jar(
     name = "commons-compress",
-    artifact = "org.apache.commons:commons-compress:1.21",
-    sha1 = "4ec95b60d4e86b5c95a0e919cb172a0af98011ef",
+    artifact = "org.apache.commons:commons-compress:1.25.0",
+    sha1 = "9d35aec423da6c8a7f93d7e9e1c6b1d9fe14bb5e",
 )
 
 # Transitive dependency of commons_compress. Should only be
@@ -231,22 +231,22 @@ maven_jar(
 
 maven_jar(
     name = "mockito",
-    artifact = "org.mockito:mockito-core:2.23.0",
-    sha1 = "497ddb32fd5d01f9dbe99a2ec790aeb931dff1b1",
+    artifact = "org.mockito:mockito-core:5.6.0",
+    sha1 = "550b7a0eb22e1d72d33dcc2e5ef6954f73100d76",
 )
 
-BYTE_BUDDY_VERSION = "1.10.7"
+BYTE_BUDDY_VERSION = "1.14.9"
 
 maven_jar(
     name = "bytebuddy",
     artifact = "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
-    sha1 = "1eefb7dd1b032b33c773ca0a17d5cc9e6b56ea1a",
+    sha1 = "b69e7fff6c473d3ed2b489cdfd673a091fd94226",
 )
 
 maven_jar(
     name = "bytebuddy-agent",
     artifact = "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
-    sha1 = "c472fad33f617228601172682aa64f8b78508045",
+    sha1 = "dfb8707031008535048bad2b69735f46d0b6c5e5",
 )
 
 maven_jar(
@@ -269,48 +269,48 @@ maven_jar(
     sha1 = "a41f9cfe6faafb2eb83a1c7dd2d0dfd844e2a936",
 )
 
-JETTY_VERSION = "9.4.49.v20220914"
+JETTY_VERSION = "9.4.53.v20231009"
 
 maven_jar(
     name = "servlet",
     artifact = "org.eclipse.jetty:jetty-servlet:" + JETTY_VERSION,
-    sha1 = "53ca0898f02e72b6830551031ee0062430134a05",
+    sha1 = "6670d6a54cdcaedd8090e8cf420fd5dd7d08e859",
 )
 
 maven_jar(
     name = "security",
     artifact = "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,
-    sha1 = "057a67eeb12078b620131664b3b7a37ea4c5aefe",
+    sha1 = "6fbc8ebe9046954dc2f51d4ba69c8f8344b05f7f",
 )
 
 maven_jar(
     name = "server",
     artifact = "org.eclipse.jetty:jetty-server:" + JETTY_VERSION,
-    sha1 = "502f99eed028139e71a4afebefa291ace12b9c1c",
+    sha1 = "8b0e761a0b359db59dae77c00b4213b0586cb994",
 )
 
 maven_jar(
     name = "continuation",
     artifact = "org.eclipse.jetty:jetty-continuation:" + JETTY_VERSION,
-    sha1 = "0df64c20caeba57b681abc252bffd51d19f5be70",
+    sha1 = "eb200267a81425a77fe140689939e0e65c673e20",
 )
 
 maven_jar(
     name = "http",
     artifact = "org.eclipse.jetty:jetty-http:" + JETTY_VERSION,
-    sha1 = "ef1e3bde212115eb4bb0740aaf79029b624d4e30",
+    sha1 = "87faf21eb322753f0527bcb88c43e67044786369",
 )
 
 maven_jar(
     name = "io",
     artifact = "org.eclipse.jetty:jetty-io:" + JETTY_VERSION,
-    sha1 = "cb33d9a3bdb6e2173b9b9cfc94c0b45f9a21a1af",
+    sha1 = "70cf7649b27c964ad29bfddf58f3bfe0d30346cf",
 )
 
 maven_jar(
     name = "util",
     artifact = "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
-    sha1 = "29008dbc6dfac553d209f54193b505d73c253a41",
+    sha1 = "f72bb4f687b4454052c6f06528ba9910714df947",
 )
 
 OW2_VERS = "9.2"
