@@ -12,7 +12,7 @@ http_archive(
 load("//tools:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "50f43f450f2178425b26d5b2a2442ac3acd07f37",
+    commit = "de7597593918677465f8ef4330a62f0b9a50f81c",
     # local_path = "/home/<user>/projects/bazlets",
 )
 
