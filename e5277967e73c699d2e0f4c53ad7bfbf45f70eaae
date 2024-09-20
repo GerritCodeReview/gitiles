@@ -67,6 +67,23 @@
       "message": "git pull https://gerrit.googlesource.com/gitiles refs/changes/40/401440/1",
       "revId": "e5277967e73c699d2e0f4c53ad7bfbf45f70eaae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f09c39_ca253f1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3646214
+      },
+      "writtenOn": "2024-09-20T21:21:05Z",
+      "side": 1,
+      "message": "1",
+      "revId": "e5277967e73c699d2e0f4c53ad7bfbf45f70eaae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
