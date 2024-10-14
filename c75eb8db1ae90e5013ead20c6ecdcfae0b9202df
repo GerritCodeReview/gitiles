@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1679d7b_1e2b8ffc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1158171
+      },
+      "writtenOn": "2024-10-14T07:16:12Z",
+      "side": 1,
+      "message": "https://chromium.googlesource.com/webm/libvpx/+/b15d2ac26f3a67a835c5c0d8ac4f07e12902e608/",
+      "revId": "c75eb8db1ae90e5013ead20c6ecdcfae0b9202df",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
