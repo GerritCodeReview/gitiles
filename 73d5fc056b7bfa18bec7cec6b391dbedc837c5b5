@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e987193_a7d45076",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3431120
+      },
+      "writtenOn": "2024-10-14T12:22:12Z",
+      "side": 1,
+      "message": "Source resources\nA source resource is any resource that provides data to a subresource or overview resource. For example:\nResource A and Resource B summarize the data to Resource C, then Resource A and Resource B are the source resources of Resource C.\nResource A has sub-resource D and sub-resource E, then resource A is the source resource of sub-resource D and sub-resource E.",
+      "revId": "73d5fc056b7bfa18bec7cec6b391dbedc837c5b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
