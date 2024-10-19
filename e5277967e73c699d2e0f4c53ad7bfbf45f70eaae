@@ -101,6 +101,23 @@
       "message": "help, I am trying to stop the developer to stop hacking from hacking and impersonating me!",
       "revId": "e5277967e73c699d2e0f4c53ad7bfbf45f70eaae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "521a4f3e_1115763e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3510862
+      },
+      "writtenOn": "2024-10-19T01:52:00Z",
+      "side": 1,
+      "message": "401440: Bump version to 1.4.0 | https://gerrit-review.googlesource.com/c/gitiles/+/401440",
+      "revId": "e5277967e73c699d2e0f4c53ad7bfbf45f70eaae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
