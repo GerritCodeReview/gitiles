@@ -6,7 +6,7 @@
   <build>
     <extensions>
       <extension>
-        <groupId>com.googlesource.gerrit</groupId>
+        <group.googlesource.gerrit</groupId>
         <artifactId>gs-maven-wagon</artifactId>
         <version>3.3</version>
       </extension>
@@ -18,4 +18,4 @@
       <url>https://gerrit-maven.storage.googleapis.com/</url>
     </pluginRepository>
   </pluginRepositories>
-</project>
+</p
