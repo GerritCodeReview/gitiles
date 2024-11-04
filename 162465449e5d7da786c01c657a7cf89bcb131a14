@@ -50,6 +50,23 @@
       "message": "Call",
       "revId": "162465449e5d7da786c01c657a7cf89bcb131a14",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40482baf_551f2d23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3702411
+      },
+      "writtenOn": "2024-11-04T02:08:46Z",
+      "side": 1,
+      "message": "Ok",
+      "revId": "162465449e5d7da786c01c657a7cf89bcb131a14",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
