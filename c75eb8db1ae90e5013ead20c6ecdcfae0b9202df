@@ -50,6 +50,23 @@
       "message": "https://gerrit-review.googlesource.com/c/gitiles/+/437157/comments/a1679d7b_1e2b8ffc open",
       "revId": "c75eb8db1ae90e5013ead20c6ecdcfae0b9202df",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a7d7e03_deb5b08d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3244200
+      },
+      "writtenOn": "2024-11-12T22:20:58Z",
+      "side": 1,
+      "message": "https://developer.android.com/studio/run#changing-variant",
+      "revId": "c75eb8db1ae90e5013ead20c6ecdcfae0b9202df",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
