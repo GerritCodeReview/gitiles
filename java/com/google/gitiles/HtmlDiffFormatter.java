@@ -29,6 +29,7 @@ import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.RawText;
+import org.eclipse.jgit.diff.DiffDriver;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.FileHeader.PatchType;
 import org.eclipse.jgit.util.RawParseUtils;
@@ -82,6 +83,23 @@ final class HtmlDiffFormatter extends DiffFormatter {
     }
   }
 
+  @Override
+  public void format(FileHeader hdr, RawText a, RawText b, DiffDriver diffDriver)
+      throws IOException {
+    int start = hdr.getStartOffset();
+    int end = hdr.getEndOffset();
+    if (!hdr.getHunks().isEmpty()) {
+      end = hdr.getHunks().get(0).getStartOffset();
+    }
+    renderHeader(RawParseUtils.decode(hdr.getBuffer(), start, end));
+
+    if (hdr.getPatchType() == PatchType.UNIFIED) {
+      getOutputStream().write(DIFF_BEGIN);
+      format(hdr.toEditList(), a, b, diffDriver);
+      getOutputStream().write(DIFF_END);
+    }
+  }
+
   private void renderHeader(String header) throws IOException {
     int lf = header.indexOf('\n');
     String rest = 0 <= lf ? header.substring(lf + 1) : "";
@@ -130,8 +148,17 @@ final class HtmlDiffFormatter extends DiffFormatter {
   protected void writeHunkHeader(int aStartLine, int aEndLine, int bStartLine, int bEndLine)
       throws IOException {
     getOutputStream().write(HUNK_BEGIN);
-    // TODO(sop): If hunk header starts including method names, escape it.
     super.writeHunkHeader(aStartLine, aEndLine, bStartLine, bEndLine);
+    getOutputStream().write(HUNK_END);
+  }
+
+  @Override
+  protected void writeHunkHeader(
+      int aStartLine, int aEndLine, int bStartLine, int bEndLine, String funcName)
+      throws IOException {
+    getOutputStream().write(HUNK_BEGIN);
+    super.writeHunkHeader(
+        aStartLine, aEndLine, bStartLine, bEndLine, StringEscapeUtils.escapeHtml4(funcName));
     getOutputStream().write(HUNK_END);
   }
 
