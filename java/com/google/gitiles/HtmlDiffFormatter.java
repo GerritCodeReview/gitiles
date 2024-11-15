@@ -25,6 +25,7 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.text.StringEscapeUtils;
+import org.eclipse.jgit.diff.DiffDriver;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.DiffFormatter;
@@ -68,6 +69,12 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
   @Override
   public void format(FileHeader hdr, RawText a, RawText b) throws IOException {
+    format(hdr, a, b, null);
+  }
+
+  @Override
+  public void format(FileHeader hdr, RawText a, RawText b, DiffDriver diffDriver)
+      throws IOException {
     int start = hdr.getStartOffset();
     int end = hdr.getEndOffset();
     if (!hdr.getHunks().isEmpty()) {
@@ -77,7 +84,7 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
     if (hdr.getPatchType() == PatchType.UNIFIED) {
       getOutputStream().write(DIFF_BEGIN);
-      format(hdr.toEditList(), a, b);
+      format(hdr.toEditList(), a, b, diffDriver);
       getOutputStream().write(DIFF_END);
     }
   }
@@ -129,9 +136,16 @@ final class HtmlDiffFormatter extends DiffFormatter {
   @Override
   protected void writeHunkHeader(int aStartLine, int aEndLine, int bStartLine, int bEndLine)
       throws IOException {
+    writeHunkHeader(aStartLine, aEndLine, bStartLine, bEndLine, null);
+  }
+
+  @Override
+  protected void writeHunkHeader(
+      int aStartLine, int aEndLine, int bStartLine, int bEndLine, String funcName)
+      throws IOException {
     getOutputStream().write(HUNK_BEGIN);
-    // TODO(sop): If hunk header starts including method names, escape it.
-    super.writeHunkHeader(aStartLine, aEndLine, bStartLine, bEndLine);
+    super.writeHunkHeader(
+        aStartLine, aEndLine, bStartLine, bEndLine, StringEscapeUtils.escapeHtml4(funcName));
     getOutputStream().write(HUNK_END);
   }
 
