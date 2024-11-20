@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cad37b6_a57428c6",
+        "filename": "java/com/google/gitiles/HtmlDiffFormatter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-11-20T22:57:16Z",
+      "side": 1,
+      "message": "You can de-duplicate this now?\n```suggestion\n    format(hdr, a, b, null);\n```",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "40d898d960cd932e051a26d6b4ba021222af2b27",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f86c009_1637241a",
+        "filename": "java/com/google/gitiles/HtmlDiffFormatter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-11-20T22:57:16Z",
+      "side": 1,
+      "message": "De-dup this too? (the null is fine because `StringEscapeUtils.escapeHtml4()` returns null when given null input)\n```suggestion\n    writeHunkHeader(aStartLine, aEndLine, bStartLine, bEndLine, null);\n```",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "40d898d960cd932e051a26d6b4ba021222af2b27",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
