@@ -16,6 +16,24 @@
       "message": "mention this in Release-Notes footer ?",
       "revId": "d36f7d7c787f878a9b00a4a016bb46453b278d4f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb23578_bd74f0bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012457
+      },
+      "writtenOn": "2024-11-20T18:08:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b655ef1_389d5e3e",
+      "revId": "d36f7d7c787f878a9b00a4a016bb46453b278d4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
