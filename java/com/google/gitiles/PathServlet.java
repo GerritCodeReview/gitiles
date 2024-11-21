@@ -52,8 +52,6 @@ import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevObject;
@@ -318,7 +316,9 @@ public class PathServlet extends BaseServlet {
   }
 
   private static class AutoDiveFilter extends TreeFilter {
-    /** @see GitilesView#getBreadcrumbs(List) */
+    /**
+     * @see GitilesView#getBreadcrumbs(List)
+     */
     List<Boolean> hasSingleTree;
 
     private final byte[] pathRaw;
@@ -540,34 +540,34 @@ public class PathServlet extends BaseServlet {
     return p.eof() ? p : null;
   }
 
-  private @Nullable URI createEditUrl(HttpServletRequest req, GitilesView view)
-      throws IOException {
-      String baseGerritUrl = this.urls.getBaseGerritUrl(req);
-      if (baseGerritUrl == null) {
-        return null;
-      }
-      String commitish = view.getRevision().getName();
-      if (commitish == null || !commitish.startsWith("refs/heads/")) {
-        return null;
-      }
-      try {
-        URI editUrl = new URI(baseGerritUrl);
-        String path =
-          String.format("/admin/repos/edit/repo/%s/branch/%s/file/%s",
-            view.getRepositoryName(),
-            commitish,
-            view.getPathPart());
-        return editUrl.resolve(escapeName(path));
-      } catch (URISyntaxException use) {
-        log.warn("Malformed Edit URL", use);
-      }
+  private @Nullable URI createEditUrl(HttpServletRequest req, GitilesView view) throws IOException {
+    String baseGerritUrl = this.urls.getBaseGerritUrl(req);
+    if (baseGerritUrl == null) {
       return null;
+    }
+    String commitish = view.getRevision().getName();
+    if (commitish == null || !commitish.startsWith("refs/heads/")) {
+      return null;
+    }
+    try {
+      URI editUrl = new URI(baseGerritUrl);
+      String path =
+          String.format(
+              "/admin/repos/edit/repo/%s/branch/%s/file/%s",
+              view.getRepositoryName(), commitish, view.getPathPart());
+      return editUrl.resolve(escapeName(path));
+    } catch (URISyntaxException use) {
+      log.warn("Malformed Edit URL", use);
+    }
+    return null;
   }
 
   private void showFile(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    Map<String, ?> data = new BlobSoyData(wr.getObjectReader(), view).toSoyData(wr.path, wr.id, createEditUrl(req, view));
+    Map<String, ?> data =
+        new BlobSoyData(wr.getObjectReader(), view)
+            .toSoyData(wr.path, wr.id, createEditUrl(req, view));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(
         req,

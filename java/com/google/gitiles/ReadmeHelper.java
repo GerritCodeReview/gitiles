@@ -58,7 +58,9 @@ class ReadmeHelper {
   }
 
   void scanTree(RevTree tree)
-      throws MissingObjectException, IncorrectObjectTypeException, CorruptObjectException,
+      throws MissingObjectException,
+          IncorrectObjectTypeException,
+          CorruptObjectException,
           IOException {
     if (config.render) {
       try (TreeWalk tw = new TreeWalk(reader)) {
