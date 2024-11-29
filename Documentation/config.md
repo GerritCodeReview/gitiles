@@ -23,10 +23,14 @@ Default: `null`, determine the hostname from the local host.
 
 `baseGitUrl` the base URL for git repositories.
 
-`gerritUrl`, URL prefix to linkify Gerrit `Change-Id` headers in commit
-messages. If you are using the Gerrit Gitiles plugin, this is set based on
-Gerrit's configuration.
-Default: `null`, do not link `Change-Id`.
+`gerritUrl`, URL prefix that when set is used to create:
+* Links from the `Change-Id` headers in commit messages to the corresponding
+  Gerrit change.
+* An edit link in file views that opens a new change in Gerrit in online edit
+  mode for that file. The link will only appear when you are browsing the file
+  at a branch, so the commitish must start with `refs/heads/`.
+  If you are using the Gerrit Gitiles plugin, this is set based on Gerrit's configuration.
+  Default: `null`, do not link `Change-Id` or show edit links.
 
 ```
 [gitiles]
