@@ -46,6 +46,30 @@
       },
       "revId": "a7016d23f6701d5432ed76f6e8123d5bf20ed3e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc6fb7f3_4734a471",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-11-29T14:39:38Z",
+      "side": 1,
+      "message": "Sven: thanks for the review so far. I remembered I should add a note about having to be at a branch, what do you think?",
+      "parentUuid": "f57f2279_025e5897",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "a7016d23f6701d5432ed76f6e8123d5bf20ed3e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
