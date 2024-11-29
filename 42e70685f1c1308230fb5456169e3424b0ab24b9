@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c226836_c38d82a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-11-29T15:29:15Z",
+      "side": 1,
+      "message": "I was happy to discover Gitiles had this feature already and it was just hidden by a regression :)",
+      "revId": "42e70685f1c1308230fb5456169e3424b0ab24b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
