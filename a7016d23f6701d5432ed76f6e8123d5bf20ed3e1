@@ -70,6 +70,30 @@
       },
       "revId": "a7016d23f6701d5432ed76f6e8123d5bf20ed3e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11e46e3d_77dcd6f3",
+        "filename": "Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-12-02T13:35:19Z",
+      "side": 1,
+      "message": "Yes, nice.",
+      "parentUuid": "cc6fb7f3_4734a471",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "a7016d23f6701d5432ed76f6e8123d5bf20ed3e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
