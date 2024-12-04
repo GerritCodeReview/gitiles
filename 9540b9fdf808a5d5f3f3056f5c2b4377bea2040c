@@ -16,6 +16,47 @@
       "message": "Off-topic, but now that people are testing the feature in production, an idea came up about having a JavaScript confirmation dialog \"Do you want to create a new change with this file?\" when clicking the [edit] link. What do you think? I could look into it.",
       "revId": "9540b9fdf808a5d5f3f3056f5c2b4377bea2040c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee9b7f4_96c822e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-12-04T16:29:05Z",
+      "side": 1,
+      "message": "Sounds nice to me. It could prevent some changes being created by accident.",
+      "parentUuid": "8a19b3eb_b478a41c",
+      "revId": "9540b9fdf808a5d5f3f3056f5c2b4377bea2040c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916b932a_00996a3c",
+        "filename": "Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-12-04T16:29:05Z",
+      "side": 1,
+      "message": "With the bullets added above, it\u0027s now a little hard to tell that this line goes with `gerritUrl`. Is there a way to show that better?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "9540b9fdf808a5d5f3f3056f5c2b4377bea2040c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
