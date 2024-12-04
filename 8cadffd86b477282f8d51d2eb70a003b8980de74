@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ac48c96_52eb3e88",
+        "filename": "Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-12-04T16:48:32Z",
+      "side": 1,
+      "message": "What if you put it in a blockquote?\n\n```suggestion\n\n\u003e If you are using the Gerrit Gitiles plugin, this is set based on Gerrit\u0027s configuration.\n\u003e Default: `null`, do not link `Change-Id` or show edit links.\n```",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 62
+      },
+      "revId": "8cadffd86b477282f8d51d2eb70a003b8980de74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
