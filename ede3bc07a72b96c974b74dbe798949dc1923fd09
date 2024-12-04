@@ -117,6 +117,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7917fdde_4124be09",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-12-04T17:08:56Z",
+      "side": 1,
+      "message": "(removed, now we use the version in the cache)",
+      "parentUuid": "37484561_cc265a92",
+      "revId": "ede3bc07a72b96c974b74dbe798949dc1923fd09",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ae5f640_e4683c99",
@@ -130,6 +148,24 @@
       "writtenOn": "2024-12-04T13:09:19Z",
       "side": 1,
       "message": "- Why is a second implementation of this method needed ?\n- Why is error handling different compared to the other implementation in VisibilityCache ?",
+      "revId": "ede3bc07a72b96c974b74dbe798949dc1923fd09",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fb0ef8_d9e218bd",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-12-04T17:08:56Z",
+      "side": 1,
+      "message": "I suspect historical reasons. When I wrote this patch long time ago, I wanted to  preserve the existing behavior.\n\nobjectId to RevCommit in the checker is stricter, because some things where checked before. That is not really needed (it is more a check for our own code). We can simplify the translation and have only one method doing it.",
+      "parentUuid": "8ae5f640_e4683c99",
       "revId": "ede3bc07a72b96c974b74dbe798949dc1923fd09",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
