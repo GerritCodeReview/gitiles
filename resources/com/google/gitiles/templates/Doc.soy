@@ -46,6 +46,9 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   {@param? analyticsId: ?}  /** Google Analytics Property ID. */
   {@param? navbarHtml: ?}  /** navar.md converted to SafeHtml. */
   {@param? customVariant: ?}  /** variant name for custom styling. */
+  {@param? sourceUrl: ?}  /** url for source view of the page. */
+  {@param? logUrl: ?}  /** url for log history of page. */
+  {@param? blameUrl: ?}  /** url for blame of page source. */
   {@inject staticUrls: ?}
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +87,11 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
       </div>
     </div>
   </div>
-  {call customDocFooter variant="'' + ($customVariant ?? '')" /}
+  {call customDocFooter variant="'' + ($customVariant ?? '')"}
+    {param sourceUrl: $sourceUrl /}
+    {param logUrl: $logUrl /}
+    {param blameUrl: $blameUrl /}
+  {/call}
   {if $analyticsId}
     /* From https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
     <script>
