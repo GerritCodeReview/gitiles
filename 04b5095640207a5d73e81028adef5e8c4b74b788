@@ -16,6 +16,23 @@
       "message": "N",
       "revId": "04b5095640207a5d73e81028adef5e8c4b74b788",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e469fa85_13367867",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-12-04T12:45:00Z",
+      "side": 1,
+      "message": "Sorry @corporateglobaltrade@gmail.com, I didn\u0027t meant to remove you as reviewer.\nI just fumbled with my mouse.",
+      "revId": "04b5095640207a5d73e81028adef5e8c4b74b788",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
