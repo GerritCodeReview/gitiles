@@ -57,6 +57,30 @@
       },
       "revId": "9540b9fdf808a5d5f3f3056f5c2b4377bea2040c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c4ff8e_7cc9e83c",
+        "filename": "Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-12-04T16:43:18Z",
+      "side": 1,
+      "message": "Maybe not ideal as it gets quite long, but plain Markdown is not very flexible. I also added \"or show edit links\" to the last sentence.",
+      "parentUuid": "916b932a_00996a3c",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "9540b9fdf808a5d5f3f3056f5c2b4377bea2040c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
