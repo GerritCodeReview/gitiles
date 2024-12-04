@@ -51,6 +51,24 @@
       "parentUuid": "e469fa85_13367867",
       "revId": "04b5095640207a5d73e81028adef5e8c4b74b788",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b7af73_b609375c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2024-12-04T12:55:49Z",
+      "side": 1,
+      "message": "Ok, no harm no foul in that case...",
+      "parentUuid": "1362eea2_5067cdf5",
+      "revId": "04b5095640207a5d73e81028adef5e8c4b74b788",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
