@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a19b3eb_b478a41c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132393
+      },
+      "writtenOn": "2024-12-04T12:58:09Z",
+      "side": 1,
+      "message": "Off-topic, but now that people are testing the feature in production, an idea came up about having a JavaScript confirmation dialog \"Do you want to create a new change with this file?\" when clicking the [edit] link. What do you think? I could look into it.",
+      "revId": "9540b9fdf808a5d5f3f3056f5c2b4377bea2040c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
