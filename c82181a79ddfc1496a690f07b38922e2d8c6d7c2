@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a1107a96_9b21d0f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-12-06T18:53:30Z",
+      "side": 1,
+      "message": "This is cleaning the \"new\" method, so we can update the subclass and remove the deprecated method. This is easier than moving subclasses and later change the API upstream/dowstream simultanously.\n\nI add this to the commit message.",
+      "parentUuid": "8b3804e3_68fb867e",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "c82181a79ddfc1496a690f07b38922e2d8c6d7c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "10c8506b_9c9a57b8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +78,24 @@
       "writtenOn": "2024-12-06T18:27:28Z",
       "side": 1,
       "message": "Not about this change: do we want to get rid of this one soon?",
+      "revId": "c82181a79ddfc1496a690f07b38922e2d8c6d7c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e3ec13f_c2485cb3",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-12-06T18:53:30Z",
+      "side": 1,
+      "message": "Yes, I bumped into this while cleaning up this deprecated method.\n\nAdded a follow up commit removing the deprecated method.",
+      "parentUuid": "98ebcc6a_5353dc84",
       "revId": "c82181a79ddfc1496a690f07b38922e2d8c6d7c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
