@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8878078_967d81c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2024-12-06T17:30:06Z",
+      "side": 1,
+      "message": "Does gitiles have an API policy? I don\u0027t think we do consistently releases. Even if so, these",
+      "revId": "26463b185bb65dc62b25cdd8875b26ada108ce03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
