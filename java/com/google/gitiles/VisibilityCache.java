@@ -174,7 +174,7 @@ public class VisibilityCache {
             .map(objId -> VisibilityChecker.objectIdToRevCommit(walk, objId))
             .filter(Objects::nonNull); // Ignore missing tips
 
-    return checker.isReachableFrom("known and sorted refs", walk, commit, startCommits);
+    return checker.isReachableFrom(walk, commit, startCommits);
   }
 
   static Stream<Ref> importantRefsFirst(Collection<Ref> visibleRefs) {

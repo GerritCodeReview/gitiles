@@ -70,13 +70,12 @@ public class VisibilityChecker {
       throws IOException {
     Stream<RevCommit> startCommits =
         starters.stream().map(objId -> objectIdToRevCommit(walk, objId)).filter(Objects::nonNull);
-    return isReachableFrom(description, walk, commit, startCommits);
+    return isReachableFrom(walk, commit, startCommits);
   }
 
   /**
    * Check if {@code commit} is reachable starting from {@code starters}.
    *
-   * @param description Description of the ids (e.g. "heads"). Mainly for tracing.
    * @param walk The walk to use for the reachability check
    * @param commit The starting commit. It *MUST* come from the walk in use
    * @param starters visible commits. Anything reachable from these commits is visible. Missing ids
@@ -84,13 +83,12 @@ public class VisibilityChecker {
    * @return true if we can get to {@code commit} from the {@code starters}
    * @throws IOException a pack file or loose object could not be read
    */
-  protected boolean isReachableFrom(
-      String description, RevWalk walk, RevCommit commit, Stream<RevCommit> starters)
-      throws MissingObjectException, IncorrectObjectTypeException, IOException {
+  protected boolean isReachableFrom(RevWalk walk, RevCommit commit, Stream<RevCommit> starters)
+          throws IOException {
     return walk.getObjectReader()
-        .createReachabilityChecker(walk)
-        .areAllReachable(ImmutableList.of(commit), starters)
-        .isEmpty();
+            .createReachabilityChecker(walk)
+            .areAllReachable(ImmutableList.of(commit), starters)
+            .isEmpty();
   }
 
   @Nullable
