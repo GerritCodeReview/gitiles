@@ -16,8 +16,6 @@ package com.google.gitiles;
 
 import com.google.common.collect.ImmutableList;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Objects;
 import java.util.stream.Stream;
 import org.eclipse.jgit.annotations.Nullable;
 import org.eclipse.jgit.lib.ObjectId;
@@ -48,27 +46,6 @@ public class VisibilityChecker {
     // If any reference directly points at the requested object, permit display. Common for displays
     // of pending patch sets in Gerrit Code Review, or bookmarks to the commit a tag points at.
     return !refDb.getTipsWithSha1(id).isEmpty();
-  }
-
-  /**
-   * Check if {@code commit} is reachable starting from {@code starters}.
-   *
-   * @param description Description of the ids (e.g. "heads"). Mainly for tracing.
-   * @param walk The walk to use for the reachability check
-   * @param commit The starting commit. It *MUST* come from the walk in use
-   * @param starters visible commits. Anything reachable from these commits is visible. Missing ids
-   *     or ids referring to other kinds of objects are ignored.
-   * @return true if we can get to {@code commit} from the {@code starters}
-   * @throws IOException a pack file or loose object could not be read
-   * @deprecated see {@link #isReachableFrom(RevWalk, RevCommit, Stream)}
-   */
-  @Deprecated
-  protected boolean isReachableFrom(
-      String description, RevWalk walk, RevCommit commit, Collection<ObjectId> starters)
-      throws IOException {
-    Stream<RevCommit> startCommits =
-        starters.stream().map(objId -> objectIdToRevCommit(walk, objId)).filter(Objects::nonNull);
-    return isReachableFrom(walk, commit, startCommits);
   }
 
   /**
