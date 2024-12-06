@@ -18,12 +18,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
 import org.eclipse.jgit.junit.TestRepository;
-import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.junit.Before;
@@ -78,15 +76,13 @@ public class VisibilityCheckerTest {
 
   @Test
   public void reachableFromRef() throws IOException {
-    List<ObjectId> starters = Arrays.asList(commitC.getId());
-    assertTrue(
-        visibilityChecker.isReachableFrom("test", walk, walk.parseCommit(commitB), starters));
+    Stream<RevCommit> starters = Stream.of(walk.parseCommit(commitC));
+    assertTrue(visibilityChecker.isReachableFrom(walk, walk.parseCommit(commitB), starters));
   }
 
   @Test
   public void unreachableFromRef() throws IOException {
-    List<ObjectId> starters = Arrays.asList(commit2.getId(), commitA.getId());
-    assertFalse(
-        visibilityChecker.isReachableFrom("test", walk, walk.parseCommit(commitC), starters));
+    Stream<RevCommit> starters = Stream.of(walk.parseCommit(commit2), walk.parseCommit(commitA));
+    assertFalse(visibilityChecker.isReachableFrom(walk, walk.parseCommit(commitC), starters));
   }
 }
