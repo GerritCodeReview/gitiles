@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b3804e3_68fb867e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2024-12-06T18:27:28Z",
+      "side": 1,
+      "message": "What is the motivation for this change?\n\nSubclasses can use this for tracing, right? Is the point that subclasses don\u0027t need it any more?",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "c82181a79ddfc1496a690f07b38922e2d8c6d7c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c8506b_9c9a57b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2024-12-06T18:27:28Z",
+      "side": 1,
+      "message": "Looks good in principle. Some questions below.",
+      "revId": "c82181a79ddfc1496a690f07b38922e2d8c6d7c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ebcc6a_5353dc84",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2024-12-06T18:27:28Z",
+      "side": 1,
+      "message": "Not about this change: do we want to get rid of this one soon?",
+      "revId": "c82181a79ddfc1496a690f07b38922e2d8c6d7c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
