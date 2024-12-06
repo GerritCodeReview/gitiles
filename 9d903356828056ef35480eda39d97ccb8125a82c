@@ -34,6 +34,24 @@
       "parentUuid": "307ec1ee_6c91832b",
       "revId": "9d903356828056ef35480eda39d97ccb8125a82c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23d9b7e6_aa5b2920",
+        "filename": "java/com/google/gitiles/VisibilityChecker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-12-06T20:00:30Z",
+      "side": 0,
+      "message": "ack",
+      "parentUuid": "4a18ef75_5f6e3fc3",
+      "revId": "9d903356828056ef35480eda39d97ccb8125a82c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
