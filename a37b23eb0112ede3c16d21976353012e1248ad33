@@ -16,6 +16,24 @@
       "message": "missing Release-Notes footer",
       "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b979a2_87e7fddc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2024-12-20T19:49:03Z",
+      "side": 1,
+      "message": "I don\u0027t think we usually require one for gitiles?",
+      "parentUuid": "eaaa21e9_7d063ae6",
+      "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
