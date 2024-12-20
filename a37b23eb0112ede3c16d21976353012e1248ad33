@@ -34,6 +34,24 @@
       "parentUuid": "eaaa21e9_7d063ae6",
       "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13199c1_76e7cff2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-12-20T20:20:28Z",
+      "side": 1,
+      "message": "Acknowledged, missed that this change is for gitiles",
+      "parentUuid": "10b979a2_87e7fddc",
+      "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
