@@ -413,6 +413,23 @@
       "message": "0939293927",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af60387d_1a7b7026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3804322
+      },
+      "writtenOn": "2024-12-24T14:36:59Z",
+      "side": 1,
+      "message": "247599: Set version to 0.2-7.1 | https://gerrit-review.googlesource.com/c/gitiles/+/247599",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
