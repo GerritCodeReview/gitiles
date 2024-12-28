@@ -16,6 +16,23 @@
       "message": "Is there  any way possibmrthat I can block all device access from my device and change my signature",
       "revId": "f7892becc3c599494add2eab7e5f75ec842467d6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f015f0c_28c0d669",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3807112
+      },
+      "writtenOn": "2024-12-28T09:21:42Z",
+      "side": 1,
+      "message": "versión 1.5.0",
+      "revId": "f7892becc3c599494add2eab7e5f75ec842467d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
