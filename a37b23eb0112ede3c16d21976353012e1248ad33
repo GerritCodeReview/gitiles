@@ -103,6 +103,23 @@
       "message": "Merger repo",
       "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ad9521_ae15dfe9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3749833
+      },
+      "writtenOn": "2025-01-06T04:20:34Z",
+      "side": 1,
+      "message": "446561: Bump JGit to d5cc102e7 (stable-6.10) | https://gerrit-review.googlesource.com/c/gitiles/+/446561",
+      "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
