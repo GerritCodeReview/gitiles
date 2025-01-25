@@ -33,6 +33,23 @@
       "message": "versión 1.5.0",
       "revId": "f7892becc3c599494add2eab7e5f75ec842467d6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c2464ad_c9d7e3d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3854210
+      },
+      "writtenOn": "2025-01-25T15:29:09Z",
+      "side": 1,
+      "message": "Cámara",
+      "revId": "f7892becc3c599494add2eab7e5f75ec842467d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
