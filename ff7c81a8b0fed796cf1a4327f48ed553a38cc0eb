@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68997d71_8ff26b02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3404625
+      },
+      "writtenOn": "2025-01-26T13:02:35Z",
+      "side": 1,
+      "message": "Hỗ trợ cho Wifi gia đình Internet..",
+      "revId": "ff7c81a8b0fed796cf1a4327f48ed553a38cc0eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
