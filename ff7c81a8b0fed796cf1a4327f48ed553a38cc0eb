@@ -16,6 +16,23 @@
       "message": "Hỗ trợ cho Wifi gia đình Internet..",
       "revId": "ff7c81a8b0fed796cf1a4327f48ed553a38cc0eb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d23ddc20_99377df9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1154148
+      },
+      "writtenOn": "2025-01-27T18:03:10Z",
+      "side": 1,
+      "message": "bartasCNK@gmail.com \nBUCK\nHKm7UaGxnbLgKREjnVuGzQ48v8s5VDBCFzkd3Rj7WsqY",
+      "revId": "ff7c81a8b0fed796cf1a4327f48ed553a38cc0eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
