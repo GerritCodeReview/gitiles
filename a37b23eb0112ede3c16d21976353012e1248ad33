@@ -137,6 +137,23 @@
       "message": "446561: Bump JGit to d5cc102e7 (stable-6.10) | https://gerrit-review.googlesource.com/c/gitiles/+/446561luisgerardomartinezlara",
       "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99b1e0b2_bb50be4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3848911
+      },
+      "writtenOn": "2025-01-30T13:57:35Z",
+      "side": 1,
+      "message": "Ok",
+      "revId": "a37b23eb0112ede3c16d21976353012e1248ad33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
