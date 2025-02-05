@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2115c22_41ce0873",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\nUse the parameter `n\u003d\u003cnumber\u003e` to limit the number of commits returned.\n```",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa8c659_72a5ca45",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\nFor paging use the start parameter `s\u003d\u003cnext_cursor\u003e`.\n```",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972ae19e_64eadcb4",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\n`https://gerrit.googlesource.com/a/gitiles/+show/refs/heads/master/?format\u003dJSON`\n\nView the metadata about a given target.\n```",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 80
+      },
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97db2788_fcadcd66",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\n`https://gerrit.googlesource.com/a/gitiles/+archive/refs/heads/master.tar.gz`\n\nDownload a compressed archive of a repository at a specific commit or ref.\nSupported formats: `.tar.gz` and `.zip`\n```bash\ncurl \"https://gerrit.googlesource.com/a/gitiles/+archive/refs/heads/master.tar.gz\" -o repo.tar.gz\n```\n```",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0183332_eea4e5bd",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\nRenders Markdown files into HTML.\n```",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd613a92_c00ceef4",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\nShows line-by-line author information for a specific file (`git blame`).\n```",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d2e1bac_bae84160",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-02-05T12:06:15Z",
+      "side": 1,
+      "message": "```suggestion\nCompute the diff between two commits.\n```",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 13
+      },
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
