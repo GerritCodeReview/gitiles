@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cf6c76d_8142631d",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-02-05T13:09:12Z",
+      "side": 1,
+      "message": "In order to try your examples on googlesource using curl the user needs to either obtain and pass an oauth token or use cookies exported from googlesource when requesting a new http password, like this:\n\n```\ncurl -b ~/.gitcookies https://gerrit.googlesource.com/gitiles/+refs?format\u003dTEXT\n```",
+      "parentUuid": "b31fff15_680991f4",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2115c22_41ce0873",
         "filename": "Documentation/api-reference.md",
         "patchSetId": 4
