@@ -54,6 +54,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dfdd724_75c63101",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cf6c76d_8142631d",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2115c22_41ce0873",
@@ -67,6 +85,24 @@
       "writtenOn": "2025-02-05T12:06:15Z",
       "side": 1,
       "message": "```suggestion\nUse the parameter `n\u003d\u003cnumber\u003e` to limit the number of commits returned.\n```",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6095b12_e7a47767",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "f2115c22_41ce0873",
       "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -88,6 +124,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "300dbea4_993d32f3",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aa8c659_72a5ca45",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "972ae19e_64eadcb4",
@@ -101,6 +155,30 @@
       "writtenOn": "2025-02-05T12:06:15Z",
       "side": 1,
       "message": "```suggestion\n`https://gerrit.googlesource.com/a/gitiles/+show/refs/heads/master/?format\u003dJSON`\n\nView the metadata about a given target.\n```",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 80
+      },
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa381617_71d1e57d",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "972ae19e_64eadcb4",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -134,6 +212,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cadbb1a7_619cc045",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97db2788_fcadcd66",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0183332_eea4e5bd",
@@ -147,6 +249,24 @@
       "writtenOn": "2025-02-05T12:06:15Z",
       "side": 1,
       "message": "```suggestion\nRenders Markdown files into HTML.\n```",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b67bc8_beb67234",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0183332_eea4e5bd",
       "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -168,6 +288,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d10167_6bc5b0a7",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd613a92_c00ceef4",
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d2e1bac_bae84160",
@@ -181,6 +319,30 @@
       "writtenOn": "2025-02-05T12:06:15Z",
       "side": 1,
       "message": "```suggestion\nCompute the diff between two commits.\n```",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 13
+      },
+      "revId": "0227e181de82c490da6b6cd475a68405349b0eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa7d7422_33e939cd",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-07T12:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d2e1bac_bae84160",
       "range": {
         "startLine": 58,
         "startChar": 0,
