@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "044c88cb_45008cc4",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-02-10T22:05:36Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of the `g-` prefix of the domain name ? \nFor me this redirects to https://issues.gerritcodereview.com/issues?q\u003dstatus:open%20componentid:1370019\u0026s\u003dcreated_time:desc",
+      "range": {
+        "startLine": 19,
+        "startChar": 29,
+        "endLine": 19,
+        "endChar": 129
+      },
+      "revId": "511956d57e74b1460ff8ab0f09bd045f6d8e838c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
