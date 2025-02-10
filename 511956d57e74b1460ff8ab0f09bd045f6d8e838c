@@ -22,6 +22,30 @@
       },
       "revId": "511956d57e74b1460ff8ab0f09bd045f6d8e838c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc6f9e8_cdd232b5",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-02-10T22:19:13Z",
+      "side": 1,
+      "message": "The right URL is without the g-, that was added by an internal link formatter.",
+      "parentUuid": "044c88cb_45008cc4",
+      "range": {
+        "startLine": 19,
+        "startChar": 29,
+        "endLine": 19,
+        "endChar": 129
+      },
+      "revId": "511956d57e74b1460ff8ab0f09bd045f6d8e838c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
