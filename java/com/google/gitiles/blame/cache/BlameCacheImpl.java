@@ -101,7 +101,7 @@ public class BlameCacheImpl implements BlameCache {
   }
 
   public Callable<List<Region>> newLoader(Key key, Repository repo) {
-    return () -> loadBlame(key, repo);
+    return () -> loadBlame(key, key.commitId, repo, new JGitBlameCache(cache));
   }
 
   public BlameCacheImpl(CacheBuilder<? super Key, ? super List<Region>> builder) {
@@ -134,23 +134,24 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
+  public static List<Region> loadBlame(Key key, AnyObjectId blameCommit, Repository repo, org.eclipse.jgit.blame.cache.BlameCache jgitCache) throws IOException{
+      try (BlameGenerator gen = new BlameGenerator(repo, key.path, jgitCache)) {
+          gen.push(null, blameCommit);
+          if (gen.getResultContents() == null) {
+              return ImmutableList.of();
+          }
+          return loadRegions(gen);
+      }
+  }
+
   public static List<Region> loadBlame(Key key, AnyObjectId blameCommit, Repository repo)
       throws IOException {
-    if (blameCommit == null) {
-      return loadBlame(key, repo);
-    }
-
-    try (BlameGenerator gen = new BlameGenerator(repo, key.path)) {
-      gen.push(null, blameCommit);
-      if (gen.getResultContents() == null) {
-        return ImmutableList.of();
-      }
-      return loadRegions(gen);
-    }
+    AnyObjectId commit = blameCommit != null ? blameCommit : key.commitId;
+    return loadBlame(key, commit, repo, null);
   }
 
   public static List<Region> loadBlame(Key key, Repository repo) throws IOException {
-    return loadBlame(key, key.commitId, repo);
+    return loadBlame(key, key.commitId, repo, null);
   }
 
   private static class PooledCommit {
