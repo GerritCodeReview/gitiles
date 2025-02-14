@@ -134,13 +134,14 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  public static List<Region> loadBlame(Key key, AnyObjectId blameCommit, Repository repo)
+  public List<Region> loadBlame(Key key, AnyObjectId blameCommit, Repository repo)
       throws IOException {
     if (blameCommit == null) {
       return loadBlame(key, repo);
     }
 
-    try (BlameGenerator gen = new BlameGenerator(repo, key.path)) {
+    JGitBlameCache jGitBlameCache = new JGitBlameCache(cache);
+    try (BlameGenerator gen = new BlameGenerator(repo, key.path, jGitBlameCache)) {
       gen.push(null, blameCommit);
       if (gen.getResultContents() == null) {
         return ImmutableList.of();
@@ -149,7 +150,7 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  public static List<Region> loadBlame(Key key, Repository repo) throws IOException {
+  public List<Region> loadBlame(Key key, Repository repo) throws IOException {
     return loadBlame(key, key.commitId, repo);
   }
 
