@@ -16,6 +16,24 @@
       "message": "What are the implications of this? For example do we need to make stable branches because of this? Should we preceed this with a bump that allows building with 21, but still can buid with 17?",
       "revId": "808ab308cb5a63137f8ab1d6b38251e2b2a60a51",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8c62ec7_7aa781c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-02-20T23:27:30Z",
+      "side": 1,
+      "message": "Probably 17 is enough? With 17 gitiles builds locally. AFAIK we haven\u0027t used any java21 feature in jgit yet.",
+      "parentUuid": "92ac04d5_0a78d6ce",
+      "revId": "808ab308cb5a63137f8ab1d6b38251e2b2a60a51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
