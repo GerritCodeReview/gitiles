@@ -33,9 +33,7 @@ local_repository(
     path = "modules/java-prettify",
 )
 
-register_toolchains("//tools:error_prone_warnings_toolchain_java11_definition")
-
-register_toolchains("//tools:error_prone_warnings_toolchain_java17_definition")
+register_toolchains("//tools:error_prone_warnings_toolchain_java21_definition")
 
 maven_jar(
     name = "error-prone-annotations",
