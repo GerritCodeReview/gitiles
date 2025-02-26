@@ -3,4 +3,4 @@
 # Used by :install and :deploy when talking to the destination repository.
 # Project uses semantic versioning described at:
 # https://semver.org
-GITILES_VERSION = "1.5.0"
+GITILES_VERSION = "1.6.0"
