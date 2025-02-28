@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c949df68_a3611aa2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2025-02-28T18:10:11Z",
+      "side": 1,
+      "message": "Do we have an example subclass illustrating what these new capabilities would be used for?\n\nCould we change the logic of LogServlet itself in place instead, or if we want to add some customizability, could we put that in objects that are passed in and used by the LogServlet? I actually suspect the class should be `final`.",
+      "revId": "6c57e812ccda00ea4bbb30c5bc2228ed0b461d25",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
