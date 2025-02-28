@@ -88,7 +88,7 @@ public class LogServlet extends BaseServlet {
 
   @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    Repository repo = ServletUtils.getRepository(req);
+    Repository repo = getRepo(req);
     GitilesView view = getView(req, repo);
 
     Paginator paginator = null;
@@ -142,7 +142,7 @@ public class LogServlet extends BaseServlet {
 
   @Override
   protected void doGetJson(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    Repository repo = ServletUtils.getRepository(req);
+    Repository repo = getRepo(req);
     GitilesView view = getView(req, repo);
 
     Set<Field> fs = Sets.newEnumSet(CommitJsonData.DEFAULT_FIELDS, Field.class);
@@ -179,8 +179,8 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static @Nullable GitilesView getView(HttpServletRequest req, Repository repo)
-      throws IOException {
+  protected static @Nullable GitilesView getView(HttpServletRequest req, Repository repo)
+          throws IOException {
     GitilesView view = ViewFilter.getView(req);
     if (!Revision.isNull(view.getRevision())) {
       return view;
@@ -191,13 +191,13 @@ public class LogServlet extends BaseServlet {
     }
     try (RevWalk walk = new RevWalk(repo)) {
       return GitilesView.log()
-          .copyFrom(view)
-          .setRevision(Revision.peel(Constants.HEAD, walk.parseAny(headRef.getObjectId()), walk))
-          .build();
+              .copyFrom(view)
+              .setRevision(Revision.peel(Constants.HEAD, walk.parseAny(headRef.getObjectId()), walk))
+              .build();
     }
   }
 
-  private static class InvalidStartValueException extends IllegalArgumentException {
+  protected static class InvalidStartValueException extends IllegalArgumentException {
     private static final long serialVersionUID = 1L;
 
     InvalidStartValueException() {
@@ -205,9 +205,9 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static Optional<ObjectId> getStart(
-      ListMultimap<String, String> params, ObjectReader reader)
-      throws IOException, InvalidStartValueException {
+  protected static Optional<ObjectId> getStart(
+          ListMultimap<String, String> params, ObjectReader reader)
+          throws IOException, InvalidStartValueException {
     List<String> values = params.get(START_PARAM);
     switch (values.size()) {
       case 0:
@@ -227,8 +227,8 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static @Nullable RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
-      throws MissingObjectException, IOException {
+  protected @Nullable RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
+          throws MissingObjectException, IOException {
     RevWalk walk = new RevWalk(repo);
     if (isTrue(view, FIRST_PARENT_PARAM)) {
       walk.setFirstParent(true);
@@ -252,7 +252,7 @@ public class LogServlet extends BaseServlet {
     return walk;
   }
 
-  private static void setRevFilter(RevWalk walk, GitilesView view) {
+  protected void setRevFilter(RevWalk walk, GitilesView view) {
     List<RevFilter> filters = new ArrayList<>(3);
     if (isTrue(view, "no-merges")) {
       filters.add(RevFilter.NO_MERGES);
@@ -275,8 +275,8 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static void setTreeFilter(RevWalk walk, GitilesView view, GitilesAccess access)
-      throws IOException {
+  protected void setTreeFilter(RevWalk walk, GitilesView view, GitilesAccess access)
+          throws IOException {
     if (Strings.isNullOrEmpty(view.getPathPart())) {
       return;
     }
@@ -285,22 +285,22 @@ public class LogServlet extends BaseServlet {
 
     List<String> followParams = view.getParameters().get(FOLLOW_PARAM);
     boolean follow =
-        !followParams.isEmpty()
-            ? isTrue(followParams.get(0))
-            : access.getConfig().getBoolean("log", null, "follow", true);
+            !followParams.isEmpty()
+                    ? isTrue(followParams.get(0))
+                    : access.getConfig().getBoolean("log", null, "follow", true);
     if (follow) {
       walk.setTreeFilter(FollowFilter.create(path, access.getConfig().get(DiffConfig.KEY)));
     } else {
       walk.setTreeFilter(
-          AndTreeFilter.create(PathFilterGroup.createFromStrings(path), TreeFilter.ANY_DIFF));
+              AndTreeFilter.create(PathFilterGroup.createFromStrings(path), TreeFilter.ANY_DIFF));
     }
   }
 
-  private static boolean isTrue(GitilesView view, String param) {
+  protected static boolean isTrue(GitilesView view, String param) {
     return isTrue(Iterables.getFirst(view.getParameters().get(param), null));
   }
 
-  private static boolean isTrue(String v) {
+  protected static boolean isTrue(String v) {
     if (v == null) {
       return false;
     } else if (v.isEmpty()) {
@@ -309,8 +309,8 @@ public class LogServlet extends BaseServlet {
     return Boolean.TRUE.equals(StringUtils.toBooleanOrNull(v));
   }
 
-  private static @Nullable Paginator newPaginator(
-      Repository repo, GitilesView view, GitilesAccess access) throws IOException {
+  protected @Nullable Paginator newPaginator(
+          Repository repo, GitilesView view, GitilesAccess access) throws IOException {
     if (view == null) {
       return null;
     }
@@ -329,7 +329,11 @@ public class LogServlet extends BaseServlet {
     }
   }
 
-  private static int getLimit(GitilesView view) {
+  protected Repository getRepo(HttpServletRequest req) {
+    return ServletUtils.getRepository(req);
+  }
+
+  protected static int getLimit(GitilesView view) {
     List<String> values = view.getParameters().get(LIMIT_PARAM);
     if (values.isEmpty()) {
       return DEFAULT_LIMIT;
