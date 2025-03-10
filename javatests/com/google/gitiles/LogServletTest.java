@@ -15,26 +15,34 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.testing.testsize.MediumTestAttribute.FILE;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.CommitJsonData.Log;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gson.reflect.TypeToken;
+import com.google.testing.testsize.MediumTest;
 import java.util.ArrayList;
+import org.eclipse.jgit.internal.storage.commitgraph.ChangedPathFilter;
+import org.eclipse.jgit.internal.storage.dfs.DfsGarbageCollector;
+import org.eclipse.jgit.lib.ConfigConstants;
+import org.eclipse.jgit.lib.NullProgressMonitor;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 /** Tests for {@link LogServlet}. */
 @RunWith(JUnit4.class)
+@MediumTest(FILE)
 public class LogServletTest extends ServletTest {
   private static final TypeToken<Log> LOG = new TypeToken<Log>() {};
   private static final String MAIN = "main";
   private static final String AUTHOR_METADATA_ELEMENT = "<th class=\"Metadata-title\">author</th>";
   private static final String COMMITTER_METADATA_ELEMENT =
-      "<th class=\"Metadata-title\">committer</th>";
+          "<th class=\"Metadata-title\">committer</th>";
 
   @Test
   public void basicLog() throws Exception {
@@ -147,28 +155,28 @@ public class LogServletTest extends ServletTest {
     repo.branch(MAIN).commit().add("foo", "contents").create();
     RevCommit grandParent = repo.branch(MAIN).commit().add("foo", "contents").create();
     RevCommit parent =
-        repo.branch(MAIN).commit().parent(grandParent).add("foo", "contents").create();
+            repo.branch(MAIN).commit().parent(grandParent).add("foo", "contents").create();
     RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
 
     int numCommitsPerPage = 2;
     String path =
-        "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
+            "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
     FakeHttpServletResponse res =
-        buildResponse(
-            path,
-            "format=html" + "&n=" + numCommitsPerPage + "&s=" + parent.toObjectId().getName(),
-            SC_OK);
+            buildResponse(
+                    path,
+                    "format=html" + "&n=" + numCommitsPerPage + "&s=" + parent.toObjectId().getName(),
+                    SC_OK);
 
     assertThat(res.getActualBodyString())
-        .contains(
-            "<a class=\"LogNav-prev\""
-                + " href=\"/b/repo/+log/"
-                + grandParent.toObjectId().getName()
-                + ".."
-                + main.toObjectId().getName()
-                + "/?format=html"
-                + "&amp;n=2"
-                + "\">");
+            .contains(
+                    "<a class=\"LogNav-prev\""
+                            + " href=\"/b/repo/+log/"
+                            + grandParent.toObjectId().getName()
+                            + ".."
+                            + main.toObjectId().getName()
+                            + "/?format=html"
+                            + "&amp;n=2"
+                            + "\">");
   }
 
   @Test
@@ -176,27 +184,27 @@ public class LogServletTest extends ServletTest {
     repo.branch(MAIN).commit().add("foo", "contents").create();
     RevCommit grandParent = repo.branch(MAIN).commit().add("foo", "contents").create();
     RevCommit parent =
-        repo.branch(MAIN).commit().parent(grandParent).add("foo", "contents").create();
+            repo.branch(MAIN).commit().parent(grandParent).add("foo", "contents").create();
     RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
 
     int numCommitsPerPage = 1;
     String path =
-        "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
+            "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
     FakeHttpServletResponse res =
-        buildResponse(path, "format=html" + "&n=" + numCommitsPerPage, SC_OK);
+            buildResponse(path, "format=html" + "&n=" + numCommitsPerPage, SC_OK);
 
     assertThat(res.getActualBodyString())
-        .contains(
-            "<a class=\"LogNav-next\""
-                + " href=\"/b/repo/+log/"
-                + grandParent.toObjectId().getName()
-                + ".."
-                + main.toObjectId().getName()
-                + "/?format=html"
-                + "&amp;n=1"
-                + "&amp;s="
-                + parent.toObjectId().getName()
-                + "\">");
+            .contains(
+                    "<a class=\"LogNav-next\""
+                            + " href=\"/b/repo/+log/"
+                            + grandParent.toObjectId().getName()
+                            + ".."
+                            + main.toObjectId().getName()
+                            + "/?format=html"
+                            + "&amp;n=1"
+                            + "&amp;s="
+                            + parent.toObjectId().getName()
+                            + "\">");
   }
 
   @Test
@@ -205,11 +213,11 @@ public class LogServletTest extends ServletTest {
     RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
 
     String path =
-        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+            "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
     FakeHttpServletResponse res = buildResponse(path, "format=html", SC_OK);
 
     assertThat(res.getActualBodyString())
-        .contains("<li class=\"CommitLog-item CommitLog-item--default\">");
+            .contains("<li class=\"CommitLog-item CommitLog-item--default\">");
     assertThat(res.getActualBodyString()).doesNotContain(AUTHOR_METADATA_ELEMENT);
     assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
   }
@@ -217,19 +225,19 @@ public class LogServletTest extends ServletTest {
   @Test
   public void prettyExplicitlyDefaultUsesDefaultCssClass() throws Exception {
     testPrettyHtmlOutput(
-        "default", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
+            "default", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
   }
 
   @Test
   public void prettyOnelineUsesOnelineCssClass() throws Exception {
     testPrettyHtmlOutput(
-        "oneline", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
+            "oneline", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
   }
 
   @Test
   public void prettyCustomTypeUsesCustomCssClass() throws Exception {
     testPrettyHtmlOutput(
-        "aCustomPrettyType", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
+            "aCustomPrettyType", /* shouldShowAuthor= */ false, /* shouldShowCommitter= */ false);
   }
 
   @Test
@@ -237,18 +245,107 @@ public class LogServletTest extends ServletTest {
     testPrettyHtmlOutput("fuller", /* shouldShowAuthor= */ true, /* shouldShowCommitter= */ true);
   }
 
+  @Test
+  public void logJsonWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents1 = "contents1";
+    String contents2 = "contents2";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents1).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("foo", contents2).create();
+
+    enableAndWriteCommitGraph();
+
+    Log response = buildJson(LOG, "/repo/+log/master/foo");
+    assertThat(response.log).hasSize(2);
+    verifyJsonCommit(response.log.get(0), c2);
+    verifyJsonCommit(response.log.get(1), c1);
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void logHttpWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents1 = "contents1";
+    String contents2 = "contents2";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents1).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("foo", contents2).create();
+
+    enableAndWriteCommitGraph();
+
+    String path = "/repo/+log/refs/heads/master/foo";
+    FakeHttpServletResponse res = buildResponse(path, "format=html" + "&n=" + 2, SC_OK);
+
+    assertThat(res.getActualBodyString()).contains(c1.toObjectId().name());
+    assertThat(res.getActualBodyString()).contains(c2.toObjectId().name());
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void followJsonWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents = "contents";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("bar", contents).create();
+
+    enableAndWriteCommitGraph();
+
+    Log response = buildJson(LOG, "/repo/+log/master/bar", "follow=1");
+    assertThat(response.log).hasSize(2);
+    verifyJsonCommit(response.log.get(0), c2);
+    verifyJsonCommit(response.log.get(1), c1);
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void followHttpWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents = "contents";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("bar", contents).create();
+
+    enableAndWriteCommitGraph();
+
+    String path = "/repo/+log/refs/heads/master/bar";
+    FakeHttpServletResponse res =
+            buildResponse(path, "format=html" + "&n=" + 2 + "follow=1", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains(c1.toObjectId().name());
+    assertThat(res.getActualBodyString()).contains(c2.toObjectId().name());
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
   private void testPrettyHtmlOutput(
-      String prettyType, boolean shouldShowAuthor, boolean shouldShowCommitter) throws Exception {
+          String prettyType, boolean shouldShowAuthor, boolean shouldShowCommitter) throws Exception {
     RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
     RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
 
     String path =
-        "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
+            "/repo/+log/" + parent.toObjectId().getName() + ".." + main.toObjectId().getName();
     FakeHttpServletResponse res =
-        buildResponse(path, "format=html" + "&pretty=" + prettyType, SC_OK);
+            buildResponse(path, "format=html" + "&pretty=" + prettyType, SC_OK);
 
     assertThat(res.getActualBodyString())
-        .contains("<li class=\"CommitLog-item CommitLog-item--" + prettyType + "\">");
+            .contains("<li class=\"CommitLog-item CommitLog-item--" + prettyType + "\">");
 
     if (shouldShowAuthor) {
       assertThat(res.getActualBodyString()).contains(AUTHOR_METADATA_ELEMENT);
@@ -261,5 +358,21 @@ public class LogServletTest extends ServletTest {
     } else {
       assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
     }
+  }
+
+  void enableAndWriteCommitGraph() throws Exception {
+    repo.getRepository()
+            .getConfig()
+            .setBoolean(
+                    ConfigConstants.CONFIG_CORE_SECTION, null, ConfigConstants.CONFIG_COMMIT_GRAPH, true);
+    repo.getRepository()
+            .getConfig()
+            .setBoolean(
+                    ConfigConstants.CONFIG_COMMIT_GRAPH_SECTION,
+                    null,
+                    ConfigConstants.CONFIG_KEY_READ_CHANGED_PATHS,
+                    true);
+    DfsGarbageCollector gc = new DfsGarbageCollector(repo.getRepository());
+    gc.setWriteCommitGraph(true).setWriteBloomFilter(true).pack(NullProgressMonitor.INSTANCE);
   }
 }

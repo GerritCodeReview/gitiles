@@ -34,19 +34,20 @@ import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 
 public class LogSoyData {
   private static final ImmutableSet<Field> FIELDS =
-      Sets.immutableEnumSet(
-          Field.ABBREV_SHA,
-          Field.SHA,
-          Field.URL,
-          Field.SHORT_MESSAGE,
-          Field.MESSAGE,
-          Field.AUTHOR,
-          Field.COMMITTER,
-          Field.BRANCHES,
-          Field.TAGS);
+          Sets.immutableEnumSet(
+                  Field.ABBREV_SHA,
+                  Field.SHA,
+                  Field.URL,
+                  Field.SHORT_MESSAGE,
+                  Field.MESSAGE,
+                  Field.AUTHOR,
+                  Field.COMMITTER,
+                  Field.BRANCHES,
+                  Field.TAGS);
   private static final ImmutableSet<Field> VERBOSE_FIELDS = Field.setOf(FIELDS, Field.DIFF_TREE);
 
   /** Behavior for the footer link when rendering streaming log data. */
@@ -65,15 +66,15 @@ public class LogSoyData {
   private CommitSoyData csd;
 
   public LogSoyData(HttpServletRequest req, GitilesAccess access, String pretty)
-      throws IOException {
+          throws IOException {
     this.req = checkNotNull(req);
     this.view = checkNotNull(ViewFilter.getView(req));
     checkNotNull(pretty);
     Config config = access.getConfig();
     fields =
-        config.getBoolean("logFormat", pretty, "verbose", false) || pretty.equals("fuller")
-            ? VERBOSE_FIELDS
-            : FIELDS;
+            config.getBoolean("logFormat", pretty, "verbose", false) || pretty.equals("fuller")
+                    ? VERBOSE_FIELDS
+                    : FIELDS;
     variant = firstNonNull(config.getString("logFormat", pretty, "variant"), pretty);
   }
 
@@ -84,23 +85,27 @@ public class LogSoyData {
   }
 
   public void renderStreaming(
-      Paginator paginator,
-      @Nullable String revision,
-      Renderer renderer,
-      Writer writer,
-      DateFormatter df,
-      FooterBehavior footerBehavior)
-      throws IOException {
+          Paginator paginator,
+          @Nullable String revision,
+          Renderer renderer,
+          Writer writer,
+          DateFormatter df,
+          FooterBehavior footerBehavior)
+          throws IOException {
     renderHtml(
-        renderer
-            .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesHeader")
-            .setData(toHeaderSoyData(paginator, revision)),
-        writer);
+            renderer
+                    .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesHeader")
+                    .setData(toHeaderSoyData(paginator, revision)),
+            writer);
 
     SoySauce.Renderer entryRenderer =
-        renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
+            renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
+      RevWalk walk = paginator.getWalk();
+      if (!walk.isRetainBody()) {
+        walk.parseBody(c);
+      }
       renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), writer);
       renderedEntries = true;
     }
@@ -109,10 +114,10 @@ public class LogSoyData {
     }
 
     renderHtml(
-        renderer
-            .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesFooter")
-            .setData(toFooterSoyData(paginator, revision, footerBehavior)),
-        writer);
+            renderer
+                    .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesFooter")
+                    .setData(toFooterSoyData(paginator, revision, footerBehavior)),
+            writer);
   }
 
   private Map<String, Object> toHeaderSoyData(Paginator paginator, @Nullable String revision) {
@@ -131,7 +136,7 @@ public class LogSoyData {
   }
 
   private Map<String, Object> toEntrySoyData(Paginator paginator, RevCommit c, DateFormatter df)
-      throws IOException {
+          throws IOException {
     if (csd == null) {
       csd = new CommitSoyData();
     }
@@ -142,8 +147,8 @@ public class LogSoyData {
       entry.put("rename", toRenameSoyData(rename));
     }
     return ImmutableMap.of(
-        "variant", variant,
-        "entry", entry);
+            "variant", variant,
+            "entry", entry);
   }
 
   private @Nullable Map<String, Object> toRenameSoyData(DiffEntry entry) {
@@ -155,14 +160,14 @@ public class LogSoyData {
       return null;
     }
     return ImmutableMap.<String, Object>of(
-        "changeType", type.toString(),
-        "oldPath", entry.getOldPath(),
-        "newPath", entry.getNewPath(),
-        "score", entry.getScore());
+            "changeType", type.toString(),
+            "oldPath", entry.getOldPath(),
+            "newPath", entry.getNewPath(),
+            "score", entry.getScore());
   }
 
   private Map<String, Object> toFooterSoyData(
-      Paginator paginator, @Nullable String revision, FooterBehavior behavior) {
+          Paginator paginator, @Nullable String revision, FooterBehavior behavior) {
     switch (behavior) {
       case NEXT:
         ObjectId next = paginator.getNextStart();
@@ -170,16 +175,16 @@ public class LogSoyData {
           return ImmutableMap.of();
         }
         return ImmutableMap.of(
-            "nextUrl",
-            copyAndCanonicalizeView(revision)
-                .replaceParam(LogServlet.START_PARAM, next.name())
-                .toUrl(),
-            "nextText",
-            "Next");
+                "nextUrl",
+                copyAndCanonicalizeView(revision)
+                        .replaceParam(LogServlet.START_PARAM, next.name())
+                        .toUrl(),
+                "nextText",
+                "Next");
 
       case LOG_HEAD:
         return ImmutableMap.of(
-            "nextUrl", GitilesView.log().copyFrom(view).toUrl(), "nextText", "More");
+                "nextUrl", GitilesView.log().copyFrom(view).toUrl(), "nextText", "More");
       default:
         throw new IllegalStateException("unknown footer behavior: " + behavior);
     }

@@ -57,9 +57,7 @@ import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.filter.AndRevFilter;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
-import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
-import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.eclipse.jgit.treewalk.filter.PathAnyDiffFilter;
 import org.eclipse.jgit.util.StringUtils;
 
 /** Serves an HTML page with a shortlog for commits and paths. */
@@ -126,11 +124,11 @@ public class LogServlet extends BaseServlet {
       data.put("title", title);
 
       try (OutputStream out =
-          startRenderStreamingHtml(
-              req, res, "com.google.gitiles.templates.LogDetail.logDetail", data)) {
+                   startRenderStreamingHtml(
+                           req, res, "com.google.gitiles.templates.LogDetail.logDetail", data)) {
         Writer w = newWriter(out, res);
         new LogSoyData(req, access, pretty)
-            .renderStreaming(paginator, null, renderer, w, df, LogSoyData.FooterBehavior.NEXT);
+                .renderStreaming(paginator, null, renderer, w, df, LogSoyData.FooterBehavior.NEXT);
         w.flush();
       }
     } finally {
@@ -162,6 +160,10 @@ public class LogServlet extends BaseServlet {
       CommitJsonData.Log result = new CommitJsonData.Log();
       List<CommitJsonData.Commit> entries = Lists.newArrayListWithCapacity(paginator.getLimit());
       for (RevCommit c : paginator) {
+        RevWalk walk = paginator.getWalk();
+        if (!walk.isRetainBody()) {
+          walk.parseBody(c);
+        }
         entries.add(new CommitJsonData().toJsonData(req, paginator.getWalk(), c, fs, df));
       }
       result.log = entries;
@@ -180,7 +182,7 @@ public class LogServlet extends BaseServlet {
   }
 
   private static @Nullable GitilesView getView(HttpServletRequest req, Repository repo)
-      throws IOException {
+          throws IOException {
     GitilesView view = ViewFilter.getView(req);
     if (!Revision.isNull(view.getRevision())) {
       return view;
@@ -191,9 +193,9 @@ public class LogServlet extends BaseServlet {
     }
     try (RevWalk walk = new RevWalk(repo)) {
       return GitilesView.log()
-          .copyFrom(view)
-          .setRevision(Revision.peel(Constants.HEAD, walk.parseAny(headRef.getObjectId()), walk))
-          .build();
+              .copyFrom(view)
+              .setRevision(Revision.peel(Constants.HEAD, walk.parseAny(headRef.getObjectId()), walk))
+              .build();
     }
   }
 
@@ -206,8 +208,8 @@ public class LogServlet extends BaseServlet {
   }
 
   private static Optional<ObjectId> getStart(
-      ListMultimap<String, String> params, ObjectReader reader)
-      throws IOException, InvalidStartValueException {
+          ListMultimap<String, String> params, ObjectReader reader)
+          throws IOException, InvalidStartValueException {
     List<String> values = params.get(START_PARAM);
     switch (values.size()) {
       case 0:
@@ -228,7 +230,7 @@ public class LogServlet extends BaseServlet {
   }
 
   private static @Nullable RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
-      throws MissingObjectException, IOException {
+          throws MissingObjectException, IOException {
     RevWalk walk = new RevWalk(repo);
     if (isTrue(view, FIRST_PARENT_PARAM)) {
       walk.setFirstParent(true);
@@ -249,6 +251,7 @@ public class LogServlet extends BaseServlet {
     }
     setTreeFilter(walk, view, access);
     setRevFilter(walk, view);
+    walk.setRetainBody(false);
     return walk;
   }
 
@@ -276,7 +279,7 @@ public class LogServlet extends BaseServlet {
   }
 
   private static void setTreeFilter(RevWalk walk, GitilesView view, GitilesAccess access)
-      throws IOException {
+          throws IOException {
     if (Strings.isNullOrEmpty(view.getPathPart())) {
       return;
     }
@@ -285,14 +288,13 @@ public class LogServlet extends BaseServlet {
 
     List<String> followParams = view.getParameters().get(FOLLOW_PARAM);
     boolean follow =
-        !followParams.isEmpty()
-            ? isTrue(followParams.get(0))
-            : access.getConfig().getBoolean("log", null, "follow", true);
+            !followParams.isEmpty()
+                    ? isTrue(followParams.get(0))
+                    : access.getConfig().getBoolean("log", null, "follow", true);
     if (follow) {
       walk.setTreeFilter(FollowFilter.create(path, access.getConfig().get(DiffConfig.KEY)));
     } else {
-      walk.setTreeFilter(
-          AndTreeFilter.create(PathFilterGroup.createFromStrings(path), TreeFilter.ANY_DIFF));
+      walk.setTreeFilter(PathAnyDiffFilter.create(path));
     }
   }
 
@@ -310,7 +312,7 @@ public class LogServlet extends BaseServlet {
   }
 
   private static @Nullable Paginator newPaginator(
-      Repository repo, GitilesView view, GitilesAccess access) throws IOException {
+          Repository repo, GitilesView view, GitilesAccess access) throws IOException {
     if (view == null) {
       return null;
     }
