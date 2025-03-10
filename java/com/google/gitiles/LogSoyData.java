@@ -34,6 +34,7 @@ import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 
 public class LogSoyData {
   private static final ImmutableSet<Field> FIELDS =
@@ -101,6 +102,10 @@ public class LogSoyData {
         renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
+      RevWalk walk = paginator.getWalk();
+      if (!walk.isRetainBody()) {
+        walk.parseBody(c);
+      }
       renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), writer);
       renderedEntries = true;
     }
