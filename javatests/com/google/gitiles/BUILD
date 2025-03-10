@@ -42,6 +42,7 @@ junit_tests(
         "//java/com/google/gitiles:servlet",
         ":testutil",
         "//lib:servlet-api",
+        "//lib:commons-codec",
         "//lib/truth",
         "//lib:jgit-junit",
         "//lib/junit",
