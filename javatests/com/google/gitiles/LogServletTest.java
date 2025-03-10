@@ -22,7 +22,12 @@ import com.google.gitiles.CommitJsonData.Log;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
+import org.eclipse.jgit.internal.storage.commitgraph.ChangedPathFilter;
+import org.eclipse.jgit.internal.storage.dfs.DfsGarbageCollector;
+import org.eclipse.jgit.lib.ConfigConstants;
+import org.eclipse.jgit.lib.NullProgressMonitor;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -237,6 +242,95 @@ public class LogServletTest extends ServletTest {
     testPrettyHtmlOutput("fuller", /* shouldShowAuthor= */ true, /* shouldShowCommitter= */ true);
   }
 
+  @Test
+  public void logJsonWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents1 = "contents1";
+    String contents2 = "contents2";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents1).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("foo", contents2).create();
+
+    enableAndWriteCommitGraph();
+
+    Log response = buildJson(LOG, "/repo/+log/master/foo");
+    assertThat(response.log).hasSize(2);
+    verifyJsonCommit(response.log.get(0), c2);
+    verifyJsonCommit(response.log.get(1), c1);
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void logHttpWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents1 = "contents1";
+    String contents2 = "contents2";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents1).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("foo", contents2).create();
+
+    enableAndWriteCommitGraph();
+
+    String path = "/repo/+log/refs/heads/master/foo";
+    FakeHttpServletResponse res = buildResponse(path, "format=html" + "&n=" + 2, SC_OK);
+
+    assertThat(res.getActualBodyString()).contains(c1.toObjectId().name());
+    assertThat(res.getActualBodyString()).contains(c2.toObjectId().name());
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void followJsonWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents = "contents";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("bar", contents).create();
+
+    enableAndWriteCommitGraph();
+
+    Log response = buildJson(LOG, "/repo/+log/master/bar", "follow=1");
+    assertThat(response.log).hasSize(2);
+    verifyJsonCommit(response.log.get(0), c2);
+    verifyJsonCommit(response.log.get(1), c1);
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void followHttpWithCommitGraphAndChangedPaths_optimizationsPresent() throws Exception {
+    String contents = "contents";
+
+    RevCommit c1 = repo.branch("master").commit().add("foo", contents).create();
+    RevCommit c2 = repo.branch("master").commit().rm("foo").add("bar", contents).create();
+
+    enableAndWriteCommitGraph();
+
+    String path = "/repo/+log/refs/heads/master/bar";
+    FakeHttpServletResponse res =
+            buildResponse(path, "format=html" + "&n=" + 2 + "follow=1", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains(c1.toObjectId().name());
+    assertThat(res.getActualBodyString()).contains(c2.toObjectId().name());
+
+    RevWalk rw = new RevWalk(repo.getRepository());
+    ChangedPathFilter filter1 = rw.parseCommit(c1.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter1).isNotNull();
+    ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
+    assertThat(filter2).isNotNull();
+  }
+
   private void testPrettyHtmlOutput(
       String prettyType, boolean shouldShowAuthor, boolean shouldShowCommitter) throws Exception {
     RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
@@ -261,5 +355,21 @@ public class LogServletTest extends ServletTest {
     } else {
       assertThat(res.getActualBodyString()).doesNotContain(COMMITTER_METADATA_ELEMENT);
     }
+  }
+
+  void enableAndWriteCommitGraph() throws Exception {
+    repo.getRepository()
+            .getConfig()
+            .setBoolean(
+                    ConfigConstants.CONFIG_CORE_SECTION, null, ConfigConstants.CONFIG_COMMIT_GRAPH, true);
+    repo.getRepository()
+            .getConfig()
+            .setBoolean(
+                    ConfigConstants.CONFIG_COMMIT_GRAPH_SECTION,
+                    null,
+                    ConfigConstants.CONFIG_KEY_READ_CHANGED_PATHS,
+                    true);
+    DfsGarbageCollector gc = new DfsGarbageCollector(repo.getRepository());
+    gc.setWriteCommitGraph(true).setWriteBloomFilter(true).pack(NullProgressMonitor.INSTANCE);
   }
 }
