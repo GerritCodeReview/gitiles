@@ -34,6 +34,7 @@ import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 
 public class LogSoyData {
   private static final ImmutableSet<Field> FIELDS =
@@ -101,7 +102,17 @@ public class LogSoyData {
         renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
+<<<<<<< PATCH SET (9cfc91 LogServlet: enable Commit Graph and Bloom Filter serving)
+      RevWalk walk = paginator.getWalk();
+      if (!walk.isRetainBody()) {
+        walk.parseBody(c);
+      }
+      renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), out);
+||||||| BASE
+      renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), out);
+=======
       renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), writer);
+>>>>>>> BASE      (0d2b17 Prepare release 1.6.0)
       renderedEntries = true;
     }
     if (!renderedEntries) {
