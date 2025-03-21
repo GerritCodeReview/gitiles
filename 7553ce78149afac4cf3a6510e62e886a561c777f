@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "9388db5c_7ad17e94",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 26
       },
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "05770613_1fe1c2b9",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 26
       },
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6e9aa166_bc30bd1e",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
@@ -67,10 +68,10 @@
         "endChar": 10
       },
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bab0c460_b381f9f7",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
@@ -91,10 +92,10 @@
         "endChar": 10
       },
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "830fa28e_2bfcf4cf",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
@@ -114,10 +115,10 @@
         "endChar": 75
       },
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3830e4f9_c11a9135",
         "filename": "javatests/com/google/gitiles/PathServletTest.java",
@@ -138,8 +139,31 @@
         "endChar": 75
       },
       "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1af754c_d0e7daf4",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 3937761
+      },
+      "writtenOn": "2025-03-21T01:55:44Z",
+      "side": 1,
+      "message": "\u003e Done\n7o",
+      "parentUuid": "3830e4f9_c11a9135",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "7553ce78149afac4cf3a6510e62e886a561c777f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
