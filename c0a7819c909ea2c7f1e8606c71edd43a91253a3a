@@ -33,6 +33,24 @@
       "message": "currently the tip of the servlet-4 branch is f693c0478",
       "revId": "c0a7819c909ea2c7f1e8606c71edd43a91253a3a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e36d438_ea49a1e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-03-24T16:46:44Z",
+      "side": 1,
+      "message": "ah, thank you for catching that. Updated to f693c0478",
+      "parentUuid": "1146ca51_a1e57990",
+      "revId": "c0a7819c909ea2c7f1e8606c71edd43a91253a3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
