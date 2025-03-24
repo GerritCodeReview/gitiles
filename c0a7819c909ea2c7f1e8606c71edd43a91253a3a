@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d00af7a_34317a33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-03-24T16:19:03Z",
+      "side": 1,
+      "message": "Hi Matthias,\n\nI would like to update the latest state of your servlet-4 branch for the jgit module of Gitiles.",
+      "revId": "c0a7819c909ea2c7f1e8606c71edd43a91253a3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
