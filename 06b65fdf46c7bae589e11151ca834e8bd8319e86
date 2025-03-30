@@ -16,6 +16,23 @@
       "message": "Bkh",
       "revId": "06b65fdf46c7bae589e11151ca834e8bd8319e86",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "298feb49_235e3371",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3951317
+      },
+      "writtenOn": "2025-03-30T14:48:24Z",
+      "side": 1,
+      "message": "459223: LogServlet: enable Commit Graph and Bloom Filter serving | https://gerrit-review.googlesource.com/c/gitiles/+/459223",
+      "revId": "06b65fdf46c7bae589e11151ca834e8bd8319e86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
