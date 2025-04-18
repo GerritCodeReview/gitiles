@@ -37,9 +37,7 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
-import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.eclipse.jgit.treewalk.filter.ChangedPathTreeFilter;
 import org.eclipse.jgit.util.QuotedString;
 
 /** Guava implementation of BlameCache, weighted by number of blame regions. */
@@ -123,13 +121,13 @@ public class BlameCacheImpl implements BlameCache {
       throws IOException {
     // Default implementation does no caching.
     try (RevWalk rw = new RevWalk(repo)) {
-      rw.markStart(rw.parseCommit(commitId));
+      rw.markStart(rw.lookupCommit(commitId));
       rw.setRewriteParents(false);
       // Don't use rename detection, even though BlameGenerator does. It is not
       // possible for a commit to modify a path when not doing rename detection
       // but to not modify the same path when taking renames into account.
-      rw.setTreeFilter(
-          AndTreeFilter.create(PathFilterGroup.createFromStrings(path), TreeFilter.ANY_DIFF));
+      rw.setRetainBody(false);
+      rw.setTreeFilter(ChangedPathTreeFilter.create(path));
       return rw.next();
     }
   }
