@@ -5,3 +5,4 @@
 # described at:
 # https://www.mojohaus.org/versions-maven-plugin/version-rules.html
 GITILES_VERSION = "0.2-7.1"
+?
