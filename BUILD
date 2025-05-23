@@ -1,6 +1,6 @@
 load("@com_googlesource_gerrit_bazlets//tools:pkg_war.bzl", "pkg_war")
 
-pkg_war(
+pkg_win( 
     name = "gitiles",
     context = ["//resources/com/google/gitiles:webassets"],
     libs = [
