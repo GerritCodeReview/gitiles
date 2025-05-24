@@ -174,7 +174,7 @@
         "allowOverrideInChildProjects": false
       },
       "applicabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"footer:\"Want-Code-Review: all\" -label:Code-Review>=1,users=human_reviewers"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["footer:\"Want-Code-Review: all\"","label:Code-Review>=1,users=human_reviewers"],"atomExplanations":{"value":{"footer:\"Want-Code-Review: all\"":"","label:Code-Review>=1,users=human_reviewers":""}}}
+        "value": {"expression":{"expressionString":"footer:\"Want-Code-Review: all\" -label:Code-Review>=1,users=human_reviewers"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":["label:Code-Review>=1,users=human_reviewers"],"failingAtoms":["footer:\"Want-Code-Review: all\""],"atomExplanations":{"value":{"footer:\"Want-Code-Review: all\"":"","label:Code-Review>=1,users=human_reviewers":""}}}
       },
       "submittabilityExpressionResult": {
         "value": {"expression":{"expressionString":"label:Code-Review>=1,users=human_reviewers"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[],"atomExplanations":{"value":null}}
