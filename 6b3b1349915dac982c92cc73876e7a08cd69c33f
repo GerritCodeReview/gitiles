@@ -16,6 +16,23 @@
       "message": "Erick Reyes Gonzalez",
       "revId": "6b3b1349915dac982c92cc73876e7a08cd69c33f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1e908b7_4b35e889",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3631462
+      },
+      "writtenOn": "2025-06-21T12:16:19Z",
+      "side": 1,
+      "message": "Marked as unresolved.",
+      "revId": "6b3b1349915dac982c92cc73876e7a08cd69c33f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
