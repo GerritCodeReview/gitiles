@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b02d7c3_87bb4e8b",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-06-24T14:25:43Z",
+      "side": 1,
+      "message": "```suggestion\ncurl \"https://gerrit.googlesource.com/a/gitiles/+/refs/heads/master/java/com/google/gitiles/dev.tar.gz\" -o dev.tar.gz\ncurl \"https://gerrit.googlesource.com/a/gitiles/+/30851aacbea3370c7be8179c890b3401526242eb/java/com/google/gitiles/dev.tar.gz\" -o dev.tar.gz\n```",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 134
+      },
+      "revId": "c149596b9104201970135216d693984512cd32a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
