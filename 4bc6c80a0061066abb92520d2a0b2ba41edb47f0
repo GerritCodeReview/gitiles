@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "285e03c5_a585d85a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3826395
+      },
+      "writtenOn": "2025-06-29T07:02:00Z",
+      "side": 1,
+      "message": "anusornsetraksa@gmail.com",
+      "revId": "4bc6c80a0061066abb92520d2a0b2ba41edb47f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
