@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "d62d99c0_de81e5d1",
         "filename": "version.bzl",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Appears to have moved to https://www.mojohaus.org/versions-maven-plugin/version-rules.html",
       "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "36723292_26943717",
         "filename": "version.bzl",
@@ -32,8 +33,25 @@
       "message": "Thanks.  Done in https://gerrit-review.googlesource.com/c/gitiles/+/200180",
       "parentUuid": "d62d99c0_de81e5d1",
       "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cded812_f3d582e3",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 4203406
+      },
+      "writtenOn": "2025-07-05T12:32:28Z",
+      "side": 1,
+      "message": "\u003e Thanks.  Done in https://gerrit-review.googlesource.com/c/gitiles/+/200180",
+      "parentUuid": "36723292_26943717",
+      "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
