@@ -52,6 +52,24 @@
       "parentUuid": "36723292_26943717",
       "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9076e71c_20ff4af7",
+        "filename": "version.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 4203406
+      },
+      "writtenOn": "2025-07-05T12:56:08Z",
+      "side": 1,
+      "message": "\u003e \u003e Thanks.  Done in https://gerrit-review.googlesource.com/c/gitiles/+/200180",
+      "parentUuid": "3cded812_f3d582e3",
+      "revId": "96373681187bc40a36fa9024dac8e639a38abb74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
