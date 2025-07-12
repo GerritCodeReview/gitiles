@@ -33,6 +33,23 @@
       "message": "55918",
       "revId": "b92b9985a513db4d5e221edc3454ac69515acb45",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da5d995_aad8a565",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4227959
+      },
+      "writtenOn": "2025-07-12T19:08:32Z",
+      "side": 1,
+      "message": "From b92b9985a513db4d5e221edc3454ac69515acb45 Mon Sep 17 00:00:00 2001\nFrom: Dave Borowitz \u003cdborowitz@google.com\u003e\nDate: Fri, 11 Apr 2014 11:47:57 -0400\nSubject: [PATCH] Update deploy config\n\nUse the simpler name \"gitiles\" for the project. Deploy to the base\nGerrit Maven repo, as this is not a Gerrit API.\n\nChange-Id: I3c89f5aeb7c62cca19f02b7a26164e507995a170\n---\n\ndiff --git a/BUCK b/BUCK\nindex ff79151..70d2286 100644\n--- a/BUCK\n+++ b/BUCK\n@@ -19,8 +19,8 @@\n )\n \n maven_package(\n-  repository \u003d \u0027gerrit-api-repository\u0027,\n-  url \u003d \u0027gs://gerrit-api/release\u0027,\n+  repository \u003d \u0027gerrit-maven-repository\u0027,\n+  url \u003d \u0027gs://gerrit-maven\u0027,\n   version \u003d GITILES_VERSION,\n   jar \u003d {\u0027gitiles-servlet\u0027: \u0027//gitiles-servlet:servlet\u0027},\n   src \u003d {\u0027gitiles-servlet\u0027: \u0027//gitiles-servlet:src\u0027},\ndiff --git a/fake_pom_deploy.xml b/fake_pom_deploy.xml\nindex c63229a..bd3ba0e 100644\n--- a/fake_pom_deploy.xml\n+++ b/fake_pom_deploy.xml\n@@ -1,16 +1,8 @@\n \u003cproject xmlns\u003d\"http://maven.apache.org/POM/4.0.0\"\u003e\n   \u003cmodelVersion\u003e4.0.0\u003c/modelVersion\u003e\n   \u003cgroupId\u003ecom.google.gitiles\u003c/groupId\u003e\n-  \u003cartifactId\u003eGitiles-Simple-Git-Repository-Browser\u003c/artifactId\u003e\n+  \u003cartifactId\u003egitiles\u003c/artifactId\u003e\n   \u003cversion\u003e1\u003c/version\u003e \u003c!-- Do not edit; see VERSION. --\u003e\n-  \u003cdistributionManagement\u003e\n-    \u003crepository\u003e\n-      \u003cid\u003egerrit-api-repository\u003c/id\u003e\n-      \u003cname\u003eGerrit API Repository\u003c/name\u003e\n-      \u003curl\u003egs://gerrit-api\u003c/url\u003e\n-      \u003cuniqueVersion\u003etrue\u003c/uniqueVersion\u003e\n-    \u003c/repository\u003e\n-  \u003c/distributionManagement\u003e\n   \u003cbuild\u003e\n     \u003cextensions\u003e\n       \u003cextension\u003e55918: Update deploy config | https://gerrit-review.googlesource.com/c/gitiles/+/55918",
+      "revId": "b92b9985a513db4d5e221edc3454ac69515acb45",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
