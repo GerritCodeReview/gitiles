@@ -16,6 +16,23 @@
       "message": "\u003e Change has been successfully merged into the git repository.\n\n55918: Update deploy config | https://gerrit-review.googlesource.com/c/gitiles/+/55918",
       "revId": "b92b9985a513db4d5e221edc3454ac69515acb45",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8078486c_efa7a24e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4218139
+      },
+      "writtenOn": "2025-07-12T05:32:16Z",
+      "side": 1,
+      "message": "55918",
+      "revId": "b92b9985a513db4d5e221edc3454ac69515acb45",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
