@@ -84,6 +84,23 @@
       "message": "Rv1",
       "revId": "6b3b1349915dac982c92cc73876e7a08cd69c33f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ead43c36_893884c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4261909
+      },
+      "writtenOn": "2025-08-07T09:46:50Z",
+      "side": 1,
+      "message": "git pull https://gerrit.googlesource.com/gitiles refs/changes/42/462542/3",
+      "revId": "6b3b1349915dac982c92cc73876e7a08cd69c33f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
