@@ -25,6 +25,7 @@ import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
+import com.google.gitiles.DefaultUrls;
 import com.google.gitiles.doc.HtmlSanitizer;
 import java.io.File;
 import java.io.IOException;
@@ -110,7 +111,7 @@ class DevServer {
     this.cfg = cfg;
 
     httpd = new Server(cfg.getInt("gitiles", null, "port", 8080));
-    httpd.setHandler(handler());
+    httpd.setHandler(handler(cfg));
   }
 
   void start() throws Exception {
@@ -118,14 +119,14 @@ class DevServer {
     httpd.join();
   }
 
-  private Handler handler() throws IOException {
+  private Handler handler(Config cfg) throws IOException {
     ContextHandlerCollection handlers = new ContextHandlerCollection();
     handlers.addHandler(staticHandler());
-    handlers.addHandler(appHandler());
+    handlers.addHandler(appHandler(cfg));
     return handlers;
   }
 
-  private Handler appHandler() {
+  private Handler appHandler(Config cfg) throws UnknownHostException {
     DebugRenderer renderer =
         new DebugRenderer(
             STATIC_PREFIX,
@@ -144,7 +145,7 @@ class DevServer {
     }
 
     ServletContextHandler handler = new ServletContextHandler();
-    handler.setContextPath("");
+    handler.setContextPath(cfg.getString("gitiles", null, "contextPath"));
     handler.addServlet(new ServletHolder(servlet), "/*");
     return handler;
   }
