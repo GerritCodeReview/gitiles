@@ -30,6 +30,8 @@ Default: `null`, determine the hostname from the local host.
   mode for that file. The link will only appear when you are browsing the file
   at a branch, so the commitish must start with `refs/heads/`.
 
+`basePath` the base path for the gitiles urls. (only applicable for dev mode.)
+
 > If you are using the Gerrit Gitiles plugin, this is set based on Gerrit's configuration.
 > Default: `null`, do not link `Change-Id` or show edit links.
 
@@ -38,6 +40,7 @@ Default: `null`, determine the hostname from the local host.
   canonicalHostName = gitiles.example.org
   gerritUrl = https://gerrit.example.org/r/
   baseGitUrl = git://git.example.org/
+  basePath = /additional/basepath/for/gitiles/ 
 ```
 
 ### Repositories export
