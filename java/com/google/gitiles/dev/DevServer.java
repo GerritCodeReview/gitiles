@@ -17,6 +17,7 @@ package com.google.gitiles.dev;
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.html.types.UncheckedConversions;
 import com.google.gitiles.BranchRedirect;
@@ -25,6 +26,7 @@ import com.google.gitiles.GitilesAccess;
 import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
+import com.google.gitiles.DefaultUrls;
 import com.google.gitiles.doc.HtmlSanitizer;
 import java.io.File;
 import java.io.IOException;
@@ -34,10 +36,7 @@ import java.net.UnknownHostException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jetty.server.Handler;
@@ -125,7 +124,7 @@ class DevServer {
     return handlers;
   }
 
-  private Handler appHandler() {
+  private Handler appHandler() throws UnknownHostException {
     DebugRenderer renderer =
         new DebugRenderer(
             STATIC_PREFIX,
@@ -144,7 +143,7 @@ class DevServer {
     }
 
     ServletContextHandler handler = new ServletContextHandler();
-    handler.setContextPath("");
+    handler.setContextPath(MoreObjects.firstNonNull(cfg.getString("gitiles", null, "contextPath"), ""));
     handler.addServlet(new ServletHolder(servlet), "/*");
     return handler;
   }
