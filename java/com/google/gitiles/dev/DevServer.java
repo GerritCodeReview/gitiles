@@ -17,6 +17,7 @@ package com.google.gitiles.dev;
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.GitilesServlet.STATIC_PREFIX;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.html.types.UncheckedConversions;
 import com.google.gitiles.BranchRedirect;
@@ -125,7 +126,7 @@ class DevServer {
     return handlers;
   }
 
-  private Handler appHandler() {
+  private Handler appHandler() throws UnknownHostException {
     DebugRenderer renderer =
         new DebugRenderer(
             STATIC_PREFIX,
@@ -144,7 +145,7 @@ class DevServer {
     }
 
     ServletContextHandler handler = new ServletContextHandler();
-    handler.setContextPath("");
+    handler.setContextPath(MoreObjects.firstNonNull(cfg.getString("gitiles", null, "contextPath"), ""));
     handler.addServlet(new ServletHolder(servlet), "/*");
     return handler;
   }
