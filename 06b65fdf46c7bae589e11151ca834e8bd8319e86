@@ -288,6 +288,23 @@
       "message": "コミュニティに感謝します。",
       "revId": "06b65fdf46c7bae589e11151ca834e8bd8319e86",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "443c75ef_55203596",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3894415
+      },
+      "writtenOn": "2025-08-24T23:18:02Z",
+      "side": 1,
+      "message": "شكرا لكم بس اريد المساعد",
+      "revId": "06b65fdf46c7bae589e11151ca834e8bd8319e86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
