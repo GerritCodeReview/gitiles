@@ -220,6 +220,23 @@
       "message": "https://developer.android.com/jetpack/androidx/releases/privacysandbox-ads?hl\u003dvi#1.1.0-beta12",
       "revId": "0d2b1790f0e48274a83352da9b6a7e4eec0df1bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26df7b6c_91c9c0a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4322135
+      },
+      "writtenOn": "2025-08-28T18:53:13Z",
+      "side": 1,
+      "message": "git commit",
+      "revId": "0d2b1790f0e48274a83352da9b6a7e4eec0df1bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
