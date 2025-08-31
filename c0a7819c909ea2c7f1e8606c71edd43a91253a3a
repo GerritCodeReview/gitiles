@@ -51,6 +51,24 @@
       "parentUuid": "1146ca51_a1e57990",
       "revId": "c0a7819c909ea2c7f1e8606c71edd43a91253a3a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3296cf5c_76be408b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138705
+      },
+      "writtenOn": "2025-08-31T23:35:11Z",
+      "side": 1,
+      "message": "\u003e Hi Matthias,\n\u003e \n\u003e I would like to update the latest state of your servlet-4 branch for the jgit module of Gitiles.",
+      "parentUuid": "4d00af7a_34317a33",
+      "revId": "c0a7819c909ea2c7f1e8606c71edd43a91253a3a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
