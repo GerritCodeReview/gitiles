@@ -172,6 +172,7 @@ public class BlameCacheImpl implements BlameCache {
     while (gen.next()) {
       String path = gen.getSourcePath();
       PersonIdent author = gen.getSourceAuthor();
+      PersonIdent committer = gen.getSourceCommitter();
       ObjectId commit = gen.getSourceCommit();
       checkState(path != null && author != null && commit != null);
 
@@ -190,7 +191,7 @@ public class BlameCacheImpl implements BlameCache {
       path = strings.intern(path);
       commit = pc.commit;
       author = pc.author;
-      regions.add(new Region(path, commit, author, gen.getResultStart(), gen.getResultEnd()));
+      regions.add(new Region(path, commit, author, committer, gen.getResultStart(), gen.getResultEnd()));
     }
     Collections.sort(regions);
 
@@ -203,14 +204,14 @@ public class BlameCacheImpl implements BlameCache {
         checkState(last.getEnd() <= r.getStart());
         if (last.getEnd() < r.getStart()) {
           result.add(
-              new Region(null, null, null, /* start= */ last.getEnd(), /* end= */ r.getStart()));
+              new Region(null, null, null, null, /* start= */ last.getEnd(), /* end= */ r.getStart()));
         }
       }
       result.add(r);
       last = r;
     }
     if (last != null && last.getEnd() != lineCount) {
-      result.add(new Region(null, null, null, last.getEnd(), lineCount));
+      result.add(new Region(null, null, null, null, last.getEnd(), lineCount));
     }
 
     return ImmutableList.copyOf(result);

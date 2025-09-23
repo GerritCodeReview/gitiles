@@ -34,25 +34,34 @@ class RegionAdapter extends TypeAdapter<Region> {
   @Override
   public void write(JsonWriter out, Region value) throws IOException {
     out.beginObject()
-        .name("start")
-        .value(value.getStart() + 1)
-        .name("count")
-        .value(value.getCount())
-        .name("path")
-        .value(value.getSourcePath())
-        .name("commit")
-        .value(ObjectId.toString(value.getSourceCommit()))
-        .name("author")
-        .beginObject()
-        // TODO(dborowitz): Use an adapter from CommitJsonData instead.
-        .name("name")
-        .value(value.getSourceAuthor().getName())
-        .name("email")
-        .value(value.getSourceAuthor().getEmailAddress())
-        .name("time")
-        .value(df.format(value.getSourceAuthor()))
-        .endObject()
-        .endObject();
+            .name("start")
+            .value(value.getStart() + 1)
+            .name("count")
+            .value(value.getCount())
+            .name("path")
+            .value(value.getSourcePath())
+            .name("commit")
+            .value(ObjectId.toString(value.getSourceCommit()))
+            .name("author")
+            .beginObject()
+            // TODO(dborowitz): Use an adapter from CommitJsonData instead.
+            .name("name")
+            .value(value.getSourceAuthor().getName())
+            .name("email")
+            .value(value.getSourceAuthor().getEmailAddress())
+            .name("time")
+            .value(df.format(value.getSourceAuthor()))
+            .endObject()
+            .name("committer")
+            .beginObject()
+            .name("name")
+            .value(value.getSourceCommitter().getName())
+            .name("email")
+            .value(value.getSourceCommitter().getEmailAddress())
+            .name("time")
+            .value(df.format(value.getSourceCommitter()))
+            .endObject()
+            .endObject();
   }
 
   @Override

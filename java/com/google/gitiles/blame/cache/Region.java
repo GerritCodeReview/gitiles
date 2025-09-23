@@ -27,20 +27,24 @@ public class Region implements Serializable, Comparable<Region> {
   private final String sourcePath;
   private final ObjectId sourceCommit;
   private final PersonIdent sourceAuthor;
+  private final PersonIdent sourceCommitter;
   private final int count;
   private transient int start;
 
-  public Region(String path, ObjectId commit, PersonIdent author, int start, int end) {
+  public Region(
+          String path, ObjectId commit, PersonIdent author, PersonIdent committer, int start, int end) {
     checkArgument(
-        (path != null && commit != null && author != null)
-            || (path == null && commit == null && author == null),
-        "expected all null or none: %s, %s, %s",
-        path,
-        commit,
-        author);
+            (path != null && commit != null && author != null && committer != null)
+                    || (path == null && commit == null && author == null && committer == null),
+            "expected all null or none: %s, %s, %s, %s",
+            path,
+            commit,
+            author,
+            committer);
     this.sourcePath = path;
     this.sourceCommit = commit;
     this.sourceAuthor = author;
+    this.sourceCommitter = committer;
     this.start = start;
     this.count = end - start;
   }
@@ -73,6 +77,10 @@ public class Region implements Serializable, Comparable<Region> {
     return sourceAuthor;
   }
 
+  public PersonIdent getSourceCommitter() {
+    return sourceCommitter;
+  }
+
   @Override
   public int compareTo(Region o) {
     return start - o.start;
@@ -83,11 +91,11 @@ public class Region implements Serializable, Comparable<Region> {
     StringBuilder sb = new StringBuilder();
     if (sourceCommit != null) {
       sb.append(sourceCommit.name(), 0, 7)
-          .append(' ')
-          .append(sourceAuthor.toExternalString())
-          .append(" (")
-          .append(sourcePath)
-          .append(')');
+              .append(' ')
+              .append(sourceAuthor.toExternalString())
+              .append(" (")
+              .append(sourcePath)
+              .append(')');
     } else {
       sb.append("<unblamed region>");
     }
