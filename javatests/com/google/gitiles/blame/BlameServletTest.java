@@ -29,8 +29,10 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class BlameServletTest extends ServletTest {
-  private static final String NAME = "J. Author";
-  private static final String EMAIL = "jauthor@example.com";
+  private static final String AUTHOR_NAME = "J. Author";
+  private static final String COMMITTER_NAME = "J. Committer";
+  private static final String AUTHOR_EMAIL = "jauthor@example.com";
+  private static final String COMMITTER_EMAIL = "jcommitter@example.com";
 
   private static class RegionJsonData {
     int start;
@@ -38,6 +40,7 @@ public class BlameServletTest extends ServletTest {
     String path;
     String commit;
     Ident author;
+    Ident committer;
   }
 
   @Test
@@ -59,18 +62,24 @@ public class BlameServletTest extends ServletTest {
     assertThat(r1.count).isEqualTo(1);
     assertThat(r1.path).isEqualTo("foo");
     assertThat(r1.commit).isEqualTo(c1.name());
-    assertThat(r1.author.name).isEqualTo(NAME);
-    assertThat(r1.author.email).isEqualTo(EMAIL);
+    assertThat(r1.author.name).isEqualTo(AUTHOR_NAME);
+    assertThat(r1.author.email).isEqualTo(AUTHOR_EMAIL);
     assertThat(r1.author.time).isEqualTo(c1Time);
+    assertThat(r1.committer.name).isEqualTo(COMMITTER_NAME);
+    assertThat(r1.committer.email).isEqualTo(COMMITTER_EMAIL);
+    assertThat(r1.committer.time).isEqualTo(c1Time);
 
     RegionJsonData r2 = regions.get(1);
     assertThat(r2.start).isEqualTo(2);
     assertThat(r2.count).isEqualTo(1);
     assertThat(r2.path).isEqualTo("foo");
     assertThat(r2.commit).isEqualTo(c2.name());
-    assertThat(r2.author.name).isEqualTo(NAME);
-    assertThat(r2.author.email).isEqualTo(EMAIL);
+    assertThat(r2.author.name).isEqualTo(AUTHOR_NAME);
+    assertThat(r2.author.email).isEqualTo(AUTHOR_EMAIL);
     assertThat(r2.author.time).isEqualTo(c2Time);
+    assertThat(r2.committer.name).isEqualTo(COMMITTER_NAME);
+    assertThat(r2.committer.email).isEqualTo(COMMITTER_EMAIL);
+    assertThat(r2.committer.time).isEqualTo(c2Time);
   }
 
   private Map<String, List<RegionJsonData>> getBlameJson(String path) throws Exception {

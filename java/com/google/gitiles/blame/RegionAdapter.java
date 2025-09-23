@@ -52,6 +52,16 @@ class RegionAdapter extends TypeAdapter<Region> {
         .name("time")
         .value(df.format(value.getSourceAuthor()))
         .endObject()
+        .name("committer")
+        .beginObject()
+        .name("name")
+        .value(value.getSourceCommitter() != null ? value.getSourceCommitter().getName() : "")
+        .name("email")
+        .value(
+            value.getSourceCommitter() != null ? value.getSourceCommitter().getEmailAddress() : "")
+        .name("time")
+        .value(value.getSourceCommitter() != null ? df.format(value.getSourceCommitter()) : "")
+        .endObject()
         .endObject();
   }
 
