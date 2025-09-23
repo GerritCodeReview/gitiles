@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec14231_e30c971e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2025-09-23T22:58:53Z",
+      "side": 1,
+      "message": "is this truncated?",
+      "range": {
+        "startLine": 11,
+        "startChar": 85,
+        "endLine": 11,
+        "endChar": 94
+      },
+      "revId": "abc3a2ed63cd2dce63075777bbe216443558bcdd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21892e3a_c106a829",
+        "filename": "java/com/google/gitiles/blame/cache/Region.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2025-09-23T22:58:53Z",
+      "side": 1,
+      "message": "I think the blame cache is serializing Java objects. Wouldn\u0027t this change break the cache?",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "abc3a2ed63cd2dce63075777bbe216443558bcdd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
