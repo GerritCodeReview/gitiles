@@ -1,0 +1,116 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83770654_4bc1f1e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-09-24T16:35:21Z",
+      "side": 1,
+      "message": "Can you explain in few words why do we need the committer?",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5516f925_75ce12ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-09-24T16:35:21Z",
+      "side": 1,
+      "message": "Explain what the change is doing and the potential side effects. e.g. \n\nAdd a field for the committer in the Region class and populate it. The BlameGenerator already supplies the data. For previously serialized instances... \u003cexplain here what happens, do people need do clean their caches or will this just work?\u003e?",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84442ad_58db1b79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-09-24T16:35:21Z",
+      "side": 1,
+      "message": "The change is fine if we want to add the field to the cache, but (as Minh suggested) this affects serialization (safe in theory) and we don\u0027t want to deal with it for every field UIs may need.\n\nWould it be possible to e.g. just fill the committer later, from the commit id after loading the region from the cache?",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b4c81e_ac4cf2d6",
+        "filename": "java/com/google/gitiles/blame/RegionAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-09-24T16:35:21Z",
+      "side": 1,
+      "message": "This could be null, e.g. when the Region is deserialized from old data.\n\nFor the AI-suggested fix: the defaut value if null should probably be an empty string",
+      "range": {
+        "startLine": 58,
+        "startChar": 21,
+        "endLine": 58,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b18c0997_e11e55cc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "java/com/google/gitiles/blame/RegionAdapter.java",
+              "range": {
+                "startLine": 58,
+                "startChar": 0,
+                "endLine": 59,
+                "endChar": 0
+              },
+              "replacement": "        .value(value.getSourceCommitter() !\u003d null ? value.getSourceCommitter().getName() : \"\")\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/RegionAdapter.java",
+              "range": {
+                "startLine": 60,
+                "startChar": 0,
+                "endLine": 61,
+                "endChar": 0
+              },
+              "replacement": "        .value(value.getSourceCommitter() !\u003d null ? value.getSourceCommitter().getEmailAddress() : \"\")\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/RegionAdapter.java",
+              "range": {
+                "startLine": 62,
+                "startChar": 0,
+                "endLine": 63,
+                "endChar": 0
+              },
+              "replacement": "        .value(value.getSourceCommitter() !\u003d null ? df.format(value.getSourceCommitter()) : \"\")\n"
+            }
+          ]
+        }
+      ],
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
