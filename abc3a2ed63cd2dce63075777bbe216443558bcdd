@@ -93,6 +93,30 @@
       },
       "revId": "abc3a2ed63cd2dce63075777bbe216443558bcdd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d0c903_695a3768",
+        "filename": "java/com/google/gitiles/blame/cache/Region.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1035437
+      },
+      "writtenOn": "2025-09-24T17:10:20Z",
+      "side": 1,
+      "message": "I prefer that this new field is not stored in the cache at all as we don\u0027t want to backfill. Given the current implementation, this new field should not be included in the serialization of this class.",
+      "parentUuid": "d3868791_21cd0c2a",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "abc3a2ed63cd2dce63075777bbe216443558bcdd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
