@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef46efbe_4233f85c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-09-24T15:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eec14231_e30c971e",
+      "range": {
+        "startLine": 11,
+        "startChar": 85,
+        "endLine": 11,
+        "endChar": 94
+      },
+      "revId": "abc3a2ed63cd2dce63075777bbe216443558bcdd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21892e3a_c106a829",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-09-23T22:58:53Z",
       "side": 1,
       "message": "I think the blame cache is serializing Java objects. Wouldn\u0027t this change break the cache?",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "abc3a2ed63cd2dce63075777bbe216443558bcdd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3868791_21cd0c2a",
+        "filename": "java/com/google/gitiles/blame/cache/Region.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-09-24T15:17:56Z",
+      "side": 1,
+      "message": "no. the Serializable implementation handles reading old cache and will mark the new field as null. \n\nif the caller asks for the committer data, we will have to check whether the cache has the committer info as null; if null, then we have to repopulate the committer data into the cache as a one time cost.",
+      "parentUuid": "21892e3a_c106a829",
       "range": {
         "startLine": 30,
         "startChar": 28,
