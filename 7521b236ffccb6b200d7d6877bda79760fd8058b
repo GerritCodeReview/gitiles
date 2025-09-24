@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6f88bd0_666a4d26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2025-09-24T18:27:15Z",
+      "side": 1,
+      "message": "Ultimately gitiles UI doesn\u0027t use this field, so it is not really needed in the Region.\n\nIn our use case for the gitiles cache, when we process the regions, we can do `rw.parseHeaders(region.sourceCommit).getCommitterIdent()` when needed. Then we do not need to touch the Region at all.",
+      "parentUuid": "f527be2b_f936866f",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27b4c81e_ac4cf2d6",
         "filename": "java/com/google/gitiles/blame/RegionAdapter.java",
         "patchSetId": 3
