@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c248564_432330fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-09-24T18:02:31Z",
+      "side": 1,
+      "message": "the committer data is helpful with determining the person merged a Gerrit review from a blame region. Updated the description.",
+      "parentUuid": "83770654_4bc1f1e2",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5516f925_75ce12ca",
@@ -37,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "691386d9_e1157ff9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-09-24T18:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5516f925_75ce12ca",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c84442ad_58db1b79",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2025-09-24T16:35:21Z",
       "side": 1,
       "message": "The change is fine if we want to add the field to the cache, but (as Minh suggested) this affects serialization (safe in theory) and we don\u0027t want to deal with it for every field UIs may need.\n\nWould it be possible to e.g. just fill the committer later, from the commit id after loading the region from the cache?",
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f527be2b_f936866f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-09-24T18:02:31Z",
+      "side": 1,
+      "message": "\u003ejust fill the committer later, from the commit id after loading the region from the cache?\n\nThe only returning object in the BlameCacheImpl.java is Region. We need to have the committer data in the region class for it to be populated in the return.",
+      "parentUuid": "c84442ad_58db1b79",
       "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -109,6 +163,30 @@
           ]
         }
       ],
+      "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1877abb_421914bc",
+        "filename": "java/com/google/gitiles/blame/RegionAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2025-09-24T18:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27b4c81e_ac4cf2d6",
+      "range": {
+        "startLine": 58,
+        "startChar": 21,
+        "endLine": 58,
+        "endChar": 39
+      },
       "revId": "7521b236ffccb6b200d7d6877bda79760fd8058b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
