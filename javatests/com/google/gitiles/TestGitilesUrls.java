@@ -28,12 +28,12 @@ public class TestGitilesUrls implements GitilesUrls {
 
   @Override
   public String getBaseGitUrl(HttpServletRequest req) {
-    return "git://" + HOST_NAME + "/foo";
+    return "git://" + HOST_NAME + "/path-prefix";
   }
 
   @Override
   public String getBaseGerritUrl(HttpServletRequest req) {
-    return "http://" + HOST_NAME + "-review/foo/";
+    return "http://" + HOST_NAME + "-review/path-prefix/";
   }
 
   private TestGitilesUrls() {}

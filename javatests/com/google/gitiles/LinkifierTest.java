@@ -104,19 +104,19 @@ public class LinkifierTest {
     assertThat(l.linkify(REQ, "I0123456789"))
         .containsExactly(
             ImmutableMap.of(
-                "text", "I0123456789", "url", "http://test-host-review/foo/#/q/I0123456789"))
+                "text", "I0123456789", "url", "http://test-host-review/path-prefix/#/q/I0123456789"))
         .inOrder();
     assertThat(l.linkify(REQ, "Change-Id: I0123456789"))
         .containsExactly(
             ImmutableMap.of("text", "Change-Id: "),
             ImmutableMap.of(
-                "text", "I0123456789", "url", "http://test-host-review/foo/#/q/I0123456789"))
+                "text", "I0123456789", "url", "http://test-host-review/path-prefix/#/q/I0123456789"))
         .inOrder();
     assertThat(l.linkify(REQ, "Change-Id: I0123456789 exists"))
         .containsExactly(
             ImmutableMap.of("text", "Change-Id: "),
             ImmutableMap.of(
-                "text", "I0123456789", "url", "http://test-host-review/foo/#/q/I0123456789"),
+                "text", "I0123456789", "url", "http://test-host-review/path-prefix/#/q/I0123456789"),
             ImmutableMap.of("text", " exists"))
         .inOrder();
   }
@@ -149,7 +149,7 @@ public class LinkifierTest {
                 "text", "http://my/url/I0123456789", "url", "http://my/url/I0123456789"),
             ImmutableMap.of("text", " is not change "),
             ImmutableMap.of(
-                "text", "I0123456789", "url", "http://test-host-review/foo/#/q/I0123456789"))
+                "text", "I0123456789", "url", "http://test-host-review/path-prefix/#/q/I0123456789"))
         .inOrder();
   }
 
