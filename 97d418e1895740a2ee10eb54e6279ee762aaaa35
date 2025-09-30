@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2575b172_aed33945",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010788
+      },
+      "writtenOn": "2025-09-30T17:42:45Z",
+      "side": 1,
+      "message": "@ilmari.lauhakangas@libreoffice.org introduced the editUrl with I726260840191f50eda9e1235bd2abd40eed11af8",
+      "revId": "97d418e1895740a2ee10eb54e6279ee762aaaa35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
