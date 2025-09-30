@@ -553,7 +553,7 @@ public class PathServlet extends BaseServlet {
       URI editUrl = new URI(baseGerritUrl);
       String path =
           String.format(
-              "/admin/repos/edit/repo/%s/branch/%s/file/%s",
+              "admin/repos/edit/repo/%s/branch/%s/file/%s",
               view.getRepositoryName(), commitish, view.getPathPart());
       return editUrl.resolve(escapeName(path));
     } catch (URISyntaxException use) {

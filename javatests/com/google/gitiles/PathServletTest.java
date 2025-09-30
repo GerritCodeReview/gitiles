@@ -111,7 +111,7 @@ public class PathServletTest extends ServletTest {
 
     String editUrl = (String) getBlobData(data).get("editUrl");
     String testUrl =
-        "http://test-host-review/admin/repos/edit/repo/repo/branch/refs/heads/master/file/editFoo";
+        "http://test-host-review/path-prefix/admin/repos/edit/repo/repo/branch/refs/heads/master/file/editFoo";
     assertThat(editUrl).isEqualTo(testUrl);
   }
 
