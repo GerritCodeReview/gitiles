@@ -9,6 +9,7 @@ DEPS = [
     "//lib:errorprone-annotations",
     "//lib:gson",
     "//lib:guava",
+    "//lib:guava-failureaccess",
     "//lib:html-types",
     "//lib:jsr305",
     "//lib:commonmark",
