@@ -7,6 +7,7 @@ pkg_war(
         "//lib/jetty:server",
         "//lib/jetty:servlet",
         "//lib:slf4j-simple",
+        "//lib:guava-failureaccess",
         "//java/com/google/gitiles:servlet",
     ],
     web_xml = "//resources:web_xml",
