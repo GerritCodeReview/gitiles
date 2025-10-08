@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "843f95e8_7dd0d45b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2025-10-08T00:17:16Z",
+      "side": 1,
+      "message": "Can you explain more what exactly this is fixing? Is there a bug report you can link to?",
+      "revId": "129ff5c961217f0502cb0bab76571ea3afe2ca5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
