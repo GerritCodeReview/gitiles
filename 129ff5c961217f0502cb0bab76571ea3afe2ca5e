@@ -34,6 +34,24 @@
       "parentUuid": "843f95e8_7dd0d45b",
       "revId": "129ff5c961217f0502cb0bab76571ea3afe2ca5e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba03a1e_0581c94b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2025-10-09T08:23:06Z",
+      "side": 1,
+      "message": "If you join https://groups.google.com/g/repo-discuss you\u0027ll be able to file bugs on the issue tracker.\n\nIt\u0027s an anti spam measure as we were being hit by spammers.",
+      "parentUuid": "251ef084_4a876c9e",
+      "revId": "129ff5c961217f0502cb0bab76571ea3afe2ca5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
