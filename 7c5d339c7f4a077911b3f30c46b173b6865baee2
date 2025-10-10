@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11147837_32e3ba7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2025-10-10T22:39:20Z",
+      "side": 1,
+      "message": "Thanks for creating the issue and adding the footer here. That said, we generally avoid relying on only the content from the issue tracker vs the commit message. Can you update this message with the important parts from the issue?\n\n```suggestion\nFix webserver ClassNotFoundException due to WAR missing failureaccess JAR\n\nThe pkg_war() rule is missing this runtime dependency. Without it we get\nexceptions like:\njava.lang.ClassNotFoundException: com.google.common.util.concurrent.internal.InternalFutureFailureAccess\n\nBug: Issue 450323474\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57464bc4_a94c3f7d",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2025-10-10T22:39:20Z",
+      "side": 1,
+      "message": "This is only needed at runtime, so I think it should go into the top-level `BUILD` file in the `pkg_war()` rule. You could also add it to the `\"servlet\"` rule below in `runtime_deps` attribute.",
+      "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
