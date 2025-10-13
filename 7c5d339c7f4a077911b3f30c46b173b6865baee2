@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f457f48a_905c5774",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 4398326
+      },
+      "writtenOn": "2025-10-13T05:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af16f7b4_a3b89617",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57464bc4_a94c3f7d",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "In my opinion\n\nPutting it only in the top-level BUILD file or in other space feels a bit odd. \n\nThe root cause of this issue is that Bazel doesn’t handle recursive dependencies correctly. `failureaccess` is required because `guava` depends on it.\nTherefore, either Bazel’s rules correctly handle recursive dependencies—so there’s no need to declare `//lib:guava-failureaccess` separately—or you should declare it wherever `guava` is needed.",
       "parentUuid": "57464bc4_a94c3f7d",
+      "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc004b1_52f2c31e",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4398326
+      },
+      "writtenOn": "2025-10-13T05:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7d40bc_90b45983",
       "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
