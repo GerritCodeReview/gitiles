@@ -123,6 +123,24 @@
       "parentUuid": "ff7d40bc_90b45983",
       "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b1affa8_e8c80209",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2025-10-13T23:32:07Z",
+      "side": 1,
+      "message": "\u003e Putting it only in the top-level BUILD file or in other space feels a bit odd.\n\nTo clarify on this, it\u0027s only needed in the WAR because another WAR that uses only this library JAR could provide its own guava-failureaccess at runtime (this is why gitiles plugin in Gerrit works fine). It\u0027s not a compile-time dependency and that\u0027s what `java_library` `deps` are for.",
+      "parentUuid": "cbc004b1_52f2c31e",
+      "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
