@@ -141,6 +141,24 @@
       "parentUuid": "cbc004b1_52f2c31e",
       "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9f02bac_cabf2bef",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4398326
+      },
+      "writtenOn": "2025-10-15T04:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b1affa8_e8c80209",
+      "revId": "7c5d339c7f4a077911b3f30c46b173b6865baee2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
