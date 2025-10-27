@@ -1,12 +1,13 @@
 {
   "checks": {
     "zuul-check:gitiles": {
-      "state": "SCHEDULED",
-      "message": "Change has been enqueued in check",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/521364,1",
+      "state": "FAILED",
+      "message": "Change failed",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/8f63bf420c17408b89370202d16ab3d3",
       "started": "2025-10-27T22:01:26Z",
+      "finished": "2025-10-27T22:01:29Z",
       "created": "2025-10-27T22:01:27Z",
-      "updated": "2025-10-27T22:01:27Z"
+      "updated": "2025-10-27T22:01:29Z"
     }
   }
 }
