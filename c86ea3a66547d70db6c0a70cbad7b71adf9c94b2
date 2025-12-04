@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cff4d93c_39cd6f38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4512511
+      },
+      "writtenOn": "2025-12-04T20:16:00Z",
+      "side": 1,
+      "message": "Alio",
+      "revId": "c86ea3a66547d70db6c0a70cbad7b71adf9c94b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
