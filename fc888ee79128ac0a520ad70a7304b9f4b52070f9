@@ -67,6 +67,23 @@
       "message": "Ping 🙏",
       "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d232735c_f0ff7fdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4510509
+      },
+      "writtenOn": "2025-12-10T15:25:54Z",
+      "side": 1,
+      "message": "Ping 👋",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
