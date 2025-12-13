@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1cbb867_4fa1cca2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4532972
+      },
+      "writtenOn": "2025-12-13T00:03:27Z",
+      "side": 1,
+      "message": "Open wallet then",
+      "revId": "8b65075ad1fd60e5ae1ae7c44dc62b399b451b58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
