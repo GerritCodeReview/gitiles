@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c1d0c3_ec07dd2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4467757
+      },
+      "writtenOn": "2026-01-04T01:50:38Z",
+      "side": 1,
+      "message": "Seems as if it should be illegal...if working on others property!",
+      "revId": "22c45b3b74a55b75d0011343e41152857f1921cb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
