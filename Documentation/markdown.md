@@ -443,8 +443,9 @@ from trying to load a bad destination.
 Relative and absolute links to image files within the Git repository
 (such as `../images/banner.png`) are resolved during rendering by
 inserting the base64 encoding of the image using a `data:` URI.  Only
-PNG (`*.png`), JPEG (`*.jpg` or `*.jpeg`), GIF (`*.gif`) and WebP (`*.webp`)
-image formats are supported when referenced from the Git repository.
+PNG (`*.png`), JPEG (`*.jpg` or `*.jpeg`), GIF (`*.gif`), WebP (`*.webp`)
+and AVIF (`*.avif`) image formats are supported when referenced from
+the Git repository.
 
 Unsupported extensions or files larger than [image size](config.md#Image-size)
 limit (default 256K) will display a broken image.
