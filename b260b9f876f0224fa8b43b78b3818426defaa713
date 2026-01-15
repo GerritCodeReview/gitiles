@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bccfe19f_6402bcd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2026-01-15T21:19:28Z",
+      "side": 1,
+      "message": "I\u0027d appreciate it if you could review this minor change to the docs, @nasser.grainawi@oss.qualcomm.com. Thanks in advance!",
+      "revId": "b260b9f876f0224fa8b43b78b3818426defaa713",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
