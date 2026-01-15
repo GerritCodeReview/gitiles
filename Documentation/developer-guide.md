@@ -67,8 +67,8 @@ cd /path/to/repositories  # Don't run from the gitiles repo.
 ```
 
 This will recompile and start a development server.  Open
-http://localhost:8080/ to view your local copy of gitiles, which
-will serve any repositories under `/path/to/repositories`.
+http://localhost:8080/path/to/repositories to view your local copy of gitiles,
+which will serve any repositories under `/path/to/repositories`.
 
 Passing `--debug` option to `tools/run_dev.sh` will suspend the runtime until a
 remote debugger connects to port 5005. If you don't want to suspend the
