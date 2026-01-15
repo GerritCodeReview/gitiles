@@ -64,7 +64,13 @@ public class BlobSoyData {
   /** Allowed image extensions to render */
   private static final ImmutableSet<String> ALLOWED_IMAGE_TYPES =
       ImmutableSet.of(
-          "image/gif", "image/jpeg", "image/jpg", "image/png", "image/tiff", "image/webp");
+          "image/avif",
+          "image/gif",
+          "image/jpeg",
+          "image/jpg",
+          "image/png",
+          "image/tiff",
+          "image/webp");
 
   private final GitilesView view;
   private final ObjectReader reader;
