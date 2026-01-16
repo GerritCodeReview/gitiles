@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d53c1d0_b2a553bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106305
+      },
+      "writtenOn": "2026-01-16T00:53:04Z",
+      "side": 1,
+      "message": "Mention why we have switched from tables to description lists for rendering the metadata.",
+      "revId": "ef4b41fe97d616423e99bbf662ce4f3323effb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
