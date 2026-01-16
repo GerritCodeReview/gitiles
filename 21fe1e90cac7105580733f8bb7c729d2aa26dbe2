@@ -532,6 +532,23 @@
       "message": "git clone https://android.googlesource.com/kernel/x86",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2134d79_712ac66a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4402318
+      },
+      "writtenOn": "2026-01-16T11:08:44Z",
+      "side": 1,
+      "message": "Si",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
