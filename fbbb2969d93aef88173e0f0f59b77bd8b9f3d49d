@@ -67,6 +67,23 @@
       "message": "ตรวจสอบ",
       "revId": "fbbb2969d93aef88173e0f0f59b77bd8b9f3d49d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24dc0288_01762397",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4595995
+      },
+      "writtenOn": "2026-01-23T07:10:14Z",
+      "side": 1,
+      "message": "Hii",
+      "revId": "fbbb2969d93aef88173e0f0f59b77bd8b9f3d49d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
