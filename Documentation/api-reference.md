@@ -46,6 +46,13 @@ Download a compressed archive of a repository at a specific commit or ref.
 Supported formats: `.tar.gz` and `.zip`
 ```bash
 curl "https://gerrit.googlesource.com/a/gitiles/+archive/refs/heads/master.tar.gz" -o repo.tar.gz
+curl "https://gerrit.googlesource.com/a/gitiles/+archive/30851aacbea3370c7be8179c890b3401526242eb.tar.gz" -o repo.tar.gz
+```
+
+Download a compressed archive of a folder `java/com/google/gitiles/dev/` in a repository at a specific commit or ref.
+```bash
+curl "https://gerrit.googlesource.com/a/gitiles/+/refs/heads/master/java/com/google/gitiles/dev.tar.gz" -o dev.tar.gz
+curl "https://gerrit.googlesource.com/a/gitiles/+/30851aacbea3370c7be8179c890b3401526242eb/java/com/google/gitiles/dev.tar.gz" -o dev.tar.gz
 ```
 
 #### **`+doc`**
