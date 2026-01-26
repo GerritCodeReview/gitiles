@@ -191,10 +191,14 @@ public class LogServlet extends BaseServlet {
     if (headRef == null) {
       return null;
     }
+    ObjectId id = headRef.getObjectId();
+    if (id == null) {
+      return null;
+    }
     try (RevWalk walk = new RevWalk(repo)) {
       return GitilesView.log()
           .copyFrom(view)
-          .setRevision(Revision.peel(Constants.HEAD, walk.parseAny(headRef.getObjectId()), walk))
+          .setRevision(Revision.peel(Constants.HEAD, walk.parseAny(id), walk))
           .build();
     }
   }
