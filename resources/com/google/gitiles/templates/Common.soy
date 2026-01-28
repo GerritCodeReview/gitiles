@@ -78,7 +78,7 @@
       {if $breadcrumbs && length($breadcrumbs)}
         <div class="Breadcrumbs">
           {for $entry, $index in $breadcrumbs}
-            {if $index > 0}{sp}/{sp}{/if}
+            {if $index > 0}<span class="Breadcrumbs-sep">/</span>{/if}
             {if $index  < length($breadcrumbs) - 1}
               <a class="Breadcrumbs-crumb" href="{$entry.url}">{$entry.text}</a>
             {else}
