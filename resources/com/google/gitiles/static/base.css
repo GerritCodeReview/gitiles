@@ -160,6 +160,13 @@ ul, ol {
   font-size: 18px;
   margin-bottom: 20px;
 }
+.Breadcrumbs-sep::before, .Breadcrumbs-sep::after {
+  content: " ";
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .Breadcrumbs-crumb {
   color: #00e;
 }
