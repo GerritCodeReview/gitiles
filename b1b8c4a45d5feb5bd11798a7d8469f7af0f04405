@@ -33,6 +33,24 @@
       "message": "I think this broke the default behavior of the gitiles devserver.\nWhen starting the dev server using `./tools/run_dev.sh` gitiles used to show git repositories under the current working directory. With this change it now shows \"404 Not Found\".\n\nThe option `gitiles.basePath` configures the directory gitiles is looking for, by default that\u0027s the current working directory where the JVM was started from.\nSee `defaultConfig()` in line 70 of the `DevServer` class.\n\nSetting the current working directory as the servlet context path doesn\u0027t seem to make sense. Instead of highjacking the option name `gitiles.basePath` to define a custom servlet context path a different option name should be chosen e.g. `gitiles.contextPath`.",
       "revId": "b1b8c4a45d5feb5bd11798a7d8469f7af0f04405",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1592ee8d_daed010c",
+        "filename": "java/com/google/gitiles/dev/DevServer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-01-28T10:23:47Z",
+      "side": 1,
+      "message": "I pushed a fix implementing this proposal here: https://gerrit-review.googlesource.com/c/gitiles/+/547284",
+      "parentUuid": "67e68a01_d07f5fc7",
+      "revId": "b1b8c4a45d5feb5bd11798a7d8469f7af0f04405",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
