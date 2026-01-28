@@ -16,6 +16,17 @@ The title of the site. Default: `Gitiles`.
   siteTitle = Acme Inc. Git Browser
 ```
 
+### Base Path
+
+The file system path gitiles will scan for git repositories to serve when started
+in dev mode using `./tools/dev_run.sh`. By default the current working directory
+where the gitiles process was started from.
+
+```
+[gitiles]
+  basePath = /git/
+```
+
 ### URLs
 
 `canonicalHostName`.
@@ -30,7 +41,7 @@ Default: `null`, determine the hostname from the local host.
   mode for that file. The link will only appear when you are browsing the file
   at a branch, so the commitish must start with `refs/heads/`.
 
-`basePath` the base path for the gitiles urls. (only applicable for dev mode.)
+`contextPath` the base path for the gitiles urls. Only applicable for dev mode started using `./tools/dev_run.sh`.
 
 > If you are using the Gerrit Gitiles plugin, this is set based on Gerrit's configuration.
 > Default: `null`, do not link `Change-Id` or show edit links.
@@ -40,7 +51,7 @@ Default: `null`, determine the hostname from the local host.
   canonicalHostName = gitiles.example.org
   gerritUrl = https://gerrit.example.org/r/
   baseGitUrl = git://git.example.org/
-  basePath = /additional/basepath/for/gitiles/
+  contextPath = /additional/basepath/for/gitiles/
 ```
 
 ### Repositories export
