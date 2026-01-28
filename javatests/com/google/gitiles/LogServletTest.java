@@ -319,7 +319,7 @@ public class LogServletTest extends ServletTest {
 
     String path = "/repo/+log/refs/heads/master/bar";
     FakeHttpServletResponse res =
-            buildResponse(path, "format=html" + "&n=" + 2 + "follow=1", SC_OK);
+        buildResponse(path, "format=html" + "&n=" + 2 + "follow=1", SC_OK);
 
     assertThat(res.getActualBodyString()).contains(c1.toObjectId().name());
     assertThat(res.getActualBodyString()).contains(c2.toObjectId().name());
@@ -359,16 +359,16 @@ public class LogServletTest extends ServletTest {
 
   void enableAndWriteCommitGraph() throws Exception {
     repo.getRepository()
-            .getConfig()
-            .setBoolean(
-                    ConfigConstants.CONFIG_CORE_SECTION, null, ConfigConstants.CONFIG_COMMIT_GRAPH, true);
+        .getConfig()
+        .setBoolean(
+            ConfigConstants.CONFIG_CORE_SECTION, null, ConfigConstants.CONFIG_COMMIT_GRAPH, true);
     repo.getRepository()
-            .getConfig()
-            .setBoolean(
-                    ConfigConstants.CONFIG_COMMIT_GRAPH_SECTION,
-                    null,
-                    ConfigConstants.CONFIG_KEY_READ_CHANGED_PATHS,
-                    true);
+        .getConfig()
+        .setBoolean(
+            ConfigConstants.CONFIG_COMMIT_GRAPH_SECTION,
+            null,
+            ConfigConstants.CONFIG_KEY_READ_CHANGED_PATHS,
+            true);
     DfsGarbageCollector gc = new DfsGarbageCollector(repo.getRepository());
     gc.setWriteCommitGraph(true).setWriteBloomFilter(true).pack(NullProgressMonitor.INSTANCE);
   }

@@ -145,7 +145,8 @@ class DevServer {
     }
 
     ServletContextHandler handler = new ServletContextHandler();
-    handler.setContextPath(MoreObjects.firstNonNull(cfg.getString("gitiles", null, "basePath"), ""));
+    handler.setContextPath(
+        MoreObjects.firstNonNull(cfg.getString("gitiles", null, "basePath"), ""));
     handler.addServlet(new ServletHolder(servlet), "/*");
     return handler;
   }
