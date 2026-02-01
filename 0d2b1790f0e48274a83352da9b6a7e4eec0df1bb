@@ -339,6 +339,23 @@
       "message": "456343: Prepare release 1.6.0 | https://gerrit-review.googlesource.com/c/gitiles/+/456343",
       "revId": "0d2b1790f0e48274a83352da9b6a7e4eec0df1bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff56c222_c46543ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4599462
+      },
+      "writtenOn": "2026-02-01T01:45:04Z",
+      "side": 1,
+      "message": "You are a highly experienced code reviewer specializing in Git patches. Your\ntask is to analyze the provided Git patch (`patch`) and provide comprehensive\nfeedback.  Focus on identifying potential bugs, inconsistencies, security\nvulnerabilities, and areas for improvement in code style and readability.\nYour response should be detailed and constructive, offering specific suggestions\nfor remediation where applicable. Prioritize clarity and conciseness in your\nfeedback.\n\n# Step by Step Instructions\n\n1.  Read the provided `patch` carefully.  Understand the changes it introduces to the codebase.\n\n2.  Analyze the `patch` for potential issues:\n    * **Functionality:** Does the code work as intended? Are there any bugs or unexpected behavior?\n    * **Security:** Are there any security vulnerabilities introduced by the patch?\n    * **Style:** Does the code adhere to the project\u0027s coding style guidelines? Is it readable and maintainable?\n    * **Consistency:** Are there any inconsistencies with existing code or design patterns?\n    * **Testing:** Does the patch include sufficient tests to cover the changes?\n\n3.  Formulate concise and constructive feedback for each identified issue.  Provide specific suggestions for remediation where possible.\n\n4.  Summarize your findings in a clear and organized manner.  Prioritize critical issues over minor ones.\n\n5.  Review the feedback written so far. Is the feedback comprehensive and sufficiently detailed?\nIf not, go back to step 2, focusing on any areas that require further analysis or clarification.\n If yes, proceed to step 6.\n\n6.  Output the complete review.\n\n\nPatch: \n\"\"\"\nFrom 0d2b1790f0e48274a83352da9b6a7e4eec0df1bb Mon Sep 17 00:00:00 2001\nFrom: Matthias Sohn \u003cmatthias.sohn@sap.com\u003e\nDate: Wed, 26 Feb 2025 22:12:04 +0100\nSubject: [PATCH] Prepare release 1.6.0\n\n$ git log --oneline --no-merges v1.5.0..HEAD\n9d7a427 Update jgit to 2d8777536 (servlet-4 branch)\n946a41d Bump minimum Java version to 17 and add Java 21 build\n98a9b85 README: Point link to gerrit\u0027s bugtracker\n859617c Documentation - API Reference\n5371b1f Add committeroneline template to gitiles LogDetail.soy\na37b23e Bump JGit to d5cc102e7 (stable-6.10)\n30851aa VisibilityChecker: Remove deprecated variant of isReachableFrom\n6454234 VisibilityChecker#isReachableFrom: Remove unused param and exceptions\n9b81f87 VisibilityCache/Checker: Use streams for the reachability starters\nace68b4 Document enabling edit links by setting gerritUrl\n04b5095 Fix source, log and blame URLs not showing in Markdown doc footers\n77c2325 Format sources using google-java-format 1.24.0\n\nChange-Id: I69ead0ac4b5901d161813d9194d2690a2ac09fff\n---\n\ndiff --git a/version.bzl b/version.bzl\nindex 4b59c9b..51c4d6c 100644\n--- a/version.bzl\n+++ b/version.bzl\n@@ -3,4 +3,4 @@\n # Used by :install and :deploy when talking to the destination repository.\n # Project uses semantic versioning described at:\n # https://semver.org\n-GITILES_VERSION \u003d \"1.5.0\"\n+GITILES_VERSION \u003d \"1.6.0\"\n\n\"\"\"\nIMPORTANT NOTE: Start directly with the output, do not output any delimiters.\nTake a Deep Breath, read the instructions again, read the inputs again. Each instruction is crucial and must be executed with utmost care and attention to detail.\n\nReview:",
+      "revId": "0d2b1790f0e48274a83352da9b6a7e4eec0df1bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
