@@ -359,6 +359,23 @@
       "message": "USE_EXPERIMENTAL_COMPONENT_ALIAS",
       "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d297bfe_00677571",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4615903
+      },
+      "writtenOn": "2026-02-02T21:27:29Z",
+      "side": 1,
+      "message": "USE_EXPERIMENTAL_COMPONENT_ALIAS",
+      "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
