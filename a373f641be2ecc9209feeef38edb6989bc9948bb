@@ -342,6 +342,23 @@
       "message": "05 43 C3 08 9C 6D 11 62 C1 35 FB 59 0A 82 4B ED 23 3F 7B F0 35 5A 94 B3 94 44 92 3D A8 21 DF 2D 41",
       "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56023cb2_6c91b1ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4615903
+      },
+      "writtenOn": "2026-02-02T21:27:01Z",
+      "side": 1,
+      "message": "USE_EXPERIMENTAL_COMPONENT_ALIAS",
+      "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
