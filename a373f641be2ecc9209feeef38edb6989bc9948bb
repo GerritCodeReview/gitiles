@@ -393,6 +393,23 @@
       "message": "246417: Bump version to 0.2-12 | https://gerrit-review.googlesource.com/c/gitiles/+/246417",
       "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c483261a_4861ecf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4605034
+      },
+      "writtenOn": "2026-02-03T16:29:21Z",
+      "side": 1,
+      "message": "Cc",
+      "revId": "a373f641be2ecc9209feeef38edb6989bc9948bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
