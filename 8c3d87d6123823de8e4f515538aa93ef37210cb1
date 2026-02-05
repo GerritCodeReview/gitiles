@@ -33,6 +33,24 @@
       "message": "@matthias.sohn@gmail.com IIUC, we should revert this change now? https://gerrit-review.googlesource.com/c/gitiles/+/543503/3/Documentation/developer-guide.md",
       "revId": "8c3d87d6123823de8e4f515538aa93ef37210cb1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cac8f1_e72ed362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-02-05T12:48:21Z",
+      "side": 1,
+      "message": "I tried reverting this change on top of current master branch and started gitiles from the root of its working tree.\nI have local git repos under the folder `/Users/myosuser/src/git/`\nbut opening\nhttp://localhost:8080/Users/myosuser/src/git/\nresponds 404 \"Not Found\"",
+      "parentUuid": "f06fabc4_08bc38f1",
+      "revId": "8c3d87d6123823de8e4f515538aa93ef37210cb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
