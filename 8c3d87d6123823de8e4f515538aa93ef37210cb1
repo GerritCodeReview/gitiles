@@ -51,6 +51,24 @@
       "parentUuid": "f06fabc4_08bc38f1",
       "revId": "8c3d87d6123823de8e4f515538aa93ef37210cb1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e58817_9f2bbb09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-05T17:38:40Z",
+      "side": 1,
+      "message": "I think you won\u0027t ever see repos outside the path you started gitiles from. That\u0027s not what the doc was about.\n\nThe dev guide doc fix in change 543503 was because if you did:\n```\ncd /Users/myosuser/src/git\n../path/to/gitiles/tools/run_dev.sh\n```\nyou still need to use `http://localhost:8080/Users/myosuser/src/git/` to access the repos vs what the docs had as `http://localhost:8080/`. My question was, with this change 547284 applied, in that same scenario, which of those URLs do you use now to access the repos?",
+      "parentUuid": "d8cac8f1_e72ed362",
+      "revId": "8c3d87d6123823de8e4f515538aa93ef37210cb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
