@@ -16,6 +16,23 @@
       "message": "Mfrgjf",
       "revId": "8c3d87d6123823de8e4f515538aa93ef37210cb1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f06fabc4_08bc38f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-05T04:27:33Z",
+      "side": 1,
+      "message": "@matthias.sohn@gmail.com IIUC, we should revert this change now? https://gerrit-review.googlesource.com/c/gitiles/+/543503/3/Documentation/developer-guide.md",
+      "revId": "8c3d87d6123823de8e4f515538aa93ef37210cb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
