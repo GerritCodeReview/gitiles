@@ -43,6 +43,7 @@ junit_tests(
         ":testutil",
         "//lib:servlet-api",
         "//lib:commons-codec",
+        "//lib:commons-io",
         "//lib/truth",
         "//lib:jgit-junit",
         "//lib/junit",

@@ -11,6 +11,7 @@ package(
     "autolink",
     "commonmark",
     "commons-codec",
+    "commons-io",
     "commons-lang3",
     "commons-text",
     "cm-autolink",
