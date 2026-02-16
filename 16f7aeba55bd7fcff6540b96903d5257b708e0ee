@@ -16,6 +16,23 @@
       "message": "не могу найти повреждения",
       "revId": "16f7aeba55bd7fcff6540b96903d5257b708e0ee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5df8c67d_042c30f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4638760
+      },
+      "writtenOn": "2026-02-16T05:07:58Z",
+      "side": 1,
+      "message": "org.eclipse.jgit.http.server/src/org/eclipse/jgit/http/server/ClientVersionUtil.java",
+      "revId": "16f7aeba55bd7fcff6540b96903d5257b708e0ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
