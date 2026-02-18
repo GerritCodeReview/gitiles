@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98b2a59b_ab6d7735",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-18T19:45:41Z",
+      "side": 1,
+      "message": "Your commit message says this should be 2.46.0\n```suggestion\n    artifact \u003d \"com.google.errorprone:error_prone_annotations:2.46.0\",\n```",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
