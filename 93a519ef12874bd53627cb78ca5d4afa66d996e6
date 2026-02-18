@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a9f18da_0df02ab7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "Thanks for the upgrade!\n\nSeveral of these dependencies are also outdated in Gerrit. We should plan to upgrade them there as well to avoid version skew across JGit, Gerrit, and Gitiles.",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98b2a59b_ab6d7735",
@@ -14,6 +31,155 @@
       "writtenOn": "2026-02-18T19:45:41Z",
       "side": 1,
       "message": "Your commit message says this should be 2.46.0\n```suggestion\n    artifact \u003d \"com.google.errorprone:error_prone_annotations:2.46.0\",\n```",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01021a89_e84d54a2",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "@matthias.sohn@gmail.com\n\nIn change 547426, we are upgrading commons-codec from 1.15 to 1.20. Should we instead align with version 1.18.0 to obtain LC+1?",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74043652_d1c5ef80",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "Google is using version 1.15.0 internally (see change 542021 and issue 475080745). Should we upgrade to the same version to avoid potential version skew?",
+      "range": {
+        "startLine": 60,
+        "startChar": 48,
+        "endLine": 60,
+        "endChar": 54
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bcb7b0d_2d8e2c55",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "In gerrit we are still behind: 3.1.0, and in change 551681 I am trying to bump it to 4.0.4 to normalise the version between JGit and Gerrit.\n\nSee my downgrade change on JGit to avoid version skew between JGit and Gerrit: [1].\n\n[1]: https://jgit.gerrithub.io/c/eclipse-jgit/jgit/+/1230817",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 1
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e447faa_68f454e6",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "Protobuf is a Google project. In Gerrit, we currently use version 4.33.2, which does not require LC+1. Can we align this dependency to the same version here?",
+      "range": {
+        "startLine": 187,
+        "startChar": 50,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b1b8593_c016ae65",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "Gerrit currently depends on JUnit 4.12. See change 388225 proposing an upgrade to 4.13.2.\n\nDo we want to align on JUnit 4.13.2 across Gerrit and Gitiles to avoid version skew?",
+      "range": {
+        "startLine": 222,
+        "startChar": 28,
+        "endLine": 222,
+        "endChar": 34
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f94bf6ea_b8abd92a",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "Google’s internal builds use Byte Buddy 1.18.4 (see change 547427 and Issue 479458086).\n\nDo we want to align on 1.18.4 here as well to avoid version skew?",
+      "range": {
+        "startLine": 238,
+        "startChar": 22,
+        "endLine": 238,
+        "endChar": 28
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fefefe0b_62187f9a",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-18T21:10:21Z",
+      "side": 1,
+      "message": "Nit: unintended white space change.",
       "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
