@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "46fe1546_2eaf8577",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-19T07:42:53Z",
+      "side": 1,
+      "message": "For cross-project alignment, I’ve uploaded a follow-up change 554041 to apply similar dependency version bumps in Gerrit.",
+      "parentUuid": "c3d0883e_4486fb15",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 51
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4a9f18da_0df02ab7",
@@ -151,6 +175,29 @@
         "startChar": 0,
         "endLine": 126,
         "endChar": 1
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35679c0f_af021a1c",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-19T07:42:53Z",
+      "side": 1,
+      "message": "This change replaces the artifact (group/artifact coordinates), not just the version. Mention this in the commit message:\n\n```\nNote: diffutils moved from com.googlecode.java-diff-utils:diffutils to\nio.github.java-diff-utils:java-diff-utils.\n```",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 57
       },
       "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
