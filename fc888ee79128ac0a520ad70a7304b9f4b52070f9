@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f54cef_fd9e7a22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "```suggestion\nEnable Mermaid diagrams in Markdown docs\n\nAdd optional Mermaid rendering for Gitiles Markdown pages by wiring a\nCommonMark extension that recognizes fenced code blocks labeled\n\"mermaid\", renders them as \u003cpre class\u003d\"mermaid\"\u003e, and injects the\nMermaid ESM loader script.\n\nTo make the Mermaid webjar available under Gitiles’ routing, introduce a\nsmall servlet that serves META-INF/resources from a stable /+cmir path\nwith long-lived caching and register it in the main filter. This avoids\nrelying on container-specific META-INF deployment behavior while\nsupporting custom deployment paths.\n\nAdditional changes:\n- Add a markdown.mermaid config flag (default: false) to gate behavior.\n- Serve .mjs with the correct JavaScript MIME type.\n- Add the Mermaid webjar dependency to the build.\n\nBug: Issue 302090041\nChange-Id: I9db9002f61e361a2f331e8cb2cf0dca067478932\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2e67d534_b897c300",
@@ -116,6 +139,246 @@
       "writtenOn": "2026-02-02T06:40:39Z",
       "side": 1,
       "message": "Hello.\n\nIt has been two year since this changeset has been published.\nSomeone can review it ?\n\nIt will be a nice feature for some companies like mine, that use gitiles in gerrit, for technical documentation, but that cannot have graphs in documents without making print screen",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd41c32c_21b155cf",
+        "filename": "WORKSPACE",
+        "patchSetId": 27
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Looks like 11.6.0 is the latest available now, and that\u0027s almost a year old. Can we use that?\n```suggestion\n    artifact \u003d \"org.webjars.npm:mermaid:11.6.0\",\n    sha1 \u003d \"d70b40459d4bc4f84a34230ce06ec62eeb86332e\",\n```",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 54
+      },
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fe396e_4edd7c16",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 27
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "I think this should be added in sorted order.",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aea16c7_7e6962ee",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Can you add in alpha order?",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edc8d7aa_12777324",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Can you add in alpha order?",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3599e1e6_d91f7a74",
+        "filename": "java/com/google/gitiles/doc/MarkdownConfig.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Can you add in alpha order?",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d26b6e0a_52b8f177",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Add in alphabetical order please",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 595,
+        "endChar": 35
+      },
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ed4f7a2_ec140ff0",
+        "filename": "java/com/google/gitiles/doc/MermaidExtension.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Can you move this to a constant and add a note to the `WORKSPACE` file reminding devs to update the version here too?",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 86
+      },
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a457d1_41586d78",
+        "filename": "javatests/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "You could use a text block for this instead:\n```suggestion\n            \"\"\"\n            ```mermaid\n            graph TD;\n                A--\u003eB;\n                A--\u003eC;\n                B--\u003eD;\n                C--\u003eD;\n            ```\n            \"\"\")\n```",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 24
+      },
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c38bd9_6c8e675f",
+        "filename": "javatests/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "The other tests avoid regexes and try to match the exact content. Can you do this instead?\n```suggestion\n        .contains(\n            \"\"\"\n            \u003cpre class\u003d\"mermaid\"\u003egraph TD;\n                A--\u0026gt;B;\n                A--\u0026gt;C;\n                B--\u0026gt;D;\n                C--\u0026gt;D;\n            \u003c/pre\u003e\"\"\");\n```",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 28
+      },
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e0e440_88e779b0",
+        "filename": "javatests/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Can you use the constant I suggested you create in `MermaidExtension` instead of having a regex? If you really don\u0027t want to, then I think you need to tighten the regex. Using `.+` is too loose.",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8765a969_c46d2f3f",
+        "filename": "lib/BUILD",
+        "patchSetId": 27
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "Can you add in alpha order? (I know it\u0027s not perfect currently)",
+      "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "095ce049_67f4db8c",
+        "filename": "resources/com/google/gitiles/mime-types.properties",
+        "patchSetId": 27
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "mjs comes after md\n```suggestion\nmd \u003d text/markdown\nmjs \u003d application/javascript\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
       "revId": "fc888ee79128ac0a520ad70a7304b9f4b52070f9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }

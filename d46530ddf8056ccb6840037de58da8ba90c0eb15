@@ -34,6 +34,24 @@
       "parentUuid": "8b6586f7_5474030f",
       "revId": "d46530ddf8056ccb6840037de58da8ba90c0eb15",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ea50743_2fa9db2d",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-19T22:17:00Z",
+      "side": 1,
+      "message": "I don\u0027t think we try to support IE or any other very old browsers, so this seems fine as-is.",
+      "parentUuid": "fe6d9728_14cd2b70",
+      "revId": "d46530ddf8056ccb6840037de58da8ba90c0eb15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
