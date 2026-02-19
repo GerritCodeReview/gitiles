@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d0883e_4486fb15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-19T06:39:43Z",
+      "side": 1,
+      "message": "Do you mean Gerrit?\n\nThere are already some dependency updates pending LC+1 approval. We can also upload a similar upgrade for the remaining dependencies if that would be helpful.",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 51
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4a9f18da_0df02ab7",
@@ -18,6 +41,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d7b927_f30d5c92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-19T06:39:43Z",
+      "side": 1,
+      "message": "The transitive dependency on `commons-io` is missing now and should be added as the consequence of upgrading `commons-compress`.",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98b2a59b_ab6d7735",
@@ -31,6 +71,24 @@
       "writtenOn": "2026-02-18T19:45:41Z",
       "side": 1,
       "message": "Your commit message says this should be 2.46.0\n```suggestion\n    artifact \u003d \"com.google.errorprone:error_prone_annotations:2.46.0\",\n```",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b6e61d_dbe36492",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-19T06:39:43Z",
+      "side": 1,
+      "message": "Changing the version is only part of it. We also need to update the sha1 to match error_prone_annotations:2.46.0; otherwise the fetch/verification will fail.",
+      "parentUuid": "98b2a59b_ab6d7735",
       "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -116,6 +174,29 @@
         "startChar": 50,
         "endLine": 187,
         "endChar": 56
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5480162_b77923fd",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-19T06:39:43Z",
+      "side": 1,
+      "message": "Upgrading `commons-compress` to 1.28.0 introduces a new compile-time dependency on `commons-io`. Without explicitly adding it as a transitive dependency, gitiles will hit a ClassNotFoundException at runtime.\n\nPlease add `commons-io` as a transitive dependency of `commons-compress`.\n\nSee change 549767 for a similar update in Gerrit. In that case, `commons-io` was already fetched by Gerrit core for use by the `delete-project-plugin` and shipped within the plugin artifact, but it was not included in the final `release.war`.",
+      "range": {
+        "startLine": 207,
+        "startChar": 52,
+        "endLine": 207,
+        "endChar": 58
       },
       "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
