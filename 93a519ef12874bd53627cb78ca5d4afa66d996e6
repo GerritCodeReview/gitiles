@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70db1070_1605f809",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-20T07:26:17Z",
+      "side": 1,
+      "message": "I added an archive servlet integration test in change 554421 to increase coverage of the `+archive` endpoint (tar/tgz). This test executes JGit’s archive path end-to-end and will fail if required runtime deps are missing.\n\nI then rebased this dependency update on top of change 554421 to exercise CI. As expected, this change now fails due to the missing `commons-io` runtime dependency introduced by upgrading `commons-compress` to 1.28.0:\n\n```\nNoClassDefFoundError:\n  org/apache/commons/io/output/CountingOutputStream\n```\n\nI’m happy to amend this change to explicitly add the missing `commons-io` runtime dependency alongside `commons-compress` and wire it into the Bazel build, if that helps move this forward.",
+      "parentUuid": "e5480162_b77923fd",
+      "range": {
+        "startLine": 207,
+        "startChar": 52,
+        "endLine": 207,
+        "endChar": 58
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b1b8593_c016ae65",
         "filename": "WORKSPACE",
         "patchSetId": 1
