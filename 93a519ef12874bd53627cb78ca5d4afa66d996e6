@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0e4d9147_543bfea8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2026-02-20T19:02:14Z",
+      "side": 1,
+      "message": "Yes, fixed, but I\u0027m happy to have you update JGit and Gerrit as well. I\u0027ll do some more analysis where the Google-internal libraries are behind and update them if I can get it done in a reasonable amount of time. So many of these dependencies are API stable so it might be straightforward for most of them.",
+      "parentUuid": "46fe1546_2eaf8577",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 51
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a9f18da_0df02ab7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -78,6 +102,24 @@
       "writtenOn": "2026-02-19T06:39:43Z",
       "side": 1,
       "message": "The transitive dependency on `commons-io` is missing now and should be added as the consequence of upgrading `commons-compress`.",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e101b9b8_e272aaaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2026-02-20T19:02:14Z",
+      "side": 1,
+      "message": "Thanks so much for catching that. I verified that your added test failed with this patchset and succeeds with the new one.",
+      "parentUuid": "a5d7b927_f30d5c92",
       "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -113,6 +155,24 @@
       "side": 1,
       "message": "Changing the version is only part of it. We also need to update the sha1 to match error_prone_annotations:2.46.0; otherwise the fetch/verification will fail.",
       "parentUuid": "98b2a59b_ab6d7735",
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef278d89_71a5d58e",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2026-02-20T19:02:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47b6e61d_dbe36492",
       "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -263,6 +323,30 @@
       "side": 1,
       "message": "I added an archive servlet integration test in change 554421 to increase coverage of the `+archive` endpoint (tar/tgz). This test executes JGit’s archive path end-to-end and will fail if required runtime deps are missing.\n\nI then rebased this dependency update on top of change 554421 to exercise CI. As expected, this change now fails due to the missing `commons-io` runtime dependency introduced by upgrading `commons-compress` to 1.28.0:\n\n```\nNoClassDefFoundError:\n  org/apache/commons/io/output/CountingOutputStream\n```\n\nI’m happy to amend this change to explicitly add the missing `commons-io` runtime dependency alongside `commons-compress` and wire it into the Bazel build, if that helps move this forward.",
       "parentUuid": "e5480162_b77923fd",
+      "range": {
+        "startLine": 207,
+        "startChar": 52,
+        "endLine": 207,
+        "endChar": 58
+      },
+      "revId": "93a519ef12874bd53627cb78ca5d4afa66d996e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e57d71f7_d5369a0a",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2026-02-20T19:02:14Z",
+      "side": 1,
+      "message": "Thanks for discovering this and the added test, I was able to verify the addition of commons-io with it.",
+      "parentUuid": "70db1070_1605f809",
       "range": {
         "startLine": 207,
         "startChar": 52,
