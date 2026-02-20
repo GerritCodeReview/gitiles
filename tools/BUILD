@@ -8,7 +8,7 @@ default_java_toolchain(
     name = "error_prone_warnings_toolchain_java17",
 
     configuration = dict(),
-    java_runtime = "@bazel_tools//tools/jdk:remotejdk_17",
+    java_runtime = "@rules_java//toolchains:remotejdk_17",
     package_configuration = [
         ":error_prone",
     ],
@@ -21,7 +21,7 @@ default_java_toolchain(
     name = "error_prone_warnings_toolchain_java21",
 
     configuration = dict(),
-    java_runtime = "@bazel_tools//tools/jdk:remotejdk_21",
+    java_runtime = "@rules_java//toolchains:remotejdk_21",
     package_configuration = [
         ":error_prone",
     ],
