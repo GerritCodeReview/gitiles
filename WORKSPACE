@@ -50,6 +50,12 @@ maven_jar(
 )
 
 maven_jar(
+    name = "commons-io",
+    artifact = "commons-io:commons-io:2.21.0",
+    sha1 = "52a6f68fe5afe335cde95461dd5c3412f04996f7",
+)
+
+maven_jar(
     name = "commons-lang3",
     artifact = "org.apache.commons:commons-lang3:3.18.0",
     sha1 = "fb14946f0e39748a6571de0635acbe44e7885491",
@@ -59,12 +65,6 @@ maven_jar(
     name = "commons-text",
     artifact = "org.apache.commons:commons-text:1.10.0",
     sha1 = "3363381aef8cef2dbc1023b3e3a9433b08b64e01",
-)
-
-maven_jar(
-    name = "commons-io",
-    artifact = "commons-io:commons-io:2.21.0",
-    sha1 = "52a6f68fe5afe335cde95461dd5c3412f04996f7",
 )
 
 maven_jar(
@@ -190,8 +190,8 @@ maven_jar(
 
 maven_jar(
     name = "protobuf",
-    artifact = "com.google.protobuf:protobuf-java:3.25.5",
-    sha1 = "5ae5c9ec39930ae9b5a61b32b93288818ec05ec1",
+    artifact = "com.google.protobuf:protobuf-java:4.33.2",
+    sha1 = "c85bf5de1ad10453792675f6515401f7b8eb6860",
 )
 
 maven_jar(
