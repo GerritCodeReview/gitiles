@@ -16,6 +16,23 @@
       "message": "Thanks for your help with these updates.",
       "revId": "fac1cc88fdb24aae29da431cf1c1ed8e05bf2a11",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "581b761b_dcdee69d",
+        "filename": "java/com/google/gitiles/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-21T07:22:34Z",
+      "side": 1,
+      "message": "This list is not alphabetically sorted (e.g. commons-io / commons-lang3 / commons-text). Should we sort it here, e.g.:\n\n```\nDEPS \u003d [\n    \"//java/com/google/gitiles/blame/cache\",\n    \"//lib:autolink\",\n    \"//lib:cm-autolink\",\n    \"//lib:commonmark\",\n    \"//lib:commons-io\",\n    \"//lib:commons-lang3\",\n    \"//lib:commons-text\",\n    \"//lib:errorprone-annotations\",\n    \"//lib/flogger\",\n    \"//lib:gfm-strikethrough\",\n    \"//lib:gfm-tables\",\n    \"//lib:gson\",\n    \"//lib:guava\",\n    \"//lib:html-types\",\n    \"//lib:jgit\",\n    \"//lib:jgit-servlet\",\n    \"//lib:jsr305\",\n    \"//lib:prettify\",\n    \"//lib:slf4j-api\",\n    \"//lib/soy\",\n]\n```",
+      "revId": "fac1cc88fdb24aae29da431cf1c1ed8e05bf2a11",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
