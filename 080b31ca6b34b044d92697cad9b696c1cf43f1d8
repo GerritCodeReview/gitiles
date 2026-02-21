@@ -16,6 +16,24 @@
       "message": "When I pushed up the last patchset and resolved all comments this auto submitted, but I did miss an ordering issue in the WORKSPACE file. I\u0027ll fix that in a bit.",
       "revId": "080b31ca6b34b044d92697cad9b696c1cf43f1d8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "038de583_e4c97ebf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019407
+      },
+      "writtenOn": "2026-02-21T02:28:53Z",
+      "side": 1,
+      "message": "I see now that when rebasing my local client I created a merge commit and pushed it up. That somehow bypassed my need to hit the submit button. I did pull before pushing and my local config is setup for rebase, yet somehow that happened.\n\nI\u0027ll send up another review that fixes things I somehow dropped in the process, which were:\n* Update protobuf to 4.33.2\n* Correctly alphabetize the ordering of common-io",
+      "parentUuid": "d72b109f_f1a04da7",
+      "revId": "080b31ca6b34b044d92697cad9b696c1cf43f1d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
