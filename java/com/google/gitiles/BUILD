@@ -3,25 +3,26 @@ load("@rules_java//java:defs.bzl", "java_library")
 load("//tools:stamper.bzl", "stamp")
 
 DEPS = [
+    "//java/com/google/gitiles/blame/cache",
     "//lib:autolink",
+    "//lib:cm-autolink",
+    "//lib:commonmark",
+    "//lib:commons-io",
     "//lib:commons-lang3",
     "//lib:commons-text",
     "//lib:errorprone-annotations",
+    "//lib/flogger",
+    "//lib:gfm-strikethrough",
+    "//lib:gfm-tables",
     "//lib:gson",
     "//lib:guava",
     "//lib:html-types",
-    "//lib:jsr305",
-    "//lib:commonmark",
-    "//lib:cm-autolink",
-    "//lib:gfm-tables",
-    "//lib:gfm-strikethrough",
-    "//lib:prettify",
     "//lib:jgit",
     "//lib:jgit-servlet",
+    "//lib:jsr305",
+    "//lib:prettify",
     "//lib:slf4j-api",
-    "//lib/flogger",
     "//lib/soy",
-    "//java/com/google/gitiles/blame/cache",
 ]
 
 DEPS_ALL = DEPS + [
