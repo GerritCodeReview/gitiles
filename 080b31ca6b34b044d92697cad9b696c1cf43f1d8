@@ -88,6 +88,24 @@
       "parentUuid": "032f2c61_a2f2c2b1",
       "revId": "080b31ca6b34b044d92697cad9b696c1cf43f1d8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c32eb6ae_359c904a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-26T05:15:56Z",
+      "side": 1,
+      "message": "\u003e We can discuss it in the managers meeting. If the project needs ability to submit without 2p review, we can keep the Gerrit requirement but allow self +2 and submit by authors, which can then be reviewed and have approvals added retroactively.\n\nI don\u0027t think it\u0027s needed. It\u0027s not a perm we have in the gerrit repo, it seems to be a special thing for gitiles going to this `gitiles-maintainers` Google Group that I can\u0027t see: https://gerrit-review.googlesource.com/admin/repos/gitiles,access\n\nI created change 556081 to remove those extra perms.",
+      "parentUuid": "853419bc_f861183e",
+      "revId": "080b31ca6b34b044d92697cad9b696c1cf43f1d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
