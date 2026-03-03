@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "a1a2b9f6_ab3268ee",
         "filename": "/PATCHSET_LEVEL",
@@ -14,8 +15,25 @@
       "side": 1,
       "message": "Thanks for updating the commit and review Jonathan.",
       "revId": "b592dbecf0d6856d4aad37dcc67d407dd1a70021",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9556031_b3ca855b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3513263
+      },
+      "writtenOn": "2026-03-03T13:52:52Z",
+      "side": 1,
+      "message": "https://gerrit-review.googlesource.com/c/gitiles/+/282376/comments/0fe3f1c8_0a556c85",
+      "parentUuid": "a1a2b9f6_ab3268ee",
+      "revId": "b592dbecf0d6856d4aad37dcc67d407dd1a70021",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
