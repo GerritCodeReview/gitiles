@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "044654a5_46578c37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4599226
+      },
+      "writtenOn": "2026-03-11T23:51:43Z",
+      "side": 1,
+      "message": "84215: Upgrade JGit to 4.4.1.201607150455-r.118-g1096652 | https://gerrit-review.googlesource.com/c/gitiles/+/84215",
+      "revId": "2cc4ce958154bd068ba9bf740e44cd2635862124",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
