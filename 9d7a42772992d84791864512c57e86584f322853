@@ -33,6 +33,23 @@
       "message": "John",
       "revId": "9d7a42772992d84791864512c57e86584f322853",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2d516b_226e5b37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4657218
+      },
+      "writtenOn": "2026-03-15T05:03:23Z",
+      "side": 1,
+      "message": "455261: Bump minimum Java version to 17 and add Java 21 build | https://gerrit-review.googlesource.com/c/gitiles/+/455261",
+      "revId": "9d7a42772992d84791864512c57e86584f322853",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
