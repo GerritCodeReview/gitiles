@@ -130,7 +130,9 @@
  */
 {template footerFormatBadge modifiable="true" legacydeltemplatenamespace="gitiles.footerFormatBadge"}
 <span class="Footer-formats">
-  <a class="u-monospace Footer-formatsItem" href="?format=TEXT">{msg desc="text format"}txt{/msg}</a>
+  <a class="u-monospace Footer-formatsItem" href="?format=TEXT">{msg desc="text format (base64-encoded)"}txt{/msg}</a>
+    {sp}
+  <a class="u-monospace Footer-formatsItem" href="?format=RAW">{msg desc="raw format"}raw{/msg}</a>
     {sp}
   <a class="u-monospace Footer-formatsItem" href="?format=JSON">{msg desc="JSON format"}json{/msg}</a>
 </span>

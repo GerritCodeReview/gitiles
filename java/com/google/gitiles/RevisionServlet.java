@@ -23,14 +23,12 @@ import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-import com.google.common.io.BaseEncoding;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -145,6 +143,15 @@ public class RevisionServlet extends BaseServlet {
 
   @Override
   protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    doGetTextOrRaw(req, res);
+  }
+
+  @Override
+  protected void doGetRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    doGetTextOrRaw(req, res);
+  }
+
+  private void doGetTextOrRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
     try (ObjectReader reader = repo.newObjectReader()) {
@@ -153,8 +160,7 @@ public class RevisionServlet extends BaseServlet {
         throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
       }
       PathServlet.setTypeHeader(res, loader.getType());
-      try (Writer writer = startRenderText(req, res);
-          OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+      try (OutputStream out = startRenderTextOrRaw(req, res)) {
         loader.copyTo(out);
       }
     }

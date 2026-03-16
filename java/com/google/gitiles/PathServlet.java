@@ -26,12 +26,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.io.BaseEncoding;
+import com.google.common.net.HttpHeaders;
 import com.google.common.primitives.Bytes;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -40,6 +39,7 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.LargeObjectException;
@@ -129,6 +129,13 @@ public class PathServlet extends BaseServlet {
   }
 
   @Override
+  protected FormatType getDefaultFormat(HttpServletRequest req) {
+    return ViewFilter.getView(req).getType() == GitilesView.Type.RAW
+        ? FormatType.RAW
+        : super.getDefaultFormat(req);
+  }
+
+  @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
@@ -162,6 +169,42 @@ public class PathServlet extends BaseServlet {
 
   @Override
   protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    doGetTextOrRaw(req, res);
+  }
+
+  @Override
+  protected void doGetRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    if (ViewFilter.getView(req).getType() == GitilesView.Type.RAW) {
+      doGetBrowserRaw(req, res);
+    } else {
+      doGetTextOrRaw(req, res);
+    }
+  }
+
+  private void doGetBrowserRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Repository repo = ServletUtils.getRepository(req);
+
+    try (RevWalk rw = new RevWalk(repo);
+        WalkResult wr = WalkResult.forPath(rw, view, false)) {
+      if (wr == null) {
+        throw new GitilesRequestFailureException(FailureReason.OBJECT_NOT_FOUND);
+      }
+      switch (wr.type) {
+        case SYMLINK:
+        case REGULAR_FILE:
+        case EXECUTABLE_FILE:
+          writeBlobBrowserRaw(req, res, wr);
+          break;
+        default:
+          throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);
+      }
+    } catch (LargeObjectException e) {
+      throw new GitilesRequestFailureException(FailureReason.OBJECT_TOO_LARGE, e);
+    }
+  }
+
+  private void doGetTextOrRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
 
@@ -171,10 +214,10 @@ public class PathServlet extends BaseServlet {
         throw new GitilesRequestFailureException(FailureReason.OBJECT_NOT_FOUND);
       }
 
-      // Write base64 as plain text without modifying any other headers, under
-      // the assumption that any hint we can give to a browser that this is
-      // base64 data might cause it to try to decode it and render as HTML,
-      // which would be bad.
+      // TEXT format writes base64 as plain text without modifying any other
+      // headers, under the assumption that any hint we can give to a browser
+      // that this is base64 data might cause it to try to decode it and render
+      // as HTML, which would be bad. RAW writes unencoded bytes.
       switch (wr.type) {
         case SYMLINK:
         case REGULAR_FILE:
@@ -207,9 +250,43 @@ public class PathServlet extends BaseServlet {
       throws IOException {
     setTypeHeader(res, wr.type.mode.getObjectType());
     setModeHeader(res, wr.type);
-    try (Writer writer = startRenderText(req, res);
-        OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+    try (OutputStream out = startRenderTextOrRaw(req, res)) {
       wr.getObjectReader().open(wr.id).copyTo(out);
+    }
+  }
+
+  private void writeBlobBrowserRaw(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
+      throws IOException {
+    setTypeHeader(res, wr.type.mode.getObjectType());
+    setModeHeader(res, wr.type);
+
+    ObjectLoader loader = wr.getObjectReader().open(wr.id);
+    boolean binary = isBinaryForDisplay(loader);
+    String mimeType = MimeTypes.getMimeType(wr.path);
+    if (!binary && MimeTypes.ANY.equals(mimeType)) {
+      mimeType = FormatType.TEXT.getMimeType();
+    }
+
+    if (binary) {
+      setDownloadHeaders(req, res, PathUtil.basename(wr.path), mimeType);
+    } else {
+      res.setContentType(mimeType);
+      res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline");
+      setCacheHeaders(req, res);
+    }
+
+    try (OutputStream out = res.getOutputStream()) {
+      loader.copyTo(out);
+    }
+  }
+
+  private static boolean isBinaryForDisplay(ObjectLoader loader) throws IOException {
+    try {
+      byte[] raw = loader.getCachedBytes(BlobSoyData.MAX_FILE_SIZE);
+      return raw.length >= BlobSoyData.MAX_FILE_SIZE || RawText.isBinary(raw);
+    } catch (LargeObjectException e) {
+      // Keep +raw behavior consistent with blob detail rendering for large files.
+      return true;
     }
   }
 
@@ -217,9 +294,7 @@ public class PathServlet extends BaseServlet {
       throws IOException {
     setTypeHeader(res, wr.type.mode.getObjectType());
     setModeHeader(res, wr.type);
-
-    try (Writer writer = startRenderText(req, res);
-        OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+    try (OutputStream out = startRenderTextOrRaw(req, res)) {
       // Match git ls-tree format.
       while (wr.tw.next()) {
         FileMode mode = wr.tw.getFileMode(0);
@@ -239,8 +314,7 @@ public class PathServlet extends BaseServlet {
       throws IOException {
     setTypeHeader(res, wr.type.mode.getObjectType());
     setModeHeader(res, wr.type);
-    try (Writer writer = startRenderText(req, res);
-        OutputStream out = BaseEncoding.base64().encodingStream(writer)) {
+    try (OutputStream out = startRenderTextOrRaw(req, res)) {
       wr.tw.getObjectId(0).copyTo(out);
     }
   }

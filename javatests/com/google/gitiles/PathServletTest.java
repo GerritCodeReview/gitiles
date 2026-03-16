@@ -87,6 +87,7 @@ public class PathServletTest extends ServletTest {
 
     Map<String, ?> data = buildData("/repo/+/master/foo");
     assertThat(data).containsEntry("type", "REGULAR_FILE");
+    assertThat(getBlobData(data).get("rawUrl")).isEqualTo("/b/repo/+raw/master/foo");
 
     SoyListData lines = (SoyListData) getBlobData(data).get("lines");
     assertThat(lines.length()).isEqualTo(2);
@@ -205,6 +206,28 @@ public class PathServletTest extends ServletTest {
     repo.branch("master").commit().add("foo", "contents").create();
     String text = buildBlob("/repo/+/master/foo", "100644");
     assertThat(text).isEqualTo("contents");
+  }
+
+  @Test
+  public void blobRawInlineForText() throws Exception {
+    repo.branch("master").commit().add("foo.txt", "contents").create();
+
+    FakeHttpServletResponse res = buildResponse("/repo/+raw/master/foo.txt", null, SC_OK);
+    assertThat(res.getHeader(PathServlet.MODE_HEADER)).isEqualTo("100644");
+    assertThat(res.getHeader(HttpHeaders.CONTENT_TYPE)).isEqualTo("text/plain");
+    assertThat(res.getHeader(HttpHeaders.CONTENT_DISPOSITION)).isEqualTo("inline");
+    assertThat(res.getActualBodyString()).isEqualTo("contents");
+  }
+
+  @Test
+  public void blobRawAttachmentForBinary() throws Exception {
+    repo.branch("master").commit().add("foo.bin", "a\0b").create();
+
+    FakeHttpServletResponse res = buildResponse("/repo/+raw/master/foo.bin", null, SC_OK);
+    assertThat(res.getHeader(PathServlet.MODE_HEADER)).isEqualTo("100644");
+    assertThat(res.getHeader(HttpHeaders.CONTENT_TYPE)).isEqualTo("application/octet-stream");
+    assertThat(res.getHeader(HttpHeaders.CONTENT_DISPOSITION))
+        .isEqualTo("attachment; filename=foo.bin");
   }
 
   @Test

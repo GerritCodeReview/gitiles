@@ -751,6 +751,29 @@ public class GitilesViewTest {
   }
 
   @Test
+  public void raw() throws Exception {
+    ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
+    GitilesView view =
+        GitilesView.raw()
+            .copyFrom(HOST)
+            .setRepositoryName("foo/bar")
+            .setRevision(Revision.unpeeled("master", id))
+            .setPathPart("/dir/file")
+            .build();
+
+    assertThat(view.getServletPath()).isEqualTo("/b");
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.RAW);
+    assertThat(view.getHostName()).isEqualTo("host");
+    assertThat(view.getRepositoryName()).isEqualTo("foo/bar");
+    assertThat(view.getRevision().getId()).isEqualTo(id);
+    assertThat(view.getRevision().getName()).isEqualTo("master");
+    assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
+    assertThat(view.getPathPart()).isEqualTo("dir/file");
+    assertThat(HOST.getParameters()).isEmpty();
+    assertThat(view.toUrl()).isEqualTo("/b/foo/bar/+raw/master/dir/file");
+  }
+
+  @Test
   public void escaping() throws Exception {
     ObjectId id = ObjectId.fromString("abcd1234abcd1234abcd1234abcd1234abcd1234");
     ObjectId parent = ObjectId.fromString("efab5678efab5678efab5678efab5678efab5678");

@@ -18,6 +18,7 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.gitiles.FormatType.DEFAULT;
 import static com.google.gitiles.FormatType.HTML;
 import static com.google.gitiles.FormatType.JSON;
+import static com.google.gitiles.FormatType.RAW;
 import static com.google.gitiles.FormatType.TEXT;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
@@ -29,6 +30,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.google.common.io.BaseEncoding;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gson.FieldNamingPolicy;
@@ -115,6 +117,9 @@ public abstract class BaseServlet extends HttpServlet {
       case TEXT:
         doGetText(req, res);
         break;
+      case RAW:
+        doGetRaw(req, res);
+        break;
       case JSON:
         doGetJson(req, res);
         break;
@@ -162,6 +167,20 @@ public abstract class BaseServlet extends HttpServlet {
    */
   protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
     throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_RESPONSE_FORMAT);
+  }
+
+  /**
+   * Handle a GET request when the requested format type was raw bytes.
+   *
+   * <p>Defaults to {@link #doGetText(HttpServletRequest, HttpServletResponse)} so subclasses that
+   * render plain text don't need separate RAW handling.
+   *
+   * @param req in-progress request.
+   * @param res in-progress response.
+   * @throws IOException if there was an error rendering the result.
+   */
+  protected void doGetRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    doGetText(req, res);
   }
 
   /**
@@ -351,6 +370,40 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   /**
+   * Prepare the response to render raw bytes.
+   *
+   * @param req in-progress request.
+   * @param res in-progress response.
+   * @return the response's output stream.
+   */
+  protected OutputStream startRenderRaw(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    setApiHeaders(req, res, RAW);
+    return newOutputStream(req, res);
+  }
+
+  /**
+   * Prepare a response output stream for either RAW or TEXT format.
+   *
+   * <p>RAW returns an unencoded byte stream. TEXT returns a base64-encoding stream layered over a
+   * character writer.
+   *
+   * @param req in-progress request.
+   * @param res in-progress response.
+   */
+  protected OutputStream startRenderTextOrRaw(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
+    if (isRawFormat(req)) {
+      return startRenderRaw(req, res);
+    }
+    return BaseEncoding.base64().encodingStream(startRenderText(req, res));
+  }
+
+  private boolean isRawFormat(HttpServletRequest req) {
+    return getFormat(req).filter(format -> format == RAW).isPresent();
+  }
+
+  /**
    * Render an error as plain text.
    *
    * @param req in-progress request.
@@ -440,15 +493,17 @@ public abstract class BaseServlet extends HttpServlet {
   }
 
   private Writer newWriter(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    OutputStream out;
+    return newWriter(newOutputStream(req, res), res);
+  }
+
+  private OutputStream newOutputStream(HttpServletRequest req, HttpServletResponse res)
+      throws IOException {
     if (acceptsGzipEncoding(req)) {
       res.addHeader(HttpHeaders.VARY, HttpHeaders.ACCEPT_ENCODING);
       res.setHeader(HttpHeaders.CONTENT_ENCODING, "gzip");
-      out = new GZIPOutputStream(res.getOutputStream());
-    } else {
-      out = res.getOutputStream();
+      return new GZIPOutputStream(res.getOutputStream());
     }
-    return newWriter(out, res);
+    return res.getOutputStream();
   }
 
   protected static boolean acceptsGzipEncoding(HttpServletRequest req) {

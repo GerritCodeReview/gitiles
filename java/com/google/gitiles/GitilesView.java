@@ -68,6 +68,7 @@ public class GitilesView {
     DESCRIBE,
     ARCHIVE,
     BLAME,
+    RAW,
     DOC,
     ROOTED_DOC;
   }
@@ -120,6 +121,7 @@ public class GitilesView {
         case ROOTED_DOC:
         case ARCHIVE:
         case BLAME:
+        case RAW:
         case SHOW:
           path = other.path;
         // $FALL-THROUGH$
@@ -198,6 +200,7 @@ public class GitilesView {
           throw new IllegalStateException(String.format("cannot set revision on %s view", type));
         case ARCHIVE:
         case BLAME:
+        case RAW:
         case DIFF:
         case DOC:
         case LOG:
@@ -251,6 +254,7 @@ public class GitilesView {
     public Builder setPathPart(String path) {
       switch (type) {
         case PATH:
+        case RAW:
         case DIFF:
         case SHOW:
           checkState(path != null, "cannot set null path on %s view", type);
@@ -344,6 +348,7 @@ public class GitilesView {
           checkRevision();
           break;
         case PATH:
+        case RAW:
         case SHOW:
         case DOC:
           checkPath();
@@ -487,6 +492,10 @@ public class GitilesView {
 
   public static Builder doc() {
     return new Builder(Type.DOC);
+  }
+
+  public static Builder raw() {
+    return new Builder(Type.RAW);
   }
 
   public static Builder rootedDoc() {
@@ -665,8 +674,9 @@ public class GitilesView {
         url.append(firstNonNull(extension, DEFAULT_ARCHIVE_EXTENSION));
         break;
       case PATH:
+      case RAW:
         url.append(repositoryName)
-            .append("/+/")
+            .append(type == Type.RAW ? "/+raw/" : "/+/")
             .append(revision.getName())
             .append('/')
             .append(path);
@@ -848,6 +858,9 @@ public class GitilesView {
         break;
       case BLAME:
         copy = isLeaf ? blame() : path();
+        break;
+      case RAW:
+        copy = isLeaf ? raw() : path();
         break;
       case ARCHIVE:
       case DESCRIBE:

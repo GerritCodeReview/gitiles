@@ -55,6 +55,7 @@ public class BranchRedirect {
         return false;
       case JSON:
       case TEXT:
+      case RAW:
       default:
         return true;
     }

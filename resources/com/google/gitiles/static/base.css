@@ -190,9 +190,10 @@ ul, ol {
 }
 .Footer-formatsItem {
   display: inline-block;
-}
-.Footer-formatsItem:first-child {
   margin-right: 20px;
+}
+.Footer-formatsItem:last-child {
+  margin-right: 0;
 }
 .Footer-link {
   display: inline-block;

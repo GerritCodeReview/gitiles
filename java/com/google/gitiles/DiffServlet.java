@@ -16,13 +16,11 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.io.BaseEncoding;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -118,6 +116,15 @@ public class DiffServlet extends BaseServlet {
 
   @Override
   protected void doGetText(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    doGetTextOrRaw(req, res);
+  }
+
+  @Override
+  protected void doGetRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    doGetTextOrRaw(req, res);
+  }
+
+  private void doGetTextOrRaw(HttpServletRequest req, HttpServletResponse res) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Repository repo = ServletUtils.getRepository(req);
 
@@ -133,8 +140,7 @@ public class DiffServlet extends BaseServlet {
         throw new GitilesRequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
       }
 
-      try (Writer writer = startRenderText(req, res);
-          OutputStream out = BaseEncoding.base64().encodingStream(writer);
+      try (OutputStream out = startRenderTextOrRaw(req, res);
           DiffFormatter diff = new DiffFormatter(out)) {
         formatDiff(repo, oldTree, newTree, view.getPathPart(), diff);
       }

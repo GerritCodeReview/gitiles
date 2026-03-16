@@ -488,6 +488,26 @@ public class ViewFilterTest {
   }
 
   @Test
+  public void raw() throws Exception {
+    RevCommit master = repo.branch(MASTER).commit().create();
+    repo.branch("refs/heads/branch").commit().create();
+    GitilesView view;
+
+    assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+raw"));
+    assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+raw/"));
+    assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+raw/master"));
+    assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+raw/master..branch"));
+
+    view = getView("/repo/+raw/master/foo/bar");
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.RAW);
+    assertThat(view.getRepositoryName()).isEqualTo("repo");
+    assertThat(view.getRevision().getName()).isEqualTo("master");
+    assertThat(view.getRevision().getId()).isEqualTo(master);
+    assertThat(view.getOldRevision()).isEqualTo(Revision.NULL);
+    assertThat(view.getPathPart()).isEqualTo("foo/bar");
+  }
+
+  @Test
   public void testNormalizeParents() throws Exception {
     RevCommit parent = repo.commit().create();
     RevCommit master = repo.branch(MASTER).commit().parent(parent).create();

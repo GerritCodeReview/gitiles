@@ -95,6 +95,7 @@ public class HostIndexServlet extends BaseServlet {
       case HTML:
       case JSON:
       case TEXT:
+      case RAW:
         res.setStatus(HttpServletResponse.SC_OK);
         res.setContentType(format.get().getMimeType());
         break;

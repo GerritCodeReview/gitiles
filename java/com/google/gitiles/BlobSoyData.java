@@ -123,6 +123,7 @@ public class BlobSoyData {
     }
     if (path != null && view.getRevision().getPeeledType() == OBJ_COMMIT) {
       data.put("fileUrl", GitilesView.path().copyFrom(view).toUrl());
+      data.put("rawUrl", GitilesView.raw().copyFrom(view).toUrl());
       data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
       data.put("blameUrl", GitilesView.blame().copyFrom(view).toUrl());
       if (editUrl != null) {
