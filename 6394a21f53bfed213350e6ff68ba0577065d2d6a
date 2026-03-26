@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6fb7d50_eee14531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-03-26T16:40:39Z",
+      "side": 1,
+      "message": "We discussed this in the Gerrit community manager\u0027s meeting today.",
+      "revId": "6394a21f53bfed213350e6ff68ba0577065d2d6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
