@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdec011_ba9b350e",
+        "filename": "project.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-03-26T16:48:28Z",
+      "side": 1,
+      "message": "@tparker@google.com can you edit this and uncomment this line? Or make the `gerrit-lib` group \"Visible to all\"? It fails to publish for me otherwise.",
+      "revId": "82a54d904ece9a2c9464c3abc58c6f5d0f1f5e5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
