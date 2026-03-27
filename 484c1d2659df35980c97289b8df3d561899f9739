@@ -88,6 +88,24 @@
       "parentUuid": "4cad7567_1514eaba",
       "revId": "484c1d2659df35980c97289b8df3d561899f9739",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dfe125b_29e10285",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1088094
+      },
+      "writtenOn": "2026-03-27T19:27:32Z",
+      "side": 1,
+      "message": "Hi Nasser, sounds like it\u0027s in dependency hell here, it\u0027s unfortunately not particularly trivial to add a new dep on our end. I believe @tparker@google.com wanted to spend some time on it this week or next week but I know @ifrade@google.com also looked into it a little a couple weeks ago.",
+      "parentUuid": "4cbc0995_8fdc96f0",
+      "revId": "484c1d2659df35980c97289b8df3d561899f9739",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
