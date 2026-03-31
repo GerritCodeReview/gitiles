@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.gitiles.MoreAssert.assertThrows;
+import static java.lang.String.format;
 
 import com.google.common.net.HttpHeaders;
 import java.io.IOException;
@@ -239,6 +240,11 @@ public class ViewFilterTest {
     assertThat(view.getRevision().getId()).isEqualTo(master);
     assertThat(view.getPathPart()).isEqualTo("");
 
+    view = getView(format("/repo/+show/%s/", master.getId().name()));
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.PATH);
+    assertThat(view.getRevision().getId()).isEqualTo(master);
+    assertThat(view.getPathPart()).isEqualTo("");
+
     view = getView("/repo/+show/master/foo");
     assertThat(view.getType()).isEqualTo(GitilesView.Type.PATH);
     assertThat(view.getRevision().getId()).isEqualTo(master);
@@ -256,6 +262,18 @@ public class ViewFilterTest {
 
     assertThrows(
         GitilesRequestFailureException.class, () -> getView("/repo/+show/stable..master/foo"));
+  }
+
+  @Test
+  public void revisionNotFound() throws Exception {
+    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+show/0123456789abcdef"));
+    assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.OBJECT_NOT_FOUND);
+  }
+
+  @Test
+  public void cannotParse() throws Exception {
+    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+showmaster"));
+    assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.CANNOT_PARSE_GITILES_VIEW);
   }
 
   @Test
