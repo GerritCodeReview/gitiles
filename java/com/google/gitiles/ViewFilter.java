@@ -194,7 +194,7 @@ public class ViewFilter extends AbstractHttpFilter {
       return null;
     }
     RevisionParser.Result result = parseRevision(req, path);
-    if (result == null || result.getOldRevision() != null) {
+    if (result.getOldRevision() != null) {
       return null;
     }
     return GitilesView.archive()
@@ -212,9 +212,6 @@ public class ViewFilter extends AbstractHttpFilter {
       return null;
     }
     RevisionParser.Result result = parseRevision(req, path);
-    if (result == null) {
-      return null;
-    }
     if (result.getOldRevision() != null) {
       return parseDiffCommand(repoName, result);
     }
@@ -234,7 +231,7 @@ public class ViewFilter extends AbstractHttpFilter {
       return null;
     }
     RevisionParser.Result result = parseRevision(req, path);
-    if (result == null || result.getOldRevision() != null || result.getPath().isEmpty()) {
+    if (result.getOldRevision() != null || result.getPath().isEmpty()) {
       return null;
     }
     return GitilesView.blame()
@@ -257,9 +254,6 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private @Nullable GitilesView.Builder parseDiffCommand(
       String repoName, RevisionParser.Result result) {
-    if (result == null) {
-      return null;
-    }
     return GitilesView.diff()
         .setRepositoryName(repoName)
         .setRevision(result.getRevision())
@@ -273,9 +267,6 @@ public class ViewFilter extends AbstractHttpFilter {
       return GitilesView.log().setRepositoryName(repoName);
     }
     RevisionParser.Result result = parseRevision(req, path);
-    if (result == null) {
-      return null;
-    }
     return GitilesView.log()
         .setRepositoryName(repoName)
         .setRevision(result.getRevision())
@@ -294,7 +285,7 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private @Nullable GitilesView.Builder parseShowCommand(
       String repoName, RevisionParser.Result result) {
-    if (result == null || result.getOldRevision() != null) {
+    if (result.getOldRevision() != null) {
       return null;
     }
     if (result.getPath().isEmpty()) {
@@ -313,7 +304,7 @@ public class ViewFilter extends AbstractHttpFilter {
 
   private @Nullable GitilesView.Builder parseDocCommand(
       String repoName, RevisionParser.Result result) {
-    if (result == null || result.getOldRevision() != null) {
+    if (result.getOldRevision() != null) {
       return null;
     }
     GitilesView.Builder b =
@@ -332,7 +323,11 @@ public class ViewFilter extends AbstractHttpFilter {
             accessFactory.forRequest(req),
             visibilityCache,
             getBranchRedirect(req));
-    return revParser.parse(checkLeadingSlash(path));
+    RevisionParser.Result rev = revParser.parse(checkLeadingSlash(path));
+    if (rev == null) {
+      throw new GitilesRequestFailureException(FailureReason.OBJECT_NOT_FOUND);
+    }
+    return rev;
   }
 
   private BranchRedirect getBranchRedirect(HttpServletRequest req) {
