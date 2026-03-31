@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.gitiles.MoreAssert.assertThrows;
+import static java.lang.String.format;
 
 import com.google.common.net.HttpHeaders;
 import java.io.IOException;
@@ -256,6 +257,20 @@ public class ViewFilterTest {
 
     assertThrows(
         GitilesRequestFailureException.class, () -> getView("/repo/+show/stable..master/foo"));
+  }
+
+  @Test
+  public void revisionNotFound() throws Exception {
+    RevCommit master = repo.branch(MASTER).commit().create();
+    GitilesView view;
+
+    view = getView(format("/repo/+show/%s/", master.getId().name()));
+    assertThat(view.getType()).isEqualTo(GitilesView.Type.PATH);
+    assertThat(view.getRevision().getId()).isEqualTo(master);
+    assertThat(view.getPathPart()).isEqualTo("");
+
+    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+show/0123456789abcdef"));
+    assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.OBJECT_NOT_FOUND);
   }
 
   @Test
