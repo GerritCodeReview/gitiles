@@ -34,6 +34,23 @@
       "message": "Uriel",
       "revId": "3b744b1012f1c2d645fd297f00e9ec2e71c5f197",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01266621_52b8b39e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4728372
+      },
+      "writtenOn": "2026-03-31T05:01:59Z",
+      "side": 1,
+      "message": "Remove",
+      "revId": "3b744b1012f1c2d645fd297f00e9ec2e71c5f197",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
