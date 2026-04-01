@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58ae0aca_a21ba7c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2026-04-01T18:47:48Z",
+      "side": 1,
+      "message": "This problem statement is rather confusing as it does not state the problem of the current code.\n\nI suggest we say, \n\"ViewFilter always throws the same CANNOT_PARSE_GITILES_VIEW failure regardless of the underlying cause. We should be throwing OBJECT_NOT_FOUND when the revision is not found.\"",
+      "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e623ec_81a4ff5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2026-04-01T18:47:48Z",
+      "side": 1,
+      "message": "can you add a paragraph stating what exact steps you have taken to solve this problem? \n\nI suggest we say, \n\n\"Let\u0027s throw OBJECT_NOT_FOUND within parseRevision and remove the associating null check for RevisionParser.Result from parseRevision callers.\"",
+      "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c52c7b_c93c0250",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2026-04-01T18:47:48Z",
+      "side": 1,
+      "message": "can you add a test to verify that CANNOT_PARSE_GITILES_VIEW msg is only thrown by bad command parsing and OBJECT_NOT_FOUND is only thrown by bad",
+      "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
