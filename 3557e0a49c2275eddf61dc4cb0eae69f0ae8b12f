@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0258e11d_cf9fceac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1084887
+      },
+      "writtenOn": "2026-04-01T20:14:01Z",
+      "side": 1,
+      "message": "This is explained in the next paragraph. I\u0027m following the guidance at go/cl-descriptions#first-line, specifically\n\n\u003e The first line of a CL description should be a short summary of specifically what is being done by the CL\n\nYour alternative doesn\u0027t match this recommendation.",
+      "parentUuid": "58ae0aca_a21ba7c4",
+      "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52e623ec_81a4ff5f",
@@ -35,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ae64e59_ca59e768",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1084887
+      },
+      "writtenOn": "2026-04-01T20:14:01Z",
+      "side": 1,
+      "message": "Met you halfway. I don\u0027t think CL descriptions need to highlight every minutia of code changes, and it should be pretty obvious from context why the null check is removed.",
+      "parentUuid": "52e623ec_81a4ff5f",
+      "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64c52c7b_c93c0250",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-01T18:47:48Z",
       "side": 1,
       "message": "can you add a test to verify that CANNOT_PARSE_GITILES_VIEW msg is only thrown by bad command parsing and OBJECT_NOT_FOUND is only thrown by bad",
+      "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c9023e9_163ee95b",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1084887
+      },
+      "writtenOn": "2026-04-01T20:14:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c52c7b_c93c0250",
       "revId": "3557e0a49c2275eddf61dc4cb0eae69f0ae8b12f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
