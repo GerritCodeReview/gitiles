@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6d8315_38d518b3",
+        "filename": "javatests/com/google/gitiles/ViewFilterTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1152101
+      },
+      "writtenOn": "2026-04-01T21:04:07Z",
+      "side": 1,
+      "message": "remove extra lines.",
+      "revId": "0094e67c209ee4a9426414e1b4704711b51043c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
