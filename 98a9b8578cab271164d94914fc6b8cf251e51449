@@ -50,6 +50,23 @@
       "message": "Pu",
       "revId": "98a9b8578cab271164d94914fc6b8cf251e51449",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1773d1fa_e9bb59ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4809684
+      },
+      "writtenOn": "2026-05-05T17:41:15Z",
+      "side": 1,
+      "message": "https://bplay666.net/?action\u003dregister\u0026refer_code\u003dU5ePF3JfQb\u0026prefix\u003dbplay666%22{\\%22reauto\\%22:null,\\%22clientinfo\\%22:\\%22eyJmYmMiOiIiLCJmYnAiOiIiLCJ2aWQiOjExNjQ4LCJ1YSI6Ik1vemlsbGEvNS4wIChMaW51eDsgQW5kcm9pZCAxMDsgSykgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE0NS4wLjAuMCBNb2JpbGUgU2FmYXJpLzUzNy4zNiJ9\\%22,\\%22channelkey\\%22:\\%22megap-invite\\%22,\\%22channelagency\\%22:\\%22megap-in\\%22}%22",
+      "revId": "98a9b8578cab271164d94914fc6b8cf251e51449",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
