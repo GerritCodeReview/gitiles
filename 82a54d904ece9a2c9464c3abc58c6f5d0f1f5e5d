@@ -34,6 +34,24 @@
       "parentUuid": "5fdec011_ba9b350e",
       "revId": "82a54d904ece9a2c9464c3abc58c6f5d0f1f5e5d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e3a62be_7a736d76",
+        "filename": "project.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-05-08T03:39:44Z",
+      "side": 1,
+      "message": "Hmm, strange. Let me leave it as `google/gerritcodereview-maintainers@googlegroups.com` and see if you can switch it after I submit.\n\nCan someone +2 this?",
+      "parentUuid": "b4548309_e84c7413",
+      "revId": "82a54d904ece9a2c9464c3abc58c6f5d0f1f5e5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
