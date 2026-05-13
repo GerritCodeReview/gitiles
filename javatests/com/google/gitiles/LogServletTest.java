@@ -26,6 +26,7 @@ import org.eclipse.jgit.internal.storage.commitgraph.ChangedPathFilter;
 import org.eclipse.jgit.internal.storage.dfs.DfsGarbageCollector;
 import org.eclipse.jgit.lib.ConfigConstants;
 import org.eclipse.jgit.lib.NullProgressMonitor;
+import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.junit.Test;
@@ -123,6 +124,37 @@ public class LogServletTest extends ServletTest {
     assertThat(response.log).hasSize(2);
     verifyJsonCommit(response.log.get(0), c2);
     verifyJsonCommit(response.log.get(1), c1);
+  }
+
+  @Test
+  public void authorFilterLog() throws Exception {
+    PersonIdent matchingAuthor = new PersonIdent("Matching Author", "matching.author@example.com");
+    PersonIdent otherAuthor = new PersonIdent("Other Author", "other.author@example.com");
+
+    RevCommit c1 =
+        repo.branch("master").commit().author(matchingAuthor).add("foo", "one").create();
+    repo.branch("master").commit().author(otherAuthor).add("foo", "two").create();
+
+    Log response =
+        buildJson(LOG, "/repo/+log/master", "author=" + matchingAuthor.getEmailAddress());
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
+  }
+
+  @Test
+  public void committerFilterLog() throws Exception {
+    PersonIdent matchingCommitter =
+        new PersonIdent("Matching Committer", "matching-committer@example.com");
+    PersonIdent otherCommitter = new PersonIdent("Other Committer", "other-committer@example.com");
+
+    RevCommit c1 =
+        repo.branch("master").commit().committer(matchingCommitter).add("foo", "one").create();
+    repo.branch("master").commit().committer(otherCommitter).add("foo", "two").create();
+
+    Log response =
+        buildJson(LOG, "/repo/+log/master", "committer=" + matchingCommitter.getEmailAddress());
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
   }
 
   private void verifyJsonCommit(Commit jsonCommit, RevCommit commit) throws Exception {
