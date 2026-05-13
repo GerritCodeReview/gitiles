@@ -16,6 +16,24 @@
       "message": "Small first step for the Gitiles search issue. \n\nThis only adds servlet coverage for the existing \nauthor/committer log filters, so later changes\ncan build on the same backend path for more log \nsearch support.",
       "revId": "9df3a168e43bcb41015c16873c095ee7f9907542",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3723005_09b4671b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-13T18:47:54Z",
+      "side": 1,
+      "message": "Here is what I did to verify -\n\n```\n\nDevanshs-MacBook-Pro    \\src\\gitiles  ➜ (   gitiles-log-search_patch1)   13.518s   12:00 AM   \n ⚡devanshvarshney ❯❯ bazelisk test //javatests/com/google/gitiles:servlet_tests\n\nWARNING: Ignoring JAVA_HOME, because it must point to a JDK, not a JRE.\nINFO: Invocation ID: 2827c73c-47ef-434e-b490-6eecbd283f99\nINFO: Analyzed target //javatests/com/google/gitiles:servlet_tests (0 packages loaded, 0 targets configured).\nINFO: Found 1 test target...\nTarget //javatests/com/google/gitiles:servlet_tests up-to-date:\n  bazel-bin/javatests/com/google/gitiles/servlet_tests\n  bazel-bin/javatests/com/google/gitiles/servlet_tests.jar\nINFO: Elapsed time: 0.193s, Critical Path: 0.09s\nINFO: 1 process: 1 internal.\nINFO: Build completed successfully, 1 total action\n//javatests/com/google/gitiles:servlet_tests                    (cached) PASSED in 6.7s\n\nExecuted 0 out of 1 test: 1 test passes.\n\n\n```",
+      "parentUuid": "4ab52be1_29392d44",
+      "revId": "9df3a168e43bcb41015c16873c095ee7f9907542",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
