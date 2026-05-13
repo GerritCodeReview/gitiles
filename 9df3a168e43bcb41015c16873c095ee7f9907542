@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab52be1_29392d44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-13T18:45:17Z",
+      "side": 1,
+      "message": "Small first step for the Gitiles search issue. \n\nThis only adds servlet coverage for the existing \nauthor/committer log filters, so later changes\ncan build on the same backend path for more log \nsearch support.",
+      "revId": "9df3a168e43bcb41015c16873c095ee7f9907542",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
