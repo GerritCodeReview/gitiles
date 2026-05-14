@@ -157,6 +157,59 @@ public class LogServletTest extends ServletTest {
     verifyJsonCommit(response.log.get(0), c1);
   }
 
+  @Test
+  public void grepFilterLog() throws Exception {
+    RevCommit c1 =
+        repo.branch("master")
+            .commit()
+            .message("Add search support\n\nBody contains release-notes.")
+            .add("foo", "one")
+            .create();
+    repo.branch("master")
+        .commit()
+        .message("Other change\n\nNo match here.")
+        .add("foo", "two")
+        .create();
+
+    Log response = buildJson(LOG, "/repo/+log/master", "log-grep=release-notes");
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
+  }
+
+  @Test
+  public void grepFilterCombinesWithAuthorFilter() throws Exception {
+    PersonIdent matchingAuthor = new PersonIdent("Matching Author", "matching.author@example.com");
+    PersonIdent otherAuthor = new PersonIdent("Other Author", "other.author@example.com");
+
+    RevCommit c1 =
+        repo.branch("master")
+            .commit()
+            .author(matchingAuthor)
+            .message("Search target\n")
+            .add("foo", "one")
+            .create();
+    repo.branch("master")
+        .commit()
+        .author(otherAuthor)
+        .message("Search target\n")
+        .add("foo", "two")
+        .create();
+    repo.branch("master")
+        .commit()
+        .author(matchingAuthor)
+        .message("Other change\n")
+        .add("foo", "three")
+        .create();
+
+    Log response =
+        buildJson(
+            LOG,
+            "/repo/+log/master",
+            "author=" + matchingAuthor.getEmailAddress() + "&log-grep=target");
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
+  }
+
   private void verifyJsonCommit(Commit jsonCommit, RevCommit commit) throws Exception {
     repo.getRevWalk().parseBody(commit);
     GitilesAccess access = new TestGitilesAccess(repo.getRepository()).forRequest(null);
