@@ -157,6 +157,59 @@ public class LogServletTest extends ServletTest {
     verifyJsonCommit(response.log.get(0), c1);
   }
 
+  @Test
+  public void grepFilterLog() throws Exception {
+    RevCommit c1 =
+        repo.branch("master")
+            .commit()
+            .message("Add search support\n\nBody contains release-notes.")
+            .add("foo", "one")
+            .create();
+    repo.branch("master")
+        .commit()
+        .message("Other change\n\nNo match here.")
+        .add("foo", "two")
+        .create();
+
+    Log response = buildJson(LOG, "/repo/+log/master", "grep=release-notes");
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
+  }
+
+  @Test
+  public void grepFilterCombinesWithAuthorFilter() throws Exception {
+    PersonIdent matchingAuthor = new PersonIdent("Matching Author", "matching.author@example.com");
+    PersonIdent otherAuthor = new PersonIdent("Other Author", "other.author@example.com");
+
+    RevCommit c1 =
+        repo.branch("master")
+            .commit()
+            .author(matchingAuthor)
+            .message("Search target\n")
+            .add("foo", "one")
+            .create();
+    repo.branch("master")
+        .commit()
+        .author(otherAuthor)
+        .message("Search target\n")
+        .add("foo", "two")
+        .create();
+    repo.branch("master")
+        .commit()
+        .author(matchingAuthor)
+        .message("Other change\n")
+        .add("foo", "three")
+        .create();
+
+    Log response =
+        buildJson(
+            LOG,
+            "/repo/+log/master",
+            "author=" + matchingAuthor.getEmailAddress() + "&grep=target");
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
+  }
+
   private void verifyJsonCommit(Commit jsonCommit, RevCommit commit) throws Exception {
     repo.getRevWalk().parseBody(commit);
     GitilesAccess access = new TestGitilesAccess(repo.getRepository()).forRequest(null);
@@ -234,6 +287,35 @@ public class LogServletTest extends ServletTest {
                 + "&amp;s="
                 + parent.toObjectId().getName()
                 + "\">");
+  }
+
+  @Test
+  public void verifyNextButtonPreservesGrep() throws Exception {
+    repo.branch(MAIN).commit().message("target base").add("foo", "contents").create();
+    RevCommit grandParent =
+        repo.branch(MAIN).commit().message("target first").add("foo", "contents").create();
+    RevCommit parent =
+        repo.branch(MAIN)
+            .commit()
+            .parent(grandParent)
+            .message("target second")
+            .add("foo", "contents")
+            .create();
+    RevCommit main =
+        repo.branch(MAIN)
+            .commit()
+            .parent(parent)
+            .message("target third")
+            .add("foo", "contents")
+            .create();
+
+    String path =
+        "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html&n=1&grep=target", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains("<a class=\"LogNav-next\"");
+    assertThat(res.getActualBodyString()).contains("&amp;grep=target");
+    assertThat(res.getActualBodyString()).contains("&amp;s=" + parent.toObjectId().getName());
   }
 
   @Test
