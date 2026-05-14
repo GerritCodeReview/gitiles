@@ -56,6 +56,7 @@ import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.filter.AndRevFilter;
+import org.eclipse.jgit.revwalk.filter.MessageRevFilter;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
 import org.eclipse.jgit.treewalk.filter.ChangedPathTreeFilter;
 import org.eclipse.jgit.util.StringUtils;
@@ -73,6 +74,7 @@ public class LogServlet extends BaseServlet {
   private static final String TOPO_ORDER_PARAM = "topo-order";
   private static final String REVERSE_PARAM = "reverse";
   private static final String FIRST_PARENT_PARAM = "first-parent";
+  private static final String GREP_PARAM = "grep";
 
   private static final int DEFAULT_LIMIT = 100;
   private static final int MAX_LIMIT = 10000;
@@ -260,7 +262,7 @@ public class LogServlet extends BaseServlet {
   }
 
   private static void setRevFilter(RevWalk walk, GitilesView view) {
-    List<RevFilter> filters = new ArrayList<>(3);
+    List<RevFilter> filters = new ArrayList<>(4);
     if (isTrue(view, "no-merges")) {
       filters.add(RevFilter.NO_MERGES);
     }
@@ -273,6 +275,11 @@ public class LogServlet extends BaseServlet {
     String committer = Iterables.getFirst(view.getParameters().get("committer"), null);
     if (committer != null) {
       filters.add(IdentRevFilter.committer(committer));
+    }
+
+    String grep = Iterables.getFirst(view.getParameters().get(GREP_PARAM), null);
+    if (!Strings.isNullOrEmpty(grep)) {
+      filters.add(MessageRevFilter.create(grep));
     }
 
     if (filters.size() > 1) {
