@@ -34,6 +34,24 @@
       "parentUuid": "e620bb41_4eea7fe6",
       "revId": "4dac7c01c88b06014fa583767d89351705bf0e7e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c9d4199_4568ef54",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-18T12:38:44Z",
+      "side": 1,
+      "message": "Done, renamed it to `log-grep` and updated the internal names to\n`LOG_GREP_PARAM` / `logGrep`.",
+      "parentUuid": "8cd54595_71dde1b1",
+      "revId": "4dac7c01c88b06014fa583767d89351705bf0e7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
