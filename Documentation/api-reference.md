@@ -25,6 +25,10 @@ Lists all refs (branches, tags, etc.) in the repository.
 `https://gerrit.googlesource.com/a/gitiles/+log/refs/heads/master?n=10&format=JSON`
 
 Shows the commit log.
+
+To filter on author use the `author=<name or email>` parameter.
+To filter on committer use the `committer=<name or email>` parameter
+
 Use the parameter `n=<number>` to limit the number of commits returned.
 For paging use the start parameter `s=<next_cursor>`.
 The `next` key in the JSON provides a cursor for the next page. Use it with `s=<next_cursor>`.
