@@ -51,6 +51,23 @@
       "message": "Documented author and committer in follow-up",
       "revId": "9df3a168e43bcb41015c16873c095ee7f9907542",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4bb5212_30a5d0d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-19T08:11:27Z",
+      "side": 1,
+      "message": "CI failure overridden since they aren\u0027t related to this change and tests have been run successfully further up the stack.",
+      "revId": "9df3a168e43bcb41015c16873c095ee7f9907542",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
