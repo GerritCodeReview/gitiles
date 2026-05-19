@@ -33,6 +33,23 @@
       "message": "CI failure overridden since they aren\u0027t related to this change and tests have been run successfully further up the stack.",
       "revId": "7a34d138a61916f3c0e1ed540b2a4f7c8eb35375",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e325f1_b61c5d66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-19T09:32:14Z",
+      "side": 1,
+      "message": "Thanks for merging :)\n\nAnd for the next step, I am thinking about starting the `git grep` part of\nthe issue as a small backend-first change.\n\nMy initial scope would be JSON only, without any UI:\n\n```\n  /repo/+grep/\u003crevision\u003e?q\u003d\u003ctext\u003e\u0026format\u003dJSON\n  /repo/+grep/\u003crevision\u003e/\u003cpath-prefix\u003e?q\u003d\u003ctext\u003e\u0026format\u003dJSON\n```\n\nThe implementation would use JGit `TreeWalk`/`ObjectReader` directly, with\nlimits on number of results and blob size, and would not add any indexing dependency.\n\nDoes this endpoint shape and scope sound reasonable as the next step?",
+      "revId": "7a34d138a61916f3c0e1ed540b2a4f7c8eb35375",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
