@@ -290,6 +290,34 @@ public class LogServletTest extends ServletTest {
   }
 
   @Test
+  public void verifyNextButtonPreservesLogGrep() throws Exception {
+    repo.branch(MAIN).commit().message("target base").add("foo", "contents").create();
+    RevCommit grandParent =
+        repo.branch(MAIN).commit().message("target first").add("foo", "contents").create();
+    RevCommit parent =
+        repo.branch(MAIN).commit()
+            .parent(grandParent)
+            .message("target second")
+            .add("foo", "contents")
+            .create();
+    RevCommit main =
+        repo.branch(MAIN)
+            .commit()
+            .parent(parent)
+            .message("target third")
+            .add("foo", "contents")
+            .create();
+
+    String path =
+        "/repo/+log/" + grandParent.toObjectId().getName() + ".." + main.toObjectId().getName();
+    FakeHttpServletResponse res = buildResponse(path, "format=html&n=1&log-grep=target", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains("<a class=\"LogNav-next\"");
+    assertThat(res.getActualBodyString()).contains("&amp;log-grep=target");
+    assertThat(res.getActualBodyString()).contains("&amp;s=" + parent.toObjectId().getName());
+  }
+
+  @Test
   public void prettyDefaultUsesDefaultCssClass() throws Exception {
     RevCommit parent = repo.branch(MAIN).commit().add("foo", "contents").create();
     RevCommit main = repo.branch(MAIN).commit().parent(parent).create();
