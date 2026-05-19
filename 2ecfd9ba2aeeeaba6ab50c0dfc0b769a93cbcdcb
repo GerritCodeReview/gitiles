@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a34c4b21_a0125b8d",
+        "filename": "java/com/google/gitiles/LogServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-19T06:32:50Z",
+      "side": 1,
+      "message": "Looking at the API I think the param should be \"grep\".\nI.e.\n`some/project/+log/path/file?grep\u003d\u003csomething\u003e` rather than `some/project/+log/path/file?log-grep\u003d\u003csomething\u003e`\n```suggestion\n  private static final String GREP_PARAM \u003d \"grep\";\n```\n\nI also changed my mind about the name `LOG_GREP_PARAM` 😊 since this is local to the LogServlet it is obvious that it is \"log --grep\" that is referenced.",
+      "range": {
+        "startLine": 77,
+        "startChar": 48,
+        "endLine": 77,
+        "endChar": 56
+      },
+      "revId": "2ecfd9ba2aeeeaba6ab50c0dfc0b769a93cbcdcb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
