@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da69ed39_c3640822",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-22T11:47:38Z",
+      "side": 1,
+      "message": "What seem to be unrelated system issues are causing the CI to fail, tests pass locally ran with:\n`$ bazel test javatests/com/google/gitiles:servlet_tests`",
+      "revId": "44f4d076132452bd5ad79862062ec69b85690fb8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
