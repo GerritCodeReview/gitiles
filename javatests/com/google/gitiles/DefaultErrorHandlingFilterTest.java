@@ -38,7 +38,7 @@ public class DefaultErrorHandlingFilterTest {
 
     assertThat(resp.getStatus()).isEqualTo(SC_BAD_REQUEST);
     assertThat(resp.getHeader(DefaultErrorHandlingFilter.GITILES_ERROR))
-        .isEqualTo("INCORECT_PARAMETER");
+        .isEqualTo("INCORRECT_PARAMETER");
   }
 
   private static class TestServlet extends HttpServlet {
@@ -46,7 +46,7 @@ public class DefaultErrorHandlingFilterTest {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) {
-      throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER);
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER);
     }
   }
 }

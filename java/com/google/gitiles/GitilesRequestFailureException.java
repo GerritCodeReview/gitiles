@@ -131,7 +131,7 @@ public final class GitilesRequestFailureException extends RuntimeException {
     /** Cannot parse URL as a Gitiles URL. */
     CANNOT_PARSE_GITILES_VIEW(SC_NOT_FOUND, "Cannot parse URL as a Gitiles URL"),
     /** URL parameters are not valid. */
-    INCORECT_PARAMETER(SC_BAD_REQUEST, "URL parameters are not valid"),
+    INCORRECT_PARAMETER(SC_BAD_REQUEST, "URL parameters are not valid"),
     /**
      * The object specified by the URL is not suitable for the view (e.g. trying to show a blob as a
      * tree).

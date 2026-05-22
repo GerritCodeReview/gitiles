@@ -59,7 +59,7 @@ public class RefServlet extends BaseServlet {
   @Override
   protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
     if (!ViewFilter.getView(req).getPathPart().isEmpty()) {
-      throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER);
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER);
     }
     List<Map<String, Object>> tags;
     try (RevWalk walk = new RevWalk(ServletUtils.getRepository(req))) {

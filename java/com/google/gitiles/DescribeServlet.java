@@ -81,7 +81,7 @@ public class DescribeServlet extends BaseServlet {
     try {
       return repo.resolve(rev);
     } catch (RevisionSyntaxException e) {
-      throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER, e)
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER, e)
           .withPublicErrorMessage(
               "Invalid revision syntax: %s", RefServlet.sanitizeRefForText(rev));
     } catch (AmbiguousObjectException e) {
@@ -95,7 +95,7 @@ public class DescribeServlet extends BaseServlet {
   private @Nullable String describe(Repository repo, GitilesView view, HttpServletRequest req)
       throws IOException {
     if (!getBooleanParam(view, CONTAINS_PARAM)) {
-      throw new GitilesRequestFailureException(FailureReason.INCORECT_PARAMETER);
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER);
     }
     ObjectId id = resolve(repo, view);
     if (id == null) {
