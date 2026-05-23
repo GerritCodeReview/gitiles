@@ -64,6 +64,7 @@ public class GitilesView {
     SHOW,
     DIFF,
     LOG,
+    GREP,
     DESCRIBE,
     ARCHIVE,
     BLAME,
@@ -119,6 +120,7 @@ public class GitilesView {
         case ROOTED_DOC:
         case ARCHIVE:
         case BLAME:
+        case GREP:
         case SHOW:
           path = other.path;
         // $FALL-THROUGH$
@@ -200,6 +202,7 @@ public class GitilesView {
         case DIFF:
         case DOC:
         case LOG:
+        case GREP:
         case PATH:
         case REVISION:
         case ROOTED_DOC:
@@ -259,6 +262,7 @@ public class GitilesView {
         case DESCRIBE:
         case REFS:
         case LOG:
+        case GREP:
         case DOC:
         case ROOTED_DOC:
           break;
@@ -353,6 +357,9 @@ public class GitilesView {
         case LOG:
           checkLog();
           break;
+        case GREP:
+          checkGrep();
+          break;
         case ARCHIVE:
           checkArchive();
           break;
@@ -419,6 +426,10 @@ public class GitilesView {
       checkRepositoryIndex();
     }
 
+    private void checkGrep() {
+      checkRevision();
+    }
+
     private void checkPath() {
       checkView(path != null, "missing path on %s view", type);
       checkRevision();
@@ -474,6 +485,10 @@ public class GitilesView {
 
   public static Builder log() {
     return new Builder(Type.LOG);
+  }
+
+  public static Builder grep() {
+    return new Builder(Type.GREP);
   }
 
   public static Builder archive() {
@@ -697,6 +712,12 @@ public class GitilesView {
           if (path != null) {
             url.append('/').append(path);
           }
+        }
+        break;
+      case GREP:
+        url.append(repositoryName).append("/+grep/").append(revision.getName());
+        if (path != null) {
+          url.append('/').append(path);
         }
         break;
       case BLAME:
