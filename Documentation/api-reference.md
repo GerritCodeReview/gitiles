@@ -39,6 +39,16 @@ Shows the commit log.
    The final page will have no `next` key.
    Every page except for the first will have a `previous` cursor to page backwards.
 
+#### **`+grep`**
+`https://gerrit.googlesource.com/a/gitiles/+grep/refs/heads/master?q=query&format=JSON`
+
+Searches file contents at a revision.
+
+##### Search parameters
+* `q=<text>`
+
+A path prefix may be supplied after the revision to limit the search.
+
 #### **`+show`**
 `https://gerrit.googlesource.com/a/gitiles/+show/refs/heads/master/?format=JSON`
 
