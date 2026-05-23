@@ -39,6 +39,18 @@ Shows the commit log.
    The final page will have no `next` key.
    Every page except for the first will have a `previous` cursor to page backwards.
 
+#### **`+grep`**
+`https://gerrit.googlesource.com/a/gitiles/+grep/refs/heads/master?s=text&format=JSON`
+
+Searches file contents at a revision.
+
+##### Search parameters
+* `s=<text>` lists files containing the sub-string `<text>`.
+
+A file or directory path may be supplied after the revision to limit the search.
+The search is a case-sensitive literal substring search. Binary files and
+blobs larger than 1 MiB are skipped. Results are limited to 1000 matches.
+
 #### **`+show`**
 `https://gerrit.googlesource.com/a/gitiles/+show/refs/heads/master/?format=JSON`
 
