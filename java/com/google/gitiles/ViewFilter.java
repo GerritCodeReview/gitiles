@@ -45,6 +45,7 @@ public class ViewFilter extends AbstractHttpFilter {
   private static final String CMD_DESCRIBE = "+describe";
   private static final String CMD_DIFF = "+diff";
   private static final String CMD_LOG = "+log";
+  private static final String CMD_GREP = "+grep";
   private static final String CMD_REFS = "+refs";
   private static final String CMD_SHOW = "+show";
   private static final String CMD_DOC = "+doc";
@@ -162,6 +163,8 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseDiffCommand(req, repoName, path);
     } else if (command.equals(CMD_LOG)) {
       return parseLogCommand(req, repoName, path);
+    } else if (command.equals(CMD_GREP)) {
+      return parseGrepCommand(req, repoName, path);
     } else if (command.equals(CMD_REFS)) {
       return parseRefsCommand(repoName, path);
     } else if (command.equals(CMD_SHOW)) {
@@ -272,6 +275,21 @@ public class ViewFilter extends AbstractHttpFilter {
         .setRevision(result.getRevision())
         .setOldRevision(result.getOldRevision())
         .setPathPart(result.getPath());
+  }
+
+  private @Nullable GitilesView.Builder parseGrepCommand(
+      HttpServletRequest req, String repoName, String path) throws IOException {
+    if (isEmptyOrSlash(path)) {
+      return null;
+    }
+    RevisionParser.Result result = parseRevision(req, path);
+    if (result.getOldRevision() != null) {
+      return null;
+    }
+    return GitilesView.grep()
+        .setRepositoryName(repoName)
+        .setRevision(result.getRevision())
+        .setPathPart(Strings.emptyToNull(result.getPath()));
   }
 
   private GitilesView.Builder parseRefsCommand(String repoName, String path) {
