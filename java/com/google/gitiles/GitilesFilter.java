@@ -263,6 +263,8 @@ class GitilesFilter extends MetaFilter {
         return new DiffServlet(accessFactory, renderer, linkifier());
       case LOG:
         return new LogServlet(accessFactory, renderer, linkifier());
+      case GREP:
+        return new GrepServlet(accessFactory);
       case DESCRIBE:
         return new DescribeServlet(accessFactory);
       case ARCHIVE:
