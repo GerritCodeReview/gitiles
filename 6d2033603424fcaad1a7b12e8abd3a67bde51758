@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9ca4221d_72cfb7b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-25T11:54:14Z",
+      "side": 1,
+      "message": "Tests ran succesfully with `bazel test javatests/com/google/gitiles:servlet_tests`",
+      "revId": "6d2033603424fcaad1a7b12e8abd3a67bde51758",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "aeead563_6eaebb47",
         "filename": "Documentation/api-reference.md",
         "patchSetId": 3
