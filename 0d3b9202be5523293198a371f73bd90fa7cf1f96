@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed6aabc6_c61e6dd2",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-25T11:52:58Z",
+      "side": 1,
+      "message": "I don\u0027t feel that `q(uery)` is the correct term.\nEither use the `p(attern)` if the idea is to reuse the same parameter for regexp (in the future).\nOr use `s(ubString)` (and use `p(attern)` or `e(xtended regexp)` for potential regexp matching in the future (my preferred route)).\n\n```suggestion\n* `s\u003d\u003ctext\u003e` lists files containing the sub-string `\u003ctext\u003e`.\n```",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194dec47_30cccee1",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-25T11:52:58Z",
+      "side": 1,
+      "message": "```suggestion\n            .withPublicErrorMessage(\"The specified object is not a tree-ish.\");\n```",
+      "range": {
+        "startLine": 77,
+        "startChar": 76,
+        "endLine": 77,
+        "endChar": 97
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "491e24ad_e876807b",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-25T11:52:58Z",
+      "side": 1,
+      "message": "Alternatively throw the `GitilesRequestFailureException` in the `default` case in `getRoot`.",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 7
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd64c725_3456f590",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-25T11:52:58Z",
+      "side": 1,
+      "message": "I don\u0027t see that `truncated` is read anywhere but the tests.\nInstead of the unnamed boolean logic check `matches.size() \u003e\u003d MAX_MATCHES` after each iteration in `grepBlob` (and `grepTree`).\nTo verify MAX_MATCHES in test, make MAX_MATCHES package visible and mark it `@VisibleForTesting` so that you can use it in tests.",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 190,
+        "endChar": 21
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a101f95_e10cb9b0",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-25T11:52:58Z",
+      "side": 1,
+      "message": "I don\u0027t understand this. Shouldn\u0027t this make it impossible to grep from the root of the repository? What am I missing?",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 5
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
