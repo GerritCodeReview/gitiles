@@ -31,7 +31,7 @@ Shows the commit log.
 * `committer=<name or email>`
 * `grep=<pattern>`
 
-#### Limit and Paging parameters
+##### Limit and Paging parameters
 * `n=<number>` to limit the number of commits returned.
 * `s=<start_number>` to set start during paging.
    The `next` key in the JSON response provides a cursor for the next page.
