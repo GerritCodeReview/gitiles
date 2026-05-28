@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13b0db30_78d6d004",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4069542
+      },
+      "writtenOn": "2026-05-28T14:07:15Z",
+      "side": 1,
+      "message": "Add limitations, max matches, blob size.",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb8a0fe2_26e75b2a",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 4069542
+      },
+      "writtenOn": "2026-05-28T14:07:15Z",
+      "side": 1,
+      "message": "`grep` makes me think we could do regex/case-insensitive searches. Can we clarify in docs about the exact match serach.",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3bb495d_458f8ce1",
+        "filename": "javatests/com/google/gitiles/GrepServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4069542
+      },
+      "writtenOn": "2026-05-28T14:07:15Z",
+      "side": 1,
+      "message": "```suggestion\n    GrepResult result \u003d buildJson(GrepResult.class, \"/repo/+grep/master/sr\", \"s\u003dneedle\");\n```\n\nDoes the test pass with just prefix to a path ?",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
