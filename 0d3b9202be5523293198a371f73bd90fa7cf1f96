@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec1fee4_a1eed477",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-28T12:49:31Z",
+      "side": 1,
+      "message": "I have adjust this to your juggested route :)",
+      "parentUuid": "ed6aabc6_c61e6dd2",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "194dec47_30cccee1",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-25T11:52:58Z",
       "side": 1,
       "message": "```suggestion\n            .withPublicErrorMessage(\"The specified object is not a tree-ish.\");\n```",
+      "range": {
+        "startLine": 77,
+        "startChar": 76,
+        "endLine": 77,
+        "endChar": 97
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f60923_e5661ae7",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-28T12:49:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "194dec47_30cccee1",
       "range": {
         "startLine": 77,
         "startChar": 76,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84281a64_fd1e21d8",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-28T12:49:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "491e24ad_e876807b",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 7
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd64c725_3456f590",
@@ -93,6 +165,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8420586_a44aab37",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-28T12:49:31Z",
+      "side": 1,
+      "message": "Done. I removed `truncated` from the JSON result, made `MAX_MATCHES` visible for tests, and changed the search loops to stop directly when `matches.size() \u003e\u003d MAX_MATCHES`.",
+      "parentUuid": "bd64c725_3456f590",
+      "range": {
+        "startLine": 190,
+        "startChar": 12,
+        "endLine": 190,
+        "endChar": 21
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a101f95_e10cb9b0",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-05-25T11:52:58Z",
       "side": 1,
       "message": "I don\u0027t understand this. Shouldn\u0027t this make it impossible to grep from the root of the repository? What am I missing?",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 5
+      },
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4199861_58df34ad",
+        "filename": "java/com/google/gitiles/ViewFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-28T12:49:31Z",
+      "side": 1,
+      "message": "It is actually checking whether anything exists after `+grep/`.\nAt this point `path` is still the raw command tail, not the final repository path.\n\n\nFor example -\n\n1. `/repo/+grep/master` -\n    ```\n    raw path to parse: master\n    revision: master\n    repo path: empty\n    meaning: grep from the repository root\n    ```\n\n2. `/repo/+grep/master/src` -\n    ```\n    raw path to parse: master/src\n    revision: master\n    repo path: src\n    meaning: grep only src/\n    ```\n\n3. `/repo/+grep/`\n    ```\n    raw path to parse: empty\n    meaning: invalid, because no revision was given\n    ```\n\n\nSo this rejects only URLs without a revision, such as `/repo/+grep` or `/repo/+grep/`.",
+      "parentUuid": "4a101f95_e10cb9b0",
       "range": {
         "startLine": 282,
         "startChar": 0,
