@@ -18,6 +18,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c92f515_0348be17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-05-28T13:04:44Z",
+      "side": 1,
+      "message": "Sorry, wrong Devan... \nShould be @devansh@libreoffice.org I think you forgot to push the new patchset.",
+      "revId": "0d3b9202be5523293198a371f73bd90fa7cf1f96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed6aabc6_c61e6dd2",
