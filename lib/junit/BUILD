@@ -6,10 +6,10 @@ package(
 
 java_library(
     name = "junit",
-    exports = ["@junit//jar"],
+    exports = ["@external_deps//:junit_junit"],
 )
 
 java_library(
     name = "hamcrest",
-    exports = ["@hamcrest//jar"],
+    exports = ["@external_deps//:org_hamcrest_hamcrest"],
 )

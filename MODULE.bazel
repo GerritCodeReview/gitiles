@@ -1,0 +1,38 @@
+module(name = "gitiles")
+
+# Core Bazel deps.
+bazel_dep(name = "bazel_features", version = "1.45.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_jvm_external", version = "7.0")
+
+# Language rules.
+bazel_dep(name = "rules_java", version = "8.16.1")
+bazel_dep(name = "rules_python", version = "2.0.0-rc4")
+
+# In-tree modules.
+bazel_dep(name = "jgit")
+local_path_override(
+    module_name = "jgit",
+    path = "modules/jgit",
+)
+
+# Toolchain setup.
+bazel_dep(name = "rbe_autoconfig")
+git_override(
+    module_name = "rbe_autoconfig",
+    commit = "eb944ce4fc29a1608eae9adf0b0e0df2f9e05e33",
+    remote = "https://github.com/davido/rbe_autoconfig.git",
+)
+
+register_toolchains("//tools:error_prone_warnings_toolchain_java17_definition")
+
+register_toolchains("//tools:error_prone_warnings_toolchain_java21_definition")
+
+# Bazlets pin and packaging support.
+include("//tools:bazlets.MODULE.bazel")
+
+# Repository rules for in-tree sources.
+include("//tools:repos.MODULE.bazel")
+
+# External dependency wiring is split out.
+include("//tools:java_deps.MODULE.bazel")
