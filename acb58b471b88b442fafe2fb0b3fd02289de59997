@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceee3e66_9d02ec52",
+        "filename": "Documentation/api-reference.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-29T18:43:26Z",
+      "side": 1,
+      "message": "Aha I should have been more careful with documenting.\n\nDone. I documented the current grep limits: case-sensitive literal substring\nmatching, binary/large blob skipping, and the max match count.",
+      "parentUuid": "13b0db30_78d6d004",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb8a0fe2_26e75b2a",
@@ -35,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ab0feb2_599e8020",
+        "filename": "java/com/google/gitiles/GrepServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-29T18:43:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb8a0fe2_26e75b2a",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3bb495d_458f8ce1",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-28T14:07:15Z",
       "side": 1,
       "message": "```suggestion\n    GrepResult result \u003d buildJson(GrepResult.class, \"/repo/+grep/master/sr\", \"s\u003dneedle\");\n```\n\nDoes the test pass with just prefix to a path ?",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a20d63_e8cc6d10",
+        "filename": "javatests/com/google/gitiles/GrepServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-05-29T18:43:26Z",
+      "side": 1,
+      "message": "Good catch. This is an existing file/directory path, not an arbitrary textual\npath prefix. I updated the wording and added coverage that `/repo/+grep/master/sr`\ndoes not match `src/`.",
+      "parentUuid": "c3bb495d_458f8ce1",
       "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
