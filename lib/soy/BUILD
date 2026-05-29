@@ -7,16 +7,16 @@ package(
 java_library(
     name = "soy",
     exports = [
-        "@soy//jar",
+        "@external_deps//:com_google_template_soy",
     ],
     runtime_deps = [
-        "@html-types//jar",
-        "@icu4j//jar",
-        "@ow2-asm-analysis//jar",
-        "@ow2-asm-commons//jar",
-        "@ow2-asm-tree//jar",
-        "@ow2-asm-util//jar",
-        "@ow2-asm//jar",
-        "@protobuf//jar",
+        "@external_deps//:com_google_common_html_types_types",
+        "@external_deps//:com_google_protobuf_protobuf_java",
+        "@external_deps//:com_ibm_icu_icu4j",
+        "@external_deps//:org_ow2_asm_asm",
+        "@external_deps//:org_ow2_asm_asm_analysis",
+        "@external_deps//:org_ow2_asm_asm_commons",
+        "@external_deps//:org_ow2_asm_asm_tree",
+        "@external_deps//:org_ow2_asm_asm_util",
     ],
 )
