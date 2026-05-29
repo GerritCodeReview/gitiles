@@ -4,10 +4,10 @@ java_library(
     name = "flogger",
     visibility = ["//visibility:public"],
     exports = [
-        "@flogger-google-extensions//jar",
-        "@flogger-log4j-backend//jar",
-        "@flogger-system-backend//jar",
-        "@flogger//jar",
-        "@log4j//jar",
+        "@external_deps//:ch_qos_reload4j_reload4j",
+        "@external_deps//:com_google_flogger_flogger",
+        "@external_deps//:com_google_flogger_flogger_log4j_backend",
+        "@external_deps//:com_google_flogger_flogger_system_backend",
+        "@external_deps//:com_google_flogger_google_extensions",
     ],
 )

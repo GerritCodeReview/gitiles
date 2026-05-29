@@ -34,6 +34,70 @@ $ bazelisk build //:gitiles
 $ bazelisk test //...
 ```
 
+## Managing dependencies (Bzlmod)
+
+Gitiles uses [Bzlmod](https://bazel.build/external/overview#bzlmod) and no
+longer has a `WORKSPACE` file. The module graph is declared in `MODULE.bazel`
+at the repo root, which `include()`s three fragments under `tools/`:
+
+* `tools/bazlets.MODULE.bazel` &mdash; pins the
+  [bazlets](https://gerrit.googlesource.com/bazlets) git_override (provides
+  `pkg_war`, `genrule2`, `junit`, `javadoc`, etc.).
+* `tools/repos.MODULE.bazel` &mdash; `local_repository` entries for vendored
+  submodules (e.g. `java-prettify`).
+* `tools/java_deps.MODULE.bazel` &mdash; Maven dependency declarations via
+  [`rules_jvm_external`](https://github.com/bazel-contrib/rules_jvm_external),
+  publishing the shared `@external_deps` repository.
+
+JGit is consumed as an in-tree Bazel module from the `modules/jgit` submodule
+via `bazel_dep(name = "jgit") + local_path_override(...)`.
+
+### Updating a Bazel module
+
+To bump a `bazel_dep` (e.g. `rules_jvm_external`, `rules_java`, `protobuf`,
+`bazlets`), edit the appropriate `MODULE.bazel` fragment and refresh the
+resolved graph:
+
+```
+$ bazelisk mod deps --lockfile_mode=update
+```
+
+This rewrites `MODULE.bazel.lock`. Commit the updated lockfile alongside the
+`MODULE.bazel` change.
+
+To inspect the resolved module graph:
+
+```
+$ bazelisk mod graph
+```
+
+### Updating a Maven dependency
+
+Java/Maven artifacts are managed by `rules_jvm_external` in
+`tools/java_deps.MODULE.bazel`. All artifacts are exposed as
+`@external_deps//:<sanitized_group>_<sanitized_artifact>`, for example
+`@external_deps//:com_google_guava_guava`.
+
+To add, remove, or bump a Maven artifact:
+
+1. Edit the `artifacts = [...]` list in `tools/java_deps.MODULE.bazel`.
+2. If the artifact's GA coordinate is also contributed by JGit, add it to
+   `_GITILES_FORCED_ARTIFACTS` so the gitiles version wins
+   (`maven.amend_artifact(force_version = "true")` mirrors Gerrit's pattern).
+3. Re-pin the lockfile:
+
+   ```
+   $ REPIN=1 bazelisk run @external_deps//:pin
+   ```
+
+   This regenerates `external_deps.lock.json` at the repo root. Commit the
+   updated lockfile together with the `tools/java_deps.MODULE.bazel` change.
+
+`tools/java_deps.MODULE.bazel` runs with `version_conflict_policy = "pinned"`
+and `duplicate_version_warning = "error"`, so any unresolved version skew
+between gitiles and JGit fails the build &mdash; do not downgrade these
+flags to `"warn"`.
+
 ## Troubleshooting
 
 If you encounter build errors such as:
