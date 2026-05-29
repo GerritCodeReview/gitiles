@@ -9,7 +9,7 @@ java_library(
     exports = [
         ":security",
         "//lib:servlet-api",
-        "@servlet//jar",
+        "@external_deps//:org_eclipse_jetty_jetty_servlet",
     ],
 )
 
@@ -17,7 +17,7 @@ java_library(
     name = "security",
     exports = [
         ":server",
-        "@security//jar",
+        "@external_deps//:org_eclipse_jetty_jetty_security",
     ],
 )
 
@@ -26,20 +26,20 @@ java_library(
     exports = [
         ":continuation",
         ":http",
-        "@server//jar",
+        "@external_deps//:org_eclipse_jetty_jetty_server",
     ],
 )
 
 java_library(
     name = "continuation",
-    exports = ["@continuation//jar"],
+    exports = ["@external_deps//:org_eclipse_jetty_jetty_continuation"],
 )
 
 java_library(
     name = "http",
     exports = [
         ":io",
-        "@http//jar",
+        "@external_deps//:org_eclipse_jetty_jetty_http",
     ],
 )
 
@@ -47,11 +47,11 @@ java_library(
     name = "io",
     exports = [
         ":util",
-        "@io//jar",
+        "@external_deps//:org_eclipse_jetty_jetty_io",
     ],
 )
 
 java_library(
     name = "util",
-    exports = ["@util//jar"],
+    exports = ["@external_deps//:org_eclipse_jetty_jetty_util"],
 )

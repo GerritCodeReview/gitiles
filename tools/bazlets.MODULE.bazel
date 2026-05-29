@@ -1,0 +1,7 @@
+# Bazlets dependency pin kept outside the root module declaration.
+bazel_dep(name = "com_googlesource_gerrit_bazlets")
+git_override(
+    module_name = "com_googlesource_gerrit_bazlets",
+    commit = "ba9fd0c042269b80db52cb4308cb701d5c82cce0",
+    remote = "https://gerrit.googlesource.com/bazlets",
+)

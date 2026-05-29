@@ -1,0 +1,139 @@
+# Module-file fragment for Java/Maven external dependencies.
+#
+# This file is included from the root MODULE.bazel via include().
+# It contains the rules_jvm_external configuration for Gitiles.
+#
+# NOTE: MODULE/.MODULE.bazel files are evaluated in the bzlmod resolution phase
+# and do not allow load() or function definitions. Keep this file self-contained.
+
+COMMONMARK_VERSION = "0.24.0"
+
+FLOGGER_VERSION = "0.7.4"
+
+SLF4J_VERSION = "2.0.17"
+
+JETTY_VERSION = "9.4.57.v20241219"
+
+OW2_ASM_VERSION = "9.9.1"
+
+BYTE_BUDDY_VERSION = "1.18.2"
+
+# Root-level dependency versions declared by Gitiles must take precedence over
+# versions contributed by layered modules (e.g. JGit) when resolving the shared
+# maven.install("external_deps") repository.
+#
+# rules_jvm_external currently lacks a mechanism for the root module to globally
+# enforce its declared versions across the layered Maven graph when using
+# bzlmod. In particular, version_conflict_policy = "pinned" still fails early
+# with duplicate artifacts when multiple modules contribute different versions.
+#
+# As a workaround, we explicitly force the root-selected versions here via
+# maven.amend_artifact(force_version = "true") for GA coordinates that may also
+# be introduced transitively by JGit.
+#
+# TODO(davido): Remove this workaround once global root version enforcement is
+# supported in rules_jvm_external:
+# https://github.com/bazel-contrib/rules_jvm_external/issues/1549
+_GITILES_FORCED_ARTIFACTS = [
+    "com.google.code.gson:gson",
+    "commons-codec:commons-codec",
+    "commons-io:commons-io",
+    "net.bytebuddy:byte-buddy",
+    "net.bytebuddy:byte-buddy-agent",
+    "org.apache.commons:commons-lang3",
+    "org.eclipse.jetty:jetty-http",
+    "org.eclipse.jetty:jetty-io",
+    "org.eclipse.jetty:jetty-security",
+    "org.eclipse.jetty:jetty-server",
+    "org.eclipse.jetty:jetty-util",
+    "org.mockito:mockito-core",
+    "org.objenesis:objenesis",
+    "org.slf4j:slf4j-api",
+    "org.slf4j:slf4j-simple",
+    "org.tukaani:xz",
+]
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+[
+    maven.amend_artifact(
+        name = "external_deps",
+        coordinates = coord,
+        force_version = "true",
+    )
+    for coord in _GITILES_FORCED_ARTIFACTS
+]
+
+maven.install(
+    name = "external_deps",
+    artifacts = [
+        "ch.qos.reload4j:reload4j:1.2.25",
+        "com.google.code.findbugs:jsr305:3.0.1",
+        "com.google.code.gson:gson:2.13.2",
+        "com.google.common.html.types:types:1.0.8",
+        "com.google.errorprone:error_prone_annotations:2.46.0",
+        "com.google.flogger:flogger:" + FLOGGER_VERSION,
+        "com.google.flogger:flogger-log4j-backend:" + FLOGGER_VERSION,
+        "com.google.flogger:flogger-system-backend:" + FLOGGER_VERSION,
+        "com.google.flogger:google-extensions:" + FLOGGER_VERSION,
+        "com.google.guava:failureaccess:1.0.3",
+        "com.google.guava:guava:33.5.0-jre",
+        "com.google.protobuf:protobuf-java:4.33.4",
+        "com.google.template:soy:2024-01-30",
+        "com.google.truth:truth:1.4.4",
+        "com.googlecode.javaewah:JavaEWAH:1.2.3",
+        "com.ibm.icu:icu4j:78.2",
+        "commons-codec:commons-codec:1.18.0",
+        "commons-io:commons-io:2.21.0",
+        "io.github.java-diff-utils:java-diff-utils:4.16",
+        "javax.servlet:javax.servlet-api:4.0.1",
+        "junit:junit:4.13.2",
+        "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
+        "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
+        "org.apache.commons:commons-compress:1.28.0",
+        "org.apache.commons:commons-lang3:3.18.0",
+        "org.apache.commons:commons-text:1.10.0",
+        "org.commonmark:commonmark:" + COMMONMARK_VERSION,
+        "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
+        "org.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
+        "org.commonmark:commonmark-ext-gfm-tables:" + COMMONMARK_VERSION,
+        "org.eclipse.jetty:jetty-continuation:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-http:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-io:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-server:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-servlet:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
+        "org.hamcrest:hamcrest:3.0",
+        "org.mockito:mockito-core:5.21.0",
+        "org.nibor.autolink:autolink:0.11.0",
+        "org.objenesis:objenesis:3.0.1",
+        "org.ow2.asm:asm:" + OW2_ASM_VERSION,
+        "org.ow2.asm:asm-analysis:" + OW2_ASM_VERSION,
+        "org.ow2.asm:asm-commons:" + OW2_ASM_VERSION,
+        "org.ow2.asm:asm-tree:" + OW2_ASM_VERSION,
+        "org.ow2.asm:asm-util:" + OW2_ASM_VERSION,
+        "org.slf4j:slf4j-api:" + SLF4J_VERSION,
+        "org.slf4j:slf4j-simple:" + SLF4J_VERSION,
+        "org.tukaani:xz:1.11",
+    ],
+    # CRITICAL: Must remain "error".
+    # This guarantees fail-fast behavior if multiple versions of the same
+    # artifact are introduced by contributing modules. Downgrading this to
+    # "warn" would allow version skew from JGit to silently leak into Gitiles.
+    duplicate_version_warning = "error",
+    fail_if_repin_required = True,
+    fail_on_missing_checksum = True,
+    fetch_sources = True,
+    known_contributing_modules = [
+        "gitiles",
+        "jgit",
+    ],
+    lock_file = "//:external_deps.lock.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+    strict_visibility = True,
+    version_conflict_policy = "pinned",
+)
+use_repo(maven, "external_deps")
