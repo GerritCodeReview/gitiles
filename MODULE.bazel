@@ -1,13 +1,15 @@
 module(name = "gitiles")
 
 # Core Bazel deps.
+bazel_dep(name = "rules_nodejs", version = "6.7.4")
+bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
 bazel_dep(name = "bazel_features", version = "1.45.0")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_jvm_external", version = "7.0")
 
 # Language rules.
-bazel_dep(name = "rules_java", version = "8.16.1")
-bazel_dep(name = "rules_python", version = "2.0.0-rc4")
+bazel_dep(name = "rules_java", version = "9.3.0")
+bazel_dep(name = "rules_python", version = "2.0.2")
 
 # In-tree modules.
 bazel_dep(name = "jgit")
