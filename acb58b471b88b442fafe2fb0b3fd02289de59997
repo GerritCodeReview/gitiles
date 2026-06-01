@@ -104,6 +104,24 @@
       "parentUuid": "c3bb495d_458f8ce1",
       "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26019502_0c305fab",
+        "filename": "javatests/com/google/gitiles/GrepServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4069542
+      },
+      "writtenOn": "2026-06-01T19:39:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "28a20d63_e8cc6d10",
+      "revId": "acb58b471b88b442fafe2fb0b3fd02289de59997",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
