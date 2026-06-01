@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ab9c78c_2b2e357c",
+        "filename": ".bazelrc",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2026-06-01T10:13:28Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by autoreview issue finding: Since the toolchain JDK has been updated to 21 in the lines below, consider updating this comment to reflect that the build *tools* now use `remotejdk_21`.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 0
+      },
+      "revId": "c60f73c81a4c03a993766206a651f90d25ff0e96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c47e7f_07adab68",
+        "filename": "tools/java_deps.MODULE.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2026-06-01T10:13:28Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by autoreview issue finding: Consider adding `\"org.eclipse.jetty:jetty-servlet\"` and `\"org.eclipse.jetty:jetty-continuation\"` to this list for consistency. JGit typically depends on `jetty-servlet` (e.g., in `org.eclipse.jgit.http.server`), so forcing the version here can prevent future skew failures if JGit\u0027s Jetty dependency changes.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "c60f73c81a4c03a993766206a651f90d25ff0e96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
