@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "accb539b_b1e836bd",
+        "filename": ".bazelrc",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-01T13:21:50Z",
+      "side": 1,
+      "message": "Done. Also mentioned in the commit message that Java version bumped to Java 1 per default.",
+      "parentUuid": "0ab9c78c_2b2e357c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 0
+      },
+      "revId": "c60f73c81a4c03a993766206a651f90d25ff0e96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8c47e7f_07adab68",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-06-01T10:13:28Z",
       "side": 1,
       "message": "Please fix this WARNING reported by autoreview issue finding: Consider adding `\"org.eclipse.jetty:jetty-servlet\"` and `\"org.eclipse.jetty:jetty-continuation\"` to this list for consistency. JGit typically depends on `jetty-servlet` (e.g., in `org.eclipse.jgit.http.server`), so forcing the version here can prevent future skew failures if JGit\u0027s Jetty dependency changes.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "c60f73c81a4c03a993766206a651f90d25ff0e96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "587a4157_ef26a6b9",
+        "filename": "tools/java_deps.MODULE.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-01T13:21:50Z",
+      "side": 1,
+      "message": "Done. Added \"org.eclipse.jetty:jetty-servlet\" to the list. \"org.eclipse.jetty:jetty-continuation\" is false positive, because JGit doesn\u0027t use it and it cannot collide.",
+      "parentUuid": "f8c47e7f_07adab68",
       "range": {
         "startLine": 48,
         "startChar": 0,
