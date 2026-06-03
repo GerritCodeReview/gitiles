@@ -12,7 +12,7 @@ FLOGGER_VERSION = "0.7.4"
 
 SLF4J_VERSION = "2.0.17"
 
-JETTY_VERSION = "9.4.57.v20241219"
+JETTY_VERSION = "12.1.10"
 
 OW2_ASM_VERSION = "9.9.1"
 
@@ -45,8 +45,11 @@ _GITILES_FORCED_ARTIFACTS = [
     "org.eclipse.jetty:jetty-io",
     "org.eclipse.jetty:jetty-security",
     "org.eclipse.jetty:jetty-server",
-    "org.eclipse.jetty:jetty-servlet",
+    "org.eclipse.jetty:jetty-session",
     "org.eclipse.jetty:jetty-util",
+    "org.eclipse.jetty.ee8:jetty-ee8-nested",
+    "org.eclipse.jetty.ee8:jetty-ee8-security",
+    "org.eclipse.jetty.ee8:jetty-ee8-servlet",
     "org.mockito:mockito-core",
     "org.objenesis:objenesis",
     "org.slf4j:slf4j-api",
@@ -98,13 +101,15 @@ maven.install(
         "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-tables:" + COMMONMARK_VERSION,
-        "org.eclipse.jetty:jetty-continuation:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-http:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-io:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-server:" + JETTY_VERSION,
-        "org.eclipse.jetty:jetty-servlet:" + JETTY_VERSION,
+        "org.eclipse.jetty:jetty-session:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
+        "org.eclipse.jetty.ee8:jetty-ee8-nested:" + JETTY_VERSION,
+        "org.eclipse.jetty.ee8:jetty-ee8-security:" + JETTY_VERSION,
+        "org.eclipse.jetty.ee8:jetty-ee8-servlet:" + JETTY_VERSION,
         "org.hamcrest:hamcrest:3.0",
         "org.mockito:mockito-core:5.21.0",
         "org.nibor.autolink:autolink:0.11.0",
