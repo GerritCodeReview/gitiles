@@ -30,7 +30,6 @@ import com.google.gitiles.doc.HtmlSanitizer;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -41,14 +40,14 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
+import org.eclipse.jetty.ee8.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee8.servlet.ServletHolder;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.resource.PathResource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
@@ -148,19 +147,21 @@ class DevServer {
     handler.setContextPath(
         MoreObjects.firstNonNull(cfg.getString("gitiles", null, "contextPath"), ""));
     handler.addServlet(new ServletHolder(servlet), "/*");
-    return handler;
+    // ee8 ContextHandler implements Supplier<org.eclipse.jetty.server.Handler>;
+    // unwrap to the core Handler for installation into the server's handler tree.
+    return handler.get();
   }
 
-  private Handler staticHandler() throws IOException {
+  private Handler staticHandler() {
     Path staticRoot = sourceRoot.resolve("resources/com/google/gitiles/static");
     ResourceHandler rh = new ResourceHandler();
-    try {
-      rh.setBaseResource(new PathResource(staticRoot.toUri().toURL()));
-    } catch (URISyntaxException e) {
-      throw new IOException(e);
-    }
+    // Jetty 12 replaced PathResource/URL-based construction with ResourceFactory.
+    // ResourceFactory.root() returns a process-lifetime factory suitable for
+    // configuration done before any container LifeCycle is started.
+    rh.setBaseResource(ResourceFactory.root().newResource(staticRoot));
     rh.setWelcomeFiles(new String[] {});
-    rh.setDirectoriesListed(false);
+    // Jetty 12 renamed setDirectoriesListed -> setDirAllowed.
+    rh.setDirAllowed(false);
     ContextHandler handler = new ContextHandler("/+static");
     handler.setHandler(rh);
     return handler;

@@ -49,17 +49,15 @@
     "org.commonmark:commonmark-ext-autolink": -1853742120,
     "org.commonmark:commonmark-ext-gfm-strikethrough": 350394231,
     "org.commonmark:commonmark-ext-gfm-tables": 1881582931,
-    "org.eclipse.jetty.ee8:jetty-ee8-nested": 674982267,
-    "org.eclipse.jetty.ee8:jetty-ee8-security": -882431918,
-    "org.eclipse.jetty.ee8:jetty-ee8-servlet": -8438293,
-    "org.eclipse.jetty:jetty-continuation": -943403027,
-    "org.eclipse.jetty:jetty-http": 1984891007,
-    "org.eclipse.jetty:jetty-io": 1765684893,
-    "org.eclipse.jetty:jetty-security": 1160320567,
-    "org.eclipse.jetty:jetty-server": 280305722,
-    "org.eclipse.jetty:jetty-servlet": -2080040568,
-    "org.eclipse.jetty:jetty-session": 1652849423,
-    "org.eclipse.jetty:jetty-util": -1520256775,
+    "org.eclipse.jetty.ee8:jetty-ee8-nested": 2034651270,
+    "org.eclipse.jetty.ee8:jetty-ee8-security": -1639916465,
+    "org.eclipse.jetty.ee8:jetty-ee8-servlet": -1183332842,
+    "org.eclipse.jetty:jetty-http": 1519307948,
+    "org.eclipse.jetty:jetty-io": -375560118,
+    "org.eclipse.jetty:jetty-security": -246144924,
+    "org.eclipse.jetty:jetty-server": -471776729,
+    "org.eclipse.jetty:jetty-session": -186335994,
+    "org.eclipse.jetty:jetty-util": 372501926,
     "org.eclipse.jetty:jetty-util-ajax": 1261604218,
     "org.hamcrest:hamcrest": 1547523135,
     "org.mockito:mockito-core": -133446801,
@@ -207,32 +205,28 @@
     "org.commonmark:commonmark-ext-gfm-tables": -1205584749,
     "org.commonmark:commonmark-ext-gfm-tables:jar:sources": 1341057091,
     "org.commonmark:commonmark:jar:sources": -1511261547,
-    "org.eclipse.jetty.ee8:jetty-ee8-nested": 2090733466,
+    "org.eclipse.jetty.ee8:jetty-ee8-nested": 551988374,
     "org.eclipse.jetty.ee8:jetty-ee8-nested:jar:sources": -595669194,
-    "org.eclipse.jetty.ee8:jetty-ee8-security": 1351184077,
+    "org.eclipse.jetty.ee8:jetty-ee8-security": -1107912299,
     "org.eclipse.jetty.ee8:jetty-ee8-security:jar:sources": 2004231816,
-    "org.eclipse.jetty.ee8:jetty-ee8-servlet": -2011833684,
+    "org.eclipse.jetty.ee8:jetty-ee8-servlet": 428378327,
     "org.eclipse.jetty.ee8:jetty-ee8-servlet:jar:sources": 717717325,
     "org.eclipse.jetty.toolchain:jetty-servlet-api": 1364182673,
     "org.eclipse.jetty.toolchain:jetty-servlet-api:jar:sources": 736604807,
-    "org.eclipse.jetty:jetty-continuation": -801959154,
-    "org.eclipse.jetty:jetty-continuation:jar:sources": 16318779,
-    "org.eclipse.jetty:jetty-http": -293230884,
-    "org.eclipse.jetty:jetty-http:jar:sources": -1107669868,
-    "org.eclipse.jetty:jetty-io": -783344138,
-    "org.eclipse.jetty:jetty-io:jar:sources": 1011133100,
-    "org.eclipse.jetty:jetty-security": -109984940,
-    "org.eclipse.jetty:jetty-security:jar:sources": -256108816,
-    "org.eclipse.jetty:jetty-server": -1931992277,
-    "org.eclipse.jetty:jetty-server:jar:sources": 887545786,
-    "org.eclipse.jetty:jetty-servlet": -2078937455,
-    "org.eclipse.jetty:jetty-servlet:jar:sources": 607287657,
-    "org.eclipse.jetty:jetty-session": 191900471,
+    "org.eclipse.jetty:jetty-http": -1073884921,
+    "org.eclipse.jetty:jetty-http:jar:sources": 1180758023,
+    "org.eclipse.jetty:jetty-io": -2124716562,
+    "org.eclipse.jetty:jetty-io:jar:sources": 1937997815,
+    "org.eclipse.jetty:jetty-security": 456208299,
+    "org.eclipse.jetty:jetty-security:jar:sources": -2123058513,
+    "org.eclipse.jetty:jetty-server": -1643551333,
+    "org.eclipse.jetty:jetty-server:jar:sources": -2041292330,
+    "org.eclipse.jetty:jetty-session": -37568521,
     "org.eclipse.jetty:jetty-session:jar:sources": -1619577899,
-    "org.eclipse.jetty:jetty-util": 2108090903,
-    "org.eclipse.jetty:jetty-util-ajax": -328137831,
+    "org.eclipse.jetty:jetty-util": -838567489,
+    "org.eclipse.jetty:jetty-util-ajax": 816595148,
     "org.eclipse.jetty:jetty-util-ajax:jar:sources": -1012027683,
-    "org.eclipse.jetty:jetty-util:jar:sources": -1854246232,
+    "org.eclipse.jetty:jetty-util:jar:sources": 1673475125,
     "org.hamcrest:hamcrest": 1282317766,
     "org.hamcrest:hamcrest-core": 649657847,
     "org.hamcrest:hamcrest-core:jar:sources": -1646511374,
@@ -757,47 +751,33 @@
       },
       "version": "4.0.9"
     },
-    "org.eclipse.jetty:jetty-continuation": {
-      "shasums": {
-        "jar": "ba6c5faadfcd4ef8066b96e07a5c865af2b950a78d1354853ec6df0253140165",
-        "sources": "dd9f4d6b3cea76e9d4993ae18d04c60e6f780563c544282478dc79418f148dbc"
-      },
-      "version": "9.4.57.v20241219"
-    },
     "org.eclipse.jetty:jetty-http": {
       "shasums": {
-        "jar": "02c6514977f0051dfdecf8d0799acf7a88fd8008a5fd9320a92f2e5db45d297b",
-        "sources": "1851f55b408241a6ae692730dd9bda9d1ecf7f0be6a9ccc471affa5bf8d07b9c"
+        "jar": "857eaf5e7823f9ee91099db5bedd179b7d3e93653ac288e27321544231014df0",
+        "sources": "d0fb3ab8418a7c130f7ca555396ee9a159a6504cc2f7adbd4ebb768f3e246a21"
       },
-      "version": "9.4.57.v20241219"
+      "version": "12.1.9"
     },
     "org.eclipse.jetty:jetty-io": {
       "shasums": {
-        "jar": "f6246a2cf0abcee7f0971217c0ce4cd30d8ce15a91530363457113907ab38690",
-        "sources": "f21960b5fe18c1fa4281aa0ba1ce8f2f7d4d8f00e64e08d536b6d6577ca92489"
+        "jar": "904c1680e74705794c15f9df2a9ccfb155152bdd3067521fd6522df009bfa9d9",
+        "sources": "5dc1471946339c6be979102a7b545720bc8a3c7e2d10636481804f524a1bacab"
       },
-      "version": "9.4.57.v20241219"
+      "version": "12.1.9"
     },
     "org.eclipse.jetty:jetty-security": {
       "shasums": {
-        "jar": "af923d4f395a73bf8ddcb754f42d7617c6b7055e37e5a6b625ed894f73107ae9",
-        "sources": "0f8718fe938f0c8a5c3098129b67d13381c1fef0d56765627ccc2e017fc2654b"
+        "jar": "00dcd3f9258d7eb41fc1c1cbcbaa33a1a47710783e30ad512816f0c051423142",
+        "sources": "0a50c360002f05679b58bdf6a5532a665b44244e9077fda049867678423947fd"
       },
-      "version": "9.4.57.v20241219"
+      "version": "12.1.9"
     },
     "org.eclipse.jetty:jetty-server": {
       "shasums": {
-        "jar": "ba957ae07da647023cfa52c923732aea1c67f5273a594cee1863365dfebb9a02",
-        "sources": "089098dce0a947401a52bd00056427e1a2e348a71340a00e496c3139c14bafcb"
+        "jar": "5dfc3736056cd941a783b21e50c983c235c1b0a593d4b0d2954966173a3f6a3e",
+        "sources": "7e7cb424b4aafb7fd3dfadd26b861f21cf7ff7a9bc114d90959efebc11c24870"
       },
-      "version": "9.4.57.v20241219"
-    },
-    "org.eclipse.jetty:jetty-servlet": {
-      "shasums": {
-        "jar": "c5e9517974dec9e4606b2d810f4995ea81091b1e24bd9640cb45d8b2aefd722c",
-        "sources": "d3214106ebbfa9034aa041ea26caa080a99c494ae6275f88c95bc63796bc0367"
-      },
-      "version": "9.4.57.v20241219"
+      "version": "12.1.9"
     },
     "org.eclipse.jetty:jetty-session": {
       "shasums": {
@@ -808,10 +788,10 @@
     },
     "org.eclipse.jetty:jetty-util": {
       "shasums": {
-        "jar": "6ccbf678716778e316cc097d8aada4fe2a2e16c0bbfd8a1763204d6724b423f4",
-        "sources": "77d5935c637276d08da2e1141a7fe4d9db4a2d072b6b418b625b261009d0cb4c"
+        "jar": "bb228358d4ae45c004d949edc397de1eb8aabc7adc5f9b9cbc833336e70a23bd",
+        "sources": "288938c2f79e1eadb069661157ccdbc821f774a7bb4f97395b6a154f954846cf"
       },
-      "version": "9.4.57.v20241219"
+      "version": "12.1.9"
     },
     "org.eclipse.jetty:jetty-util-ajax": {
       "shasums": {
@@ -1107,25 +1087,27 @@
     ],
     "org.eclipse.jetty:jetty-http": [
       "org.eclipse.jetty:jetty-io",
-      "org.eclipse.jetty:jetty-util"
+      "org.eclipse.jetty:jetty-util",
+      "org.slf4j:slf4j-api"
     ],
     "org.eclipse.jetty:jetty-io": [
-      "org.eclipse.jetty:jetty-util"
+      "org.eclipse.jetty:jetty-util",
+      "org.slf4j:slf4j-api"
     ],
     "org.eclipse.jetty:jetty-security": [
-      "org.eclipse.jetty:jetty-server"
+      "org.eclipse.jetty:jetty-server",
+      "org.slf4j:slf4j-api"
     ],
     "org.eclipse.jetty:jetty-server": [
-      "javax.servlet:javax.servlet-api",
       "org.eclipse.jetty:jetty-http",
-      "org.eclipse.jetty:jetty-io"
-    ],
-    "org.eclipse.jetty:jetty-servlet": [
-      "org.eclipse.jetty:jetty-security",
-      "org.eclipse.jetty:jetty-util-ajax"
+      "org.eclipse.jetty:jetty-io",
+      "org.slf4j:slf4j-api"
     ],
     "org.eclipse.jetty:jetty-session": [
       "org.eclipse.jetty:jetty-server",
+      "org.slf4j:slf4j-api"
+    ],
+    "org.eclipse.jetty:jetty-util": [
       "org.slf4j:slf4j-api"
     ],
     "org.eclipse.jetty:jetty-util-ajax": [
@@ -2450,37 +2432,34 @@
       "javax.servlet.descriptor",
       "javax.servlet.http"
     ],
-    "org.eclipse.jetty:jetty-continuation": [
-      "org.eclipse.jetty.continuation"
-    ],
     "org.eclipse.jetty:jetty-http": [
       "org.eclipse.jetty.http",
       "org.eclipse.jetty.http.compression",
+      "org.eclipse.jetty.http.content",
       "org.eclipse.jetty.http.pathmap"
     ],
     "org.eclipse.jetty:jetty-io": [
       "org.eclipse.jetty.io",
+      "org.eclipse.jetty.io.content",
+      "org.eclipse.jetty.io.internal",
       "org.eclipse.jetty.io.jmx",
       "org.eclipse.jetty.io.ssl"
     ],
     "org.eclipse.jetty:jetty-security": [
       "org.eclipse.jetty.security",
-      "org.eclipse.jetty.security.authentication"
+      "org.eclipse.jetty.security.authentication",
+      "org.eclipse.jetty.security.internal",
+      "org.eclipse.jetty.security.jaas",
+      "org.eclipse.jetty.security.jaas.callback",
+      "org.eclipse.jetty.security.jaas.spi"
     ],
     "org.eclipse.jetty:jetty-server": [
       "org.eclipse.jetty.server",
       "org.eclipse.jetty.server.handler",
       "org.eclipse.jetty.server.handler.gzip",
       "org.eclipse.jetty.server.handler.jmx",
-      "org.eclipse.jetty.server.jmx",
-      "org.eclipse.jetty.server.nio",
-      "org.eclipse.jetty.server.resource",
-      "org.eclipse.jetty.server.session"
-    ],
-    "org.eclipse.jetty:jetty-servlet": [
-      "org.eclipse.jetty.servlet",
-      "org.eclipse.jetty.servlet.jmx",
-      "org.eclipse.jetty.servlet.listener"
+      "org.eclipse.jetty.server.internal",
+      "org.eclipse.jetty.server.jmx"
     ],
     "org.eclipse.jetty:jetty-session": [
       "org.eclipse.jetty.session"
@@ -2490,7 +2469,7 @@
       "org.eclipse.jetty.util.annotation",
       "org.eclipse.jetty.util.component",
       "org.eclipse.jetty.util.compression",
-      "org.eclipse.jetty.util.log",
+      "org.eclipse.jetty.util.jndi",
       "org.eclipse.jetty.util.preventers",
       "org.eclipse.jetty.util.resource",
       "org.eclipse.jetty.util.security",
@@ -2804,8 +2783,6 @@
       "org.eclipse.jetty.ee8:jetty-ee8-servlet:jar:sources",
       "org.eclipse.jetty.toolchain:jetty-servlet-api",
       "org.eclipse.jetty.toolchain:jetty-servlet-api:jar:sources",
-      "org.eclipse.jetty:jetty-continuation",
-      "org.eclipse.jetty:jetty-continuation:jar:sources",
       "org.eclipse.jetty:jetty-http",
       "org.eclipse.jetty:jetty-http:jar:sources",
       "org.eclipse.jetty:jetty-io",
@@ -2814,8 +2791,6 @@
       "org.eclipse.jetty:jetty-security:jar:sources",
       "org.eclipse.jetty:jetty-server",
       "org.eclipse.jetty:jetty-server:jar:sources",
-      "org.eclipse.jetty:jetty-servlet",
-      "org.eclipse.jetty:jetty-servlet:jar:sources",
       "org.eclipse.jetty:jetty-session",
       "org.eclipse.jetty:jetty-session:jar:sources",
       "org.eclipse.jetty:jetty-util",
@@ -2911,12 +2886,14 @@
     },
     "org.eclipse.jetty:jetty-http": {
       "org.eclipse.jetty.http.HttpFieldPreEncoder": [
-        "org.eclipse.jetty.http.Http1FieldPreEncoder"
+        "org.eclipse.jetty.http.Http10FieldPreEncoder",
+        "org.eclipse.jetty.http.Http11FieldPreEncoder"
       ]
     },
     "org.eclipse.jetty:jetty-http:jar:sources": {
       "org.eclipse.jetty.http.HttpFieldPreEncoder": [
-        "org.eclipse.jetty.http.Http1FieldPreEncoder"
+        "org.eclipse.jetty.http.Http10FieldPreEncoder",
+        "org.eclipse.jetty.http.Http11FieldPreEncoder"
       ]
     },
     "org.openjdk.jmh:jmh-generator-annprocess": {
