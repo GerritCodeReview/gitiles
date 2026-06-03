@@ -9,14 +9,23 @@ java_library(
     exports = [
         ":security",
         "//lib:servlet-api",
-        "@external_deps//:org_eclipse_jetty_jetty_servlet",
+        "@external_deps//:org_eclipse_jetty_ee8_jetty_ee8_servlet",
     ],
+    runtime_deps = [
+        ":nested",
+    ],
+)
+
+java_library(
+    name = "nested",
+    exports = ["@external_deps//:org_eclipse_jetty_ee8_jetty_ee8_nested"],
 )
 
 java_library(
     name = "security",
     exports = [
         ":server",
+        "@external_deps//:org_eclipse_jetty_ee8_jetty_ee8_security",
         "@external_deps//:org_eclipse_jetty_jetty_security",
     ],
 )
@@ -24,15 +33,15 @@ java_library(
 java_library(
     name = "server",
     exports = [
-        ":continuation",
         ":http",
+        ":session",
         "@external_deps//:org_eclipse_jetty_jetty_server",
     ],
 )
 
 java_library(
-    name = "continuation",
-    exports = ["@external_deps//:org_eclipse_jetty_jetty_continuation"],
+    name = "session",
+    exports = ["@external_deps//:org_eclipse_jetty_jetty_session"],
 )
 
 java_library(
