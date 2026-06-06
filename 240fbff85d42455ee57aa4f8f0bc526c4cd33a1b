@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "508b18fc_bb9d2028",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4896472
+      },
+      "writtenOn": "2026-06-06T21:51:51Z",
+      "side": 1,
+      "message": "From 240fbff85d42455ee57aa4f8f0bc526c4cd33a1b Mon Sep 17 00:00:00 2001\nDate: Thu, 25 Aug 2016 09:58:15 +0900\nSubject: [PATCH] Move configuration documentation to a separate page\n\nAdd a new \"Configuration\" page. Move the existing documentation out\nof the Markdown page.\n\nLink to the new configuration documentation from the navbar, and\nadd a brief paragraph about it in README.\n\nChange-Id: I76de97bcd459d55cc46fa8d6c6da9be1202c1297\n---\n\ndiff --git a/Documentation/config.md b/Documentation/config.md\nnew file mode 100644\nindex 0000000..2779dd7\n--- /dev/null\n+++ b/Documentation/config.md\n@@ -0,0 +1,49 @@\n+# Configuration\n+\n+The `gitiles.config` file supporting the site contains several configuration\n+options.\n+\n+[TOC]\n+\n+## Markdown\n+\n+### Disabling markdown\n+\n+Markdown can be completely disabled by setting render to false.\n+\n+```\n+[markdown]\n+  render \u003d false\n+```\n+\n+### Markdown size\n+\n+Markdown files are limited by default to 5 MiB of input text\n+per file. This limit is configurable, but should not be raised\n+beyond available memory.\n+\n+```\n+[markdown]\n+  inputLimit \u003d 5M\n+```\n+\n+### Image size\n+\n+Referenced [images are inlined](#Images) as base64 encoded URIs.\n+The image limit places an upper bound on the byte size of input.\n+\n+```\n+[markdown]\n+  imageLimit \u003d 256K\n+```\n+\n+## Google Analytics\n+\n+[Google Analytics](https://www.google.com/analytics/) can be\n+enabled on every rendered markdown page by adding the Property ID\n+to the configuration file:\n+\n+```\n+[google]\n+  analyticsId \u003d UA-XXXX-Y\n+```\ndiff --git a/Documentation/markdown.md b/Documentation/markdown.md\nindex 3e0f392..fdd34a9 100644\n--- a/Documentation/markdown.md\n+++ b/Documentation/markdown.md\n@@ -703,45 +703,5 @@\n ## Configuration\n \n The `gitiles.config` file supporting the site contains several\n-configuration options that impact markdown rendering.\n-\n-### Disabling markdown\n-\n-Markdown can be completely disabled by setting render to false.\n-\n-```\n-[markdown]\n-  render \u003d false\n-```\n-\n-### Markdown size\n-\n-Markdown files are limited by default to 5 MiB of input text\n-per file. This limit is configurable, but should not be raised\n-beyond available memory.\n-\n-```\n-[markdown]\n-  inputLimit \u003d 5M\n-```\n-\n-### Image size\n-\n-Referenced [images are inlined](#Images) as base64 encoded URIs.\n-The image limit places an upper bound on the byte size of input.\n-\n-```\n-[markdown]\n-  imageLimit \u003d 256K\n-```\n-\n-### Google Analytics\n-\n-[Google Analytics](https://www.google.com/analytics/) can be\n-enabled on every rendered markdown page by adding the Property ID\n-to the configuration file:\n-\n-```\n-[google]\n-  analyticsId \u003d UA-XXXX-Y\n-```\n+configuration options that impact markdown rendering. Refer to the\n+[configuration documentation](config.md#Markdown) for details.\ndiff --git a/README.md b/README.md\nindex 3bbfb98..4bb030d 100644\n--- a/README.md\n+++ b/README.md\n@@ -8,6 +8,12 @@\n documentation. Refer to the [Markdown documentation](/Documentation/markdown.md)\n for details.\n \n+## Configuration\n+\n+Gitiles is configurable in a git-style configuration file named\n+`gitiles.config`. Refer to the [configuration documentation](/Documentation/config.md)\n+for details.\n+\n ## Contributing to Gitiles\n \n Please refer to the [Developer Guide](/Documentation/developer-guide.md).\ndiff --git a/navbar.md b/navbar.md\nindex dde7a44..608531c 100644\n--- a/navbar.md\n+++ b/navbar.md\n@@ -1,3 +1,4 @@\n * [Home](/README.md)\n * [Markdown](/Documentation/markdown.md)\n+* [Configuration](/Documentation/config.md)\n * [Developers](/Documentation/developer-guide.md)",
+      "revId": "240fbff85d42455ee57aa4f8f0bc526c4cd33a1b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
