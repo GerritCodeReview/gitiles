@@ -16,6 +16,24 @@
       "message": "with this, still the gitiles tests fail with the error\n\n```\n$ bazelisk test //...\nINFO: Invocation ID: 798b0c47-7f79-44d5-be6e-b1b315f5e184\nERROR: Skipping \u0027//...\u0027: error loading package under directory \u0027\u0027: error loading package \u0027modules/jgit/org.eclipse.jgit.benchmarks\u0027: cannot load \u0027//tools:bzl/jmh.bzl\u0027: no such file\nERROR: error loading package under directory \u0027\u0027: error loading package \u0027modules/jgit/org.eclipse.jgit.benchmarks\u0027: cannot load \u0027//tools:bzl/jmh.bzl\u0027: no such file\nINFO: Elapsed time: 0.134s\nINFO: 0 processes.\nERROR: Build did NOT complete successfully\nERROR: Couldn\u0027t start the build. Unable to run tests\n```",
       "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e1f6adb_6f2bd664",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-12T14:11:16Z",
+      "side": 1,
+      "message": "`bazelisk test javatests/...` should work, right?\n\nBut I agree that //... should work. Are we missing .gitignore entry for modules/jgit, that we have added recently in gerrit?",
+      "parentUuid": "96b60630_a4552682",
+      "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
