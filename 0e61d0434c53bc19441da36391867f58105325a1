@@ -86,6 +86,24 @@
       "parentUuid": "33ac9792_91ece8b3",
       "revId": "0e61d0434c53bc19441da36391867f58105325a1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3debd15e_dfa73fb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-12T14:19:23Z",
+      "side": 1,
+      "message": "Thanks for the fix. Should we rebase this change on top of it?",
+      "parentUuid": "87969e97_627daf80",
+      "revId": "0e61d0434c53bc19441da36391867f58105325a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
