@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "551ff897_382c9921",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-06-12T11:49:41Z",
+      "side": 1,
+      "message": "Havent test this specifically, but I assume that if we can use jetty12 with gerrit, we can with gitiles.",
+      "revId": "0e61d0434c53bc19441da36391867f58105325a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
