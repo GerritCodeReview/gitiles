@@ -16,6 +16,41 @@
       "message": "the zuul pipeline fails, but there are no logs, what\u0027s wrong here ?",
       "revId": "e1ace85515ef8b6651a724e478c4bd2347e44fba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3105a2c8_f4c813a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-12T16:23:16Z",
+      "side": 1,
+      "message": "Can you add VRFY+1 vote and remove negative vote?",
+      "revId": "e1ace85515ef8b6651a724e478c4bd2347e44fba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1992e7e0_ee11e756",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-12T16:23:16Z",
+      "side": 1,
+      "message": "This is a known issue. There is not enough resources on Zuul host. Basically, we don\u0027t have CI and have to verify manually.",
+      "parentUuid": "6eb659fc_2912aee7",
+      "revId": "e1ace85515ef8b6651a724e478c4bd2347e44fba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
