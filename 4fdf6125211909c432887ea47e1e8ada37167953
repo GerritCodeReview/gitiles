@@ -39,6 +39,30 @@
       },
       "revId": "4fdf6125211909c432887ea47e1e8ada37167953",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "594a0d7f_2bf184e6",
+        "filename": "modules/jgit",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-06-12T12:29:11Z",
+      "side": 1,
+      "message": "Updating jgit to current servlet-4 branch (c46df0c50) and trying to run the tests fails with this error:\n\n```\n$ bazelisk test //...\nINFO: Invocation ID: 6f80f9e5-e5c0-416c-b17f-1fe8e975a115\nERROR: Error computing the main repository mapping: Missing checksum for registry file https://bcr.bazel.build/modules/rules_go/0.60.0/MODULE.bazel not permitted with --lockfile_mode\u003derror. Please run `bazel mod deps --lockfile_mode\u003dupdate` to update your lockfile.\nComputing main repo mapping:\n```\n\nafter updating the lock file, it fails with:\n```\n$ bazelisk test //...\nINFO: Invocation ID: 02ac76fa-15c1-40b3-af07-a483bd342625\nERROR: Skipping \u0027//...\u0027: error loading package under directory \u0027\u0027: error loading package \u0027modules/jgit/org.eclipse.jgit.benchmarks\u0027: cannot load \u0027//tools:bzl/jmh.bzl\u0027: no such file\nERROR: error loading package under directory \u0027\u0027: error loading package \u0027modules/jgit/org.eclipse.jgit.benchmarks\u0027: cannot load \u0027//tools:bzl/jmh.bzl\u0027: no such file\nINFO: Elapsed time: 0.166s\nINFO: 0 processes.\nERROR: Build did NOT complete successfully\nERROR: Couldn\u0027t start the build. Unable to run tests\n```",
+      "parentUuid": "3a51483b_fe33a8b4",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "4fdf6125211909c432887ea47e1e8ada37167953",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
