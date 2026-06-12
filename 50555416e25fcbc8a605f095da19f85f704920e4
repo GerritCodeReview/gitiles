@@ -52,6 +52,23 @@
       "parentUuid": "6e1f6adb_6f2bd664",
       "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47596eff_28ded1dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-06-12T14:15:15Z",
+      "side": 1,
+      "message": "How did I854cc58ad6129a053fd98073ad04af99317bf8ce pass CI validation ?",
+      "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
