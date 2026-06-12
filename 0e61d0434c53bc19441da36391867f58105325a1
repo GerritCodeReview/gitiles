@@ -68,6 +68,24 @@
       "message": "https://gerrit-review.googlesource.com/c/gitiles/+/588625 updated the jgit submodule link to a non-existing JGit commit:\n\ngitiles (master *)]$ git submodule update\nerror: RPC failed; HTTP 400 curl 22 The requested URL returned error: 400\nfatal: expected \u0027acknowledgments\u0027\nfatal: Fetched in submodule path \u0027modules/jgit\u0027, but it did not contain eeba63ed4ebfe817628da5a221305b0c72af7b04. Direct fetching of that commit failed.",
       "revId": "0e61d0434c53bc19441da36391867f58105325a1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87969e97_627daf80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-06-12T14:06:22Z",
+      "side": 1,
+      "message": "I pushed https://gerrit-review.googlesource.com/c/gitiles/+/594921 fixing the submodule link and updating the bazel lock file",
+      "parentUuid": "33ac9792_91ece8b3",
+      "revId": "0e61d0434c53bc19441da36391867f58105325a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
