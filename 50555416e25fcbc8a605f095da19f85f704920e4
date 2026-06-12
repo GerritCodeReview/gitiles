@@ -34,6 +34,24 @@
       "parentUuid": "96b60630_a4552682",
       "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1eede00_5a8a3643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-06-12T14:14:12Z",
+      "side": 1,
+      "message": "yes, this works\n\nadding `/modules/jgit/` to `.gitignore` doesn\u0027t fix the remaining issue",
+      "parentUuid": "6e1f6adb_6f2bd664",
+      "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
