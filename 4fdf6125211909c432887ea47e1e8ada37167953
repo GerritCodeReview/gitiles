@@ -16,6 +16,29 @@
       "message": "@milutin@google.com @ifrade@google.com @tparker@google.com Could you please LC+1 here?",
       "revId": "4fdf6125211909c432887ea47e1e8ada37167953",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a51483b_fe33a8b4",
+        "filename": "modules/jgit",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-06-12T12:16:11Z",
+      "side": 1,
+      "message": "this commit doesn\u0027t exist neither in https://eclipse.gerrithub.io/eclipse-jgit/jgit nor in https://gerrit.googlesource.com/jgit",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "4fdf6125211909c432887ea47e1e8ada37167953",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
