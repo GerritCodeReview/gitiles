@@ -87,6 +87,24 @@
       "parentUuid": "c1eede00_5a8a3643",
       "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b7466b3_da310c14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-06-12T14:35:32Z",
+      "side": 1,
+      "message": "thanks, adding `/modules/jgit/` fixed this",
+      "parentUuid": "368e67bb_d0b7d283",
+      "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
