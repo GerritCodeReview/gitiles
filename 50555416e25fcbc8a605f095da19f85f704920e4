@@ -69,6 +69,24 @@
       "message": "How did I854cc58ad6129a053fd98073ad04af99317bf8ce pass CI validation ?",
       "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368e67bb_d0b7d283",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-12T14:16:30Z",
+      "side": 1,
+      "message": "Sorry, I meant `.bazelignore`, see change 540961.",
+      "parentUuid": "c1eede00_5a8a3643",
+      "revId": "50555416e25fcbc8a605f095da19f85f704920e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
