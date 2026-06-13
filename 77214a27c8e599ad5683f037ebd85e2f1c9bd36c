@@ -16,6 +16,23 @@
       "message": "@milutin@google.com Could you please LC+1 here as well?",
       "revId": "77214a27c8e599ad5683f037ebd85e2f1c9bd36c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3679c152_1e2826ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4914604
+      },
+      "writtenOn": "2026-06-13T22:23:49Z",
+      "side": 1,
+      "message": "JaniniceWo",
+      "revId": "77214a27c8e599ad5683f037ebd85e2f1c9bd36c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
