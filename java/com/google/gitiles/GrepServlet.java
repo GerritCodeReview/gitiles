@@ -18,10 +18,12 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.diff.RawText;
@@ -48,8 +50,30 @@ public class GrepServlet extends BaseServlet {
   @VisibleForTesting static final int MAX_MATCHES = 1000;
   private static final int MAX_BLOB_SIZE = 1 << 20; // 1 MB
 
-  protected GrepServlet(GitilesAccess.Factory accessFactory) {
-    super(null, accessFactory);
+  protected GrepServlet(GitilesAccess.Factory accessFactory, Renderer renderer) {
+    super(renderer, accessFactory);
+  }
+
+  @Override
+  protected void doGetHtml(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    String substring =
+        Strings.nullToEmpty(Iterables.getFirst(view.getParameters().get(SUBSTRING_PARAM), null));
+
+    List<Map<String, Object>> matches = Lists.newArrayList();
+    if (!substring.isEmpty()) {
+      matches = toSoyMatches(view, grep(ServletUtils.getRepository(req), view, substring).matches);
+    }
+
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(6);
+    data.put("title", "Grep - " + view.getRevision().getName());
+    data.put("revision", view.getRevision().getName());
+    data.put("path", Strings.nullToEmpty(view.getPathPart()));
+    data.put("substring", substring);
+    data.put("hasSearch", !substring.isEmpty());
+    data.put("matches", matches);
+
+    renderHtml(req, res, "com.google.gitiles.templates.GrepDetail.grepDetail", data);
   }
 
   @Override
@@ -80,6 +104,14 @@ public class GrepServlet extends BaseServlet {
     }
 
     return new GrepResult(matches);
+  }
+
+  private static List<Map<String, Object>> toSoyMatches(GitilesView view, List<Match> matches) {
+    List<Map<String, Object>> data = Lists.newArrayListWithCapacity(matches.size());
+    for (Match match : matches) {
+      data.add(match.toSoyData(view));
+    }
+    return data;
   }
 
   private static void grepPath(
@@ -203,6 +235,16 @@ public class GrepServlet extends BaseServlet {
       this.path = path;
       this.lineNumber = lineNumber;
       this.line = line;
+    }
+
+    Map<String, Object> toSoyData(GitilesView view) {
+      Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
+      data.put("path", path);
+      data.put("lineNumber", lineNumber);
+      data.put("line", line);
+      data.put(
+          "url", GitilesView.path().copyFrom(view).setPathPart(path).toUrl() + "#" + lineNumber);
+      return data;
     }
   }
 }
