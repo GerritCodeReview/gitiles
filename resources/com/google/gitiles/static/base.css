@@ -502,6 +502,12 @@ a {
   }
 }
 
+/* GrepDetail.soy */
+
+.GrepResults-item {
+  margin-bottom: 15px;
+}
+
 /* LogDetail.soy */
 
 .LogNav {

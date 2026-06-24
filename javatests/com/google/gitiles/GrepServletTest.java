@@ -17,6 +17,7 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import java.util.List;
 import org.junit.Test;
@@ -52,6 +53,33 @@ public class GrepServletTest extends ServletTest {
 
     assertThat(result.matches).hasSize(1);
     assertThat(result.matches.get(0).path).isEqualTo("src/a.txt");
+  }
+
+  @Test
+  public void grepHtmlShowsSearchForm() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+
+    FakeHttpServletResponse res = buildResponse("/repo/+grep/master", "format=html", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains("name=\"s\"");
+    assertThat(res.getActualBodyString()).contains("Search");
+  }
+
+  @Test
+  public void grepHtmlSearchesFileContents() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("dir/a.txt", "alpha\nneedle here\n")
+        .add("dir/b.txt", "no match\n")
+        .create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains("dir/a.txt");
+    assertThat(res.getActualBodyString()).contains("2: needle here");
+    assertThat(res.getActualBodyString()).contains("#2");
+    assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
   }
 
   @Test
