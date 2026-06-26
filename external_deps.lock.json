@@ -23,8 +23,9 @@
     "com.jcraft:jzlib": 864660349,
     "commons-codec:commons-codec": -1724312797,
     "commons-io:commons-io": -1271816170,
-    "commons-logging:commons-logging": -1374531806,
+    "commons-logging:commons-logging": -916690979,
     "io.github.java-diff-utils:java-diff-utils": 1296992014,
+    "jakarta.servlet:jakarta.servlet-api": -3550902,
     "javax.servlet:javax.servlet-api": 669233360,
     "junit:junit": -744267592,
     "net.bytebuddy:byte-buddy": 1769080559,
@@ -49,6 +50,7 @@
     "org.commonmark:commonmark-ext-autolink": -1853742120,
     "org.commonmark:commonmark-ext-gfm-strikethrough": 350394231,
     "org.commonmark:commonmark-ext-gfm-tables": 1881582931,
+    "org.eclipse.jetty.ee10:jetty-ee10-servlet": 835495267,
     "org.eclipse.jetty.ee8:jetty-ee8-nested": 1867536598,
     "org.eclipse.jetty.ee8:jetty-ee8-security": -374913491,
     "org.eclipse.jetty.ee8:jetty-ee8-servlet": 894276934,
@@ -134,12 +136,14 @@
     "commons-codec:commons-codec:jar:sources": -499809306,
     "commons-io:commons-io": 1539755249,
     "commons-io:commons-io:jar:sources": 614234247,
-    "commons-logging:commons-logging": -102005530,
-    "commons-logging:commons-logging:jar:sources": 147282524,
+    "commons-logging:commons-logging": -2039356713,
+    "commons-logging:commons-logging:jar:sources": 494659498,
     "io.github.java-diff-utils:java-diff-utils": -1180802694,
     "io.github.java-diff-utils:java-diff-utils:jar:sources": 1551226070,
     "jakarta.inject:jakarta.inject-api": 188991469,
     "jakarta.inject:jakarta.inject-api:jar:sources": -1584622703,
+    "jakarta.servlet:jakarta.servlet-api": -1421863120,
+    "jakarta.servlet:jakarta.servlet-api:jar:sources": -2084357823,
     "javax.activation:activation": -1387662613,
     "javax.activation:activation:jar:sources": -848464236,
     "javax.annotation:jsr250-api": 847275234,
@@ -173,7 +177,7 @@
     "org.apache.commons:commons-math3:jar:sources": -2132756896,
     "org.apache.commons:commons-text": 1458185425,
     "org.apache.commons:commons-text:jar:sources": -596520490,
-    "org.apache.httpcomponents:httpclient": 726829008,
+    "org.apache.httpcomponents:httpclient": -569179945,
     "org.apache.httpcomponents:httpclient:jar:sources": -779528763,
     "org.apache.httpcomponents:httpcore": 67453319,
     "org.apache.httpcomponents:httpcore:jar:sources": 2134002822,
@@ -205,6 +209,8 @@
     "org.commonmark:commonmark-ext-gfm-tables": -1205584749,
     "org.commonmark:commonmark-ext-gfm-tables:jar:sources": 1341057091,
     "org.commonmark:commonmark:jar:sources": -1511261547,
+    "org.eclipse.jetty.ee10:jetty-ee10-servlet": 349394374,
+    "org.eclipse.jetty.ee10:jetty-ee10-servlet:jar:sources": 501419503,
     "org.eclipse.jetty.ee8:jetty-ee8-nested": -65830655,
     "org.eclipse.jetty.ee8:jetty-ee8-nested:jar:sources": -2141029892,
     "org.eclipse.jetty.ee8:jetty-ee8-security": -1787377969,
@@ -474,10 +480,10 @@
     },
     "commons-logging:commons-logging": {
       "shasums": {
-        "jar": "f8ead8943401081dea0aa824b5b1ba40a0e4ed297a572a0f02258150a0b62357",
-        "sources": "6e821e03cfc64e509cc162d428af84697b6c4188eb14c0b137c75b69649976ef"
+        "jar": "d175dbd751dd782a63bde28c7a039520e971f25e84b79c19b8435edc3603e0dc",
+        "sources": "28104e5057a11c6e9cda72e973d767b3a0185e65363fede91bc848bc6a309634"
       },
-      "version": "1.3.6"
+      "version": "1.4.0"
     },
     "io.github.java-diff-utils:java-diff-utils": {
       "shasums": {
@@ -492,6 +498,13 @@
         "sources": "44f4c73fda69f8b7d87136f0f789f042f54e8ff506d40aa126199baf3752d1c9"
       },
       "version": "2.0.1"
+    },
+    "jakarta.servlet:jakarta.servlet-api": {
+      "shasums": {
+        "jar": "8a31f465f3593bf2351531a5c952014eb839da96a605b5825b93dd54714c48c4",
+        "sources": "6eb958543e0548bb93d2519e40224d13c8003b10cc615b5652bfd9899350bfb4"
+      },
+      "version": "6.1.0"
     },
     "javax.activation:activation": {
       "shasums": {
@@ -722,6 +735,13 @@
         "sources": "15525448cb137992c00ece73d320f45187a187bc906ba967ccc958f42e92c3b9"
       },
       "version": "0.24.0"
+    },
+    "org.eclipse.jetty.ee10:jetty-ee10-servlet": {
+      "shasums": {
+        "jar": "05cccc74bbe1478ceb765e967b1cb1a3c8d9b51e99acf586190887e467ffd87d",
+        "sources": "51a734b4bc04235b24ccd759515dd2947e5b675c227c556f02262b765bce47eb"
+      },
+      "version": "12.1.10"
     },
     "org.eclipse.jetty.ee8:jetty-ee8-nested": {
       "shasums": {
@@ -1067,6 +1087,13 @@
     ],
     "org.commonmark:commonmark-ext-gfm-tables": [
       "org.commonmark:commonmark"
+    ],
+    "org.eclipse.jetty.ee10:jetty-ee10-servlet": [
+      "jakarta.servlet:jakarta.servlet-api",
+      "org.eclipse.jetty:jetty-security",
+      "org.eclipse.jetty:jetty-server",
+      "org.eclipse.jetty:jetty-session",
+      "org.slf4j:slf4j-api"
     ],
     "org.eclipse.jetty.ee8:jetty-ee8-nested": [
       "org.eclipse.jetty.toolchain:jetty-servlet-api",
@@ -1414,7 +1441,8 @@
     ],
     "commons-logging:commons-logging": [
       "org.apache.commons.logging",
-      "org.apache.commons.logging.impl"
+      "org.apache.commons.logging.impl",
+      "org.apache.commons.logging.jakarta"
     ],
     "io.github.java-diff-utils:java-diff-utils": [
       "com.github.difflib",
@@ -1427,6 +1455,12 @@
     ],
     "jakarta.inject:jakarta.inject-api": [
       "jakarta.inject"
+    ],
+    "jakarta.servlet:jakarta.servlet-api": [
+      "jakarta.servlet",
+      "jakarta.servlet.annotation",
+      "jakarta.servlet.descriptor",
+      "jakarta.servlet.http"
     ],
     "javax.activation:activation": [
       "com.sun.activation.registries",
@@ -2413,6 +2447,15 @@
       "org.commonmark.ext.gfm.tables",
       "org.commonmark.ext.gfm.tables.internal"
     ],
+    "org.eclipse.jetty.ee10:jetty-ee10-servlet": [
+      "org.eclipse.jetty.ee10.servlet",
+      "org.eclipse.jetty.ee10.servlet.internal",
+      "org.eclipse.jetty.ee10.servlet.jmx",
+      "org.eclipse.jetty.ee10.servlet.listener",
+      "org.eclipse.jetty.ee10.servlet.security",
+      "org.eclipse.jetty.ee10.servlet.security.authentication",
+      "org.eclipse.jetty.ee10.servlet.util"
+    ],
     "org.eclipse.jetty.ee8:jetty-ee8-nested": [
       "org.eclipse.jetty.ee8.nested",
       "org.eclipse.jetty.ee8.nested.jmx"
@@ -2711,6 +2754,8 @@
       "io.github.java-diff-utils:java-diff-utils:jar:sources",
       "jakarta.inject:jakarta.inject-api",
       "jakarta.inject:jakarta.inject-api:jar:sources",
+      "jakarta.servlet:jakarta.servlet-api",
+      "jakarta.servlet:jakarta.servlet-api:jar:sources",
       "javax.activation:activation",
       "javax.activation:activation:jar:sources",
       "javax.annotation:jsr250-api",
@@ -2775,6 +2820,8 @@
       "org.commonmark:commonmark-ext-gfm-tables",
       "org.commonmark:commonmark-ext-gfm-tables:jar:sources",
       "org.commonmark:commonmark:jar:sources",
+      "org.eclipse.jetty.ee10:jetty-ee10-servlet",
+      "org.eclipse.jetty.ee10:jetty-ee10-servlet:jar:sources",
       "org.eclipse.jetty.ee8:jetty-ee8-nested",
       "org.eclipse.jetty.ee8:jetty-ee8-nested:jar:sources",
       "org.eclipse.jetty.ee8:jetty-ee8-security",
