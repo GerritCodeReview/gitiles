@@ -77,7 +77,7 @@ java_library(
 java_library(
     name = "jgit-servlet",
     visibility = ["//visibility:public"],
-    exports = ["@jgit//org.eclipse.jgit.http.server:jgit-servlet"],
+    exports = ["@jgit//org.eclipse.jgit.http.server.ee8:jgit-servlet-ee8"],
     runtime_deps = [":jgit"],
 )
 
