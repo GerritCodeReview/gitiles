@@ -10,6 +10,7 @@ bazel_dep(name = "rules_jvm_external", version = "7.0")
 # Language rules.
 bazel_dep(name = "rules_java", version = "9.3.0")
 bazel_dep(name = "rules_python", version = "2.0.2")
+bazel_dep(name = "rules_shell", version = "0.8.0")
 
 # In-tree modules.
 bazel_dep(name = "jgit")
