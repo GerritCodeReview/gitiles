@@ -21,6 +21,19 @@ java_library(
     exports = ["@external_deps//:org_eclipse_jetty_ee8_jetty_ee8_nested"],
 )
 
+# EE10 (jakarta.servlet) servlet container, for the EE10 dev server. The EE10
+# servlet artifact is already resolvable via the shared @external_deps repo
+# (contributed by JGit), so no java_deps / lockfile change is needed. DevServer
+# uses no Jetty security, so this target stays on the core server chain only.
+java_library(
+    name = "servlet-ee10",
+    exports = [
+        ":server",
+        "//lib:jakarta-servlet-api",
+        "@external_deps//:org_eclipse_jetty_ee10_jetty_ee10_servlet",
+    ],
+)
+
 java_library(
     name = "security",
     exports = [

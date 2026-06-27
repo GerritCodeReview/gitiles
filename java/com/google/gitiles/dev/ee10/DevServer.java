@@ -16,16 +16,18 @@ package com.google.gitiles.dev;
 
 import java.io.File;
 import java.io.IOException;
-import org.eclipse.jetty.ee8.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 /**
- * Canonical EE8 ({@code javax.servlet}) dev server overlay.
+ * EE10 ({@code jakarta.servlet}) dev server overlay.
  *
- * <p>All shared wiring lives in {@link DevServerBase} (which the {@code tools/gitiles-ee10}
- * transform rewrites into its EE10 form); only the EE8-specific handler installation differs. The
- * EE10 counterpart is hand-maintained at {@code dev/ee10/DevServer.java}.
+ * <p>Hand-maintained counterpart of the canonical EE8 {@code DevServer}; kept under {@code dev/ee10}
+ * (Bazel package boundary) but in the same {@code com.google.gitiles.dev} Java package, so it stays
+ * named {@code DevServer} and {@code Main}'s {@code new DevServer(...)} is untouched. All shared
+ * wiring lives in the transform-generated {@link DevServerBase}; only the EE10-specific handler
+ * installation differs. See {@code tools/gitiles-ee10/README.md}.
  */
 class DevServer extends DevServerBase {
   DevServer(File cfgFile) throws IOException, ConfigInvalidException {
@@ -34,8 +36,8 @@ class DevServer extends DevServerBase {
 
   @Override
   protected Handler toCoreHandler(ServletContextHandler handler) {
-    // The EE8 ServletContextHandler implements Supplier<org.eclipse.jetty.server.Handler>;
-    // unwrap to the core Handler for installation into the server's handler tree.
-    return handler.get();
+    // The EE10 ServletContextHandler is itself an org.eclipse.jetty.server.Handler;
+    // unlike the EE8 adapter, there is no Supplier to unwrap.
+    return handler;
   }
 }
