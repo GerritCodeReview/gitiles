@@ -20,6 +20,7 @@ package(
     ("html-types", "@external_deps//:com_google_common_html_types_types"),
     ("jsr305", "@external_deps//:com_google_code_findbugs_jsr305"),
     ("servlet-api", "@external_deps//:javax_servlet_javax_servlet_api"),
+    ("jakarta-servlet-api", "@external_deps//:jakarta_servlet_jakarta_servlet_api"),
     ("gson", "@external_deps//:com_google_code_gson_gson"),
     ("guava", "@external_deps//:com_google_guava_guava"),
     ("guava-failureaccess", "@external_deps//:com_google_guava_failureaccess"),
@@ -78,6 +79,14 @@ java_library(
     name = "jgit-servlet",
     visibility = ["//visibility:public"],
     exports = ["@jgit//org.eclipse.jgit.http.server.ee8:jgit-servlet-ee8"],
+    runtime_deps = [":jgit"],
+)
+
+# Canonical (jakarta.servlet) JGit servlet module, for the Gitiles EE10 flavour.
+java_library(
+    name = "jgit-servlet-jakarta",
+    visibility = ["//visibility:public"],
+    exports = ["@jgit//org.eclipse.jgit.http.server:jgit-servlet"],
     runtime_deps = [":jgit"],
 )
 
