@@ -16,6 +16,23 @@
       "message": "@ifrade@google.com @milutin@google.com\n\nCould you please take a look and, if everything looks good, grant this an LC+1?\nWe\u0027d like to retire the `servlet-4` branch in JGit as soon as possible.",
       "revId": "bcbf5b005af0c682b2e5f393324569dd2b3843ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97723273_ad049267",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-06-30T13:50:26Z",
+      "side": 1,
+      "message": "@milutin@google.com Thanks for LC+1 👍!\nWould you mind also giving Gerrit change 597681 an LC+1?",
+      "revId": "bcbf5b005af0c682b2e5f393324569dd2b3843ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
