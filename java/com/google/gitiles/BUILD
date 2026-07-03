@@ -6,6 +6,7 @@ DEPS = [
     "//java/com/google/gitiles/blame/cache",
     "//lib:autolink",
     "//lib:cm-autolink",
+    "//lib:cm-yaml-front-matter",
     "//lib:commonmark",
     "//lib:commons-io",
     "//lib:commons-lang3",

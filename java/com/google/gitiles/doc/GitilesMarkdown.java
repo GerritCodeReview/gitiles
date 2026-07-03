@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.commonmark.Extension;
 import org.commonmark.ext.autolink.AutolinkExtension;
+import org.commonmark.ext.front.matter.YamlFrontMatterExtension;
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.node.Node;
@@ -37,6 +38,9 @@ public class GitilesMarkdown {
     }
     if (cfg.blockNote) {
       ext.add(BlockNoteExtension.create());
+    }
+    if (cfg.frontMatter) {
+      ext.add(YamlFrontMatterExtension.create());
     }
     if (cfg.safeHtml) {
       ext.add(GitilesHtmlExtension.create());
