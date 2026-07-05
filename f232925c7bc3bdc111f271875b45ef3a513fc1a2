@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88c3c0d0_15daa2ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4982909
+      },
+      "writtenOn": "2026-07-05T10:47:55Z",
+      "side": 1,
+      "message": "git clone https://gerrit.googlesource.com/gitiles \u0026\u0026 (cd gitiles \u0026\u0026 f\u003d`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)",
+      "revId": "f232925c7bc3bdc111f271875b45ef3a513fc1a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
