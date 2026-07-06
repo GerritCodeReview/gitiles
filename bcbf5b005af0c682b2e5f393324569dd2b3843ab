@@ -33,6 +33,23 @@
       "message": "@milutin@google.com Thanks for LC+1 👍!\nWould you mind also giving Gerrit change 597681 an LC+1?",
       "revId": "bcbf5b005af0c682b2e5f393324569dd2b3843ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc9170b_ddc9d25f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-07-06T09:10:24Z",
+      "side": 1,
+      "message": "- zuul verification job seems broken\n- running tests locally fails. It seems bazel also tries to run the JGit tests:\n```\n$ bazelisk test //...\nINFO: Invocation ID: 390caf2d-d55e-495e-ad9a-ceb0624acb35\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/java/com/google/gitiles/dev/BUILD\", line 5, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob([\"**/*.java\"]),\nError in glob: glob pattern \u0027**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/java/com/google/gitiles/BUILD\", line 40, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob([\"**/*.java\"]),\nError in glob: glob pattern \u0027**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/java/com/google/gitiles/blame/cache/BUILD\", line 7, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob([\"**/*.java\"]),\nError in glob: glob pattern \u0027**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/javatests/com/google/gitiles/BUILD\", line 16, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob(\nError in glob: glob pattern \u0027**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: package contains errors: bin/java/com/google/gitiles/blame/cache\nERROR: package contains errors: bin/java/com/google/gitiles/dev\nERROR: package contains errors: bin/java/com/google/gitiles\nERROR: package contains errors: bin/javatests/com/google/gitiles\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/modules/java-prettify/BUILD\", line 5, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob([\"src/**/*.java\"]),\nError in glob: glob pattern \u0027src/**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: package contains errors: bin/modules/java-prettify\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/modules/jgit/org.eclipse.jgit.archive/BUILD\", line 7, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob(\nError in glob: glob pattern \u0027src/**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: Traceback (most recent call last):\n\tFile \"/Users/xxxxxx/git/gitiles/bin/modules/jgit/org.eclipse.jgit.ui/BUILD\", line 7, column 16, in \u003ctoplevel\u003e\n\t\tsrcs \u003d glob([\"src/**/*.java\"]),\nError in glob: glob pattern \u0027src/**/*.java\u0027 didn\u0027t match anything, but allow_empty is set to False (the default value of allow_empty can be set with --incompatible_disallow_empty_glob).\nERROR: package contains errors: bin/modules/jgit/org.eclipse.jgit.ui\nERROR: error loading package under directory \u0027\u0027: error loading package \u0027bin/modules/jgit/org.eclipse.jgit.benchmarks\u0027: cannot load \u0027//tools:bzl/jmh.bzl\u0027: no such file\nINFO: Elapsed time: 0.153s\nINFO: 0 processes.\nERROR: Build did NOT complete successfully\nERROR: Couldn\u0027t start the build. Unable to run tests\n```",
+      "revId": "bcbf5b005af0c682b2e5f393324569dd2b3843ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
