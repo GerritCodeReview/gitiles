@@ -19,11 +19,11 @@ java_library(
     ) + glob(["**/ServletTest.java"]),
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
+        "//lib:jgit-junit",
         "//lib:jsr305",
         "//lib:servlet-api",
-        "//lib/truth",
-        "//lib:jgit-junit",
         "//lib/junit",
+        "//lib/truth",
     ],
 )
 
@@ -39,13 +39,13 @@ junit_tests(
     visibility = ["//visibility:public"],
     runtime_deps = ["//lib/junit:hamcrest"],
     deps = DEPS + [
-        "//java/com/google/gitiles:servlet",
         ":testutil",
-        "//lib:servlet-api",
+        "//java/com/google/gitiles:servlet",
         "//lib:commons-codec",
         "//lib:commons-io",
-        "//lib/truth",
         "//lib:jgit-junit",
+        "//lib:servlet-api",
         "//lib/junit",
+        "//lib/truth",
     ],
 )
