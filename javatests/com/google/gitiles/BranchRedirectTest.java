@@ -15,8 +15,8 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
-import static javax.servlet.http.HttpServletResponse.SC_MOVED_TEMPORARILY;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static jakarta.servlet.http.HttpServletResponse.SC_MOVED_TEMPORARILY;
+import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;

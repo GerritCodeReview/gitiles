@@ -17,8 +17,8 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableMap;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.annotation.Nullable;
-import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Test;
 import org.junit.runner.RunWith;

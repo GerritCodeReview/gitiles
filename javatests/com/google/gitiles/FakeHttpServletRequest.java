@@ -24,6 +24,21 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Maps;
+import jakarta.servlet.AsyncContext;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConnection;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpUpgradeHandler;
+import jakarta.servlet.http.Part;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -35,20 +50,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUpgradeHandler;
-import javax.servlet.http.Part;
 import org.eclipse.jgit.http.server.ServletUtils;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 
@@ -232,12 +233,6 @@ public class FakeHttpServletRequest implements HttpServletRequest {
 
   @Override
   public BufferedReader getReader() {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  @Deprecated
-  public String getRealPath(String path) {
     throw new UnsupportedOperationException();
   }
 
@@ -428,12 +423,6 @@ public class FakeHttpServletRequest implements HttpServletRequest {
   }
 
   @Override
-  @Deprecated
-  public boolean isRequestedSessionIdFromUrl() {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
     throw new UnsupportedOperationException();
   }
@@ -471,6 +460,21 @@ public class FakeHttpServletRequest implements HttpServletRequest {
 
   @Override
   public boolean isUserInRole(String role) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public String getRequestId() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public String getProtocolRequestId() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public ServletConnection getServletConnection() {
     throw new UnsupportedOperationException();
   }
 }

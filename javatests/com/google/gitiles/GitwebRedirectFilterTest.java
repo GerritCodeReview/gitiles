@@ -17,11 +17,11 @@ package com.google.gitiles;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gitiles.FakeHttpServletRequest.SERVLET_PATH;
 import static com.google.gitiles.TestGitilesUrls.HOST_NAME;
-import static javax.servlet.http.HttpServletResponse.SC_GONE;
-import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static jakarta.servlet.http.HttpServletResponse.SC_GONE;
+import static jakarta.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import com.google.common.net.HttpHeaders;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;

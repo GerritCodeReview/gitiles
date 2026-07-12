@@ -15,14 +15,14 @@
 package com.google.gitiles;
 
 import com.google.common.collect.ImmutableList;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
 import javax.annotation.Nullable;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.junit.TestRepository;

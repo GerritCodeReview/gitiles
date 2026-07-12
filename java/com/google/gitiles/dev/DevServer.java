@@ -27,6 +27,8 @@ import com.google.gitiles.GitilesServlet;
 import com.google.gitiles.RepositoryDescription;
 import com.google.gitiles.RootedDocServlet;
 import com.google.gitiles.doc.HtmlSanitizer;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -38,10 +40,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServletRequest;
-import org.eclipse.jetty.ee8.servlet.ServletContextHandler;
-import org.eclipse.jetty.ee8.servlet.ServletHolder;
+import javax.annotation.Nullable;
+import org.eclipse.jetty.ee11.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee11.servlet.ServletHolder;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -147,9 +148,7 @@ class DevServer {
     handler.setContextPath(
         MoreObjects.firstNonNull(cfg.getString("gitiles", null, "contextPath"), ""));
     handler.addServlet(new ServletHolder(servlet), "/*");
-    // ee8 ContextHandler implements Supplier<org.eclipse.jetty.server.Handler>;
-    // unwrap to the core Handler for installation into the server's handler tree.
-    return handler.get();
+    return handler;
   }
 
   private Handler staticHandler() {
@@ -214,6 +213,7 @@ class DevServer {
         }
 
         @Override
+        @Nullable
         public Object getUserKey() {
           return "";
         }

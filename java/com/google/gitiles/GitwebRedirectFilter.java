@@ -17,8 +17,8 @@ package com.google.gitiles;
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.net.HttpHeaders.LOCATION;
+import static jakarta.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -27,16 +27,16 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gitiles.GitilesView.InvalidViewException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.lib.ObjectId;
 
 /** Filter to redirect Gitweb-style URLs to Gitiles-style URLs. */

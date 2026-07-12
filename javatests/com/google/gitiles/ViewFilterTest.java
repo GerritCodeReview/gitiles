@@ -20,9 +20,9 @@ import static com.google.gitiles.MoreAssert.assertThrows;
 import static java.lang.String.format;
 
 import com.google.common.net.HttpHeaders;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.util.Optional;
-import javax.servlet.ServletException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
@@ -266,14 +266,19 @@ public class ViewFilterTest {
 
   @Test
   public void revisionNotFound() throws Exception {
-    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+show/0123456789abcdef"));
-    assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.OBJECT_NOT_FOUND);
+    var exception =
+        assertThrows(
+            GitilesRequestFailureException.class, () -> getView("/repo/+show/0123456789abcdef"));
+    assertThat(exception.getReason())
+        .isEqualTo(GitilesRequestFailureException.FailureReason.OBJECT_NOT_FOUND);
   }
 
   @Test
   public void cannotParse() throws Exception {
-    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+showmaster"));
-    assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.CANNOT_PARSE_GITILES_VIEW);
+    var exception =
+        assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+showmaster"));
+    assertThat(exception.getReason())
+        .isEqualTo(GitilesRequestFailureException.FailureReason.CANNOT_PARSE_GITILES_VIEW);
   }
 
   @Test

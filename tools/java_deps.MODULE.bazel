@@ -12,7 +12,7 @@ FLOGGER_VERSION = "0.7.4"
 
 SLF4J_VERSION = "2.0.17"
 
-JETTY_VERSION = "12.1.10"
+JETTY_VERSION = "12.1.11"
 
 OW2_ASM_VERSION = "9.9.1"
 
@@ -47,9 +47,7 @@ _GITILES_FORCED_ARTIFACTS = [
     "org.eclipse.jetty:jetty-server",
     "org.eclipse.jetty:jetty-session",
     "org.eclipse.jetty:jetty-util",
-    "org.eclipse.jetty.ee8:jetty-ee8-nested",
-    "org.eclipse.jetty.ee8:jetty-ee8-security",
-    "org.eclipse.jetty.ee8:jetty-ee8-servlet",
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet",
     "org.mockito:mockito-core",
     "org.objenesis:objenesis",
     "org.slf4j:slf4j-api",
@@ -90,7 +88,7 @@ maven.install(
         "commons-codec:commons-codec:1.18.0",
         "commons-io:commons-io:2.21.0",
         "io.github.java-diff-utils:java-diff-utils:4.16",
-        "javax.servlet:javax.servlet-api:4.0.1",
+        "jakarta.servlet:jakarta.servlet-api:6.1.0",
         "junit:junit:4.13.2",
         "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
         "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
@@ -106,10 +104,8 @@ maven.install(
         "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-server:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-session:" + JETTY_VERSION,
+        "org.eclipse.jetty.ee11:jetty-ee11-servlet:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-util:" + JETTY_VERSION,
-        "org.eclipse.jetty.ee8:jetty-ee8-nested:" + JETTY_VERSION,
-        "org.eclipse.jetty.ee8:jetty-ee8-security:" + JETTY_VERSION,
-        "org.eclipse.jetty.ee8:jetty-ee8-servlet:" + JETTY_VERSION,
         "org.hamcrest:hamcrest:3.0",
         "org.mockito:mockito-core:5.21.0",
         "org.nibor.autolink:autolink:0.11.0",
