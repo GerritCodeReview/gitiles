@@ -20,7 +20,6 @@ package(
     ("html-types", "@external_deps//:com_google_common_html_types_types"),
     ("jsr305", "@external_deps//:com_google_code_findbugs_jsr305"),
     ("servlet-api", "@external_deps//:jakarta_servlet_jakarta_servlet_api"),
-    ("servlet-api-ee8", "@external_deps//:javax_servlet_javax_servlet_api"),
     ("gson", "@external_deps//:com_google_code_gson_gson"),
     ("guava", "@external_deps//:com_google_guava_guava"),
     ("guava-failureaccess", "@external_deps//:com_google_guava_failureaccess"),
@@ -79,15 +78,6 @@ java_library(
     name = "jgit-servlet",
     visibility = ["//visibility:public"],
     exports = ["@jgit//org.eclipse.jgit.http.server:jgit-servlet"],
-    runtime_deps = [":jgit"],
-)
-
-# EE8 (javax.servlet) twin: JGit's backward-bridge servlet bundle, consumed by
-# the generated gitiles-servlet EE8 artifact.
-java_library(
-    name = "jgit-servlet-ee8",
-    visibility = ["//visibility:public"],
-    exports = ["@jgit//org.eclipse.jgit.http.server.ee8:jgit-servlet-ee8"],
     runtime_deps = [":jgit"],
 )
 
