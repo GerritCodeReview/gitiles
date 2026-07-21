@@ -1,0 +1,23 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6246840_a9fa9df3",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 4973780
+      },
+      "writtenOn": "2026-07-21T22:20:07Z",
+      "side": 1,
+      "message": "Added a test in PS3 (frontMatterNodeChildrenAreStrippedWithoutError) that makes this concrete: front matter with multiple keys plus a list value -- so the YamlFrontMatterBlock has several YamlFrontMatterNode children -- renders without throwing and with all keys/values stripped. It would fail with the IllegalArgumentException if the block branch were removed, or leak metadata if we recursed into the (unhandled) CustomNode children.",
+      "parentUuid": "0302eacd_6b29294a",
+      "isAi": true,
+      "revId": "61b9bb02ddedf113e88163bb7edf8ad5072d55dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
