@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db8d30c7_6f89a242",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-07-21T21:39:51Z",
+      "side": 1,
+      "message": "You could also copy the `Collections.singleton()` optimization from `getAllRefsByPeeledObjectId()`, but I\u0027m not sure how necessary that is.",
+      "revId": "e7402f5c7ea414b3d86df68e26aaf85ed2083908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b69ee16b_cc991b83",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-07-21T21:39:51Z",
+      "side": 1,
+      "message": "As a follow up, it seems like we could also store the sorted list instead of always re-doing the sort.",
+      "revId": "e7402f5c7ea414b3d86df68e26aaf85ed2083908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
