@@ -1,0 +1,23 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc974d87_6099ac04",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 4973780
+      },
+      "writtenOn": "2026-07-21T22:16:32Z",
+      "side": 1,
+      "message": "You are right that YamlFrontMatterBlock is an empty marker and the data lives in its YamlFrontMatterNode (CustomNode) children. Handling it at the block level is deliberate and sufficient: this branch omits the whole block without calling visitChildren, so the YamlFrontMatterNode children are never visited and never reach visit(CustomNode). Handling it only in visit(CustomNode) would not work on its own -- visit(CustomBlock) would still fall through to the throw for the unhandled YamlFrontMatterBlock. I expanded the comment in PS2 to spell this out; GitilesMarkdownTest asserts the front-matter keys are stripped from the output.",
+      "parentUuid": "0302eacd_6b29294a",
+      "isAi": true,
+      "revId": "e7a0acb60bd1b5d9cb3890c9cd8f50dc0e8241ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
