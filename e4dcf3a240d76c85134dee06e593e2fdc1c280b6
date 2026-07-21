@@ -16,6 +16,23 @@
       "message": "Yeah, the Zuul CI is having issues. We\u0027re discussing with the Zuul experts on how to fix it, but I agree it\u0027s not an issue with your change. I\u0027ll run the tests manually and set Verified +1.\n\n@ifrade@google.com can you set LC+1? I don\u0027t know if this really counts as a new library since it\u0027s part of the overall commonmark library and not changing its version.",
       "revId": "e4dcf3a240d76c85134dee06e593e2fdc1c280b6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0397c941_84075be2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-07-21T23:40:24Z",
+      "side": 1,
+      "message": "Bazel build and tests succeed. Code is formatted correctly.",
+      "revId": "e4dcf3a240d76c85134dee06e593e2fdc1c280b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
