@@ -186,6 +186,10 @@ section:
 * `blocknote`: Gitiles style note/promo/aside blocks to raise
   awareness to important content. Default false.
 
+* `frontmatter`: strip a leading YAML front matter block (delimited
+  by `---` lines) from the rendered output instead of treating it as
+  document content. Default false.
+
 * `ghthematicbreak`: accept `--` for `<hr>`, like GitHub Flavor
   Markdown.  Default follows `githubFlavor`.
 

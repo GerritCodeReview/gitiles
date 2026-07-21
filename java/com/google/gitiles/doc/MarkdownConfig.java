@@ -44,6 +44,7 @@ public class MarkdownConfig {
 
   final boolean autoLink;
   final boolean blockNote;
+  final boolean frontMatter;
   final boolean ghThematicBreak;
   final boolean multiColumn;
   final boolean namedAnchor;
@@ -65,6 +66,7 @@ public class MarkdownConfig {
     boolean githubFlavor = cfg.getBoolean("markdown", "githubFlavor", true);
     autoLink = cfg.getBoolean("markdown", "autolink", githubFlavor);
     blockNote = cfg.getBoolean("markdown", "blocknote", false);
+    frontMatter = cfg.getBoolean("markdown", "frontmatter", false);
     ghThematicBreak = cfg.getBoolean("markdown", "ghthematicbreak", githubFlavor);
     multiColumn = cfg.getBoolean("markdown", "multicolumn", false);
     namedAnchor = cfg.getBoolean("markdown", "namedanchor", false);
@@ -94,6 +96,7 @@ public class MarkdownConfig {
 
     autoLink = on("autolink", p.autoLink, enable, disable);
     blockNote = on("blocknote", p.blockNote, enable, disable);
+    frontMatter = on("frontmatter", p.frontMatter, enable, disable);
     ghThematicBreak = on("ghthematicbreak", p.ghThematicBreak, enable, disable);
     multiColumn = on("multicolumn", p.multiColumn, enable, disable);
     namedAnchor = on("namedanchor", p.namedAnchor, enable, disable);
