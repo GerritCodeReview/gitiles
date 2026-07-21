@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0302eacd_6b29294a",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-07-21T22:05:03Z",
+      "side": 1,
+      "message": "The [`YamlFrontMatterExtension` says](https://github.com/commonmark/commonmark-java/blob/commonmark-parent-0.24.0/commonmark-ext-yaml-front-matter/src/main/java/org/commonmark/ext/front/matter/YamlFrontMatterExtension.java#L16) we visit `YamlFrontMatterNode`s which extend `CustomNode`. [`YamlFrontMatterBlock`](https://github.com/commonmark/commonmark-java/blob/commonmark-parent-0.24.0/commonmark-ext-yaml-front-matter/src/main/java/org/commonmark/ext/front/matter/YamlFrontMatterBlock.java) seems to be empty? So should we be adding `YamlFrontMatterNode` to our `visit(CustomNode node)` above?",
+      "revId": "daeb752cb43dfec2e259a0d9b42c1b510bbea3eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
