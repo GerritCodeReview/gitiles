@@ -51,6 +51,24 @@
       "parentUuid": "2071acd4_a1f71fcc",
       "revId": "e4dcf3a240d76c85134dee06e593e2fdc1c280b6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ffcd6ec_ab9143c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-07-22T14:48:16Z",
+      "side": 1,
+      "message": "Understood, I just don\u0027t have permission to set that label vote since I don\u0027t work at Google. @hariprak@google.com can you do that please?",
+      "parentUuid": "e2ac463f_c015ea2c",
+      "revId": "e4dcf3a240d76c85134dee06e593e2fdc1c280b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
