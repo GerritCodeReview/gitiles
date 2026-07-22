@@ -21,12 +21,22 @@ import com.google.gitiles.CommitJsonData.Commit;
 import com.google.gitiles.CommitJsonData.Log;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gson.reflect.TypeToken;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 import org.eclipse.jgit.internal.storage.commitgraph.ChangedPathFilter;
 import org.eclipse.jgit.internal.storage.dfs.DfsGarbageCollector;
+import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
+import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
+import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
+import org.eclipse.jgit.junit.MockSystemReader;
+import org.eclipse.jgit.junit.TestRepository;
+import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.ConfigConstants;
 import org.eclipse.jgit.lib.NullProgressMonitor;
 import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.junit.Test;
@@ -443,6 +453,74 @@ public class LogServletTest extends ServletTest {
     assertThat(filter1).isNotNull();
     ChangedPathFilter filter2 = rw.parseCommit(c2.toObjectId()).getChangedPathFilter(rw);
     assertThat(filter2).isNotNull();
+  }
+
+  @Test
+  public void logHtmlDecorationDoesNotEnumerateAllRefs() throws Exception {
+    RefCountingRepository counter = new RefCountingRepository(new DfsRepositoryDescription("repo"));
+    TestRepository<DfsRepository> r = newRepoWithManyRefs(counter);
+    GitilesServlet s = TestGitilesServlet.create(r);
+
+    FakeHttpServletResponse res = renderHtmlLog(s, "/repo/+log/refs/heads/master");
+
+    assertThat(res.getStatus()).isEqualTo(SC_OK);
+    assertThat(counter.allRefsByPeeledObjectIdCalls).isEqualTo(0);
+  }
+
+  @Test
+  public void logHtmlShowsBranchAndAnnotatedTagLabels() throws Exception {
+    RefCountingRepository counter = new RefCountingRepository(new DfsRepositoryDescription("repo"));
+    TestRepository<DfsRepository> r = newRepoWithManyRefs(counter);
+    GitilesServlet s = TestGitilesServlet.create(r);
+
+    FakeHttpServletResponse res = renderHtmlLog(s, "/repo/+log/refs/heads/master");
+
+    assertThat(res.getStatus()).isEqualTo(SC_OK);
+    String body = res.getActualBodyString();
+    assertThat(body).contains("CommitLog-branchLabel");
+    // Tag label only appears if the annotated tag was peeled to its commit; guards peeling.
+    assertThat(body).contains("CommitLog-tagLabel");
+  }
+
+  /**
+   * Builds a repo whose tip has a branch and an annotated tag, plus many unrelated refs (as a
+   * Gerrit repo would have under refs/changes/*) that must be irrelevant to log decoration.
+   */
+  private static TestRepository<DfsRepository> newRepoWithManyRefs(RefCountingRepository counter)
+      throws Exception {
+    TestRepository<DfsRepository> r =
+        new TestRepository<>(counter, new RevWalk(counter), new MockSystemReader());
+    RevCommit tip = r.branch("refs/heads/master").commit().add("foo", "contents").create();
+    r.update("refs/tags/v1", r.tag("v1", tip));
+    for (int i = 0; i < 500; i++) {
+      r.update("refs/changes/" + (i % 100) + "/" + i + "/1", tip);
+    }
+    return r;
+  }
+
+  private static FakeHttpServletResponse renderHtmlLog(GitilesServlet servlet, String path)
+      throws Exception {
+    FakeHttpServletRequest req = FakeHttpServletRequest.newRequest();
+    req.setPathInfo(path);
+    req.setQueryString("format=html");
+    FakeHttpServletResponse res = new FakeHttpServletResponse();
+    servlet.service(req, res);
+    return res;
+  }
+
+  /** {@link InMemoryRepository} that counts calls to the whole-repo ref enumeration helper. */
+  private static final class RefCountingRepository extends InMemoryRepository {
+    int allRefsByPeeledObjectIdCalls;
+
+    RefCountingRepository(DfsRepositoryDescription description) {
+      super(description);
+    }
+
+    @Override
+    public Map<AnyObjectId, Set<Ref>> getAllRefsByPeeledObjectId() throws IOException {
+      allRefsByPeeledObjectIdCalls++;
+      return super.getAllRefsByPeeledObjectId();
+    }
   }
 
   private void testPrettyHtmlOutput(

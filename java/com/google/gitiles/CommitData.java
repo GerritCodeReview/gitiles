@@ -25,6 +25,8 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +42,7 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.notes.NoteMap;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -84,7 +87,7 @@ class CommitData {
 
   static class Builder {
     private ArchiveFormat archiveFormat;
-    private Map<AnyObjectId, Set<Ref>> refsById;
+    private Map<String, Map<AnyObjectId, Set<Ref>>> refsByIdByPrefix;
     private static final int MAX_NOTE_SIZE = 524288;
 
     Builder setArchiveFormat(@Nullable ArchiveFormat archiveFormat) {
@@ -204,17 +207,38 @@ class CommitData {
     }
 
     private List<Ref> getRefsById(Repository repo, ObjectId id, String prefix) throws IOException {
+      if (refsByIdByPrefix == null) {
+        refsByIdByPrefix = new HashMap<>();
+      }
+      Map<AnyObjectId, Set<Ref>> refsById = refsByIdByPrefix.get(prefix);
       if (refsById == null) {
-        refsById = repo.getAllRefsByPeeledObjectId();
+        // Index only refs under this namespace. getAllRefsByPeeledObjectId peels every ref, which
+        // is catastrophic on repos with many refs (e.g. Gerrit's refs/changes/*).
+        refsById = new HashMap<>();
+        RefDatabase refDb = repo.getRefDatabase();
+        for (Ref ref : refDb.getRefsByPrefix(prefix)) {
+          ObjectId target;
+          try {
+            target = refDb.peel(ref).getPeeledObjectId();
+          } catch (IOException e) {
+            // Treat an unpeelable ref (e.g. missing target) as unpeeled rather than failing the
+            // whole page, like Repository#peel.
+            target = null;
+          }
+          if (target == null) {
+            target = ref.getObjectId();
+          }
+          if (target != null) {
+            refsById.computeIfAbsent(target, k -> new HashSet<>()).add(ref);
+          }
+        }
+        refsByIdByPrefix.put(prefix, refsById);
       }
       Set<Ref> refs = refsById.get(id);
       if (refs == null) {
         return ImmutableList.of();
       }
-      return refs.stream()
-          .filter(r -> r.getName().startsWith(prefix))
-          .sorted(comparing(Ref::getName))
-          .collect(toList());
+      return refs.stream().sorted(comparing(Ref::getName)).collect(toList());
     }
 
     private AbstractTreeIterator getTreeIterator(RevWalk walk, RevCommit commit)
