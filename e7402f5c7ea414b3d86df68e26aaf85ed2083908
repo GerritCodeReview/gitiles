@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa1f9a1_f5436ffd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3255163
+      },
+      "writtenOn": "2026-07-22T12:20:31Z",
+      "side": 1,
+      "message": "The CI seems to be failing due to unreachable host:\n```\n2026-07-22 07:41:39.624356 | Job console starting\n2026-07-22 07:41:39.639316 | Updating git repos\n2026-07-22 07:41:40.053838 | Cloning repos into workspace\n2026-07-22 07:41:40.168473 | Restoring repo states\n2026-07-22 07:41:40.262379 | Merging changes\n2026-07-22 07:41:40.835829 | Checking out repos\n2026-07-22 07:41:41.712549 | Preparing playbooks\n2026-07-22 07:41:42.479214 | Running Ansible setup\n2026-07-22 07:41:53.992221 | ANSIBLE PARSE ERROR\n2026-07-22 07:41:53.992240 | Using /var/lib/zuul/builds/f44f0732b50a428db16b9695d49421cc/ansible/setup_playbook/ansible.cfg as config file\n2026-07-22 07:41:53.992244 | [WARNING]: Unhandled error in Python interpreter discovery for host testnode:\n2026-07-22 07:41:53.992246 | Failed to connect to the host via ssh: ssh: connect to host 10.128.0.55 port\n2026-07-22 07:41:53.992249 | 22: Connection refused\n2026-07-22 07:41:53.992252 | testnode | UNREACHABLE! \u003d\u003e {\n2026-07-22 07:41:53.992255 |     \"changed\": false,\n2026-07-22 07:41:53.992258 |     \"msg\": \"Data could not be sent to remote host \\\"10.128.0.55\\\". Make sure this host can be reached over ssh: ssh: connect to host 10.128.0.55 port 22: Connection refused\\r\\n\",\n2026-07-22 07:41:53.992260 |     \"unreachable\": true\n2026-07-22 07:41:53.992263 | }\n\n--- END OF STREAM ---\n```",
+      "revId": "e7402f5c7ea414b3d86df68e26aaf85ed2083908",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "db8d30c7_6f89a242",
