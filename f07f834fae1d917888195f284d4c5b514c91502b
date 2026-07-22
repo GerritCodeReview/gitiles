@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73c0f90e_88ea5de3",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-07-22T15:01:09Z",
+      "side": 1,
+      "message": "Can you simplify like this?\n```suggestion\n      return refsById.getOrDefault(id, ImmutableList.of());\n```",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 54
+      },
+      "revId": "f07f834fae1d917888195f284d4c5b514c91502b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
