@@ -22,6 +22,30 @@
       },
       "revId": "f07f834fae1d917888195f284d4c5b514c91502b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ea96d2_2af6b6c5",
+        "filename": "java/com/google/gitiles/CommitData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 3255163
+      },
+      "writtenOn": "2026-07-23T02:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73c0f90e_88ea5de3",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 54
+      },
+      "revId": "f07f834fae1d917888195f284d4c5b514c91502b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
