@@ -84,6 +84,23 @@
       "message": "Next next part 10",
       "revId": "60e7e35c7c8ee042d41b5889e7eb18dc7cead694",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "674e8ceb_fd1b5efc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5033157
+      },
+      "writtenOn": "2026-07-28T18:22:19Z",
+      "side": 1,
+      "message": "Rajendra Kumar",
+      "revId": "60e7e35c7c8ee042d41b5889e7eb18dc7cead694",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
