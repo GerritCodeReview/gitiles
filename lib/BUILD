@@ -17,6 +17,7 @@ package(
     ("cm-autolink", "@external_deps//:org_commonmark_commonmark_ext_autolink"),
     ("gfm-strikethrough", "@external_deps//:org_commonmark_commonmark_ext_gfm_strikethrough"),
     ("gfm-tables", "@external_deps//:org_commonmark_commonmark_ext_gfm_tables"),
+    ("cm-yaml-front-matter", "@external_deps//:org_commonmark_commonmark_ext_yaml_front_matter"),
     ("html-types", "@external_deps//:com_google_common_html_types_types"),
     ("jsr305", "@external_deps//:com_google_code_findbugs_jsr305"),
     ("servlet-api", "@external_deps//:javax_servlet_javax_servlet_api"),

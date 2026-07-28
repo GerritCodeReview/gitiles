@@ -474,6 +474,26 @@ and [HTML IFrame](#HTML-IFrame).
 Gitiles includes additional extensions to the Markdown language that
 make documentation writing for the web easier without using raw HTML.
 
+### Front matter
+
+Requires `markdown.frontmatter` to be true.
+
+Files authored for static site generators (such as Jekyll or Hugo)
+often begin with a YAML *front matter* block delimited by `---` lines:
+
+```
+---
+title: My page
+layout: post
+---
+
+# My page
+```
+
+When enabled, Gitiles strips this leading block from the rendered
+output instead of displaying the raw `key: value` metadata as
+document content. The block must begin on the first line of the file.
+
 ### Table of contents
 
 Requires `markdown.toc` to be true.

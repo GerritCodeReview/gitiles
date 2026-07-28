@@ -27,6 +27,7 @@ import com.google.gitiles.doc.html.SoyHtmlBuilder;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
+import org.commonmark.ext.front.matter.YamlFrontMatterBlock;
 import org.commonmark.ext.gfm.strikethrough.Strikethrough;
 import org.commonmark.ext.gfm.tables.TableBlock;
 import org.commonmark.ext.gfm.tables.TableBody;
@@ -576,6 +577,10 @@ public class MarkdownToHtml implements Visitor {
       visit((TableBlock) node);
     } else if (node instanceof TocBlock) {
       toc.format();
+    } else if (node instanceof YamlFrontMatterBlock) {
+      // YAML front matter is document metadata: omit the whole block. We
+      // intentionally do not recurse into it, so its YamlFrontMatterNode
+      // children are never visited and need no visit(CustomNode) handling.
     } else {
       throw new IllegalArgumentException("cannot render " + node.getClass());
     }

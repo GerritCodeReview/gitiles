@@ -101,6 +101,7 @@ maven.install(
         "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-tables:" + COMMONMARK_VERSION,
+        "org.commonmark:commonmark-ext-yaml-front-matter:" + COMMONMARK_VERSION,
         "org.eclipse.jetty:jetty-http:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-io:" + JETTY_VERSION,
         "org.eclipse.jetty:jetty-security:" + JETTY_VERSION,

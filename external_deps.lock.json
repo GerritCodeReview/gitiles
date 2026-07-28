@@ -50,6 +50,7 @@
     "org.commonmark:commonmark-ext-autolink": -1853742120,
     "org.commonmark:commonmark-ext-gfm-strikethrough": 350394231,
     "org.commonmark:commonmark-ext-gfm-tables": 1881582931,
+    "org.commonmark:commonmark-ext-yaml-front-matter": -1519651186,
     "org.eclipse.jetty.ee10:jetty-ee10-servlet": 835495267,
     "org.eclipse.jetty.ee8:jetty-ee8-nested": 1867536598,
     "org.eclipse.jetty.ee8:jetty-ee8-security": -374913491,
@@ -208,6 +209,8 @@
     "org.commonmark:commonmark-ext-gfm-strikethrough:jar:sources": 992870423,
     "org.commonmark:commonmark-ext-gfm-tables": -1205584749,
     "org.commonmark:commonmark-ext-gfm-tables:jar:sources": 1341057091,
+    "org.commonmark:commonmark-ext-yaml-front-matter": 1918089254,
+    "org.commonmark:commonmark-ext-yaml-front-matter:jar:sources": -902462472,
     "org.commonmark:commonmark:jar:sources": -1511261547,
     "org.eclipse.jetty.ee10:jetty-ee10-servlet": 349394374,
     "org.eclipse.jetty.ee10:jetty-ee10-servlet:jar:sources": 501419503,
@@ -736,6 +739,13 @@
       },
       "version": "0.24.0"
     },
+    "org.commonmark:commonmark-ext-yaml-front-matter": {
+      "shasums": {
+        "jar": "a845baba681ccbf385695fbaa6d58eb40d5ecc68f3edb968c42f074f630e8fec",
+        "sources": "5cee64663842f1e7128af9c3e62ef183ea2cf205436d27a08b7cb5be0b20edb6"
+      },
+      "version": "0.24.0"
+    },
     "org.eclipse.jetty.ee10:jetty-ee10-servlet": {
       "shasums": {
         "jar": "05cccc74bbe1478ceb765e967b1cb1a3c8d9b51e99acf586190887e467ffd87d",
@@ -1086,6 +1096,9 @@
       "org.commonmark:commonmark"
     ],
     "org.commonmark:commonmark-ext-gfm-tables": [
+      "org.commonmark:commonmark"
+    ],
+    "org.commonmark:commonmark-ext-yaml-front-matter": [
       "org.commonmark:commonmark"
     ],
     "org.eclipse.jetty.ee10:jetty-ee10-servlet": [
@@ -2447,6 +2460,10 @@
       "org.commonmark.ext.gfm.tables",
       "org.commonmark.ext.gfm.tables.internal"
     ],
+    "org.commonmark:commonmark-ext-yaml-front-matter": [
+      "org.commonmark.ext.front.matter",
+      "org.commonmark.ext.front.matter.internal"
+    ],
     "org.eclipse.jetty.ee10:jetty-ee10-servlet": [
       "org.eclipse.jetty.ee10.servlet",
       "org.eclipse.jetty.ee10.servlet.internal",
@@ -2819,6 +2836,8 @@
       "org.commonmark:commonmark-ext-gfm-strikethrough:jar:sources",
       "org.commonmark:commonmark-ext-gfm-tables",
       "org.commonmark:commonmark-ext-gfm-tables:jar:sources",
+      "org.commonmark:commonmark-ext-yaml-front-matter",
+      "org.commonmark:commonmark-ext-yaml-front-matter:jar:sources",
       "org.commonmark:commonmark:jar:sources",
       "org.eclipse.jetty.ee10:jetty-ee10-servlet",
       "org.eclipse.jetty.ee10:jetty-ee10-servlet:jar:sources",
