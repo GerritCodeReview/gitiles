@@ -87,7 +87,7 @@ class CommitData {
 
   static class Builder {
     private ArchiveFormat archiveFormat;
-    private Map<String, Map<AnyObjectId, Set<Ref>>> refsByIdByPrefix;
+    private Map<String, Map<AnyObjectId, List<Ref>>> refsByIdByPrefix;
     private static final int MAX_NOTE_SIZE = 524288;
 
     Builder setArchiveFormat(@Nullable ArchiveFormat archiveFormat) {
@@ -210,11 +210,11 @@ class CommitData {
       if (refsByIdByPrefix == null) {
         refsByIdByPrefix = new HashMap<>();
       }
-      Map<AnyObjectId, Set<Ref>> refsById = refsByIdByPrefix.get(prefix);
+      Map<AnyObjectId, List<Ref>> refsById = refsByIdByPrefix.get(prefix);
       if (refsById == null) {
         // Index only refs under this namespace. getAllRefsByPeeledObjectId peels every ref, which
         // is catastrophic on repos with many refs (e.g. Gerrit's refs/changes/*).
-        refsById = new HashMap<>();
+        Map<AnyObjectId, Set<Ref>> unsortedRefsById = new HashMap<>();
         RefDatabase refDb = repo.getRefDatabase();
         for (Ref ref : refDb.getRefsByPrefix(prefix)) {
           ObjectId target;
@@ -229,16 +229,17 @@ class CommitData {
             target = ref.getObjectId();
           }
           if (target != null) {
-            refsById.computeIfAbsent(target, k -> new HashSet<>()).add(ref);
+            unsortedRefsById.computeIfAbsent(target, k -> new HashSet<>()).add(ref);
           }
+        }
+        refsById = new HashMap<>();
+        for (Map.Entry<AnyObjectId, Set<Ref>> e : unsortedRefsById.entrySet()) {
+          refsById.put(
+              e.getKey(), e.getValue().stream().sorted(comparing(Ref::getName)).collect(toList()));
         }
         refsByIdByPrefix.put(prefix, refsById);
       }
-      Set<Ref> refs = refsById.get(id);
-      if (refs == null) {
-        return ImmutableList.of();
-      }
-      return refs.stream().sorted(comparing(Ref::getName)).collect(toList());
+      return refsById.getOrDefault(id, ImmutableList.of());
     }
 
     private AbstractTreeIterator getTreeIterator(RevWalk walk, RevCommit commit)
