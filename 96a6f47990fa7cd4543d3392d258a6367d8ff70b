@@ -50,6 +50,23 @@
       "message": "😀",
       "revId": "96a6f47990fa7cd4543d3392d258a6367d8ff70b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19327f26_de3919ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5050499
+      },
+      "writtenOn": "2026-07-30T20:42:50Z",
+      "side": 1,
+      "message": "User activo",
+      "revId": "96a6f47990fa7cd4543d3392d258a6367d8ff70b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
