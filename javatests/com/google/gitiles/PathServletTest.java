@@ -54,6 +54,28 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
+  public void rootTreeHtmlHasGrepLink() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+/master/", "format=html", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("href=\"/b/repo/+grep/master/\"");
+  }
+
+  @Test
+  public void subTreeHtmlHasPathScopedGrepLink() throws Exception {
+    repo.branch("master").commit().add("src/a.txt", "contents").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+/master/src", "format=html", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains("href=\"/b/repo/+grep/master/src\"");
+  }
+
+  @Test
   public void subTreeHtml() throws Exception {
     repo.branch("master")
         .commit()
