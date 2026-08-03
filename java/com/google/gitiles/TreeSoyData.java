@@ -165,6 +165,7 @@ public class TreeSoyData {
     if (view.getType() == GitilesView.Type.PATH
         && view.getRevision().getPeeledType() == OBJ_COMMIT) {
       data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
+      data.put("grepUrl", GitilesView.grep().copyFrom(view).toUrl());
       data.put(
           "archiveUrl",
           GitilesView.archive()
