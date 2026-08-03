@@ -179,6 +179,7 @@
 {template treeDetail}
   {@param sha: ?}  /** SHA of this path's tree. */
   {@param? logUrl: ?}  /** optional URL to a log for this path. */
+  {@param? grepUrl: ?}  /** optional URL to search file contents under this path. */
   {@param? archiveUrl: ?}  /** optional URL to a download link of this tree as an archive. */
   {@param? archiveType: ?}  /** type of the archive to download, if archiveUrl is set. */
   {@param entries: ?}  /** list of entries with the following keys:
@@ -194,6 +195,7 @@
   <div class="u-sha1 u-monospace TreeDetail-sha1">
     {msg desc="SHA-1 for the path's tree"}tree: {$sha}{/msg}
     {if $logUrl}{sp}[<a href="{$logUrl}">{msg desc="history for a path"}path history{/msg}</a>]{/if}
+    {if $grepUrl}{sp}[<a href="{$grepUrl}">{msg desc="search file contents under a path"}search{/msg}</a>]{/if}
     {if $archiveUrl}
       {sp}<span>[<a href="{$archiveUrl}">{$archiveType}</a>]</span>
     {/if}
