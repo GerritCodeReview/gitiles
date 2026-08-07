@@ -651,6 +651,23 @@
       "message": "Npm start",
       "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdab1d27_715ae7c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4445118
+      },
+      "writtenOn": "2026-08-07T12:02:59Z",
+      "side": 1,
+      "message": "From 21fe1e90cac7105580733f8bb7c729d2aa26dbe2 Mon Sep 17 00:00:00 2001\nDate: Thu, 28 Nov 2019 11:30:44 +0900\nSubject: [PATCH] Set version to 0.2-7.1\n\nChange-Id: Ibe27421653fab4221d08070f2864992e98b48464\n---\n\ndiff --git a/version.bzl b/version.bzl\nindex bfaafb4..8f19d12 100644\n--- a/version.bzl\n+++ b/version.bzl\n@@ -4,4 +4,4 @@\n # we currently have no stable releases, we use the \"build number\" scheme\n # described at:\n # https://www.mojohaus.org/versions-maven-plugin/version-rules.html\n-GITILES_VERSION \u003d \"0.2-7\"\n+GITILES_VERSION \u003d \"0.2-7.1\"",
+      "revId": "21fe1e90cac7105580733f8bb7c729d2aa26dbe2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
