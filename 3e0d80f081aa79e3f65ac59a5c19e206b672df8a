@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15de5ce_65e90365",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-10T15:34:23Z",
+      "side": 1,
+      "message": "Here is the search result and when I opened the first result it corrctly highlights the matching line.\n\nhttps://issues.gerritcodereview.com/issues/376381593#comment8\n\n_________\n\nI should have posted the image earlier sorry :)",
+      "parentUuid": "545a4e9d_6e520c70",
+      "revId": "3e0d80f081aa79e3f65ac59a5c19e206b672df8a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d0aa3b4_212d2a7e",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-08-10T08:56:30Z",
       "side": 1,
       "message": "```suggestion\n{/template}\n\n```",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "3e0d80f081aa79e3f65ac59a5c19e206b672df8a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ead1dc7_c703f3ca",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-10T15:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d0aa3b4_212d2a7e",
       "range": {
         "startLine": 71,
         "startChar": 0,
