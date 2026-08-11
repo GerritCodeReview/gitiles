@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ca30b8c_0f728a54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-11T20:51:51Z",
+      "side": 1,
+      "message": "nit: remove the blank line between these\n```suggestion\nIssue: 376381593\nChange-Id: Ie5b2a513d61fb4c44d6efba868ae6faa9aa866d0\n```",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "789b1bad_d52fda73",
         "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
         "patchSetId": 4
