@@ -8,7 +8,7 @@ bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_jvm_external", version = "7.0")
 
 # Language rules.
-bazel_dep(name = "rules_java", version = "9.3.0")
+bazel_dep(name = "rules_java", version = "9.8.0")
 bazel_dep(name = "rules_python", version = "2.0.2")
 
 # In-tree modules.
