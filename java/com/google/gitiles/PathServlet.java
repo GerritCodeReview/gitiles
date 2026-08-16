@@ -533,7 +533,7 @@ public class PathServlet extends BaseServlet {
   private @Nullable CanonicalTreeParser getOnlyChildSubtree(
       ObjectReader reader, ObjectId id, byte[] prefix) throws IOException {
     CanonicalTreeParser p = new CanonicalTreeParser(prefix, reader, id);
-    if (p.eof() || p.getEntryFileMode() != FileMode.TREE) {
+    if (p.eof() || !FileMode.TREE.equals(p.getEntryRawMode())) {
       return null;
     }
     p.next(1);

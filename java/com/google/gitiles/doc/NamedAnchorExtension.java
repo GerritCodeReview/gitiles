@@ -55,6 +55,7 @@ public class NamedAnchorExtension implements ParserExtension {
       return 1;
     }
 
+    @SuppressWarnings("ReferenceEquality") // commonmark AST nodes compared by identity.
     @Override
     public int process(DelimiterRun openingRun, DelimiterRun closingRun) {
       Text opener = openingRun.getOpener();

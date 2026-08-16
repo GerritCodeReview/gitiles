@@ -74,7 +74,7 @@ class ImageLoader {
 
     try {
       TreeWalk tw = TreeWalk.forPath(reader, path, root);
-      if (tw == null || tw.getFileMode(0) != FileMode.REGULAR_FILE) {
+      if (tw == null || !FileMode.REGULAR_FILE.equals(tw.getRawMode(0))) {
         return null;
       }
 
