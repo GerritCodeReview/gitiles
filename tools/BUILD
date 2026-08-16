@@ -6,9 +6,23 @@ load("@rules_java//java:defs.bzl", "java_package_configuration")
 
 default_java_toolchain(
     name = "error_prone_warnings_toolchain_java21",
-
     configuration = dict(),
     java_runtime = "@rules_java//toolchains:remotejdk_21",
+    javacopts = [
+        # JDK-8225377: before JDK 22, javac does not attach type-use annotations
+        # loaded from classpath class files to their symbols, so Error Prone
+        # emits NullArgumentForNonNullParameter false positives on idiomatic
+        # Guava calls (Iterables.getFirst(x, null),
+        # ToStringHelper.add(name, nullable)). This flag opts in to the fix on
+        # JDK 21 (available 21.0.8+); it is enabled by default and a no-op on
+        # JDK 22+. Error Prone's own -Xplugin path requires this flag on
+        # JDK <= 21, but Bazel's JavaBuilder wires Error Prone directly and does
+        # not pass it.
+        # TODO(davido): Remove once JavaBuilder passes this flag itself on
+        # JDK <= 21. To be filed against bazelbuild/bazel (JavaBuilder); tracked
+        # at https://github.com/google/error-prone/issues/5426.
+        "-XDaddTypeAnnotationsToSymbol=true",
+    ],
     package_configuration = [
         ":error_prone",
     ],
