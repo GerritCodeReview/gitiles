@@ -28,7 +28,6 @@ import com.google.common.collect.ListMultimap;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gitiles.GitilesView.InvalidViewException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -199,10 +198,6 @@ public class GitwebRedirectFilter extends AbstractHttpFilter {
   }
 
   private static String decode(String str) {
-    try {
-      return URLDecoder.decode(str, UTF_8.name());
-    } catch (UnsupportedEncodingException e) {
-      return str;
-    }
+    return URLDecoder.decode(str, UTF_8);
   }
 }

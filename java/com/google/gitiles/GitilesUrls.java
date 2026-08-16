@@ -16,7 +16,6 @@ package com.google.gitiles;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,16 +31,12 @@ public interface GitilesUrls {
    * will be encoded using URL style encoding.
    */
   static String escapeName(String name) {
-    try {
-      return URLEncoder.encode(name, UTF_8.name())
-          .replace("%2F", "/")
-          .replace("%2f", "/")
-          .replace("+", "%20")
-          .replace("%2B", "+")
-          .replace("%2b", "+");
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException(e);
-    }
+    return URLEncoder.encode(name, UTF_8)
+        .replace("%2F", "/")
+        .replace("%2f", "/")
+        .replace("+", "%20")
+        .replace("%2B", "+")
+        .replace("%2b", "+");
   }
 
   /**
