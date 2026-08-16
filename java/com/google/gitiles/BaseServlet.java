@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
@@ -436,7 +437,8 @@ public abstract class BaseServlet extends HttpServlet {
     // StreamEncoder#write(int) is wasteful with its allocations, and we don't have much control
     // over whether library code calls that variant as opposed to the saner write(char[], int, int).
     // Protect against this by buffering.
-    return new BufferedWriter(new OutputStreamWriter(os, res.getCharacterEncoding()));
+    return new BufferedWriter(
+        new OutputStreamWriter(os, Charset.forName(res.getCharacterEncoding())));
   }
 
   private Writer newWriter(HttpServletRequest req, HttpServletResponse res) throws IOException {

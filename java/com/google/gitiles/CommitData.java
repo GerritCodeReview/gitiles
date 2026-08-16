@@ -16,6 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
@@ -158,7 +159,7 @@ class CommitData {
             byte[] data =
                 NoteMap.read(walk.getObjectReader(), walk.parseCommit(notesRef.getObjectId()))
                     .getCachedBytes(c, MAX_NOTE_SIZE);
-            result.notes = new String(data, "utf-8");
+            result.notes = new String(data, UTF_8);
           } catch (Exception e) {
             result.notes = "";
           }

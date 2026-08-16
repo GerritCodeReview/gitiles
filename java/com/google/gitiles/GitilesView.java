@@ -33,7 +33,6 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -874,23 +873,19 @@ public class GitilesView {
 
   @VisibleForTesting
   static String paramsToString(ListMultimap<String, String> params) {
-    try {
-      StringBuilder sb = new StringBuilder();
-      boolean first = true;
-      for (Map.Entry<String, String> e : params.entries()) {
-        if (!first) {
-          sb.append('&');
-        } else {
-          first = false;
-        }
-        sb.append(URLEncoder.encode(e.getKey(), UTF_8.name()));
-        if (!"".equals(e.getValue())) {
-          sb.append('=').append(URLEncoder.encode(e.getValue(), UTF_8.name()));
-        }
+    StringBuilder sb = new StringBuilder();
+    boolean first = true;
+    for (Map.Entry<String, String> e : params.entries()) {
+      if (!first) {
+        sb.append('&');
+      } else {
+        first = false;
       }
-      return sb.toString();
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException(e);
+      sb.append(URLEncoder.encode(e.getKey(), UTF_8));
+      if (!"".equals(e.getValue())) {
+        sb.append('=').append(URLEncoder.encode(e.getValue(), UTF_8));
+      }
     }
+    return sb.toString();
   }
 }
