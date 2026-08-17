@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e91f1540_ab119246",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-17T22:28:25Z",
+      "side": 1,
+      "message": "Did you mean to change this from `p.getEntryFileMode()`?\n```suggestion\n    if (p.eof() || !FileMode.TREE.equals(p.getEntryFileMode())) {\n```",
+      "revId": "4db80928643072a95f17b71153a0f0e69cdb9d08",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
