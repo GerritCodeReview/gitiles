@@ -34,6 +34,24 @@
       "parentUuid": "e91f1540_ab119246",
       "revId": "4db80928643072a95f17b71153a0f0e69cdb9d08",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68f25d32_99f7912e",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-18T20:39:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "532273a5_d4524fcb",
+      "revId": "4db80928643072a95f17b71153a0f0e69cdb9d08",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
