@@ -16,6 +16,24 @@
       "message": "Did you mean to change this from `p.getEntryFileMode()`?\n```suggestion\n    if (p.eof() || !FileMode.TREE.equals(p.getEntryFileMode())) {\n```",
       "revId": "4db80928643072a95f17b71153a0f0e69cdb9d08",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "532273a5_d4524fcb",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-08-18T04:10:53Z",
+      "side": 1,
+      "message": "Yes, intentional. FileMode doesn\u0027t override equals(Object) — it only defines equals(int modeBits). So FileMode.TREE.equals(p.getEntryFileMode()) would bind to Object.equals, i.e. reference equality — the same comparison ReferenceEquality flags on the original !\u003d (it just isn\u0027t flagged because Error Prone doesn\u0027t inspect .equals()).\n\nTo get a genuine value comparison I used the raw-mode int overload: FileMode.TREE.equals(p.getEntryRawMode()). That\u0027s JGit\u0027s own idiom — e.g. BaseSearch (!FileMode.TREE.equals(parser.getEntryRawMode())), and StrategySimpleTwoWayInCore / ResolveMerger / FileModeCache compare tree modes the same way. It\u0027s also more robust than the original, which relied on FileMode instances being interned.\n\nHappy to add a short comment noting the int overload if that helps readability.",
+      "parentUuid": "e91f1540_ab119246",
+      "revId": "4db80928643072a95f17b71153a0f0e69cdb9d08",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
