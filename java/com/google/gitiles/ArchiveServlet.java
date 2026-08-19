@@ -80,7 +80,7 @@ public class ArchiveServlet extends BaseServlet {
         return tree;
       }
       TreeWalk tw = TreeWalk.forPath(rw.getObjectReader(), view.getPathPart(), tree);
-      if (tw == null || tw.getFileMode(0) != FileMode.TREE) {
+      if (tw == null || !FileMode.TREE.equals(tw.getRawMode(0))) {
         return ObjectId.zeroId();
       }
       return tw.getObjectId(0);

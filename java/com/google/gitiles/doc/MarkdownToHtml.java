@@ -185,6 +185,7 @@ public class MarkdownToHtml implements Visitor {
     visitChildren(node);
   }
 
+  @SuppressWarnings("ReferenceEquality") // commonmark AST nodes compared by identity.
   private void visit(BlockNote node) {
     html.open("div").attribute("class", node.getClassName());
     Node f = node.getFirstChild();

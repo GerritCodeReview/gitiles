@@ -39,6 +39,7 @@ public class SmartQuotedExtension implements ParserExtension {
     builder.customDelimiterProcessor(new QuotedProcessor(DOUBLE, '"'));
   }
 
+  @SuppressWarnings("ReferenceEquality") // commonmark AST nodes compared by identity.
   private static void quote(SmartQuoted.Type type, Text opener, Text closer) {
     SmartQuoted quote = new SmartQuoted();
     quote.setType(type);
