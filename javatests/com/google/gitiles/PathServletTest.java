@@ -208,6 +208,13 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
+  public void markdownBlobText() throws Exception {
+    repo.branch("master").commit().add("foo.md", "# Markdown\ncontents\n").create();
+    String text = buildBlob("/repo/+/master/foo.md", "100644");
+    assertThat(text).isEqualTo("# Markdown\ncontents\n");
+  }
+
+  @Test
   public void fileJson() throws Exception {
     RevBlob blob = repo.blob("contents");
     repo.branch("master").commit().add("path/to/file", blob).create();
@@ -218,6 +225,19 @@ public class PathServletTest extends ServletTest {
     assertThat(file.repo).isEqualTo("repo");
     assertThat(file.revision).isEqualTo("master");
     assertThat(file.path).isEqualTo("path/to/file");
+  }
+
+  @Test
+  public void markdownFileJson() throws Exception {
+    RevBlob blob = repo.blob("# Markdown\ncontents\n");
+    repo.branch("master").commit().add("foo.md", blob).create();
+
+    File file = buildJson(File.class, "/repo/+/master/foo.md");
+
+    assertThat(file.id).isEqualTo(blob.name());
+    assertThat(file.repo).isEqualTo("repo");
+    assertThat(file.revision).isEqualTo("master");
+    assertThat(file.path).isEqualTo("foo.md");
   }
 
   @Test

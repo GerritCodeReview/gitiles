@@ -70,6 +70,18 @@ public class ViewFilterTest {
     assertThat(getView("/repo/+/" + hex + "/").getType()).isEqualTo(GitilesView.Type.PATH);
     assertThat(getView("/repo/+/" + hex + "/index.c").getType()).isEqualTo(GitilesView.Type.PATH);
     assertThat(getView("/repo/+/" + hex + "/index.md").getType()).isEqualTo(GitilesView.Type.DOC);
+    assertThat(getView("/repo/+/" + hex + "/index.md?format=TEXT").getType())
+        .isEqualTo(GitilesView.Type.PATH);
+    assertThat(getView("/repo/+/" + hex + "/index.md?format=text").getType())
+        .isEqualTo(GitilesView.Type.PATH);
+    assertThat(getView("/repo/+/" + hex + "/index.md?format=JSON").getType())
+        .isEqualTo(GitilesView.Type.PATH);
+    assertThat(getView("/repo/+/" + hex + "/index.md?format=json").getType())
+        .isEqualTo(GitilesView.Type.PATH);
+    assertThat(getView("/repo/+/" + hex + "/index.md?format=HTML").getType())
+        .isEqualTo(GitilesView.Type.DOC);
+    assertThat(getView("/repo/+/" + hex + "/index.md?format=html").getType())
+        .isEqualTo(GitilesView.Type.DOC);
     assertThat(getView("/repo/+/master^..master").getType()).isEqualTo(GitilesView.Type.DIFF);
     assertThat(getView("/repo/+/master^..master/").getType()).isEqualTo(GitilesView.Type.DIFF);
     assertThat(getView("/repo/+/" + parent.name() + ".." + hex + "/").getType())
@@ -266,13 +278,16 @@ public class ViewFilterTest {
 
   @Test
   public void revisionNotFound() throws Exception {
-    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+show/0123456789abcdef"));
+    var exception =
+        assertThrows(
+            GitilesRequestFailureException.class, () -> getView("/repo/+show/0123456789abcdef"));
     assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.OBJECT_NOT_FOUND);
   }
 
   @Test
   public void cannotParse() throws Exception {
-    var exception = assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+showmaster"));
+    var exception =
+        assertThrows(GitilesRequestFailureException.class, () -> getView("/repo/+showmaster"));
     assertThat(exception.getReason()).isEqualTo(GitilesRequestFailureException.FailureReason.CANNOT_PARSE_GITILES_VIEW);
   }
 
@@ -708,7 +723,7 @@ public class ViewFilterTest {
   private GitilesView getView(String pathAndQuery) throws ServletException, IOException {
     TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, new BranchRedirect());
     FakeHttpServletResponse resp = result.getResponse();
-    assertWithMessage("expected non-redirect status, got " + resp.getStatus())
+    assertWithMessage("expected non-redirect status, got %s", resp.getStatus())
         .that(resp.getStatus() < 300 || resp.getStatus() >= 400)
         .isTrue();
     return result.getView();
@@ -718,7 +733,7 @@ public class ViewFilterTest {
       throws ServletException, IOException {
     TestViewFilter.Result result = TestViewFilter.service(repo, pathAndQuery, branchRedirect);
     FakeHttpServletResponse resp = result.getResponse();
-    assertWithMessage("expected non-redirect status, got " + resp.getStatus())
+    assertWithMessage("expected non-redirect status, got %s", resp.getStatus())
         .that(resp.getStatus() < 300 || resp.getStatus() >= 400 || resp.getStatus() == 302)
         .isTrue();
     return result.getView();

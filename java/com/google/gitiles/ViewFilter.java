@@ -22,6 +22,7 @@ import com.google.common.base.Strings;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -216,13 +217,23 @@ public class ViewFilter extends AbstractHttpFilter {
       return parseDiffCommand(repoName, result);
     }
     GitilesView.Builder b = parseShowCommand(repoName, result);
-    if (b != null && b.getPathPart() != null && b.getPathPart().endsWith(".md")) {
+    if (b != null && isDoc(req, b)) {
       return GitilesView.doc()
           .setRepositoryName(repoName)
           .setRevision(result.getRevision())
           .setPathPart(result.getPath());
     }
     return b;
+  }
+
+  private static boolean isDoc(HttpServletRequest req, GitilesView.Builder view) {
+    if (view == null || view.getPathPart() == null || !view.getPathPart().endsWith(".md")) {
+      return false;
+    }
+    Optional<FormatType> format = FormatType.getFormatType(req);
+    return format.isEmpty()
+        || format.get() == FormatType.DEFAULT
+        || format.get() == FormatType.HTML;
   }
 
   private @Nullable GitilesView.Builder parseBlameCommand(
