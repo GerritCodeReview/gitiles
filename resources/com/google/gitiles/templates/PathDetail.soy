@@ -42,22 +42,198 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {call common.header data="all" /}
 {/if}
 
-{switch $type}
-  {case 'TREE'}
-    {call objDetail.treeDetail data="$data" /}
-  {case 'SYMLINK'}
-    {call symlinkDetail data="$data" /}
-  {case 'REGULAR_FILE'}
-    {call objDetail.blobDetail data="$data" /}
-  {case 'EXECUTABLE_FILE'}
-    {call objDetail.blobDetail data="$data" /}
-  {case 'GITLINK'}
-    {call gitlinkDetail data="$data" /}
-  {default}
-    <div class="error">
-      {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
-    </div>
-{/switch}
+<div class="RepoLayout">
+  <aside class="RepoLayout-sidebar">
+    <div id="gitiles-file-tree" class="FileTree"></div>
+  </aside>
+  <main class="RepoLayout-main">
+    {switch $type}
+      {case 'TREE'}
+        {call objDetail.treeDetail data="$data" /}
+      {case 'SYMLINK'}
+        {call symlinkDetail data="$data" /}
+      {case 'REGULAR_FILE'}
+        {call objDetail.blobDetail data="$data" /}
+      {case 'EXECUTABLE_FILE'}
+        {call objDetail.blobDetail data="$data" /}
+      {case 'GITLINK'}
+        {call gitlinkDetail data="$data" /}
+      {default}
+        <div class="error">
+          {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
+        </div>
+    {/switch}
+  </main>
+</div>
+
+<script>
+  (function() {lb}
+    document.addEventListener("DOMContentLoaded", function() {lb}
+      var sidebar = document.getElementById("gitiles-file-tree");
+      if (!sidebar) return;
+
+      var crumbLinks = Array.from(document.querySelectorAll(".Breadcrumbs-crumb"));
+      var revCrumb = crumbLinks[2] || crumbLinks[1];
+      if (!revCrumb) return;
+
+      var rootUrl = revCrumb.getAttribute("href") || window.location.pathname;
+      if (rootUrl.charAt(rootUrl.length - 1) !== "/") {lb}
+        rootUrl += "/";
+      {rb}
+
+      var currentRelativePath = window.location.pathname.substring(rootUrl.length);
+      currentRelativePath = decodeURIComponent(currentRelativePath);
+      if (currentRelativePath.charAt(currentRelativePath.length - 1) === "/") {lb}
+        currentRelativePath = currentRelativePath.substring(0, currentRelativePath.length - 1);
+      {rb}
+      var activeSegments = currentRelativePath ? currentRelativePath.split("/") : [];
+
+      async function loadTree() {lb}
+        var url = rootUrl + "?format=JSON&recursive=1";
+        try {lb}
+          var response = await fetch(url);
+          if (!response.ok) throw new Error("Network response was not ok");
+          var text = await response.text();
+          if (text.indexOf(")]" + String.fromCharCode(125) + String.fromCharCode(39)) === 0) {lb}
+            text = text.substring(4);
+          {rb}
+          var data = JSON.parse(text);
+          var treeRoot = buildTree(data.entries);
+          renderTree(treeRoot, sidebar, currentRelativePath);
+        {rb} catch (e) {lb}
+          sidebar.innerHTML = "<div class=\"error\">Failed to load files</div>";
+        {rb}
+      {rb}
+
+      function buildTree(entries) {lb}
+        var root = {lb} children: {lb}{rb} {rb};
+        if (!entries) return root;
+
+        entries.forEach(function(entry) {lb}
+          var parts = entry.name.split("/");
+          var current = root;
+          var pathParts = [];
+
+          parts.forEach(function(part, index) {lb}
+            pathParts.push(part);
+            var currentPath = pathParts.join("/");
+            var isLast = (index === parts.length - 1);
+
+            if (!current.children[part]) {lb}
+              current.children[part] = {lb}
+                name: part,
+                path: currentPath,
+                type: isLast ? entry.type : "tree",
+                children: {lb}{rb}
+              {rb};
+            {rb}
+            current = current.children[part];
+          {rb});
+        {rb});
+
+        return root;
+      {rb}
+
+      function renderTree(node, container, currentPath) {lb}
+        var keys = Object.keys(node.children);
+        if (keys.length === 0) return;
+
+        keys.sort(function(a, b) {lb}
+          var childA = node.children[a];
+          var childB = node.children[b];
+          if (childA.type === "tree" && childB.type !== "tree") return -1;
+          if (childA.type !== "tree" && childB.type === "tree") return 1;
+          return a.localeCompare(b);
+        {rb});
+
+        var ul = document.createElement("ul");
+        ul.style.listStyle = "none";
+        ul.style.padding = "0";
+        ul.style.margin = "0";
+
+        keys.forEach(function(key) {lb}
+          var child = node.children[key];
+          var li = document.createElement("li");
+          li.className = "FileTree-node";
+
+          var item = document.createElement("a");
+          item.className = "FileTree-item";
+          item.href = rootUrl + child.path;
+
+          var isActive = (child.path === currentPath);
+          var isAncestor = currentPath.indexOf(child.path + "/") === 0;
+
+          if (isActive) {lb}
+            item.classList.add("is-active");
+          {rb}
+
+          var toggle = document.createElement("span");
+          toggle.className = "FileTree-toggle";
+
+          if (child.type === "tree") {lb}
+            toggle.textContent = "▶";
+            
+            var folderSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            folderSvg.setAttribute("class", "FileTree-icon");
+            folderSvg.setAttribute("viewBox", "0 0 24 24");
+            folderSvg.setAttribute("width", "16");
+            folderSvg.setAttribute("height", "16");
+            folderSvg.setAttribute("fill", "#eab308");
+            
+            var folderPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            folderPath.setAttribute("d", "M10 4H4c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2h-8l-2-2z");
+            folderSvg.appendChild(folderPath);
+
+            item.appendChild(toggle);
+            item.appendChild(folderSvg);
+            item.appendChild(document.createTextNode(child.name));
+            li.appendChild(item);
+
+            var childrenContainer = document.createElement("div");
+            childrenContainer.className = "FileTree-children";
+            li.appendChild(childrenContainer);
+
+            renderTree(child, childrenContainer, currentPath);
+
+            item.addEventListener("click", function(e) {lb}
+              e.preventDefault();
+              var expanded = childrenContainer.classList.toggle("is-expanded");
+              toggle.textContent = expanded ? "▼" : "▶";
+            {rb});
+
+            if (isAncestor) {lb}
+              childrenContainer.classList.add("is-expanded");
+              toggle.textContent = "▼";
+            {rb}
+          {rb} else {lb}
+            toggle.innerHTML = "&nbsp;&nbsp;";
+            
+            var fileSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            fileSvg.setAttribute("class", "FileTree-icon");
+            fileSvg.setAttribute("viewBox", "0 0 24 24");
+            fileSvg.setAttribute("width", "16");
+            fileSvg.setAttribute("height", "16");
+            fileSvg.setAttribute("fill", "#94a3b8");
+            
+            var filePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            filePath.setAttribute("d", "M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z");
+            fileSvg.appendChild(filePath);
+
+            item.appendChild(toggle);
+            item.appendChild(fileSvg);
+            item.appendChild(document.createTextNode(child.name));
+            li.appendChild(item);
+          {rb}
+
+          ul.appendChild(li);
+        {rb});
+        container.appendChild(ul);
+      {rb}
+
+      loadTree();
+    {rb});
+  {rb})();
+</script>
 
 {call common.footer}
   {param customVariant: $customVariant /}

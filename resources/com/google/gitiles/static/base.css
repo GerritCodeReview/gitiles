@@ -683,3 +683,70 @@ a:hover {
 .Diff-insert {
   color: var(--diff-insert);
 }
+
+/* Sidebar Layout */
+.RepoLayout {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+.RepoLayout-sidebar {
+  width: 260px;
+  flex: none;
+  border-right: 1px solid var(--border-color);
+  padding-right: 15px;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+}
+.RepoLayout-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Tree Navigation Styling */
+.FileTree-node {
+  list-style: none;
+  padding-left: 12px;
+  position: relative;
+}
+.FileTree-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.FileTree-item:hover {
+  background: var(--border-color-light);
+}
+.FileTree-toggle {
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+  margin-right: 4px;
+  user-select: none;
+  font-size: 10px;
+  color: var(--header-fg);
+}
+.FileTree-icon {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.FileTree-children {
+  display: none;
+  padding-left: 8px;
+}
+.FileTree-children.is-expanded {
+  display: block;
+}
+.FileTree-item.is-active {
+  background: var(--border-color-light);
+  font-weight: 600;
+  color: var(--link-color);
+  border-left: 3px solid var(--link-color);
+  border-radius: 0 4px 4px 0;
+  padding-left: 3px;
+}
