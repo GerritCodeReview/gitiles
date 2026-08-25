@@ -188,6 +188,54 @@
       },
       "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e4332e9_1fa51b90",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-25T13:54:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "35f5d810_488e5bac",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 77
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a419e8_660575d1",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-25T13:54:19Z",
+      "side": 1,
+      "message": "I commented earlier and then I went on adding some space between each search result - \n\nhttps://issues.gerritcodereview.com/action/issues/376381593/attachments/81074993?download\u003dfalse",
+      "parentUuid": "00436376_09b0d4af",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 77
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
