@@ -750,3 +750,56 @@ a:hover {
   border-radius: 0 4px 4px 0;
   padding-left: 3px;
 }
+
+/* File Search Styling */
+.FileTree-searchContainer {
+  position: relative;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+.FileTree-searchInput {
+  background: var(--sha1-bg);
+  color: var(--fg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px 30px 8px 10px;
+  font-size: 13px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.FileTree-searchInput:focus {
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 2px var(--border-color-light);
+}
+.FileTree-searchClear {
+  position: absolute;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: var(--header-fg);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+.FileTree-searchClear:hover {
+  color: var(--fg);
+}
+.FileTree-noResults {
+  color: var(--header-fg);
+  font-size: 13px;
+  font-style: italic;
+  padding: 8px 12px;
+  text-align: center;
+}
+.FileTree-highlight {
+  background: rgba(234, 179, 8, 0.35);
+  border-radius: 2px;
+  font-weight: bold;
+}
