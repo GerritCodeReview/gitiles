@@ -44,6 +44,10 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 
 <div class="RepoLayout">
   <aside class="RepoLayout-sidebar">
+    <div class="FileTree-searchContainer">
+      <input type="text" id="file-search-input" class="FileTree-searchInput" placeholder="Filter files..." autocomplete="off">
+      <button id="file-search-clear" class="FileTree-searchClear" title="Clear filter" style="display: none;">&times;</button>
+    </div>
     <div id="gitiles-file-tree" class="FileTree"></div>
   </aside>
   <main class="RepoLayout-main">
@@ -99,10 +103,83 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
           {rb}
           var data = JSON.parse(text);
           var treeRoot = buildTree(data.entries);
+
+          var searchInput = document.getElementById("file-search-input");
+          var searchClear = document.getElementById("file-search-clear");
+
+          function updateFilter() {lb}
+            var query = searchInput.value.toLowerCase().trim();
+            if (query) {lb}
+              searchClear.style.display = "flex";
+              var filtered = filterTree(treeRoot, query);
+              if (!filtered || Object.keys(filtered.children).length === 0) {lb}
+                sidebar.innerHTML = "<div class=\"FileTree-noResults\">No matching files</div>";
+              {rb} else {lb}
+                sidebar.innerHTML = "";
+                renderTree(filtered, sidebar, currentRelativePath, query);
+              {rb}
+            {rb} else {lb}
+              searchClear.style.display = "none";
+              sidebar.innerHTML = "";
+              renderTree(treeRoot, sidebar, currentRelativePath);
+            {rb}
+          {rb}
+
+          if (searchInput) {lb}
+            searchInput.addEventListener("input", updateFilter);
+          {rb}
+          if (searchClear) {lb}
+            searchClear.addEventListener("click", function() {lb}
+              searchInput.value = "";
+              updateFilter();
+              searchInput.focus();
+            {rb});
+          {rb}
+
           renderTree(treeRoot, sidebar, currentRelativePath);
         {rb} catch (e) {lb}
           sidebar.innerHTML = "<div class=\"error\">Failed to load files</div>";
         {rb}
+      {rb}
+
+      function filterTree(node, query) {lb}
+        var filteredChildren = {lb}{rb};
+        var hasMatchingChild = false;
+
+        var keys = Object.keys(node.children);
+        keys.forEach(function(key) {lb}
+          var child = node.children[key];
+          var nameMatches = child.name.toLowerCase().indexOf(query) !== -1;
+
+          if (child.type === "tree") {lb}
+            var filteredChild = filterTree(child, query);
+            if (filteredChild) {lb}
+              filteredChildren[key] = filteredChild;
+              hasMatchingChild = true;
+            {rb} else if (nameMatches) {lb}
+              filteredChildren[key] = {lb}
+                name: child.name,
+                path: child.path,
+                type: child.type,
+                children: {lb}{rb}
+              {rb};
+              hasMatchingChild = true;
+            {rb}
+          {rb} else if (nameMatches) {lb}
+            filteredChildren[key] = child;
+            hasMatchingChild = true;
+          {rb}
+        {rb});
+
+        if (hasMatchingChild) {lb}
+          return {lb}
+            name: node.name,
+            path: node.path,
+            type: node.type,
+            children: filteredChildren
+          {rb};
+        {rb}
+        return null;
       {rb}
 
       function buildTree(entries) {lb}
@@ -134,7 +211,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
         return root;
       {rb}
 
-      function renderTree(node, container, currentPath) {lb}
+      function renderTree(node, container, currentPath, query) {lb}
         var keys = Object.keys(node.children);
         if (keys.length === 0) return;
 
@@ -172,28 +249,49 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 
           if (child.type === "tree") {lb}
             toggle.textContent = "▶";
-            
+
             var folderSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             folderSvg.setAttribute("class", "FileTree-icon");
             folderSvg.setAttribute("viewBox", "0 0 24 24");
             folderSvg.setAttribute("width", "16");
             folderSvg.setAttribute("height", "16");
             folderSvg.setAttribute("fill", "#eab308");
-            
+
             var folderPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
             folderPath.setAttribute("d", "M10 4H4c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2h-8l-2-2z");
             folderSvg.appendChild(folderPath);
 
             item.appendChild(toggle);
             item.appendChild(folderSvg);
-            item.appendChild(document.createTextNode(child.name));
+
+            var itemText = child.name;
+            if (query) {lb}
+              var idx = itemText.toLowerCase().indexOf(query);
+              if (idx !== -1) {lb}
+                var beforeText = itemText.substring(0, idx);
+                var matchText = itemText.substring(idx, idx + query.length);
+                var afterText = itemText.substring(idx + query.length);
+
+                item.appendChild(document.createTextNode(beforeText));
+                var highlightSpan = document.createElement("span");
+                highlightSpan.className = "FileTree-highlight";
+                highlightSpan.textContent = matchText;
+                item.appendChild(highlightSpan);
+                item.appendChild(document.createTextNode(afterText));
+              {rb} else {lb}
+                item.appendChild(document.createTextNode(itemText));
+              {rb}
+            {rb} else {lb}
+              item.appendChild(document.createTextNode(itemText));
+            {rb}
+
             li.appendChild(item);
 
             var childrenContainer = document.createElement("div");
             childrenContainer.className = "FileTree-children";
             li.appendChild(childrenContainer);
 
-            renderTree(child, childrenContainer, currentPath);
+            renderTree(child, childrenContainer, currentPath, query);
 
             item.addEventListener("click", function(e) {lb}
               e.preventDefault();
@@ -201,27 +299,48 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
               toggle.textContent = expanded ? "▼" : "▶";
             {rb});
 
-            if (isAncestor) {lb}
+            if (isAncestor || query) {lb}
               childrenContainer.classList.add("is-expanded");
               toggle.textContent = "▼";
             {rb}
           {rb} else {lb}
             toggle.innerHTML = "&nbsp;&nbsp;";
-            
+
             var fileSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             fileSvg.setAttribute("class", "FileTree-icon");
             fileSvg.setAttribute("viewBox", "0 0 24 24");
             fileSvg.setAttribute("width", "16");
             fileSvg.setAttribute("height", "16");
             fileSvg.setAttribute("fill", "#94a3b8");
-            
+
             var filePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
             filePath.setAttribute("d", "M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z");
             fileSvg.appendChild(filePath);
 
             item.appendChild(toggle);
             item.appendChild(fileSvg);
-            item.appendChild(document.createTextNode(child.name));
+
+            var itemText = child.name;
+            if (query) {lb}
+              var idx = itemText.toLowerCase().indexOf(query);
+              if (idx !== -1) {lb}
+                var beforeText = itemText.substring(0, idx);
+                var matchText = itemText.substring(idx, idx + query.length);
+                var afterText = itemText.substring(idx + query.length);
+
+                item.appendChild(document.createTextNode(beforeText));
+                var highlightSpan = document.createElement("span");
+                highlightSpan.className = "FileTree-highlight";
+                highlightSpan.textContent = matchText;
+                item.appendChild(highlightSpan);
+                item.appendChild(document.createTextNode(afterText));
+              {rb} else {lb}
+                item.appendChild(document.createTextNode(itemText));
+              {rb}
+            {rb} else {lb}
+              item.appendChild(document.createTextNode(itemText));
+            {rb}
+
             li.appendChild(item);
           {rb}
 
