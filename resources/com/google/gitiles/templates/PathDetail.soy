@@ -92,7 +92,89 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       {rb}
       var activeSegments = currentRelativePath ? currentRelativePath.split("/") : [];
 
+      function setupTree(entries) {lb}
+        var treeRoot = buildTree(entries);
+        var searchInput = document.getElementById("file-search-input");
+        var searchClear = document.getElementById("file-search-clear");
+
+        function updateFilter() {lb}
+          var query = searchInput.value.toLowerCase().trim();
+          if (query) {lb}
+            searchClear.style.display = "flex";
+            var filtered = filterTree(treeRoot, query);
+            if (!filtered || Object.keys(filtered.children).length === 0) {lb}
+              sidebar.innerHTML = "<div class=\"FileTree-noResults\">No matching files</div>";
+            {rb} else {lb}
+              sidebar.innerHTML = "";
+              renderTree(filtered, sidebar, currentRelativePath, query);
+            {rb}
+          {rb} else {lb}
+            searchClear.style.display = "none";
+            sidebar.innerHTML = "";
+            renderTree(treeRoot, sidebar, currentRelativePath);
+          {rb}
+        {rb}
+
+        if (searchInput) {lb}
+          searchInput.addEventListener("input", updateFilter);
+        {rb}
+        if (searchClear) {lb}
+          searchClear.addEventListener("click", function() {lb}
+            searchInput.value = "";
+            updateFilter();
+            searchInput.focus();
+          {rb});
+        {rb}
+
+        renderTree(treeRoot, sidebar, currentRelativePath);
+      {rb}
+
       async function loadTree() {lb}
+        var branchShaKey = "gitiles-branch-sha:" + rootUrl;
+        var activeSha = "";
+
+        // 1. Try to resolve activeSha
+        if (/\/[0-9a-f]{lb}40{rb}\//i.test(rootUrl)) {lb}
+          var m = rootUrl.match(/\/([0-9a-f]{lb}40{rb})\//i);
+          if (m) activeSha = m[1];
+        {rb} else {lb}
+          if (!currentRelativePath) {lb}
+            var shaEl = document.querySelector(".TreeDetail-sha1");
+            if (shaEl) {lb}
+              var parts = shaEl.textContent.trim().split(/\s+/);
+              if (parts.length >= 2) {lb}
+                activeSha = parts[1];
+                try {lb}
+                  sessionStorage.setItem(branchShaKey, activeSha);
+                {rb} catch (e) {lb} {rb}
+              {rb}
+            {rb}
+          {rb}
+          if (!activeSha) {lb}
+            try {lb}
+              activeSha = sessionStorage.getItem(branchShaKey) || "";
+            {rb} catch (e) {lb} {rb}
+          {rb}
+        {rb}
+
+        var cacheKey = activeSha ? "gitiles-tree:" + activeSha : "";
+
+        if (cacheKey) {lb}
+          try {lb}
+            var cached = sessionStorage.getItem(cacheKey);
+            if (cached) {lb}
+              var minimized = JSON.parse(cached);
+              var entries = minimized.map(function(e) {lb}
+                return {lb} name: e.n, type: e.t {rb};
+              {rb});
+              if (entries && entries.length > 0) {lb}
+                setupTree(entries);
+                return;
+              {rb}
+            {rb}
+          {rb} catch (e) {lb} {rb}
+        {rb}
+
         var url = rootUrl + "?format=JSON&recursive=1";
         try {lb}
           var response = await fetch(url);
@@ -102,41 +184,25 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
             text = text.substring(4);
           {rb}
           var data = JSON.parse(text);
-          var treeRoot = buildTree(data.entries);
-
-          var searchInput = document.getElementById("file-search-input");
-          var searchClear = document.getElementById("file-search-clear");
-
-          function updateFilter() {lb}
-            var query = searchInput.value.toLowerCase().trim();
-            if (query) {lb}
-              searchClear.style.display = "flex";
-              var filtered = filterTree(treeRoot, query);
-              if (!filtered || Object.keys(filtered.children).length === 0) {lb}
-                sidebar.innerHTML = "<div class=\"FileTree-noResults\">No matching files</div>";
-              {rb} else {lb}
-                sidebar.innerHTML = "";
-                renderTree(filtered, sidebar, currentRelativePath, query);
+          if (data && data.entries) {lb}
+            var rootTreeSha = data.id || activeSha;
+            if (rootTreeSha) {lb}
+              if (!activeSha) {lb}
+                try {lb}
+                  sessionStorage.setItem(branchShaKey, rootTreeSha);
+                {rb} catch (e) {lb} {rb}
               {rb}
-            {rb} else {lb}
-              searchClear.style.display = "none";
-              sidebar.innerHTML = "";
-              renderTree(treeRoot, sidebar, currentRelativePath);
+              try {lb}
+                var minimized = data.entries.map(function(e) {lb}
+                  return {lb} n: e.name, t: e.type {rb};
+                {rb});
+                sessionStorage.setItem("gitiles-tree:" + rootTreeSha, JSON.stringify(minimized));
+              {rb} catch (e) {lb} {rb}
             {rb}
+            setupTree(data.entries);
+          {rb} else {lb}
+            sidebar.innerHTML = "<div class=\"error\">No files found</div>";
           {rb}
-
-          if (searchInput) {lb}
-            searchInput.addEventListener("input", updateFilter);
-          {rb}
-          if (searchClear) {lb}
-            searchClear.addEventListener("click", function() {lb}
-              searchInput.value = "";
-              updateFilter();
-              searchInput.focus();
-            {rb});
-          {rb}
-
-          renderTree(treeRoot, sidebar, currentRelativePath);
         {rb} catch (e) {lb}
           sidebar.innerHTML = "<div class=\"error\">Failed to load files</div>";
         {rb}
