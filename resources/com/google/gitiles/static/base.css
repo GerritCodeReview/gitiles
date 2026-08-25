@@ -277,14 +277,23 @@ a:hover {
   display: inline-block;
   margin-left: 10px;
 }
+.RepoList {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--metadata-msg-bg);
+  overflow: hidden;
+  margin-top: 15px;
+}
 .RepoList-item {
   display: -ms-flexbox;
   display: flex;
-  left: -10px;
-  padding: 5px 0 5px 10px;
-  position: relative;
+  padding: 12px 16px;
   white-space: nowrap;
-  width: calc(100% + 20px);
+  border-bottom: 1px solid var(--border-color-light);
+  transition: background 0.15s ease;
+}
+.RepoList-item:last-child {
+  border-bottom: none;
 }
 .RepoList-item:link,
 .RepoList-item:visited {
@@ -296,9 +305,11 @@ a:hover {
 .RepoList-item--header {
   font-weight: bold;
   margin: 0;
+  background: var(--sha1-bg);
+  border-bottom: 1px solid var(--border-color);
 }
 .RepoList-item--header:hover {
-  background: var(--bg);
+  background: var(--sha1-bg);
 }
 .RepoList-itemName,
 .RepoList-itemDescription {
@@ -307,10 +318,12 @@ a:hover {
 .RepoList-itemName {
   margin-right: 10px;
   min-width: 25%;
-  text-decoration: underline;
+  font-weight: 600;
+  color: var(--link-color);
 }
-.RepoList-item--header > .RepoList-itemName {
+.RepoList-item--header .RepoList-itemName {
   text-decoration: none;
+  color: var(--fg);
 }
 .RepoList-itemDescription {
   color: var(--fg);
@@ -330,14 +343,18 @@ a:hover {
   color: var(--header-fg);
 }
 .CloneRepo {
-  background: var(--sha1-bg);
+  background: var(--metadata-msg-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 16px;
 }
 .CloneRepo-title {
   margin-bottom: 2px;
 }
 .CloneRepo-command {
+  background: var(--sha1-bg);
+  color: var(--fg);
   border: 1px solid var(--border-color);
   border-radius: 4px;
   display: block;
@@ -514,14 +531,22 @@ a:hover {
   padding: 5px 10px;
 }
 .FileList {
-  margin-left: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--metadata-msg-bg);
+  padding: 12px 16px 12px 35px;
+  margin: 15px 0;
 }
 .FileList-item {
-  padding: 1px 0;
+  padding: 6px 0;
   position: relative;
+  border-bottom: 1px solid var(--border-color-light);
+}
+.FileList-item:last-child {
+  border-bottom: none;
 }
 .FileList-item:hover {
-  background: var(--border-color-light);
+  background: transparent;
 }
 .FileList-item::before {
   left: -22px;
