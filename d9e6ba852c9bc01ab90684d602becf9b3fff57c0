@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93e087b0_2b6afcfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-25T12:15:17Z",
+      "side": 1,
+      "message": "I have removed the extra line.",
+      "parentUuid": "4ca30b8c_0f728a54",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "789b1bad_d52fda73",
