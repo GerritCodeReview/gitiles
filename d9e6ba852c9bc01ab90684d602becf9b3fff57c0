@@ -140,6 +140,54 @@
       },
       "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00436376_09b0d4af",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-08-25T12:27:13Z",
+      "side": 1,
+      "message": "I don\u0027t see any change between PS3 and PS4.\nDid you forget to add the update?",
+      "parentUuid": "fe5c6a72_7d32218f",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 77
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35f5d810_488e5bac",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-08-25T12:27:13Z",
+      "side": 1,
+      "message": "I don\u0027t see any change between PS3 and PS4.\nDid you forget to add the update?",
+      "parentUuid": "0484ccff_d16bf985",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 77
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
