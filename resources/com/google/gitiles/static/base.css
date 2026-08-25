@@ -18,6 +18,75 @@
 
 @import "//fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,cyrillic-ext,greek-ext,cyrillic,greek,vietnamese,latin-ext";
 @import "//fonts.googleapis.com/css?family=Source+Code+Pro";
+
+:root {
+  --bg: #f8fafc;
+  --fg: #0f172a;
+  --link-color: #0284c7;
+  --link-visited: #0369a1;
+  --header-bg: #0f172a;
+  --header-fg: #94a3b8;
+  --border-color: #cbd5e1;
+  --border-color-light: #e2e8f0;
+  --sha1-bg: #f1f5f9;
+  --sha1-fg: #475569;
+  --line-num-color: #94a3b8;
+  --line-num-border: #e2e8f0;
+  --line-num-before-color: #94a3b8;
+  --readme-border: #e2e8f0;
+  --metadata-msg-bg: #ffffff;
+  --metadata-msg-border: #cbd5e1;
+  
+  --diff-tree-add: #16a34a;
+  --diff-tree-delete: #dc2626;
+  --diff-tree-rename: #2563eb;
+  --diff-delete: #ef4444;
+  --diff-insert: #22c55e;
+  --diff-hunk: #3b82f6;
+  
+  --commit-log-time: #64748b;
+  --commit-log-branch: #ef4444;
+  --commit-log-tag: #10b981;
+  
+  --target-highlight: #f0f9ff;
+  --blame-bg2: #f8fafc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --fg: #c9d1d9;
+    --link-color: #a8c7fa;
+    --link-visited: #c5a3ff;
+    --header-bg: #161b22;
+    --header-fg: #8b949e;
+    --border-color: #30363d;
+    --border-color-light: #21262d;
+    --sha1-bg: #161b22;
+    --sha1-fg: #8b949e;
+    --line-num-color: #484f58;
+    --line-num-border: #30363d;
+    --line-num-before-color: #8b949e;
+    --readme-border: #30363d;
+    --metadata-msg-bg: #0d1117;
+    --metadata-msg-border: #30363d;
+    
+    --diff-tree-add: #3fb950;
+    --diff-tree-delete: #f85149;
+    --diff-tree-rename: #a8c7fa;
+    --diff-delete: #da3633;
+    --diff-insert: #2ea043;
+    --diff-hunk: #d2a8ff;
+    
+    --commit-log-time: #8b949e;
+    --commit-log-branch: #ff7b72;
+    --commit-log-tag: #7ee787;
+    
+    --target-highlight: #1f242c;
+    --blame-bg2: #161b22;
+  }
+}
+
 *,
 *::after,
 *::before {
@@ -45,12 +114,22 @@ h4, h5, h6 {
 ul, ol {
   list-style: none;
 }
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+a:visited {
+  color: var(--link-visited);
+}
+a:hover {
+  text-decoration: underline;
+}
 
 /* Utility classes */
 
 .u-sha1 {
-  background-color: #f1f2f3;
-  color: #000;
+  background-color: var(--sha1-bg);
+  color: var(--sha1-fg);
   font-size: 13px;
 }
 .u-pre {
@@ -58,8 +137,8 @@ ul, ol {
   white-space: pre;
 }
 .u-lineNum {
-  border-right: 1px solid #f1f2f3;
-  color: #666;
+  border-right: 1px solid var(--line-num-border);
+  color: var(--line-num-color);
   display: inline-block;
   min-width: 3em;
   text-align: right;
@@ -77,8 +156,8 @@ ul, ol {
 /* Common.soy */
 
 .Site {
-  background: #fff;
-  color: #000;
+  background: var(--bg);
+  color: var(--fg);
   display: -ms-flexbox;
   display: flex;
   font: 14px/1.54 'Open Sans', sans-serif;
@@ -88,12 +167,12 @@ ul, ol {
 }
 .Site-header,
 .Site-footer {
-  background: #eee;
+  background: var(--header-bg);
   -ms-flex: none;
   flex: none;
 }
 .Site-header--withNavbar {
-  background: #fff;
+  background: var(--bg);
 }
 .Site-content {
   -ms-flex: 1 0 auto;
@@ -128,7 +207,7 @@ ul, ol {
   flex: 1;
 }
 .Header-anchor {
-  color: #666;
+  color: var(--header-fg);
   font-size: 32px;
   font-weight: 300;
   text-decoration: none;
@@ -139,7 +218,7 @@ ul, ol {
   vertical-align: middle;
 }
 .Header-nav {
-  background: #eee;
+  background: var(--header-bg);
   padding: 15px 0;
 }
 .Header-menu {
@@ -149,7 +228,7 @@ ul, ol {
   justify-content: flex-end;
 }
 .Header-menuItem {
-  color: #00e;
+  color: var(--link-color);
   display: inline-block;
   margin-left: 15px;
 }
@@ -168,14 +247,14 @@ ul, ol {
   user-select: none;
 }
 .Breadcrumbs-crumb {
-  color: #00e;
+  color: var(--link-color);
 }
 .Breadcrumbs-crumb:last-child {
-  color: #000;
+  color: var(--fg);
   font-weight: bold;
 }
 .Footer {
-  color: #666;
+  color: var(--header-fg);
 }
 .Footer-poweredBy {
   -ms-flex: 1;
@@ -212,14 +291,14 @@ ul, ol {
   text-decoration: none;
 }
 .RepoList-item:hover {
-  background: #eee;
+  background: var(--border-color-light);
 }
 .RepoList-item--header {
   font-weight: bold;
   margin: 0;
 }
 .RepoList-item--header:hover {
-  background: #fff;
+  background: var(--bg);
 }
 .RepoList-itemName,
 .RepoList-itemDescription {
@@ -234,7 +313,7 @@ ul, ol {
   text-decoration: none;
 }
 .RepoList-itemDescription {
-  color: #000;
+  color: var(--fg);
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
@@ -248,10 +327,10 @@ ul, ol {
 }
 .RepoMirroredFrom {
   margin: 10px 0;
-  color: #666;
+  color: var(--header-fg);
 }
 .CloneRepo {
-  background: #eee;
+  background: var(--sha1-bg);
   margin-bottom: 20px;
   padding: 10px;
 }
@@ -259,7 +338,7 @@ ul, ol {
   margin-bottom: 2px;
 }
 .CloneRepo-command {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   display: block;
   font-size: inherit;
@@ -284,7 +363,7 @@ ul, ol {
   width: 80%;
 }
 .RepoIndexDoc {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   margin-top: 20px;
   padding-top: 5px;
 }
@@ -345,7 +424,7 @@ ul, ol {
   padding: 2px 0;
 }
 .CommitLog-item--oneline:hover {
-  background: #eee;
+  background: var(--border-color-light);
 }
 .CommitLog-item--full {
   margin-bottom: 20px;
@@ -362,13 +441,13 @@ ul, ol {
   text-align: center;
 }
 .CommitLog-time {
-  color: #666;
+  color: var(--commit-log-time);
 }
 .CommitLog-branchLabel {
-  color: #dd4b39;
+  color: var(--commit-log-branch);
 }
 .CommitLog-tagLabel {
-  color: #093;
+  color: var(--commit-log-tag);
 }
 .CommitLog-rename {
   font-size: 0.9em;
@@ -405,9 +484,9 @@ ul, ol {
   grid-column: auto;
 }
 .MetadataMessage {
-  background-color: #fafafa;
-  border: 1px solid #ccc;
-  color: #000;
+  background-color: var(--metadata-msg-bg);
+  border: 1px solid var(--metadata-msg-border);
+  color: var(--fg);
   margin: 0;
   padding: 12px;
   white-space: pre-wrap;
@@ -419,14 +498,14 @@ ul, ol {
   margin-left: .5em;
 }
 .DiffTree-action--add {
-  color: #060;
+  color: var(--diff-tree-add);
 }
 .DiffTree-action--delete {
-  color: #600;
+  color: var(--diff-tree-delete);
 }
 .DiffTree-action--rename,
 .DiffTree-action--copy {
-  color: #006;
+  color: var(--diff-tree-rename);
 }
 .DiffSummary {}
 .TreeDetail-sha1,
@@ -442,7 +521,7 @@ ul, ol {
   position: relative;
 }
 .FileList-item:hover {
-  background: #eee;
+  background: var(--border-color-light);
 }
 .FileList-item::before {
   left: -22px;
@@ -489,7 +568,7 @@ ul, ol {
 }
 /* Used to prevent copying the line number. */
 .FileContents-lineNum::before {
-  color: #aaa;
+  color: var(--line-num-before-color);
   content: attr(data-line-number);
   cursor: pointer;
 }
@@ -499,15 +578,15 @@ ul, ol {
   padding-left: 10px;
 }
 .FileContents-lineContents:target {
-  background: #cfd8dc;
+  background: var(--target-highlight);
 }
 .InlineReadme {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   margin: 10px 0;
   padding: 7px 0;
 }
 .InlineReadme-path {
-  color: #666;
+  color: var(--header-fg);
 }
 
 @media (max-width: 700px) {
@@ -527,10 +606,10 @@ ul, ol {
   margin: 0 auto;
 }
 .Blame-region--bg1 {
-  background: #fff;
+  background: var(--bg);
 }
 .Blame-region--bg2 {
-  background: #f1f2f3;
+  background: var(--blame-bg2);
 }
 .Blame-sha1,
 .Blame-author,
@@ -562,20 +641,20 @@ ul, ol {
   margin: 10px 0;
 }
 .Diff-fileIndex {
-  color: #444;
+  color: var(--fg);
   font-weight: bold;
 }
 .Diff-unified {
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
   padding: 10px 0;
 }
 .Diff-hunk {
-  color: #00c;
+  color: var(--diff-hunk);
 }
 .Diff-delete {
-  color: #c00;
+  color: var(--diff-delete);
 }
 .Diff-insert {
-  color: #080;
+  color: var(--diff-insert);
 }

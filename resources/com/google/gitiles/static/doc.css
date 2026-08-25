@@ -276,3 +276,19 @@ iframe.noborder {
 .col-11 { width: 88.690%; }
 .col-12 { width: 97.024%; }
 .cols hr { width: 80%; }
+
+@media (prefers-color-scheme: dark) {
+  .doc a:link { color: #8ab4f8; }
+  .doc a:visited { color: #c5a3ff; }
+  .doc a.h:link, .doc a.h:visited { color: #aaa; }
+  .doc blockquote { background-color: #1a1910; border-left-color: #fab700; color: #fff; }
+  .doc pre { background-color: #1a1a1a; border-color: #444; color: #e0e0e0; }
+  .doc code { background-color: #2d2d2d; color: #e0e0e0; }
+  .doc th, .doc td { border-color: #333; }
+  .doc th { background-color: #1e1e1e; }
+  .toc-aux { background-color: #1a1a1a; border-color: #333; }
+  .note { background-color: #1a1910; border-color: #2c2916; }
+  .promo { background-color: #0f1524; border-color: #1d2535; }
+  .aside { background-color: #1a1a1a; border-color: #333; }
+  .doc hr { border-top-color: #333; }
+}
