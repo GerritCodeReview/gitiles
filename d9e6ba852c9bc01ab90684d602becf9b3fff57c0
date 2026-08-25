@@ -68,6 +68,54 @@
       },
       "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5c6a72_7d32218f",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-25T12:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aca0b122_dde60be7",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 77
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0484ccff_d16bf985",
+        "filename": "resources/com/google/gitiles/templates/GrepDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 4841978
+      },
+      "writtenOn": "2026-08-25T12:14:48Z",
+      "side": 1,
+      "message": "I have adjusted this and search reults are looking much better - \n\nhttps://issues.gerritcodereview.com/issues/376381593#comment9",
+      "parentUuid": "789b1bad_d52fda73",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 77
+      },
+      "revId": "d9e6ba852c9bc01ab90684d602becf9b3fff57c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
