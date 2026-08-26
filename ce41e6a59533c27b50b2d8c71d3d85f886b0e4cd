@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9323d3e_2f007004",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-08-26T22:55:05Z",
+      "side": 1,
+      "message": "can you inject / load this directly during runtime (server page render not external script tags) instead of having to write js in this file with {lb} etc?",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 8
+      },
+      "revId": "ce41e6a59533c27b50b2d8c71d3d85f886b0e4cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
