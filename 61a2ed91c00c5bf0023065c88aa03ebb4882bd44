@@ -52,6 +52,78 @@
       "parentUuid": "8d565da8_bf6b916c",
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2250e6f7_6b4a0423",
+        "filename": "resources/com/google/gitiles/static/base.css",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-08-26T23:36:19Z",
+      "side": 1,
+      "message": ":root, html[data-theme\u003d\"light\"] currently sets color-scheme: light dark;, while html[data-theme\u003d\"dark\"] does not specify color-scheme.\n\nWhen data-theme\u003d\"light\" is active while the user\u0027s OS is in dark mode, color-scheme: light dark; allows the browser to render form controls, scrollbars, and system canvases in dark mode against the light page background. Conversely, html[data-theme\u003d\"dark\"] lacks color-scheme: dark; to ensure system scrollbars and controls switch to dark mode on light OS themes.\n\nConsider splitting this so:\n- :root uses color-scheme: light dark;\n- html[data-theme\u003d\"light\"] uses color-scheme: light;\n- html[data-theme\u003d\"dark\"] and @media (prefers-color-scheme: dark) { :root { color-scheme: dark; } } use color-scheme: dark;",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b0cbf8_ccc4b80e",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-08-26T23:36:19Z",
+      "side": 1,
+      "message": "Consider using icon.textContent \u003d \u0027☾\u0027 (or \\u263E / \\u2600 / \\u25D1) instead of icon.innerHTML \u003d \u0027\u0026#9789;\u0027.\n\ntextContent avoids invoking the browser\u0027s HTML parser for single character entities and avoids tripping Trusted Types or innerHTML linters.",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30964fb4_76af919d",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-08-26T23:36:19Z",
+      "side": 1,
+      "message": "In Common.soy, the toggle button defines aria-label\u003d\"Toggle theme\". In updateButton, btn.title and label.textContent are updated when the theme changes, but aria-label remains static.\n\nConsider updating btn.setAttribute(\u0027aria-label\u0027, btn.title) (or removing the static aria-label so screen readers announce the dynamic text label) so assistive technologies accurately announce the current theme and intended action.",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3566bd8a_7f7562ff",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-08-26T23:36:19Z",
+      "side": 1,
+      "message": "Since Renderer.java injects csp_nonce into template injected parameters (ij) when a CSP nonce is present on the request, these inline \u003cscript\u003e tags in themeScript and themeToggle should include nonce\u003d\"{$csp_nonce}\" (e.g. {@inject? csp_nonce: string} and \u003cscript{if $csp_nonce} nonce\u003d\"{$csp_nonce}\"{/if}\u003e...). Without the nonce attribute, deployments enforcing Content-Security-Policy with script nonces will block execution of the theme initialization and toggle scripts.",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
