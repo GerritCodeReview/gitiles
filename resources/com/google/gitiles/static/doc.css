@@ -276,3 +276,13 @@ iframe.noborder {
 .col-11 { width: 88.690%; }
 .col-12 { width: 97.024%; }
 .cols hr { width: 80%; }
+
+.mermaid-container {
+  margin: 1.5em 0;
+  text-align: center;
+  overflow-x: auto;
+}
+.mermaid-container svg {
+  display: inline-block;
+  vertical-align: middle;
+}
