@@ -16,6 +16,24 @@
       "message": "paul pointed me at https://web-platform-dx.github.io/web-features-explorer/features/light-dark/\n\nthis is good",
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d565da8_bf6b916c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-26T23:16:42Z",
+      "side": 1,
+      "message": "looks like browser support landed circa 2024... is that a little too new?",
+      "parentUuid": "90b12d6e_08096be7",
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
