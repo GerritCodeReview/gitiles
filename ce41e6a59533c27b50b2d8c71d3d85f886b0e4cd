@@ -22,6 +22,30 @@
       },
       "revId": "ce41e6a59533c27b50b2d8c71d3d85f886b0e4cd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "396169c2_daedda38",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-26T23:35:27Z",
+      "side": 1,
+      "message": "yeah done.",
+      "parentUuid": "d9323d3e_2f007004",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 8
+      },
+      "revId": "ce41e6a59533c27b50b2d8c71d3d85f886b0e4cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
