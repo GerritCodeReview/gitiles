@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b98a967d_de8d7a3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-08-26T19:55:39Z",
+      "side": 1,
+      "message": "\u003e Is adding a mermaid.js dependency really that bad?\n\nit is unworkable for reasons captured by Emily on the other thread. So here we are :) my take - this is much better than nothing.",
+      "parentUuid": "b81e7633_bdf6a2ea",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbcfcb68_3100993c",
         "filename": "java/com/google/gitiles/doc/SimpleMermaidRenderer.java",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "writtenOn": "2026-08-26T17:28:45Z",
       "side": 1,
       "message": "This is basically a project on its own 😊\n\nIf we really want to go this route, I think we should structure it so that this could be split into its own repo/deliverable at some point in the future.",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d2a05e_9d5211a2",
+        "filename": "java/com/google/gitiles/doc/SimpleMermaidRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-08-26T19:55:39Z",
+      "side": 1,
+      "message": "happy to break it apart if we want to do this, but for now ... not sharing this also feels good for now.",
+      "parentUuid": "cbcfcb68_3100993c",
       "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
