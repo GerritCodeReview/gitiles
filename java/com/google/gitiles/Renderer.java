@@ -29,6 +29,9 @@ import com.google.common.hash.Hashing;
 import com.google.common.html.types.LegacyConversions;
 import com.google.common.io.ByteStreams;
 import com.google.common.net.HttpHeaders;
+import com.google.template.soy.data.SanitizedContent;
+import com.google.template.soy.data.SanitizedContent.ContentKind;
+import com.google.template.soy.data.SanitizedContents;
 import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +57,22 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class Renderer {
   // Must match .streamingPlaceholder.
   private static final String PLACEHOLDER = "id=\"STREAMED-OUTPUT-BLOCK\"";
+
+  private static final SanitizedContent THEME_INIT_SCRIPT;
+  private static final SanitizedContent THEME_TOGGLE_SCRIPT;
+
+  static {
+    try {
+      THEME_INIT_SCRIPT =
+          SanitizedContents.fromResource(
+              Renderer.class, "static/theme-init.js", UTF_8, ContentKind.JS);
+      THEME_TOGGLE_SCRIPT =
+          SanitizedContents.fromResource(
+              Renderer.class, "static/theme-toggle.js", UTF_8, ContentKind.JS);
+    } catch (IOException e) {
+      throw new ExceptionInInitializerError(e);
+    }
+  }
 
   private static final ImmutableList<String> SOY_FILENAMES =
       ImmutableList.of(
@@ -235,7 +254,9 @@ public abstract class Renderer {
     ImmutableMap.Builder<String, Object> ij =
         ImmutableMap.<String, Object>builder()
             .put("staticUrls", staticUrls.build())
-            .put("SITE_TITLE", siteTitle);
+            .put("SITE_TITLE", siteTitle)
+            .put("THEME_INIT_SCRIPT", THEME_INIT_SCRIPT)
+            .put("THEME_TOGGLE_SCRIPT", THEME_TOGGLE_SCRIPT);
     Optional<String> nonce = req.map((r) -> (String) r.getAttribute("nonce"));
     if (nonce.isPresent()) {
       ij.put("csp_nonce", nonce.get());
