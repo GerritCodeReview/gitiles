@@ -34,6 +34,41 @@
       "parentUuid": "0edf1db6_1123f41f",
       "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81e7633_bdf6a2ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-26T17:28:45Z",
+      "side": 1,
+      "message": "That\u0027s cool. I have to admit I\u0027m daunted by the size and scope of `SimpleMermaidRenderer`. I searched around and couldn\u0027t find any other open-source project implementing a Mermaid parser in Java. Perhaps that\u0027s because no one else has had the need for it, but it definitely makes me question if this is a maintainable approach (even with the large quantity of tests you added).\n\nIs adding a mermaid.js dependency really that bad?",
+      "parentUuid": "54a0531d_231dd949",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbcfcb68_3100993c",
+        "filename": "java/com/google/gitiles/doc/SimpleMermaidRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-26T17:28:45Z",
+      "side": 1,
+      "message": "This is basically a project on its own 😊\n\nIf we really want to go this route, I think we should structure it so that this could be split into its own repo/deliverable at some point in the future.",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
