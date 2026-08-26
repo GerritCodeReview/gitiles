@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0edf1db6_1123f41f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-26T03:53:53Z",
+      "side": 1,
+      "message": "Is this server-side approach preferable to the approach taken in https://gerrit-review.googlesource.com/c/gitiles/+/387361 ?",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
