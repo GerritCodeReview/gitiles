@@ -74,6 +74,232 @@ public class GitilesMarkdownTest {
     assertThat(html).contains("title: Kittens");
   }
 
+  @Test
+  public void renderMermaidDiagram() {
+    String md =
+        "```mermaid\n"
+            + "graph LR\n"
+            + "    subgraph CoreGarden\n"
+            + "        A[\"Fluffy Puppy\"]\n"
+            + "    end\n"
+            + "    subgraph GreenLawn\n"
+            + "        B[\"Playful Kitten\"]\n"
+            + "    end\n"
+            + "    B --> A\n"
+            + "```\n";
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "mermaid", true);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder()
+            .setConfig(mc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).contains("class=\"mermaid-container\"");
+    assertThat(htmlStr).contains("<svg class=\"mermaid-svg\"");
+    assertThat(htmlStr).contains("Fluffy Puppy");
+    assertThat(htmlStr).contains("Playful Kitten");
+  }
+
+  @Test
+  public void renderMermaidWithSubgraphAndDAG() {
+    String md =
+        "```mermaid\n"
+            + "graph TD\n"
+            + "    ClientApp[Little Puppy Plays] --> Extras(Sweet Kitten)\n"
+            + "    ClientApp --> Utils(Happy Bunny)\n"
+            + "    Utils --> ServiceDiscovery[Red Apple Berry]\n"
+            + "    Utils --> ModelManager[Yellow Banana Snack]\n"
+            + "    Extras --> Recognition(Fluffy Duckling)\n"
+            + "    Recognition --> SODA(Green Frog Jump)\n"
+            + "    Recognition --> S3(Sunny Daisy Flower)\n"
+            + "    subgraph Play Park Garden\n"
+            + "        Executors(Teddy Bear)\n"
+            + "        Errors(Wooden Blocks)\n"
+            + "        Protos(Toy Wagon)\n"
+            + "    end\n"
+            + "    Recognition -.-> PlayParkGarden\n"
+            + "```\n";
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "mermaid", true);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder()
+            .setConfig(mc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).contains("Play Park Garden");
+    assertThat(htmlStr).contains("Little Puppy Plays");
+    assertThat(htmlStr).contains("Sweet Kitten");
+    assertThat(htmlStr).contains("Happy Bunny");
+    assertThat(htmlStr).contains("Teddy Bear");
+    assertThat(htmlStr).contains("Wooden Blocks");
+    assertThat(htmlStr).contains("Toy Wagon");
+  }
+
+  @Test
+  public void renderMermaidWithQuotedBracketsAndDiamond() {
+    String md =
+        "```mermaid\n"
+            + "graph TD\n"
+            + "    A[\"Happy little bunny jumps\"]\n"
+            + "    B[\"Locate [TeddyBear] in garden\"]\n"
+            + "    A --> B\n"
+            + "    B --> C[\"Sing Sweet Melody\"]\n"
+            + "    C --> D[\"Dance Around Blossom Tree\"]\n"
+            + "    E{\"Is kitten happy & pure?\"}\n"
+            + "    E -- Yes --> F[\"Give Tasty Cookie Treat\"]\n"
+            + "    F --> G[\"Play With Soft Yarn Ball\"]\n"
+            + "    E -- No --> H[\"Read Gentle Story Book\"]\n"
+            + "    H --> I[\"Warm Cozy Blanket Nap\"]\n"
+            + "    G --> J[\"Wake Up In Morning Sun\"]\n"
+            + "    I --> J\n"
+            + "    J --> K[\"Smile At Rainbow Sky\"]\n"
+            + "```\n";
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "mermaid", true);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder()
+            .setConfig(mc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).contains("Locate [TeddyBear] in garden");
+    assertThat(htmlStr).contains("Is kitten happy &amp; pure?");
+    assertThat(htmlStr).contains("Smile At Rainbow Sky");
+  }
+
+  @Test
+  public void renderMermaidWithBidirectionalEdges() {
+    String md =
+        "```mermaid\n"
+            + "graph TD\n"
+            + "    Puppy[\"Fluffy Puppy\"]\n"
+            + "    Kitten[\"Playful Kitten\"]\n"
+            + "    Bunny[\"Little Bunny\"]\n"
+            + "    Puppy -->|Roll Ball| Kitten\n"
+            + "    Kitten -->|Chase Toy| Bunny\n"
+            + "    Bunny -->|Share Snack| Kitten\n"
+            + "    Kitten -->|Give Hug| Puppy\n"
+            + "```\n";
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "mermaid", true);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder()
+            .setConfig(mc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).contains("Fluffy Puppy");
+    assertThat(htmlStr).contains("Playful Kitten");
+    assertThat(htmlStr).contains("Roll Ball");
+    assertThat(htmlStr).contains("Give Hug");
+  }
+
+  @Test
+  public void testMarkdownConfigIFrameAndExtensions() {
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "safehtml", true);
+    cfg.setString("markdown", null, "allowiframe", "https://example.com/embed/");
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    assertThat(mc.isIFrameAllowed("https://example.com/embed/123")).isTrue();
+    assertThat(mc.isIFrameAllowed("https://other.com/embed/123")).isFalse();
+
+    Config anyCfg = new Config();
+    anyCfg.setBoolean("markdown", null, "safehtml", true);
+    anyCfg.setBoolean("markdown", null, "allowiframe", true);
+    MarkdownConfig anyMc = new MarkdownConfig(anyCfg);
+    assertThat(anyMc.isIFrameAllowed("https://anything.com")).isTrue();
+
+    MarkdownConfig copied = mc.copyWithExtensions(
+        java.util.Collections.singleton("toc"),
+        java.util.Collections.singleton("autolink"));
+    assertThat(copied).isNotNull();
+  }
+
+  @Test
+  public void testMarkdownConfigMermaidDisabledFallsBackToCodeBlock() {
+    String md = "```mermaid\ngraph TD\n  A --> B\n```\n";
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "mermaid", false);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder()
+            .setConfig(mc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    // When disabled, it renders as a code pre block, not a mermaid svg container
+    assertThat(htmlStr).doesNotContain("class=\"mermaid-container\"");
+    assertThat(htmlStr).contains("<pre class=\"code\">");
+    assertThat(htmlStr).contains("graph TD");
+  }
+
+  @Test
+  public void testSecurityMermaidMarkdownEndToEndNoScriptOrIframeInjection() {
+    String md =
+        "# Diagram Title\n\n"
+            + "```mermaid\n"
+            + "graph TD\n"
+            + "  A[\"<script>alert('xss-1')</script>\"]\n"
+            + "  B[\"<iframe src='javascript:alert(2)'></iframe>\"]\n"
+            + "  C[\"<img src=x onerror=alert('xss-3')>\"]\n"
+            + "  D[\"<foreignObject><iframe src='https://evil.com'></iframe></foreignObject>\"]\n"
+            + "  A -->|\"<script>alert('edge')</script>\"| B\n"
+            + "  B --> C --> D\n"
+            + "  click A href \"javascript:alert('click')\"\n"
+            + "```\n";
+
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "mermaid", true);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder()
+            .setConfig(mc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(node);
+
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+
+    // Verify rendered HTML has the mermaid-container and SVG
+    assertThat(htmlStr).contains("<div class=\"mermaid-container\"><svg class=\"mermaid-svg\"");
+    String mermaidHtml = htmlStr.substring(htmlStr.indexOf("<div class=\"mermaid-container\">"));
+
+    // Verify absolutely no executable script, iframe, or event handlers exist in Mermaid HTML
+    assertThat(mermaidHtml).doesNotContain("<script");
+    assertThat(mermaidHtml).doesNotContain("<iframe");
+    assertThat(mermaidHtml).doesNotContain("<foreignObject");
+    assertThat(mermaidHtml).doesNotContain("<img");
+    assertThat(mermaidHtml).doesNotContain("<a ");
+
+    // Verify payload is safely escaped as XML text inside SVG tspans
+    assertThat(htmlStr).contains("&lt;script&gt;alert(&apos;xss-1&apos;)&lt;/script&gt;");
+    assertThat(htmlStr).contains("&lt;iframe src=&apos;javascript:alert(2)&apos;&gt;&lt;/iframe&gt;");
+    assertThat(htmlStr).contains("&lt;img src=x onerror=alert(&apos;xss-3&apos;)&gt;");
+  }
+
   private static String render(String markdown, boolean frontMatter) {
     Config cfg = new Config();
     cfg.setBoolean("markdown", null, "frontmatter", frontMatter);
