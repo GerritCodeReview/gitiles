@@ -50,15 +50,15 @@
     {/for}
   {/if}
   {call customHeadTagPart variant="'' + ($customVariant ?? '')" /}
-
+  {call themeScript /}
 </head>
 <body class="Site">
   <header class="Site-header">
     <div class="Header">
       {call customHeader variant="'' + ($customVariant ?? '')" /}
 
+      <div class="Header-menu">
       {if $menuEntries && length($menuEntries)}
-        <div class="Header-menu">
         {for $entry in $menuEntries}
           {sp}
           {if $entry.url}
@@ -68,8 +68,9 @@
           {/if}
         {/for}
         {sp}
-        </div>
       {/if}
+      {call themeToggle /}
+      </div>
     </div>
   </header>
 
@@ -87,6 +88,99 @@
           {/for}
         </div>
       {/if}
+{/template}
+
+/**
+ * Inline script to initialize theme preference without FOUC.
+ */
+{template themeScript}
+<script>
+  {lb}
+    try {lb}
+      var t = localStorage.getItem('gitiles-theme');
+      if (!t) {lb}
+        var m = document.cookie.match(/(?:^|; )gitiles-theme=([^;]*)/);
+        if (m) t = decodeURIComponent(m[1]);
+      {rb}
+      if (t === 'dark' || t === 'light') {lb}
+        document.documentElement.setAttribute('data-theme', t);
+      {rb}
+    {rb} catch (e) {lb}{rb}
+  {rb}
+</script>
+{/template}
+
+/**
+ * Theme toggle button and click handler.
+ */
+{template themeToggle}
+<button class="Header-menuItem Header-themeToggle" id="gitiles-theme-toggle" type="button" title="Toggle theme (Auto / Dark / Light)" aria-label="Toggle theme">
+  <span class="Header-themeIcon" aria-hidden="true">&#9681;</span>
+  <span class="Header-themeLabel">Theme</span>
+</button>
+<script>
+  {lb}
+    (function() {lb}
+      function getTheme() {lb}
+        try {lb}
+          var t = localStorage.getItem('gitiles-theme');
+          if (t) return t;
+        {rb} catch (e) {lb}{rb}
+        var m = document.cookie.match(/(?:^|; )gitiles-theme=([^;]*)/);
+        return m ? decodeURIComponent(m[1]) : 'auto';
+      {rb}
+
+      function applyTheme(theme) {lb}
+        if (theme === 'dark' || theme === 'light') {lb}
+          document.documentElement.setAttribute('data-theme', theme);
+        {rb} else {lb}
+          document.documentElement.removeAttribute('data-theme');
+        {rb}
+      {rb}
+
+      function updateButton(btn, theme) {lb}
+        var icon = btn.querySelector('.Header-themeIcon');
+        var label = btn.querySelector('.Header-themeLabel');
+        if (theme === 'dark') {lb}
+          if (icon) icon.innerHTML = '&#9789;';
+          if (label) label.textContent = 'Dark';
+          btn.title = 'Theme: Dark (click to switch to Light)';
+        {rb} else if (theme === 'light') {lb}
+          if (icon) icon.innerHTML = '&#9788;';
+          if (label) label.textContent = 'Light';
+          btn.title = 'Theme: Light (click to switch to Auto)';
+        {rb} else {lb}
+          if (icon) icon.innerHTML = '&#9681;';
+          if (label) label.textContent = 'Auto';
+          btn.title = 'Theme: Auto (click to switch to Dark)';
+        {rb}
+      {rb}
+
+      function initToggle() {lb}
+        var btn = document.getElementById('gitiles-theme-toggle');
+        if (!btn) return;
+        var current = getTheme();
+        updateButton(btn, current);
+        btn.onclick = function() {lb}
+          var cur = getTheme();
+          var next = (cur === 'auto') ? 'dark' : ((cur === 'dark') ? 'light' : 'auto');
+          applyTheme(next);
+          try {lb}
+            localStorage.setItem('gitiles-theme', next);
+          {rb} catch (e) {lb}{rb}
+          document.cookie = 'gitiles-theme=' + encodeURIComponent(next) + ';path=/;max-age=31536000;SameSite=Lax';
+          updateButton(btn, next);
+        {rb};
+      {rb}
+
+      if (document.readyState === 'loading') {lb}
+        document.addEventListener('DOMContentLoaded', initToggle);
+      {rb} else {lb}
+        initToggle();
+      {rb}
+    {rb})();
+  {rb}
+</script>
 {/template}
 
 /**
