@@ -1,0 +1,1929 @@
+// Copyright 2026 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package com.google.gitiles.doc;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeMap;
+import javax.annotation.Nullable;
+
+/**
+ * Server-side AST parser, layout engine, and SVG renderer for Mermaid flowchart and graph diagrams.
+ *
+ * <p>Implements a pure streaming character-scanner AST parser without regex splits, hierarchical
+ * Sugiyama DAG layout with cycle breaking, crossing reduction, arbitrary nested subgraphs,
+ * dynamic edge clearances, bidirectional curved paths, and responsive SVG emission.
+ */
+public class SimpleMermaidRenderer {
+
+  public enum Direction {
+    LR,
+    TD,
+    TB,
+    RL,
+    BT
+  }
+
+  public enum NodeShape {
+    RECTANGLE,
+    ROUNDED,
+    STADIUM,
+    SUBROUTINE,
+    CYLINDER,
+    CIRCLE,
+    DIAMOND,
+    HEXAGON,
+    FLAG
+  }
+
+  public enum EdgeStroke {
+    SOLID,
+    DASHED,
+    THICK
+  }
+
+  // =========================================================================
+  // AST Model Objects
+  // =========================================================================
+
+  public static class Node {
+    public final String id;
+    public String label;
+    public final List<String> labelLines = new ArrayList<>();
+    public NodeShape shape = NodeShape.RECTANGLE;
+    public int layer = 0;
+    public double relX;
+    public double relY;
+    public double x;
+    public double y;
+    public double width = 160;
+    public double height = 44;
+    public Subgraph parentSubgraph;
+    public double barycenter = 0;
+
+    public Node(String id) {
+      this.id = id;
+      setLabel(id);
+    }
+
+    public void setLabel(String rawLabel) {
+      this.label = rawLabel != null ? rawLabel : id;
+      this.labelLines.clear();
+      this.labelLines.addAll(parseLabelLines(this.label));
+    }
+  }
+
+  public static class Subgraph {
+    public final String id;
+    public String title;
+    public Direction direction;
+    public Subgraph parent;
+    public final List<Subgraph> children = new ArrayList<>();
+    public final List<Node> nodes = new ArrayList<>();
+    public double relX;
+    public double relY;
+    public double x;
+    public double y;
+    public double width;
+    public double height;
+
+    public Subgraph(String id, String title) {
+      this.id = id;
+      this.title = title;
+    }
+  }
+
+  public static class Edge {
+    public final String fromId;
+    public final String toId;
+    public final String label;
+    public final EdgeStroke stroke;
+    public final boolean arrow;
+    public boolean isBackEdge = false;
+
+    public Edge(String fromId, String toId, String label, EdgeStroke stroke, boolean arrow) {
+      this.fromId = fromId;
+      this.toId = toId;
+      this.label = label;
+      this.stroke = stroke;
+      this.arrow = arrow;
+    }
+  }
+
+  public static class SubgraphEdge {
+    public final String fromSgId;
+    public final String toSgId;
+    public final String label;
+    public final EdgeStroke stroke;
+    public final boolean arrow;
+
+    public SubgraphEdge(
+        String fromSgId, String toSgId, String label, EdgeStroke stroke, boolean arrow) {
+      this.fromSgId = fromSgId;
+      this.toSgId = toSgId;
+      this.label = label;
+      this.stroke = stroke;
+      this.arrow = arrow;
+    }
+  }
+
+  public static class MermaidGraph {
+    public Direction direction = Direction.TD;
+    public final Map<String, Node> nodes = new LinkedHashMap<>();
+    public final Map<String, Subgraph> subgraphsMap = new LinkedHashMap<>();
+    public final List<Subgraph> rootSubgraphs = new ArrayList<>();
+    public final List<Subgraph> allSubgraphs = new ArrayList<>();
+    public final List<Edge> edges = new ArrayList<>();
+    public final List<SubgraphEdge> subgraphEdges = new ArrayList<>();
+
+    public Node ensureNode(String id, @Nullable Subgraph currentSubgraph) {
+      Node node = nodes.get(id);
+      if (node == null) {
+        node = new Node(id);
+        nodes.put(id, node);
+        if (currentSubgraph != null) {
+          node.parentSubgraph = currentSubgraph;
+          currentSubgraph.nodes.add(node);
+        }
+      } else if (node.parentSubgraph == null && currentSubgraph != null) {
+        node.parentSubgraph = currentSubgraph;
+        currentSubgraph.nodes.add(node);
+      }
+      return node;
+    }
+
+    public @Nullable Subgraph lookupSubgraph(String name) {
+      if (name == null) return null;
+      String clean = name.trim();
+      Subgraph sg = subgraphsMap.get(clean);
+      if (sg != null) return sg;
+      sg = subgraphsMap.get(stripWhitespace(clean));
+      if (sg != null) return sg;
+      sg = subgraphsMap.get(clean.toLowerCase());
+      if (sg != null) return sg;
+      sg = subgraphsMap.get(stripWhitespace(clean).toLowerCase());
+      return sg;
+    }
+  }
+
+  // =========================================================================
+  // Character Stream Scanner & Tokenizer
+  // =========================================================================
+
+  private static class CharScanner {
+    final String text;
+    int pos;
+
+    CharScanner(String text) {
+      this.text = text != null ? text : "";
+      this.pos = 0;
+    }
+
+    boolean isEof() {
+      return pos >= text.length();
+    }
+
+    char peek() {
+      return isEof() ? '\0' : text.charAt(pos);
+    }
+
+    char next() {
+      return isEof() ? '\0' : text.charAt(pos++);
+    }
+
+    boolean startsWith(String prefix) {
+      return text.startsWith(prefix, pos);
+    }
+
+    boolean startsWithIgnoreCase(String prefix) {
+      if (text.length() - pos < prefix.length()) return false;
+      return text.substring(pos, pos + prefix.length()).equalsIgnoreCase(prefix);
+    }
+
+    boolean consume(String prefix) {
+      if (startsWith(prefix)) {
+        pos += prefix.length();
+        return true;
+      }
+      return false;
+    }
+
+    boolean consumeIgnoreCase(String prefix) {
+      if (startsWithIgnoreCase(prefix)) {
+        pos += prefix.length();
+        return true;
+      }
+      return false;
+    }
+
+    void skipWhitespace() {
+      while (!isEof() && (text.charAt(pos) == ' ' || text.charAt(pos) == '\t')) {
+        pos++;
+      }
+    }
+
+    void skipWhitespaceAndNewlines() {
+      while (!isEof()) {
+        char c = text.charAt(pos);
+        if (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == ';') {
+          pos++;
+        } else {
+          break;
+        }
+      }
+    }
+
+    void skipLine() {
+      while (!isEof()) {
+        char c = text.charAt(pos++);
+        if (c == '\n') break;
+      }
+    }
+
+    void skipToStatementEnd() {
+      while (!isEof()) {
+        char c = text.charAt(pos);
+        if (c == ';' || c == '\n') {
+          pos++;
+          break;
+        }
+        pos++;
+      }
+    }
+
+    String scanIdentifier() {
+      skipWhitespace();
+      int start = pos;
+      while (!isEof()) {
+        char c = text.charAt(pos);
+        if (Character.isLetterOrDigit(c) || c == '_' || c == '-' || c == '.') {
+          pos++;
+        } else {
+          break;
+        }
+      }
+      return text.substring(start, pos);
+    }
+  }
+
+  private static class RawNodeToken {
+    final String id;
+    final NodeShape shape;
+    final String label;
+
+    RawNodeToken(String id, NodeShape shape, @Nullable String label) {
+      this.id = id;
+      this.shape = shape;
+      this.label = label;
+    }
+  }
+
+  private static class RawEdgeToken {
+    final EdgeStroke stroke;
+    final boolean arrow;
+    final String label;
+
+    RawEdgeToken(EdgeStroke stroke, boolean arrow, @Nullable String label) {
+      this.stroke = stroke;
+      this.arrow = arrow;
+      this.label = label;
+    }
+  }
+
+  // =========================================================================
+  // Parser Implementation
+  // =========================================================================
+
+  /**
+   * Attempts to render a Mermaid code string into SVG XML.
+   *
+   * @param mermaidCode source Mermaid definition.
+   * @return rendered SVG XML string, or empty if unsupported / invalid syntax.
+   */
+  public static Optional<String> renderToSvg(String mermaidCode) {
+    if (mermaidCode == null || mermaidCode.trim().isEmpty()) {
+      return Optional.empty();
+    }
+
+    Optional<MermaidGraph> graphOpt = parse(mermaidCode);
+    if (!graphOpt.isPresent()) {
+      return Optional.empty();
+    }
+
+    MermaidGraph graph = graphOpt.get();
+    if (graph.nodes.isEmpty()) {
+      return Optional.empty();
+    }
+
+    return Optional.of(layoutAndRenderSvg(graph));
+  }
+
+  /** Parses Mermaid source code into a {@link MermaidGraph} AST. */
+  public static Optional<MermaidGraph> parse(String mermaidCode) {
+    CharScanner s = new CharScanner(mermaidCode);
+    MermaidGraph graph = new MermaidGraph();
+    boolean headerFound = false;
+
+    // Scan for diagram type and direction
+    while (!s.isEof()) {
+      s.skipWhitespaceAndNewlines();
+      if (s.isEof()) break;
+
+      if (s.startsWith("%%")) {
+        s.skipLine();
+        continue;
+      }
+
+      if (s.consumeIgnoreCase("graph") || s.consumeIgnoreCase("flowchart")) {
+        s.skipWhitespace();
+        String dirStr = s.scanIdentifier().toUpperCase();
+        try {
+          if (!dirStr.isEmpty()) {
+            graph.direction = Direction.valueOf(dirStr);
+          } else {
+            graph.direction = Direction.TD;
+          }
+        } catch (IllegalArgumentException e) {
+          graph.direction = Direction.TD;
+        }
+        headerFound = true;
+        s.skipToStatementEnd();
+        break;
+      }
+
+      // Check unsupported non-graph diagrams for quick fallback
+      if (s.startsWithIgnoreCase("sequenceDiagram")
+          || s.startsWithIgnoreCase("classDiagram")
+          || s.startsWithIgnoreCase("erDiagram")
+          || s.startsWithIgnoreCase("gantt")
+          || s.startsWithIgnoreCase("pie")
+          || s.startsWithIgnoreCase("gitGraph")
+          || s.startsWithIgnoreCase("xychart-beta")
+          || s.startsWithIgnoreCase("stateDiagram")) {
+        return Optional.empty();
+      }
+
+      s.skipLine();
+    }
+
+    if (!headerFound) {
+      return Optional.empty();
+    }
+
+    Deque<Subgraph> subgraphStack = new ArrayDeque<>();
+
+    // Parse diagram statements into AST
+    while (!s.isEof()) {
+      s.skipWhitespaceAndNewlines();
+      if (s.isEof()) break;
+
+      if (s.startsWith("%%")) {
+        s.skipLine();
+        continue;
+      }
+
+      // Skip style & meta directives
+      if (s.startsWithIgnoreCase("classDef ")
+          || s.startsWithIgnoreCase("class ")
+          || s.startsWithIgnoreCase("style ")
+          || s.startsWithIgnoreCase("click ")
+          || s.startsWithIgnoreCase("linkStyle ")
+          || s.startsWithIgnoreCase("accTitle")
+          || s.startsWithIgnoreCase("accDescr")) {
+        s.skipToStatementEnd();
+        continue;
+      }
+
+      if (s.startsWithIgnoreCase("graph") || s.startsWithIgnoreCase("flowchart")) {
+        s.skipToStatementEnd();
+        continue;
+      }
+
+      if (s.consumeIgnoreCase("direction")) {
+        s.skipWhitespace();
+        String dirStr = s.scanIdentifier().toUpperCase();
+        if (!subgraphStack.isEmpty() && !dirStr.isEmpty()) {
+          try {
+            subgraphStack.peek().direction = Direction.valueOf(dirStr);
+          } catch (IllegalArgumentException e) {
+            // ignore
+          }
+        }
+        s.skipToStatementEnd();
+        continue;
+      }
+
+      if (s.consumeIgnoreCase("end")) {
+        char nextC = s.peek();
+        if (nextC == '\0' || Character.isWhitespace(nextC) || nextC == ';') {
+          if (!subgraphStack.isEmpty()) {
+            subgraphStack.pop();
+          }
+          s.skipToStatementEnd();
+          continue;
+        }
+      }
+
+      if (s.consumeIgnoreCase("subgraph")) {
+        parseSubgraphHeader(s, graph, subgraphStack);
+        s.skipToStatementEnd();
+        continue;
+      }
+
+      Subgraph currentSg = subgraphStack.isEmpty() ? null : subgraphStack.peek();
+      parseStatement(s, graph, currentSg);
+      s.skipToStatementEnd();
+    }
+
+    return Optional.of(graph);
+  }
+
+  private static void parseSubgraphHeader(
+      CharScanner s, MermaidGraph graph, Deque<Subgraph> subgraphStack) {
+    s.skipWhitespace();
+    String sgId, sgTitle;
+
+    // Check for `subgraph "Title Only"`
+    if (s.startsWith("\"")) {
+      s.consume("\"");
+      int start = s.pos;
+      while (!s.isEof() && !s.startsWith("\"")) s.next();
+      sgTitle = s.text.substring(start, s.pos);
+      s.consume("\"");
+      sgId = "sg_" + graph.allSubgraphs.size();
+    } else {
+      int start = s.pos;
+      while (!s.isEof() && !s.startsWith("[") && !s.startsWith("\"") && s.peek() != '\n' && s.peek() != ';') {
+        s.next();
+      }
+      String rawName = s.text.substring(start, s.pos).trim();
+      s.skipWhitespace();
+      if (s.startsWith("[")) {
+        s.consume("[");
+        s.skipWhitespace();
+        boolean quoted = s.consume("\"");
+        int tstart = s.pos;
+        if (quoted) {
+          while (!s.isEof() && !s.startsWith("\"]") && !s.startsWith("\"")) s.next();
+          sgTitle = s.text.substring(tstart, s.pos);
+          s.consume("\"");
+          s.consume("]");
+        } else {
+          while (!s.isEof() && !s.startsWith("]")) s.next();
+          sgTitle = s.text.substring(tstart, s.pos);
+          s.consume("]");
+        }
+        sgId = rawName;
+      } else {
+        sgTitle = rawName;
+        sgId = rawName;
+      }
+    }
+
+    Subgraph sg = new Subgraph(sgId, sgTitle);
+    if (!subgraphStack.isEmpty()) {
+      Subgraph parent = subgraphStack.peek();
+      sg.parent = parent;
+      parent.children.add(sg);
+    } else {
+      graph.rootSubgraphs.add(sg);
+    }
+    subgraphStack.push(sg);
+    graph.subgraphsMap.put(sgId, sg);
+    graph.subgraphsMap.put(sgTitle, sg);
+    graph.subgraphsMap.put(sgId.toLowerCase(), sg);
+    graph.subgraphsMap.put(sgTitle.toLowerCase(), sg);
+    graph.allSubgraphs.add(sg);
+  }
+
+  private static void parseStatement(
+      CharScanner s, MermaidGraph graph, @Nullable Subgraph currentSubgraph) {
+    List<RawNodeToken> prevGroup = scanNodeGroup(s);
+    if (prevGroup.isEmpty()) return;
+
+    for (RawNodeToken token : prevGroup) {
+      applyNodeToken(token, graph, currentSubgraph);
+    }
+
+    while (!s.isEof()) {
+      char c = s.peek();
+      if (c == ';' || c == '\n' || c == '\r') break;
+
+      RawEdgeToken edge = scanEdgeToken(s);
+      if (edge == null) break;
+
+      List<RawNodeToken> nextGroup = scanNodeGroup(s);
+      if (nextGroup.isEmpty()) break;
+
+      for (RawNodeToken token : nextGroup) {
+        applyNodeToken(token, graph, currentSubgraph);
+      }
+
+      for (RawNodeToken fromToken : prevGroup) {
+        for (RawNodeToken toToken : nextGroup) {
+          Subgraph fromSg = graph.lookupSubgraph(fromToken.id);
+          Subgraph toSg = graph.lookupSubgraph(toToken.id);
+
+          if (fromSg != null && toSg != null) {
+            graph.subgraphEdges.add(
+                new SubgraphEdge(fromSg.id, toSg.id, edge.label, edge.stroke, edge.arrow));
+          } else if (fromSg == null && toSg != null) {
+            if (!toSg.nodes.isEmpty()) {
+              Node targetNode = toSg.nodes.get(toSg.nodes.size() / 2);
+              graph.edges.add(
+                  new Edge(fromToken.id, targetNode.id, edge.label, edge.stroke, edge.arrow));
+            }
+          } else if (fromSg != null && toSg == null) {
+            if (!fromSg.nodes.isEmpty()) {
+              Node sourceNode = fromSg.nodes.get(fromSg.nodes.size() / 2);
+              graph.edges.add(
+                  new Edge(sourceNode.id, toToken.id, edge.label, edge.stroke, edge.arrow));
+            }
+          } else {
+            graph.edges.add(
+                new Edge(fromToken.id, toToken.id, edge.label, edge.stroke, edge.arrow));
+          }
+        }
+      }
+
+      prevGroup = nextGroup;
+    }
+  }
+
+  private static List<RawNodeToken> scanNodeGroup(CharScanner s) {
+    List<RawNodeToken> group = new ArrayList<>();
+    RawNodeToken first = scanNodeToken(s);
+    if (first == null) return group;
+    group.add(first);
+
+    while (!s.isEof()) {
+      s.skipWhitespace();
+      if (s.startsWith("&")) {
+        s.consume("&");
+        s.skipWhitespace();
+        RawNodeToken next = scanNodeToken(s);
+        if (next != null) {
+          group.add(next);
+        } else {
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    return group;
+  }
+
+  private static void applyNodeToken(
+      RawNodeToken token, MermaidGraph graph, @Nullable Subgraph currentSubgraph) {
+    if (graph.lookupSubgraph(token.id) != null) {
+      return;
+    }
+    Node node = graph.ensureNode(token.id, currentSubgraph);
+    if (token.label != null) {
+      node.shape = token.shape;
+      node.setLabel(token.label);
+    }
+  }
+
+  private static @Nullable RawNodeToken scanNodeToken(CharScanner s) {
+    s.skipWhitespace();
+    if (s.isEof()) return null;
+
+    String id = s.scanIdentifier();
+    if (id.isEmpty()) return null;
+
+    s.skipWhitespace();
+    NodeShape shape = NodeShape.RECTANGLE;
+    String label = null;
+
+    String[][] delims = {
+      {"[[", "]]", "SUBROUTINE"},
+      {"[(", ")]", "CYLINDER"},
+      {"([", "])", "STADIUM"},
+      {"((", "))", "CIRCLE"},
+      {"{{", "}}", "HEXAGON"},
+      {"[", "]", "RECTANGLE"},
+      {"(", ")", "ROUNDED"},
+      {"{", "}", "DIAMOND"},
+      {">", "]", "FLAG"}
+    };
+
+    for (String[] d : delims) {
+      String open = d[0];
+      String close = d[1];
+      String shapeName = d[2];
+      if (s.startsWith(open)) {
+        s.consume(open);
+        shape = NodeShape.valueOf(shapeName);
+        s.skipWhitespace();
+        if (s.startsWith("\"")) {
+          s.consume("\"");
+          int start = s.pos;
+          while (!s.isEof() && s.peek() != '\n' && s.peek() != '\r') {
+            if (s.startsWith("\\\"")) {
+              s.pos += 2;
+            } else if (s.startsWith("\"")) {
+              break;
+            } else {
+              s.next();
+            }
+          }
+          label = s.text.substring(start, s.pos);
+          s.consume("\"");
+          s.skipWhitespace();
+          s.consume(close);
+        } else {
+          int start = s.pos;
+          while (!s.isEof() && s.peek() != '\n' && !s.startsWith(close)) {
+            s.next();
+          }
+          label = s.text.substring(start, s.pos);
+          s.consume(close);
+        }
+        break;
+      }
+    }
+
+    return new RawNodeToken(id, shape, label != null ? cleanLabel(label) : null);
+  }
+
+  private static @Nullable RawEdgeToken scanEdgeToken(CharScanner s) {
+    s.skipWhitespace();
+    if (s.isEof()) return null;
+
+    // 1. Infix labels: -- label -->, -- "label" -->, == label ==>, -. label .->, -- label ---
+    if ((s.startsWith("-- ") || s.startsWith("--\"") || s.startsWith("--\t"))
+        && !s.startsWith("-->")
+        && !s.startsWith("---|")) {
+      s.consume("--");
+      s.skipWhitespace();
+      int start = s.pos;
+      while (!s.isEof() && s.peek() != '\n' && !s.startsWith("-->") && !s.startsWith("---")) {
+        s.next();
+      }
+      String label = cleanLabel(s.text.substring(start, s.pos));
+      boolean arrow = s.consume("-->");
+      if (!arrow) s.consume("---");
+      return new RawEdgeToken(EdgeStroke.SOLID, arrow, label);
+    }
+
+    if ((s.startsWith("== ") || s.startsWith("==\"") || s.startsWith("==\t"))
+        && !s.startsWith("==>")
+        && !s.startsWith("===|")) {
+      s.consume("==");
+      s.skipWhitespace();
+      int start = s.pos;
+      while (!s.isEof() && s.peek() != '\n' && !s.startsWith("==>") && !s.startsWith("===")) {
+        s.next();
+      }
+      String label = cleanLabel(s.text.substring(start, s.pos));
+      boolean arrow = s.consume("==>");
+      if (!arrow) s.consume("===");
+      return new RawEdgeToken(EdgeStroke.THICK, arrow, label);
+    }
+
+    if (s.startsWith("-. ") || s.startsWith("-.\"") || s.startsWith("-.\t")) {
+      s.consume("-.");
+      s.skipWhitespace();
+      int start = s.pos;
+      while (!s.isEof() && s.peek() != '\n' && !s.startsWith(".->") && !s.startsWith(".-")) {
+        s.next();
+      }
+      String label = cleanLabel(s.text.substring(start, s.pos));
+      boolean arrow = s.consume(".->");
+      if (!arrow) s.consume(".-");
+      return new RawEdgeToken(EdgeStroke.DASHED, arrow, label);
+    }
+
+    // 2. Standard edge operators with optional |pipe label|
+    String[][] ops = {
+      {"-.->", "DASHED", "true"},
+      {"-.-", "DASHED", "false"},
+      {"==>", "THICK", "true"},
+      {"===", "THICK", "false"},
+      {"-->", "SOLID", "true"},
+      {"---", "SOLID", "false"},
+      {"<-->", "SOLID", "true"}
+    };
+
+    for (String[] op : ops) {
+      String prefix = op[0];
+      EdgeStroke stroke = EdgeStroke.valueOf(op[1]);
+      boolean arrow = Boolean.parseBoolean(op[2]);
+      if (s.startsWith(prefix)) {
+        s.consume(prefix);
+        s.skipWhitespace();
+        String label = null;
+        if (s.startsWith("|")) {
+          s.consume("|");
+          int start = s.pos;
+          while (!s.isEof() && s.peek() != '\n' && !s.startsWith("|")) {
+            s.next();
+          }
+          label = cleanLabel(s.text.substring(start, s.pos));
+          s.consume("|");
+        }
+        return new RawEdgeToken(stroke, arrow, label);
+      }
+    }
+
+    return null;
+  }
+
+  private static String cleanLabel(String raw) {
+    if (raw == null) return "";
+    String s = raw.trim();
+    if (s.startsWith("\"") && s.endsWith("\"") && s.length() >= 2) {
+      s = s.substring(1, s.length() - 1);
+    } else if (s.startsWith("\\\"") && s.endsWith("\\\"") && s.length() >= 4) {
+      s = s.substring(2, s.length() - 2);
+    }
+    if (s.contains("\\\"")) {
+      s = s.replace("\\\"", "\"");
+    }
+    return s;
+  }
+
+  private static String stripWhitespace(String s) {
+    if (s == null) return "";
+    StringBuilder sb = new StringBuilder(s.length());
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if (!Character.isWhitespace(c)) {
+        sb.append(c);
+      }
+    }
+    return sb.toString();
+  }
+
+  private static List<String> parseLabelLines(String label) {
+    List<String> lines = new ArrayList<>();
+    if (label == null || label.isEmpty()) {
+      lines.add("");
+      return lines;
+    }
+    int start = 0;
+    int len = label.length();
+    while (start < len) {
+      int brIdx = -1;
+      int brLen = 0;
+      for (int i = start; i <= len - 4; i++) {
+        if (label.charAt(i) == '<'
+            && (label.charAt(i + 1) == 'b' || label.charAt(i + 1) == 'B')
+            && (label.charAt(i + 2) == 'r' || label.charAt(i + 2) == 'R')) {
+          int closeIdx = label.indexOf('>', i + 3);
+          if (closeIdx != -1 && closeIdx - i <= 6) {
+            brIdx = i;
+            brLen = (closeIdx + 1) - i;
+            break;
+          }
+        }
+      }
+      if (brIdx != -1) {
+        lines.add(label.substring(start, brIdx).trim());
+        start = brIdx + brLen;
+      } else {
+        lines.add(label.substring(start).trim());
+        break;
+      }
+    }
+    return lines;
+  }
+
+  // =========================================================================
+  // Layout Engine
+  // =========================================================================
+
+  private static String layoutAndRenderSvg(MermaidGraph graph) {
+    boolean isHorizontal = (graph.direction == Direction.LR || graph.direction == Direction.RL);
+
+    // Calculate node dimensions using structured AST labelLines
+    for (Node n : graph.nodes.values()) {
+      int maxLineLen = 0;
+      for (String l : n.labelLines) {
+        maxLineLen = Math.max(maxLineLen, l.trim().length());
+      }
+      n.width = Math.max(70, Math.min(340, maxLineLen * 7.5 + 24));
+      n.height = Math.max(38, n.labelLines.size() * 18 + 16);
+      if (n.shape == NodeShape.DIAMOND || n.shape == NodeShape.HEXAGON) {
+        n.width += 36;
+        n.height += 16;
+      } else if (n.shape == NodeShape.CIRCLE) {
+        double d = Math.max(n.width, n.height) + 10;
+        n.width = d;
+        n.height = d;
+      }
+    }
+
+    // 1. Partition graph into connected components
+    Map<String, String> parent = new HashMap<>();
+    for (String id : graph.nodes.keySet()) {
+      parent.put(id, id);
+    }
+    for (Edge e : graph.edges) {
+      if (parent.containsKey(e.fromId) && parent.containsKey(e.toId)) {
+        unionSets(parent, e.fromId, e.toId);
+      }
+    }
+    for (Subgraph sg : graph.allSubgraphs) {
+      if (sg.nodes.size() > 1) {
+        String firstId = sg.nodes.get(0).id;
+        for (int i = 1; i < sg.nodes.size(); i++) {
+          unionSets(parent, firstId, sg.nodes.get(i).id);
+        }
+      }
+      for (Subgraph child : sg.children) {
+        if (!sg.nodes.isEmpty() && !child.nodes.isEmpty()) {
+          unionSets(parent, sg.nodes.get(0).id, child.nodes.get(0).id);
+        }
+      }
+    }
+    for (SubgraphEdge se : graph.subgraphEdges) {
+      Subgraph fromSg = graph.lookupSubgraph(se.fromSgId);
+      Subgraph toSg = graph.lookupSubgraph(se.toSgId);
+      if (fromSg != null && toSg != null && !fromSg.nodes.isEmpty() && !toSg.nodes.isEmpty()) {
+        unionSets(parent, fromSg.nodes.get(0).id, toSg.nodes.get(0).id);
+      }
+    }
+
+    Map<String, GraphComponent> compMap = new LinkedHashMap<>();
+    for (Node n : graph.nodes.values()) {
+      String root = findRoot(parent, n.id);
+      GraphComponent comp = compMap.computeIfAbsent(root, k -> new GraphComponent());
+      comp.nodes.put(n.id, n);
+    }
+
+    for (Edge e : graph.edges) {
+      String root = findRoot(parent, e.fromId);
+      GraphComponent comp = compMap.get(root);
+      if (comp != null && comp.nodes.containsKey(e.fromId) && comp.nodes.containsKey(e.toId)) {
+        comp.edges.add(e);
+      }
+    }
+
+    for (Subgraph sg : graph.allSubgraphs) {
+      if (!sg.nodes.isEmpty()) {
+        String root = findRoot(parent, sg.nodes.get(0).id);
+        GraphComponent comp = compMap.get(root);
+        if (comp != null && !comp.subgraphs.contains(sg)) {
+          comp.subgraphs.add(sg);
+        }
+      }
+    }
+
+    List<GraphComponent> components = new ArrayList<>(compMap.values());
+    components.sort((c1, c2) -> Boolean.compare(!c2.subgraphs.isEmpty(), !c1.subgraphs.isEmpty()));
+
+    for (GraphComponent comp : components) {
+      int compSubNodes = 0;
+      for (Subgraph sg : comp.subgraphs) {
+        compSubNodes += sg.nodes.size();
+      }
+      boolean compAllInSubgraphs = !comp.subgraphs.isEmpty() && (compSubNodes == comp.nodes.size());
+
+      if (compAllInSubgraphs && comp.edges.isEmpty()) {
+        layoutIsolatedSubgraphs(graph.direction, comp.subgraphs);
+      } else if (compAllInSubgraphs) {
+        List<Subgraph> rootSgs = new ArrayList<>();
+        for (Subgraph sg : comp.subgraphs) {
+          if (sg.parent == null || !comp.subgraphs.contains(sg.parent)) {
+            rootSgs.add(sg);
+          }
+        }
+        layoutNestedSubgraphs(graph.direction, rootSgs, comp.edges);
+      } else {
+        layoutBySugiyamaDAG(isHorizontal, comp.nodes, comp.edges, comp.subgraphs);
+      }
+
+      double cMinX = Double.MAX_VALUE, cMinY = Double.MAX_VALUE;
+      double cMaxX = Double.MIN_VALUE, cMaxY = Double.MIN_VALUE;
+      for (Node n : comp.nodes.values()) {
+        cMinX = Math.min(cMinX, n.x);
+        cMinY = Math.min(cMinY, n.y);
+        cMaxX = Math.max(cMaxX, n.x + n.width);
+        cMaxY = Math.max(cMaxY, n.y + n.height);
+      }
+      for (Subgraph sg : comp.subgraphs) {
+        cMinX = Math.min(cMinX, sg.x);
+        cMinY = Math.min(cMinY, sg.y);
+        cMaxX = Math.max(cMaxX, sg.x + sg.width);
+        cMaxY = Math.max(cMaxY, sg.y + sg.height);
+      }
+
+      if (cMinX != Double.MAX_VALUE) {
+        comp.width = cMaxX - cMinX;
+        comp.height = cMaxY - cMinY;
+        for (Node n : comp.nodes.values()) {
+          n.x -= cMinX;
+          n.y -= cMinY;
+        }
+        for (Subgraph sg : comp.subgraphs) {
+          sg.x -= cMinX;
+          sg.y -= cMinY;
+        }
+      }
+    }
+
+    if (!isHorizontal) {
+      double curX = 0;
+      for (GraphComponent comp : components) {
+        for (Node n : comp.nodes.values()) {
+          n.x += curX;
+        }
+        for (Subgraph sg : comp.subgraphs) {
+          sg.x += curX;
+        }
+        curX += comp.width + 48;
+      }
+    } else {
+      double curY = 0;
+      for (GraphComponent comp : components) {
+        for (Node n : comp.nodes.values()) {
+          n.y += curY;
+        }
+        for (Subgraph sg : comp.subgraphs) {
+          sg.y += curY;
+        }
+        curY += comp.height + 48;
+      }
+    }
+
+    // Pre-calculate mutual edge pairs in O(|E|) time
+    Set<String> edgeSet = new HashSet<>(graph.edges.size() * 2);
+    for (Edge e : graph.edges) {
+      edgeSet.add(e.fromId + "->" + e.toId);
+    }
+    Set<String> mutualEdgeKeys = new HashSet<>();
+    for (Edge e : graph.edges) {
+      if (edgeSet.contains(e.toId + "->" + e.fromId)) {
+        mutualEdgeKeys.add(e.fromId + "->" + e.toId);
+      }
+    }
+
+    // Compute bounding box
+    double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE;
+    double maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
+
+    for (Node n : graph.nodes.values()) {
+      minX = Math.min(minX, n.x);
+      minY = Math.min(minY, n.y);
+      maxX = Math.max(maxX, n.x + n.width);
+      maxY = Math.max(maxY, n.y + n.height);
+    }
+    for (Subgraph sg : graph.allSubgraphs) {
+      minX = Math.min(minX, sg.x);
+      minY = Math.min(minY, sg.y);
+      maxX = Math.max(maxX, sg.x + sg.width);
+      maxY = Math.max(maxY, sg.y + sg.height);
+    }
+
+    for (Edge e : graph.edges) {
+      Node src = graph.nodes.get(e.fromId);
+      Node dst = graph.nodes.get(e.toId);
+      if (src != null && dst != null) {
+        double labelW =
+            (e.label != null && !e.label.trim().isEmpty()) ? (e.label.length() * 6.5 + 16) : 0;
+        if (mutualEdgeKeys.contains(src.id + "->" + dst.id)) {
+          if (!isHorizontal) {
+            if (src.layer <= dst.layer) {
+              minX = Math.min(minX, Math.min(src.x, dst.x) - 30.0 - labelW - 12);
+            } else {
+              maxX = Math.max(maxX, Math.max(src.x + src.width, dst.x + dst.width) + 30.0 + labelW + 12);
+            }
+          } else {
+            if (src.layer <= dst.layer) {
+              minY = Math.min(minY, Math.min(src.y, dst.y) - 30.0 - 24);
+            } else {
+              maxY = Math.max(maxY, Math.max(src.y + src.height, dst.y + dst.height) + 30.0 + 24);
+            }
+          }
+        }
+      }
+    }
+
+    double padding = 28;
+    double offsetX = padding - minX;
+    double offsetY = padding - minY;
+    double totalWidth = (maxX - minX) + padding * 2;
+    double totalHeight = (maxY - minY) + padding * 2;
+
+    for (Node n : graph.nodes.values()) {
+      n.x += offsetX;
+      n.y += offsetY;
+    }
+    for (Subgraph sg : graph.allSubgraphs) {
+      sg.x += offsetX;
+      sg.y += offsetY;
+    }
+
+    return renderSvg(graph, isHorizontal, totalWidth, totalHeight, mutualEdgeKeys);
+  }
+
+  private static void layoutBySugiyamaDAG(
+      boolean isHorizontal,
+      Map<String, Node> allNodes,
+      List<Edge> edges,
+      List<Subgraph> subgraphs) {
+
+    // 1. Cycle Breaking via DFS
+    Map<String, List<Edge>> adj = new HashMap<>();
+    for (String id : allNodes.keySet()) {
+      adj.put(id, new ArrayList<>());
+    }
+    for (Edge e : edges) {
+      if (adj.containsKey(e.fromId)) {
+        adj.get(e.fromId).add(e);
+      }
+    }
+
+    Map<String, Integer> color = new HashMap<>();
+    for (String id : allNodes.keySet()) {
+      if (color.getOrDefault(id, 0) == 0) {
+        findCyclesDFS(id, adj, color);
+      }
+    }
+
+    // 2. Layer Assignment (Longest Path in DAG)
+    for (Node n : allNodes.values()) {
+      n.layer = 0;
+    }
+    boolean changed = true;
+    int maxIterations = allNodes.size() + 1;
+    int iter = 0;
+    while (changed && iter++ < maxIterations) {
+      changed = false;
+      for (Edge e : edges) {
+        if (!e.isBackEdge) {
+          Node src = allNodes.get(e.fromId);
+          Node dst = allNodes.get(e.toId);
+          if (src != null && dst != null) {
+            if (dst.layer < src.layer + 1) {
+              dst.layer = src.layer + 1;
+              changed = true;
+            }
+          }
+        }
+      }
+    }
+
+    // 3. Layer Ordering & Barycentric Crossing Reduction
+    Map<Integer, List<Node>> layerMap = new TreeMap<>();
+    for (Node n : allNodes.values()) {
+      layerMap.computeIfAbsent(n.layer, k -> new ArrayList<>()).add(n);
+    }
+
+    int maxLayer = layerMap.isEmpty() ? 0 : Collections.max(layerMap.keySet());
+    for (int l = 1; l <= maxLayer; l++) {
+      List<Node> currentLayer = layerMap.get(l);
+      if (currentLayer == null) continue;
+      for (Node n : currentLayer) {
+        double sum = 0;
+        int count = 0;
+        for (Edge e : edges) {
+          if (e.toId.equals(n.id) && !e.isBackEdge) {
+            Node src = allNodes.get(e.fromId);
+            if (src != null && src.layer == l - 1) {
+              List<Node> prevLayer = layerMap.get(l - 1);
+              if (prevLayer != null) {
+                int pos = prevLayer.indexOf(src);
+                if (pos != -1) {
+                  sum += pos;
+                  count++;
+                }
+              }
+            }
+          }
+        }
+        n.barycenter = count > 0 ? sum / count : currentLayer.indexOf(n);
+      }
+      currentLayer.sort(Comparator.comparingDouble(n -> n.barycenter));
+    }
+
+    // 4. Coordinate Assignment
+    if (!isHorizontal) {
+      // Top-Down
+      double maxGraphWidth = 0;
+      Map<Integer, Double> layerWidths = new HashMap<>();
+      Map<Integer, Double> layerMaxHeights = new HashMap<>();
+
+      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
+        int l = entry.getKey();
+        List<Node> nodes = entry.getValue();
+        double totalW = 0;
+        double maxH = 0;
+        for (int i = 0; i < nodes.size(); i++) {
+          Node n = nodes.get(i);
+          totalW += n.width + (i < nodes.size() - 1 ? 32 : 0);
+          maxH = Math.max(maxH, n.height);
+        }
+        layerWidths.put(l, totalW);
+        layerMaxHeights.put(l, maxH);
+        maxGraphWidth = Math.max(maxGraphWidth, totalW);
+      }
+
+      double curY = 0;
+      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
+        int l = entry.getKey();
+        List<Node> nodes = entry.getValue();
+        double w = layerWidths.get(l);
+        double curX = (maxGraphWidth - w) / 2.0;
+        double maxH = layerMaxHeights.get(l);
+
+        for (int i = 0; i < nodes.size(); i++) {
+          Node n = nodes.get(i);
+          n.x = curX;
+          n.y = curY + (maxH - n.height) / 2.0;
+          curX += n.width + 32;
+        }
+
+        double layerGap = 65;
+        for (Edge e : edges) {
+          Node src = allNodes.get(e.fromId);
+          Node dst = allNodes.get(e.toId);
+          if (src != null && dst != null && src.layer == l && dst.layer == l + 1) {
+            if (e.label != null && !e.label.trim().isEmpty()) {
+              layerGap = Math.max(layerGap, 75);
+            }
+          }
+        }
+        curY += maxH + layerGap;
+      }
+    } else {
+      // Left-to-Right
+      double maxGraphHeight = 0;
+      Map<Integer, Double> layerHeights = new HashMap<>();
+      Map<Integer, Double> layerMaxWidths = new HashMap<>();
+
+      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
+        int l = entry.getKey();
+        List<Node> nodes = entry.getValue();
+        double totalH = 0;
+        double maxW = 0;
+        for (int i = 0; i < nodes.size(); i++) {
+          Node n = nodes.get(i);
+          totalH += n.height + (i < nodes.size() - 1 ? 24 : 0);
+          maxW = Math.max(maxW, n.width);
+        }
+        layerHeights.put(l, totalH);
+        layerMaxWidths.put(l, maxW);
+        maxGraphHeight = Math.max(maxGraphHeight, totalH);
+      }
+
+      double curX = 0;
+      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
+        int l = entry.getKey();
+        List<Node> nodes = entry.getValue();
+        double h = layerHeights.get(l);
+        double curY = (maxGraphHeight - h) / 2.0;
+        double maxW = layerMaxWidths.get(l);
+
+        for (int i = 0; i < nodes.size(); i++) {
+          Node n = nodes.get(i);
+          n.x = curX + (maxW - n.width) / 2.0;
+          n.y = curY;
+          curY += n.height + 24;
+        }
+
+        double layerGap = 85;
+        for (Edge e : edges) {
+          Node src = allNodes.get(e.fromId);
+          Node dst = allNodes.get(e.toId);
+          if (src != null && dst != null && src.layer == l && dst.layer == l + 1) {
+            if (e.label != null && !e.label.trim().isEmpty()) {
+              double lw = e.label.trim().length() * 6.5 + 24;
+              layerGap = Math.max(layerGap, lw + 40);
+            }
+          }
+        }
+        curX += maxW + layerGap;
+      }
+    }
+
+    // 5. Expand subgraphs around member nodes
+    for (Subgraph sg : subgraphs) {
+      if (sg.nodes.isEmpty()) continue;
+      double sgMinX = Double.MAX_VALUE, sgMinY = Double.MAX_VALUE;
+      double sgMaxX = Double.MIN_VALUE, sgMaxY = Double.MIN_VALUE;
+      for (Node n : sg.nodes) {
+        sgMinX = Math.min(sgMinX, n.x);
+        sgMinY = Math.min(sgMinY, n.y);
+        sgMaxX = Math.max(sgMaxX, n.x + n.width);
+        sgMaxY = Math.max(sgMaxY, n.y + n.height);
+      }
+      double pad = 16;
+      sg.x = sgMinX - pad;
+      sg.y = sgMinY - pad - 24;
+      sg.width = (sgMaxX - sgMinX) + pad * 2;
+      sg.height = (sgMaxY - sgMinY) + pad * 2 + 24;
+    }
+  }
+
+  private static void findCyclesDFS(
+      String u, Map<String, List<Edge>> adj, Map<String, Integer> color) {
+    color.put(u, 1); // Gray
+    List<Edge> uEdges = adj.get(u);
+    if (uEdges != null) {
+      for (Edge e : uEdges) {
+        String v = e.toId;
+        int vColor = color.getOrDefault(v, 0);
+        if (vColor == 1) {
+          e.isBackEdge = true;
+        } else if (vColor == 0) {
+          findCyclesDFS(v, adj, color);
+        }
+      }
+    }
+    color.put(u, 2); // Black
+  }
+
+  private static void layoutNestedSubgraphs(
+      Direction rootDirection, List<Subgraph> rootSubgraphs, List<Edge> edges) {
+    for (Subgraph sg : rootSubgraphs) {
+      computeSubgraphSizes(sg, rootDirection, edges);
+    }
+
+    boolean isHorizontal = (rootDirection == Direction.LR || rootDirection == Direction.RL);
+    double curX = 0, curY = 0;
+
+    for (Subgraph sg : rootSubgraphs) {
+      sg.x = curX;
+      sg.y = curY;
+      assignAbsoluteCoordinates(sg, curX, curY);
+
+      if (isHorizontal) {
+        curX += sg.width + 48;
+      } else {
+        curY += sg.height + 48;
+      }
+    }
+  }
+
+  private static void computeSubgraphSizes(
+      Subgraph sg, Direction parentDirection, List<Edge> edges) {
+    Direction dir = sg.direction != null ? sg.direction : parentDirection;
+    boolean isHorizontal = (dir == Direction.LR || dir == Direction.RL);
+
+    for (Subgraph child : sg.children) {
+      computeSubgraphSizes(child, dir, edges);
+    }
+
+    double padding = 20;
+    double headerH = 28;
+
+    if (sg.children.isEmpty()) {
+      if (!isHorizontal) {
+        // Vertical layout
+        double maxW = 0;
+        double totalH = 0;
+        for (int i = 0; i < sg.nodes.size(); i++) {
+          Node n = sg.nodes.get(i);
+          maxW = Math.max(maxW, n.width);
+          double gap = 36;
+          if (i < sg.nodes.size() - 1) {
+            Node next = sg.nodes.get(i + 1);
+            for (Edge e : edges) {
+              if ((e.fromId.equals(n.id) && e.toId.equals(next.id))
+                  || (e.fromId.equals(next.id) && e.toId.equals(n.id))) {
+                if (e.label != null && !e.label.trim().isEmpty()) {
+                  gap = Math.max(gap, 48);
+                }
+              }
+            }
+          }
+          totalH += n.height + (i < sg.nodes.size() - 1 ? gap : 0);
+        }
+        sg.width = maxW + padding * 2;
+        sg.height = totalH + padding * 2 + headerH;
+
+        double curY = headerH + padding;
+        for (int i = 0; i < sg.nodes.size(); i++) {
+          Node n = sg.nodes.get(i);
+          n.relX = (maxW - n.width) / 2.0;
+          n.relY = curY;
+          double gap = 36;
+          if (i < sg.nodes.size() - 1) {
+            Node next = sg.nodes.get(i + 1);
+            for (Edge e : edges) {
+              if ((e.fromId.equals(n.id) && e.toId.equals(next.id))
+                  || (e.fromId.equals(next.id) && e.toId.equals(n.id))) {
+                if (e.label != null && !e.label.trim().isEmpty()) {
+                  gap = Math.max(gap, 48);
+                }
+              }
+            }
+          }
+          curY += n.height + gap;
+        }
+      } else {
+        // Horizontal layout
+        double totalW = 0;
+        double maxH = 0;
+        for (int i = 0; i < sg.nodes.size(); i++) {
+          Node n = sg.nodes.get(i);
+          maxH = Math.max(maxH, n.height);
+          double gap = 45;
+          if (i < sg.nodes.size() - 1) {
+            Node next = sg.nodes.get(i + 1);
+            for (Edge e : edges) {
+              if ((e.fromId.equals(n.id) && e.toId.equals(next.id))
+                  || (e.fromId.equals(next.id) && e.toId.equals(n.id))) {
+                if (e.label != null && !e.label.trim().isEmpty()) {
+                  double lw = e.label.trim().length() * 6.5 + 24;
+                  gap = Math.max(gap, lw + 24);
+                }
+              }
+            }
+          }
+          totalW += n.width + (i < sg.nodes.size() - 1 ? gap : 0);
+        }
+        sg.width = totalW + padding * 2;
+        sg.height = maxH + padding * 2 + headerH;
+
+        double curX = padding;
+        for (int i = 0; i < sg.nodes.size(); i++) {
+          Node n = sg.nodes.get(i);
+          n.relX = curX;
+          n.relY = headerH + padding + (maxH - n.height) / 2.0;
+          double gap = 45;
+          if (i < sg.nodes.size() - 1) {
+            Node next = sg.nodes.get(i + 1);
+            for (Edge e : edges) {
+              if ((e.fromId.equals(n.id) && e.toId.equals(next.id))
+                  || (e.fromId.equals(next.id) && e.toId.equals(n.id))) {
+                if (e.label != null && !e.label.trim().isEmpty()) {
+                  double lw = e.label.trim().length() * 6.5 + 24;
+                  gap = Math.max(gap, lw + 24);
+                }
+              }
+            }
+          }
+          curX += n.width + gap;
+        }
+      }
+    } else {
+      if (!isHorizontal) {
+        double maxW = 0;
+        double curY = headerH + padding;
+        for (Subgraph child : sg.children) {
+          child.relX = 0;
+          child.relY = curY;
+          maxW = Math.max(maxW, child.width);
+          curY += child.height + 24;
+        }
+        for (Node n : sg.nodes) {
+          n.relX = (maxW - n.width) / 2.0;
+          n.relY = curY;
+          curY += n.height + 36;
+        }
+        for (Subgraph child : sg.children) {
+          child.relX = padding + (maxW - child.width) / 2.0;
+        }
+        sg.width = maxW + padding * 2;
+        sg.height = curY + padding;
+      } else {
+        double maxH = 0;
+        double curX = padding;
+        for (Subgraph child : sg.children) {
+          child.relX = curX;
+          child.relY = 0;
+          maxH = Math.max(maxH, child.height);
+          curX += child.width + 28;
+        }
+        for (Node n : sg.nodes) {
+          n.relX = curX;
+          n.relY = headerH + 12 + (maxH - n.height) / 2.0;
+          curX += n.width + 45;
+        }
+        for (Subgraph child : sg.children) {
+          child.relY = headerH + 12 + (maxH - child.height) / 2.0;
+        }
+        sg.width = curX + padding;
+        sg.height = maxH + headerH + padding + 12;
+      }
+    }
+  }
+
+  private static void assignAbsoluteCoordinates(Subgraph sg, double parentAbsX, double parentAbsY) {
+    double padding = 20;
+    if (sg.children.isEmpty()) {
+      for (Node n : sg.nodes) {
+        n.x = sg.x + n.relX;
+        n.y = sg.y + n.relY;
+      }
+    } else {
+      for (Subgraph child : sg.children) {
+        child.x = parentAbsX + child.relX;
+        child.y = parentAbsY + child.relY;
+        assignAbsoluteCoordinates(child, child.x, child.y);
+      }
+      for (Node n : sg.nodes) {
+        n.x = sg.x + padding + n.relX;
+        n.y = sg.y + n.relY;
+      }
+    }
+  }
+
+  // =========================================================================
+  // SVG Renderer
+  // =========================================================================
+
+  private static String renderSvg(
+      MermaidGraph graph,
+      boolean isHorizontal,
+      double width,
+      double height,
+      Set<String> mutualEdgeKeys) {
+
+    StringBuilder svg = new StringBuilder(4096);
+    svg.append(
+        String.format(
+            "<svg class=\"mermaid-svg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 %.0f %.0f\" style=\"max-width: %.0fpx; width: 100%%; height: auto;\">\n",
+            width, height, width));
+
+    svg.append("  <defs>\n");
+    svg.append(
+        "    <marker id=\"mermaid-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">\n");
+    svg.append("      <path d=\"M 0 1.5 L 10 5 L 0 8.5 z\" fill=\"#64748b\" />\n");
+    svg.append("    </marker>\n");
+    svg.append("    <filter id=\"node-shadow\" x=\"-5%\" y=\"-5%\" width=\"115%\" height=\"120%\">\n");
+    svg.append("      <feDropShadow dx=\"0\" dy=\"1.5\" stdDeviation=\"2\" flood-color=\"#0f172a\" flood-opacity=\"0.06\" />\n");
+    svg.append("    </filter>\n");
+    svg.append("  </defs>\n");
+
+    // 1. Render Subgraphs
+    for (Subgraph sg : graph.allSubgraphs) {
+      renderSubgraph(svg, sg);
+    }
+
+    // 2. Render Subgraph Edges
+    for (SubgraphEdge se : graph.subgraphEdges) {
+      Subgraph sg1 = graph.subgraphsMap.get(se.fromSgId);
+      Subgraph sg2 = graph.subgraphsMap.get(se.toSgId);
+      if (sg1 != null && sg2 != null) {
+        renderSubgraphEdge(svg, isHorizontal, sg1, sg2, se);
+      }
+    }
+
+    // 3. Render Node Edges
+    for (Edge e : graph.edges) {
+      Node src = graph.nodes.get(e.fromId);
+      Node dst = graph.nodes.get(e.toId);
+      if (src != null && dst != null) {
+        boolean isMutual = mutualEdgeKeys.contains(src.id + "->" + dst.id);
+        renderEdge(svg, isHorizontal, src, dst, e, isMutual);
+      }
+    }
+
+    // 4. Render Nodes
+    for (Node n : graph.nodes.values()) {
+      renderNode(svg, n);
+    }
+
+    svg.append("</svg>");
+    return svg.toString();
+  }
+
+  private static void renderSubgraph(StringBuilder svg, Subgraph sg) {
+    svg.append(
+        String.format(
+            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"8\" fill=\"#fafafa\" stroke=\"#cbd5e1\" stroke-width=\"1.5\" stroke-dasharray=\"4,4\" />\n",
+            sg.x, sg.y, sg.width, sg.height));
+    if (sg.title != null && !sg.title.isEmpty()) {
+      svg.append(
+          String.format(
+              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"600\" fill=\"#334155\">%s</text>\n",
+              sg.x + 14, sg.y + 18, escapeXml(sg.title)));
+    }
+  }
+
+  private static void renderNode(StringBuilder svg, Node n) {
+    double rx = 6;
+    if (n.shape == NodeShape.ROUNDED) {
+      rx = 10;
+    } else if (n.shape == NodeShape.STADIUM) {
+      rx = n.height / 2.0;
+    }
+
+    // Shape Geometry
+    if (n.shape == NodeShape.CIRCLE) {
+      double r = n.width / 2.0;
+      svg.append(
+          String.format(
+              "  <circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              n.x + r, n.y + r, r));
+    } else if (n.shape == NodeShape.DIAMOND) {
+      double cx = n.x + n.width / 2.0;
+      double cy = n.y + n.height / 2.0;
+      svg.append(
+          String.format(
+              "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              cx, n.y, n.x + n.width, cy, cx, n.y + n.height, n.x, cy));
+    } else if (n.shape == NodeShape.HEXAGON) {
+      double h2 = n.height / 2.0;
+      double indent = 16;
+      svg.append(
+          String.format(
+              "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              n.x + indent, n.y,
+              n.x + n.width - indent, n.y,
+              n.x + n.width, n.y + h2,
+              n.x + n.width - indent, n.y + n.height,
+              n.x + indent, n.y + n.height,
+              n.x, n.y + h2));
+    } else if (n.shape == NodeShape.CYLINDER) {
+      svg.append(
+          String.format(
+              "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"10\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              n.x, n.y, n.width, n.height));
+      svg.append(
+          String.format(
+              "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"1.5\" />\n",
+              n.x, n.y + 10, n.x + n.width * 0.25, n.y + 18, n.x + n.width * 0.75, n.y + 18, n.x + n.width, n.y + 10));
+    } else if (n.shape == NodeShape.FLAG) {
+      double notch = 12;
+      svg.append(
+          String.format(
+              "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              n.x, n.y, n.x + n.width, n.y, n.x + n.width - notch, n.y + n.height / 2.0, n.x + n.width, n.y + n.height, n.x, n.y + n.height));
+    } else if (n.shape == NodeShape.SUBROUTINE) {
+      svg.append(
+          String.format(
+              "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"4\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              n.x, n.y, n.width, n.height));
+      svg.append(
+          String.format(
+              "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\" stroke-width=\"1.5\" />\n",
+              n.x + 10, n.y, n.x + 10, n.y + n.height));
+      svg.append(
+          String.format(
+              "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\" stroke-width=\"1.5\" />\n",
+              n.x + n.width - 10, n.y, n.x + n.width - 10, n.y + n.height));
+    } else {
+      svg.append(
+          String.format(
+              "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"%.1f\" fill=\"#ffffff\" stroke=\"#64748b\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+              n.x, n.y, n.width, n.height, rx));
+    }
+
+    // Node Text using structured AST labelLines
+    double cx = n.x + n.width / 2.0;
+    double startTextY = n.y + (n.height - (n.labelLines.size() - 1) * 16) / 2.0;
+
+    if (n.labelLines.size() == 1) {
+      svg.append(
+          String.format(
+              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"500\" fill=\"#0f172a\" text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
+              cx, n.y + n.height / 2.0, escapeXml(n.labelLines.get(0).trim())));
+    } else {
+      svg.append(
+          String.format(
+              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" text-anchor=\"middle\">\n",
+              cx, startTextY));
+      for (int i = 0; i < n.labelLines.size(); i++) {
+        String weight = i == 0 ? "600" : "400";
+        String fill = i == 0 ? "#0f172a" : "#475569";
+        String fontSize = i == 0 ? "12" : "10.5";
+        svg.append(
+            String.format(
+                "    <tspan x=\"%.1f\" dy=\"%s\" font-size=\"%s\" font-weight=\"%s\" fill=\"%s\">%s</tspan>\n",
+                cx, i == 0 ? "0" : "16", fontSize, weight, fill, escapeXml(n.labelLines.get(i).trim())));
+      }
+      svg.append("  </text>\n");
+    }
+  }
+
+  private static void renderSubgraphEdge(
+      StringBuilder svg,
+      boolean isHorizontal,
+      Subgraph sg1,
+      Subgraph sg2,
+      SubgraphEdge se) {
+
+    String strokeDash = se.stroke == EdgeStroke.DASHED ? "stroke-dasharray=\"4,4\" " : "";
+    String strokeWidth = se.stroke == EdgeStroke.THICK ? "2.5" : "1.5";
+    String marker = se.arrow ? "marker-end=\"url(#mermaid-arrow)\" " : "";
+
+    double startX, startY, endX, endY;
+    if (isHorizontal) {
+      startX = sg1.x + sg1.width;
+      startY = sg1.y + sg1.height / 2.0;
+      endX = sg2.x;
+      endY = sg2.y + sg2.height / 2.0;
+    } else {
+      startX = sg1.x + sg1.width / 2.0;
+      startY = sg1.y + sg1.height;
+      endX = sg2.x + sg2.width / 2.0;
+      endY = sg2.y;
+    }
+
+    svg.append(
+        String.format(
+            "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+            startX, startY, endX, endY, strokeWidth, strokeDash, marker));
+
+    if (se.label != null && !se.label.trim().isEmpty()) {
+      double midX = (startX + endX) / 2.0;
+      double midY = (startY + endY) / 2.0;
+      renderEdgeLabelBadge(svg, midX, midY, se.label.trim());
+    }
+  }
+
+  private static void renderEdge(
+      StringBuilder svg,
+      boolean isHorizontal,
+      Node src,
+      Node dst,
+      Edge e,
+      boolean isMutual) {
+
+    String strokeDash = e.stroke == EdgeStroke.DASHED ? "stroke-dasharray=\"4,4\" " : "";
+    String strokeWidth = e.stroke == EdgeStroke.THICK ? "2.5" : "1.5";
+    String marker = e.arrow ? "marker-end=\"url(#mermaid-arrow)\" " : "";
+
+    double x1, y1, x2, y2;
+    double cp1x, cp1y, cp2x, cp2y;
+
+    if (!isHorizontal) {
+      if (src.id.equals(dst.id)) {
+        // Self-loop
+        x1 = src.x + src.width;
+        y1 = src.y + src.height * 0.3;
+        x2 = src.x + src.width;
+        y2 = src.y + src.height * 0.7;
+        cp1x = x1 + 35;
+        cp1y = y1 - 20;
+        cp2x = x2 + 35;
+        cp2y = y2 + 20;
+      } else if (isMutual) {
+        // Mutual edge pair curve
+        if (src.layer <= dst.layer) {
+          x1 = src.x;
+          y1 = src.y + src.height * 0.6;
+          x2 = dst.x;
+          y2 = dst.y + dst.height * 0.4;
+          double curveOffset = 30.0;
+          cp1x = x1 - curveOffset;
+          cp1y = y1;
+          cp2x = x2 - curveOffset;
+          cp2y = y2;
+        } else {
+          x1 = src.x + src.width;
+          y1 = src.y + src.height * 0.4;
+          x2 = dst.x + dst.width;
+          y2 = dst.y + dst.height * 0.6;
+          double curveOffset = 30.0;
+          cp1x = x1 + curveOffset;
+          cp1y = y1;
+          cp2x = x2 + curveOffset;
+          cp2y = y2;
+        }
+      } else if (e.isBackEdge || src.layer > dst.layer) {
+        // Cycle back-edge loop
+        x1 = src.x + src.width;
+        y1 = src.y + src.height / 2.0;
+        x2 = dst.x + dst.width;
+        y2 = dst.y + dst.height / 2.0;
+        double loopOffset = 45.0;
+        cp1x = Math.max(x1, x2) + loopOffset;
+        cp1y = y1;
+        cp2x = Math.max(x1, x2) + loopOffset;
+        cp2y = y2;
+      } else if (dst.layer - src.layer > 1) {
+        // Skip-layer forward bypass
+        x1 = src.x + src.width / 2.0;
+        y1 = src.y + src.height;
+        x2 = dst.x + dst.width / 2.0;
+        y2 = dst.y;
+        double bypassOffset = Math.abs(x2 - x1) < 20 ? 40 : 0;
+        cp1x = x1 + bypassOffset;
+        cp1y = y1 + (y2 - y1) * 0.4;
+        cp2x = x2 + bypassOffset;
+        cp2y = y1 + (y2 - y1) * 0.6;
+      } else {
+        // Standard forward edge
+        x1 = src.x + src.width / 2.0;
+        y1 = src.y + src.height;
+        x2 = dst.x + dst.width / 2.0;
+        y2 = dst.y;
+        double dy = y2 - y1;
+        cp1x = x1;
+        cp1y = y1 + dy * 0.5;
+        cp2x = x2;
+        cp2y = y1 + dy * 0.5;
+      }
+    } else {
+      // Horizontal (LR)
+      if (src.id.equals(dst.id)) {
+        x1 = src.x + src.width * 0.3;
+        y1 = src.y;
+        x2 = src.x + src.width * 0.7;
+        y2 = src.y;
+        cp1x = x1 - 20;
+        cp1y = y1 - 35;
+        cp2x = x2 + 20;
+        cp2y = y2 - 35;
+      } else if (isMutual) {
+        if (src.layer <= dst.layer) {
+          x1 = src.x + src.width * 0.6;
+          y1 = src.y;
+          x2 = dst.x + dst.width * 0.4;
+          y2 = dst.y;
+          double curveOffset = 30.0;
+          cp1x = x1;
+          cp1y = y1 - curveOffset;
+          cp2x = x2;
+          cp2y = y2 - curveOffset;
+        } else {
+          x1 = src.x + src.width * 0.4;
+          y1 = src.y + src.height;
+          x2 = dst.x + dst.width * 0.6;
+          y2 = dst.y + dst.height;
+          double curveOffset = 30.0;
+          cp1x = x1;
+          cp1y = y1 + curveOffset;
+          cp2x = x2;
+          cp2y = y2 + curveOffset;
+        }
+      } else if (e.isBackEdge || src.layer > dst.layer) {
+        x1 = src.x + src.width / 2.0;
+        y1 = src.y;
+        x2 = dst.x + dst.width / 2.0;
+        y2 = dst.y;
+        double loopOffset = 45.0;
+        cp1x = x1;
+        cp1y = Math.min(y1, y2) - loopOffset;
+        cp2x = x2;
+        cp2y = Math.min(y1, y2) - loopOffset;
+      } else if (dst.layer - src.layer > 1) {
+        x1 = src.x + src.width;
+        y1 = src.y + src.height / 2.0;
+        x2 = dst.x;
+        y2 = dst.y + dst.height / 2.0;
+        double bypassOffset = Math.abs(y2 - y1) < 20 ? 40 : 0;
+        cp1x = x1 + (x2 - x1) * 0.4;
+        cp1y = y1 + bypassOffset;
+        cp2x = x1 + (x2 - x1) * 0.6;
+        cp2y = y2 + bypassOffset;
+      } else {
+        x1 = src.x + src.width;
+        y1 = src.y + src.height / 2.0;
+        x2 = dst.x;
+        y2 = dst.y + dst.height / 2.0;
+        double dx = x2 - x1;
+        cp1x = x1 + dx * 0.5;
+        cp1y = y1;
+        cp2x = x1 + dx * 0.5;
+        cp2y = y2;
+      }
+    }
+
+    svg.append(
+        String.format(
+            "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+            x1, y1, cp1x, cp1y, cp2x, cp2y, x2, y2, strokeWidth, strokeDash, marker));
+
+    if (e.label != null && !e.label.trim().isEmpty()) {
+      // Evaluate Cubic Bézier midpoint at t = 0.5
+      double midX = 0.125 * x1 + 0.375 * cp1x + 0.375 * cp2x + 0.125 * x2;
+      double midY = 0.125 * y1 + 0.375 * cp1y + 0.375 * cp2y + 0.125 * y2;
+      renderEdgeLabelBadge(svg, midX, midY, e.label.trim());
+    }
+  }
+
+  private static void renderEdgeLabelBadge(StringBuilder svg, double midX, double midY, String label) {
+    double textLen = label.length() * 6.5;
+    double rectW = textLen + 12;
+    double rectH = 18;
+    svg.append(
+        String.format(
+            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"3\" fill=\"#ffffff\" fill-opacity=\"0.95\" />\n",
+            midX - rectW / 2.0, midY - rectH / 2.0, rectW, rectH));
+    svg.append(
+        String.format(
+            "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"10.5\" fill=\"#475569\" text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
+            midX, midY, escapeXml(label)));
+  }
+
+  private static String escapeXml(String text) {
+    if (text == null) return "";
+    StringBuilder sb = new StringBuilder(text.length() + 16);
+    for (int i = 0; i < text.length(); i++) {
+      char c = text.charAt(i);
+      // Strip invalid XML 1.0 control characters (valid chars: 0x9, 0xA, 0xD, 0x20+)
+      if (c < 0x20 && c != '\t' && c != '\n' && c != '\r') {
+        continue;
+      }
+      switch (c) {
+        case '&':
+          sb.append("&amp;");
+          break;
+        case '<':
+          sb.append("&lt;");
+          break;
+        case '>':
+          sb.append("&gt;");
+          break;
+        case '"':
+          sb.append("&quot;");
+          break;
+        case '\'':
+          sb.append("&apos;");
+          break;
+        default:
+          sb.append(c);
+          break;
+      }
+    }
+    return sb.toString();
+  }
+
+  private static class GraphComponent {
+    final Map<String, Node> nodes = new LinkedHashMap<>();
+    final List<Edge> edges = new ArrayList<>();
+    final List<Subgraph> subgraphs = new ArrayList<>();
+    double width = 0;
+    double height = 0;
+  }
+
+  private static String findRoot(Map<String, String> parent, String id) {
+    String p = parent.get(id);
+    if (p == null || p.equals(id)) {
+      return id;
+    }
+    String root = findRoot(parent, p);
+    parent.put(id, root);
+    return root;
+  }
+
+  private static void unionSets(Map<String, String> parent, String id1, String id2) {
+    String r1 = findRoot(parent, id1);
+    String r2 = findRoot(parent, id2);
+    if (!r1.equals(r2)) {
+      parent.put(r1, r2);
+    }
+  }
+
+  private static void layoutIsolatedSubgraphs(Direction dir, List<Subgraph> subgraphs) {
+    boolean isHorizontal = (dir == Direction.LR || dir == Direction.RL);
+    double padding = 20;
+    double headerH = 22;
+
+    for (Subgraph sg : subgraphs) {
+      if (sg.nodes.isEmpty()) continue;
+      if (!isHorizontal) {
+        double maxW = 0;
+        for (Node n : sg.nodes) {
+          maxW = Math.max(maxW, n.width);
+        }
+        double curY = headerH + padding;
+        for (Node n : sg.nodes) {
+          n.x = padding + (maxW - n.width) / 2.0;
+          n.y = curY;
+          curY += n.height + 24;
+        }
+        sg.x = 0;
+        sg.y = 0;
+        sg.width = maxW + padding * 2;
+        sg.height = curY + padding;
+      } else {
+        double maxH = 0;
+        for (Node n : sg.nodes) {
+          maxH = Math.max(maxH, n.height);
+        }
+        double curX = padding;
+        for (Node n : sg.nodes) {
+          n.x = curX;
+          n.y = headerH + padding + (maxH - n.height) / 2.0;
+          curX += n.width + 32;
+        }
+        sg.x = 0;
+        sg.y = 0;
+        sg.width = curX + padding;
+        sg.height = maxH + padding * 2 + headerH;
+      }
+    }
+  }
+}

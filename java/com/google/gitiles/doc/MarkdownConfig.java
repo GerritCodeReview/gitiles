@@ -53,6 +53,7 @@ public class MarkdownConfig {
   final boolean strikethrough;
   final boolean tables;
   final boolean toc;
+  final boolean mermaid;
 
   private final boolean allowAnyIFrame;
   private final ImmutableList<String> allowIFrame;
@@ -75,6 +76,7 @@ public class MarkdownConfig {
     strikethrough = cfg.getBoolean("markdown", "strikethrough", githubFlavor);
     tables = cfg.getBoolean("markdown", "tables", githubFlavor);
     toc = cfg.getBoolean("markdown", "toc", true);
+    mermaid = cfg.getBoolean("markdown", "mermaid", githubFlavor);
 
     String[] f = {};
     if (safeHtml) {
@@ -105,6 +107,7 @@ public class MarkdownConfig {
     strikethrough = on("strikethrough", p.strikethrough, enable, disable);
     tables = on("tables", p.tables, enable, disable);
     toc = on("toc", p.toc, enable, disable);
+    mermaid = on("mermaid", p.mermaid, enable, disable);
 
     allowAnyIFrame = safeHtml ? p.allowAnyIFrame : false;
     allowIFrame = safeHtml ? p.allowIFrame : ImmutableList.of();
