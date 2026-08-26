@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "141f0539_4a32ac27",
+        "filename": "resources/com/google/gitiles/static/doc.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2026-08-26T09:06:59Z",
+      "side": 1,
+      "message": "Is it not possible to reuse the variables from `base.css` and replace all `color` with variables?\nFeels odd to have two different approaches to dark mode.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 1
+      },
+      "revId": "bc84aa7e42244cdfa602bdf74a0139fe2bb457a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
