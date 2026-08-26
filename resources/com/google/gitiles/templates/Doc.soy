@@ -63,6 +63,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   <link rel="stylesheet" type="text/css" href="{$staticUrls.DOC_CSS_URL}" />
   <link rel="stylesheet" type="text/css" href="{$staticUrls.PRETTIFY_CSS_URL}" />
   {call common.customHeadTagPart variant="'' + ($customVariant ?? '')" /}
+  {call common.themeScript /}
 </head>
 <body class="Site">
   <header class="Site-header {if $navbarHtml}Site-header--withNavbar{/if}">
@@ -72,6 +73,9 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
         {if $logoUrl}<img class="Header-anchorLogo" src="{$logoUrl}" alt="project logo" />{/if}
         {if $siteTitle}<span class="Header-anchorTitle">{$siteTitle}</span>{/if}
         {if $homeUrl}</a>{/if}
+      </div>
+      <div class="Header-menu">
+        {call common.themeToggle /}
       </div>
     </div>
     {if $navbarHtml}
