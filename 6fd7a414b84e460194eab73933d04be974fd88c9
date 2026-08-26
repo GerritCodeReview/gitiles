@@ -16,6 +16,24 @@
       "message": "Is this server-side approach preferable to the approach taken in https://gerrit-review.googlesource.com/c/gitiles/+/387361 ?",
       "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a0531d_231dd949",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-08-26T04:02:44Z",
+      "side": 1,
+      "message": "yes - no deps (which was the hard blocker on the other CL), it is not ALL of mermaid - but this is a good start for diagrams alone (i took a random sampling of 100 across a few thousand examples we have and this was the majority and spot checked many many examples) - this gets a very decent baseline.",
+      "parentUuid": "0edf1db6_1123f41f",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
