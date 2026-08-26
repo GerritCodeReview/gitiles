@@ -311,7 +311,20 @@ public class MarkdownToHtml implements Visitor {
 
   @Override
   public void visit(FencedCodeBlock node) {
+    if (config != null && config.mermaid && isMermaid(node.getInfo())) {
+      java.util.Optional<String> svg = SimpleMermaidRenderer.renderToSvg(node.getLiteral());
+      if (svg.isPresent()) {
+        html.open("div").attribute("class", "mermaid-container");
+        html.append(com.google.common.html.types.LegacyConversions.riskilyAssumeSafeHtml(svg.get()));
+        html.close("div");
+        return;
+      }
+    }
     codeInPre(node.getInfo(), node.getLiteral());
+  }
+
+  private static boolean isMermaid(@Nullable String info) {
+    return info != null && "mermaid".equalsIgnoreCase(info.trim());
   }
 
   @Override
