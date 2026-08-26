@@ -50,15 +50,15 @@
     {/for}
   {/if}
   {call customHeadTagPart variant="'' + ($customVariant ?? '')" /}
-
+  {call themeScript /}
 </head>
 <body class="Site">
   <header class="Site-header">
     <div class="Header">
       {call customHeader variant="'' + ($customVariant ?? '')" /}
 
+      <div class="Header-menu">
       {if $menuEntries && length($menuEntries)}
-        <div class="Header-menu">
         {for $entry in $menuEntries}
           {sp}
           {if $entry.url}
@@ -68,8 +68,9 @@
           {/if}
         {/for}
         {sp}
-        </div>
       {/if}
+      {call themeToggle /}
+      </div>
     </div>
   </header>
 
@@ -87,6 +88,28 @@
           {/for}
         </div>
       {/if}
+{/template}
+
+/**
+ * Inline script to initialize theme preference without FOUC.
+ */
+{template themeScript}
+  {@inject THEME_INIT_SCRIPT: ?}
+  {@inject? csp_nonce: string}
+<script{if $csp_nonce} nonce="{$csp_nonce}"{/if}>{$THEME_INIT_SCRIPT}</script>
+{/template}
+
+/**
+ * Theme toggle button and click handler.
+ */
+{template themeToggle}
+  {@inject THEME_TOGGLE_SCRIPT: ?}
+  {@inject? csp_nonce: string}
+<button class="Header-menuItem Header-themeToggle" id="gitiles-theme-toggle" type="button" title="Toggle theme (Auto / Dark / Light)" aria-label="Toggle theme">
+  <span class="Header-themeIcon" aria-hidden="true">&#9681;</span>
+  <span class="Header-themeLabel">Theme</span>
+</button>
+<script{if $csp_nonce} nonce="{$csp_nonce}"{/if}>{$THEME_TOGGLE_SCRIPT}</script>
 {/template}
 
 /**

@@ -18,6 +18,177 @@
 
 @import "//fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,cyrillic-ext,greek-ext,cyrillic,greek,vietnamese,latin-ext";
 @import "//fonts.googleapis.com/css?family=Source+Code+Pro";
+
+:root {
+  color-scheme: light dark;
+  --bg-color: #fff;
+  --text-color: #000;
+  --header-bg: #eee;
+  --header-with-navbar-bg: #fff;
+  --header-anchor-color: #666;
+  --header-nav-bg: #eee;
+  --footer-color: #666;
+  --link-color: #00e;
+  --hover-bg: #eee;
+  --header-hover-bg: #fff;
+  --border-color: #ddd;
+  --border-subtle-color: #ccc;
+  --code-bg: #f1f2f3;
+  --line-num-color: #666;
+  --line-num-border: #f1f2f3;
+  --line-num-attr-color: #aaa;
+  --target-line-bg: #cfd8dc;
+  --clone-bg: #eee;
+  --clone-border: #ccc;
+  --metadata-msg-bg: #fafafa;
+  --metadata-msg-border: #ccc;
+  --blame-bg1: #fff;
+  --blame-bg2: #f1f2f3;
+  --diff-file-index: #444;
+  --diff-hunk: #00c;
+  --diff-delete: #c00;
+  --diff-insert: #080;
+  --diff-change: #960;
+  --diff-action-add: #060;
+  --diff-action-delete: #600;
+  --diff-action-rename: #006;
+  --branch-label-color: #dd4b39;
+  --tag-label-color: #093;
+  --muted-text-color: #666;
+  --toggle-btn-color: #666;
+  --toggle-btn-border: #ccc;
+  --toggle-btn-hover-color: #000;
+  --toggle-btn-hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg-color: #fff;
+  --text-color: #000;
+  --header-bg: #eee;
+  --header-with-navbar-bg: #fff;
+  --header-anchor-color: #666;
+  --header-nav-bg: #eee;
+  --footer-color: #666;
+  --link-color: #00e;
+  --hover-bg: #eee;
+  --header-hover-bg: #fff;
+  --border-color: #ddd;
+  --border-subtle-color: #ccc;
+  --code-bg: #f1f2f3;
+  --line-num-color: #666;
+  --line-num-border: #f1f2f3;
+  --line-num-attr-color: #aaa;
+  --target-line-bg: #cfd8dc;
+  --clone-bg: #eee;
+  --clone-border: #ccc;
+  --metadata-msg-bg: #fafafa;
+  --metadata-msg-border: #ccc;
+  --blame-bg1: #fff;
+  --blame-bg2: #f1f2f3;
+  --diff-file-index: #444;
+  --diff-hunk: #00c;
+  --diff-delete: #c00;
+  --diff-insert: #080;
+  --diff-change: #960;
+  --diff-action-add: #060;
+  --diff-action-delete: #600;
+  --diff-action-rename: #006;
+  --branch-label-color: #dd4b39;
+  --tag-label-color: #093;
+  --muted-text-color: #666;
+  --toggle-btn-color: #666;
+  --toggle-btn-border: #ccc;
+  --toggle-btn-hover-color: #000;
+  --toggle-btn-hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg-color: #202124;
+    --text-color: #e8eaed;
+    --header-bg: #292a2d;
+    --header-with-navbar-bg: #202124;
+    --header-anchor-color: #9aa0a6;
+    --header-nav-bg: #292a2d;
+    --footer-color: #9aa0a6;
+    --link-color: #8ab4f8;
+    --hover-bg: #35363a;
+    --header-hover-bg: #202124;
+    --border-color: #3c4043;
+    --border-subtle-color: #5f6368;
+    --code-bg: #292a2d;
+    --line-num-color: #9aa0a6;
+    --line-num-border: #3c4043;
+    --line-num-attr-color: #80868b;
+    --target-line-bg: #174ea6;
+    --clone-bg: #292a2d;
+    --clone-border: #5f6368;
+    --metadata-msg-bg: #292a2d;
+    --metadata-msg-border: #3c4043;
+    --blame-bg1: #202124;
+    --blame-bg2: #292a2d;
+    --diff-file-index: #bdc1c6;
+    --diff-hunk: #8ab4f8;
+    --diff-delete: #f28b82;
+    --diff-insert: #81c995;
+    --diff-change: #fdd663;
+    --diff-action-add: #81c995;
+    --diff-action-delete: #f28b82;
+    --diff-action-rename: #8ab4f8;
+    --branch-label-color: #f28b82;
+    --tag-label-color: #81c995;
+    --muted-text-color: #9aa0a6;
+    --toggle-btn-color: #9aa0a6;
+    --toggle-btn-border: #5f6368;
+    --toggle-btn-hover-color: #e8eaed;
+    --toggle-btn-hover-bg: rgba(255, 255, 255, 0.1);
+  }
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-color: #202124;
+  --text-color: #e8eaed;
+  --header-bg: #292a2d;
+  --header-with-navbar-bg: #202124;
+  --header-anchor-color: #9aa0a6;
+  --header-nav-bg: #292a2d;
+  --footer-color: #9aa0a6;
+  --link-color: #8ab4f8;
+  --hover-bg: #35363a;
+  --header-hover-bg: #202124;
+  --border-color: #3c4043;
+  --border-subtle-color: #5f6368;
+  --code-bg: #292a2d;
+  --line-num-color: #9aa0a6;
+  --line-num-border: #3c4043;
+  --line-num-attr-color: #80868b;
+  --target-line-bg: #174ea6;
+  --clone-bg: #292a2d;
+  --clone-border: #5f6368;
+  --metadata-msg-bg: #292a2d;
+  --metadata-msg-border: #3c4043;
+  --blame-bg1: #202124;
+  --blame-bg2: #292a2d;
+  --diff-file-index: #bdc1c6;
+  --diff-hunk: #8ab4f8;
+  --diff-delete: #f28b82;
+  --diff-insert: #81c995;
+  --diff-change: #fdd663;
+  --diff-action-add: #81c995;
+  --diff-action-delete: #f28b82;
+  --diff-action-rename: #8ab4f8;
+  --branch-label-color: #f28b82;
+  --tag-label-color: #81c995;
+  --muted-text-color: #9aa0a6;
+  --toggle-btn-color: #9aa0a6;
+  --toggle-btn-border: #5f6368;
+  --toggle-btn-hover-color: #e8eaed;
+  --toggle-btn-hover-bg: rgba(255, 255, 255, 0.1);
+}
+
 *,
 *::after,
 *::before {
@@ -45,12 +216,15 @@ h4, h5, h6 {
 ul, ol {
   list-style: none;
 }
+a {
+  color: var(--link-color);
+}
 
 /* Utility classes */
 
 .u-sha1 {
-  background-color: #f1f2f3;
-  color: #000;
+  background-color: var(--code-bg);
+  color: var(--text-color);
   font-size: 13px;
 }
 .u-pre {
@@ -58,8 +232,8 @@ ul, ol {
   white-space: pre;
 }
 .u-lineNum {
-  border-right: 1px solid #f1f2f3;
-  color: #666;
+  border-right: 1px solid var(--line-num-border);
+  color: var(--line-num-color);
   display: inline-block;
   min-width: 3em;
   text-align: right;
@@ -77,8 +251,8 @@ ul, ol {
 /* Common.soy */
 
 .Site {
-  background: #fff;
-  color: #000;
+  background: var(--bg-color);
+  color: var(--text-color);
   display: -ms-flexbox;
   display: flex;
   font: 14px/1.54 'Open Sans', sans-serif;
@@ -88,12 +262,12 @@ ul, ol {
 }
 .Site-header,
 .Site-footer {
-  background: #eee;
+  background: var(--header-bg);
   -ms-flex: none;
   flex: none;
 }
 .Site-header--withNavbar {
-  background: #fff;
+  background: var(--header-with-navbar-bg);
 }
 .Site-content {
   -ms-flex: 1 0 auto;
@@ -128,7 +302,7 @@ ul, ol {
   flex: 1;
 }
 .Header-anchor {
-  color: #666;
+  color: var(--header-anchor-color);
   font-size: 32px;
   font-weight: 300;
   text-decoration: none;
@@ -139,7 +313,7 @@ ul, ol {
   vertical-align: middle;
 }
 .Header-nav {
-  background: #eee;
+  background: var(--header-nav-bg);
   padding: 15px 0;
 }
 .Header-menu {
@@ -147,14 +321,34 @@ ul, ol {
   display: flex;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  align-items: center;
 }
 .Header-menuItem {
-  color: #00e;
+  color: var(--link-color);
   display: inline-block;
   margin-left: 15px;
 }
 .Header-menuItem--noAction {
   color: inherit;
+}
+.Header-themeToggle {
+  background: none;
+  border: 1px solid var(--toggle-btn-border);
+  border-radius: 4px;
+  color: var(--toggle-btn-color);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.Header-themeToggle:hover {
+  background: var(--toggle-btn-hover-bg);
+  color: var(--toggle-btn-hover-color);
+  border-color: var(--border-subtle-color);
 }
 .Breadcrumbs {
   font-size: 18px;
@@ -168,14 +362,14 @@ ul, ol {
   user-select: none;
 }
 .Breadcrumbs-crumb {
-  color: #00e;
+  color: var(--link-color);
 }
 .Breadcrumbs-crumb:last-child {
-  color: #000;
+  color: var(--text-color);
   font-weight: bold;
 }
 .Footer {
-  color: #666;
+  color: var(--footer-color);
 }
 .Footer-poweredBy {
   -ms-flex: 1;
@@ -212,14 +406,14 @@ ul, ol {
   text-decoration: none;
 }
 .RepoList-item:hover {
-  background: #eee;
+  background: var(--hover-bg);
 }
 .RepoList-item--header {
   font-weight: bold;
   margin: 0;
 }
 .RepoList-item--header:hover {
-  background: #fff;
+  background: var(--header-hover-bg);
 }
 .RepoList-itemName,
 .RepoList-itemDescription {
@@ -234,7 +428,7 @@ ul, ol {
   text-decoration: none;
 }
 .RepoList-itemDescription {
-  color: #000;
+  color: var(--text-color);
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
@@ -245,21 +439,25 @@ ul, ol {
 
 .RepoDescription {
   margin: 10px 0;
+  color: var(--text-color);
 }
 .RepoMirroredFrom {
   margin: 10px 0;
-  color: #666;
+  color: var(--muted-text-color);
 }
 .CloneRepo {
-  background: #eee;
+  background: var(--clone-bg);
   margin-bottom: 20px;
   padding: 10px;
 }
 .CloneRepo-title {
   margin-bottom: 2px;
+  color: var(--text-color);
 }
 .CloneRepo-command {
-  border: 1px solid #ccc;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--clone-border);
   border-radius: 4px;
   display: block;
   font-size: inherit;
@@ -284,14 +482,17 @@ ul, ol {
   width: 80%;
 }
 .RepoIndexDoc {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   margin-top: 20px;
   padding-top: 5px;
 }
-.EmptyRepo-header {}
+.EmptyRepo-header {
+  color: var(--text-color);
+}
 .EmptyRepo-description {
   font-size: 14px;
   font-style: italic;
+  color: var(--muted-text-color);
 }
 @media (max-width: 550px) {
   .RepoShortlog {
@@ -300,7 +501,7 @@ ul, ol {
   }
   .RepoShortlog-refs {
     width: auto;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 20px;
     padding-bottom: 20px;
   }
@@ -320,6 +521,7 @@ ul, ol {
 }
 .RefList-title {
   margin: 0;
+  color: var(--text-color);
 }
 .RefList-items {
   word-wrap: break-word;
@@ -345,7 +547,7 @@ ul, ol {
   padding: 2px 0;
 }
 .CommitLog-item--oneline:hover {
-  background: #eee;
+  background: var(--hover-bg);
 }
 .CommitLog-item--full {
   margin-bottom: 20px;
@@ -353,8 +555,11 @@ ul, ol {
 .CommitLog-item--empty {
   padding: 10px 0;
   text-align: center;
+  color: var(--muted-text-color);
 }
 .CommitLog-sha1 {
+  background-color: var(--code-bg);
+  color: var(--text-color);
   border-radius: 3px;
   display: inline-block;
   margin-right: 3px;
@@ -362,18 +567,19 @@ ul, ol {
   text-align: center;
 }
 .CommitLog-time {
-  color: #666;
+  color: var(--muted-text-color);
 }
 .CommitLog-branchLabel {
-  color: #dd4b39;
+  color: var(--branch-label-color);
 }
 .CommitLog-tagLabel {
-  color: #093;
+  color: var(--tag-label-color);
 }
 .CommitLog-rename {
   font-size: 0.9em;
   display: block;
   padding-left: 5px;
+  color: var(--muted-text-color);
 }
 
 /* ObjectDetail.soy */
@@ -395,6 +601,7 @@ ul, ol {
   grid-column: 1;
   font-weight: bold;
   text-align: right;
+  color: var(--text-color);
 }
 .Metadata-description {
   grid-column: 2 / -1;
@@ -405,9 +612,9 @@ ul, ol {
   grid-column: auto;
 }
 .MetadataMessage {
-  background-color: #fafafa;
-  border: 1px solid #ccc;
-  color: #000;
+  background-color: var(--metadata-msg-bg);
+  border: 1px solid var(--metadata-msg-border);
+  color: var(--text-color);
   margin: 0;
   padding: 12px;
   white-space: pre-wrap;
@@ -419,20 +626,22 @@ ul, ol {
   margin-left: .5em;
 }
 .DiffTree-action--add {
-  color: #060;
+  color: var(--diff-action-add);
 }
 .DiffTree-action--delete {
-  color: #600;
+  color: var(--diff-action-delete);
 }
 .DiffTree-action--rename,
 .DiffTree-action--copy {
-  color: #006;
+  color: var(--diff-action-rename);
 }
 .DiffSummary {}
 .TreeDetail-sha1,
 .BlobSha1 {
   margin: 10px 0;
   padding: 5px 10px;
+  background-color: var(--code-bg);
+  color: var(--text-color);
 }
 .FileList {
   margin-left: 25px;
@@ -442,7 +651,7 @@ ul, ol {
   position: relative;
 }
 .FileList-item:hover {
-  background: #eee;
+  background: var(--hover-bg);
 }
 .FileList-item::before {
   left: -22px;
@@ -479,6 +688,7 @@ ul, ol {
   border-collapse: collapse;
   border-spacing: 0;
   margin: 10px 0;
+  color: var(--text-color);
 }
 .FileContents-line {
   border: none;
@@ -489,7 +699,7 @@ ul, ol {
 }
 /* Used to prevent copying the line number. */
 .FileContents-lineNum::before {
-  color: #aaa;
+  color: var(--line-num-attr-color);
   content: attr(data-line-number);
   cursor: pointer;
 }
@@ -499,15 +709,15 @@ ul, ol {
   padding-left: 10px;
 }
 .FileContents-lineContents:target {
-  background: #cfd8dc;
+  background: var(--target-line-bg);
 }
 .InlineReadme {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   margin: 10px 0;
   padding: 7px 0;
 }
 .InlineReadme-path {
-  color: #666;
+  color: var(--muted-text-color);
 }
 
 @media (max-width: 700px) {
@@ -525,12 +735,13 @@ ul, ol {
   border-collapse: collapse;
   font-size: 8pt;
   margin: 0 auto;
+  color: var(--text-color);
 }
 .Blame-region--bg1 {
-  background: #fff;
+  background: var(--blame-bg1);
 }
 .Blame-region--bg2 {
-  background: #f1f2f3;
+  background: var(--blame-bg2);
 }
 .Blame-sha1,
 .Blame-author,
@@ -562,20 +773,24 @@ ul, ol {
   margin: 10px 0;
 }
 .Diff-fileIndex {
-  color: #444;
+  color: var(--diff-file-index);
   font-weight: bold;
 }
 .Diff-unified {
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
   padding: 10px 0;
+  color: var(--text-color);
 }
 .Diff-hunk {
-  color: #00c;
+  color: var(--diff-hunk);
 }
 .Diff-delete {
-  color: #c00;
+  color: var(--diff-delete);
 }
 .Diff-insert {
-  color: #080;
+  color: var(--diff-insert);
+}
+.Diff-change {
+  color: var(--diff-change);
 }
