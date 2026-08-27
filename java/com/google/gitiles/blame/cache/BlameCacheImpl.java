@@ -20,6 +20,7 @@ import static java.util.Objects.hash;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 import com.google.common.collect.Lists;
@@ -29,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import org.eclipse.jgit.blame.BlameGenerator;
@@ -56,10 +58,16 @@ public class BlameCacheImpl implements BlameCache {
   public static class Key {
     private final ObjectId commitId;
     private final String path;
+    private final ImmutableSet<ObjectId> ignoreIds;
 
     public Key(ObjectId commitId, String path) {
+      this(commitId, path, ImmutableSet.of());
+    }
+
+    public Key(ObjectId commitId, String path, Set<ObjectId> ignoreIds) {
       this.commitId = commitId;
       this.path = path;
+      this.ignoreIds = ignoreIds != null ? ImmutableSet.copyOf(ignoreIds) : ImmutableSet.of();
     }
 
     public ObjectId getCommitId() {
@@ -70,23 +78,44 @@ public class BlameCacheImpl implements BlameCache {
       return path;
     }
 
+    public ImmutableSet<ObjectId> getIgnoreIds() {
+      return ignoreIds;
+    }
+
     @Override
     public boolean equals(Object o) {
       if (o instanceof Key) {
         Key k = (Key) o;
-        return Objects.equals(commitId, k.commitId) && Objects.equals(path, k.path);
+        return Objects.equals(commitId, k.commitId)
+            && Objects.equals(path, k.path)
+            && Objects.equals(ignoreIds, k.ignoreIds);
       }
       return false;
     }
 
     @Override
     public int hashCode() {
-      return hash(commitId, path);
+      return hash(commitId, path, ignoreIds);
     }
 
     @Override
     public String toString() {
-      return commitId.name() + ":" + QuotedString.GIT_PATH.quote(path);
+      if (ignoreIds.isEmpty()) {
+        return commitId.name() + ":" + QuotedString.GIT_PATH.quote(path);
+      }
+      StringBuilder sb = new StringBuilder();
+      sb.append(commitId.name()).append(':').append(QuotedString.GIT_PATH.quote(path));
+      sb.append(" ignore=[");
+      boolean first = true;
+      for (ObjectId id : ignoreIds.stream().sorted().toList()) {
+        if (!first) {
+          sb.append(", ");
+        }
+        sb.append(id.name());
+        first = false;
+      }
+      sb.append(']');
+      return sb.toString();
     }
   }
 
