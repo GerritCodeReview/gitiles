@@ -34,6 +34,24 @@
       "parentUuid": "6143d92b_5763b37e",
       "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad27218e_78a09a8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-08-27T17:35:13Z",
+      "side": 1,
+      "message": "Thanks! Agree with splitting this up. Sent out: https://gerrit-review.googlesource.com/c/gitiles/+/622901 and rebased this change on top of it.\n\nRegarding caching: .git-blame-ignore-revs is a committed repo-level file, so every query across that repository revision will share the same set of ignored commit IDs (until they are updated), making caching valuable. Because ignoreIds is included in Key.equals() and Key.hashCode(), these entries are strictly isolated and will not collide with or pollute regular unignored cache keys, with standard LRU eviction reclaiming older entries as commits advance.",
+      "parentUuid": "d55af4b5_701816da",
+      "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
