@@ -40,6 +40,54 @@
       ],
       "revId": "8603d1f62e5b0cd1b27ad901cc0762611f9ab690",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52732d2f_ebdcd158",
+        "filename": "javatests/com/google/gitiles/blame/cache/BlameCacheTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-08-27T18:42:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc2ed83_e94d2e07",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 50
+      },
+      "revId": "8603d1f62e5b0cd1b27ad901cc0762611f9ab690",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d95f21ca_f6b6b5ec",
+        "filename": "javatests/com/google/gitiles/blame/cache/BlameCacheTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-08-27T18:42:09Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "6cc2ed83_e94d2e07",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 50
+      },
+      "revId": "8603d1f62e5b0cd1b27ad901cc0762611f9ab690",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
