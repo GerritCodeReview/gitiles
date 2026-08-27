@@ -123,6 +123,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5cdf44_5b0d8701",
+        "filename": "javatests/com/google/gitiles/ThemeTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:40:36Z",
+      "side": 1,
+      "message": "Done. Reordered private helper method below public test methods in Patch Set 9.",
+      "parentUuid": "a6a493f1_a05851a8",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6a493f1_a05851a8",
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "Sure, will reorder.",
       "parentUuid": "a6a493f1_a05851a8",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71620f18_c63e8083",
+        "filename": "javatests/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:40:36Z",
+      "side": 1,
+      "message": "Done. Reverted spurious change in Patch Set 9.",
+      "parentUuid": "87bd2a73_85119166",
       "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -228,6 +264,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab7cd49_3fcab373",
+        "filename": "resources/com/google/gitiles/static/theme-init.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:40:36Z",
+      "side": 1,
+      "message": "Done. Added standard Apache 2.0 license header to theme-init.js in Patch Set 9.",
+      "parentUuid": "8db05d87_e9a3c3fa",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12183210_75d721b7",
@@ -258,6 +312,24 @@
       "writtenOn": "2026-08-27T23:20:33Z",
       "side": 1,
       "message": "Acknowledged",
+      "parentUuid": "12183210_75d721b7",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e23d18a9_3addbb9e",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:40:36Z",
+      "side": 1,
+      "message": "Done. Added standard Apache 2.0 license header to theme-toggle.js in Patch Set 9.",
       "parentUuid": "12183210_75d721b7",
       "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
