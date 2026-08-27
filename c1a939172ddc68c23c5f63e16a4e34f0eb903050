@@ -50,6 +50,109 @@
       "message": "great stuff.",
       "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746f421d_74c1b03e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:26:52Z",
+      "side": 1,
+      "message": "I assume the zero-FOUC part is what makes this approach better than the ones in https://gerrit-review.googlesource.com/c/gitiles/+/622001 and https://gerrit-review.googlesource.com/c/gitiles/+/388335 ? (cc\u0027ing a few people from those changes)",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d5b87f_7e009a0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:26:52Z",
+      "side": 1,
+      "message": "Can you also put these somewhere non-Googlers can access them?",
+      "parentUuid": "69756916_7c66b75d",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6a493f1_a05851a8",
+        "filename": "javatests/com/google/gitiles/ThemeTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:26:52Z",
+      "side": 1,
+      "message": "nit: we typically put private helpers below public methods",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87bd2a73_85119166",
+        "filename": "javatests/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:26:52Z",
+      "side": 1,
+      "message": "Isn\u0027t this redundant with the test above now? Can you test a substring of `html` starting after the `B. Ad\u003c/h1\u003e` string? Or test that by checking for a continuous string:\n```\n    assertThat(html).contains(\"B. Ad\u003c/h1\u003e\" + \"Non-HTML is fine.\");\n```",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8db05d87_e9a3c3fa",
+        "filename": "resources/com/google/gitiles/static/theme-init.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:26:52Z",
+      "side": 1,
+      "message": "Needs a copyright/license header?",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12183210_75d721b7",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:26:52Z",
+      "side": 1,
+      "message": "Needs a copyright/license header?",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
