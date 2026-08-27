@@ -111,6 +111,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7675dd88_0daa30b2",
+        "filename": "resources/com/google/gitiles/static/base.css",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cee6fcd0_acd55698",
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "072af041_880587fb",
         "filename": "resources/com/google/gitiles/static/theme-toggle.js",
         "patchSetId": 3
@@ -182,6 +200,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbcc418_25a251a6",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6aa510_e5a7f0a2",
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30964fb4_76af919d",
@@ -215,6 +251,24 @@
       "message": "Done. Added btn.setAttribute(\u0027aria-label\u0027, btn.title) in updateButton so screen readers announce the updated theme state dynamically.",
       "parentUuid": "30964fb4_76af919d",
       "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85bf9a67_b03ca8d8",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c41711e0_f9f140ce",
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -270,6 +324,24 @@
       "message": "Done. Renderer.java injects csp_nonce into template injected parameters (ij), and Soy auto-escaper handles attaching nonce to script tags automatically.",
       "parentUuid": "3566bd8a_7f7562ff",
       "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c6ec339_7a891cce",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca7fd0fc_06164902",
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
