@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6143d92b_5763b37e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-08-27T16:47:19Z",
+      "side": 1,
+      "message": "Do we want to cache these \"special blames\"? they look like one-offs, are they so? They\u0027ll live in cache forever and won\u0027t be reused in later calculations.\n\nMy main concern is that we don\u0027t pollute the regular cache with calculations ignoring revisions under regular keys. What if we split this change:\n\n1. Update the jgit version in its own change (it doesn\u0027t hurt)\n2. Add the ignored ids to the key\n3. Make sure our internal code handle correctly the new keys\n4. Add the get(..., ignoredIds) and the rest here.",
+      "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
