@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Crisp rendering on high-DPI and standard displays -->
+  </defs>
+  <!-- Background Squircle / Rounded Tile in Git signature Coral-Orange -->
+  <rect width="512" height="512" rx="112" ry="112" fill="#F05133"/>
+
+  <!-- Branching Connector Trunk and Arms -->
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Connecting Y Branch Lines -->
+    <path d="M 256 360 L 256 256 L 150 166 M 256 256 L 362 166" stroke-width="32"/>
+
+    <!-- Three Connected Rings (Commit Nodes) -->
+    <!-- Bottom Ring -->
+    <circle cx="256" cy="360" r="44" stroke-width="26" fill="#F05133"/>
+    <!-- Top Left Ring -->
+    <circle cx="150" cy="166" r="44" stroke-width="26" fill="#F05133"/>
+    <!-- Top Right Ring -->
+    <circle cx="362" cy="166" r="44" stroke-width="26" fill="#F05133"/>
+  </g>
+</svg>
