@@ -43,6 +43,11 @@
     {/msg}
   </title>
 
+  <link rel="icon" type="image/svg+xml" href="{$staticUrls.FAVICON_SVG_URL}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{$staticUrls.FAVICON_32_URL}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{$staticUrls.FAVICON_16_URL}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{$staticUrls.APPLE_TOUCH_ICON_URL}">
+  <link rel="manifest" href="{$staticUrls.SITE_MANIFEST_URL}">
   <link rel="stylesheet" type="text/css" href="{$staticUrls.BASE_CSS_URL}">
   {if $css && length($css)}
     {for $url in $css}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background Squircle in Git Coral-Orange -->
+  <rect width="512" height="512" rx="112" ry="112" fill="#F05133"/>
+
+  <!-- THICK SOLID WHITE CONNECTING BARS (Pure 2D Filled Polygons) -->
+  <!-- Bottom Vertical Stem (40px wide) -->
+  <polygon points="236,248 276,248 276,366 236,366" fill="#FFFFFF"/>
+
+  <!-- Top-Left Diagonal Arm (40px wide) -->
+  <polygon points="269,233 243,263 139,175 165,145" fill="#FFFFFF"/>
+
+  <!-- Top-Right Diagonal Arm (40px wide) -->
+  <polygon points="243,233 269,263 373,175 347,145" fill="#FFFFFF"/>
+
+  <!-- Center Junction Rounding -->
+  <circle cx="256" cy="248" r="26" fill="#FFFFFF"/>
+
+  <!-- THREE COMMIT NODE RINGS (White Outer Circles) -->
+  <circle cx="256" cy="366" r="62" fill="#FFFFFF"/>
+  <circle cx="152" cy="160" r="62" fill="#FFFFFF"/>
+  <circle cx="360" cy="160" r="62" fill="#FFFFFF"/>
+
+  <!-- INNER HOLLOW DONUT CORES (Punched out in Coral-Orange) -->
+  <circle cx="256" cy="366" r="32" fill="#F05133"/>
+  <circle cx="152" cy="160" r="32" fill="#F05133"/>
+  <circle cx="360" cy="160" r="32" fill="#F05133"/>
+</svg>
