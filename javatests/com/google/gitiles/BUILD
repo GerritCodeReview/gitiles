@@ -40,6 +40,7 @@ junit_tests(
     runtime_deps = ["//lib/junit:hamcrest"],
     deps = DEPS + [
         "//java/com/google/gitiles:servlet",
+        "//java/com/google/gitiles/blame/cache",
         ":testutil",
         "//lib:servlet-api",
         "//lib:commonmark",
