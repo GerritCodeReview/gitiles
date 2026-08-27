@@ -88,6 +88,24 @@
       "parentUuid": "0de46ede_d577f159",
       "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed21d90_491afb49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-08-27T18:39:35Z",
+      "side": 1,
+      "message": "\u003e 1. Update the jgit version in its own change (it doesn\u0027t hurt)\n\nDone in https://gerrit-review.googlesource.com/c/gitiles/+/622901\n\n\u003e 2. Add the ignored ids to the key\n\nDone here. PTAL, TIA!",
+      "parentUuid": "5f49b548_0e8c9db9",
+      "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
