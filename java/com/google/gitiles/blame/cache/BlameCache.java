@@ -16,6 +16,7 @@ package com.google.gitiles.blame.cache;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 
@@ -26,6 +27,21 @@ public interface BlameCache {
    * @return the blame of a path at a given commit.
    */
   List<Region> get(Repository repo, ObjectId commitId, String path) throws IOException;
+
+  /**
+   * Gets the blame of a path at a given commit, ignoring the specified commits.
+   *
+   * @return the blame of a path at a given commit.
+   */
+  default List<Region> get(
+      Repository repo, ObjectId commitId, String path, Set<ObjectId> ignoreIds)
+      throws IOException {
+    if (ignoreIds == null || ignoreIds.isEmpty()) {
+      return get(repo, commitId, path);
+    }
+    throw new UnsupportedOperationException(
+        "Ignored revisions not supported by " + getClass().getName());
+  }
 
   /**
    * Gets the last commit that modified a path.
