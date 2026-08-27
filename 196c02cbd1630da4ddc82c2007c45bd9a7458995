@@ -70,6 +70,24 @@
       "parentUuid": "ad27218e_78a09a8b",
       "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f49b548_0e8c9db9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-08-27T18:26:12Z",
+      "side": 1,
+      "message": "Ooh sorry, I see what you mean now. Sounds like the path is- Update this change to just add ignoreIds to BlameCacheImpl.Key (with getters, equals, hashCode, and toString). Once that lands, we can update Google3\u0027s key formatting before introducing the get method with ignoredIds in gitiles.",
+      "parentUuid": "0de46ede_d577f159",
+      "revId": "196c02cbd1630da4ddc82c2007c45bd9a7458995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
