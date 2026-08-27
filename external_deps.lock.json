@@ -39,19 +39,19 @@
     "org.apache.commons:commons-text": -1491671838,
     "org.apache.httpcomponents:httpclient": 1643860045,
     "org.apache.httpcomponents:httpcore": -1696303652,
-    "org.apache.sshd:sshd-osgi": 1681538032,
-    "org.apache.sshd:sshd-sftp": 2089761863,
+    "org.apache.sshd:sshd-osgi": -115413327,
+    "org.apache.sshd:sshd-sftp": 292810504,
     "org.assertj:assertj-core": -1145412507,
-    "org.bouncycastle:bcpg-jdk18on": -1572213535,
-    "org.bouncycastle:bcpkix-jdk18on": 146639060,
-    "org.bouncycastle:bcprov-jdk18on": -1405390253,
-    "org.bouncycastle:bcutil-jdk18on": -469511060,
+    "org.bouncycastle:bcpg-jdk18on": 915299298,
+    "org.bouncycastle:bcpkix-jdk18on": -1660815403,
+    "org.bouncycastle:bcprov-jdk18on": -1559819624,
+    "org.bouncycastle:bcutil-jdk18on": 2018001773,
     "org.commonmark:commonmark": 1129543740,
     "org.commonmark:commonmark-ext-autolink": -1853742120,
     "org.commonmark:commonmark-ext-gfm-strikethrough": 350394231,
     "org.commonmark:commonmark-ext-gfm-tables": 1881582931,
     "org.commonmark:commonmark-ext-yaml-front-matter": -1519651186,
-    "org.eclipse.jetty.ee10:jetty-ee10-servlet": 835495267,
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet": 1925464069,
     "org.eclipse.jetty.ee8:jetty-ee8-nested": 1867536598,
     "org.eclipse.jetty.ee8:jetty-ee8-security": -374913491,
     "org.eclipse.jetty.ee8:jetty-ee8-servlet": 894276934,
@@ -61,7 +61,7 @@
     "org.eclipse.jetty:jetty-server": 1477679957,
     "org.eclipse.jetty:jetty-session": 1736408150,
     "org.eclipse.jetty:jetty-util": 1880514486,
-    "org.eclipse.jetty:jetty-util-ajax": -622085534,
+    "org.eclipse.jetty:jetty-util-ajax": 57972836,
     "org.hamcrest:hamcrest": 1547523135,
     "org.mockito:mockito-core": -133446801,
     "org.nibor.autolink:autolink": -342487050,
@@ -182,24 +182,24 @@
     "org.apache.httpcomponents:httpclient:jar:sources": -779528763,
     "org.apache.httpcomponents:httpcore": 67453319,
     "org.apache.httpcomponents:httpcore:jar:sources": 2134002822,
-    "org.apache.sshd:sshd-common": -1308783553,
-    "org.apache.sshd:sshd-common:jar:sources": 203202718,
-    "org.apache.sshd:sshd-core": 576544003,
-    "org.apache.sshd:sshd-core:jar:sources": 1066552279,
-    "org.apache.sshd:sshd-osgi": -880103583,
-    "org.apache.sshd:sshd-osgi:jar:sources": -2061003935,
-    "org.apache.sshd:sshd-sftp": -86158263,
-    "org.apache.sshd:sshd-sftp:jar:sources": 1034555480,
+    "org.apache.sshd:sshd-common": -461927487,
+    "org.apache.sshd:sshd-common:jar:sources": 402940425,
+    "org.apache.sshd:sshd-core": 1923342694,
+    "org.apache.sshd:sshd-core:jar:sources": -238465986,
+    "org.apache.sshd:sshd-osgi": 2100718013,
+    "org.apache.sshd:sshd-osgi:jar:sources": 710209222,
+    "org.apache.sshd:sshd-sftp": 805382931,
+    "org.apache.sshd:sshd-sftp:jar:sources": -1268961386,
     "org.assertj:assertj-core": 1683037634,
     "org.assertj:assertj-core:jar:sources": -697161745,
-    "org.bouncycastle:bcpg-jdk18on": -1258294405,
-    "org.bouncycastle:bcpg-jdk18on:jar:sources": -1733408473,
-    "org.bouncycastle:bcpkix-jdk18on": -294727450,
-    "org.bouncycastle:bcpkix-jdk18on:jar:sources": 1412420619,
-    "org.bouncycastle:bcprov-jdk18on": 1743462207,
-    "org.bouncycastle:bcprov-jdk18on:jar:sources": 1198104999,
-    "org.bouncycastle:bcutil-jdk18on": 968717615,
-    "org.bouncycastle:bcutil-jdk18on:jar:sources": -1508579276,
+    "org.bouncycastle:bcpg-jdk18on": 1314692470,
+    "org.bouncycastle:bcpg-jdk18on:jar:sources": -1476258101,
+    "org.bouncycastle:bcpkix-jdk18on": -1562281305,
+    "org.bouncycastle:bcpkix-jdk18on:jar:sources": 1945286569,
+    "org.bouncycastle:bcprov-jdk18on": -390275162,
+    "org.bouncycastle:bcprov-jdk18on:jar:sources": -2118706434,
+    "org.bouncycastle:bcutil-jdk18on": -1194874921,
+    "org.bouncycastle:bcutil-jdk18on:jar:sources": -1005159791,
     "org.checkerframework:checker-compat-qual": -1467964223,
     "org.checkerframework:checker-compat-qual:jar:sources": 187825033,
     "org.commonmark:commonmark": 965353610,
@@ -212,8 +212,8 @@
     "org.commonmark:commonmark-ext-yaml-front-matter": 1918089254,
     "org.commonmark:commonmark-ext-yaml-front-matter:jar:sources": -902462472,
     "org.commonmark:commonmark:jar:sources": -1511261547,
-    "org.eclipse.jetty.ee10:jetty-ee10-servlet": 349394374,
-    "org.eclipse.jetty.ee10:jetty-ee10-servlet:jar:sources": 501419503,
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet": 1455490102,
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet:jar:sources": -873060978,
     "org.eclipse.jetty.ee8:jetty-ee8-nested": -65830655,
     "org.eclipse.jetty.ee8:jetty-ee8-nested:jar:sources": -2141029892,
     "org.eclipse.jetty.ee8:jetty-ee8-security": -1787377969,
@@ -233,8 +233,8 @@
     "org.eclipse.jetty:jetty-session": 602757569,
     "org.eclipse.jetty:jetty-session:jar:sources": -1630590830,
     "org.eclipse.jetty:jetty-util": 1084512308,
-    "org.eclipse.jetty:jetty-util-ajax": -1660665108,
-    "org.eclipse.jetty:jetty-util-ajax:jar:sources": 455294676,
+    "org.eclipse.jetty:jetty-util-ajax": 889071774,
+    "org.eclipse.jetty:jetty-util-ajax:jar:sources": -884639814,
     "org.eclipse.jetty:jetty-util:jar:sources": -280937557,
     "org.hamcrest:hamcrest": 1282317766,
     "org.hamcrest:hamcrest-core": 649657847,
@@ -643,31 +643,31 @@
     },
     "org.apache.sshd:sshd-common": {
       "shasums": {
-        "jar": "f1e33994601b5acc4cbcf993271e9411b4231d921cc72a0ac40544cbb71ae06c",
-        "sources": "945b184ba2cc49144e7e98b3c23160330c1bea0c470d2a642967736aaab8f013"
+        "jar": "41cef234f894e435ae2141e24baa25baf238a273cd28c6bbadcf830b1b2d68cb",
+        "sources": "c0b0a66452b70e6e3195665bf17a28edcd4ddf2f49801fd4732a7c60e49e9d92"
       },
-      "version": "2.18.0"
+      "version": "2.19.0"
     },
     "org.apache.sshd:sshd-core": {
       "shasums": {
-        "jar": "5016bd515903b9c14d18f0ee8f4e1b65f228f794f64f67344687224e804c4318",
-        "sources": "0ffeed88040dc12a17bd6069d33fda2c5ac87bb69acdf5b6576654abed42be12"
+        "jar": "7215350bf71d95a34494f823a7451f966a2995b59e99fdf8ee9cbd63ef78cdb3",
+        "sources": "c1ced96338bb28821cfb63f86e4cd4a8c2b8b8ec078f85d0b7f91d4864dde0e0"
       },
-      "version": "2.18.0"
+      "version": "2.19.0"
     },
     "org.apache.sshd:sshd-osgi": {
       "shasums": {
-        "jar": "e771c4239b1c4818c102368d57d0cc082c224eefb76224524473bf7021d1a32f",
-        "sources": "dd5838716293c8aeaf9487c50c6b313dff304e7ddca84ce16923f73865ba4d1d"
+        "jar": "0b6b9371c6a97430390b84c23c58f4470927a747e74704a0ca7d19a09a66fe37",
+        "sources": "d11b69618dba155f075571cbd9b21741953c27dfa9a1af09b4024f2183226abe"
       },
-      "version": "2.18.0"
+      "version": "2.19.0"
     },
     "org.apache.sshd:sshd-sftp": {
       "shasums": {
-        "jar": "bf52fd81d63337cb40050c70ee460c80e78a0a4b77f15da7125eb1841f527e93",
-        "sources": "5171d9bac4ee76a013beccc1fdeab93fb43aeb84172d19b929ee158b9281c648"
+        "jar": "a3ad30d2feba9fad589c7ad9117fcd9d332823697d59eb424fe2902f4d805575",
+        "sources": "e26b7df972cead5c529bca6ab3e782c27dd43b323f9a54f98d9e23d4f5d03c30"
       },
-      "version": "2.18.0"
+      "version": "2.19.0"
     },
     "org.assertj:assertj-core": {
       "shasums": {
@@ -678,31 +678,31 @@
     },
     "org.bouncycastle:bcpg-jdk18on": {
       "shasums": {
-        "jar": "c0e6303a0d7589040f400950ecee87a14b81312e84ed15e5390ebb0c4566ddab",
-        "sources": "a8baa033c57614d36c3d2339a8c8e5902a8a2ed8cb7387cdb2b919e5a4b15f30"
+        "jar": "39426367dc247dfaae9b1253457a39298b6b9a6c28a39b908bca829e315323dd",
+        "sources": "605b09bd826d7e4e3e0cb4faf2e9b53a6bcb452be963c91499b79fd8497685be"
       },
-      "version": "1.84"
+      "version": "1.85"
     },
     "org.bouncycastle:bcpkix-jdk18on": {
       "shasums": {
-        "jar": "c87f16ed9e5ec61bc94151e9f3646ac44e50cd448121ce84367fa4b7ec7ec1bb",
-        "sources": "fe00c12243c28ead30ad6c7742be40ff005ab29f493c350b83b637fe4a9b5597"
+        "jar": "c9f82b2d4e99c4bbdfccf684e52cc06ea06a0b567bfd0d08f9c5a3f417055996",
+        "sources": "e5331f467331aba29bda6ddfb0df0da6d568928e29c2b0f20ea2fe123d802d20"
       },
-      "version": "1.84"
+      "version": "1.85"
     },
     "org.bouncycastle:bcprov-jdk18on": {
       "shasums": {
-        "jar": "64d6c5a6121fcd927152dd182cbed39afe0fda641a970d9bcc0c9cb1858b2731",
-        "sources": "e5f04550f7740e588edcbd1654c59277cd7ee8725d8b674e44f7f8f4b9c5674a"
+        "jar": "986b0fb92ec10e0c66b43e036ce0077e6150cfaecd1db9fb92b56672e157afe5",
+        "sources": "b37ac84b1d5435ab7b8d166c16ab9f75e09f68f8ec50479bae433939b241b03f"
       },
-      "version": "1.84"
+      "version": "1.85.2"
     },
     "org.bouncycastle:bcutil-jdk18on": {
       "shasums": {
-        "jar": "b374e16963421fb9cfb01cc20d7ad8fd2f8b8188e3eef0ec0a8965e245f7619a",
-        "sources": "192b719273dc33e8fd6edc3b30b126760b6740cf2e1ac3cc7cf845c7ffec9f2b"
+        "jar": "590f55ed5d68529239898a4a5c4f730b6e37f45d1cfa3fbe51f8485abe32c42d",
+        "sources": "b470a692878f92abf00b9c3af9147a45453250a80930df8f23f1d092c55e2d5e"
       },
-      "version": "1.84"
+      "version": "1.85"
     },
     "org.checkerframework:checker-compat-qual": {
       "shasums": {
@@ -746,12 +746,12 @@
       },
       "version": "0.24.0"
     },
-    "org.eclipse.jetty.ee10:jetty-ee10-servlet": {
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet": {
       "shasums": {
-        "jar": "05cccc74bbe1478ceb765e967b1cb1a3c8d9b51e99acf586190887e467ffd87d",
-        "sources": "51a734b4bc04235b24ccd759515dd2947e5b675c227c556f02262b765bce47eb"
+        "jar": "af76ee845345f184d96d8f6c926e64f8bda4cf858013598d392ad604d37e6bac",
+        "sources": "0daaa96e80d48f516c580b7f18bcdf2ebdea75654a7fddb1a1a933af36ae2d16"
       },
-      "version": "12.1.10"
+      "version": "12.1.12"
     },
     "org.eclipse.jetty.ee8:jetty-ee8-nested": {
       "shasums": {
@@ -825,10 +825,10 @@
     },
     "org.eclipse.jetty:jetty-util-ajax": {
       "shasums": {
-        "jar": "73dfbf388b46c9e2afbc78823ea556f8d25cf851902f99873d03df90becc2b97",
-        "sources": "4617309092393ed2f6ed76d915f24b518ccbff8c8731124bf109e346607e86b3"
+        "jar": "ca4d49183b8f92af96c04dab7a40e70cc2ebac554e6de010e1b9a983ae342cb2",
+        "sources": "41bcaeb259a63a898885dd05bfa6b8231051079e38140bbb4f18181a9037b319"
       },
-      "version": "12.1.10"
+      "version": "12.1.12"
     },
     "org.hamcrest:hamcrest": {
       "shasums": {
@@ -1101,7 +1101,7 @@
     "org.commonmark:commonmark-ext-yaml-front-matter": [
       "org.commonmark:commonmark"
     ],
-    "org.eclipse.jetty.ee10:jetty-ee10-servlet": [
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet": [
       "jakarta.servlet:jakarta.servlet-api",
       "org.eclipse.jetty:jetty-security",
       "org.eclipse.jetty:jetty-server",
@@ -2124,19 +2124,20 @@
       "org.bouncycastle.openpgp.api.jcajce",
       "org.bouncycastle.openpgp.api.util",
       "org.bouncycastle.openpgp.bc",
-      "org.bouncycastle.openpgp.examples",
       "org.bouncycastle.openpgp.jcajce",
       "org.bouncycastle.openpgp.operator",
       "org.bouncycastle.openpgp.operator.bc",
       "org.bouncycastle.openpgp.operator.jcajce"
     ],
     "org.bouncycastle:bcpkix-jdk18on": [
+      "org.bouncycastle.cades",
       "org.bouncycastle.cert",
       "org.bouncycastle.cert.bc",
       "org.bouncycastle.cert.cmp",
       "org.bouncycastle.cert.crmf",
       "org.bouncycastle.cert.crmf.bc",
       "org.bouncycastle.cert.crmf.jcajce",
+      "org.bouncycastle.cert.ct",
       "org.bouncycastle.cert.dane",
       "org.bouncycastle.cert.dane.fetcher",
       "org.bouncycastle.cert.jcajce",
@@ -2144,6 +2145,9 @@
       "org.bouncycastle.cert.ocsp.jcajce",
       "org.bouncycastle.cert.path",
       "org.bouncycastle.cert.path.validations",
+      "org.bouncycastle.cert.plants",
+      "org.bouncycastle.cert.plants.bc",
+      "org.bouncycastle.cert.plants.jcajce",
       "org.bouncycastle.cert.selector",
       "org.bouncycastle.cert.selector.jcajce",
       "org.bouncycastle.cmc",
@@ -2175,6 +2179,7 @@
       "org.bouncycastle.pkcs",
       "org.bouncycastle.pkcs.bc",
       "org.bouncycastle.pkcs.jcajce",
+      "org.bouncycastle.pkcs.util",
       "org.bouncycastle.pkix",
       "org.bouncycastle.pkix.jcajce",
       "org.bouncycastle.pkix.util",
@@ -2191,9 +2196,11 @@
       "org.bouncycastle.asn1.bc",
       "org.bouncycastle.asn1.cryptopro",
       "org.bouncycastle.asn1.gm",
+      "org.bouncycastle.asn1.iana",
       "org.bouncycastle.asn1.nist",
       "org.bouncycastle.asn1.ocsp",
       "org.bouncycastle.asn1.pkcs",
+      "org.bouncycastle.asn1.plants",
       "org.bouncycastle.asn1.sec",
       "org.bouncycastle.asn1.teletrust",
       "org.bouncycastle.asn1.ua",
@@ -2209,14 +2216,15 @@
       "org.bouncycastle.crypto.agreement.ecjpake",
       "org.bouncycastle.crypto.agreement.jpake",
       "org.bouncycastle.crypto.agreement.kdf",
+      "org.bouncycastle.crypto.agreement.owl",
       "org.bouncycastle.crypto.agreement.srp",
+      "org.bouncycastle.crypto.bls",
       "org.bouncycastle.crypto.commitments",
       "org.bouncycastle.crypto.constraints",
       "org.bouncycastle.crypto.digests",
       "org.bouncycastle.crypto.ec",
       "org.bouncycastle.crypto.encodings",
       "org.bouncycastle.crypto.engines",
-      "org.bouncycastle.crypto.examples",
       "org.bouncycastle.crypto.fpe",
       "org.bouncycastle.crypto.generators",
       "org.bouncycastle.crypto.hash2curve",
@@ -2225,6 +2233,8 @@
       "org.bouncycastle.crypto.hpke",
       "org.bouncycastle.crypto.io",
       "org.bouncycastle.crypto.kems",
+      "org.bouncycastle.crypto.kems.cmce",
+      "org.bouncycastle.crypto.kems.frodo",
       "org.bouncycastle.crypto.kems.mlkem",
       "org.bouncycastle.crypto.macs",
       "org.bouncycastle.crypto.modes",
@@ -2243,14 +2253,12 @@
       "org.bouncycastle.crypto.util",
       "org.bouncycastle.i18n",
       "org.bouncycastle.i18n.filter",
-      "org.bouncycastle.iana",
       "org.bouncycastle.internal.asn1.bsi",
       "org.bouncycastle.internal.asn1.cms",
       "org.bouncycastle.internal.asn1.cryptlib",
       "org.bouncycastle.internal.asn1.eac",
       "org.bouncycastle.internal.asn1.edec",
       "org.bouncycastle.internal.asn1.gnu",
-      "org.bouncycastle.internal.asn1.iana",
       "org.bouncycastle.internal.asn1.isara",
       "org.bouncycastle.internal.asn1.isismtt",
       "org.bouncycastle.internal.asn1.iso",
@@ -2265,6 +2273,8 @@
       "org.bouncycastle.jcajce.interfaces",
       "org.bouncycastle.jcajce.io",
       "org.bouncycastle.jcajce.provider.asymmetric",
+      "org.bouncycastle.jcajce.provider.asymmetric.cmce",
+      "org.bouncycastle.jcajce.provider.asymmetric.compositekem",
       "org.bouncycastle.jcajce.provider.asymmetric.compositesignatures",
       "org.bouncycastle.jcajce.provider.asymmetric.dh",
       "org.bouncycastle.jcajce.provider.asymmetric.dsa",
@@ -2274,6 +2284,7 @@
       "org.bouncycastle.jcajce.provider.asymmetric.ecgost12",
       "org.bouncycastle.jcajce.provider.asymmetric.edec",
       "org.bouncycastle.jcajce.provider.asymmetric.elgamal",
+      "org.bouncycastle.jcajce.provider.asymmetric.frodokem",
       "org.bouncycastle.jcajce.provider.asymmetric.gost",
       "org.bouncycastle.jcajce.provider.asymmetric.ies",
       "org.bouncycastle.jcajce.provider.asymmetric.mldsa",
@@ -2319,46 +2330,64 @@
       "org.bouncycastle.math.raw",
       "org.bouncycastle.pqc.asn1",
       "org.bouncycastle.pqc.crypto",
+      "org.bouncycastle.pqc.crypto.aimer",
       "org.bouncycastle.pqc.crypto.cmce",
       "org.bouncycastle.pqc.crypto.crystals.dilithium",
+      "org.bouncycastle.pqc.crypto.faest",
       "org.bouncycastle.pqc.crypto.falcon",
       "org.bouncycastle.pqc.crypto.frodo",
+      "org.bouncycastle.pqc.crypto.haetae",
+      "org.bouncycastle.pqc.crypto.hawk",
       "org.bouncycastle.pqc.crypto.hqc",
       "org.bouncycastle.pqc.crypto.lms",
       "org.bouncycastle.pqc.crypto.mayo",
       "org.bouncycastle.pqc.crypto.mldsa",
       "org.bouncycastle.pqc.crypto.mlkem",
+      "org.bouncycastle.pqc.crypto.mqom",
       "org.bouncycastle.pqc.crypto.newhope",
       "org.bouncycastle.pqc.crypto.ntru",
       "org.bouncycastle.pqc.crypto.ntruplus",
       "org.bouncycastle.pqc.crypto.ntruprime",
+      "org.bouncycastle.pqc.crypto.qruov",
       "org.bouncycastle.pqc.crypto.saber",
+      "org.bouncycastle.pqc.crypto.sdith",
       "org.bouncycastle.pqc.crypto.slhdsa",
       "org.bouncycastle.pqc.crypto.snova",
       "org.bouncycastle.pqc.crypto.sphincs",
+      "org.bouncycastle.pqc.crypto.sqisign",
+      "org.bouncycastle.pqc.crypto.uov",
       "org.bouncycastle.pqc.crypto.util",
       "org.bouncycastle.pqc.crypto.xmss",
       "org.bouncycastle.pqc.crypto.xwing",
       "org.bouncycastle.pqc.jcajce.interfaces",
       "org.bouncycastle.pqc.jcajce.provider",
+      "org.bouncycastle.pqc.jcajce.provider.aimer",
       "org.bouncycastle.pqc.jcajce.provider.bike",
       "org.bouncycastle.pqc.jcajce.provider.cmce",
       "org.bouncycastle.pqc.jcajce.provider.dilithium",
+      "org.bouncycastle.pqc.jcajce.provider.faest",
       "org.bouncycastle.pqc.jcajce.provider.falcon",
       "org.bouncycastle.pqc.jcajce.provider.frodo",
+      "org.bouncycastle.pqc.jcajce.provider.haetae",
+      "org.bouncycastle.pqc.jcajce.provider.hawk",
       "org.bouncycastle.pqc.jcajce.provider.hqc",
       "org.bouncycastle.pqc.jcajce.provider.kyber",
       "org.bouncycastle.pqc.jcajce.provider.lms",
       "org.bouncycastle.pqc.jcajce.provider.mayo",
+      "org.bouncycastle.pqc.jcajce.provider.mqom",
       "org.bouncycastle.pqc.jcajce.provider.newhope",
       "org.bouncycastle.pqc.jcajce.provider.ntru",
       "org.bouncycastle.pqc.jcajce.provider.ntruplus",
       "org.bouncycastle.pqc.jcajce.provider.ntruprime",
       "org.bouncycastle.pqc.jcajce.provider.picnic",
+      "org.bouncycastle.pqc.jcajce.provider.qruov",
       "org.bouncycastle.pqc.jcajce.provider.saber",
+      "org.bouncycastle.pqc.jcajce.provider.sdith",
       "org.bouncycastle.pqc.jcajce.provider.snova",
       "org.bouncycastle.pqc.jcajce.provider.sphincs",
       "org.bouncycastle.pqc.jcajce.provider.sphincsplus",
+      "org.bouncycastle.pqc.jcajce.provider.sqisign",
+      "org.bouncycastle.pqc.jcajce.provider.uov",
       "org.bouncycastle.pqc.jcajce.provider.util",
       "org.bouncycastle.pqc.jcajce.provider.xmss",
       "org.bouncycastle.pqc.jcajce.spec",
@@ -2392,7 +2421,6 @@
       "org.bouncycastle.asn1.ess",
       "org.bouncycastle.asn1.est",
       "org.bouncycastle.asn1.gnu",
-      "org.bouncycastle.asn1.iana",
       "org.bouncycastle.asn1.icao",
       "org.bouncycastle.asn1.isara",
       "org.bouncycastle.asn1.isismtt",
@@ -2464,14 +2492,14 @@
       "org.commonmark.ext.front.matter",
       "org.commonmark.ext.front.matter.internal"
     ],
-    "org.eclipse.jetty.ee10:jetty-ee10-servlet": [
-      "org.eclipse.jetty.ee10.servlet",
-      "org.eclipse.jetty.ee10.servlet.internal",
-      "org.eclipse.jetty.ee10.servlet.jmx",
-      "org.eclipse.jetty.ee10.servlet.listener",
-      "org.eclipse.jetty.ee10.servlet.security",
-      "org.eclipse.jetty.ee10.servlet.security.authentication",
-      "org.eclipse.jetty.ee10.servlet.util"
+    "org.eclipse.jetty.ee11:jetty-ee11-servlet": [
+      "org.eclipse.jetty.ee11.servlet",
+      "org.eclipse.jetty.ee11.servlet.internal",
+      "org.eclipse.jetty.ee11.servlet.jmx",
+      "org.eclipse.jetty.ee11.servlet.listener",
+      "org.eclipse.jetty.ee11.servlet.security",
+      "org.eclipse.jetty.ee11.servlet.security.authentication",
+      "org.eclipse.jetty.ee11.servlet.util"
     ],
     "org.eclipse.jetty.ee8:jetty-ee8-nested": [
       "org.eclipse.jetty.ee8.nested",
@@ -2839,8 +2867,8 @@
       "org.commonmark:commonmark-ext-yaml-front-matter",
       "org.commonmark:commonmark-ext-yaml-front-matter:jar:sources",
       "org.commonmark:commonmark:jar:sources",
-      "org.eclipse.jetty.ee10:jetty-ee10-servlet",
-      "org.eclipse.jetty.ee10:jetty-ee10-servlet:jar:sources",
+      "org.eclipse.jetty.ee11:jetty-ee11-servlet",
+      "org.eclipse.jetty.ee11:jetty-ee11-servlet:jar:sources",
       "org.eclipse.jetty.ee8:jetty-ee8-nested",
       "org.eclipse.jetty.ee8:jetty-ee8-nested:jar:sources",
       "org.eclipse.jetty.ee8:jetty-ee8-security",
