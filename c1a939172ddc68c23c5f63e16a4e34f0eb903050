@@ -87,6 +87,42 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a54373c1_2fc9eb7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:20:33Z",
+      "side": 1,
+      "message": "Unaware of previous attempts. Zero FOUC is one advantage, and the other is I\u0027m pretty determined to land this. Mine is more extensive, saves user prefs, implements a toggle, etc.",
+      "parentUuid": "746f421d_74c1b03e",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d29c8d63_2778a220",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:20:33Z",
+      "side": 1,
+      "message": "Here\u0027s an example: https://postimg.cc/62QSRJzv",
+      "parentUuid": "45d5b87f_7e009a0e",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6a493f1_a05851a8",
@@ -100,6 +136,24 @@
       "writtenOn": "2026-08-27T21:26:52Z",
       "side": 1,
       "message": "nit: we typically put private helpers below public methods",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b5b73f_65b0f6b8",
+        "filename": "javatests/com/google/gitiles/ThemeTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:20:33Z",
+      "side": 1,
+      "message": "Sure, will reorder.",
+      "parentUuid": "a6a493f1_a05851a8",
       "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -121,6 +175,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53ea8424_aa0099f7",
+        "filename": "javatests/com/google/gitiles/doc/DocServletTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:20:33Z",
+      "side": 1,
+      "message": "Actually the change here is spurious in its entirety. Let me remove it.",
+      "parentUuid": "87bd2a73_85119166",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8db05d87_e9a3c3fa",
@@ -138,6 +210,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "591a55e8_effb8d62",
+        "filename": "resources/com/google/gitiles/static/theme-init.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:20:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8db05d87_e9a3c3fa",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12183210_75d721b7",
@@ -151,6 +241,24 @@
       "writtenOn": "2026-08-27T21:26:52Z",
       "side": 1,
       "message": "Needs a copyright/license header?",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820350eb_de15a117",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T23:20:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12183210_75d721b7",
       "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
