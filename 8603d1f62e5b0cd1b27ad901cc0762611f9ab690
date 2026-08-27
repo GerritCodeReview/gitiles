@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc2ed83_e94d2e07",
+        "filename": "javatests/com/google/gitiles/blame/cache/BlameCacheTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-08-27T18:40:11Z",
+      "side": 1,
+      "message": "Google LLC\n\n(No need of All Rights Reserved.)",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 50
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "fd4b6011_9c626cb3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "javatests/com/google/gitiles/blame/cache/BlameCacheTest.java",
+              "range": {
+                "startLine": 1,
+                "startChar": 0,
+                "endLine": 2,
+                "endChar": 0
+              },
+              "replacement": "// Copyright 2026 Google LLC\n"
+            }
+          ]
+        }
+      ],
+      "revId": "8603d1f62e5b0cd1b27ad901cc0762611f9ab690",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
