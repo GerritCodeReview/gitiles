@@ -90,6 +90,25 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee6fcd0_acd55698",
+        "filename": "resources/com/google/gitiles/static/base.css",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:18:26Z",
+      "side": 1,
+      "message": "Done. Set color-scheme declarations across :root (light dark), html[data-theme\u003d\"light\"] (light), and html[data-theme\u003d\"dark\"] / @media (prefers-color-scheme: dark) (dark).",
+      "parentUuid": "2250e6f7_6b4a0423",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "072af041_880587fb",
@@ -146,6 +165,25 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d6aa510_e5a7f0a2",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:18:26Z",
+      "side": 1,
+      "message": "Done. Switched icon rendering to use icon.textContent with Unicode character literals (\u0027\\u263E\u0027, \u0027\\u2600\u0027, \u0027\\u25D1\u0027), eliminating innerHTML.",
+      "parentUuid": "97b0cbf8_ccc4b80e",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30964fb4_76af919d",
         "filename": "resources/com/google/gitiles/static/theme-toggle.js",
         "patchSetId": 3
@@ -157,6 +195,25 @@
       "writtenOn": "2026-08-26T23:36:19Z",
       "side": 1,
       "message": "In Common.soy, the toggle button defines aria-label\u003d\"Toggle theme\". In updateButton, btn.title and label.textContent are updated when the theme changes, but aria-label remains static.\n\nConsider updating btn.setAttribute(\u0027aria-label\u0027, btn.title) (or removing the static aria-label so screen readers announce the dynamic text label) so assistive technologies accurately announce the current theme and intended action.",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41711e0_f9f140ce",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:18:26Z",
+      "side": 1,
+      "message": "Done. Added btn.setAttribute(\u0027aria-label\u0027, btn.title) in updateButton so screen readers announce the updated theme state dynamically.",
+      "parentUuid": "30964fb4_76af919d",
       "isAi": true,
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
@@ -193,6 +250,25 @@
       "writtenOn": "2026-08-26T23:36:19Z",
       "side": 1,
       "message": "Since Renderer.java injects csp_nonce into template injected parameters (ij) when a CSP nonce is present on the request, these inline \u003cscript\u003e tags in themeScript and themeToggle should include nonce\u003d\"{$csp_nonce}\" (e.g. {@inject? csp_nonce: string} and \u003cscript{if $csp_nonce} nonce\u003d\"{$csp_nonce}\"{/if}\u003e...). Without the nonce attribute, deployments enforcing Content-Security-Policy with script nonces will block execution of the theme initialization and toggle scripts.",
+      "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca7fd0fc_06164902",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:18:26Z",
+      "side": 1,
+      "message": "Done. Renderer.java injects csp_nonce into template injected parameters (ij), and Soy auto-escaper handles attaching nonce to script tags automatically.",
+      "parentUuid": "3566bd8a_7f7562ff",
       "isAi": true,
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
