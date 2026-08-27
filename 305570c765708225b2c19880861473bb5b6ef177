@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cc1f244_979d492b",
+        "filename": "java/com/google/gitiles/doc/SimpleMermaidRenderer.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:10:27Z",
+      "side": 1,
+      "message": "As a follow up, if there\u0027s a Java SVG library that can do some of this and that\u0027s already available in Google, that might be an improvement.",
+      "revId": "305570c765708225b2c19880861473bb5b6ef177",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

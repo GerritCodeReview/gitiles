@@ -72,6 +72,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef8d8e79_6f7d8005",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:10:27Z",
+      "side": 1,
+      "message": "I mean, she was pretty vague:\n\u003e sounds like it\u0027s in dependency hell here, it\u0027s unfortunately not particularly trivial to add a new dep on our end\n\n\"not particularly trivial\" doesn\u0027t read to me as \"we\u0027re better off creating our own library\" 😄\n\nBut yeah, this is much better than nothing. Thanks for taking it on and getting to a solution.",
+      "parentUuid": "b98a967d_de8d7a3d",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbcfcb68_3100993c",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "happy to break it apart if we want to do this, but for now ... not sharing this also feels good for now.",
       "parentUuid": "cbcfcb68_3100993c",
+      "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c611c414_e0fb77c7",
+        "filename": "java/com/google/gitiles/doc/SimpleMermaidRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-27T21:10:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "79d2a05e_9d5211a2",
       "revId": "6fd7a414b84e460194eab73933d04be974fd88c9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
