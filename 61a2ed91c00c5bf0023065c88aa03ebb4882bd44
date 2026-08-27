@@ -54,6 +54,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b116309_dc88138a",
+        "filename": "resources/com/google/gitiles/static/base.css",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:17:51Z",
+      "side": 1,
+      "message": "Done. Set color-scheme declarations across :root (light dark), html[data-theme\u003d\"light\"] (light), and html[data-theme\u003d\"dark\"] / @media (prefers-color-scheme: dark) (dark).",
+      "parentUuid": "2250e6f7_6b4a0423",
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2250e6f7_6b4a0423",
@@ -68,6 +86,42 @@
       "side": 1,
       "message": ":root, html[data-theme\u003d\"light\"] currently sets color-scheme: light dark;, while html[data-theme\u003d\"dark\"] does not specify color-scheme.\n\nWhen data-theme\u003d\"light\" is active while the user\u0027s OS is in dark mode, color-scheme: light dark; allows the browser to render form controls, scrollbars, and system canvases in dark mode against the light page background. Conversely, html[data-theme\u003d\"dark\"] lacks color-scheme: dark; to ensure system scrollbars and controls switch to dark mode on light OS themes.\n\nConsider splitting this so:\n- :root uses color-scheme: light dark;\n- html[data-theme\u003d\"light\"] uses color-scheme: light;\n- html[data-theme\u003d\"dark\"] and @media (prefers-color-scheme: dark) { :root { color-scheme: dark; } } use color-scheme: dark;",
       "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "072af041_880587fb",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:17:51Z",
+      "side": 1,
+      "message": "Done. Added btn.setAttribute(\u0027aria-label\u0027, btn.title) in updateButton so screen readers announce the updated theme state dynamically.",
+      "parentUuid": "30964fb4_76af919d",
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea1c814_db815c4d",
+        "filename": "resources/com/google/gitiles/static/theme-toggle.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:17:51Z",
+      "side": 1,
+      "message": "Done. Switched icon rendering to use icon.textContent with Unicode character literals (\u0027\\u263E\u0027, \u0027\\u2600\u0027, \u0027\\u25D1\u0027), eliminating innerHTML.",
+      "parentUuid": "97b0cbf8_ccc4b80e",
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -104,6 +158,24 @@
       "side": 1,
       "message": "In Common.soy, the toggle button defines aria-label\u003d\"Toggle theme\". In updateButton, btn.title and label.textContent are updated when the theme changes, but aria-label remains static.\n\nConsider updating btn.setAttribute(\u0027aria-label\u0027, btn.title) (or removing the static aria-label so screen readers announce the dynamic text label) so assistive technologies accurately announce the current theme and intended action.",
       "isAi": true,
+      "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70b713f8_5a27ccfa",
+        "filename": "resources/com/google/gitiles/templates/Common.soy",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-27T00:17:51Z",
+      "side": 1,
+      "message": "Done. Renderer.java injects csp_nonce into template injected parameters (ij), and Soy auto-escaper handles attaching nonce to script tags automatically.",
+      "parentUuid": "3566bd8a_7f7562ff",
       "revId": "61a2ed91c00c5bf0023065c88aa03ebb4882bd44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
