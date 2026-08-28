@@ -14,7 +14,7 @@
     "com.google.flogger:google-extensions": -1598339013,
     "com.google.guava:failureaccess": -2032498474,
     "com.google.guava:guava": -1756621521,
-    "com.google.protobuf:protobuf-java": 1906581597,
+    "com.google.protobuf:protobuf-java": -549421924,
     "com.google.template:soy": -1478719887,
     "com.google.truth:truth": -790731381,
     "com.googlecode.javaewah:JavaEWAH": 1917029137,
@@ -92,7 +92,7 @@
     "com.google.code.findbugs:jsr305:jar:sources": -640520676,
     "com.google.code.gson:gson": 1522732267,
     "com.google.code.gson:gson:jar:sources": 907899269,
-    "com.google.common.html.types:types": 1531053716,
+    "com.google.common.html.types:types": 1429343999,
     "com.google.common.html.types:types:jar:sources": -1323749402,
     "com.google.errorprone:error_prone_annotations": 804114225,
     "com.google.errorprone:error_prone_annotations:jar:sources": -2115535816,
@@ -117,9 +117,9 @@
     "com.google.j2objc:j2objc-annotations:jar:sources": -1518668002,
     "com.google.jsinterop:jsinterop-annotations": 1636460091,
     "com.google.jsinterop:jsinterop-annotations:jar:sources": 694679492,
-    "com.google.protobuf:protobuf-java": 1957269082,
-    "com.google.protobuf:protobuf-java:jar:sources": 1812626912,
-    "com.google.template:soy": 1782842896,
+    "com.google.protobuf:protobuf-java": 1636841810,
+    "com.google.protobuf:protobuf-java:jar:sources": 1511914113,
+    "com.google.template:soy": 391423740,
     "com.google.template:soy:jar:sources": 895044971,
     "com.google.truth:truth": 298561406,
     "com.google.truth:truth:jar:sources": 494258718,
@@ -408,10 +408,10 @@
     },
     "com.google.protobuf:protobuf-java": {
       "shasums": {
-        "jar": "3ca892fd6ea8b37d01bb6917dbc0bf2637548b756753f65a28d4f1d4d982347f",
-        "sources": "ed30fe6a51c7c15a6f123448304c97185f2039f2aeca9d5e3b4f53de3a4c813c"
+        "jar": "06515776b10bfed334b610273ffdd8884098a9333cb816314b4e4876bfcd2041",
+        "sources": "66936f18eae13931b3e5ab3d5461c46cd63b740e348fc6fd51b9ee72b0629adf"
       },
-      "version": "4.33.4"
+      "version": "4.36.0"
     },
     "com.google.template:soy": {
       "shasums": {
