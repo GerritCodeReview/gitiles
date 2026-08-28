@@ -52,6 +52,41 @@
       "isAi": true,
       "revId": "5c691e2c43e8dc479f2d13ca47df71f7fa270524",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44bb004c_5303649e",
+        "filename": "resources/com/google/gitiles/templates/Doc.soy",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4870948
+      },
+      "writtenOn": "2026-08-28T19:10:29Z",
+      "side": 1,
+      "message": "By default browsers fetch manifests without credentials. On Gitiles instances behind auth or SSO, this unauthenticated request gets redirected to login and logs a manifest syntax error in the browser console. If we keep the manifest, we should add crossorigin\u003d\"use-credentials\" on the link tag, or we could just drop site.webmanifest entirely since Gitiles is not really an installable PWA.",
+      "fixSuggestions": [
+        {
+          "fixId": "3bfc2ec3_830285db",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "resources/com/google/gitiles/templates/Doc.soy",
+              "range": {
+                "startLine": 66,
+                "startChar": 0,
+                "endLine": 67,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "5c691e2c43e8dc479f2d13ca47df71f7fa270524",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
