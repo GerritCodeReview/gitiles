@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c2f8ae5_77ea2fc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-28T23:45:08Z",
+      "side": 1,
+      "message": "This series will need to be rebased and fixed to account for 622621: Add dark mode support to Gitiles | https://gerrit-review.googlesource.com/c/gitiles/+/622621",
+      "revId": "a0a5e911722c7de9f9e9665a09e3d1c1b61b81f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
