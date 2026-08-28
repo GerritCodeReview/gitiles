@@ -141,6 +141,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2957230a_4188ff5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-08-28T17:21:57Z",
+      "side": 1,
+      "message": "Perhaps a matter of taste, but I found the original logo pretty readable even in dark. I could make this update though if others found it unreadable/aesthetic.",
+      "parentUuid": "010f21fd_36e43283",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa5cdf44_5b0d8701",
