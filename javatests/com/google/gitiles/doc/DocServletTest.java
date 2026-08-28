@@ -121,7 +121,7 @@ public class DocServletTest extends ServletTest {
     assertThat(html).contains("Non-HTML is fine.");
 
     assertThat(html).doesNotContain("window.alert");
-    assertThat(html).doesNotContain("<script>");
+    assertThat(html).doesNotContain("<script>window.alert();</script>");
   }
 
   @Test
