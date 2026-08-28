@@ -18,6 +18,16 @@
 PROJECT_PY_PATH=$(bazel query @com_googlesource_gerrit_bazlets//tools/eclipse:project --output location | sed s/BUILD:.*//)
 [ $? -ne 0 ] && echo "Unable fo find project.py" && exit 1
 
-$PROJECT_PY_PATH/project.py -n gitiles -r .
+# Gitiles vendors JGit and java-prettify as submodules under modules/; ask the
+# generic bazlets generator to import them as source folders (navigable and
+# editable in Eclipse) and to drop the redundant java-prettify jar.
+$PROJECT_PY_PATH/project.py -n gitiles -r . \
+  --jgit-root modules/jgit \
+  --jgit-module org.eclipse.jgit \
+  --jgit-module org.eclipse.jgit.archive \
+  --jgit-module org.eclipse.jgit.junit \
+  --java-prettify-root modules/java-prettify \
+  --drop-jar libjava-prettify.jar \
+  --extra-src resources
 [ $? -eq 0 ] && echo "Eclipse configuration generated."
 
