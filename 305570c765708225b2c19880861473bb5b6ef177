@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "20fb9c79_0bb89e48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-28T10:48:11Z",
+      "side": 1,
+      "message": "for me on macos running `bazelisk test //...` raises 66 errors with a `NumberFormatException`, e.g.\n\n```\n1) testMermaidDirectivesCannotInjectCode(com.google.gitiles.doc.SimpleMermaidRendererSecurityTest)\njava.lang.NumberFormatException: For input string: \"28,0\"\n\tat java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)\n\tat java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)\n\tat java.base/java.lang.Double.parseDouble(Double.java:792)\n\tat com.google.gitiles.doc.SvgDoc.getNodeBoundingBoxes(SvgDoc.java:273)\n\tat com.google.gitiles.doc.SvgDoc.assertNoNodeOverlaps(SvgDoc.java:338)\n\tat com.google.gitiles.doc.SvgDoc.assertAllInvariants(SvgDoc.java:108)\n\tat com.google.gitiles.doc.SvgDoc.render(SvgDoc.java:89)\n\tat com.google.gitiles.doc.SimpleMermaidRendererSecurityTest.testMermaidDirectivesCannotInjectCode(SimpleMermaidRendererSecurityTest.java:307)\n```\n\nor\n\n```\n66) testMalformedDelimitersGracefulHandling(com.google.gitiles.doc.SimpleMermaidRendererTest)\njava.lang.NumberFormatException: For input string: \"28,0\"\n\tat java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)\n\tat java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)\n\tat java.base/java.lang.Double.parseDouble(Double.java:792)\n\tat com.google.gitiles.doc.SvgDoc.getNodeBoundingBoxes(SvgDoc.java:273)\n\tat com.google.gitiles.doc.SvgDoc.assertNoNodeOverlaps(SvgDoc.java:338)\n\tat com.google.gitiles.doc.SvgDoc.assertAllInvariants(SvgDoc.java:108)\n\tat com.google.gitiles.doc.SvgDoc.render(SvgDoc.java:89)\n\tat com.google.gitiles.doc.SimpleMermaidRendererTest.render(SimpleMermaidRendererTest.java:632)\n\tat com.google.gitiles.doc.SimpleMermaidRendererTest.testMalformedDelimitersGracefulHandling(SimpleMermaidRendererTest.java:574)\n```",
+      "revId": "305570c765708225b2c19880861473bb5b6ef177",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4cc1f244_979d492b",
         "filename": "java/com/google/gitiles/doc/SimpleMermaidRenderer.java",
         "patchSetId": 15
