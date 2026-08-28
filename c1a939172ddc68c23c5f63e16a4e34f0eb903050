@@ -123,6 +123,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "010f21fd_36e43283",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4639732
+      },
+      "writtenOn": "2026-08-28T17:19:15Z",
+      "side": 1,
+      "message": "You\u0027ll have to conditionally update the page header logo to light theme to avoid black font on black background. You have to add a reverse logo for dark mode",
+      "parentUuid": "45d5b87f_7e009a0e",
+      "revId": "c1a939172ddc68c23c5f63e16a4e34f0eb903050",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa5cdf44_5b0d8701",
