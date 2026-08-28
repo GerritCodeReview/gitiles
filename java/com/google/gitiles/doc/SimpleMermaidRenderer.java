@@ -218,8 +218,10 @@ public class SimpleMermaidRenderer {
       return isEof() ? '\0' : text.charAt(pos);
     }
 
-    char next() {
-      return isEof() ? '\0' : text.charAt(pos++);
+    void advance() {
+      if (!isEof()) {
+        pos++;
+      }
     }
 
     boolean startsWith(String prefix) {
@@ -231,7 +233,19 @@ public class SimpleMermaidRenderer {
       return text.substring(pos, pos + prefix.length()).equalsIgnoreCase(prefix);
     }
 
-    boolean consume(String prefix) {
+    void skip(String prefix) {
+      if (startsWith(prefix)) {
+        pos += prefix.length();
+      }
+    }
+
+    void skipIgnoreCase(String prefix) {
+      if (startsWithIgnoreCase(prefix)) {
+        pos += prefix.length();
+      }
+    }
+
+    boolean tryConsume(String prefix) {
       if (startsWith(prefix)) {
         pos += prefix.length();
         return true;
@@ -239,7 +253,7 @@ public class SimpleMermaidRenderer {
       return false;
     }
 
-    boolean consumeIgnoreCase(String prefix) {
+    boolean tryConsumeIgnoreCase(String prefix) {
       if (startsWithIgnoreCase(prefix)) {
         pos += prefix.length();
         return true;
@@ -365,7 +379,7 @@ public class SimpleMermaidRenderer {
         continue;
       }
 
-      if (s.consumeIgnoreCase("graph") || s.consumeIgnoreCase("flowchart")) {
+      if (s.tryConsumeIgnoreCase("graph") || s.tryConsumeIgnoreCase("flowchart")) {
         s.skipWhitespace();
         String dirStr = s.scanIdentifier().toUpperCase();
         try {
@@ -434,7 +448,7 @@ public class SimpleMermaidRenderer {
         continue;
       }
 
-      if (s.consumeIgnoreCase("direction")) {
+      if (s.tryConsumeIgnoreCase("direction")) {
         s.skipWhitespace();
         String dirStr = s.scanIdentifier().toUpperCase();
         if (!subgraphStack.isEmpty() && !dirStr.isEmpty()) {
@@ -448,7 +462,7 @@ public class SimpleMermaidRenderer {
         continue;
       }
 
-      if (s.consumeIgnoreCase("end")) {
+      if (s.tryConsumeIgnoreCase("end")) {
         char nextC = s.peek();
         if (nextC == '\0' || Character.isWhitespace(nextC) || nextC == ';') {
           if (!subgraphStack.isEmpty()) {
@@ -459,7 +473,7 @@ public class SimpleMermaidRenderer {
         }
       }
 
-      if (s.consumeIgnoreCase("subgraph")) {
+      if (s.tryConsumeIgnoreCase("subgraph")) {
         parseSubgraphHeader(s, graph, subgraphStack);
         s.skipToStatementEnd();
         continue;
@@ -480,33 +494,33 @@ public class SimpleMermaidRenderer {
 
     // Check for `subgraph "Title Only"`
     if (s.startsWith("\"")) {
-      s.consume("\"");
+      s.skip("\"");
       int start = s.pos;
-      while (!s.isEof() && !s.startsWith("\"")) s.next();
+      while (!s.isEof() && !s.startsWith("\"")) s.advance();
       sgTitle = s.text.substring(start, s.pos);
-      s.consume("\"");
+      s.skip("\"");
       sgId = "sg_" + graph.allSubgraphs.size();
     } else {
       int start = s.pos;
       while (!s.isEof() && !s.startsWith("[") && !s.startsWith("\"") && s.peek() != '\n' && s.peek() != ';') {
-        s.next();
+        s.advance();
       }
       String rawName = s.text.substring(start, s.pos).trim();
       s.skipWhitespace();
       if (s.startsWith("[")) {
-        s.consume("[");
+        s.skip("[");
         s.skipWhitespace();
-        boolean quoted = s.consume("\"");
+        boolean quoted = s.tryConsume("\"");
         int tstart = s.pos;
         if (quoted) {
-          while (!s.isEof() && !s.startsWith("\"]") && !s.startsWith("\"")) s.next();
+          while (!s.isEof() && !s.startsWith("\"]") && !s.startsWith("\"")) s.advance();
           sgTitle = s.text.substring(tstart, s.pos);
-          s.consume("\"");
-          s.consume("]");
+          s.skip("\"");
+          s.skip("]");
         } else {
-          while (!s.isEof() && !s.startsWith("]")) s.next();
+          while (!s.isEof() && !s.startsWith("]")) s.advance();
           sgTitle = s.text.substring(tstart, s.pos);
-          s.consume("]");
+          s.skip("]");
         }
         sgId = rawName;
       } else {
@@ -532,7 +546,7 @@ public class SimpleMermaidRenderer {
   }
 
   private static void parseStyleDirective(CharScanner s, MermaidGraph graph) {
-    s.consumeIgnoreCase("style");
+    s.skipIgnoreCase("style");
     s.skipWhitespace();
     String targetId = s.scanIdentifier();
     if (targetId.isEmpty()) {
@@ -678,7 +692,7 @@ public class SimpleMermaidRenderer {
     while (!s.isEof()) {
       s.skipWhitespace();
       if (s.startsWith("&")) {
-        s.consume("&");
+        s.skip("&");
         s.skipWhitespace();
         RawNodeToken next = scanNodeToken(s);
         if (next != null) {
@@ -781,11 +795,11 @@ public class SimpleMermaidRenderer {
       String close = d[1];
       String shapeName = d[2];
       if (s.startsWith(open)) {
-        s.consume(open);
+        s.skip(open);
         shape = NodeShape.valueOf(shapeName);
         s.skipWhitespace();
         if (s.startsWith("\"")) {
-          s.consume("\"");
+          s.skip("\"");
           int start = s.pos;
           while (!s.isEof() && s.peek() != '\n' && s.peek() != '\r') {
             if (s.startsWith("\\\"")) {
@@ -793,20 +807,20 @@ public class SimpleMermaidRenderer {
             } else if (s.startsWith("\"")) {
               break;
             } else {
-              s.next();
+              s.advance();
             }
           }
           label = s.text.substring(start, s.pos);
-          s.consume("\"");
+          s.skip("\"");
           s.skipWhitespace();
-          s.consume(close);
+          s.skip(close);
         } else {
           int start = s.pos;
           while (!s.isEof() && s.peek() != '\n' && !s.startsWith(close)) {
-            s.next();
+            s.advance();
           }
           label = s.text.substring(start, s.pos);
-          s.consume(close);
+          s.skip(close);
         }
         break;
       }
@@ -823,43 +837,43 @@ public class SimpleMermaidRenderer {
     if ((s.startsWith("-- ") || s.startsWith("--\"") || s.startsWith("--\t"))
         && !s.startsWith("-->")
         && !s.startsWith("---|")) {
-      s.consume("--");
+      s.skip("--");
       s.skipWhitespace();
       int start = s.pos;
       while (!s.isEof() && s.peek() != '\n' && !s.startsWith("-->") && !s.startsWith("---")) {
-        s.next();
+        s.advance();
       }
       String label = cleanLabel(s.text.substring(start, s.pos));
-      boolean arrow = s.consume("-->");
-      if (!arrow) s.consume("---");
+      boolean arrow = s.tryConsume("-->");
+      if (!arrow) s.skip("---");
       return new RawEdgeToken(EdgeStroke.SOLID, arrow, label);
     }
 
     if ((s.startsWith("== ") || s.startsWith("==\"") || s.startsWith("==\t"))
         && !s.startsWith("==>")
         && !s.startsWith("===|")) {
-      s.consume("==");
+      s.skip("==");
       s.skipWhitespace();
       int start = s.pos;
       while (!s.isEof() && s.peek() != '\n' && !s.startsWith("==>") && !s.startsWith("===")) {
-        s.next();
+        s.advance();
       }
       String label = cleanLabel(s.text.substring(start, s.pos));
-      boolean arrow = s.consume("==>");
-      if (!arrow) s.consume("===");
+      boolean arrow = s.tryConsume("==>");
+      if (!arrow) s.skip("===");
       return new RawEdgeToken(EdgeStroke.THICK, arrow, label);
     }
 
     if (s.startsWith("-. ") || s.startsWith("-.\"") || s.startsWith("-.\t")) {
-      s.consume("-.");
+      s.skip("-.");
       s.skipWhitespace();
       int start = s.pos;
       while (!s.isEof() && s.peek() != '\n' && !s.startsWith(".->") && !s.startsWith(".-")) {
-        s.next();
+        s.advance();
       }
       String label = cleanLabel(s.text.substring(start, s.pos));
-      boolean arrow = s.consume(".->");
-      if (!arrow) s.consume(".-");
+      boolean arrow = s.tryConsume(".->");
+      if (!arrow) s.skip(".-");
       return new RawEdgeToken(EdgeStroke.DASHED, arrow, label);
     }
 
@@ -879,17 +893,17 @@ public class SimpleMermaidRenderer {
       EdgeStroke stroke = EdgeStroke.valueOf(op[1]);
       boolean arrow = Boolean.parseBoolean(op[2]);
       if (s.startsWith(prefix)) {
-        s.consume(prefix);
+        s.skip(prefix);
         s.skipWhitespace();
         String label = null;
         if (s.startsWith("|")) {
-          s.consume("|");
+          s.skip("|");
           int start = s.pos;
           while (!s.isEof() && s.peek() != '\n' && !s.startsWith("|")) {
-            s.next();
+            s.advance();
           }
           label = cleanLabel(s.text.substring(start, s.pos));
-          s.consume("|");
+          s.skip("|");
         }
         return new RawEdgeToken(stroke, arrow, label);
       }
