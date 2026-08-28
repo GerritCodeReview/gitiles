@@ -16,6 +16,42 @@
       "message": "PTAL. I believe, however surfacelevel and trivial this is, it shaves a little micro-friction off of using gitiles (where\u0027s my tab!).\n\nAlso I\u0027m really happy with the logo.",
       "revId": "5c691e2c43e8dc479f2d13ca47df71f7fa270524",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b6142bf_04d042d6",
+        "filename": "java/com/google/gitiles/Renderer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-08-28T16:53:03Z",
+      "side": 1,
+      "message": "`favicon.ico` is added to `resources/com/google/gitiles/static/favicon.ico` and mentioned in the commit message, but `gitiles.FAVICON_ICO_URL` is omitted from `STATIC_URL_GLOBALS`.\n\nBecause Gitiles serves static assets under `+static/` rather than the repository/site root, browsers and tools will not discover `+static/favicon.ico` unless it is exposed in the templates via `\u003clink rel\u003d\"icon\" href\u003d\"{$staticUrls.FAVICON_ICO_URL}\" sizes\u003d\"any\"\u003e` (or similar fallback).\n\nConsider adding `gitiles.FAVICON_ICO_URL` to `STATIC_URL_GLOBALS` and declaring it in `Common.soy` and `Doc.soy` (as well as checking it in `FaviconTest`), or documenting if `favicon.ico` is intended strictly for direct static requests.",
+      "isAi": true,
+      "revId": "5c691e2c43e8dc479f2d13ca47df71f7fa270524",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83e90937_937f9c79",
+        "filename": "javatests/com/google/gitiles/FaviconTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-08-28T16:53:03Z",
+      "side": 1,
+      "message": "If `gitiles.FAVICON_ICO_URL` is added to `STATIC_URL_GLOBALS`, consider adding an assertion here:\n```java\nassertThat(Renderer.STATIC_URL_GLOBALS)\n    .containsEntry(\"gitiles.FAVICON_ICO_URL\", \"favicon.ico\");\n```\nand asserting the corresponding `\u003clink\u003e` element in `assertFaviconElementsPresent`.",
+      "isAi": true,
+      "revId": "5c691e2c43e8dc479f2d13ca47df71f7fa270524",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
