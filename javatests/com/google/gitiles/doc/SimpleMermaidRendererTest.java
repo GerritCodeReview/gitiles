@@ -17,7 +17,7 @@ package com.google.gitiles.doc;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.base.Splitter;
-import com.google.common.primitives.Doubles;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
@@ -621,15 +621,24 @@ public class SimpleMermaidRendererTest {
 
     // Mutual same-layer edge with label
     String code5 = "graph TD\n  A --> B\n  B --> A\n  A -->|Golden Star| B\n  C --> D\n";
-    render(code5);
+    assertThat(render(code5)).isNotNull();
 
     // Trailing non-edge characters to hit scanEdgeToken default return null
     String code6 = "graph TD\n  A 12345\n";
     assertThat(SimpleMermaidRenderer.renderToSvg(code6).isPresent()).isTrue();
   }
 
+  @CanIgnoreReturnValue
   private static SvgDoc render(String code) {
     return SvgDoc.render(code);
+  }
+
+  private static Double tryParseDouble(String str) {
+    try {
+      return Double.parseDouble(str);
+    } catch (NumberFormatException e) {
+      return null;
+    }
   }
 
   @Test
@@ -1303,7 +1312,7 @@ public class SimpleMermaidRendererTest {
       String d = p.getAttribute("d");
       if (d.contains(" C ")) {
         for (String part : Splitter.onPattern("[,\\s]+").omitEmptyStrings().split(d)) {
-          Double val = Doubles.tryParse(part);
+          Double val = tryParseDouble(part);
           if (val != null && val > dRight) {
             foundClearanceLoop = true;
             break;

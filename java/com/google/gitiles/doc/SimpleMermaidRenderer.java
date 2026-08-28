@@ -14,6 +14,7 @@
 
 package com.google.gitiles.doc;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -218,6 +219,7 @@ public class SimpleMermaidRenderer {
       return isEof() ? '\0' : text.charAt(pos);
     }
 
+    @CanIgnoreReturnValue
     char next() {
       return isEof() ? '\0' : text.charAt(pos++);
     }
@@ -231,6 +233,7 @@ public class SimpleMermaidRenderer {
       return text.substring(pos, pos + prefix.length()).equalsIgnoreCase(prefix);
     }
 
+    @CanIgnoreReturnValue
     boolean consume(String prefix) {
       if (startsWith(prefix)) {
         pos += prefix.length();
@@ -239,6 +242,7 @@ public class SimpleMermaidRenderer {
       return false;
     }
 
+    @CanIgnoreReturnValue
     boolean consumeIgnoreCase(String prefix) {
       if (startsWithIgnoreCase(prefix)) {
         pos += prefix.length();
