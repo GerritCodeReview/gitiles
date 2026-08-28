@@ -139,8 +139,15 @@ public class BlameCacheImpl implements BlameCache {
 
   @Override
   public List<Region> get(Repository repo, ObjectId commitId, String path) throws IOException {
+    return get(repo, commitId, path, ImmutableSet.of());
+  }
+
+  @Override
+  public List<Region> get(
+      Repository repo, ObjectId commitId, String path, Set<ObjectId> ignoreIds)
+      throws IOException {
     try {
-      Key key = new Key(commitId, path);
+      Key key = new Key(commitId, path, ignoreIds);
       return cache.get(key, newLoader(key, repo));
     } catch (ExecutionException e) {
       throw new IOException(e);
@@ -170,6 +177,9 @@ public class BlameCacheImpl implements BlameCache {
     }
 
     try (BlameGenerator gen = new BlameGenerator(repo, key.path)) {
+      if (!key.getIgnoreIds().isEmpty()) {
+        gen.setIgnoreRevs(key.getIgnoreIds());
+      }
       gen.push(null, blameCommit);
       if (gen.getResultContents() == null) {
         return ImmutableList.of();
