@@ -15,16 +15,37 @@
 package com.google.gitiles.blame.cache;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
+import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
+import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
+import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
+import org.eclipse.jgit.junit.TestRepository;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/** Unit tests for {@link BlameCacheImpl.Key}. */
+/** Unit tests for {@link BlameCache} and {@link BlameCacheImpl}. */
 @RunWith(JUnit4.class)
 public class BlameCacheTest {
+  private TestRepository<DfsRepository> repo;
+  private BlameCacheImpl blameCache;
+
+  @Before
+  public void setUp() throws Exception {
+    repo = new TestRepository<>(new InMemoryRepository(new DfsRepositoryDescription("test")));
+    blameCache = new BlameCacheImpl();
+  }
+
   @Test
   public void keyEqualsAndHashCode() {
     ObjectId c1 = ObjectId.fromString("1111111111111111111111111111111111111111");
@@ -63,5 +84,105 @@ public class BlameCacheTest {
             "1111111111111111111111111111111111111111:foo.txt"
                 + " ignore=[2222222222222222222222222222222222222222,"
                 + " 3333333333333333333333333333333333333333]");
+  }
+
+  @Test
+  public void getWithoutIgnoreIdsAttributesToLastCommit() throws Exception {
+    RevCommit c1 = repo.commit().add("foo.txt", "line1\nline2\n").create();
+    RevCommit c2 =
+        repo.commit().parent(c1).add("foo.txt", "line1_formatted\nline2_formatted\n").create();
+
+    List<Region> regions = blameCache.get(repo.getRepository(), c2, "foo.txt");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).getSourceCommit()).isEqualTo(c2);
+    assertThat(regions.get(0).getStart()).isEqualTo(0);
+    assertThat(regions.get(0).getEnd()).isEqualTo(2);
+  }
+
+  @Test
+  public void getWithIgnoredCommitAttributesToParentCommit() throws Exception {
+    RevCommit c1 = repo.commit().add("foo.txt", "line1\nline2\n").create();
+    RevCommit c2 =
+        repo.commit().parent(c1).add("foo.txt", "line1_formatted\nline2_formatted\n").create();
+
+    List<Region> regions =
+        blameCache.get(repo.getRepository(), c2, "foo.txt", ImmutableSet.of(c2));
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).getSourceCommit()).isEqualTo(c1);
+    assertThat(regions.get(0).getStart()).isEqualTo(0);
+    assertThat(regions.get(0).getEnd()).isEqualTo(2);
+  }
+
+  @Test
+  public void cacheIsolationWithDifferentIgnoreIds() throws Exception {
+    RevCommit c1 = repo.commit().add("foo.txt", "line1\nline2\n").create();
+    RevCommit c2 =
+        repo.commit().parent(c1).add("foo.txt", "line1_formatted\nline2_formatted\n").create();
+
+    // Query 1: standard blame
+    List<Region> unignored = blameCache.get(repo.getRepository(), c2, "foo.txt");
+    assertThat(unignored.get(0).getSourceCommit()).isEqualTo(c2);
+
+    // Query 2: ignored blame
+    List<Region> ignored =
+        blameCache.get(repo.getRepository(), c2, "foo.txt", ImmutableSet.of(c2));
+    assertThat(ignored.get(0).getSourceCommit()).isEqualTo(c1);
+
+    // Verify both are cached under separate keys
+    assertThat(blameCache.getCache().asMap()).containsKey(new BlameCacheImpl.Key(c2, "foo.txt"));
+    assertThat(blameCache.getCache().asMap())
+        .containsKey(new BlameCacheImpl.Key(c2, "foo.txt", ImmutableSet.of(c2)));
+    assertThat(blameCache.getCache().size()).isEqualTo(2);
+  }
+
+  @Test
+  public void getWithMultipleConsecutiveIgnoredCommits() throws Exception {
+    RevCommit c1 = repo.commit().add("foo.txt", "line1\nline2\n").create();
+    RevCommit c2 =
+        repo.commit().parent(c1).add("foo.txt", "line1_format1\nline2_format1\n").create();
+    RevCommit c3 =
+        repo.commit().parent(c2).add("foo.txt", "line1_format2\nline2_format2\n").create();
+
+    // Ignore both c2 and c3 -> blame should walk back across both to c1
+    List<Region> regions =
+        blameCache.get(repo.getRepository(), c3, "foo.txt", ImmutableSet.of(c2, c3));
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).getSourceCommit()).isEqualTo(c1);
+    assertThat(regions.get(0).getStart()).isEqualTo(0);
+    assertThat(regions.get(0).getEnd()).isEqualTo(2);
+  }
+
+  @Test
+  public void defaultInterfaceMethodDelegatesWhenEmpty() throws Exception {
+    BlameCache customCache =
+        new BlameCache() {
+          @Override
+          public List<Region> get(Repository repo, ObjectId commitId, String path) {
+            return ImmutableList.of(new Region(null, null, null, 0, 1));
+          }
+
+          @Override
+          public ObjectId findLastCommit(Repository repo, ObjectId commitId, String path) {
+            return ObjectId.zeroId();
+          }
+        };
+
+    // When ignoreIds is null or empty, default method delegates to get(repo, commit, path)
+    List<Region> res1 = customCache.get(repo.getRepository(), ObjectId.zeroId(), "foo.txt", null);
+    assertThat(res1).hasSize(1);
+
+    List<Region> res2 =
+        customCache.get(repo.getRepository(), ObjectId.zeroId(), "foo.txt", ImmutableSet.of());
+    assertThat(res2).hasSize(1);
+
+    // When ignoreIds is non-empty, default method throws UnsupportedOperationException
+    assertThrows(
+        UnsupportedOperationException.class,
+        () ->
+            customCache.get(
+                repo.getRepository(),
+                ObjectId.zeroId(),
+                "foo.txt",
+                ImmutableSet.of(ObjectId.zeroId())));
   }
 }
