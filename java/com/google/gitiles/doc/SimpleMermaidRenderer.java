@@ -14,6 +14,12 @@
 
 package com.google.gitiles.doc;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.base.Strings.nullToEmpty;
+import static com.google.common.primitives.Doubles.max;
+
+import com.google.common.base.Ascii;
+import com.google.common.collect.Iterables;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +31,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
@@ -37,11 +42,12 @@ import javax.annotation.Nullable;
  * Server-side AST parser, layout engine, and SVG renderer for Mermaid flowchart and graph diagrams.
  *
  * <p>Implements a pure streaming character-scanner AST parser without regex splits, hierarchical
- * Sugiyama DAG layout with cycle breaking, crossing reduction, arbitrary nested subgraphs,
- * dynamic edge clearances, bidirectional curved paths, and responsive SVG emission.
+ * Sugiyama DAG layout with cycle breaking, crossing reduction, arbitrary nested subgraphs, dynamic
+ * edge clearances, bidirectional curved paths, and responsive SVG emission.
  */
-public class SimpleMermaidRenderer {
+public final class SimpleMermaidRenderer {
 
+  /** Graph layout flow direction. */
   public enum Direction {
     LR,
     TD,
@@ -50,6 +56,7 @@ public class SimpleMermaidRenderer {
     BT
   }
 
+  /** Visual shape of a graph node. */
   public enum NodeShape {
     RECTANGLE,
     ROUNDED,
@@ -62,6 +69,7 @@ public class SimpleMermaidRenderer {
     FLAG
   }
 
+  /** Stroke styling of a connecting edge. */
   public enum EdgeStroke {
     SOLID,
     DASHED,
@@ -72,6 +80,7 @@ public class SimpleMermaidRenderer {
   // AST Model Objects
   // =========================================================================
 
+  /** A node in the Mermaid diagram. */
   public static class Node {
     public final String id;
     public String label;
@@ -87,8 +96,8 @@ public class SimpleMermaidRenderer {
     public Subgraph parentSubgraph;
     public double barycenter = 0;
     public boolean isVirtual = false;
-    public @Nullable String customFill;
-    public @Nullable String customStroke;
+    @Nullable public String customFill;
+    @Nullable public String customStroke;
 
     public Node(String id) {
       this.id = id;
@@ -102,6 +111,7 @@ public class SimpleMermaidRenderer {
     }
   }
 
+  /** A logical subgraph or cluster containing nodes and nested subgraphs. */
   public static class Subgraph {
     public final String id;
     public String title;
@@ -115,8 +125,8 @@ public class SimpleMermaidRenderer {
     public double y;
     public double width;
     public double height;
-    public @Nullable String customFill;
-    public @Nullable String customStroke;
+    @Nullable public String customFill;
+    @Nullable public String customStroke;
 
     public Subgraph(String id, String title) {
       this.id = id;
@@ -124,6 +134,7 @@ public class SimpleMermaidRenderer {
     }
   }
 
+  /** A directional or bidirectional edge between nodes. */
   public static class Edge {
     public final String fromId;
     public final String toId;
@@ -142,6 +153,7 @@ public class SimpleMermaidRenderer {
     }
   }
 
+  /** An edge between subgraphs. */
   public static class SubgraphEdge {
     public final String fromSgId;
     public final String toSgId;
@@ -159,6 +171,7 @@ public class SimpleMermaidRenderer {
     }
   }
 
+  /** Parsed Mermaid graph structure containing nodes, edges, and subgraphs. */
   public static class MermaidGraph {
     public Direction direction = Direction.TD;
     public final Map<String, Node> nodes = new LinkedHashMap<>();
@@ -184,16 +197,25 @@ public class SimpleMermaidRenderer {
       return node;
     }
 
-    public @Nullable Subgraph lookupSubgraph(String name) {
-      if (name == null) return null;
+    @Nullable
+    public Subgraph lookupSubgraph(String name) {
+      if (name == null) {
+        return null;
+      }
       String clean = name.trim();
       Subgraph sg = subgraphsMap.get(clean);
-      if (sg != null) return sg;
+      if (sg != null) {
+        return sg;
+      }
       sg = subgraphsMap.get(stripWhitespace(clean));
-      if (sg != null) return sg;
-      sg = subgraphsMap.get(clean.toLowerCase());
-      if (sg != null) return sg;
-      sg = subgraphsMap.get(stripWhitespace(clean).toLowerCase());
+      if (sg != null) {
+        return sg;
+      }
+      sg = subgraphsMap.get(clean.toLowerCase(Locale.ROOT));
+      if (sg != null) {
+        return sg;
+      }
+      sg = subgraphsMap.get(stripWhitespace(clean).toLowerCase(Locale.ROOT));
       return sg;
     }
   }
@@ -207,7 +229,7 @@ public class SimpleMermaidRenderer {
     int pos;
 
     CharScanner(String text) {
-      this.text = text != null ? text : "";
+      this.text = nullToEmpty(text);
       this.pos = 0;
     }
 
@@ -230,8 +252,10 @@ public class SimpleMermaidRenderer {
     }
 
     boolean startsWithIgnoreCase(String prefix) {
-      if (text.length() - pos < prefix.length()) return false;
-      return text.substring(pos, pos + prefix.length()).equalsIgnoreCase(prefix);
+      if (text.length() - pos < prefix.length()) {
+        return false;
+      }
+      return Ascii.equalsIgnoreCase(text.substring(pos, pos + prefix.length()), prefix);
     }
 
     void skip(String prefix) {
@@ -282,7 +306,9 @@ public class SimpleMermaidRenderer {
     void skipLine() {
       while (!isEof()) {
         char c = text.charAt(pos++);
-        if (c == '\n') break;
+        if (c == '\n') {
+          break;
+        }
       }
     }
 
@@ -352,7 +378,7 @@ public class SimpleMermaidRenderer {
     }
 
     Optional<MermaidGraph> graphOpt = parse(mermaidCode);
-    if (!graphOpt.isPresent()) {
+    if (graphOpt.isEmpty()) {
       return Optional.empty();
     }
 
@@ -373,7 +399,9 @@ public class SimpleMermaidRenderer {
     // Scan for diagram type and direction
     while (!s.isEof()) {
       s.skipWhitespaceAndNewlines();
-      if (s.isEof()) break;
+      if (s.isEof()) {
+        break;
+      }
 
       if (s.startsWith("%%")) {
         s.skipLine();
@@ -382,7 +410,7 @@ public class SimpleMermaidRenderer {
 
       if (s.tryConsumeIgnoreCase("graph") || s.tryConsumeIgnoreCase("flowchart")) {
         s.skipWhitespace();
-        String dirStr = s.scanIdentifier().toUpperCase();
+        String dirStr = s.scanIdentifier().toUpperCase(Locale.ROOT);
         try {
           if (!dirStr.isEmpty()) {
             graph.direction = Direction.valueOf(dirStr);
@@ -421,7 +449,9 @@ public class SimpleMermaidRenderer {
     // Parse diagram statements into AST
     while (!s.isEof()) {
       s.skipWhitespaceAndNewlines();
-      if (s.isEof()) break;
+      if (s.isEof()) {
+        break;
+      }
 
       if (s.startsWith("%%")) {
         s.skipLine();
@@ -451,7 +481,7 @@ public class SimpleMermaidRenderer {
 
       if (s.tryConsumeIgnoreCase("direction")) {
         s.skipWhitespace();
-        String dirStr = s.scanIdentifier().toUpperCase();
+        String dirStr = s.scanIdentifier().toUpperCase(Locale.ROOT);
         if (!subgraphStack.isEmpty() && !dirStr.isEmpty()) {
           try {
             subgraphStack.peek().direction = Direction.valueOf(dirStr);
@@ -491,19 +521,26 @@ public class SimpleMermaidRenderer {
   private static void parseSubgraphHeader(
       CharScanner s, MermaidGraph graph, Deque<Subgraph> subgraphStack) {
     s.skipWhitespace();
-    String sgId, sgTitle;
+    String sgId;
+    String sgTitle;
 
     // Check for `subgraph "Title Only"`
     if (s.startsWith("\"")) {
       s.skip("\"");
       int start = s.pos;
-      while (!s.isEof() && !s.startsWith("\"")) s.advance();
+      while (!s.isEof() && !s.startsWith("\"")) {
+        s.advance();
+      }
       sgTitle = s.text.substring(start, s.pos);
       s.skip("\"");
       sgId = "sg_" + graph.allSubgraphs.size();
     } else {
       int start = s.pos;
-      while (!s.isEof() && !s.startsWith("[") && !s.startsWith("\"") && s.peek() != '\n' && s.peek() != ';') {
+      while (!s.isEof()
+          && !s.startsWith("[")
+          && !s.startsWith("\"")
+          && s.peek() != '\n'
+          && s.peek() != ';') {
         s.advance();
       }
       String rawName = s.text.substring(start, s.pos).trim();
@@ -514,12 +551,16 @@ public class SimpleMermaidRenderer {
         boolean quoted = s.tryConsume("\"");
         int tstart = s.pos;
         if (quoted) {
-          while (!s.isEof() && !s.startsWith("\"]") && !s.startsWith("\"")) s.advance();
+          while (!s.isEof() && !s.startsWith("\"]") && !s.startsWith("\"")) {
+            s.advance();
+          }
           sgTitle = s.text.substring(tstart, s.pos);
           s.skip("\"");
           s.skip("]");
         } else {
-          while (!s.isEof() && !s.startsWith("]")) s.advance();
+          while (!s.isEof() && !s.startsWith("]")) {
+            s.advance();
+          }
           sgTitle = s.text.substring(tstart, s.pos);
           s.skip("]");
         }
@@ -541,8 +582,8 @@ public class SimpleMermaidRenderer {
     subgraphStack.push(sg);
     graph.subgraphsMap.put(sgId, sg);
     graph.subgraphsMap.put(sgTitle, sg);
-    graph.subgraphsMap.put(sgId.toLowerCase(), sg);
-    graph.subgraphsMap.put(sgTitle.toLowerCase(), sg);
+    graph.subgraphsMap.put(sgId.toLowerCase(Locale.ROOT), sg);
+    graph.subgraphsMap.put(sgTitle.toLowerCase(Locale.ROOT), sg);
     graph.allSubgraphs.add(sg);
   }
 
@@ -558,7 +599,9 @@ public class SimpleMermaidRenderer {
     int start = s.pos;
     while (!s.isEof()) {
       char c = s.peek();
-      if (c == '\n' || c == '\r' || c == ';') break;
+      if (c == '\n' || c == '\r' || c == ';') {
+        break;
+      }
       s.pos++;
     }
     String rest = s.text.substring(start, s.pos);
@@ -579,7 +622,7 @@ public class SimpleMermaidRenderer {
       String part = rest.substring(p, nextSep).trim();
       int colonIdx = part.indexOf(':');
       if (colonIdx != -1) {
-        String key = part.substring(0, colonIdx).trim().toLowerCase();
+        String key = part.substring(0, colonIdx).trim().toLowerCase(Locale.ROOT);
         String val = part.substring(colonIdx + 1).trim();
         if (key.equals("fill")) {
           fill = val;
@@ -599,19 +642,29 @@ public class SimpleMermaidRenderer {
 
     Subgraph sg = graph.lookupSubgraph(targetId);
     if (sg != null) {
-      if (fill != null) sg.customFill = fill;
-      if (stroke != null) sg.customStroke = stroke;
+      if (fill != null) {
+        sg.customFill = fill;
+      }
+      if (stroke != null) {
+        sg.customStroke = stroke;
+      }
     }
     Node n = graph.nodes.get(targetId);
     if (n != null) {
-      if (fill != null) n.customFill = fill;
-      if (stroke != null) n.customStroke = stroke;
+      if (fill != null) {
+        n.customFill = fill;
+      }
+      if (stroke != null) {
+        n.customStroke = stroke;
+      }
     }
   }
 
   private static boolean isValidCssColor(@Nullable String val) {
-    if (val == null || val.isEmpty()) return false;
-    String v = val.trim().toLowerCase();
+    if (isNullOrEmpty(val)) {
+      return false;
+    }
+    String v = val.trim().toLowerCase(Locale.ROOT);
     if (v.startsWith("javascript:")
         || v.startsWith("data:")
         || v.contains("url(")
@@ -633,7 +686,9 @@ public class SimpleMermaidRenderer {
   private static void parseStatement(
       CharScanner s, MermaidGraph graph, @Nullable Subgraph currentSubgraph) {
     List<RawNodeToken> prevGroup = scanNodeGroup(s);
-    if (prevGroup.isEmpty()) return;
+    if (prevGroup.isEmpty()) {
+      return;
+    }
 
     for (RawNodeToken token : prevGroup) {
       applyNodeToken(token, graph, currentSubgraph);
@@ -641,13 +696,19 @@ public class SimpleMermaidRenderer {
 
     while (!s.isEof()) {
       char c = s.peek();
-      if (c == ';' || c == '\n' || c == '\r') break;
+      if (c == ';' || c == '\n' || c == '\r') {
+        break;
+      }
 
       RawEdgeToken edge = scanEdgeToken(s);
-      if (edge == null) break;
+      if (edge == null) {
+        break;
+      }
 
       List<RawNodeToken> nextGroup = scanNodeGroup(s);
-      if (nextGroup.isEmpty()) break;
+      if (nextGroup.isEmpty()) {
+        break;
+      }
 
       for (RawNodeToken token : nextGroup) {
         applyNodeToken(token, graph, currentSubgraph);
@@ -687,7 +748,9 @@ public class SimpleMermaidRenderer {
   private static List<RawNodeToken> scanNodeGroup(CharScanner s) {
     List<RawNodeToken> group = new ArrayList<>();
     RawNodeToken first = scanNodeToken(s);
-    if (first == null) return group;
+    if (first == null) {
+      return group;
+    }
     group.add(first);
 
     while (!s.isEof()) {
@@ -753,7 +816,7 @@ public class SimpleMermaidRenderer {
 
     StringBuilder cur = new StringBuilder();
     for (String w : words) {
-      if (cur.length() == 0) {
+      if (cur.isEmpty()) {
         cur.append(w);
       } else if (cur.length() + 1 + w.length() <= Math.max(targetLen + 4, 18)) {
         cur.append(" ").append(w);
@@ -768,12 +831,17 @@ public class SimpleMermaidRenderer {
     return result;
   }
 
-  private static @Nullable RawNodeToken scanNodeToken(CharScanner s) {
+  @Nullable
+  private static RawNodeToken scanNodeToken(CharScanner s) {
     s.skipWhitespace();
-    if (s.isEof()) return null;
+    if (s.isEof()) {
+      return null;
+    }
 
     String id = s.scanIdentifier();
-    if (id.isEmpty()) return null;
+    if (id.isEmpty()) {
+      return null;
+    }
 
     s.skipWhitespace();
     NodeShape shape = NodeShape.RECTANGLE;
@@ -830,9 +898,12 @@ public class SimpleMermaidRenderer {
     return new RawNodeToken(id, shape, label != null ? cleanLabel(label) : null);
   }
 
-  private static @Nullable RawEdgeToken scanEdgeToken(CharScanner s) {
+  @Nullable
+  private static RawEdgeToken scanEdgeToken(CharScanner s) {
     s.skipWhitespace();
-    if (s.isEof()) return null;
+    if (s.isEof()) {
+      return null;
+    }
 
     // 1. Infix labels: -- label -->, -- "label" -->, == label ==>, -. label .->, -- label ---
     if ((s.startsWith("-- ") || s.startsWith("--\"") || s.startsWith("--\t"))
@@ -846,7 +917,9 @@ public class SimpleMermaidRenderer {
       }
       String label = cleanLabel(s.text.substring(start, s.pos));
       boolean arrow = s.tryConsume("-->");
-      if (!arrow) s.skip("---");
+      if (!arrow) {
+        s.skip("---");
+      }
       return new RawEdgeToken(EdgeStroke.SOLID, arrow, label);
     }
 
@@ -861,7 +934,9 @@ public class SimpleMermaidRenderer {
       }
       String label = cleanLabel(s.text.substring(start, s.pos));
       boolean arrow = s.tryConsume("==>");
-      if (!arrow) s.skip("===");
+      if (!arrow) {
+        s.skip("===");
+      }
       return new RawEdgeToken(EdgeStroke.THICK, arrow, label);
     }
 
@@ -874,7 +949,9 @@ public class SimpleMermaidRenderer {
       }
       String label = cleanLabel(s.text.substring(start, s.pos));
       boolean arrow = s.tryConsume(".->");
-      if (!arrow) s.skip(".-");
+      if (!arrow) {
+        s.skip(".-");
+      }
       return new RawEdgeToken(EdgeStroke.DASHED, arrow, label);
     }
 
@@ -914,7 +991,9 @@ public class SimpleMermaidRenderer {
   }
 
   private static String cleanLabel(String raw) {
-    if (raw == null) return "";
+    if (raw == null) {
+      return "";
+    }
     String s = raw.trim();
     if (s.startsWith("\"") && s.endsWith("\"") && s.length() >= 2) {
       s = s.substring(1, s.length() - 1);
@@ -928,7 +1007,9 @@ public class SimpleMermaidRenderer {
   }
 
   private static String stripWhitespace(String s) {
-    if (s == null) return "";
+    if (s == null) {
+      return "";
+    }
     StringBuilder sb = new StringBuilder(s.length());
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
@@ -943,7 +1024,7 @@ public class SimpleMermaidRenderer {
 
   private static List<String> parseLabelLines(String label) {
     List<String> lines = new ArrayList<>();
-    if (label == null || label.isEmpty()) {
+    if (isNullOrEmpty(label)) {
       lines.add("");
       return lines;
     }
@@ -974,7 +1055,7 @@ public class SimpleMermaidRenderer {
         double tw = maxLineLen * 7.5;
         double th = n.labelLines.size() * 18.0;
         n.width = Math.max(90, tw * 1.5 + 36);
-        n.height = Math.max(50, Math.max(th * 2.2 + 24, n.width * 0.65));
+        n.height = max(50, th * 2.2 + 24, n.width * 0.65);
       } else if (n.shape == NodeShape.CYLINDER) {
         n.width = Math.max(80, maxLineLen * 7.5 + 32);
         n.height = Math.max(50, n.labelLines.size() * 18 + 26);
@@ -1064,11 +1145,13 @@ public class SimpleMermaidRenderer {
       } else if (!comp.subgraphs.isEmpty()) {
         layoutCompoundComponent(graph, graph.direction, isHorizontal, comp);
       } else {
-        layoutBySugiyamaDAG(isHorizontal, comp.nodes, comp.edges);
+        layoutBySugiyamaDag(isHorizontal, comp.nodes, comp.edges);
       }
 
-      double cMinX = Double.MAX_VALUE, cMinY = Double.MAX_VALUE;
-      double cMaxX = Double.MIN_VALUE, cMaxY = Double.MIN_VALUE;
+      double cMinX = Double.MAX_VALUE;
+      double cMinY = Double.MAX_VALUE;
+      double cMaxX = Double.MIN_VALUE;
+      double cMaxY = Double.MIN_VALUE;
       for (Node n : comp.nodes.values()) {
         cMinX = Math.min(cMinX, n.x);
         cMinY = Math.min(cMinY, n.y);
@@ -1137,8 +1220,10 @@ public class SimpleMermaidRenderer {
     }
 
     // Compute bounding box
-    double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE;
-    double maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
+    double minX = Double.MAX_VALUE;
+    double minY = Double.MAX_VALUE;
+    double maxX = Double.MIN_VALUE;
+    double maxY = Double.MIN_VALUE;
 
     for (Node n : graph.nodes.values()) {
       minX = Math.min(minX, n.x);
@@ -1235,10 +1320,8 @@ public class SimpleMermaidRenderer {
     return renderSvg(graph, isHorizontal, totalWidth, totalHeight);
   }
 
-  private static void layoutBySugiyamaDAG(
-      boolean isHorizontal,
-      Map<String, Node> allNodes,
-      List<Edge> edges) {
+  private static void layoutBySugiyamaDag(
+      boolean isHorizontal, Map<String, Node> allNodes, List<Edge> edges) {
 
     // 1. Cycle Breaking via DFS
     Map<String, List<Edge>> adj = new HashMap<>();
@@ -1254,7 +1337,7 @@ public class SimpleMermaidRenderer {
     Map<String, Integer> color = new HashMap<>();
     for (String id : allNodes.keySet()) {
       if (color.getOrDefault(id, 0) == 0) {
-        findCyclesDFS(id, adj, color);
+        findCyclesDfs(id, adj, color);
       }
     }
 
@@ -1287,7 +1370,9 @@ public class SimpleMermaidRenderer {
       int minOutLayer = Integer.MAX_VALUE;
       for (Edge e : edges) {
         if (!e.isBackEdge) {
-          if (e.toId.equals(n.id)) inCount++;
+          if (e.toId.equals(n.id)) {
+            inCount++;
+          }
           if (e.fromId.equals(n.id)) {
             Node dst = allNodes.get(e.toId);
             if (dst != null) {
@@ -1340,7 +1425,9 @@ public class SimpleMermaidRenderer {
     for (int l = 1; l <= maxLayer; l++) {
       List<Node> currentLayer = layerMap.get(l);
       List<Node> prevLayer = layerMap.get(l - 1);
-      if (currentLayer == null) continue;
+      if (currentLayer == null) {
+        continue;
+      }
       for (Node n : currentLayer) {
         double sum = 0;
         int count = 0;
@@ -1365,7 +1452,7 @@ public class SimpleMermaidRenderer {
               if (e.toId.equals(n.id) && !e.isBackEdge) {
                 Node pred;
                 if (!e.virtualNodes.isEmpty()) {
-                  pred = e.virtualNodes.get(e.virtualNodes.size() - 1);
+                  pred = Iterables.getLast(e.virtualNodes);
                 } else {
                   pred = allNodes.get(e.fromId);
                 }
@@ -1436,8 +1523,7 @@ public class SimpleMermaidRenderer {
           }
         }
 
-        for (int i = 0; i < nodes.size(); i++) {
-          Node n = nodes.get(i);
+        for (Node n : nodes) {
           n.x = curX;
           n.y = curY + (maxH - n.height) / 2.0;
           curX += n.width + 32;
@@ -1508,8 +1594,7 @@ public class SimpleMermaidRenderer {
           }
         }
 
-        for (int i = 0; i < nodes.size(); i++) {
-          Node n = nodes.get(i);
+        for (Node n : nodes) {
           n.x = curX + (maxW - n.width) / 2.0;
           n.y = curY;
           curY += n.height + 24;
@@ -1534,7 +1619,7 @@ public class SimpleMermaidRenderer {
     }
   }
 
-  private static void findCyclesDFS(
+  private static void findCyclesDfs(
       String u, Map<String, List<Edge>> adj, Map<String, Integer> color) {
     color.put(u, 1); // Gray
     List<Edge> uEdges = adj.get(u);
@@ -1545,20 +1630,23 @@ public class SimpleMermaidRenderer {
         if (vColor == 1) {
           e.isBackEdge = true;
         } else if (vColor == 0) {
-          findCyclesDFS(v, adj, color);
+          findCyclesDfs(v, adj, color);
         }
       }
     }
     color.put(u, 2); // Black
   }
 
-  private static @Nullable String getSubgraphSampleNodeId(Subgraph sg) {
+  @Nullable
+  private static String getSubgraphSampleNodeId(Subgraph sg) {
     if (!sg.nodes.isEmpty()) {
       return sg.nodes.get(0).id;
     }
     for (Subgraph child : sg.children) {
       String id = getSubgraphSampleNodeId(child);
-      if (id != null) return id;
+      if (id != null) {
+        return id;
+      }
     }
     return null;
   }
@@ -1575,10 +1663,10 @@ public class SimpleMermaidRenderer {
 
   private static class LayoutUnit {
     final String id;
-    final @Nullable Subgraph subgraph;
-    final @Nullable Node node;
-    double width;
-    double height;
+    @Nullable final Subgraph subgraph;
+    @Nullable final Node node;
+    final double width;
+    final double height;
     double x;
     double y;
     int layer = 0;
@@ -1601,8 +1689,7 @@ public class SimpleMermaidRenderer {
     }
   }
 
-  private static void registerNodesToUnit(
-      Subgraph sg, LayoutUnit u, Map<String, LayoutUnit> map) {
+  private static void registerNodesToUnit(Subgraph sg, LayoutUnit u, Map<String, LayoutUnit> map) {
     for (Node n : sg.nodes) {
       map.put(n.id, u);
     }
@@ -1616,7 +1703,9 @@ public class SimpleMermaidRenderer {
       List<LayoutUnit> units,
       Map<String, LayoutUnit> unitMap,
       List<Edge> unitEdges) {
-    if (units.size() <= 1) return;
+    if (units.size() <= 1) {
+      return;
+    }
 
     // 1. Cycle Breaking
     Map<String, List<Edge>> uAdj = new HashMap<>();
@@ -1631,7 +1720,7 @@ public class SimpleMermaidRenderer {
     Map<String, Integer> uColor = new HashMap<>();
     for (LayoutUnit u : units) {
       if (uColor.getOrDefault(u.id, 0) == 0) {
-        findCyclesDFS(u.id, uAdj, uColor);
+        findCyclesDfs(u.id, uAdj, uColor);
       }
     }
 
@@ -1666,7 +1755,9 @@ public class SimpleMermaidRenderer {
         if (!ue.isBackEdge) {
           LayoutUnit src = unitMap.get(ue.fromId);
           LayoutUnit dst = unitMap.get(ue.toId);
-          if (dst != null && dst.id.equals(u.id) && (src == null || !src.id.equals(u.id))) inCount++;
+          if (dst != null && dst.id.equals(u.id) && (src == null || !src.id.equals(u.id))) {
+            inCount++;
+          }
           if (src != null && src.id.equals(u.id) && dst != null && !dst.id.equals(u.id)) {
             minOutLayer = Math.min(minOutLayer, dst.layer);
           }
@@ -1686,7 +1777,9 @@ public class SimpleMermaidRenderer {
     for (int l = 1; l <= maxLayer; l++) {
       List<LayoutUnit> currentLayer = layerMap.get(l);
       List<LayoutUnit> prevLayer = layerMap.get(l - 1);
-      if (currentLayer == null) continue;
+      if (currentLayer == null) {
+        continue;
+      }
       for (LayoutUnit u : currentLayer) {
         double sum = 0;
         int count = 0;
@@ -1869,8 +1962,7 @@ public class SimpleMermaidRenderer {
       LayoutUnit u2 = nodeToUnit.get(e.toId);
       if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
         String key = u1.id + "->" + u2.id;
-        if (!seenUnitEdges.contains(key)) {
-          seenUnitEdges.add(key);
+        if (seenUnitEdges.add(key)) {
           Edge ue = new Edge(u1.id, u2.id, e.label, e.stroke, e.arrow);
           unitEdges.add(ue);
         }
@@ -1886,8 +1978,7 @@ public class SimpleMermaidRenderer {
         LayoutUnit u2 = s2Id != null ? nodeToUnit.get(s2Id) : unitMap.get("sg_" + sg2.id);
         if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
           String key = u1.id + "->" + u2.id;
-          if (!seenUnitEdges.contains(key)) {
-            seenUnitEdges.add(key);
+          if (seenUnitEdges.add(key)) {
             Edge ue = new Edge(u1.id, u2.id, se.label, se.stroke, se.arrow);
             unitEdges.add(ue);
           }
@@ -1983,8 +2074,7 @@ public class SimpleMermaidRenderer {
       LayoutUnit u2 = nodeToUnit.get(e.toId);
       if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
         String key = u1.id + "->" + u2.id;
-        if (!seenUnitEdges.contains(key)) {
-          seenUnitEdges.add(key);
+        if (seenUnitEdges.add(key)) {
           Edge ue = new Edge(u1.id, u2.id, e.label, e.stroke, e.arrow);
           unitEdges.add(ue);
         }
@@ -2000,8 +2090,7 @@ public class SimpleMermaidRenderer {
         LayoutUnit u2 = s2Id != null ? nodeToUnit.get(s2Id) : unitMap.get("sg_" + sg2.id);
         if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
           String key = u1.id + "->" + u2.id;
-          if (!seenUnitEdges.contains(key)) {
-            seenUnitEdges.add(key);
+          if (seenUnitEdges.add(key)) {
             Edge ue = new Edge(u1.id, u2.id, se.label, se.stroke, se.arrow);
             unitEdges.add(ue);
           }
@@ -2013,8 +2102,10 @@ public class SimpleMermaidRenderer {
     layoutUnits(isHorizontal, units, unitMap, unitEdges);
 
     // 6. Assign relative coordinates inside sg and compute sg dimensions
-    double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE;
-    double maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
+    double minX = Double.MAX_VALUE;
+    double minY = Double.MAX_VALUE;
+    double maxX = Double.MIN_VALUE;
+    double maxY = Double.MIN_VALUE;
     for (LayoutUnit u : units) {
       minX = Math.min(minX, u.x);
       minY = Math.min(minY, u.y);
@@ -2038,11 +2129,16 @@ public class SimpleMermaidRenderer {
     sg.height = (maxY - minY) + padding * 2 + headerH;
   }
 
-  private static @Nullable Subgraph lookupSubgraphInTree(Subgraph root, String id) {
-    if (root.id.equals(id)) return root;
+  @Nullable
+  private static Subgraph lookupSubgraphInTree(Subgraph root, String id) {
+    if (root.id.equals(id)) {
+      return root;
+    }
     for (Subgraph child : root.children) {
       Subgraph res = lookupSubgraphInTree(child, id);
-      if (res != null) return res;
+      if (res != null) {
+        return res;
+      }
     }
     return null;
   }
@@ -2059,10 +2155,13 @@ public class SimpleMermaidRenderer {
     }
   }
 
-  private static Direction getSubgraphEffectiveDirection(@Nullable Subgraph sg, Direction fallback) {
+  private static Direction getSubgraphEffectiveDirection(
+      @Nullable Subgraph sg, Direction fallback) {
     Subgraph cur = sg;
     while (cur != null) {
-      if (cur.direction != null) return cur.direction;
+      if (cur.direction != null) {
+        return cur.direction;
+      }
       cur = cur.parent;
     }
     return fallback;
@@ -2073,24 +2172,29 @@ public class SimpleMermaidRenderer {
   // =========================================================================
 
   private static String renderSvg(
-      MermaidGraph graph,
-      boolean isHorizontal,
-      double width,
-      double height) {
+      MermaidGraph graph, boolean isHorizontal, double width, double height) {
 
     StringBuilder svg = new StringBuilder(4096);
     svg.append(
-        String.format(Locale.ROOT,
-            "<svg class=\"mermaid-svg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 %.0f %.0f\" style=\"max-width: %.0fpx; width: 100%%; height: auto;\">\n",
-            width, height, width));
+        String.format(
+            Locale.ROOT,
+            "<svg class=\"mermaid-svg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 %.0f"
+                + " %.0f\" style=\"max-width: %.0fpx; width: 100%%; height: auto;\">\n",
+            width,
+            height,
+            width));
 
     svg.append("  <defs>\n");
     svg.append(
-        "    <marker id=\"mermaid-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">\n");
+        "    <marker id=\"mermaid-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\""
+            + " markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">\n");
     svg.append("      <path d=\"M 0 1.5 L 10 5 L 0 8.5 z\" fill=\"#64748b\" />\n");
     svg.append("    </marker>\n");
-    svg.append("    <filter id=\"node-shadow\" x=\"-5%\" y=\"-5%\" width=\"115%\" height=\"120%\">\n");
-    svg.append("      <feDropShadow dx=\"0\" dy=\"1.5\" stdDeviation=\"2\" flood-color=\"#0f172a\" flood-opacity=\"0.06\" />\n");
+    svg.append(
+        "    <filter id=\"node-shadow\" x=\"-5%\" y=\"-5%\" width=\"115%\" height=\"120%\">\n");
+    svg.append(
+        "      <feDropShadow dx=\"0\" dy=\"1.5\" stdDeviation=\"2\" flood-color=\"#0f172a\""
+            + " flood-opacity=\"0.06\" />\n");
     svg.append("    </filter>\n");
     svg.append("  </defs>\n");
 
@@ -2143,14 +2247,25 @@ public class SimpleMermaidRenderer {
     String fill = sg.customFill != null ? sg.customFill : (depth % 2 == 0 ? "#fafafa" : "#f8fafc");
     String stroke = sg.customStroke != null ? sg.customStroke : "#cbd5e1";
     svg.append(
-        String.format(Locale.ROOT,
-            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"8\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" stroke-dasharray=\"4,4\" />\n",
-            sg.x, sg.y, sg.width, sg.height, fill, stroke));
+        String.format(
+            Locale.ROOT,
+            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"8\" fill=\"%s\""
+                + " stroke=\"%s\" stroke-width=\"1.5\" stroke-dasharray=\"4,4\" />\n",
+            sg.x,
+            sg.y,
+            sg.width,
+            sg.height,
+            fill,
+            stroke));
     if (sg.title != null && !sg.title.isEmpty()) {
       svg.append(
-          String.format(Locale.ROOT,
-              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"600\" fill=\"#334155\">%s</text>\n",
-              sg.x + 14, sg.y + 18, escapeXml(sg.title)));
+          String.format(
+              Locale.ROOT,
+              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"600\""
+                  + " fill=\"#334155\">%s</text>\n",
+              sg.x + 14,
+              sg.y + 18,
+              escapeXml(sg.title)));
     }
   }
 
@@ -2166,67 +2281,168 @@ public class SimpleMermaidRenderer {
     String stroke = n.customStroke != null ? n.customStroke : "#64748b";
 
     // Shape Geometry
-    if (n.shape == NodeShape.CIRCLE) {
-      double r = n.width / 2.0;
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              n.x + r, n.y + r, r, fill, stroke));
-    } else if (n.shape == NodeShape.DIAMOND) {
-      double cx = n.x + n.width / 2.0;
-      double cy = n.y + n.height / 2.0;
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              cx, n.y, n.x + n.width, cy, cx, n.y + n.height, n.x, cy, fill, stroke));
-    } else if (n.shape == NodeShape.HEXAGON) {
-      double h2 = n.height / 2.0;
-      double indent = 16;
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              n.x + indent, n.y,
-              n.x + n.width - indent, n.y,
-              n.x + n.width, n.y + h2,
-              n.x + n.width - indent, n.y + n.height,
-              n.x + indent, n.y + n.height,
-              n.x, n.y + h2, fill, stroke));
-    } else if (n.shape == NodeShape.CYLINDER) {
-      double ry = 7.0;
-      double rxCyl = n.width / 2.0;
-      double h = n.height;
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <path d=\"M %.1f %.1f a %.1f,%.1f 0 1,0 %.1f,0 a %.1f,%.1f 0 1,0 -%.1f,0 l 0,%.1f a %.1f,%.1f 0 0,0 %.1f,0 l 0,-%.1f Z\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              n.x, n.y + ry, rxCyl, ry, n.width, rxCyl, ry, n.width, h - ry * 2, rxCyl, ry, n.width, h - ry * 2, fill, stroke));
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <path d=\"M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0\" fill=\"none\" stroke=\"%s\" stroke-width=\"1.5\" />\n",
-              n.x, n.y + ry, rxCyl, ry, n.width, stroke));
-    } else if (n.shape == NodeShape.FLAG) {
-      double notch = 12;
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              n.x, n.y, n.x + n.width, n.y, n.x + n.width - notch, n.y + n.height / 2.0, n.x + n.width, n.y + n.height, n.x, n.y + n.height, fill, stroke));
-    } else if (n.shape == NodeShape.SUBROUTINE) {
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"4\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              n.x, n.y, n.width, n.height, fill, stroke));
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\" stroke-width=\"1.5\" />\n",
-              n.x + 10, n.y, n.x + 10, n.y + n.height, stroke));
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\" stroke-width=\"1.5\" />\n",
-              n.x + n.width - 10, n.y, n.x + n.width - 10, n.y + n.height, stroke));
-    } else {
-      svg.append(
-          String.format(Locale.ROOT,
-              "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"%.1f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-              n.x, n.y, n.width, n.height, rx, fill, stroke));
+    switch (n.shape) {
+      case NodeShape.CIRCLE -> {
+        double r = n.width / 2.0;
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" stroke=\"%s\""
+                    + " stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                n.x + r,
+                n.y + r,
+                r,
+                fill,
+                stroke));
+      }
+      case NodeShape.DIAMOND -> {
+        double cx = n.x + n.width / 2.0;
+        double cy = n.y + n.height / 2.0;
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\""
+                    + " stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                cx,
+                n.y,
+                n.x + n.width,
+                cy,
+                cx,
+                n.y + n.height,
+                n.x,
+                cy,
+                fill,
+                stroke));
+      }
+      case NodeShape.HEXAGON -> {
+        double h2 = n.height / 2.0;
+        double indent = 16;
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
+                    + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\""
+                    + " />\n",
+                n.x + indent,
+                n.y,
+                n.x + n.width - indent,
+                n.y,
+                n.x + n.width,
+                n.y + h2,
+                n.x + n.width - indent,
+                n.y + n.height,
+                n.x + indent,
+                n.y + n.height,
+                n.x,
+                n.y + h2,
+                fill,
+                stroke));
+      }
+      case NodeShape.CYLINDER -> {
+        double ry = 7.0;
+        double rxCyl = n.width / 2.0;
+        double h = n.height;
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <path d=\"M %.1f %.1f a %.1f,%.1f 0 1,0 %.1f,0 a %.1f,%.1f 0 1,0 -%.1f,0 l"
+                    + " 0,%.1f a %.1f,%.1f 0 0,0 %.1f,0 l 0,-%.1f Z\" fill=\"%s\" stroke=\"%s\""
+                    + " stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                n.x,
+                n.y + ry,
+                rxCyl,
+                ry,
+                n.width,
+                rxCyl,
+                ry,
+                n.width,
+                h - ry * 2,
+                rxCyl,
+                ry,
+                n.width,
+                h - ry * 2,
+                fill,
+                stroke));
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <path d=\"M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0\" fill=\"none\" stroke=\"%s\""
+                    + " stroke-width=\"1.5\" />\n",
+                n.x,
+                n.y + ry,
+                rxCyl,
+                ry,
+                n.width,
+                stroke));
+      }
+      case NodeShape.FLAG -> {
+        double notch = 12;
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
+                    + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\""
+                    + " />\n",
+                n.x,
+                n.y,
+                n.x + n.width,
+                n.y,
+                n.x + n.width - notch,
+                n.y + n.height / 2.0,
+                n.x + n.width,
+                n.y + n.height,
+                n.x,
+                n.y + n.height,
+                fill,
+                stroke));
+      }
+      case NodeShape.SUBROUTINE -> {
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"4\" fill=\"%s\""
+                    + " stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                n.x,
+                n.y,
+                n.width,
+                n.height,
+                fill,
+                stroke));
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\""
+                    + " stroke-width=\"1.5\" />\n",
+                n.x + 10,
+                n.y,
+                n.x + 10,
+                n.y + n.height,
+                stroke));
+        svg.append(
+            String.format(
+                Locale.ROOT,
+                "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\""
+                    + " stroke-width=\"1.5\" />\n",
+                n.x + n.width - 10,
+                n.y,
+                n.x + n.width - 10,
+                n.y + n.height,
+                stroke));
+      }
+      case null, default ->
+          svg.append(
+              String.format(
+                  Locale.ROOT,
+                  "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"%.1f\""
+                      + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\""
+                      + " filter=\"url(#node-shadow)\" />\n",
+                  n.x,
+                  n.y,
+                  n.width,
+                  n.height,
+                  rx,
+                  fill,
+                  stroke));
     }
 
     // Node Text using structured AST labelLines
@@ -2236,22 +2452,35 @@ public class SimpleMermaidRenderer {
 
     if (n.labelLines.size() == 1) {
       svg.append(
-          String.format(Locale.ROOT,
-              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"500\" fill=\"#0f172a\" text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
-              cx, n.y + textYOffset + n.height / 2.0, escapeXml(n.labelLines.get(0).trim())));
+          String.format(
+              Locale.ROOT,
+              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"500\" fill=\"#0f172a\""
+                  + " text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
+              cx,
+              n.y + textYOffset + n.height / 2.0,
+              escapeXml(n.labelLines.get(0).trim())));
     } else {
       svg.append(
-          String.format(Locale.ROOT,
+          String.format(
+              Locale.ROOT,
               "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" text-anchor=\"middle\">\n",
-              cx, startTextY));
+              cx,
+              startTextY));
       for (int i = 0; i < n.labelLines.size(); i++) {
         String weight = i == 0 ? "600" : "400";
         String textColor = i == 0 ? "#0f172a" : "#475569";
         String fontSize = i == 0 ? "12" : "10.5";
         svg.append(
-            String.format(Locale.ROOT,
-                "    <tspan x=\"%.1f\" dy=\"%s\" font-size=\"%s\" font-weight=\"%s\" fill=\"%s\">%s</tspan>\n",
-                cx, i == 0 ? "0" : "16", fontSize, weight, textColor, escapeXml(n.labelLines.get(i).trim())));
+            String.format(
+                Locale.ROOT,
+                "    <tspan x=\"%.1f\" dy=\"%s\" font-size=\"%s\" font-weight=\"%s\""
+                    + " fill=\"%s\">%s</tspan>\n",
+                cx,
+                i == 0 ? "0" : "16",
+                fontSize,
+                weight,
+                textColor,
+                escapeXml(n.labelLines.get(i).trim())));
       }
       svg.append("  </text>\n");
     }
@@ -2269,7 +2498,10 @@ public class SimpleMermaidRenderer {
     String strokeWidth = se.stroke == EdgeStroke.THICK ? "2.5" : "1.5";
     String marker = se.arrow ? "marker-end=\"url(#mermaid-arrow)\" " : "";
 
-    double startX, startY, endX, endY;
+    double startX;
+    double startY;
+    double endX;
+    double endY;
     if (isHorizontal) {
       startX = sg1.x + sg1.width;
       startY = sg1.y + sg1.height / 2.0;
@@ -2281,20 +2513,38 @@ public class SimpleMermaidRenderer {
       boolean blocked = false;
       double maxBottom = Math.max(sg1.y + sg1.height, sg2.y + sg2.height);
       for (Node n : graph.nodes.values()) {
-        if (n.x >= startX - 10 && n.x + n.width <= endX + 10 && n.y <= maxY && n.y + n.height >= minY) {
+        if (n.x >= startX - 10
+            && n.x + n.width <= endX + 10
+            && n.y <= maxY
+            && n.y + n.height >= minY) {
           blocked = true;
           maxBottom = Math.max(maxBottom, n.y + n.height);
         }
       }
 
       if (blocked) {
-        double labelW = (se.label != null && !se.label.trim().isEmpty()) ? se.label.trim().length() * 6.5 + 12 : 20;
+        double labelW =
+            (se.label != null && !se.label.trim().isEmpty())
+                ? se.label.trim().length() * 6.5 + 12
+                : 20;
         double loopOffset = Math.max(35.0, labelW / 2.0 + 20.0);
         double cpY = maxBottom + loopOffset;
         svg.append(
-            String.format(Locale.ROOT,
-                "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-                startX, startY, startX + 20, cpY, endX - 20, cpY, endX, endY, strokeWidth, strokeDash, marker));
+            String.format(
+                Locale.ROOT,
+                "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
+                    + " stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+                startX,
+                startY,
+                startX + 20,
+                cpY,
+                endX - 20,
+                cpY,
+                endX,
+                endY,
+                strokeWidth,
+                strokeDash,
+                marker));
         if (se.label != null && !se.label.trim().isEmpty()) {
           double midX = (startX + endX) / 2.0;
           renderEdgeLabelBadge(svg, midX, cpY, se.label.trim());
@@ -2312,20 +2562,38 @@ public class SimpleMermaidRenderer {
       boolean blocked = false;
       double maxRight = Math.max(sg1.x + sg1.width, sg2.x + sg2.width);
       for (Node n : graph.nodes.values()) {
-        if (n.y >= startY - 10 && n.y + n.height <= endY + 10 && n.x <= maxX && n.x + n.width >= minX) {
+        if (n.y >= startY - 10
+            && n.y + n.height <= endY + 10
+            && n.x <= maxX
+            && n.x + n.width >= minX) {
           blocked = true;
           maxRight = Math.max(maxRight, n.x + n.width);
         }
       }
 
       if (blocked) {
-        double labelW = (se.label != null && !se.label.trim().isEmpty()) ? se.label.trim().length() * 6.5 + 12 : 20;
+        double labelW =
+            (se.label != null && !se.label.trim().isEmpty())
+                ? se.label.trim().length() * 6.5 + 12
+                : 20;
         double loopOffset = Math.max(35.0, labelW / 2.0 + 20.0);
         double cpX = maxRight + loopOffset;
         svg.append(
-            String.format(Locale.ROOT,
-                "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-                startX, startY, cpX, startY + 20, cpX, endY - 20, endX, endY, strokeWidth, strokeDash, marker));
+            String.format(
+                Locale.ROOT,
+                "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
+                    + " stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+                startX,
+                startY,
+                cpX,
+                startY + 20,
+                cpX,
+                endY - 20,
+                endX,
+                endY,
+                strokeWidth,
+                strokeDash,
+                marker));
         if (se.label != null && !se.label.trim().isEmpty()) {
           double midY = (startY + endY) / 2.0;
           renderEdgeLabelBadge(svg, cpX, midY, se.label.trim());
@@ -2335,9 +2603,17 @@ public class SimpleMermaidRenderer {
     }
 
     svg.append(
-        String.format(Locale.ROOT,
-            "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-            startX, startY, endX, endY, strokeWidth, strokeDash, marker));
+        String.format(
+            Locale.ROOT,
+            "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\""
+                + " stroke-width=\"%s\" %s%s/>\n",
+            startX,
+            startY,
+            endX,
+            endY,
+            strokeWidth,
+            strokeDash,
+            marker));
 
     if (se.label != null && !se.label.trim().isEmpty()) {
       double midX = (startX + endX) / 2.0;
@@ -2347,19 +2623,20 @@ public class SimpleMermaidRenderer {
   }
 
   private static void renderEdge(
-      StringBuilder svg,
-      boolean isHorizontal,
-      MermaidGraph graph,
-      Node src,
-      Node dst,
-      Edge e) {
+      StringBuilder svg, boolean isHorizontal, MermaidGraph graph, Node src, Node dst, Edge e) {
 
     String strokeDash = e.stroke == EdgeStroke.DASHED ? "stroke-dasharray=\"4,4\" " : "";
     String strokeWidth = e.stroke == EdgeStroke.THICK ? "2.5" : "1.5";
     String marker = e.arrow ? "marker-end=\"url(#mermaid-arrow)\" " : "";
 
-    double x1, y1, x2, y2;
-    double cp1x, cp1y, cp2x, cp2y;
+    double x1;
+    double y1;
+    double x2;
+    double y2;
+    double cp1x;
+    double cp1y;
+    double cp2x;
+    double cp2y;
 
     if (!isHorizontal) {
       if (src.id.equals(dst.id)) {
@@ -2394,7 +2671,9 @@ public class SimpleMermaidRenderer {
           }
         }
         double labelW =
-            (e.label != null && !e.label.trim().isEmpty()) ? (e.label.trim().length() * 6.5 + 16) : 0;
+            (e.label != null && !e.label.trim().isEmpty())
+                ? (e.label.trim().length() * 6.5 + 16)
+                : 0;
         double loopOffset =
             Math.max(45.0, labelW / 2.0 + 36.0) + (maxRight - Math.min(x1, x2)) * 0.4;
         cp1x = maxRight + loopOffset;
@@ -2414,24 +2693,37 @@ public class SimpleMermaidRenderer {
         py.add(dst.y);
 
         StringBuilder pathD = new StringBuilder();
-        pathD.append(String.format(Locale.ROOT,"M %.1f %.1f", px.get(0), py.get(0)));
+        pathD.append(String.format(Locale.ROOT, "M %.1f %.1f", px.get(0), py.get(0)));
         for (int i = 0; i < px.size() - 1; i++) {
-          double xA = px.get(i), yA = py.get(i);
-          double xB = px.get(i + 1), yB = py.get(i + 1);
+          double xA = px.get(i);
+          double yA = py.get(i);
+          double xB = px.get(i + 1);
+          double yB = py.get(i + 1);
           double dy = yB - yA;
           pathD.append(
-              String.format(Locale.ROOT,
+              String.format(
+                  Locale.ROOT,
                   " C %.1f %.1f, %.1f %.1f, %.1f %.1f",
-                  xA, yA + dy * 0.5, xB, yB - dy * 0.5, xB, yB));
+                  xA,
+                  yA + dy * 0.5,
+                  xB,
+                  yB - dy * 0.5,
+                  xB,
+                  yB));
         }
         svg.append(
-            String.format(Locale.ROOT,
+            String.format(
+                Locale.ROOT,
                 "  <path d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-                pathD.toString(), strokeWidth, strokeDash, marker));
+                pathD,
+                strokeWidth,
+                strokeDash,
+                marker));
 
         if (e.label != null && !e.label.trim().isEmpty()) {
           Node firstV = e.virtualNodes.get(0);
-          renderEdgeLabelBadge(svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
+          renderEdgeLabelBadge(
+              svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
         }
         return;
       } else {
@@ -2478,8 +2770,7 @@ public class SimpleMermaidRenderer {
           }
         }
         double labelH = 18.0;
-        double loopOffset =
-            Math.max(45.0, labelH + 36.0) + (Math.max(y1, y2) - minTop) * 0.4;
+        double loopOffset = Math.max(45.0, labelH + 36.0) + (Math.max(y1, y2) - minTop) * 0.4;
         cp1x = x1;
         cp1y = minTop - loopOffset;
         cp2x = x2;
@@ -2497,24 +2788,37 @@ public class SimpleMermaidRenderer {
         py.add(dst.y + dst.height / 2.0);
 
         StringBuilder pathD = new StringBuilder();
-        pathD.append(String.format(Locale.ROOT,"M %.1f %.1f", px.get(0), py.get(0)));
+        pathD.append(String.format(Locale.ROOT, "M %.1f %.1f", px.get(0), py.get(0)));
         for (int i = 0; i < px.size() - 1; i++) {
-          double xA = px.get(i), yA = py.get(i);
-          double xB = px.get(i + 1), yB = py.get(i + 1);
+          double xA = px.get(i);
+          double yA = py.get(i);
+          double xB = px.get(i + 1);
+          double yB = py.get(i + 1);
           double dx = xB - xA;
           pathD.append(
-              String.format(Locale.ROOT,
+              String.format(
+                  Locale.ROOT,
                   " C %.1f %.1f, %.1f %.1f, %.1f %.1f",
-                  xA + dx * 0.5, yA, xB - dx * 0.5, yB, xB, yB));
+                  xA + dx * 0.5,
+                  yA,
+                  xB - dx * 0.5,
+                  yB,
+                  xB,
+                  yB));
         }
         svg.append(
-            String.format(Locale.ROOT,
+            String.format(
+                Locale.ROOT,
                 "  <path d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-                pathD.toString(), strokeWidth, strokeDash, marker));
+                pathD,
+                strokeWidth,
+                strokeDash,
+                marker));
 
         if (e.label != null && !e.label.trim().isEmpty()) {
           Node firstV = e.virtualNodes.get(0);
-          renderEdgeLabelBadge(svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
+          renderEdgeLabelBadge(
+              svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
         }
         return;
       } else {
@@ -2531,9 +2835,21 @@ public class SimpleMermaidRenderer {
     }
 
     svg.append(
-        String.format(Locale.ROOT,
-            "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-            x1, y1, cp1x, cp1y, cp2x, cp2y, x2, y2, strokeWidth, strokeDash, marker));
+        String.format(
+            Locale.ROOT,
+            "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
+                + " stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+            x1,
+            y1,
+            cp1x,
+            cp1y,
+            cp2x,
+            cp2y,
+            x2,
+            y2,
+            strokeWidth,
+            strokeDash,
+            marker));
 
     if (e.label != null && !e.label.trim().isEmpty()) {
       // Evaluate Cubic Bézier midpoint at t = 0.5
@@ -2543,22 +2859,34 @@ public class SimpleMermaidRenderer {
     }
   }
 
-  private static void renderEdgeLabelBadge(StringBuilder svg, double midX, double midY, String label) {
+  private static void renderEdgeLabelBadge(
+      StringBuilder svg, double midX, double midY, String label) {
     double textLen = label.length() * 6.5;
     double rectW = textLen + 12;
     double rectH = 18;
     svg.append(
-        String.format(Locale.ROOT,
-            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"3\" fill=\"#ffffff\" fill-opacity=\"0.95\" />\n",
-            midX - rectW / 2.0, midY - rectH / 2.0, rectW, rectH));
+        String.format(
+            Locale.ROOT,
+            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"3\" fill=\"#ffffff\""
+                + " fill-opacity=\"0.95\" />\n",
+            midX - rectW / 2.0,
+            midY - rectH / 2.0,
+            rectW,
+            rectH));
     svg.append(
-        String.format(Locale.ROOT,
-            "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"10.5\" fill=\"#475569\" text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
-            midX, midY, escapeXml(label)));
+        String.format(
+            Locale.ROOT,
+            "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"10.5\" fill=\"#475569\""
+                + " text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
+            midX,
+            midY,
+            escapeXml(label)));
   }
 
   private static String escapeXml(String text) {
-    if (text == null) return "";
+    if (text == null) {
+      return "";
+    }
     StringBuilder sb = new StringBuilder(text.length() + 16);
     for (int i = 0; i < text.length(); i++) {
       char c = text.charAt(i);
@@ -2567,24 +2895,12 @@ public class SimpleMermaidRenderer {
         continue;
       }
       switch (c) {
-        case '&':
-          sb.append("&amp;");
-          break;
-        case '<':
-          sb.append("&lt;");
-          break;
-        case '>':
-          sb.append("&gt;");
-          break;
-        case '"':
-          sb.append("&quot;");
-          break;
-        case '\'':
-          sb.append("&apos;");
-          break;
-        default:
-          sb.append(c);
-          break;
+        case '&' -> sb.append("&amp;");
+        case '<' -> sb.append("&lt;");
+        case '>' -> sb.append("&gt;");
+        case '"' -> sb.append("&quot;");
+        case '\'' -> sb.append("&apos;");
+        default -> sb.append(c);
       }
     }
     return sb.toString();
@@ -2622,7 +2938,9 @@ public class SimpleMermaidRenderer {
     double headerH = 22;
 
     for (Subgraph sg : subgraphs) {
-      if (sg.nodes.isEmpty()) continue;
+      if (sg.nodes.isEmpty()) {
+        continue;
+      }
       if (!isHorizontal) {
         double maxW = 0;
         for (Node n : sg.nodes) {
@@ -2656,4 +2974,6 @@ public class SimpleMermaidRenderer {
       }
     }
   }
+
+  private SimpleMermaidRenderer() {}
 }

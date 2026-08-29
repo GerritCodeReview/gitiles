@@ -16,11 +16,13 @@ package com.google.gitiles.doc;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import java.util.Objects;
 import java.util.Set;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Config.SectionParser;
 import org.eclipse.jgit.util.StringUtils;
 
+/** Configuration options for markdown parsing and rendering in Gitiles. */
 public class MarkdownConfig {
   public static final int IMAGE_LIMIT = 256 << 10;
 
@@ -82,7 +84,8 @@ public class MarkdownConfig {
     if (safeHtml) {
       f = cfg.getStringList("markdown", null, "allowiframe");
     }
-    allowAnyIFrame = f.length == 1 && Boolean.TRUE.equals(StringUtils.toBooleanOrNull(f[0]));
+    allowAnyIFrame =
+        f.length == 1 && Objects.equals(StringUtils.toBooleanOrNull(f[0]), Boolean.TRUE);
     if (allowAnyIFrame) {
       allowIFrame = ImmutableList.of();
     } else {
@@ -109,12 +112,12 @@ public class MarkdownConfig {
     toc = on("toc", p.toc, enable, disable);
     mermaid = on("mermaid", p.mermaid, enable, disable);
 
-    allowAnyIFrame = safeHtml ? p.allowAnyIFrame : false;
+    allowAnyIFrame = safeHtml && p.allowAnyIFrame;
     allowIFrame = safeHtml ? p.allowIFrame : ImmutableList.of();
   }
 
   private static boolean on(String key, boolean val, Set<String> enable, Set<String> disable) {
-    return enable.contains(key) ? true : disable.contains(key) ? false : val;
+    return enable.contains(key) || (disable.contains(key) ? false : val);
   }
 
   boolean isIFrameAllowed(String src) {

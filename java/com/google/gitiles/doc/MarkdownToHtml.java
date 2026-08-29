@@ -17,15 +17,19 @@ package com.google.gitiles.doc;
 import static com.google.gitiles.doc.MarkdownUtil.getInnerText;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Ascii;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+import com.google.common.html.types.LegacyConversions;
 import com.google.common.html.types.SafeHtml;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.gitiles.GitilesView;
 import com.google.gitiles.ThreadSafePrettifyParser;
 import com.google.gitiles.doc.html.HtmlBuilder;
 import com.google.gitiles.doc.html.SoyHtmlBuilder;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.Nullable;
 import org.commonmark.ext.front.matter.YamlFrontMatterBlock;
 import org.commonmark.ext.gfm.strikethrough.Strikethrough;
@@ -76,6 +80,7 @@ public class MarkdownToHtml implements Visitor {
     return new Builder();
   }
 
+  /** A builder for {@link MarkdownToHtml}. */
   public static class Builder {
     private String requestUri;
     private GitilesView view;
@@ -87,36 +92,43 @@ public class MarkdownToHtml implements Visitor {
 
     Builder() {}
 
+    @CanIgnoreReturnValue
     public Builder setRequestUri(@Nullable String uri) {
       requestUri = uri;
       return this;
     }
 
+    @CanIgnoreReturnValue
     public Builder setGitilesView(@Nullable GitilesView view) {
       this.view = view;
       return this;
     }
 
+    @CanIgnoreReturnValue
     public Builder setConfig(@Nullable MarkdownConfig config) {
       this.config = config;
       return this;
     }
 
+    @CanIgnoreReturnValue
     public Builder setFilePath(@Nullable String filePath) {
       this.filePath = Strings.emptyToNull(filePath);
       return this;
     }
 
+    @CanIgnoreReturnValue
     public Builder setReader(ObjectReader reader) {
       this.reader = reader;
       return this;
     }
 
+    @CanIgnoreReturnValue
     public Builder setRootTree(RevTree tree) {
       this.root = tree;
       return this;
     }
 
+    @CanIgnoreReturnValue
     public Builder setHtmlSanitizer(HtmlSanitizer htmlSanitizer) {
       this.htmlSanitizer = MoreObjects.firstNonNull(htmlSanitizer, HtmlSanitizer.DISABLED);
       return this;
@@ -150,7 +162,8 @@ public class MarkdownToHtml implements Visitor {
     return html;
   }
 
-  private static @Nullable ImageLoader newImageLoader(Builder b) {
+  @Nullable
+  private static ImageLoader newImageLoader(Builder b) {
     if (b.reader != null && b.view != null && b.config != null && b.root != null) {
       return new ImageLoader(b.reader, b.view, b.config, b.root);
     }
@@ -171,7 +184,8 @@ public class MarkdownToHtml implements Visitor {
   }
 
   /** Render the document AST to sanitized HTML. */
-  public @Nullable SafeHtml toSoyHtml(Node node) {
+  @Nullable
+  public SafeHtml toSoyHtml(Node node) {
     if (node != null) {
       SoyHtmlBuilder out = new SoyHtmlBuilder();
       renderToHtml(out, node);
@@ -244,11 +258,12 @@ public class MarkdownToHtml implements Visitor {
           .close("span")
           .close("a");
       // github markdown compatibility
-      if (!id.equals(id.toLowerCase())) {
+      String lowerId = Ascii.toLowerCase(id);
+      if (!id.equals(lowerId)) {
         html.open("a")
             .attribute("class", "h")
-            .attribute("name", id.toLowerCase())
-            .attribute("href", "#" + id.toLowerCase())
+            .attribute("name", lowerId)
+            .attribute("href", "#" + lowerId)
             .open("span")
             .close("span")
             .close("a");
@@ -275,15 +290,6 @@ public class MarkdownToHtml implements Visitor {
     }
   }
 
-  private static boolean isInTightList(Paragraph c) {
-    Block b = c.getParent(); // b is probably a ListItem
-    if (b != null) {
-      Block a = b.getParent();
-      return a instanceof ListBlock && ((ListBlock) a).isTight();
-    }
-    return false;
-  }
-
   @Override
   public void visit(BlockQuote node) {
     wrapChildren("blockquote", node);
@@ -292,8 +298,8 @@ public class MarkdownToHtml implements Visitor {
   @Override
   public void visit(OrderedList node) {
     html.open("ol");
-    if (node.getStartNumber() != 1) {
-      html.attribute("start", Integer.toString(node.getStartNumber()));
+    if (node.getMarkerStartNumber() != 1) {
+      html.attribute("start", Integer.toString(node.getMarkerStartNumber()));
     }
     visitChildren(node);
     html.close("ol");
@@ -312,10 +318,10 @@ public class MarkdownToHtml implements Visitor {
   @Override
   public void visit(FencedCodeBlock node) {
     if (config != null && config.mermaid && isMermaid(node.getInfo())) {
-      java.util.Optional<String> svg = SimpleMermaidRenderer.renderToSvg(node.getLiteral());
+      Optional<String> svg = SimpleMermaidRenderer.renderToSvg(node.getLiteral());
       if (svg.isPresent()) {
         html.open("div").attribute("class", "mermaid-container");
-        html.append(com.google.common.html.types.LegacyConversions.riskilyAssumeSafeHtml(svg.get()));
+        html.append(LegacyConversions.riskilyAssumeSafeHtml(svg.get()));
         html.close("div");
         return;
       }
@@ -323,13 +329,155 @@ public class MarkdownToHtml implements Visitor {
     codeInPre(node.getInfo(), node.getLiteral());
   }
 
-  private static boolean isMermaid(@Nullable String info) {
-    return info != null && "mermaid".equalsIgnoreCase(info.trim());
-  }
-
   @Override
   public void visit(IndentedCodeBlock node) {
     codeInPre(null, node.getLiteral());
+  }
+
+  @Override
+  public void visit(Code node) {
+    html.open("code").attribute("class", "code").appendAndEscape(node.getLiteral()).close("code");
+  }
+
+  @Override
+  public void visit(Emphasis node) {
+    wrapChildren("em", node);
+  }
+
+  @Override
+  public void visit(StrongEmphasis node) {
+    wrapChildren("strong", node);
+  }
+
+  @Override
+  public void visit(Link node) {
+    html.open("a")
+        .attribute("href", href(node.getDestination()))
+        .attribute("title", node.getTitle());
+    visitChildren(node);
+    html.close("a");
+  }
+
+  @Override
+  public void visit(LinkReferenceDefinition node) {
+    // Ignored in rendered output
+  }
+
+  @Override
+  public void visit(Image node) {
+    html.open("img")
+        .attribute("src", image(node.getDestination()))
+        .attribute("title", node.getTitle())
+        .attribute("alt", getInnerText(node));
+  }
+
+  public void visit(TableBlock node) {
+    wrapChildren("table", node);
+  }
+
+  private void visit(TableRow node) {
+    wrapChildren("tr", node);
+  }
+
+  private void visit(TableCell cell) {
+    String tag = cell.isHeader() ? "th" : "td";
+    html.open(tag);
+    TableCell.Alignment alignment = cell.getAlignment();
+    if (alignment != null) {
+      html.attribute("align", toHtml(alignment));
+    }
+    visitChildren(cell);
+    html.close(tag);
+  }
+
+  private void visit(SmartQuoted node) {
+    switch (node.getType()) {
+      case DOUBLE -> {
+        html.entity("&ldquo;");
+        visitChildren(node);
+        html.entity("&rdquo;");
+      }
+      case SINGLE -> {
+        html.entity("&lsquo;");
+        visitChildren(node);
+        html.entity("&rsquo;");
+      }
+    }
+  }
+
+  @Override
+  public void visit(Text node) {
+    html.appendAndEscape(node.getLiteral());
+  }
+
+  @Override
+  public void visit(SoftLineBreak node) {
+    html.space();
+  }
+
+  @Override
+  public void visit(HardLineBreak node) {
+    html.open("br");
+  }
+
+  @Override
+  public void visit(ThematicBreak thematicBreak) {
+    html.open("hr");
+  }
+
+  @Override
+  public void visit(HtmlInline node) {
+    // Discard inline HTML, as it's always partial tags.
+  }
+
+  @Override
+  public void visit(HtmlBlock node) {
+    html.append(htmlSanitizer.sanitize(node.getLiteral()));
+  }
+
+  @Override
+  public void visit(CustomNode node) {
+    switch (node) {
+      case NamedAnchor na -> visit(na);
+      case SmartQuoted sq -> visit(sq);
+      case Strikethrough st -> wrapChildren("del", st);
+      case TableBody tb -> wrapChildren("tbody", tb);
+      case TableCell tc -> visit(tc);
+      case TableHead th -> wrapChildren("thead", th);
+      case TableRow tr -> visit(tr);
+      default -> throw new IllegalArgumentException("cannot render " + node.getClass());
+    }
+  }
+
+  @Override
+  public void visit(CustomBlock node) {
+    switch (node) {
+      case BlockNote bn -> visit(bn);
+      case IframeBlock ib -> visit(ib);
+      case MultiColumnBlock mcb -> visit(mcb);
+      case MultiColumnBlock.Column col -> visit(col);
+      case TableBlock tb -> visit(tb);
+      case TocBlock tb -> toc.format();
+      case YamlFrontMatterBlock yfmb -> {
+        // YAML front matter is document metadata: omit the whole block. We
+        // intentionally do not recurse into it, so its YamlFrontMatterNode
+        // children are never visited and need no visit(CustomNode) handling.
+      }
+      default -> throw new IllegalArgumentException("cannot render " + node.getClass());
+    }
+  }
+
+  private static boolean isInTightList(Paragraph c) {
+    Block b = c.getParent(); // b is probably a ListItem
+    if (b != null) {
+      Block a = b.getParent();
+      return a instanceof ListBlock listBlock && listBlock.isTight();
+    }
+    return false;
+  }
+
+  private static boolean isMermaid(@Nullable String info) {
+    return info != null && Ascii.equalsIgnoreCase("mermaid", info.trim());
   }
 
   private void codeInPre(String lang, String text) {
@@ -374,42 +522,13 @@ public class MarkdownToHtml implements Visitor {
 
   private List<ParseResult> parse(@Nullable String lang, String text) {
     if (Strings.isNullOrEmpty(lang)) {
-      return Collections.emptyList();
+      return ImmutableList.of();
     }
     try {
       return ThreadSafePrettifyParser.INSTANCE.parse(lang, text);
     } catch (StackOverflowError e) {
-      return Collections.emptyList();
+      return ImmutableList.of();
     }
-  }
-
-  @Override
-  public void visit(Code node) {
-    html.open("code").attribute("class", "code").appendAndEscape(node.getLiteral()).close("code");
-  }
-
-  @Override
-  public void visit(Emphasis node) {
-    wrapChildren("em", node);
-  }
-
-  @Override
-  public void visit(StrongEmphasis node) {
-    wrapChildren("strong", node);
-  }
-
-  @Override
-  public void visit(Link node) {
-    html.open("a")
-        .attribute("href", href(node.getDestination()))
-        .attribute("title", node.getTitle());
-    visitChildren(node);
-    html.close("a");
-  }
-
-  @Override
-  public void visit(LinkReferenceDefinition node) {
-    // Ignored in rendered output
   }
 
   @VisibleForTesting
@@ -448,14 +567,6 @@ public class MarkdownToHtml implements Visitor {
     return PathResolver.relative(requestUri, dest) + anchor;
   }
 
-  @Override
-  public void visit(Image node) {
-    html.open("img")
-        .attribute("src", image(node.getDestination()))
-        .attribute("title", node.getTitle())
-        .attribute("alt", getInnerText(node));
-  }
-
   String image(String dest) {
     if (HtmlBuilder.isValidHttpUri(dest) || HtmlBuilder.isImageDataUri(dest)) {
       return dest;
@@ -465,83 +576,12 @@ public class MarkdownToHtml implements Visitor {
     return SoyConstants.IMAGE_URI_INNOCUOUS_OUTPUT;
   }
 
-  public void visit(TableBlock node) {
-    wrapChildren("table", node);
-  }
-
-  private void visit(TableRow node) {
-    wrapChildren("tr", node);
-  }
-
-  private void visit(TableCell cell) {
-    String tag = cell.isHeader() ? "th" : "td";
-    html.open(tag);
-    TableCell.Alignment alignment = cell.getAlignment();
-    if (alignment != null) {
-      html.attribute("align", toHtml(alignment));
-    }
-    visitChildren(cell);
-    html.close(tag);
-  }
-
   private static String toHtml(TableCell.Alignment alignment) {
-    switch (alignment) {
-      case LEFT:
-        return "left";
-      case CENTER:
-        return "center";
-      case RIGHT:
-        return "right";
-      default:
-        throw new IllegalArgumentException("unsupported alignment " + alignment);
-    }
-  }
-
-  private void visit(SmartQuoted node) {
-    switch (node.getType()) {
-      case DOUBLE:
-        html.entity("&ldquo;");
-        visitChildren(node);
-        html.entity("&rdquo;");
-        break;
-      case SINGLE:
-        html.entity("&lsquo;");
-        visitChildren(node);
-        html.entity("&rsquo;");
-        break;
-      default:
-        throw new IllegalArgumentException("unsupported quote " + node.getType());
-    }
-  }
-
-  @Override
-  public void visit(Text node) {
-    html.appendAndEscape(node.getLiteral());
-  }
-
-  @Override
-  public void visit(SoftLineBreak node) {
-    html.space();
-  }
-
-  @Override
-  public void visit(HardLineBreak node) {
-    html.open("br");
-  }
-
-  @Override
-  public void visit(ThematicBreak thematicBreak) {
-    html.open("hr");
-  }
-
-  @Override
-  public void visit(HtmlInline node) {
-    // Discard inline HTML, as it's always partial tags.
-  }
-
-  @Override
-  public void visit(HtmlBlock node) {
-    html.append(htmlSanitizer.sanitize(node.getLiteral()));
+    return switch (alignment) {
+      case LEFT -> "left";
+      case CENTER -> "center";
+      case RIGHT -> "right";
+    };
   }
 
   private void wrapChildren(String tag, Node node) {
@@ -553,50 +593,6 @@ public class MarkdownToHtml implements Visitor {
   private void visitChildren(Node node) {
     for (Node c = node.getFirstChild(); c != null; c = c.getNext()) {
       c.accept(this);
-    }
-  }
-
-  @Override
-  public void visit(CustomNode node) {
-    if (node instanceof NamedAnchor) {
-      visit((NamedAnchor) node);
-    } else if (node instanceof SmartQuoted) {
-      visit((SmartQuoted) node);
-    } else if (node instanceof Strikethrough) {
-      wrapChildren("del", node);
-    } else if (node instanceof TableBody) {
-      wrapChildren("tbody", node);
-    } else if (node instanceof TableCell) {
-      visit((TableCell) node);
-    } else if (node instanceof TableHead) {
-      wrapChildren("thead", node);
-    } else if (node instanceof TableRow) {
-      visit((TableRow) node);
-    } else {
-      throw new IllegalArgumentException("cannot render " + node.getClass());
-    }
-  }
-
-  @Override
-  public void visit(CustomBlock node) {
-    if (node instanceof BlockNote) {
-      visit((BlockNote) node);
-    } else if (node instanceof IframeBlock) {
-      visit((IframeBlock) node);
-    } else if (node instanceof MultiColumnBlock) {
-      visit((MultiColumnBlock) node);
-    } else if (node instanceof MultiColumnBlock.Column) {
-      visit((MultiColumnBlock.Column) node);
-    } else if (node instanceof TableBlock) {
-      visit((TableBlock) node);
-    } else if (node instanceof TocBlock) {
-      toc.format();
-    } else if (node instanceof YamlFrontMatterBlock) {
-      // YAML front matter is document metadata: omit the whole block. We
-      // intentionally do not recurse into it, so its YamlFrontMatterNode
-      // children are never visited and need no visit(CustomNode) handling.
-    } else {
-      throw new IllegalArgumentException("cannot render " + node.getClass());
     }
   }
 }

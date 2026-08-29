@@ -55,6 +55,7 @@ public class BlameCacheImpl implements BlameCache {
     return builder.weigher((k, v) -> v.size());
   }
 
+  /** Cache key identifying a path at a commit with optional ignored revisions. */
   public static class Key {
     private final ObjectId commitId;
     private final String path;
@@ -84,8 +85,7 @@ public class BlameCacheImpl implements BlameCache {
 
     @Override
     public boolean equals(Object o) {
-      if (o instanceof Key) {
-        Key k = (Key) o;
+      if (o instanceof Key k) {
         return Objects.equals(commitId, k.commitId)
             && Objects.equals(path, k.path)
             && Objects.equals(ignoreIds, k.ignoreIds);
@@ -125,6 +125,10 @@ public class BlameCacheImpl implements BlameCache {
     this(defaultBuilder());
   }
 
+  public BlameCacheImpl(CacheBuilder<? super Key, ? super List<Region>> builder) {
+    this.cache = builder.build();
+  }
+
   public Cache<Key, List<Region>> getCache() {
     return cache;
   }
@@ -133,18 +137,13 @@ public class BlameCacheImpl implements BlameCache {
     return () -> loadBlame(key, repo);
   }
 
-  public BlameCacheImpl(CacheBuilder<? super Key, ? super List<Region>> builder) {
-    this.cache = builder.build();
-  }
-
   @Override
   public List<Region> get(Repository repo, ObjectId commitId, String path) throws IOException {
     return get(repo, commitId, path, ImmutableSet.of());
   }
 
   @Override
-  public List<Region> get(
-      Repository repo, ObjectId commitId, String path, Set<ObjectId> ignoreIds)
+  public List<Region> get(Repository repo, ObjectId commitId, String path, Set<ObjectId> ignoreIds)
       throws IOException {
     try {
       Key key = new Key(commitId, path, ignoreIds);
@@ -202,7 +201,7 @@ public class BlameCacheImpl implements BlameCache {
     }
   }
 
-  public static List<Region> loadRegions(BlameGenerator gen) throws IOException {
+  public static ImmutableList<Region> loadRegions(BlameGenerator gen) throws IOException {
     Map<ObjectId, PooledCommit> commits = Maps.newHashMap();
     Interner<String> strings = Interners.newStrongInterner();
     int lineCount = gen.getResultContents().size();
@@ -222,8 +221,8 @@ public class BlameCacheImpl implements BlameCache {
                 new PersonIdent(
                     strings.intern(author.getName()),
                     strings.intern(author.getEmailAddress()),
-                    author.getWhen(),
-                    author.getTimeZone()));
+                    author.getWhenAsInstant(),
+                    author.getZoneId()));
         commits.put(pc.commit, pc);
       }
       path = strings.intern(path);
