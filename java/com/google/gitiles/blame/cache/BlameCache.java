@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 
+/** Cache for blame information across repositories and commits. */
 public interface BlameCache {
   /**
    * Gets the blame of a path at a given commit.
@@ -33,8 +34,7 @@ public interface BlameCache {
    *
    * @return the blame of a path at a given commit.
    */
-  default List<Region> get(
-      Repository repo, ObjectId commitId, String path, Set<ObjectId> ignoreIds)
+  default List<Region> get(Repository repo, ObjectId commitId, String path, Set<ObjectId> ignoreIds)
       throws IOException {
     if (ignoreIds == null || ignoreIds.isEmpty()) {
       return get(repo, commitId, path);

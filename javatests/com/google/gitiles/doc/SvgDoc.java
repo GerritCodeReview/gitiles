@@ -18,11 +18,12 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,13 +33,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-/**
- * Shared DOM and geometric assertion helper for Mermaid SVG test suites.
- */
+/** Shared DOM and geometric assertion helper for Mermaid SVG test suites. */
 public class SvgDoc {
 
-  public static final List<String> DANGEROUS_TAGS =
-      Arrays.asList(
+  public static final ImmutableList<String> DANGEROUS_TAGS =
+      ImmutableList.of(
           "script",
           "iframe",
           "foreignObject",
@@ -84,18 +83,19 @@ public class SvgDoc {
    */
   public static SvgDoc render(String mermaidCode) {
     Optional<String> svgOpt = SimpleMermaidRenderer.renderToSvg(mermaidCode);
-    assertThat(svgOpt.isPresent()).isTrue();
+    assertThat(svgOpt).isPresent();
     SvgDoc doc = new SvgDoc(svgOpt.get());
     doc.assertAllInvariants();
     return doc;
   }
 
   /**
-   * Renders the given Mermaid diagram code without asserting collision invariants (e.g. for malformed tests).
+   * Renders the given Mermaid diagram code without asserting collision invariants (e.g. for
+   * malformed tests).
    */
   public static SvgDoc renderRaw(String mermaidCode) {
     Optional<String> svgOpt = SimpleMermaidRenderer.renderToSvg(mermaidCode);
-    assertThat(svgOpt.isPresent()).isTrue();
+    assertThat(svgOpt).isPresent();
     return new SvgDoc(svgOpt.get());
   }
 
@@ -120,7 +120,7 @@ public class SvgDoc {
 
   public void assertDefs() {
     List<Element> defs = getElementsByTag("defs");
-    assertThat(defs.size()).isEqualTo(1);
+    assertThat(defs).hasSize(1);
     Element def = defs.get(0);
     NodeList markers = def.getElementsByTagName("marker");
     assertThat(markers.getLength()).isEqualTo(1);
@@ -146,8 +146,8 @@ public class SvgDoc {
     NodeList nl = doc.getElementsByTagName(tagName);
     for (int i = 0; i < nl.getLength(); i++) {
       Node n = nl.item(i);
-      if (n instanceof Element) {
-        list.add((Element) n);
+      if (n instanceof Element element) {
+        list.add(element);
       }
     }
     return list;
@@ -156,7 +156,7 @@ public class SvgDoc {
   public List<Element> getEdgePaths() {
     List<Element> list = new ArrayList<>();
     for (Element p : getElementsByTag("path")) {
-      if (!"M 0 1.5 L 10 5 L 0 8.5 z".equals(p.getAttribute("d"))) {
+      if (!p.getAttribute("d").equals("M 0 1.5 L 10 5 L 0 8.5 z")) {
         list.add(p);
       }
     }
@@ -166,14 +166,15 @@ public class SvgDoc {
   public List<Element> findSubgraphRects() {
     List<Element> list = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
-      if ("4,4".equals(r.getAttribute("stroke-dasharray"))) {
+      if (r.getAttribute("stroke-dasharray").equals("4,4")) {
         list.add(r);
       }
     }
     return list;
   }
 
-  public @Nullable Element findPolygonWithVertices(int count) {
+  @Nullable
+  public Element findPolygonWithVertices(int count) {
     for (Element p : getElementsByTag("polygon")) {
       String pts = p.getAttribute("points").trim();
       if (!pts.isEmpty() && pts.split("\\s+").length == count) {
@@ -183,11 +184,14 @@ public class SvgDoc {
     return null;
   }
 
-  public @Nullable Element findText(String text) {
+  @Nullable
+  public Element findText(String text) {
     String expected = text.replace("\0", "").trim();
     for (Element t : getElementsByTag("text")) {
       String full = t.getTextContent().trim().replaceAll("\\s+", " ");
-      if (expected.equals(full) || expected.equals(t.getTextContent().trim()) || full.contains(expected)) {
+      if (expected.equals(full)
+          || expected.equals(t.getTextContent().trim())
+          || full.contains(expected)) {
         return t;
       }
     }
@@ -267,7 +271,7 @@ public class SvgDoc {
     for (Element r : getElementsByTag("rect")) {
       String dash = r.getAttribute("stroke-dasharray");
       String opacity = r.getAttribute("fill-opacity");
-      if ("4,4".equals(dash) || "0.95".equals(opacity)) {
+      if (dash.equals("4,4") || opacity.equals("0.95")) {
         continue;
       }
       double x = Double.parseDouble(r.getAttribute("x"));
@@ -285,9 +289,11 @@ public class SvgDoc {
     for (Element p : getElementsByTag("polygon")) {
       String pts = p.getAttribute("points").trim();
       if (!pts.isEmpty()) {
-        double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE;
-        double maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
-        for (String pair : Splitter.onPattern("\\s+").omitEmptyStrings().split(pts)) {
+        double minX = Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double maxY = Double.MIN_VALUE;
+        for (String pair : Splitter.on(Pattern.compile("\\s+")).omitEmptyStrings().split(pts)) {
           List<String> xy = Splitter.on(',').splitToList(pair);
           if (xy.size() == 2) {
             double px = Double.parseDouble(xy.get(0));
@@ -309,7 +315,7 @@ public class SvgDoc {
   public List<Rect2D> getEdgeLabelBadgeBoundingBoxes() {
     List<Rect2D> list = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
-      if ("0.95".equals(r.getAttribute("fill-opacity"))) {
+      if (r.getAttribute("fill-opacity").equals("0.95")) {
         double x = Double.parseDouble(r.getAttribute("x"));
         double y = Double.parseDouble(r.getAttribute("y"));
         double w = Double.parseDouble(r.getAttribute("width"));
@@ -323,7 +329,7 @@ public class SvgDoc {
   public List<Rect2D> getSubgraphBoundingBoxes() {
     List<Rect2D> list = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
-      if ("4,4".equals(r.getAttribute("stroke-dasharray"))) {
+      if (r.getAttribute("stroke-dasharray").equals("4,4")) {
         double x = Double.parseDouble(r.getAttribute("x"));
         double y = Double.parseDouble(r.getAttribute("y"));
         double w = Double.parseDouble(r.getAttribute("width"));
@@ -340,7 +346,7 @@ public class SvgDoc {
       for (int j = i + 1; j < nodes.size(); j++) {
         Rect2D a = nodes.get(i);
         Rect2D b = nodes.get(j);
-        assertWithMessage("Node overlap detected between " + a + " and " + b)
+        assertWithMessage("Node overlap detected between %s and %s", a, b)
             .that(a.overlaps(b, 2.0))
             .isFalse();
       }
@@ -352,7 +358,7 @@ public class SvgDoc {
     List<Rect2D> labels = getEdgeLabelBadgeBoundingBoxes();
     for (Rect2D badge : labels) {
       for (Rect2D node : nodes) {
-        assertWithMessage("Edge label badge " + badge + " overlaps node " + node)
+        assertWithMessage("Edge label badge %s overlaps node %s", badge, node)
             .that(badge.overlaps(node, 2.0))
             .isFalse();
       }
@@ -367,7 +373,7 @@ public class SvgDoc {
         Rect2D b = sgs.get(j);
         boolean oneContainsOther = a.contains(b, 0) || b.contains(a, 0);
         if (!oneContainsOther) {
-          assertWithMessage("Sibling subgraphs overlap: " + a + " and " + b)
+          assertWithMessage("Sibling subgraphs overlap: %s and %s", a, b)
               .that(a.overlaps(b, 2.0))
               .isFalse();
         }

@@ -41,14 +41,16 @@ public class DocServletTest extends ServletTest {
   @Test
   public void includesNavbar() throws Exception {
     String navbar =
-        "# Site Title\n"
-            + "\n"
-            + "[home]: index.md\n"
-            + "[logo]: logo.png\n"
-            + "\n"
-            + "* [Home][home]\n"
-            + "* [README](README.md)\n"
-            + "[extensions]: blocknote\n";
+        """
+        # Site Title
+
+        [home]: index.md
+        [logo]: logo.png
+
+        * [Home][home]
+        * [README](README.md)
+        [extensions]: blocknote
+        """;
     repo.branch("master")
         .commit()
         .add("README.md", "# page\n\nof information.")
@@ -109,11 +111,13 @@ public class DocServletTest extends ServletTest {
   @Test
   public void dropsHtml() throws Exception {
     String markdown =
-        "# B. Ad\n"
-            + "\n"
-            + "<script>window.alert();</script>\n"
-            + "\n"
-            + "Non-HTML <b>is fine</b>.";
+        """
+        # B. Ad
+
+        <script>window.alert();</script>
+
+        Non-HTML <b>is fine</b>.\
+        """;
     repo.branch("master").commit().add("index.md", markdown).create();
 
     String html = buildHtml("/repo/+doc/master/");
@@ -126,7 +130,11 @@ public class DocServletTest extends ServletTest {
 
   @Test
   public void namedAnchor() throws Exception {
-    String markdown = "# Section {#debug}\n" + "# Other <a name=\"OLD-SCHOOL\"></a>\n";
+    String markdown =
+        """
+        # Section {#debug}
+        # Other <a name="OLD-SCHOOL"></a>
+        """;
     repo.branch("master").commit().add("index.md", markdown).create();
     String html = buildHtml("/repo/+doc/master/");
     assertThat(html)
@@ -154,7 +162,15 @@ public class DocServletTest extends ServletTest {
   @Test
   public void noteInList() throws Exception {
     String markdown =
-        "+ one\n\n" + "    ***aside\n" + "    remember this\n" + "    ***\n" + "\n" + "+ two\n";
+        """
+        + one
+
+            ***aside
+            remember this
+            ***
+
+        + two
+        """;
     repo.branch("master").commit().add("index.md", markdown).create();
 
     String html = buildHtml("/repo/+/master/index.md");
