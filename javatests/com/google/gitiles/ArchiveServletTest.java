@@ -55,4 +55,24 @@ public class ArchiveServletTest extends ServletTest {
     byte[] body = res.getActualBody();
     assertThat(body.length).isGreaterThan(20);
   }
+
+  @Test
+  public void tarXzArchive_regressionForMissingXzDependency() throws Exception {
+    repo.branch("master").commit().add("README.md", "hello\n").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+archive/refs/heads/master.tar.xz", /* queryString= */ null, SC_OK);
+
+    String contentType = res.getHeader(HttpHeaders.CONTENT_TYPE);
+    assertThat(contentType).isNotNull();
+    assertThat(contentType.toLowerCase()).contains("xz");
+
+    String cd = res.getHeader(HttpHeaders.CONTENT_DISPOSITION);
+    assertThat(cd).isNotNull();
+    assertThat(cd).contains("attachment");
+    assertThat(cd).contains(".tar.xz");
+
+    byte[] body = res.getActualBody();
+    assertThat(body.length).isGreaterThan(20);
+  }
 }
