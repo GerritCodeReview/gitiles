@@ -90,10 +90,16 @@ public abstract class Renderer {
           "RepositoryIndex.soy");
 
   public static final ImmutableMap<String, String> STATIC_URL_GLOBALS =
-      ImmutableMap.of(
-          "gitiles.BASE_CSS_URL", "base.css",
-          "gitiles.DOC_CSS_URL", "doc.css",
-          "gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css");
+      ImmutableMap.<String, String>builder()
+          .put("gitiles.BASE_CSS_URL", "base.css")
+          .put("gitiles.DOC_CSS_URL", "doc.css")
+          .put("gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css")
+          .put("gitiles.FAVICON_ICO_URL", "favicon.ico")
+          .put("gitiles.FAVICON_SVG_URL", "favicon.svg")
+          .put("gitiles.FAVICON_32_URL", "favicon-32x32.png")
+          .put("gitiles.FAVICON_16_URL", "favicon-16x16.png")
+          .put("gitiles.APPLE_TOUCH_ICON_URL", "apple-touch-icon.png")
+          .build();
 
   protected static Function<String, URL> fileUrlMapper() {
     return fileUrlMapper("");
