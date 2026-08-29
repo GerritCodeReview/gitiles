@@ -99,7 +99,7 @@ public abstract class Renderer {
           .put("gitiles.FAVICON_32_URL", "favicon-32x32.png")
           .put("gitiles.FAVICON_16_URL", "favicon-16x16.png")
           .put("gitiles.APPLE_TOUCH_ICON_URL", "apple-touch-icon.png")
-          .build();
+          .buildOrThrow();
 
   protected static Function<String, URL> fileUrlMapper() {
     return fileUrlMapper("");
@@ -140,7 +140,7 @@ public abstract class Renderer {
     for (URL u : customTemplates) {
       b.put(u.toString(), u);
     }
-    templates = b.build();
+    templates = b.buildOrThrow();
 
     Map<String, String> allGlobals = Maps.newHashMap();
     for (Map.Entry<String, String> e : STATIC_URL_GLOBALS.entrySet()) {
@@ -152,12 +152,7 @@ public abstract class Renderer {
   }
 
   public HashCode getTemplateHash(String soyFile) {
-    HashCode h = hashes.get(soyFile);
-    if (h == null) {
-      h = computeTemplateHash(soyFile);
-      hashes.put(soyFile, h);
-    }
-    return h;
+    return hashes.computeIfAbsent(soyFile, this::computeTemplateHash);
   }
 
   HashCode computeTemplateHash(String soyFile) {
@@ -239,8 +234,8 @@ public abstract class Renderer {
 
       @Override
       public void close() throws IOException {
-        try (OutputStream o = out) {
-          o.write(tail);
+        try (out) {
+          out.write(tail);
         }
       }
     };
@@ -259,7 +254,7 @@ public abstract class Renderer {
     }
     ImmutableMap.Builder<String, Object> ij =
         ImmutableMap.<String, Object>builder()
-            .put("staticUrls", staticUrls.build())
+            .put("staticUrls", staticUrls.buildOrThrow())
             .put("SITE_TITLE", siteTitle)
             .put("THEME_INIT_SCRIPT", THEME_INIT_SCRIPT)
             .put("THEME_TOGGLE_SCRIPT", THEME_TOGGLE_SCRIPT);
@@ -267,7 +262,7 @@ public abstract class Renderer {
     if (nonce.isPresent()) {
       ij.put("csp_nonce", nonce.get());
     }
-    return getSauce().renderTemplate(templateName).setIj(ij.build());
+    return getSauce().renderTemplate(templateName).setIj(ij.buildOrThrow());
   }
 
   protected abstract SoySauce getSauce();

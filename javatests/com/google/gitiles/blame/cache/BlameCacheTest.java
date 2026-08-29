@@ -19,9 +19,7 @@ import static org.junit.Assert.assertThrows;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
@@ -77,8 +75,7 @@ public class BlameCacheTest {
     BlameCacheImpl.Key kNoIgnore = new BlameCacheImpl.Key(c1, "foo.txt");
     assertThat(kNoIgnore.toString()).isEqualTo("1111111111111111111111111111111111111111:foo.txt");
 
-    BlameCacheImpl.Key kWithIgnore =
-        new BlameCacheImpl.Key(c1, "foo.txt", ImmutableSet.of(c3, c2));
+    BlameCacheImpl.Key kWithIgnore = new BlameCacheImpl.Key(c1, "foo.txt", ImmutableSet.of(c3, c2));
     assertThat(kWithIgnore.toString())
         .isEqualTo(
             "1111111111111111111111111111111111111111:foo.txt"
@@ -105,8 +102,7 @@ public class BlameCacheTest {
     RevCommit c2 =
         repo.commit().parent(c1).add("foo.txt", "line1_formatted\nline2_formatted\n").create();
 
-    List<Region> regions =
-        blameCache.get(repo.getRepository(), c2, "foo.txt", ImmutableSet.of(c2));
+    List<Region> regions = blameCache.get(repo.getRepository(), c2, "foo.txt", ImmutableSet.of(c2));
     assertThat(regions).hasSize(1);
     assertThat(regions.get(0).getSourceCommit()).isEqualTo(c1);
     assertThat(regions.get(0).getStart()).isEqualTo(0);
@@ -124,8 +120,7 @@ public class BlameCacheTest {
     assertThat(unignored.get(0).getSourceCommit()).isEqualTo(c2);
 
     // Query 2: ignored blame
-    List<Region> ignored =
-        blameCache.get(repo.getRepository(), c2, "foo.txt", ImmutableSet.of(c2));
+    List<Region> ignored = blameCache.get(repo.getRepository(), c2, "foo.txt", ImmutableSet.of(c2));
     assertThat(ignored.get(0).getSourceCommit()).isEqualTo(c1);
 
     // Verify both are cached under separate keys
@@ -157,7 +152,7 @@ public class BlameCacheTest {
     BlameCache customCache =
         new BlameCache() {
           @Override
-          public List<Region> get(Repository repo, ObjectId commitId, String path) {
+          public ImmutableList<Region> get(Repository repo, ObjectId commitId, String path) {
             return ImmutableList.of(new Region(null, null, null, 0, 1));
           }
 
@@ -176,13 +171,11 @@ public class BlameCacheTest {
     assertThat(res2).hasSize(1);
 
     // When ignoreIds is non-empty, default method throws UnsupportedOperationException
+    DfsRepository repo2 = repo.getRepository();
+    ObjectId commitId = ObjectId.zeroId();
+    ImmutableSet<ObjectId> ignoreIds = ImmutableSet.of(ObjectId.zeroId());
     assertThrows(
         UnsupportedOperationException.class,
-        () ->
-            customCache.get(
-                repo.getRepository(),
-                ObjectId.zeroId(),
-                "foo.txt",
-                ImmutableSet.of(ObjectId.zeroId())));
+        () -> customCache.get(repo2, commitId, "foo.txt", ignoreIds));
   }
 }

