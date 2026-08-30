@@ -70,6 +70,30 @@
       },
       "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c2ac4b4_7a551317",
+        "filename": "modules/jgit",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-08-30T21:25:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5fc389e6_202fcc74",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
