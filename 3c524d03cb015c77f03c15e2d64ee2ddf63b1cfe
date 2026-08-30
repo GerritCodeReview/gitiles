@@ -22,6 +22,30 @@
       },
       "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f90afefe_f2f4d0d9",
+        "filename": "modules/jgit",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-30T21:12:28Z",
+      "side": 1,
+      "message": "ok, that was a change in review\nhttps://eclipse.gerrithub.io/c/eclipse-jgit/jgit/+/1247298\nI submitted this now, so this should work as soon as the submitted change was replicated to the jgit mirror on gerrit-review",
+      "parentUuid": "0259cf1b_d557576e",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
