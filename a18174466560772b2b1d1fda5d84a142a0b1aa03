@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1467acb_18c3663c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-08-30T20:29:54Z",
+      "side": 1,
+      "message": "Superseded by change 623521.\n\nThe new change drops the external google/diff-match-patch dependency and computes the character-level diff with JGit\u0027s own MyersDiff in-tree.",
+      "revId": "a18174466560772b2b1d1fda5d84a142a0b1aa03",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
