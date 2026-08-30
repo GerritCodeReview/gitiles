@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0259cf1b_d557576e",
+        "filename": "modules/jgit",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-30T21:02:47Z",
+      "side": 1,
+      "message": "can\u0027t find this one either\n```\njgit (master)]$ git show 2bf2e4a32ef9347617a73ae739d08fc48c029989\nfatal: bad object 2bf2e4a32ef9347617a73ae739d08fc48c029989\n```",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
