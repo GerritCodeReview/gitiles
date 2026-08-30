@@ -174,6 +174,7 @@ class GitilesFilter extends MetaFilter {
   private VisibilityCache visibilityCache;
   private TimeCache timeCache;
   private BlameCache blameCache;
+  private IntraLineDiffCache intraLineCache;
   private GitwebRedirectFilter gitwebRedirect;
   private Filter errorHandler;
   private BranchRedirect branchRedirect;
@@ -190,6 +191,7 @@ class GitilesFilter extends MetaFilter {
       @Nullable VisibilityCache visibilityCache,
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
+      @Nullable IntraLineDiffCache intraLineCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
       BranchRedirect branchRedirect,
       @Nullable Filter errorHandler) {
@@ -200,6 +202,7 @@ class GitilesFilter extends MetaFilter {
     this.visibilityCache = visibilityCache;
     this.timeCache = timeCache;
     this.blameCache = blameCache;
+    this.intraLineCache = intraLineCache;
     this.gitwebRedirect = gitwebRedirect;
     if (resolver != null) {
       this.resolver = resolver;
@@ -260,7 +263,7 @@ class GitilesFilter extends MetaFilter {
       case PATH:
         return new PathServlet(accessFactory, renderer, urls);
       case DIFF:
-        return new DiffServlet(accessFactory, renderer, linkifier());
+        return new DiffServlet(accessFactory, renderer, linkifier(), intraLineCache);
       case LOG:
         return new LogServlet(accessFactory, renderer, linkifier());
       case DESCRIBE:
