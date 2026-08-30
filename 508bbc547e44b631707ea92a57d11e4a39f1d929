@@ -34,6 +34,24 @@
       ],
       "revId": "508bbc547e44b631707ea92a57d11e4a39f1d929",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdd1a222_766414a5",
+        "filename": "java/com/google/gitiles/doc/MarkdownToHtml.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-08-30T03:29:18Z",
+      "side": 1,
+      "message": "dug in. for external we are a bit stuck",
+      "parentUuid": "d1ae35c7_bf68ca26",
+      "revId": "508bbc547e44b631707ea92a57d11e4a39f1d929",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
