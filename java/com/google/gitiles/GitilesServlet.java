@@ -42,6 +42,7 @@ public class GitilesServlet extends MetaServlet {
   /** The prefix from which static resources are served. */
   public static final String STATIC_PREFIX = "/+static/";
 
+  /** Backward-compatible constructor without an intraline diff cache (uses no cache). */
   public GitilesServlet(
       Config config,
       @Nullable Renderer renderer,
@@ -62,6 +63,61 @@ public class GitilesServlet extends MetaServlet {
         visibilityCache,
         timeCache,
         blameCache,
+        null,
+        gitwebRedirect,
+        branchRedirect);
+  }
+
+  /** Backward-compatible constructor without an intraline diff cache (uses no cache). */
+  public GitilesServlet(
+      Config config,
+      @Nullable Renderer renderer,
+      @Nullable GitilesUrls urls,
+      @Nullable GitilesAccess.Factory accessFactory,
+      @Nullable RepositoryResolver<HttpServletRequest> resolver,
+      @Nullable VisibilityCache visibilityCache,
+      @Nullable TimeCache timeCache,
+      @Nullable BlameCache blameCache,
+      @Nullable GitwebRedirectFilter gitwebRedirect,
+      BranchRedirect branchRedirect,
+      @Nullable Filter errorHandler) {
+    this(
+        config,
+        renderer,
+        urls,
+        accessFactory,
+        resolver,
+        visibilityCache,
+        timeCache,
+        blameCache,
+        null,
+        gitwebRedirect,
+        branchRedirect,
+        errorHandler);
+  }
+
+  public GitilesServlet(
+      Config config,
+      @Nullable Renderer renderer,
+      @Nullable GitilesUrls urls,
+      @Nullable GitilesAccess.Factory accessFactory,
+      @Nullable RepositoryResolver<HttpServletRequest> resolver,
+      @Nullable VisibilityCache visibilityCache,
+      @Nullable TimeCache timeCache,
+      @Nullable BlameCache blameCache,
+      @Nullable IntraLineDiffCache intraLineCache,
+      @Nullable GitwebRedirectFilter gitwebRedirect,
+      BranchRedirect branchRedirect) {
+    this(
+        config,
+        renderer,
+        urls,
+        accessFactory,
+        resolver,
+        visibilityCache,
+        timeCache,
+        blameCache,
+        intraLineCache,
         gitwebRedirect,
         branchRedirect,
         null);
@@ -76,6 +132,7 @@ public class GitilesServlet extends MetaServlet {
       @Nullable VisibilityCache visibilityCache,
       @Nullable TimeCache timeCache,
       @Nullable BlameCache blameCache,
+      @Nullable IntraLineDiffCache intraLineCache,
       @Nullable GitwebRedirectFilter gitwebRedirect,
       BranchRedirect branchRedirect,
       @Nullable Filter errorHandler) {
@@ -89,6 +146,7 @@ public class GitilesServlet extends MetaServlet {
             visibilityCache,
             timeCache,
             blameCache,
+            intraLineCache,
             gitwebRedirect,
             branchRedirect,
             errorHandler));

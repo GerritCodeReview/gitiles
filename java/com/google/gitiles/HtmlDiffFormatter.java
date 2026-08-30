@@ -27,12 +27,14 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gitiles.diff.IntraLineDiff;
+import com.google.gitiles.diff.IntraLineDiffResult;
 import com.google.gitiles.diff.ReplaceEdit;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +51,8 @@ import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
 import org.eclipse.jgit.diff.EditList;
 import org.eclipse.jgit.diff.RawText;
+import org.eclipse.jgit.lib.AbbreviatedObjectId;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.FileHeader.PatchType;
 import org.eclipse.jgit.util.RawParseUtils;
@@ -88,13 +92,19 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
   private final Renderer renderer;
   private final GitilesView view;
+  private final IntraLineDiffCache intraLineCache;
   private int fileIndex;
   private DiffEntry entry;
 
-  HtmlDiffFormatter(Renderer renderer, GitilesView view, OutputStream out) {
+  HtmlDiffFormatter(
+      Renderer renderer,
+      GitilesView view,
+      OutputStream out,
+      @Nullable IntraLineDiffCache intraLineCache) {
     super(out);
     this.renderer = checkNotNull(renderer, "renderer");
     this.view = checkNotNull(view, "view");
+    this.intraLineCache = intraLineCache == null ? IntraLineDiffCache.DIRECT : intraLineCache;
   }
 
   @Override
@@ -148,31 +158,72 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
   /**
    * Computes the intraline (word-level) edits for {@code edits}, bounded by a timeout the same way
-   * Gerrit's IntraLineLoader bounds it. Falls back to the plain line-level edits (rendered without
-   * intraline marks) if the character diff does not finish in time.
+   * Gerrit's IntraLineLoader bounds it. Returns an {@link IntraLineDiffResult} whose status is
+   * {@link IntraLineDiffResult.Status#EDIT_LIST} on success, or {@link
+   * IntraLineDiffResult.Status#TIMEOUT} / {@link IntraLineDiffResult.Status#ERROR} carrying the
+   * plain line-level edits (rendered without intraline marks) if the character diff does not finish
+   * in time or fails. Only {@code EDIT_LIST} results are safe to cache.
    *
    * <p>Package-private and parameterized on {@code executor}/{@code timeoutMillis} so a test can
-   * force the timeout fallback deterministically.
+   * force the timeout/error fallback deterministically.
    */
-  static ImmutableList<Edit> computeIntraLineEdits(
+  static IntraLineDiffResult computeIntraLineEdits(
       ExecutorService executor, long timeoutMillis, EditList edits, RawText a, RawText b) {
     Future<ImmutableList<Edit>> future = executor.submit(() -> IntraLineDiff.compute(a, b, edits));
     try {
-      return future.get(timeoutMillis, TimeUnit.MILLISECONDS);
+      return IntraLineDiffResult.editList(future.get(timeoutMillis, TimeUnit.MILLISECONDS));
     } catch (InterruptedException e) {
       future.cancel(true);
       Thread.currentThread().interrupt();
-    } catch (TimeoutException | ExecutionException e) {
+      return IntraLineDiffResult.error(ImmutableList.copyOf(edits));
+    } catch (TimeoutException e) {
       future.cancel(true);
+      return IntraLineDiffResult.timeout(ImmutableList.copyOf(edits));
+    } catch (ExecutionException e) {
+      future.cancel(true);
+      return IntraLineDiffResult.error(ImmutableList.copyOf(edits));
     }
-    return ImmutableList.copyOf(edits);
+  }
+
+  /**
+   * Returns the intraline result for the current file, consulting {@link #intraLineCache} when the
+   * file has a blob pair to key on (modified files). Added/deleted files (a blob id is missing) are
+   * computed without caching. A cache backend failure falls back to line-level rendering.
+   */
+  private IntraLineDiffResult intraLineEdits(EditList edits, RawText a, RawText b) {
+    Callable<IntraLineDiffResult> loader =
+        () -> computeIntraLineEdits(INTRALINE_EXECUTOR, INTRALINE_TIMEOUT_MILLIS, edits, a, b);
+    try {
+      // entry is null when format(FileHeader, ...) is called directly; then there is no key.
+      IntraLineDiffKey key = entry != null ? keyFor(entry) : null;
+      return key == null ? loader.call() : intraLineCache.get(key, loader);
+    } catch (InterruptedException e) {
+      // A cache backend may throw this; keep the interrupt flag set for the caller.
+      Thread.currentThread().interrupt();
+      return IntraLineDiffResult.error(ImmutableList.copyOf(edits));
+    } catch (Exception e) {
+      // computeIntraLineEdits never throws; a cache backend failure must not break rendering.
+      return IntraLineDiffResult.error(ImmutableList.copyOf(edits));
+    }
+  }
+
+  private static @Nullable IntraLineDiffKey keyFor(DiffEntry entry) {
+    ObjectId a = toObjectId(entry.getOldId());
+    ObjectId b = toObjectId(entry.getNewId());
+    if (a == null || b == null || ObjectId.zeroId().equals(a) || ObjectId.zeroId().equals(b)) {
+      return null; // added/deleted file: no blob pair to cache on.
+    }
+    return new IntraLineDiffKey(a, b);
+  }
+
+  private static @Nullable ObjectId toObjectId(@Nullable AbbreviatedObjectId id) {
+    return id != null ? id.toObjectId() : null;
   }
 
   @Override
   public void format(final EditList edits, final RawText a, final RawText b, DiffDriver diffDriver)
       throws IOException {
-    ImmutableList<Edit> lineEdits =
-        computeIntraLineEdits(INTRALINE_EXECUTOR, INTRALINE_TIMEOUT_MILLIS, edits, a, b);
+    ImmutableList<Edit> lineEdits = intraLineEdits(edits, a, b).edits();
 
     for (int curIdx = 0; curIdx < lineEdits.size(); ) {
       Edit curEdit = lineEdits.get(curIdx);
