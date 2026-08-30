@@ -46,6 +46,30 @@
       },
       "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc389e6_202fcc74",
+        "filename": "modules/jgit",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-08-30T21:24:21Z",
+      "side": 1,
+      "message": "Sync problem with gerrithub.io? It should be there: [1].\n\nUse `git -c fetch.recurseSubmodules\u003dno fetch ...`.\n\nAlternative we could merge: [1] and the the sync would hopefully work.\n\n[1]: https://eclipse.gerrithub.io/c/eclipse-jgit/jgit/+/1247298",
+      "parentUuid": "0259cf1b_d557576e",
+      "range": {
+        "startLine": 1,
+        "startChar": 18,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "3c524d03cb015c77f03c15e2d64ee2ddf63b1cfe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
