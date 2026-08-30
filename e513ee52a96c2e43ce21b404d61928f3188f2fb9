@@ -16,6 +16,24 @@
       "message": "Fetching this change fails for me, I first tried with master checked out, then from the predecessor change 623322. Both fail with this error:\n```\ngitiles (change-623322)]$ git fetch https://gerrit.googlesource.com/gitiles refs/changes/24/623324/2 \u0026\u0026 git checkout -b change-623324 FETCH_HEAD\nFrom https://gerrit.googlesource.com/gitiles\n * branch            refs/changes/24/623324/2 -\u003e FETCH_HEAD\nFetching submodule modules/jgit\nerror: RPC failed; HTTP 400 curl 22 The requested URL returned error: 400\nfatal: expected \u0027acknowledgments\u0027\nErrors during submodule fetch:\n\tmodules/jgit\n```",
       "revId": "e513ee52a96c2e43ce21b404d61928f3188f2fb9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9927206c_643d276d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-08-30T20:54:19Z",
+      "side": 1,
+      "message": "Fixed `jgit` submodule in the parent change.",
+      "parentUuid": "16a28b69_1053fd26",
+      "revId": "e513ee52a96c2e43ce21b404d61928f3188f2fb9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
