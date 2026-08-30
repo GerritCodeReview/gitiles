@@ -64,6 +64,16 @@ public class TestGitilesServlet {
       GitwebRedirectFilter gitwebRedirect,
       BranchRedirect branchRedirect)
       throws ServletException {
+    return create(repo, gitwebRedirect, branchRedirect, null);
+  }
+
+  /** Creates a servlet with an injected {@link IntraLineDiffCache} (for cache-seam tests). */
+  public static GitilesServlet create(
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirect branchRedirect,
+      @Nullable IntraLineDiffCache intraLineCache)
+      throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
         new GitilesServlet(
@@ -85,6 +95,7 @@ public class TestGitilesServlet {
             null,
             null,
             null,
+            intraLineCache,
             gitwebRedirect,
             branchRedirect);
 

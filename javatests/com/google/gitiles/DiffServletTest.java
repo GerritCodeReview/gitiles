@@ -20,8 +20,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.BaseEncoding;
+import com.google.gitiles.diff.IntraLineDiffResult;
 import com.google.gitiles.diff.ReplaceEdit;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
@@ -36,6 +38,7 @@ import org.eclipse.jgit.diff.DiffEntry.Side;
 import org.eclipse.jgit.diff.Edit;
 import org.eclipse.jgit.diff.EditList;
 import org.eclipse.jgit.diff.RawText;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.Patch;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -78,10 +81,12 @@ public class DiffServletTest extends ServletTest {
               return null;
             });
     try {
-      ImmutableList<Edit> result =
+      IntraLineDiffResult result =
           HtmlDiffFormatter.computeIntraLineEdits(occupied, 50, edits, a, b);
-      assertThat(result).containsExactlyElementsIn(edits).inOrder();
-      assertThat(result.get(0)).isNotInstanceOf(ReplaceEdit.class);
+      assertThat(result.status()).isEqualTo(IntraLineDiffResult.Status.TIMEOUT);
+      assertThat(result.isCacheable()).isFalse();
+      assertThat(result.edits()).containsExactlyElementsIn(edits).inOrder();
+      assertThat(result.edits().get(0)).isNotInstanceOf(ReplaceEdit.class);
     } finally {
       block.countDown();
       occupied.shutdownNow();
@@ -97,10 +102,12 @@ public class DiffServletTest extends ServletTest {
 
     ExecutorService executor = Executors.newSingleThreadExecutor();
     try {
-      ImmutableList<Edit> result =
+      IntraLineDiffResult result =
           HtmlDiffFormatter.computeIntraLineEdits(executor, 5000, edits, a, b);
-      assertThat(result).hasSize(1);
-      assertThat(result.get(0)).isInstanceOf(ReplaceEdit.class);
+      assertThat(result.status()).isEqualTo(IntraLineDiffResult.Status.EDIT_LIST);
+      assertThat(result.isCacheable()).isTrue();
+      assertThat(result.edits()).hasSize(1);
+      assertThat(result.edits().get(0)).isInstanceOf(ReplaceEdit.class);
     } finally {
       executor.shutdownNow();
     }
@@ -113,11 +120,13 @@ public class DiffServletTest extends ServletTest {
     EditList edits = new EditList();
     edits.add(new Edit(0, 1, 0, 1));
 
-    ImmutableList<Edit> result =
+    IntraLineDiffResult result =
         HtmlDiffFormatter.computeIntraLineEdits(failingExecutor(), 5000, edits, a, b);
 
-    assertThat(result).containsExactlyElementsIn(edits).inOrder();
-    assertThat(result.get(0)).isNotInstanceOf(ReplaceEdit.class);
+    assertThat(result.status()).isEqualTo(IntraLineDiffResult.Status.ERROR);
+    assertThat(result.isCacheable()).isFalse();
+    assertThat(result.edits()).containsExactlyElementsIn(edits).inOrder();
+    assertThat(result.edits().get(0)).isNotInstanceOf(ReplaceEdit.class);
   }
 
   /** An executor whose submitted tasks always fail, so {@code Future.get} throws. */
@@ -136,7 +145,7 @@ public class DiffServletTest extends ServletTest {
       public void shutdown() {}
 
       @Override
-      public List<Runnable> shutdownNow() {
+      public ImmutableList<Runnable> shutdownNow() {
         return ImmutableList.of();
       }
 
@@ -155,6 +164,147 @@ public class DiffServletTest extends ServletTest {
         return true;
       }
     };
+  }
+
+  @Test
+  public void directCacheAlwaysComputes() throws Exception {
+    IntraLineDiffResult canned = IntraLineDiffResult.editList(ImmutableList.of());
+    int[] loaderCalls = {0};
+    IntraLineDiffResult out =
+        IntraLineDiffCache.DIRECT.get(
+            new IntraLineDiffKey(ObjectId.zeroId(), ObjectId.zeroId()),
+            () -> {
+              loaderCalls[0]++;
+              return canned;
+            });
+    assertThat(loaderCalls[0]).isEqualTo(1);
+    assertThat(out).isSameInstanceAs(canned);
+  }
+
+  @Test
+  public void noIntraLineCacheIsUsedByDefault() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("f", "foo bar baz\n"));
+    RevCommit c2 = repo.update("master", repo.commit().parent(c1).add("f", "foo qux baz\n"));
+    assertThat(buildHtml("/repo/+diff/" + c2.name() + "^!/f", false)).contains("Diff-mark");
+  }
+
+  @Test
+  public void intraLineCacheIsConsultedForModifiedFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("f", "foo bar baz\n"));
+    RevCommit c2 = repo.update("master", repo.commit().parent(c1).add("f", "foo qux baz\n"));
+    RecordingIntraLineDiffCache cache = new RecordingIntraLineDiffCache();
+    servlet =
+        TestGitilesServlet.create(repo, new GitwebRedirectFilter(), new BranchRedirect(), cache);
+
+    String actual = buildHtml("/repo/+diff/" + c2.name() + "^!/f", false);
+
+    assertThat(cache.getCalls).isEqualTo(1);
+    assertThat(cache.loaderCalls).isEqualTo(1);
+    assertThat(actual).contains("Diff-mark");
+  }
+
+  @Test
+  public void intraLineCacheServesSecondRenderFromCache() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("f", "foo bar baz\n"));
+    RevCommit c2 = repo.update("master", repo.commit().parent(c1).add("f", "foo qux baz\n"));
+    RecordingIntraLineDiffCache cache = new RecordingIntraLineDiffCache();
+    servlet =
+        TestGitilesServlet.create(repo, new GitwebRedirectFilter(), new BranchRedirect(), cache);
+    String diffUrl = "/repo/+diff/" + c2.name() + "^!/f";
+
+    buildHtml(diffUrl, false);
+    buildHtml(diffUrl, false);
+
+    assertThat(cache.getCalls).isEqualTo(2);
+    assertThat(cache.loaderCalls).isEqualTo(1);
+  }
+
+  @Test
+  public void intraLineCacheKeyMatchesBlobIds() throws Exception {
+    ObjectId oldBlob = repo.blob("foo bar baz\n");
+    ObjectId newBlob = repo.blob("foo qux baz\n");
+    RevCommit c1 = repo.update("master", repo.commit().add("f", "foo bar baz\n"));
+    RevCommit c2 = repo.update("master", repo.commit().parent(c1).add("f", "foo qux baz\n"));
+    RecordingIntraLineDiffCache cache = new RecordingIntraLineDiffCache();
+    servlet =
+        TestGitilesServlet.create(repo, new GitwebRedirectFilter(), new BranchRedirect(), cache);
+
+    buildHtml("/repo/+diff/" + c2.name() + "^!/f", false);
+
+    assertThat(cache.lastKey).isNotNull();
+    assertThat(cache.lastKey.blobA()).isEqualTo(oldBlob);
+    assertThat(cache.lastKey.blobB()).isEqualTo(newBlob);
+  }
+
+  @Test
+  public void intraLineCacheSkippedForAddedFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("kept", "x\n"));
+    RevCommit c2 =
+        repo.update(
+            "master", repo.commit().parent(c1).add("kept", "x\n").add("added", "brand new\n"));
+    RecordingIntraLineDiffCache cache = new RecordingIntraLineDiffCache();
+    servlet =
+        TestGitilesServlet.create(repo, new GitwebRedirectFilter(), new BranchRedirect(), cache);
+
+    buildHtml("/repo/+diff/" + c2.name() + "^!/added", false);
+
+    assertThat(cache.getCalls).isEqualTo(0);
+  }
+
+  @Test
+  public void nonCacheableResultIsNotStored() throws Exception {
+    RecordingIntraLineDiffCache cache = new RecordingIntraLineDiffCache();
+    IntraLineDiffKey key = new IntraLineDiffKey(ObjectId.zeroId(), ObjectId.zeroId());
+    Callable<IntraLineDiffResult> timeoutLoader =
+        () -> IntraLineDiffResult.timeout(ImmutableList.of());
+
+    cache.get(key, timeoutLoader);
+    cache.get(key, timeoutLoader);
+
+    assertThat(cache.getCalls).isEqualTo(2);
+    assertThat(cache.loaderCalls).isEqualTo(2);
+  }
+
+  @Test
+  public void cacheBackendFailureFallsBackToLineLevel() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("f", "foo bar baz\n"));
+    RevCommit c2 = repo.update("master", repo.commit().parent(c1).add("f", "foo qux baz\n"));
+    IntraLineDiffCache failing =
+        (key, loader) -> {
+          throw new RuntimeException("cache backend down");
+        };
+    servlet =
+        TestGitilesServlet.create(repo, new GitwebRedirectFilter(), new BranchRedirect(), failing);
+
+    String actual = buildHtml("/repo/+diff/" + c2.name() + "^!/f", false);
+
+    assertThat(actual).contains("Diff-delete");
+    assertThat(actual).doesNotContain("Diff-mark");
+    assertThat(actual).doesNotContain("Diff-intraline");
+  }
+
+  private static final class RecordingIntraLineDiffCache implements IntraLineDiffCache {
+    int getCalls;
+    int loaderCalls;
+    IntraLineDiffKey lastKey;
+    private final Map<IntraLineDiffKey, IntraLineDiffResult> store = new HashMap<>();
+
+    @Override
+    public IntraLineDiffResult get(IntraLineDiffKey key, Callable<IntraLineDiffResult> loader)
+        throws Exception {
+      getCalls++;
+      lastKey = key;
+      IntraLineDiffResult cached = store.get(key);
+      if (cached != null) {
+        return cached;
+      }
+      loaderCalls++;
+      IntraLineDiffResult result = loader.call();
+      if (result.isCacheable()) {
+        store.put(key, result);
+      }
+      return result;
+    }
   }
 
   @Test

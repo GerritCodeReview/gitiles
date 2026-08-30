@@ -49,10 +49,20 @@ public class DiffServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
 
   private final Linkifier linkifier;
+  @Nullable private final IntraLineDiffCache intraLineCache;
 
   public DiffServlet(GitilesAccess.Factory accessFactory, Renderer renderer, Linkifier linkifier) {
+    this(accessFactory, renderer, linkifier, null);
+  }
+
+  public DiffServlet(
+      GitilesAccess.Factory accessFactory,
+      Renderer renderer,
+      Linkifier linkifier,
+      @Nullable IntraLineDiffCache intraLineCache) {
     super(renderer, accessFactory);
     this.linkifier = checkNotNull(linkifier, "linkifier");
+    this.intraLineCache = intraLineCache;
   }
 
   @Override
@@ -110,7 +120,7 @@ public class DiffServlet extends BaseServlet {
       try (OutputStream out =
               startRenderStreamingHtml(
                   req, res, "com.google.gitiles.templates.DiffDetail.diffDetail", data);
-          DiffFormatter diff = new HtmlDiffFormatter(renderer, view, out)) {
+          DiffFormatter diff = new HtmlDiffFormatter(renderer, view, out, intraLineCache)) {
         formatDiff(repo, oldTree, newTree, view.getPathPart(), diff);
       }
     }
