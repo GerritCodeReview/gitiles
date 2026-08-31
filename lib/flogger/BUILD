@@ -1,8 +1,7 @@
-load("@rules_java//java:defs.bzl", "java_library")
+load("//lib:provided.bzl", "provided_java_library")
 
-java_library(
+provided_java_library(
     name = "flogger",
-    visibility = ["//visibility:public"],
     exports = [
         "@external_deps//:ch_qos_reload4j_reload4j",
         "@external_deps//:com_google_flogger_flogger",
