@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0125e1c_bc6081ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-08-31T04:05:31Z",
+      "side": 1,
+      "message": "CI is failing with:\n\nERROR: error loading package under directory \u0027\u0027: error loading package \u0027bazlets/flags\u0027: Unable to find package for @@[unknown repo \u0027bazel_skylib\u0027 requested from @@]//rules:common_settings.bzl: The repository \u0027@@[unknown repo \u0027bazel_skylib\u0027 requested from @@]\u0027 could not be resolved: No repository visible as \u0027@bazel_skylib\u0027 from main repository.\n\nRemoving the Depends-On line should fix it.\n\nIt should work because Zuul will no longer include bazlets in `zuul.projects`, so `prepare-gerrit-repos` will not copy bazlets into the Gitiles checkout, and `bazelisk test //...` won’t traverse `//bazlets/flags`.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "47630315de33c54d40533e0a0fab39d7c938abce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
