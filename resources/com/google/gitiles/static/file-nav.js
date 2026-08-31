@@ -380,4 +380,13 @@
   } else {
     initFileNav();
   }
+
+  // Shared with file-nav-search.js so search results and the tree build rows
+  // from one set of rules and cannot drift apart.
+  window.gitilesFileNav = {
+    MODE_TREE: MODE_TREE,
+    itemClass: itemClass,
+    makeLink: makeLink,
+    parseJson: parseJson,
+  };
 })();

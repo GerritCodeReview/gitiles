@@ -79,9 +79,13 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 {template fileNavigation_}
   {@param path: ?}  /** path for the directory being listed. */
   {@param entries: ?}  /** current directory entries. */
+  {@param searchUrl: ?}  /** recursive JSON URL used by the file search enhancement. */
+  {@param searchRootUrl: ?}  /** root tree URL used to construct search result links. */
+  {@param searchMinLength: ?}  /** shortest query the search endpoint accepts. */
   {@param? activePath: ?}  /** normalized path for the current page. */
   {@param? activeName: ?}  /** optional active entry name. */
   {@inject FILE_NAV_SCRIPT: ?}
+  {@inject FILE_NAV_SEARCH_SCRIPT: ?}
 <nav id="gitiles-file-nav" class="FileNav" aria-labelledby="gitiles-file-nav-heading"
     {if $activePath}data-file-nav-active-path="{$activePath}"{/if}>
   <details class="FileNav-disclosure" open>
@@ -91,6 +95,17 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       </span>
       <span class="FileNav-path">{$path}</span>
     </summary>
+    <form class="FileNav-search" role="search">
+      <label class="FileNav-searchLabel" for="gitiles-file-nav-search">
+        {msg desc="Label for repository file search"}Search files{/msg}
+      </label>
+      <input id="gitiles-file-nav-search" class="FileNav-searchInput" type="search"
+          autocomplete="off" spellcheck="false"
+          data-file-nav-search="{$searchUrl}" data-file-nav-root="{$searchRootUrl}"
+          data-file-nav-min-length="{$searchMinLength}">
+    </form>
+    <p class="FileNav-searchStatus" aria-live="polite" hidden></p>
+    <ol class="FileNav-results" hidden></ol>
     <ol class="FileNav-list">
       {for $entry in $entries}
         <li class="FileNav-item{sp}
@@ -113,6 +128,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   </details>
 </nav>
 <script>{$FILE_NAV_SCRIPT}</script>
+<script>{$FILE_NAV_SEARCH_SCRIPT}</script>
 {/template}
 
 /**

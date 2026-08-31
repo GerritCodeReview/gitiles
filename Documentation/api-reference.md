@@ -47,6 +47,18 @@ View the metadata about a given target. If the target is a file, use `format=TEX
 curl "https://gerrit.googlesource.com/a/gitiles/+show/refs/heads/master/README.md?format=TEXT" | base64 -d
 ```
 
+##### Tree listing parameters
+When the target is a tree and `format=JSON` is used:
+* `recursive=1` to list the whole subtree rather than one level, naming each
+  entry by its full path.
+* `long=1` to include the size of each blob.
+* `filter=<substring>` to return only entries whose name contains the
+  substring, ignoring case. Requires at least two characters.
+* `limit=<number>` to cap the number of entries returned by a `filter` query.
+  Values above the server's `gitiles.fileSearchLimit` are clamped to it. When
+  the cap truncates the result, the response sets `"truncated": true`. The cap
+  applies only to `filter` queries; unfiltered listings are not limited.
+
 #### **`+archive`**
 `https://gerrit.googlesource.com/a/gitiles/+archive/refs/heads/master.tar.gz`
 

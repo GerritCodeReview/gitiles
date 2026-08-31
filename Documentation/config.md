@@ -153,6 +153,16 @@ Default: `true`.
   fileNavigation = false
 ```
 
+The sidebar's search box filters the repository's files by asking the tree JSON
+API for matching paths. `fileSearchLimit` caps how many matches a single query
+may return, bounding both the response size and the work done per request on
+large repositories. Default: `200`.
+
+```
+[gitiles]
+  fileSearchLimit = 500
+```
+
 ## Markdown
 
 ### Disabling markdown

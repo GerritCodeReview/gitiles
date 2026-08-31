@@ -95,6 +95,12 @@ public class PathServlet extends BaseServlet {
   static final String AUTODIVE_PARAM = "autodive";
   static final String NO_AUTODIVE_VALUE = "0";
 
+  /** Shortest accepted {@code filter} query; also enforced client-side by file-nav-search.js. */
+  static final int MIN_FILTER_LENGTH = 2;
+
+  /** Default cap on filtered entries, overridable with {@code gitiles.fileSearchLimit}. */
+  static final int DEFAULT_FILTER_LIMIT = 200;
+
   enum FileType {
     TREE(FileMode.TREE),
     SYMLINK(FileMode.SYMLINK),
@@ -260,6 +266,16 @@ public class PathServlet extends BaseServlet {
             && (recursiveStr.isEmpty()
                 || Boolean.TRUE.equals(StringUtils.toBooleanOrNull(recursiveStr)));
 
+    String filter = req.getParameter("filter");
+    if (filter != null) {
+      filter = filter.trim();
+      // Filtering walks the whole tree, so refuse queries too short to be selective.
+      if (filter.length() < MIN_FILTER_LENGTH) {
+        throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER);
+      }
+    }
+    int limit = getFilterLimit(req, req.getParameter("limit"));
+
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view, recursive)) {
       if (wr == null) {
@@ -278,7 +294,7 @@ public class PathServlet extends BaseServlet {
           renderJson(
               req,
               res,
-              TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
+              TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive, filter, limit),
               TreeJsonData.Tree.class);
           break;
         case GITLINK:
@@ -678,9 +694,12 @@ public class PathServlet extends BaseServlet {
 
   private Map<String, Object> navigationData(
       GitilesView view, List<Map<String, String>> entries, FileType type) {
-    Map<String, Object> navigation = Maps.newHashMapWithExpectedSize(4);
+    Map<String, Object> navigation = Maps.newHashMapWithExpectedSize(7);
     navigation.put("path", "/");
     navigation.put("entries", entries);
+    navigation.put("searchUrl", toSearchUrl(view));
+    navigation.put("searchRootUrl", toTreeUrl(view, ""));
+    navigation.put("searchMinLength", Integer.toString(MIN_FILTER_LENGTH));
     String path = TreeSoyData.stripEndingSolidus(view.getPathPart());
     if (!path.isEmpty()) {
       navigation.put("activePath", path);
@@ -740,6 +759,47 @@ public class PathServlet extends BaseServlet {
       return url;
     }
     return url.substring(0, end) + "/" + url.substring(end);
+  }
+
+  private static String toTreeUrl(GitilesView view, String path) {
+    return ensureTrailingSlash(GitilesView.path().copyFrom(view).setPathPart(path).toUrl());
+  }
+
+  private static String toSearchUrl(GitilesView view) {
+    return GitilesView.path()
+        .copyFrom(view)
+        .setPathPart("")
+        .removeParam("format")
+        .putParam("format", FormatType.JSON.toString())
+        .putParam("recursive", "1")
+        .toUrl();
+  }
+
+  /**
+   * Resolves the cap on filtered entries. A caller may ask for fewer than the configured maximum
+   * but never more, so the response size stays bounded regardless of repository size.
+   */
+  private int getFilterLimit(HttpServletRequest req, @Nullable String limitStr)
+      throws IOException {
+    int max =
+        getAccess(req)
+            .getConfig()
+            .getInt("gitiles", null, "fileSearchLimit", DEFAULT_FILTER_LIMIT);
+    if (max <= 0) {
+      max = DEFAULT_FILTER_LIMIT;
+    }
+    if (limitStr == null) {
+      return max;
+    }
+    try {
+      int requested = Integer.parseInt(limitStr);
+      if (requested <= 0) {
+        throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER);
+      }
+      return Math.min(requested, max);
+    } catch (NumberFormatException e) {
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER, e);
+    }
   }
 
   private String getGitlinkRemoteUrl(HttpServletRequest req, WalkResult wr) throws IOException {

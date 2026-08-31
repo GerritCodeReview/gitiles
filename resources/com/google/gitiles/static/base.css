@@ -59,6 +59,8 @@ html[data-theme="light"] {
   --toggle-btn-border: #ccc;
   --toggle-btn-hover-color: #000;
   --toggle-btn-hover-bg: rgba(0, 0, 0, 0.05);
+  --search-highlight-bg: #fff3a3;
+  --search-highlight-color: #000;
 }
 
 :root {
@@ -110,6 +112,8 @@ html[data-theme="light"] {
     --toggle-btn-border: #5f6368;
     --toggle-btn-hover-color: #e8eaed;
     --toggle-btn-hover-bg: rgba(255, 255, 255, 0.1);
+    --search-highlight-bg: #745b00;
+    --search-highlight-color: #fdd663;
   }
 }
 
@@ -153,6 +157,8 @@ html[data-theme="dark"] {
   --toggle-btn-border: #5f6368;
   --toggle-btn-hover-color: #e8eaed;
   --toggle-btn-hover-bg: rgba(255, 255, 255, 0.1);
+  --search-highlight-bg: #745b00;
+  --search-highlight-color: #fdd663;
 }
 
 *,
@@ -631,6 +637,40 @@ body.is-resizingFileNav {
 .FileNav-path {
   margin-left: 4px;
 }
+.FileNav-search {
+  background: var(--bg-color);
+  margin: 8px 0 12px;
+  padding-top: 4px;
+  position: sticky;
+  top: var(--file-nav-summary-height, 2.5em);
+  z-index: 1;
+}
+.FileNav-searchLabel {
+  color: var(--muted-text-color);
+  display: block;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+.FileNav-searchInput {
+  background: var(--bg-color);
+  border: 1px solid var(--border-subtle-color);
+  color: var(--text-color);
+  font: inherit;
+  padding: 4px 6px;
+  width: 100%;
+}
+.FileNav-searchInput:focus {
+  border-color: var(--link-color);
+  outline: 1px solid var(--link-color);
+}
+.FileNav-searchStatus {
+  color: var(--muted-text-color);
+  font-size: 12px;
+  margin: 0 0 6px;
+}
+.FileNav-results {
+  margin-left: 25px;
+}
 .FileNav-list {
   margin-left: 25px;
 }
@@ -666,6 +706,11 @@ body.is-resizingFileNav {
 .FileNav-item--error {
   color: var(--muted-text-color);
   padding-left: 4px;
+}
+.FileNav-link mark {
+  background: var(--search-highlight-bg);
+  color: var(--search-highlight-color);
+  border-radius: 2px;
 }
 
 .Metadata {
@@ -818,7 +863,8 @@ body.is-resizingFileNav {
     max-height: none;
     overflow: visible;
   }
-  .FileNav-disclosure > .FileNav-summary {
+  .FileNav-disclosure > .FileNav-summary,
+  .FileNav-search {
     position: static;
   }
   .PathDetail-resizer {

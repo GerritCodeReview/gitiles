@@ -16,6 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.common.io.BaseEncoding;
@@ -121,6 +122,10 @@ public class PathServletTest extends ServletTest {
     Map<String, ?> navigation = getNavigationData(data);
     assertThat(navigation).containsEntry("path", "/");
     assertThat(navigation).containsEntry("activeName", "foo/");
+    assertThat((String) navigation.get("searchUrl")).contains("format=JSON");
+    assertThat((String) navigation.get("searchUrl")).contains("recursive=1");
+    assertThat(navigation).containsEntry("searchRootUrl", "/b/repo/+/master/");
+    assertThat(navigation).containsEntry("searchMinLength", "2");
 
     List<Map<String, ?>> entries = getNavigationEntries(data);
     assertThat(entries).hasSize(1);
@@ -208,6 +213,78 @@ public class PathServletTest extends ServletTest {
     String html = buildHtml("/repo/+/master/foo", false);
     assertThat(html).doesNotContain("FileNav");
     assertThat(html).doesNotContain("Container--fullWidth");
+  }
+
+  @Test
+  public void treeJsonFilterMatchesPathsIgnoringCase() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("foo/bar.txt", "bar")
+        .add("foo/baz.txt", "baz")
+        .add("other/qux.txt", "qux")
+        .create();
+
+    Tree t = buildJson(Tree.class, "/repo/+/master/", "format=JSON&recursive=1&filter=BA");
+    assertThat(t.entries).hasSize(2);
+    assertThat(t.entries.get(0).name).isEqualTo("foo/bar.txt");
+    assertThat(t.entries.get(1).name).isEqualTo("foo/baz.txt");
+    assertThat(t.truncated).isNull();
+  }
+
+  @Test
+  public void treeJsonFilterReportsTruncation() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("foo/bar.txt", "bar")
+        .add("foo/baz.txt", "baz")
+        .create();
+
+    Tree t = buildJson(Tree.class, "/repo/+/master/", "format=JSON&recursive=1&filter=ba&limit=1");
+    assertThat(t.entries).hasSize(1);
+    assertThat(t.truncated).isTrue();
+  }
+
+  @Test
+  public void treeJsonFilterLimitIsCappedByConfig() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("bar1", "1")
+        .add("bar2", "2")
+        .add("bar3", "3")
+        .create();
+    Config cfg = new Config();
+    cfg.setInt("gitiles", null, "fileSearchLimit", 2);
+    servlet = TestGitilesServlet.create(repo, cfg);
+
+    Tree t =
+        buildJson(Tree.class, "/repo/+/master/", "format=JSON&recursive=1&filter=bar&limit=100");
+    assertThat(t.entries).hasSize(2);
+    assertThat(t.truncated).isTrue();
+  }
+
+  @Test
+  public void treeJsonWithoutFilterIgnoresLimit() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("bar1", "1")
+        .add("bar2", "2")
+        .add("bar3", "3")
+        .create();
+
+    // The cap exists to bound search responses; unfiltered listings keep their
+    // pre-existing unbounded behavior so the JSON API contract is unchanged.
+    Tree t = buildJson(Tree.class, "/repo/+/master/", "format=JSON&recursive=1&limit=1");
+    assertThat(t.entries).hasSize(3);
+    assertThat(t.truncated).isNull();
+  }
+
+  @Test
+  public void treeJsonRejectsInvalidFilterParams() throws Exception {
+    repo.branch("master").commit().add("foo/bar.txt", "bar").create();
+
+    buildResponse("/repo/+/master/", "format=JSON&recursive=1&filter=b", SC_BAD_REQUEST);
+    buildResponse("/repo/+/master/", "format=JSON&recursive=1&filter=ba&limit=0", SC_BAD_REQUEST);
+    buildResponse("/repo/+/master/", "format=JSON&recursive=1&filter=ba&limit=x", SC_BAD_REQUEST);
   }
 
   @Test
