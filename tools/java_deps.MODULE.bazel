@@ -82,7 +82,7 @@ maven.install(
         "com.google.flogger:google-extensions:" + FLOGGER_VERSION,
         "com.google.guava:failureaccess:1.0.3",
         "com.google.guava:guava:33.5.0-jre",
-        "com.google.protobuf:protobuf-java:4.33.4",
+        "com.google.protobuf:protobuf-java:4.36.0",
         "com.google.template:soy:2024-01-30",
         "com.google.truth:truth:1.4.4",
         "com.googlecode.javaewah:JavaEWAH:1.2.3",
