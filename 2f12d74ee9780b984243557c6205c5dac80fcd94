@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da8d16c_5967ded8",
+        "filename": "java/com/google/gitiles/diff/IntraLineDiff.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-08-31T22:46:28Z",
+      "side": 1,
+      "message": "This seems to have dropped the comments from https://gerrit-review.googlesource.com/c/gerrit/+/623481/3/java/com/google/gerrit/server/patch/IntraLineLoader.java\n\nSeems like those should be added back?",
+      "revId": "2f12d74ee9780b984243557c6205c5dac80fcd94",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
