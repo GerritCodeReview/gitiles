@@ -31,6 +31,7 @@
     "net.java.dev.jna:jna": -867910362,
     "net.java.dev.jna:jna-platform": -561312286,
     "net.sf.jopt-simple:jopt-simple": 906822697,
+    "ognl:ognl": -1803701697,
     "org.apache.ant:ant": 51716534,
     "org.apache.commons:commons-compress": -314451781,
     "org.apache.commons:commons-lang3": 1729335886,
@@ -41,6 +42,7 @@
     "org.apache.sshd:sshd-osgi": -115413327,
     "org.apache.sshd:sshd-sftp": 292810504,
     "org.assertj:assertj-core": -1145412507,
+    "org.attoparser:attoparser": 1430668655,
     "org.bouncycastle:bcpg-jdk18on": 915299298,
     "org.bouncycastle:bcpkix-jdk18on": -1660815403,
     "org.bouncycastle:bcprov-jdk18on": -1559819624,
@@ -62,6 +64,7 @@
     "org.eclipse.jetty:jetty-util": 753118393,
     "org.eclipse.jetty:jetty-util-ajax": 57972836,
     "org.hamcrest:hamcrest": -1704983590,
+    "org.javassist:javassist": 823780232,
     "org.mockito:mockito-core": -1229333582,
     "org.nibor.autolink:autolink": 1339824623,
     "org.objenesis:objenesis": -1132991882,
@@ -75,7 +78,9 @@
     "org.slf4j:jcl-over-slf4j": 1978020546,
     "org.slf4j:slf4j-api": -1626237844,
     "org.slf4j:slf4j-simple": -1477425522,
+    "org.thymeleaf:thymeleaf": 879454609,
     "org.tukaani:xz": 521927096,
+    "org.unbescape:unbescape": 821772722,
     "repositories": -1949687017
   },
   "__RESOLVED_ARTIFACTS_HASH": {
@@ -156,6 +161,8 @@
     "net.java.dev.jna:jna:jar:sources": -902150228,
     "net.sf.jopt-simple:jopt-simple": -1677351973,
     "net.sf.jopt-simple:jopt-simple:jar:sources": 1072431863,
+    "ognl:ognl": 943461713,
+    "ognl:ognl:jar:sources": 298486843,
     "org.apache.ant:ant": -431447101,
     "org.apache.ant:ant-launcher": -333622244,
     "org.apache.ant:ant-launcher:jar:sources": -77100552,
@@ -182,6 +189,8 @@
     "org.apache.sshd:sshd-sftp:jar:sources": -1268961386,
     "org.assertj:assertj-core": -253199576,
     "org.assertj:assertj-core:jar:sources": -697161745,
+    "org.attoparser:attoparser": 784153812,
+    "org.attoparser:attoparser:jar:sources": -745600142,
     "org.bouncycastle:bcpg-jdk18on": 1314692470,
     "org.bouncycastle:bcpg-jdk18on:jar:sources": -1476258101,
     "org.bouncycastle:bcpkix-jdk18on": -1562281305,
@@ -230,6 +239,8 @@
     "org.hamcrest:hamcrest-core": 649657847,
     "org.hamcrest:hamcrest-core:jar:sources": -1646511374,
     "org.hamcrest:hamcrest:jar:sources": 1394599014,
+    "org.javassist:javassist": 1095674094,
+    "org.javassist:javassist:jar:sources": 1152789755,
     "org.jspecify:jspecify": 117231129,
     "org.jspecify:jspecify:jar:sources": -2134060298,
     "org.mockito:mockito-core": -1058138256,
@@ -258,8 +269,12 @@
     "org.slf4j:slf4j-api:jar:sources": -72528589,
     "org.slf4j:slf4j-simple": -506243416,
     "org.slf4j:slf4j-simple:jar:sources": -58141894,
+    "org.thymeleaf:thymeleaf": 563718305,
+    "org.thymeleaf:thymeleaf:jar:sources": -1882018272,
     "org.tukaani:xz": -321288404,
-    "org.tukaani:xz:jar:sources": -893332662
+    "org.tukaani:xz:jar:sources": -893332662,
+    "org.unbescape:unbescape": -1765963033,
+    "org.unbescape:unbescape:jar:sources": 1350857716
   },
   "artifacts": {
     "aopalliance:aopalliance": {
@@ -534,6 +549,13 @@
       },
       "version": "5.0.4"
     },
+    "ognl:ognl": {
+      "shasums": {
+        "jar": "47fdd450407ff09b57df02f466f9b4c7d32818962d65f9d98e445c8b4d047603",
+        "sources": "389df54173ab6ba1d593de08f188d297a63358c10d2bf88cd7b4d89badcd6351"
+      },
+      "version": "3.3.4"
+    },
     "org.apache.ant:ant": {
       "shasums": {
         "jar": "763acda4a69588c9ea8817a952851ff0c2fc4bffa1d081c2565dc407f29d5794",
@@ -624,6 +646,13 @@
         "sources": "5ba6de05730cf76021001f8437f35db4cb5b513465d4ace8c3a6fcd68d9a19ee"
       },
       "version": "3.27.7"
+    },
+    "org.attoparser:attoparser": {
+      "shasums": {
+        "jar": "75dd1c045492bff8e1963aabb28bfe903c2064e11e27fe2f0f0aff1ad3d84476",
+        "sources": "c8b1cb95bc65c4c13cd507b4e9f6dcfe20dcc0b841bd948890720e5a8df2c81b"
+      },
+      "version": "2.0.7.RELEASE"
     },
     "org.bouncycastle:bcpg-jdk18on": {
       "shasums": {
@@ -793,6 +822,13 @@
       },
       "version": "1.3"
     },
+    "org.javassist:javassist": {
+      "shasums": {
+        "jar": "eba37290994b5e4868f3af98ff113f6244a6b099385d9ad46881307d3cb01aaf",
+        "sources": "de11bb82b448696c55eec2bc595e7a804f010f1cf7bacb99e5403adc3b79c46c"
+      },
+      "version": "3.30.2-GA"
+    },
     "org.jspecify:jspecify": {
       "shasums": {
         "jar": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
@@ -891,12 +927,26 @@
       },
       "version": "2.0.20"
     },
+    "org.thymeleaf:thymeleaf": {
+      "shasums": {
+        "jar": "165ef16cd71020c4d572e77d73cf7baffd431f3f3e8c1d84b410de23dc79f92c",
+        "sources": "e0897688b765b6a1e9d01ff4c5baf69bbb8bb3dd727a44b37af01a7a45814cfc"
+      },
+      "version": "3.1.3.RELEASE"
+    },
     "org.tukaani:xz": {
       "shasums": {
         "jar": "3e158a87bd73d8afb4b6e8239c013b7d049c48563f45860ce99cd2e448cf4a6b",
         "sources": "c35c682fa8b617c1f6f21270df14bad4e11df2fe46962dfe45e765b7aec0181b"
       },
       "version": "1.12"
+    },
+    "org.unbescape:unbescape": {
+      "shasums": {
+        "jar": "597cf87d5b1a4f385b9d1cec974b7b483abb3ee85fc5b3f8b62af8e4bec95c2c",
+        "sources": "da8928dca71c08097688c6c8ec8c4543ca6e5e78d07a43b8bca62a0fc1253a81"
+      },
+      "version": "1.1.6.RELEASE"
     }
   },
   "dependencies": {
@@ -974,6 +1024,9 @@
     ],
     "net.java.dev.jna:jna-platform": [
       "net.java.dev.jna:jna"
+    ],
+    "ognl:ognl": [
+      "org.javassist:javassist"
     ],
     "org.apache.ant:ant": [
       "org.apache.ant:ant-launcher"
@@ -1120,6 +1173,12 @@
     ],
     "org.slf4j:slf4j-simple": [
       "org.slf4j:slf4j-api"
+    ],
+    "org.thymeleaf:thymeleaf": [
+      "ognl:ognl",
+      "org.attoparser:attoparser",
+      "org.slf4j:slf4j-api",
+      "org.unbescape:unbescape"
     ]
   },
   "packages": {
@@ -1520,6 +1579,12 @@
       "joptsimple",
       "joptsimple.internal",
       "joptsimple.util"
+    ],
+    "ognl:ognl": [
+      "ognl",
+      "ognl.enhance",
+      "ognl.internal",
+      "ognl.security"
     ],
     "org.apache.ant:ant": [
       "org.apache.tools.ant",
@@ -2059,6 +2124,20 @@
       "org.assertj.core.util.introspection",
       "org.assertj.core.util.xml"
     ],
+    "org.attoparser:attoparser": [
+      "org.attoparser",
+      "org.attoparser.config",
+      "org.attoparser.discard",
+      "org.attoparser.dom",
+      "org.attoparser.duplicate",
+      "org.attoparser.minimize",
+      "org.attoparser.output",
+      "org.attoparser.prettyhtml",
+      "org.attoparser.select",
+      "org.attoparser.simple",
+      "org.attoparser.trace",
+      "org.attoparser.util"
+    ],
     "org.bouncycastle:bcpg-jdk18on": [
       "org.bouncycastle.apache.bzip2",
       "org.bouncycastle.bcpg",
@@ -2538,6 +2617,25 @@
       "org.hamcrest.core",
       "org.hamcrest.internal"
     ],
+    "org.javassist:javassist": [
+      "javassist",
+      "javassist.bytecode",
+      "javassist.bytecode.analysis",
+      "javassist.bytecode.annotation",
+      "javassist.bytecode.stackmap",
+      "javassist.compiler",
+      "javassist.compiler.ast",
+      "javassist.convert",
+      "javassist.expr",
+      "javassist.runtime",
+      "javassist.scopedpool",
+      "javassist.tools",
+      "javassist.tools.reflect",
+      "javassist.tools.rmi",
+      "javassist.tools.web",
+      "javassist.util",
+      "javassist.util.proxy"
+    ],
     "org.jspecify:jspecify": [
       "org.jspecify.annotations"
     ],
@@ -2672,6 +2770,49 @@
     "org.slf4j:slf4j-simple": [
       "org.slf4j.simple"
     ],
+    "org.thymeleaf:thymeleaf": [
+      "org.thymeleaf",
+      "org.thymeleaf.cache",
+      "org.thymeleaf.context",
+      "org.thymeleaf.dialect",
+      "org.thymeleaf.engine",
+      "org.thymeleaf.exceptions",
+      "org.thymeleaf.expression",
+      "org.thymeleaf.inline",
+      "org.thymeleaf.linkbuilder",
+      "org.thymeleaf.messageresolver",
+      "org.thymeleaf.model",
+      "org.thymeleaf.postprocessor",
+      "org.thymeleaf.preprocessor",
+      "org.thymeleaf.processor",
+      "org.thymeleaf.processor.cdatasection",
+      "org.thymeleaf.processor.comment",
+      "org.thymeleaf.processor.doctype",
+      "org.thymeleaf.processor.element",
+      "org.thymeleaf.processor.processinginstruction",
+      "org.thymeleaf.processor.templateboundaries",
+      "org.thymeleaf.processor.text",
+      "org.thymeleaf.processor.xmldeclaration",
+      "org.thymeleaf.standard",
+      "org.thymeleaf.standard.expression",
+      "org.thymeleaf.standard.inline",
+      "org.thymeleaf.standard.processor",
+      "org.thymeleaf.standard.serializer",
+      "org.thymeleaf.standard.util",
+      "org.thymeleaf.templatemode",
+      "org.thymeleaf.templateparser",
+      "org.thymeleaf.templateparser.markup",
+      "org.thymeleaf.templateparser.markup.decoupled",
+      "org.thymeleaf.templateparser.raw",
+      "org.thymeleaf.templateparser.reader",
+      "org.thymeleaf.templateparser.text",
+      "org.thymeleaf.templateresolver",
+      "org.thymeleaf.templateresource",
+      "org.thymeleaf.util",
+      "org.thymeleaf.util.temporal",
+      "org.thymeleaf.web",
+      "org.thymeleaf.web.servlet"
+    ],
     "org.tukaani:xz": [
       "org.tukaani.xz",
       "org.tukaani.xz.check",
@@ -2682,6 +2823,18 @@
       "org.tukaani.xz.lzma",
       "org.tukaani.xz.rangecoder",
       "org.tukaani.xz.simple"
+    ],
+    "org.unbescape:unbescape": [
+      "org.unbescape",
+      "org.unbescape.css",
+      "org.unbescape.csv",
+      "org.unbescape.html",
+      "org.unbescape.java",
+      "org.unbescape.javascript",
+      "org.unbescape.json",
+      "org.unbescape.properties",
+      "org.unbescape.uri",
+      "org.unbescape.xml"
     ]
   },
   "repositories": {
@@ -2763,6 +2916,8 @@
       "net.java.dev.jna:jna:jar:sources",
       "net.sf.jopt-simple:jopt-simple",
       "net.sf.jopt-simple:jopt-simple:jar:sources",
+      "ognl:ognl",
+      "ognl:ognl:jar:sources",
       "org.apache.ant:ant",
       "org.apache.ant:ant-launcher",
       "org.apache.ant:ant-launcher:jar:sources",
@@ -2789,6 +2944,8 @@
       "org.apache.sshd:sshd-sftp:jar:sources",
       "org.assertj:assertj-core",
       "org.assertj:assertj-core:jar:sources",
+      "org.attoparser:attoparser",
+      "org.attoparser:attoparser:jar:sources",
       "org.bouncycastle:bcpg-jdk18on",
       "org.bouncycastle:bcpg-jdk18on:jar:sources",
       "org.bouncycastle:bcpkix-jdk18on",
@@ -2837,6 +2994,8 @@
       "org.hamcrest:hamcrest-core",
       "org.hamcrest:hamcrest-core:jar:sources",
       "org.hamcrest:hamcrest:jar:sources",
+      "org.javassist:javassist",
+      "org.javassist:javassist:jar:sources",
       "org.jspecify:jspecify",
       "org.jspecify:jspecify:jar:sources",
       "org.mockito:mockito-core",
@@ -2865,8 +3024,12 @@
       "org.slf4j:slf4j-api:jar:sources",
       "org.slf4j:slf4j-simple",
       "org.slf4j:slf4j-simple:jar:sources",
+      "org.thymeleaf:thymeleaf",
+      "org.thymeleaf:thymeleaf:jar:sources",
       "org.tukaani:xz",
-      "org.tukaani:xz:jar:sources"
+      "org.tukaani:xz:jar:sources",
+      "org.unbescape:unbescape",
+      "org.unbescape:unbescape:jar:sources"
     ]
   },
   "services": {
