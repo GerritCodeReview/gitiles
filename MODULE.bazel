@@ -26,7 +26,7 @@ git_override(
     remote = "https://github.com/davido/rbe_autoconfig.git",
 )
 
-register_toolchains("//tools:error_prone_warnings_toolchain_java21_definition")
+register_toolchains("//tools:error_prone_warnings_toolchain_java25_definition")
 
 # Bazlets pin and packaging support.
 include("//tools:bazlets.MODULE.bazel")
