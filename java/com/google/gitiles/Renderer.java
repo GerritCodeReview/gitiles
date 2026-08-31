@@ -60,6 +60,7 @@ public abstract class Renderer {
 
   private static final SanitizedContent THEME_INIT_SCRIPT;
   private static final SanitizedContent THEME_TOGGLE_SCRIPT;
+  private static final SanitizedContent FILE_NAV_SCRIPT;
 
   static {
     try {
@@ -69,6 +70,9 @@ public abstract class Renderer {
       THEME_TOGGLE_SCRIPT =
           SanitizedContents.fromResource(
               Renderer.class, "static/theme-toggle.js", UTF_8, ContentKind.JS);
+      FILE_NAV_SCRIPT =
+          SanitizedContents.fromResource(
+              Renderer.class, "static/file-nav.js", UTF_8, ContentKind.JS);
     } catch (IOException e) {
       throw new ExceptionInInitializerError(e);
     }
@@ -263,6 +267,7 @@ public abstract class Renderer {
             .put("SITE_TITLE", siteTitle)
             .put("THEME_INIT_SCRIPT", THEME_INIT_SCRIPT)
             .put("THEME_TOGGLE_SCRIPT", THEME_TOGGLE_SCRIPT);
+    ij.put("FILE_NAV_SCRIPT", FILE_NAV_SCRIPT);
     Optional<String> nonce = req.map((r) -> (String) r.getAttribute("nonce"));
     if (nonce.isPresent()) {
       ij.put("csp_nonce", nonce.get());

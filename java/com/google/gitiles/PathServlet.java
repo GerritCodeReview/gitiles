@@ -23,7 +23,6 @@ import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.BaseEncoding;
@@ -516,18 +515,11 @@ public class PathServlet extends BaseServlet {
       }
     }
     // TODO(sop): Allow caching trees by SHA-1 when no S cookie is sent.
-    renderHtml(
-        req,
-        res,
-        PATH_DETAIL,
-        ImmutableMap.of(
-            "title", !view.getPathPart().isEmpty() ? view.getPathPart() : "/",
-            "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-            "type", FileType.TREE.toString(),
-            "data",
-                new TreeSoyData(wr.getObjectReader(), view, cfg, wr.root, req.getRequestURI())
-                    .setArchiveFormat(getArchiveFormat(getAccess(req)))
-                    .toSoyData(wr.id, wr.tw)));
+    Map<String, Object> data =
+        new TreeSoyData(wr.getObjectReader(), view, cfg, wr.root, req.getRequestURI())
+            .setArchiveFormat(getArchiveFormat(getAccess(req)))
+            .toSoyData(wr.id, wr.tw);
+    renderHtml(req, res, PATH_DETAIL, pathSoyData(req, view, wr, FileType.TREE, data));
   }
 
   private @Nullable CanonicalTreeParser getOnlyChildSubtree(
@@ -573,11 +565,7 @@ public class PathServlet extends BaseServlet {
         req,
         res,
         PATH_DETAIL,
-        ImmutableMap.of(
-            "title", ViewFilter.getView(req).getPathPart(),
-            "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-            "type", wr.type.toString(),
-            "data", data));
+        pathSoyData(req, view, wr, wr.type, data));
   }
 
   private void showSymlink(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
@@ -599,11 +587,7 @@ public class PathServlet extends BaseServlet {
           req,
           res,
           PATH_DETAIL,
-          ImmutableMap.of(
-              "title", ViewFilter.getView(req).getPathPart(),
-              "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-              "type", FileType.REGULAR_FILE.toString(),
-              "data", data));
+          pathSoyData(req, view, wr, FileType.REGULAR_FILE, data));
       return;
     }
 
@@ -622,11 +606,7 @@ public class PathServlet extends BaseServlet {
         req,
         res,
         PATH_DETAIL,
-        ImmutableMap.of(
-            "title", ViewFilter.getView(req).getPathPart(),
-            "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-            "type", FileType.SYMLINK.toString(),
-            "data", data));
+        pathSoyData(req, view, wr, FileType.SYMLINK, data));
   }
 
   private static String dirname(String path) {
@@ -645,6 +625,7 @@ public class PathServlet extends BaseServlet {
 
   private void showGitlink(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
+    GitilesView view = ViewFilter.getView(req);
     String remoteUrl = getGitlinkRemoteUrl(req, wr);
     Map<String, Object> data = Maps.newHashMap();
     data.put("sha", ObjectId.toString(wr.id));
@@ -661,10 +642,104 @@ public class PathServlet extends BaseServlet {
         req,
         res,
         PATH_DETAIL,
-        ImmutableMap.of(
-            "title", ViewFilter.getView(req).getPathPart(),
-            "type", FileType.GITLINK.toString(),
-            "data", data));
+        pathSoyData(req, view, wr, FileType.GITLINK, data));
+  }
+
+  private Map<String, Object> pathSoyData(
+      HttpServletRequest req, GitilesView view, WalkResult wr, FileType type, Map<String, ?> data)
+      throws IOException {
+    Map<String, Object> soyData = Maps.newHashMapWithExpectedSize(6);
+    soyData.put("title", !view.getPathPart().isEmpty() ? view.getPathPart() : "/");
+    soyData.put("breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree));
+    soyData.put("type", type.toString());
+    soyData.put("data", data);
+    Map<String, Object> navigation = navigationData(req, view, wr);
+    if (navigation != null) {
+      soyData.put("navigation", navigation);
+      // The sidebar needs the horizontal room; without it, keep the default container.
+      soyData.put("containerClass", "Container--fullWidth");
+    }
+    return soyData;
+  }
+
+  /** Returns sidebar navigation data, or null if the sidebar is disabled by configuration. */
+  private @Nullable Map<String, Object> navigationData(
+      HttpServletRequest req, GitilesView view, WalkResult wr) throws IOException {
+    if (!getAccess(req).getConfig().getBoolean("gitiles", null, "fileNavigation", true)) {
+      return null;
+    }
+    ObjectReader reader = wr.getObjectReader();
+    try (TreeWalk tw = new TreeWalk(reader)) {
+      tw.addTree(wr.root);
+      tw.setRecursive(false);
+      return navigationData(view, toNavigationEntries(view, "", tw), wr.type);
+    }
+  }
+
+  private Map<String, Object> navigationData(
+      GitilesView view, List<Map<String, String>> entries, FileType type) {
+    Map<String, Object> navigation = Maps.newHashMapWithExpectedSize(4);
+    navigation.put("path", "/");
+    navigation.put("entries", entries);
+    String path = TreeSoyData.stripEndingSolidus(view.getPathPart());
+    if (!path.isEmpty()) {
+      navigation.put("activePath", path);
+      navigation.put("activeName", getRootName(path, type));
+    }
+    return navigation;
+  }
+
+  private List<Map<String, String>> toNavigationEntries(
+      GitilesView view, String treePath, TreeWalk tw) throws IOException {
+    List<Map<String, String>> entries = Lists.newArrayList();
+    while (tw.next()) {
+      FileType type = FileType.forEntry(tw);
+      String name = tw.getNameString();
+      String entryPath = treePath.isEmpty() ? name : treePath + "/" + name;
+      String url = GitilesView.path().copyFrom(view).setPathPart(entryPath).toUrl();
+      if (type == FileType.TREE) {
+        name += "/";
+        url = ensureTrailingSlash(url);
+      }
+
+      Map<String, String> entry = Maps.newHashMapWithExpectedSize(3);
+      entry.put("type", type.toString());
+      entry.put("name", name);
+      entry.put("url", url);
+      entries.add(entry);
+    }
+    entries.sort(TreeSoyData::sortByTypeAlpha);
+    return entries;
+  }
+
+  /**
+   * Returns the name of the root-level entry containing {@code path}, matching the {@code name} of
+   * the corresponding navigation entry. Directory names carry a trailing solidus, so {@code type}
+   * is needed to name a root-level path that is itself a tree.
+   */
+  private static String getRootName(String path, FileType type) {
+    int slash = path.indexOf('/');
+    if (slash >= 0) {
+      return path.substring(0, slash + 1);
+    }
+    return type == FileType.TREE ? path + "/" : path;
+  }
+
+  /** Appends a trailing solidus to the path portion of {@code url}, before any query or fragment. */
+  private static String ensureTrailingSlash(String url) {
+    int end = url.length();
+    int query = url.indexOf('?');
+    if (query >= 0) {
+      end = query;
+    }
+    int fragment = url.indexOf('#');
+    if (fragment >= 0 && fragment < end) {
+      end = fragment;
+    }
+    if (end > 0 && url.charAt(end - 1) == '/') {
+      return url;
+    }
+    return url.substring(0, end) + "/" + url.substring(end);
   }
 
   private String getGitlinkRemoteUrl(HttpServletRequest req, WalkResult wr) throws IOException {

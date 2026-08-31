@@ -29,6 +29,7 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       org.eclipse.jgit.lib.FileMode. */
   {@param data: ?}  /** path data, matching the params for one of .treeDetail, .blobDetail,
       .symlinkDetail, or .gitlinkDetail as appropriate. */
+  {@param? navigation: ?}  /** file navigation data for the current directory. */
   {@inject staticUrls: ?}
 {if $type == 'REGULAR_FILE' || $type == 'EXECUTABLE_FILE'}
   {call common.header data="all"}
@@ -42,26 +43,76 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {call common.header data="all" /}
 {/if}
 
-{switch $type}
-  {case 'TREE'}
-    {call objDetail.treeDetail data="$data" /}
-  {case 'SYMLINK'}
-    {call symlinkDetail data="$data" /}
-  {case 'REGULAR_FILE'}
-    {call objDetail.blobDetail data="$data" /}
-  {case 'EXECUTABLE_FILE'}
-    {call objDetail.blobDetail data="$data" /}
-  {case 'GITLINK'}
-    {call gitlinkDetail data="$data" /}
-  {default}
-    <div class="error">
-      {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
-    </div>
-{/switch}
+<div class="PathDetail">
+  {if $navigation}
+    {call fileNavigation_ data="$navigation" /}
+    <div class="PathDetail-resizer"></div>
+  {/if}
+  <main class="PathDetail-main">
+    {switch $type}
+      {case 'TREE'}
+        {call objDetail.treeDetail data="$data" /}
+      {case 'SYMLINK'}
+        {call symlinkDetail data="$data" /}
+      {case 'REGULAR_FILE'}
+        {call objDetail.blobDetail data="$data" /}
+      {case 'EXECUTABLE_FILE'}
+        {call objDetail.blobDetail data="$data" /}
+      {case 'GITLINK'}
+        {call gitlinkDetail data="$data" /}
+      {default}
+        <div class="error">
+          {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
+        </div>
+    {/switch}
+  </main>
+</div>
 
 {call common.footer}
   {param customVariant: $customVariant /}
 {/call}
+{/template}
+
+/**
+ * Server-rendered navigation for the current directory.
+ */
+{template fileNavigation_}
+  {@param path: ?}  /** path for the directory being listed. */
+  {@param entries: ?}  /** current directory entries. */
+  {@param? activePath: ?}  /** normalized path for the current page. */
+  {@param? activeName: ?}  /** optional active entry name. */
+  {@inject FILE_NAV_SCRIPT: ?}
+<nav id="gitiles-file-nav" class="FileNav" aria-labelledby="gitiles-file-nav-heading"
+    {if $activePath}data-file-nav-active-path="{$activePath}"{/if}>
+  <details class="FileNav-disclosure" open>
+    <summary class="FileNav-summary">
+      <span id="gitiles-file-nav-heading" class="FileNav-heading">
+        {msg desc="Heading for repository file navigation"}Repository files{/msg}
+      </span>
+      <span class="FileNav-path">{$path}</span>
+    </summary>
+    <ol class="FileNav-list">
+      {for $entry in $entries}
+        <li class="FileNav-item{sp}
+            {switch $entry.type}
+              {case 'TREE'}FileNav-item--gitTree
+              {case 'SYMLINK'}FileNav-item--symlink
+              {case 'REGULAR_FILE'}FileNav-item--regularFile
+              {case 'EXECUTABLE_FILE'}FileNav-item--executableFile
+              {case 'GITLINK'}FileNav-item--gitlink
+              {default}FileNav-item--regularFile
+            {/switch}{if $activeName && $entry.name == $activeName}{sp}FileNav-item--active{/if}">
+          <a class="FileNav-link" href="{$entry.url}"
+              {if $entry.type == 'TREE'}data-file-nav-folder="true"{/if}
+              {if $activeName && $entry.name == $activeName}aria-current="page"{/if}>
+            <span class="FileNav-name">{$entry.name}</span>
+          </a>
+        </li>
+      {/for}
+    </ol>
+  </details>
+</nav>
+<script>{$FILE_NAV_SCRIPT}</script>
 {/template}
 
 /**

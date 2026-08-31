@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevBlob;
@@ -51,6 +52,10 @@ public class PathServletTest extends ServletTest {
     List<Map<String, ?>> entries = getTreeEntries(data);
     assertThat(entries).hasSize(1);
     assertThat(entries.get(0).get("name")).isEqualTo("foo");
+
+    Map<String, ?> navigation = getNavigationData(data);
+    assertThat(navigation).containsEntry("path", "/");
+    assertThat(getNavigationEntries(data)).containsExactlyElementsIn(entries);
   }
 
   @Test
@@ -87,6 +92,7 @@ public class PathServletTest extends ServletTest {
 
     Map<String, ?> data = buildData("/repo/+/master/foo");
     assertThat(data).containsEntry("type", "REGULAR_FILE");
+    assertThat(getNavigationData(data)).containsEntry("activeName", "foo");
 
     SoyListData lines = (SoyListData) getBlobData(data).get("lines");
     assertThat(lines.length()).isEqualTo(2);
@@ -100,6 +106,108 @@ public class PathServletTest extends ServletTest {
     assertThat(spans.length()).isEqualTo(1);
     assertThat(spans.getMapData(0).get("classes")).isEqualTo(StringData.forValue("pln"));
     assertThat(spans.getMapData(0).get("text")).isEqualTo(StringData.forValue("contents"));
+  }
+
+  @Test
+  public void fileHtmlNavigationListsRepositoryRoot() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("foo/bar", "bar contents")
+        .add("foo/baz", "baz contents")
+        .create();
+
+    Map<String, ?> data = buildData("/repo/+/master/foo/bar");
+
+    Map<String, ?> navigation = getNavigationData(data);
+    assertThat(navigation).containsEntry("path", "/");
+    assertThat(navigation).containsEntry("activeName", "foo/");
+
+    List<Map<String, ?>> entries = getNavigationEntries(data);
+    assertThat(entries).hasSize(1);
+    assertThat(entries.get(0).get("name")).isEqualTo("foo/");
+    assertThat(entries.get(0).get("url")).isEqualTo("/b/repo/+/master/foo/");
+
+    String html = buildHtml("/repo/+/master/foo/bar", false);
+    assertThat(html).contains("FileNav-item FileNav-item--gitTree FileNav-item--active");
+    assertThat(html)
+        .contains(
+            "<nav id=\"gitiles-file-nav\" class=\"FileNav\""
+                + " aria-labelledby=\"gitiles-file-nav-heading\""
+                + " data-file-nav-active-path=\"foo/bar\">");
+    assertThat(html).contains("aria-current=\"page\"");
+    assertThat(html).contains("foo/");
+  }
+
+  @Test
+  public void treeHtmlNavigationMarksActiveDirectory() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("foo/bar", "bar contents")
+        .add("foo/baz", "baz contents")
+        .create();
+
+    Map<String, ?> data = buildData("/repo/+/master/foo/");
+    assertThat(data).containsEntry("type", "TREE");
+    // Navigation names for trees carry a trailing solidus, so the active name must too.
+    assertThat(getNavigationData(data)).containsEntry("activeName", "foo/");
+
+    String html = buildHtml("/repo/+/master/foo/", false);
+    assertThat(html).contains("FileNav-item FileNav-item--gitTree FileNav-item--active");
+    assertThat(html).contains("aria-current=\"page\"");
+  }
+
+  @Test
+  public void navigationEntriesAreTypedAndSorted() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("zdir/f", "f contents")
+        .add("afile", "a contents")
+        .add("run.sh", "#!/bin/sh\necho hi\n")
+        .edit(
+            new PathEdit("run.sh") {
+              @Override
+              public void apply(DirCacheEntry ent) {
+                ent.setFileMode(FileMode.EXECUTABLE_FILE);
+              }
+            })
+        .create();
+
+    List<Map<String, ?>> entries = getNavigationEntries(buildData("/repo/+/master/afile"));
+    assertThat(entries).hasSize(3);
+    assertThat(entries.get(0).get("name")).isEqualTo("zdir/");
+    assertThat(entries.get(0).get("type")).isEqualTo("TREE");
+    assertThat(entries.get(1).get("name")).isEqualTo("afile");
+    assertThat(entries.get(1).get("type")).isEqualTo("REGULAR_FILE");
+    assertThat(entries.get(2).get("name")).isEqualTo("run.sh");
+    assertThat(entries.get(2).get("type")).isEqualTo("EXECUTABLE_FILE");
+  }
+
+  @Test
+  public void navigationTreeUrlsKeepParamsOutsideThePath() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("foo/bar", "bar contents")
+        .add("foo/baz", "baz contents")
+        .create();
+
+    String html = buildResponse("/repo/+/master/", "autodive=0", SC_OK).getActualBodyString();
+    assertThat(html).contains("href=\"/b/repo/+/master/foo/?autodive=0\"");
+  }
+
+  @Test
+  public void navigationCanBeDisabled() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+    Config cfg = new Config();
+    cfg.setBoolean("gitiles", null, "fileNavigation", false);
+    servlet = TestGitilesServlet.create(repo, cfg);
+
+    Map<String, ?> data = buildData("/repo/+/master/foo");
+    assertThat(data).doesNotContainKey("navigation");
+    assertThat(data).doesNotContainKey("containerClass");
+
+    String html = buildHtml("/repo/+/master/foo", false);
+    assertThat(html).doesNotContain("FileNav");
+    assertThat(html).doesNotContain("Container--fullWidth");
   }
 
   @Test
@@ -172,6 +280,25 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
+  public void executableFileHtml() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("run.sh", "#!/bin/sh\necho hi\n")
+        .edit(
+            new PathEdit("run.sh") {
+              @Override
+              public void apply(DirCacheEntry ent) {
+                ent.setFileMode(FileMode.EXECUTABLE_FILE);
+              }
+            })
+        .create();
+
+    Map<String, ?> data = buildData("/repo/+/master/run.sh");
+    assertThat(data).containsEntry("type", "EXECUTABLE_FILE");
+    assertThat(getNavigationData(data)).containsEntry("activeName", "run.sh");
+  }
+
+  @Test
   public void gitlinkHtml() throws Exception {
     String gitmodules =
         "[submodule \"gitiles\"]\n"
@@ -193,6 +320,7 @@ public class PathServletTest extends ServletTest {
 
     Map<String, ?> data = buildData("/repo/+/master/gitiles");
     assertThat(data).containsEntry("type", "GITLINK");
+    assertThat(getNavigationData(data)).containsEntry("activeName", "gitiles");
 
     Map<String, ?> linkData = getBlobData(data);
     assertThat(linkData).containsEntry("sha", gitilesSha);
@@ -485,6 +613,9 @@ public class PathServletTest extends ServletTest {
     assertThat(data).containsEntry("type", "SYMLINK");
     assertThat(getBlobData(data)).containsEntry("target", linkContent);
     assertThat(getBlobData(data)).containsEntry("targetUrl", "/b/repo/+/master/" + linkTarget);
+    int slash = linkName.indexOf('/');
+    String expectedActiveName = slash >= 0 ? linkName.substring(0, slash + 1) : linkName;
+    assertThat(getNavigationData(data)).containsEntry("activeName", expectedActiveName);
   }
 
   private Map<String, ?> getBlobData(Map<String, ?> data) {
@@ -493,6 +624,14 @@ public class PathServletTest extends ServletTest {
 
   private List<Map<String, ?>> getTreeEntries(Map<String, ?> data) {
     return ((Map<String, List<Map<String, ?>>>) data.get("data")).get("entries");
+  }
+
+  private Map<String, ?> getNavigationData(Map<String, ?> data) {
+    return (Map<String, ?>) data.get("navigation");
+  }
+
+  private List<Map<String, ?>> getNavigationEntries(Map<String, ?> data) {
+    return ((Map<String, List<Map<String, ?>>>) data.get("navigation")).get("entries");
   }
 
   private String buildBlob(String path, String expectedMode) throws Exception {

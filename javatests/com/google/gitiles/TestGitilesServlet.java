@@ -38,6 +38,16 @@ public class TestGitilesServlet {
     return create(repo, new GitwebRedirectFilter(), new BranchRedirect());
   }
 
+  /**
+   * Create GitilesServlet whose {@link GitilesAccess#getConfig()} includes {@code extraConfig}.
+   *
+   * @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect)
+   */
+  public static GitilesServlet create(
+      final TestRepository<DfsRepository> repo, Config extraConfig) throws ServletException {
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirect(), extraConfig);
+  }
+
   /** Create GitilesServlet, @see #create(TestRepository,GitwebRedirectFilter, BranchRedirect) */
   public static GitilesServlet create(
       final TestRepository<DfsRepository> repo, GitwebRedirectFilter gitwebRedirect)
@@ -64,6 +74,15 @@ public class TestGitilesServlet {
       GitwebRedirectFilter gitwebRedirect,
       BranchRedirect branchRedirect)
       throws ServletException {
+    return create(repo, gitwebRedirect, branchRedirect, new Config());
+  }
+
+  private static GitilesServlet create(
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirect branchRedirect,
+      Config extraConfig)
+      throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
         new GitilesServlet(
@@ -71,7 +90,7 @@ public class TestGitilesServlet {
             new DefaultRenderer(
                 GitilesServlet.STATIC_PREFIX, ImmutableList.<URL>of(), repoName + " test site"),
             TestGitilesUrls.URLS,
-            new TestGitilesAccess(repo.getRepository()),
+            new TestGitilesAccess(repo.getRepository(), extraConfig),
             new RepositoryResolver<HttpServletRequest>() {
               @Override
               public Repository open(HttpServletRequest req, String name)

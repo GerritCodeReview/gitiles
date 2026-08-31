@@ -550,6 +550,124 @@ a {
 
 /* ObjectDetail.soy */
 
+.PathDetail {
+  display: -ms-flexbox;
+  display: flex;
+}
+.PathDetail-main {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.FileNav {
+  /* Room reserved above the sidebar for the site header and breadcrumbs. */
+  --file-nav-chrome-height: 140px;
+  -ms-flex: 0 0 260px;
+  flex: 0 0 260px;
+  max-height: calc(100vh - var(--file-nav-chrome-height));
+  overflow: auto;
+}
+.PathDetail-resizer {
+  -ms-flex: none;
+  flex: none;
+  width: 9px;
+  margin: 0 -4px;
+  cursor: col-resize;
+  position: relative;
+  touch-action: none;
+}
+.PathDetail-resizer::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-color);
+}
+.PathDetail-resizer:hover::before,
+.PathDetail-resizer:focus-visible::before,
+body.is-resizingFileNav .PathDetail-resizer::before {
+  background: var(--link-color);
+  width: 2px;
+  left: 3.5px;
+}
+.PathDetail-resizer:focus-visible {
+  outline: none;
+}
+body.is-resizingFileNav {
+  cursor: col-resize;
+  user-select: none;
+}
+.FileNav-disclosure {
+  min-height: 100%;
+  padding-right: 16px;
+}
+.FileNav-summary {
+  align-items: baseline;
+  color: var(--muted-text-color);
+  cursor: pointer;
+  display: flex;
+  gap: 4px;
+  overflow: hidden;
+  padding: 4px 0;
+}
+.FileNav-disclosure > .FileNav-summary {
+  background: var(--bg-color);
+  margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.FileNav-summary > .FileNav-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.FileNav-heading {
+  color: var(--text-color);
+  font-weight: bold;
+}
+.FileNav-path {
+  margin-left: 4px;
+}
+.FileNav-list {
+  margin-left: 25px;
+}
+.FileNav-item {
+  padding: 1px 0;
+  position: relative;
+}
+.FileNav-item > .FileNav-link:hover,
+.FileNav-item > details > summary:hover {
+  background: var(--hover-bg);
+}
+.FileNav-item::before {
+  left: -22px;
+  position: absolute;
+  top: 4px;
+}
+.FileNav-item--active > .FileNav-link,
+.FileNav-item--active > details > summary {
+  background: var(--hover-bg);
+  font-weight: bold;
+}
+.FileNav-link {
+  display: block;
+  overflow: hidden;
+  padding: 1px 4px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.FileNav-name {
+  text-decoration: underline;
+}
+.FileNav-item--error {
+  color: var(--muted-text-color);
+  padding-left: 4px;
+}
+
 .Metadata {
   margin-bottom: 15px;
 }
@@ -630,22 +748,27 @@ a {
 /* Tree icons are taken from the public domain Tango icons:
  * http://tango.freedesktop.org/Tango_Icon_Library
  * Compressed with pngcrush -brute -rem tEXt -rem tIME -rem iTXt -rem zTXt */
+.FileNav-item--gitTree::before,
 .FileList-item--gitTree::before {
   /* places/folder.png */
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAAb5JREFUOMulkr1KA0EQgGdvTwwnYmER0gQsrFKmSy+pLESw9Qm0F/ICNnba+h6iEOuAEWslKJKTOyJJvIT72d1xZuOFC0giOLA77O7Mt/PnNptN+I+49Xr9GhH3f3mb0v1ht9vtLAUYYw5ItkgDL3KyD8PhcLvdbl/WarXT3DjLMnAcR/f7/YfxeKwtgC5RKQVhGILWeg4hQ6hUKjWyucmhLFEUuWR3QYBWAZABQ9i5CCmXy16pVALP80BKaaG+70MQBLvzFMjRKKXh8j6FSYKF7ITdEWLa4/ktokN74wiqjSMpnVcbQZqmEJHz+ckeCPFjWKwULpyspAqhdXVXdcnZcPjsIgn+2BsVA8jVYuWlgJ3yBj0icgq2uoK+lg4t+ZvLomSKamSQ4AI5BcMADtMhyNoSgNIISUaFNtwlazcDcBc4gjjVwCWid2usCWroYEhnaqbzFJLUzAHIXRDChXCcQP8zhkSZ5eNLgHAUzwDcRu4CoIRn/wsGUQIIy4Vr9TH6SYFCNzw4nALn5627K4vIttOUOwfa5YnrDYzt/9OLv9I5l8kk5hZ3XLO20b7tbR7zHLy/BX8G0IeBEM7ZN1NGIaFUaKLgAAAAAElFTkSuQmCC);
 }
+.FileNav-item--symlink::before,
 .FileList-item--symlink::before {
   /* actions/edit-redo.png */
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAABZUlEQVQ4y2NgIAL4zWL7D8TGDOQCqAEg7Ey2Aes+58AMcSSkmB2I3YB4HhCfh9kOMoCgIUAJMyDe2D+b58jKe553133M+r/uU/b/zV+L/y97n/i/+JIYbkOAAl5AfGLNTde/69+n/1/4MuD/gtsqKBhkALIh5S0M1jDN2kC8a+UNt/8b36f+X3JP5f/0u1pwjeuvS8E1g3DpZQm4ITAD5s09ZPBq49uE/0vvq4E1gPCJC5z/yy+IoGgG4a5HJqjeCJ3Pc2vjy+T/ux4Y/j99Rfz/7GtK/xfeUkbBN+8pY9cMAkFzuT5uepPy/+w1lf+TF3L/Q4p3OD5zRQ67Zlg873vk9n/mMlaQ5EcgLgZiA2R5nJphCjbfNP8LVeCBJyUa40xpO+5afQXS/8jKC0DJg+uPKx+bOJf1HDYXEJPW46JW8LcduKYzbdZMph4gn4ccQxSAOAuIo4FYdvsKFpYdK1iYCekDACq5JXDHGJhDAAAAAElFTkSuQmCC);
 }
+.FileNav-item--regularFile::before,
 .FileList-item--regularFile::before {
   /* mimetypes/text-x-generic.png */
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVQ4ja2TSw7CIBRFu0r3wyIYsAMHDl1CC92IDqC0wAbQi4Fo5VOMJGcAyT33vQEDY+xCCPGdnIZ48NB7kPkSLMvipZQBpVQC70Br7Y0xZQGC4zj6aZoCnPMPhBBtwb41NoN1XesCBHPNhyfI7fziFu6HJti3IgS0vrcFuZ3Btm2JpmC/M5jnOdEU5JoRstYmigKES80x7JyrC+IE7+1xAoSrgp//AqX02vsbn5nz8K/zAP9CzjbgFoHjAAAAAElFTkSuQmCC);
 }
+.FileNav-item--executableFile::before,
 .FileList-item--executableFile::before {
   /* mimetypes/text-x-script.png */
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA7ADsAOwdIxY2AAAACXBIWXMAAAsTAAALEwEAmpwYAAABOklEQVQ4T5WTTYqDQBBGPdKcZnIJdy7EVRByBQPi0iwHAlGT0YBHcG82kkV2VnffoKar7FYzIQYLPtqffq+rEJ04jn/CMMSV+XZs0YO1RcyLoO/7MdAD9gAI8wiK+CyYA0IDFABhrmFBAHNYbwYTIxFyWN8KwAiEmIEaknqVUposCoBBGE8cIGUipUKp5IJAzOe2JxI0pG1b3Gw2+Hg8FjoQzy0rLVAavt0GuGkaXrfb7avAzs0CNcHtDD4ejwzTve/7X/9GGFqn2QmkDmzbBJ9OJ8yyDNM0Rdd1J8mzgDqQPDNJLFwUBZ7PZ7xcLizwPI9gfj+NYAX2k+kx7vc7byrLEquqwuv1ivv9HpMk4ec6Uwfvqus63lzXNeZ5zoIRpoqiKP/09wVBwNDhcOB1t9v9OmuLTnw62dQfVIHPYx/I/0kAAAAASUVORK5CYII=);
 }
+.FileNav-item--gitlink::before,
 .FileList-item--gitlink::before {
   /* emblems/emblem-symbolic-link.png */
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAABO0lEQVQ4T7WT3U6EMBCF92m99yGMZuODGL01eueyXqjvwc+WUlooUPkfZxq3sQEvJLHJSQvlfDOnDbub/dUFCrZof3t9uaPF1kFeBwjD8E+apukfAVEUQRzHkCQJJKfEznES43tUGP0OIOMheIGn50e4f7izCo4H4GkKDEXPBIviCIZh8AFkfv94g5Qx4Jw7AOn4Grh1iqATdrUAEJmxFLIsgzzPQSnpQc4SIkMIh7ZtfQCjys6soNQlVFW1AEgpQWQCjDE+gHIKIaxZo7mu69UOiqJwRXxAxnFDQllS5XUzSeO+kmoJoOzUni41NE1tM9JBTdMII85d14FpjI2lihUA9wCNA8zzDOM4WkBjvgFqrQO8ulzmNgLl/8SPyTT0WL3vLLBGsNZ6HUBV1tT3vROd/Fk/AZt/Z/J+AUN8ayghXmezAAAAAElFTkSuQmCC);
@@ -687,6 +810,26 @@ a {
 }
 
 @media (max-width: 700px) {
+  .PathDetail {
+    display: block;
+  }
+  .FileNav {
+    flex-basis: auto !important;
+    max-height: none;
+    overflow: visible;
+  }
+  .FileNav-disclosure > .FileNav-summary {
+    position: static;
+  }
+  .PathDetail-resizer {
+    display: none;
+  }
+  .FileNav-disclosure {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+    min-height: 0;
+    padding: 0 0 8px;
+  }
   .Metadata-descriptionList {
     grid-template-columns: max-content auto;
   }

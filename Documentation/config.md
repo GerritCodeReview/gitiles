@@ -140,6 +140,19 @@ Default: `true`.
 redirectGitweb = false
 ```
 
+### File navigation sidebar
+
+Path pages (trees, files, symlinks and submodules) render a sidebar listing the
+files at the root of the repository, which can be expanded to walk the tree
+without leaving the page. Setting `fileNavigation` to false removes the sidebar
+and restores the narrower page container used elsewhere in the UI.
+Default: `true`.
+
+```
+[gitiles]
+  fileNavigation = false
+```
+
 ## Markdown
 
 ### Disabling markdown
