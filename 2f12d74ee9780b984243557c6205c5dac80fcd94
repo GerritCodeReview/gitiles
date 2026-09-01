@@ -16,6 +16,24 @@
       "message": "This seems to have dropped the comments from https://gerrit-review.googlesource.com/c/gerrit/+/623481/3/java/com/google/gerrit/server/patch/IntraLineLoader.java\n\nSeems like those should be added back?",
       "revId": "2f12d74ee9780b984243557c6205c5dac80fcd94",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3a68ca_ee524404",
+        "filename": "java/com/google/gitiles/diff/IntraLineDiff.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-09-01T04:34:08Z",
+      "side": 1,
+      "message": "Restored in the latest patchset. Two comments in combineLineEdits were dropped when the algorithm moved from IntraLineLoader into gitiles\u0027 IntraLineDiff:\n\n- // Don\u0027t combine any edits which were identified as being introduced by a rebase[...]\n- // Combine edits that are really close together. Right now our rule is, coalesce two line edits[...]\n\nDone.",
+      "parentUuid": "9da8d16c_5967ded8",
+      "revId": "2f12d74ee9780b984243557c6205c5dac80fcd94",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
