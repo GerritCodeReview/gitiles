@@ -1,10 +1,10 @@
-load("@rules_java//java:defs.bzl", "java_library")
+load("//lib:provided.bzl", "provided_java_library")
 
 package(
     default_visibility = ["//visibility:public"],
 )
 
-java_library(
+provided_java_library(
     name = "soy",
     exports = [
         "@external_deps//:com_google_template_soy",
