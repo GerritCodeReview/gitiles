@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2caf6b14_6fd587f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2026-09-02T21:39:07Z",
+      "side": 1,
+      "message": "Thank you!! Are you able to modernise the other parts of the UI (e.g. the browser part to use more modern UI) please? :)",
+      "revId": "82420cc5da6185891675b97b24c620522fe85c69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
