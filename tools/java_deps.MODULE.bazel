@@ -8,15 +8,15 @@
 
 COMMONMARK_VERSION = "0.24.0"
 
-FLOGGER_VERSION = "0.7.4"
+FLOGGER_VERSION = "0.8"
 
-SLF4J_VERSION = "2.0.17"
+SLF4J_VERSION = "2.0.18"
 
-JETTY_VERSION = "12.1.10"
+JETTY_VERSION = "12.1.12"
 
 OW2_ASM_VERSION = "9.9.1"
 
-BYTE_BUDDY_VERSION = "1.18.2"
+BYTE_BUDDY_VERSION = "1.18.12"
 
 # Root-level dependency versions declared by Gitiles must take precedence over
 # versions contributed by layered modules (e.g. JGit) when resolving the shared
@@ -71,9 +71,9 @@ maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "external_deps",
     artifacts = [
-        "ch.qos.reload4j:reload4j:1.2.25",
+        "ch.qos.reload4j:reload4j:1.2.26",
         "com.google.code.findbugs:jsr305:3.0.1",
-        "com.google.code.gson:gson:2.13.2",
+        "com.google.code.gson:gson:2.14.0",
         "com.google.common.html.types:types:1.0.8",
         "com.google.errorprone:error_prone_annotations:2.46.0",
         "com.google.flogger:flogger:" + FLOGGER_VERSION,
@@ -88,7 +88,7 @@ maven.install(
         "com.googlecode.javaewah:JavaEWAH:1.2.3",
         "com.ibm.icu:icu4j:78.2",
         "commons-codec:commons-codec:1.18.0",
-        "commons-io:commons-io:2.21.0",
+        "commons-io:commons-io:2.22.0",
         "io.github.java-diff-utils:java-diff-utils:4.16",
         "javax.servlet:javax.servlet-api:4.0.1",
         "junit:junit:4.13.2",
@@ -96,7 +96,7 @@ maven.install(
         "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
         "org.apache.commons:commons-compress:1.28.0",
         "org.apache.commons:commons-lang3:3.18.0",
-        "org.apache.commons:commons-text:1.10.0",
+        "org.apache.commons:commons-text:1.15.0",
         "org.commonmark:commonmark:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-gfm-strikethrough:" + COMMONMARK_VERSION,
@@ -112,9 +112,9 @@ maven.install(
         "org.eclipse.jetty.ee8:jetty-ee8-security:" + JETTY_VERSION,
         "org.eclipse.jetty.ee8:jetty-ee8-servlet:" + JETTY_VERSION,
         "org.hamcrest:hamcrest:3.0",
-        "org.mockito:mockito-core:5.21.0",
+        "org.mockito:mockito-core:5.23.0",
         "org.nibor.autolink:autolink:0.11.0",
-        "org.objenesis:objenesis:3.0.1",
+        "org.objenesis:objenesis:3.4",
         "org.ow2.asm:asm:" + OW2_ASM_VERSION,
         "org.ow2.asm:asm-analysis:" + OW2_ASM_VERSION,
         "org.ow2.asm:asm-commons:" + OW2_ASM_VERSION,
@@ -122,7 +122,7 @@ maven.install(
         "org.ow2.asm:asm-util:" + OW2_ASM_VERSION,
         "org.slf4j:slf4j-api:" + SLF4J_VERSION,
         "org.slf4j:slf4j-simple:" + SLF4J_VERSION,
-        "org.tukaani:xz:1.11",
+        "org.tukaani:xz:1.12",
     ],
     # CRITICAL: Must remain "error".
     # This guarantees fail-fast behavior if multiple versions of the same
