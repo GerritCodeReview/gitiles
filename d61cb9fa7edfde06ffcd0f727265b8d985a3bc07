@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b33ef9c8_e53bbc41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-09-04T18:17:25Z",
+      "side": 1,
+      "message": "I would like to see some numbers of latency impact of this for large trees of files, think 1k, 10k, 100k.\n\nSeems like we want some limits in place",
+      "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65012a49_67cc0efc",
+        "filename": "resources/com/google/gitiles/static/file-nav.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-09-04T18:17:25Z",
+      "side": 1,
+      "message": "to start can we do a static 2 level folder render client side where each item is clickable and opens gitiles in the current window with the gitiles view at said level?",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 28
+      },
+      "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
