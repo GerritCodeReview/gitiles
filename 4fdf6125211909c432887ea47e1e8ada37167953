@@ -52,6 +52,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01190b6_bf60cb97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5134137
+      },
+      "writtenOn": "2026-09-05T01:24:26Z",
+      "side": 1,
+      "message": "ZTE Blade A72s",
+      "revId": "4fdf6125211909c432887ea47e1e8ada37167953",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a51483b_fe33a8b4",
