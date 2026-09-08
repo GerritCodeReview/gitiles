@@ -39,6 +39,30 @@
       },
       "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ae0958b_514c3e79",
+        "filename": "resources/com/google/gitiles/static/file-nav.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3255163
+      },
+      "writtenOn": "2026-09-08T11:28:14Z",
+      "side": 1,
+      "message": "One concern: if you\u0027re viewing a file deeper than 2 levels it won\u0027t show in the sidebar at all, so no visual cue for where you are. If we always expand along the active path regardless of depth that fixes it, but then it ends up pretty close to what\u0027s already there. What\u0027s the main thing you wanted to change? Is it just the inline expand/collapse for other folders?",
+      "parentUuid": "65012a49_67cc0efc",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 28
+      },
+      "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
