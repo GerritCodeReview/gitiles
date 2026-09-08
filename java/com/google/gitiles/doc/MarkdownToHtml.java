@@ -390,6 +390,10 @@ public class MarkdownToHtml implements Visitor {
     html.close(tag);
   }
 
+  private void visit(TableCodeBlock node) {
+    codeInPre(node.getInfo(), Strings.nullToEmpty(node.getLiteral()));
+  }
+
   private void visit(SmartQuoted node) {
     switch (node.getType()) {
       case DOUBLE -> {
@@ -443,6 +447,7 @@ public class MarkdownToHtml implements Visitor {
       case Strikethrough st -> wrapChildren("del", st);
       case TableBody tb -> wrapChildren("tbody", tb);
       case TableCell tc -> visit(tc);
+      case TableCodeBlock tcb -> visit(tcb);
       case TableHead th -> wrapChildren("thead", th);
       case TableRow tr -> visit(tr);
       default -> throw new IllegalArgumentException("cannot render " + node.getClass());

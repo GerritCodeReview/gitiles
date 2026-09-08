@@ -20,10 +20,14 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import org.commonmark.Extension;
 import org.commonmark.node.AbstractVisitor;
+import org.commonmark.node.Code;
+import org.commonmark.node.FencedCodeBlock;
 import org.commonmark.node.HardLineBreak;
 import org.commonmark.node.HtmlBlock;
 import org.commonmark.node.HtmlInline;
 import org.commonmark.node.Node;
+import org.commonmark.node.SoftLineBreak;
+import org.commonmark.node.Text;
 import org.commonmark.node.ThematicBreak;
 import org.commonmark.parser.Parser;
 import org.commonmark.parser.Parser.ParserExtension;
@@ -41,14 +45,34 @@ import org.commonmark.parser.PostProcessor;
  *   <li>{@link ThematicBreak}
  *   <li>{@link NamedAnchor}
  *   <li>{@link IframeBlock}
+ *   <li>{@link TableCodeBlock}
  * </ul>
  */
 public class GitilesHtmlExtension implements ParserExtension {
   private static final Pattern BREAK = Pattern.compile("<(hr|br)\\s*/?>", Pattern.CASE_INSENSITIVE);
 
   private static final Pattern ANCHOR_OPEN =
-      Pattern.compile("<a\\s+name=([\"'])([^\"'\\s]+)\\1>", Pattern.CASE_INSENSITIVE);
+      Pattern.compile(
+          "<a\\s+[^>]*(?:name|id)=([\"'])([^\"'\\s]+)\\1[^>]*>", Pattern.CASE_INSENSITIVE);
   private static final Pattern ANCHOR_CLOSE = Pattern.compile("</[aA]>");
+
+  private static final Pattern PRE_OPEN =
+      Pattern.compile("<pre(?:\s+[^>]*)?>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern PRE_CLOSE = Pattern.compile("</pre\\s*>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CODE_OPEN =
+      Pattern.compile("<code(?:\s+[^>]*)?>", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CODE_CLOSE =
+      Pattern.compile("</code\\s*>", Pattern.CASE_INSENSITIVE);
+
+  private static final Pattern LANG_ATTR =
+      Pattern.compile(
+          "(?:class=[\"'](?:language-|lang-)?([a-zA-Z0-9_-]+)[\"']|lang=[\"']([a-zA-Z0-9_-]+)[\"'])",
+          Pattern.CASE_INSENSITIVE);
+
+  private static final Pattern PRE_BLOCK =
+      Pattern.compile("^\\s*<pre(?:\s+[^>]*)?>([\\s\\S]*?)</pre>\\s*$", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CODE_BLOCK_INNER =
+      Pattern.compile("^\\s*<code(?:\s+[^>]*)?>([\\s\\S]*?)</code>\\s*$", Pattern.CASE_INSENSITIVE);
 
   private static final Pattern IFRAME_OPEN =
       Pattern.compile("<iframe\\s+", Pattern.CASE_INSENSITIVE);
@@ -80,31 +104,40 @@ public class GitilesHtmlExtension implements ParserExtension {
 
   private static class HtmlVisitor extends AbstractVisitor {
     @Override
+    protected void visitChildren(Node parent) {
+      Node node = parent.getFirstChild();
+      while (node != null) {
+        if (node instanceof HtmlInline) {
+          node = inline((HtmlInline) node);
+        } else if (node instanceof HtmlBlock) {
+          node = block((HtmlBlock) node);
+        } else {
+          node.accept(this);
+          node = node.getNext();
+        }
+      }
+    }
+
+    @Override
     public void visit(HtmlInline node) {
-      inline(node);
+      // Handled in visitChildren to safely support node replacements.
     }
 
     @Override
     public void visit(HtmlBlock node) {
-      block(node);
+      // Handled in visitChildren to safely support node replacements.
     }
   }
 
-  private static void inline(HtmlInline curr) {
+  private static @Nullable Node inline(HtmlInline curr) {
     String html = curr.getLiteral();
     Matcher m = BREAK.matcher(html);
     if (m.matches()) {
-      switch (m.group(1).toLowerCase()) {
-        case "br":
-          curr.insertAfter(new HardLineBreak());
-          curr.unlink();
-          return;
-
-        case "hr":
-          curr.insertAfter(new ThematicBreak());
-          curr.unlink();
-          return;
-      }
+      Node br = "br".equalsIgnoreCase(m.group(1)) ? new HardLineBreak() : new ThematicBreak();
+      curr.insertBefore(br);
+      Node next = curr.getNext();
+      curr.unlink();
+      return next;
     }
 
     m = ANCHOR_OPEN.matcher(html);
@@ -112,24 +145,128 @@ public class GitilesHtmlExtension implements ParserExtension {
       String name = m.group(2);
       Node next = curr.getNext();
 
-      // HtmlInline{<a name="id">}HtmlInline{</a>}
       if (isAnchorClose(next)) {
-        next.unlink();
-
         NamedAnchor anchor = new NamedAnchor();
         anchor.setName(name);
-        curr.insertAfter(anchor);
-        curr.unlink();
+        curr.insertBefore(anchor);
         MarkdownUtil.trimPreviousWhitespace(anchor);
+        Node afterClose = next.getNext();
+        curr.unlink();
+        next.unlink();
+        return afterClose;
+      }
+    }
+
+    m = PRE_OPEN.matcher(html);
+    if (m.matches()) {
+      Node afterPre = processPre(curr);
+      if (afterPre != null) {
+        return afterPre;
+      }
+    }
+
+    return curr.getNext();
+  }
+
+  @SuppressWarnings("ReferenceEquality") // commonmark AST nodes compared by identity.
+  private static @Nullable Node processPre(HtmlInline preOpen) {
+    Node preClose = null;
+    for (Node s = preOpen.getNext(); s != null; s = s.getNext()) {
+      if (s instanceof HtmlInline && PRE_CLOSE.matcher(((HtmlInline) s).getLiteral()).matches()) {
+        preClose = s;
+        break;
+      }
+    }
+    if (preClose == null) {
+      return null;
+    }
+
+    String lang = extractLang(preOpen.getLiteral());
+
+    Node codeOpen = null;
+    Node first = preOpen.getNext();
+    if (first != preClose && first instanceof HtmlInline) {
+      String firstHtml = ((HtmlInline) first).getLiteral();
+      if (CODE_OPEN.matcher(firstHtml).matches()) {
+        codeOpen = first;
+        String codeLang = extractLang(firstHtml);
+        if (codeLang != null) {
+          lang = codeLang;
+        }
+      }
+    }
+
+    Node codeClose = null;
+    Node last = preClose.getPrevious();
+    if (last != preOpen && last != codeOpen && last instanceof HtmlInline) {
+      if (CODE_CLOSE.matcher(((HtmlInline) last).getLiteral()).matches()) {
+        codeClose = last;
+      }
+    }
+
+    StringBuilder text = new StringBuilder();
+    Node start = (codeOpen != null) ? codeOpen.getNext() : preOpen.getNext();
+    Node end = (codeClose != null) ? codeClose : preClose;
+    for (Node c = start; c != null && c != end; c = c.getNext()) {
+      appendCodeContent(text, c);
+    }
+
+    TableCodeBlock block = new TableCodeBlock();
+    block.setInfo(lang);
+    block.setLiteral(text.toString());
+
+    preOpen.insertBefore(block);
+
+    Node afterPre = preClose.getNext();
+    Node c = preOpen;
+    while (c != null) {
+      Node toUnlink = c;
+      c = (c == preClose) ? null : c.getNext();
+      toUnlink.unlink();
+    }
+
+    return afterPre;
+  }
+
+  private static void appendCodeContent(StringBuilder text, Node n) {
+    if (n instanceof Text) {
+      text.append(((Text) n).getLiteral());
+    } else if (n instanceof SoftLineBreak || n instanceof HardLineBreak) {
+      text.append('\n');
+    } else if (n instanceof Code) {
+      text.append(((Code) n).getLiteral());
+    } else if (n instanceof HtmlInline) {
+      String literal = ((HtmlInline) n).getLiteral();
+      if (BREAK.matcher(literal).matches()) {
+        text.append('\n');
+      } else if (CODE_OPEN.matcher(literal).matches() || CODE_CLOSE.matcher(literal).matches()) {
+        // Redundant code tags are ignored.
+      } else {
+        text.append(literal);
+      }
+    } else {
+      for (Node child = n.getFirstChild(); child != null; child = child.getNext()) {
+        appendCodeContent(text, child);
       }
     }
   }
 
-  private static boolean isAnchorClose(Node n) {
+  private static @Nullable String extractLang(String html) {
+    Matcher m = LANG_ATTR.matcher(html);
+    if (m.find()) {
+      String l = m.group(1) != null ? m.group(1) : m.group(2);
+      if (!"code".equalsIgnoreCase(l) && !"prettyprint".equalsIgnoreCase(l)) {
+        return l;
+      }
+    }
+    return null;
+  }
+
+  private static boolean isAnchorClose(@Nullable Node n) {
     return n instanceof HtmlInline && ANCHOR_CLOSE.matcher(((HtmlInline) n).getLiteral()).matches();
   }
 
-  private static void block(HtmlBlock curr) {
+  private static @Nullable Node block(HtmlBlock curr) {
     String html = curr.getLiteral();
     Matcher m = IFRAME_OPEN.matcher(html);
     if (m.find()) {
@@ -139,11 +276,37 @@ public class GitilesHtmlExtension implements ParserExtension {
         int end = start + m.start();
         IframeBlock f = iframe(html.substring(start, end));
         if (f != null) {
-          curr.insertAfter(f);
+          curr.insertBefore(f);
+          Node next = curr.getNext();
           curr.unlink();
+          return next;
         }
       }
     }
+
+    m = PRE_BLOCK.matcher(html.trim());
+    if (m.matches()) {
+      String inner = m.group(1);
+      String lang = extractLang(html);
+      Matcher cm = CODE_BLOCK_INNER.matcher(inner);
+      if (cm.matches()) {
+        String codeLang = extractLang(inner);
+        if (codeLang != null) {
+          lang = codeLang;
+        }
+        inner = cm.group(1);
+      }
+      inner = org.apache.commons.text.StringEscapeUtils.unescapeHtml4(inner);
+      FencedCodeBlock fcb = new FencedCodeBlock();
+      fcb.setInfo(lang);
+      fcb.setLiteral(inner);
+      curr.insertBefore(fcb);
+      Node next = curr.getNext();
+      curr.unlink();
+      return next;
+    }
+
+    return curr.getNext();
   }
 
   private static @Nullable IframeBlock iframe(String html) {
