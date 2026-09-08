@@ -19,6 +19,7 @@ import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.primitives.Doubles.max;
 
 import com.google.common.base.Ascii;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -98,6 +99,7 @@ public final class SimpleMermaidRenderer {
     public boolean isVirtual = false;
     @Nullable public String customFill;
     @Nullable public String customStroke;
+    @Nullable public String customColor;
 
     public Node(String id) {
       this.id = id;
@@ -127,6 +129,7 @@ public final class SimpleMermaidRenderer {
     public double height;
     @Nullable public String customFill;
     @Nullable public String customStroke;
+    @Nullable public String customColor;
 
     public Subgraph(String id, String title) {
       this.id = id;
@@ -609,6 +612,7 @@ public final class SimpleMermaidRenderer {
 
     String fill = null;
     String stroke = null;
+    String color = null;
     int p = 0;
     while (p < rest.length()) {
       int nextSep = rest.length();
@@ -628,6 +632,8 @@ public final class SimpleMermaidRenderer {
           fill = val;
         } else if (key.equals("stroke")) {
           stroke = val;
+        } else if (key.equals("color")) {
+          color = val;
         }
       }
       p = nextSep + 1;
@@ -639,6 +645,9 @@ public final class SimpleMermaidRenderer {
     if (stroke != null && !isValidCssColor(stroke)) {
       stroke = null;
     }
+    if (color != null && !isValidCssColor(color)) {
+      color = null;
+    }
 
     Subgraph sg = graph.lookupSubgraph(targetId);
     if (sg != null) {
@@ -648,6 +657,9 @@ public final class SimpleMermaidRenderer {
       if (stroke != null) {
         sg.customStroke = stroke;
       }
+      if (color != null) {
+        sg.customColor = color;
+      }
     }
     Node n = graph.nodes.get(targetId);
     if (n != null) {
@@ -656,6 +668,9 @@ public final class SimpleMermaidRenderer {
       }
       if (stroke != null) {
         n.customStroke = stroke;
+      }
+      if (color != null) {
+        n.customColor = color;
       }
     }
   }
@@ -681,6 +696,109 @@ public final class SimpleMermaidRenderer {
       return true;
     }
     return v.matches("^(rgb|hsl)a?\\([0-9%,. ]+\\)$");
+  }
+
+  private static boolean isLightColor(@Nullable String color) {
+    if (isNullOrEmpty(color)) {
+      return true;
+    }
+    String c = color.trim().toLowerCase(Locale.ROOT);
+    if (c.startsWith("#")) {
+      try {
+        String hex = c.substring(1);
+        int r;
+        int g;
+        int b;
+        if (hex.length() == 3 || hex.length() == 4) {
+          r = Integer.parseInt(hex.substring(0, 1) + hex.substring(0, 1), 16);
+          g = Integer.parseInt(hex.substring(1, 2) + hex.substring(1, 2), 16);
+          b = Integer.parseInt(hex.substring(2, 3) + hex.substring(2, 3), 16);
+        } else if (hex.length() >= 6) {
+          r = Integer.parseInt(hex.substring(0, 2), 16);
+          g = Integer.parseInt(hex.substring(2, 4), 16);
+          b = Integer.parseInt(hex.substring(4, 6), 16);
+        } else {
+          return true;
+        }
+        return (0.299 * r + 0.587 * g + 0.114 * b) >= 128;
+      } catch (NumberFormatException e) {
+        return true;
+      }
+    }
+    if (c.startsWith("rgb")) {
+      int start = c.indexOf('(');
+      int end = c.indexOf(')');
+      if (start != -1 && end > start) {
+        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
+        if (parts.size() >= 3) {
+          try {
+            double r = parseColorComponent(parts.get(0));
+            double g = parseColorComponent(parts.get(1));
+            double b = parseColorComponent(parts.get(2));
+            return (0.299 * r + 0.587 * g + 0.114 * b) >= 128;
+          } catch (NumberFormatException e) {
+            return true;
+          }
+        }
+      }
+    }
+    if (c.startsWith("hsl")) {
+      int start = c.indexOf('(');
+      int end = c.indexOf(')');
+      if (start != -1 && end > start) {
+        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
+        if (parts.size() >= 3) {
+          try {
+            String lStr = parts.get(2).trim().replace("%", "");
+            double l = Double.parseDouble(lStr);
+            return l >= 50.0;
+          } catch (NumberFormatException e) {
+            return true;
+          }
+        }
+      }
+    }
+    switch (c) {
+      case "black",
+          "navy",
+          "darkblue",
+          "mediumblue",
+          "blue",
+          "darkgreen",
+          "green",
+          "teal",
+          "darkcyan",
+          "darkred",
+          "maroon",
+          "purple",
+          "indigo",
+          "darkmagenta",
+          "darkviolet",
+          "darkslateblue",
+          "saddlebrown",
+          "sienna",
+          "brown",
+          "darkslategray",
+          "darkslategrey",
+          "midnightblue",
+          "gray",
+          "grey",
+          "dimgray",
+          "dimgrey" -> {
+        return false;
+      }
+      default -> {
+        return true;
+      }
+    }
+  }
+
+  private static double parseColorComponent(String part) {
+    String p = part.trim();
+    if (p.endsWith("%")) {
+      return Double.parseDouble(p.substring(0, p.length() - 1)) * 2.55;
+    }
+    return Double.parseDouble(p);
   }
 
   private static void parseStatement(
@@ -2188,13 +2306,14 @@ public final class SimpleMermaidRenderer {
     svg.append(
         "    <marker id=\"mermaid-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\""
             + " markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">\n");
-    svg.append("      <path d=\"M 0 1.5 L 10 5 L 0 8.5 z\" fill=\"#64748b\" />\n");
+    svg.append(
+        "      <path class=\"mermaid-arrow\" d=\"M 0 1.5 L 10 5 L 0 8.5 z\" fill=\"#64748b\" />\n");
     svg.append("    </marker>\n");
     svg.append(
         "    <filter id=\"node-shadow\" x=\"-5%\" y=\"-5%\" width=\"115%\" height=\"120%\">\n");
     svg.append(
-        "      <feDropShadow dx=\"0\" dy=\"1.5\" stdDeviation=\"2\" flood-color=\"#0f172a\""
-            + " flood-opacity=\"0.06\" />\n");
+        "      <feDropShadow class=\"mermaid-shadow\" dx=\"0\" dy=\"1.5\" stdDeviation=\"2\""
+            + " flood-color=\"#0f172a\" flood-opacity=\"0.06\" />\n");
     svg.append("    </filter>\n");
     svg.append("  </defs>\n");
 
@@ -2246,11 +2365,21 @@ public final class SimpleMermaidRenderer {
     int depth = getSubgraphDepth(sg);
     String fill = sg.customFill != null ? sg.customFill : (depth % 2 == 0 ? "#fafafa" : "#f8fafc");
     String stroke = sg.customStroke != null ? sg.customStroke : "#cbd5e1";
+    String sgClass =
+        sg.customFill == null && sg.customStroke == null
+            ? (depth % 2 == 0 ? "mermaid-subgraph" : "mermaid-subgraph mermaid-subgraph--alt")
+            : (sg.customFill == null
+                ? (depth % 2 == 0
+                    ? "mermaid-subgraph-fill"
+                    : "mermaid-subgraph-fill mermaid-subgraph-fill--alt")
+                : (sg.customStroke == null ? "mermaid-subgraph-stroke" : ""));
+    String classAttr = sgClass.isEmpty() ? "" : String.format(" class=\"%s\"", sgClass);
     svg.append(
         String.format(
             Locale.ROOT,
-            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"8\" fill=\"%s\""
+            "  <rect%s x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"8\" fill=\"%s\""
                 + " stroke=\"%s\" stroke-width=\"1.5\" stroke-dasharray=\"4,4\" />\n",
+            classAttr,
             sg.x,
             sg.y,
             sg.width,
@@ -2258,13 +2387,28 @@ public final class SimpleMermaidRenderer {
             fill,
             stroke));
     if (sg.title != null && !sg.title.isEmpty()) {
+      String titleColor;
+      String titleClassAttr;
+      if (sg.customColor != null) {
+        titleColor = sg.customColor;
+        titleClassAttr = "";
+      } else if (sg.customFill != null) {
+        boolean light = isLightColor(sg.customFill);
+        titleColor = light ? "#334155" : "#bdc1c6";
+        titleClassAttr = "";
+      } else {
+        titleColor = "#334155";
+        titleClassAttr = " class=\"mermaid-subgraph-title\"";
+      }
       svg.append(
           String.format(
               Locale.ROOT,
-              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"600\""
-                  + " fill=\"#334155\">%s</text>\n",
+              "  <text%s x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"600\""
+                  + " fill=\"%s\">%s</text>\n",
+              titleClassAttr,
               sg.x + 14,
               sg.y + 18,
+              titleColor,
               escapeXml(sg.title)));
     }
   }
@@ -2279,6 +2423,15 @@ public final class SimpleMermaidRenderer {
 
     String fill = n.customFill != null ? n.customFill : "#ffffff";
     String stroke = n.customStroke != null ? n.customStroke : "#64748b";
+    String nodeClass =
+        n.customFill == null && n.customStroke == null
+            ? "mermaid-node"
+            : (n.customFill == null
+                ? "mermaid-node-fill"
+                : (n.customStroke == null ? "mermaid-node-stroke" : ""));
+    String classAttr = nodeClass.isEmpty() ? "" : String.format(" class=\"%s\"", nodeClass);
+    String strokeClassAttr =
+        n.customStroke == null ? " class=\"mermaid-node-stroke\"" : "";
 
     // Shape Geometry
     switch (n.shape) {
@@ -2287,8 +2440,9 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" stroke=\"%s\""
+                "  <circle%s cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" stroke=\"%s\""
                     + " stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                classAttr,
                 n.x + r,
                 n.y + r,
                 r,
@@ -2301,8 +2455,9 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\""
+                "  <polygon%s points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\""
                     + " stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                classAttr,
                 cx,
                 n.y,
                 n.x + n.width,
@@ -2320,9 +2475,10 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
+                "  <polygon%s points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
                     + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\""
                     + " />\n",
+                classAttr,
                 n.x + indent,
                 n.y,
                 n.x + n.width - indent,
@@ -2345,9 +2501,10 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path d=\"M %.1f %.1f a %.1f,%.1f 0 1,0 %.1f,0 a %.1f,%.1f 0 1,0 -%.1f,0 l"
+                "  <path%s d=\"M %.1f %.1f a %.1f,%.1f 0 1,0 %.1f,0 a %.1f,%.1f 0 1,0 -%.1f,0 l"
                     + " 0,%.1f a %.1f,%.1f 0 0,0 %.1f,0 l 0,-%.1f Z\" fill=\"%s\" stroke=\"%s\""
                     + " stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                classAttr,
                 n.x,
                 n.y + ry,
                 rxCyl,
@@ -2366,8 +2523,9 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path d=\"M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0\" fill=\"none\" stroke=\"%s\""
+                "  <path%s d=\"M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0\" fill=\"none\" stroke=\"%s\""
                     + " stroke-width=\"1.5\" />\n",
+                strokeClassAttr,
                 n.x,
                 n.y + ry,
                 rxCyl,
@@ -2380,9 +2538,10 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <polygon points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
+                "  <polygon%s points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
                     + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\""
                     + " />\n",
+                classAttr,
                 n.x,
                 n.y,
                 n.x + n.width,
@@ -2400,8 +2559,9 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"4\" fill=\"%s\""
+                "  <rect%s x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"4\" fill=\"%s\""
                     + " stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                classAttr,
                 n.x,
                 n.y,
                 n.width,
@@ -2411,8 +2571,9 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\""
+                "  <line%s x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\""
                     + " stroke-width=\"1.5\" />\n",
+                strokeClassAttr,
                 n.x + 10,
                 n.y,
                 n.x + 10,
@@ -2421,8 +2582,9 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\""
+                "  <line%s x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"%s\""
                     + " stroke-width=\"1.5\" />\n",
+                strokeClassAttr,
                 n.x + n.width - 10,
                 n.y,
                 n.x + n.width - 10,
@@ -2433,9 +2595,10 @@ public final class SimpleMermaidRenderer {
           svg.append(
               String.format(
                   Locale.ROOT,
-                  "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"%.1f\""
+                  "  <rect%s x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"%.1f\""
                       + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\""
                       + " filter=\"url(#node-shadow)\" />\n",
+                  classAttr,
                   n.x,
                   n.y,
                   n.width,
@@ -2444,6 +2607,33 @@ public final class SimpleMermaidRenderer {
                   fill,
                   stroke));
     }
+
+    // Determine text colors and classes
+    String primaryTextColor;
+    String subtextColor;
+    String primaryTextClass;
+    String subtextClass;
+
+    if (n.customColor != null) {
+      primaryTextColor = n.customColor;
+      subtextColor = n.customColor;
+      primaryTextClass = "";
+      subtextClass = "";
+    } else if (n.customFill != null) {
+      boolean light = isLightColor(n.customFill);
+      primaryTextColor = light ? "#0f172a" : "#e8eaed";
+      subtextColor = light ? "#475569" : "#94a3b8";
+      primaryTextClass = "";
+      subtextClass = "";
+    } else {
+      primaryTextColor = "#0f172a";
+      subtextColor = "#475569";
+      primaryTextClass = "mermaid-node-text";
+      subtextClass = "mermaid-node-subtext";
+    }
+
+    String textClassAttr =
+        primaryTextClass.isEmpty() ? "" : String.format(" class=\"%s\"", primaryTextClass);
 
     // Node Text using structured AST labelLines
     double cx = n.x + n.width / 2.0;
@@ -2454,10 +2644,12 @@ public final class SimpleMermaidRenderer {
       svg.append(
           String.format(
               Locale.ROOT,
-              "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"500\" fill=\"#0f172a\""
+              "  <text%s x=\"%.1f\" y=\"%.1f\" font-size=\"12\" font-weight=\"500\" fill=\"%s\""
                   + " text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
+              textClassAttr,
               cx,
               n.y + textYOffset + n.height / 2.0,
+              primaryTextColor,
               escapeXml(n.labelLines.get(0).trim())));
     } else {
       svg.append(
@@ -2468,13 +2660,17 @@ public final class SimpleMermaidRenderer {
               startTextY));
       for (int i = 0; i < n.labelLines.size(); i++) {
         String weight = i == 0 ? "600" : "400";
-        String textColor = i == 0 ? "#0f172a" : "#475569";
+        String textColor = i == 0 ? primaryTextColor : subtextColor;
+        String tspanClass = i == 0 ? primaryTextClass : subtextClass;
+        String tspanClassAttr =
+            tspanClass.isEmpty() ? "" : String.format(" class=\"%s\"", tspanClass);
         String fontSize = i == 0 ? "12" : "10.5";
         svg.append(
             String.format(
                 Locale.ROOT,
-                "    <tspan x=\"%.1f\" dy=\"%s\" font-size=\"%s\" font-weight=\"%s\""
+                "    <tspan%s x=\"%.1f\" dy=\"%s\" font-size=\"%s\" font-weight=\"%s\""
                     + " fill=\"%s\">%s</tspan>\n",
+                tspanClassAttr,
                 cx,
                 i == 0 ? "0" : "16",
                 fontSize,
@@ -2532,7 +2728,7 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
+                "  <path class=\"mermaid-edge\" d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
                     + " stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
                 startX,
                 startY,
@@ -2581,7 +2777,7 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
+                "  <path class=\"mermaid-edge\" d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
                     + " stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
                 startX,
                 startY,
@@ -2605,7 +2801,7 @@ public final class SimpleMermaidRenderer {
     svg.append(
         String.format(
             Locale.ROOT,
-            "  <line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\""
+            "  <line class=\"mermaid-edge\" x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" stroke=\"#64748b\""
                 + " stroke-width=\"%s\" %s%s/>\n",
             startX,
             startY,
@@ -2714,7 +2910,7 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+                "  <path class=\"mermaid-edge\" d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
                 pathD,
                 strokeWidth,
                 strokeDash,
@@ -2809,7 +3005,7 @@ public final class SimpleMermaidRenderer {
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+                "  <path class=\"mermaid-edge\" d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
                 pathD,
                 strokeWidth,
                 strokeDash,
@@ -2837,7 +3033,7 @@ public final class SimpleMermaidRenderer {
     svg.append(
         String.format(
             Locale.ROOT,
-            "  <path d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
+            "  <path class=\"mermaid-edge\" d=\"M %.1f %.1f C %.1f %.1f, %.1f %.1f, %.1f %.1f\" fill=\"none\""
                 + " stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
             x1,
             y1,
@@ -2867,7 +3063,7 @@ public final class SimpleMermaidRenderer {
     svg.append(
         String.format(
             Locale.ROOT,
-            "  <rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"3\" fill=\"#ffffff\""
+            "  <rect class=\"mermaid-edge-label-bg\" x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" rx=\"3\" fill=\"#ffffff\""
                 + " fill-opacity=\"0.95\" />\n",
             midX - rectW / 2.0,
             midY - rectH / 2.0,
@@ -2876,7 +3072,7 @@ public final class SimpleMermaidRenderer {
     svg.append(
         String.format(
             Locale.ROOT,
-            "  <text x=\"%.1f\" y=\"%.1f\" font-size=\"10.5\" fill=\"#475569\""
+            "  <text class=\"mermaid-edge-label-text\" x=\"%.1f\" y=\"%.1f\" font-size=\"10.5\" fill=\"#475569\""
                 + " text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
             midX,
             midY,

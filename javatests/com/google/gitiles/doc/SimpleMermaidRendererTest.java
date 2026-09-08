@@ -1547,4 +1547,146 @@ public class SimpleMermaidRendererTest {
     List<SvgDoc.Rect2D> sgs = doc.getSubgraphBoundingBoxes();
     assertThat(sgs).hasSize(3);
   }
+
+  @Test
+  public void testThemeClassesOnDiagramElements() {
+    String code =
+        """
+        graph TD
+          subgraph Outer ["Container"]
+            A[Node A] -->|link label| B[Node B]
+          end
+        """;
+    SvgDoc doc = render(code);
+
+    // Arrow marker and drop shadow in defs
+    Element arrow =
+        (Element) doc.getElementsByTag("marker").get(0).getElementsByTagName("path").item(0);
+    assertThat(arrow.getAttribute("class")).isEqualTo("mermaid-arrow");
+    Element shadow =
+        (Element)
+            doc.getElementsByTag("filter").get(0).getElementsByTagName("feDropShadow").item(0);
+    assertThat(shadow.getAttribute("class")).isEqualTo("mermaid-shadow");
+
+    // Subgraph rect and title
+    Element sgRect = doc.getElementsByTag("rect").get(0);
+    assertThat(sgRect.getAttribute("class")).isEqualTo("mermaid-subgraph");
+    Element sgTitle = doc.findText("Container");
+    assertThat(sgTitle).isNotNull();
+    assertThat(sgTitle.getAttribute("class")).isEqualTo("mermaid-subgraph-title");
+
+    // Edge label badge rect and text (rendered with edge before nodes)
+    Element badgeBg = doc.getElementsByTag("rect").get(1);
+    assertThat(badgeBg.getAttribute("class")).isEqualTo("mermaid-edge-label-bg");
+    Element badgeText = doc.findText("link label");
+    assertThat(badgeText).isNotNull();
+    assertThat(badgeText.getAttribute("class")).isEqualTo("mermaid-edge-label-text");
+
+    // Nodes and text
+    Element nodeA = doc.getElementsByTag("rect").get(2);
+    assertThat(nodeA.getAttribute("class")).isEqualTo("mermaid-node");
+    Element textA = doc.findText("Node A");
+    assertThat(textA).isNotNull();
+    assertThat(textA.getAttribute("class")).isEqualTo("mermaid-node-text");
+
+    // Edge path
+    Element edge = doc.getEdgePaths().get(0);
+    assertThat(edge.getAttribute("class")).isEqualTo("mermaid-edge");
+  }
+
+  @Test
+  public void testCustomStyledNodesUseTargetedClasses() {
+    String code =
+        """
+        graph TD
+          A[Custom Fill] --> B[Custom Stroke]
+          B --> C[Custom Both]
+          style A fill:#ff0000
+          style B stroke:#00ff00
+          style C fill:#ff0000,stroke:#00ff00
+        """;
+    SvgDoc doc = render(code);
+
+    List<Element> rects = doc.getElementsByTag("rect");
+    Element nodeA = rects.get(0);
+    assertThat(nodeA.getAttribute("class")).isEqualTo("mermaid-node-stroke");
+    assertThat(nodeA.getAttribute("fill")).isEqualTo("#ff0000");
+
+    Element nodeB = rects.get(1);
+    assertThat(nodeB.getAttribute("class")).isEqualTo("mermaid-node-fill");
+    assertThat(nodeB.getAttribute("stroke")).isEqualTo("#00ff00");
+
+    Element nodeC = rects.get(2);
+    assertThat(nodeC.getAttribute("class")).isEmpty();
+    assertThat(nodeC.getAttribute("fill")).isEqualTo("#ff0000");
+    assertThat(nodeC.getAttribute("stroke")).isEqualTo("#00ff00");
+  }
+
+  @Test
+  public void testCustomStyledNodesPreserveTextContrast() {
+    String code =
+        """
+        graph TD
+          GitRepo[(Git Repositories)]
+          Cache[(In-Memory Cache)]
+          DarkNode[Dark Server]
+          StyledText[Explicit Text Color]
+          MultiLine["Primary Line<br/>Secondary Line"]
+          DefaultNode[Default Box]
+
+          style GitRepo fill:#e1bee7,stroke:#8e24aa
+          style Cache fill:#ffecb3,stroke:#ffa000
+          style DarkNode fill:#1e293b,stroke:#0f172a
+          style StyledText fill:#e1bee7,stroke:#8e24aa,color:#123456
+          style MultiLine fill:#ffecb3
+        """;
+    SvgDoc doc = render(code);
+
+    // Light custom fills (pastel purple, pastel yellow) should keep dark text without
+    // mermaid-node-text class, preventing text inversion to white in dark mode.
+    Element gitRepoText = doc.findText("Git Repositories");
+    assertThat(gitRepoText).isNotNull();
+    assertThat(gitRepoText.getAttribute("fill")).isEqualTo("#0f172a");
+    assertThat(gitRepoText.getAttribute("class")).isEmpty();
+
+    Element cacheText = doc.findText("In-Memory Cache");
+    assertThat(cacheText).isNotNull();
+    assertThat(cacheText.getAttribute("fill")).isEqualTo("#0f172a");
+    assertThat(cacheText.getAttribute("class")).isEmpty();
+
+    // Dark custom fill should use light text without theme class
+    Element darkNodeText = doc.findText("Dark Server");
+    assertThat(darkNodeText).isNotNull();
+    assertThat(darkNodeText.getAttribute("fill")).isEqualTo("#e8eaed");
+    assertThat(darkNodeText.getAttribute("class")).isEmpty();
+
+    // Explicit color directive should be honored
+    Element styledText = doc.findText("Explicit Text Color");
+    assertThat(styledText).isNotNull();
+    assertThat(styledText.getAttribute("fill")).isEqualTo("#123456");
+    assertThat(styledText.getAttribute("class")).isEmpty();
+
+    // Multiline labels on custom fill should use high-contrast text and subtext
+    List<Element> tspans = doc.getElementsByTag("tspan");
+    Element primaryTspan = null;
+    Element secondaryTspan = null;
+    for (Element tspan : tspans) {
+      if ("Primary Line".equals(tspan.getTextContent())) {
+        primaryTspan = tspan;
+      } else if ("Secondary Line".equals(tspan.getTextContent())) {
+        secondaryTspan = tspan;
+      }
+    }
+    assertThat(primaryTspan).isNotNull();
+    assertThat(primaryTspan.getAttribute("fill")).isEqualTo("#0f172a");
+    assertThat(primaryTspan.getAttribute("class")).isEmpty();
+    assertThat(secondaryTspan).isNotNull();
+    assertThat(secondaryTspan.getAttribute("fill")).isEqualTo("#475569");
+    assertThat(secondaryTspan.getAttribute("class")).isEmpty();
+
+    // Default unstyled nodes must keep semantic class to adapt with the theme
+    Element defaultText = doc.findText("Default Box");
+    assertThat(defaultText).isNotNull();
+    assertThat(defaultText.getAttribute("class")).isEqualTo("mermaid-node-text");
+  }
 }
