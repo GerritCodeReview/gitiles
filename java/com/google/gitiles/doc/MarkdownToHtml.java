@@ -559,9 +559,15 @@ public class MarkdownToHtml implements Visitor {
       wrapChildren("thead", node);
     } else if (node instanceof TableRow) {
       visit((TableRow) node);
+    } else if (node instanceof TableCodeBlock) {
+      visit((TableCodeBlock) node);
     } else {
       throw new IllegalArgumentException("cannot render " + node.getClass());
     }
+  }
+
+  private void visit(TableCodeBlock node) {
+    codeInPre(node.getInfo(), Strings.nullToEmpty(node.getLiteral()));
   }
 
   @Override

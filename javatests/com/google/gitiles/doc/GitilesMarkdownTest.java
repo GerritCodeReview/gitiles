@@ -95,4 +95,98 @@ public class GitilesMarkdownTest {
             .toSoyHtml(node);
     return html == null ? "" : html.getSafeHtmlString();
   }
+
+  @Test
+  public void testTableCodeBlock() {
+    String md =
+        "| Name | Description | Type | Mandatory | Default |\n"
+            + "| :------------- | :------------- | :------------- | :------------- | :-------------"
+            + " |\n"
+            + "| <a id=\"dtbo_image-name\"></a>name | A unique name for this target. | <a"
+            + " href=\"https://bazel.build/concepts/labels#target-names\">Name</a> | required | |\n"
+            + "| <a id=\"dtbo_image-srcs\"></a>srcs | List of `*.dtbo` files used to package the"
+            + " `dtbo.img`. This corresponds to `MKDTIMG_DTBOS` in build configs; see example"
+            + " below.<br><br>Example: <pre><code>kernel_build(&#10; name = \"tuna_kernel\",&#10;"
+            + " outs = [&#10; \"path/to/foo.dtbo\",&#10; \"path/to/bar.dtbo\",&#10;"
+            + " ],&#10;)&#10;dtbo(&#10; name = \"tuna_images\",&#10; kernel_build ="
+            + " \":tuna_kernel\",&#10; srcs = [&#10; \":tuna_kernel/path/to/foo.dtbo\",&#10;"
+            + " \":tuna_kernel/path/to/bar.dtbo\",&#10; ],&#10;)</code></pre> | <a"
+            + " href=\"https://bazel.build/concepts/labels\">List of labels</a> | optional | `[]`"
+            + " |\n"
+            + "| <a id=\"dtbo_image-out\"></a>out | Name of the `dtbo` image.<br><br>Default to"
+            + " `<name>/dtbo.img` if not set. | String | optional | `\"\"` |\n"
+            + "| <a id=\"dtbo_image-config_file\"></a>config_file | A config file to create dtbo"
+            + " image by cfg_create command.<br><br>If set, use mkdtimg cfg_create with the given"
+            + " config file, instead of mkdtimg create | <a"
+            + " href=\"https://bazel.build/concepts/labels\">Label</a> | optional | `None` |\n"
+            + "| <a id=\"dtbo_image-opts\"></a>opts | Flags passed to `mkdtimg` tool. Successor of"
+            + " `MKDTIMG_FLAGS` | List of strings | optional | `[]` |\n"
+            + "| <a id=\"dtbo_image-tool\"></a>tool | Name of the tool called to generate the dtbo"
+            + " image.<br><br>Supported tools are `mkdtimg` and `mkdtboimg`. Default to `mkdtimg`"
+            + " if not set. | String | optional | `\"mkdtimg\"` |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<a name=\"dtbo_image-name\"></a>name");
+    assertThat(html).contains("<a name=\"dtbo_image-srcs\"></a>srcs");
+    assertThat(html)
+        .contains("<pre class=\"code\">kernel_build(\n name = &quot;tuna_kernel&quot;,");
+    assertThat(html).contains("dtbo(\n name = &quot;tuna_images&quot;,");
+    assertThat(html).contains("</pre>");
+    assertThat(html).contains("<code class=\"code\">*.dtbo</code>");
+    assertThat(html).contains("<code class=\"code\">[]</code>");
+  }
+
+  @Test
+  public void testTableCodeBlockSimple() {
+    String md = "| col |\n| --- |\n| <pre><code>hello world</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">hello world</pre>");
+  }
+
+  @Test
+  public void testTableCodeBlockWithoutCodeTag() {
+    String md = "| col |\n| --- |\n| <pre>hello world</pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">hello world</pre>");
+  }
+
+  @Test
+  public void testTableCodeBlockWithBr() {
+    String md = "| col |\n| --- |\n| <pre><code>line 1<br>line 2</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">line 1\nline 2</pre>");
+  }
+
+  @Test
+  public void testTableCodeBlockWithLanguage() {
+    String md = "| col |\n| --- |\n| <pre><code class=\"lang-c\">int x = 0;</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">");
+    assertThat(html).contains("int");
+    assertThat(html).contains("x");
+  }
+
+  @Test
+  public void testTableMultipleCodeBlocksInCell() {
+    String md =
+        "| col |\n| --- |\n| <pre><code>code1</code></pre> and <pre><code>code2</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">code1</pre>");
+    assertThat(html).contains(" and ");
+    assertThat(html).contains("<pre class=\"code\">code2</pre>");
+  }
+
+  @Test
+  public void testAnchorWithId() {
+    String md = "<a id=\"foo\"></a>line1<br>line2\n";
+    String html = render(md, false);
+    assertThat(html).contains("<a name=\"foo\"></a>line1<br />line2");
+  }
+
+  @Test
+  public void testTableCodeBlockXssPrevention() {
+    String md = "| col |\n| --- |\n| <pre><code><script>alert(1)</script></code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).doesNotContain("<script>");
+    assertThat(html).contains("&lt;script&gt;alert(1)&lt;/script&gt;");
+  }
 }
