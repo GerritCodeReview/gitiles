@@ -51,6 +51,23 @@ public class ThemeTest extends ServletTest {
   }
 
   @Test
+  public void repositoryIndexWithReadmeIncludesPrettifyCss() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("README.md", "# Hello Gitiles\n```python\nprint('hello')\n```")
+        .create();
+    repo.getRepository().updateRef("HEAD").link("refs/heads/master");
+    String html = buildHtml("/" + REPO_NAME + "/", false);
+    assertThat(html).contains("prettify/prettify.css");
+  }
+
+  @Test
+  public void repositoryIndexWithoutReadmeOmitsPrettifyCss() throws Exception {
+    String html = buildHtml("/" + REPO_NAME + "/", false);
+    assertThat(html).doesNotContain("prettify/prettify.css");
+  }
+
+  @Test
   public void docPageIncludesThemeScriptAndToggle() throws Exception {
     repo.branch("master").commit().add("README.md", "# Hello Gitiles\nDark mode test.").create();
     String html = buildHtml("/" + REPO_NAME + "/+doc/master/README.md", false);
