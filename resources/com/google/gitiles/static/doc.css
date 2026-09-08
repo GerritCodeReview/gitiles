@@ -45,6 +45,19 @@ html[data-theme="light"] {
   --doc-aside-bg: #f9f9f9;
   --doc-aside-border: #f2f2f2;
   --doc-aside-text: #202124;
+  --mermaid-node-bg: #ffffff;
+  --mermaid-node-stroke: #64748b;
+  --mermaid-node-text: #0f172a;
+  --mermaid-node-subtext: #475569;
+  --mermaid-edge: #64748b;
+  --mermaid-edge-label-bg: #ffffff;
+  --mermaid-edge-label-text: #475569;
+  --mermaid-subgraph-bg: #fafafa;
+  --mermaid-subgraph-bg-alt: #f8fafc;
+  --mermaid-subgraph-stroke: #cbd5e1;
+  --mermaid-subgraph-text: #334155;
+  --mermaid-shadow-color: #0f172a;
+  --mermaid-shadow-opacity: 0.06;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,6 +89,19 @@ html[data-theme="light"] {
     --doc-aside-bg: #292a2d;
     --doc-aside-border: #3c4043;
     --doc-aside-text: #e8eaed;
+    --mermaid-node-bg: #2d3035;
+    --mermaid-node-stroke: #5f6368;
+    --mermaid-node-text: #e8eaed;
+    --mermaid-node-subtext: #9aa0a6;
+    --mermaid-edge: #9aa0a6;
+    --mermaid-edge-label-bg: #202124;
+    --mermaid-edge-label-text: #bdc1c6;
+    --mermaid-subgraph-bg: #25262a;
+    --mermaid-subgraph-bg-alt: #202124;
+    --mermaid-subgraph-stroke: #3c4043;
+    --mermaid-subgraph-text: #bdc1c6;
+    --mermaid-shadow-color: #000000;
+    --mermaid-shadow-opacity: 0.35;
   }
 }
 
@@ -107,6 +133,19 @@ html[data-theme="dark"] {
   --doc-aside-bg: #292a2d;
   --doc-aside-border: #3c4043;
   --doc-aside-text: #e8eaed;
+  --mermaid-node-bg: #2d3035;
+  --mermaid-node-stroke: #5f6368;
+  --mermaid-node-text: #e8eaed;
+  --mermaid-node-subtext: #9aa0a6;
+  --mermaid-edge: #9aa0a6;
+  --mermaid-edge-label-bg: #202124;
+  --mermaid-edge-label-text: #bdc1c6;
+  --mermaid-subgraph-bg: #25262a;
+  --mermaid-subgraph-bg-alt: #202124;
+  --mermaid-subgraph-stroke: #3c4043;
+  --mermaid-subgraph-text: #bdc1c6;
+  --mermaid-shadow-color: #000000;
+  --mermaid-shadow-opacity: 0.35;
 }
 
 .Site-Content--markdown {
@@ -385,4 +424,47 @@ iframe.noborder {
 .mermaid-container svg {
   display: inline-block;
   vertical-align: middle;
+}
+
+.mermaid-svg .mermaid-node,
+.mermaid-svg .mermaid-node-fill {
+  fill: var(--mermaid-node-bg);
+}
+.mermaid-svg .mermaid-node,
+.mermaid-svg .mermaid-node-stroke {
+  stroke: var(--mermaid-node-stroke);
+}
+.mermaid-svg .mermaid-node-text {
+  fill: var(--mermaid-node-text);
+}
+.mermaid-svg .mermaid-node-subtext {
+  fill: var(--mermaid-node-subtext);
+}
+.mermaid-svg .mermaid-edge {
+  stroke: var(--mermaid-edge);
+}
+.mermaid-svg .mermaid-arrow {
+  fill: var(--mermaid-edge);
+}
+.mermaid-svg .mermaid-edge-label-bg {
+  fill: var(--mermaid-edge-label-bg);
+}
+.mermaid-svg .mermaid-edge-label-text {
+  fill: var(--mermaid-edge-label-text);
+}
+.mermaid-svg .mermaid-subgraph,
+.mermaid-svg .mermaid-subgraph-fill {
+  fill: var(--mermaid-subgraph-bg);
+  stroke: var(--mermaid-subgraph-stroke);
+}
+.mermaid-svg .mermaid-subgraph--alt,
+.mermaid-svg .mermaid-subgraph-fill--alt {
+  fill: var(--mermaid-subgraph-bg-alt);
+}
+.mermaid-svg .mermaid-subgraph-title {
+  fill: var(--mermaid-subgraph-text);
+}
+.mermaid-svg .mermaid-shadow {
+  flood-color: var(--mermaid-shadow-color);
+  flood-opacity: var(--mermaid-shadow-opacity);
 }
