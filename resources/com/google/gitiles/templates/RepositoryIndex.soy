@@ -41,7 +41,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
     {param menuEntries: $menuEntries /}
     {param customVariant: $customVariant /}
     {param breadcrumbs: $breadcrumbs /}
-    {param css: [$staticUrls['DOC_CSS_URL']] /}
+    {param css: [$staticUrls.DOC_CSS_URL, $staticUrls.PRETTIFY_CSS_URL] /}
   {/call}
 {else}
   {call common.header}
