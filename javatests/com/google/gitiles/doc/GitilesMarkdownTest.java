@@ -310,4 +310,90 @@ public class GitilesMarkdownTest {
             .toSoyHtml(node);
     return html == null ? "" : html.getSafeHtmlString();
   }
+
+  @Test
+  public void testTableCodeBlock() {
+    String md =
+        "| Character | Description | Kind | Friend | Favorite |\n"
+            + "| :------------- | :------------- | :------------- | :------------- | :-------------"
+            + " |\n"
+            + "| <a id=\"little_bear-name\"></a>Little Bear | The softest bear in the forest. | <a"
+            + " href=\"https://example.com/bear\">Bear</a> | True | |\n"
+            + "| <a id=\"little_bear-adventures\"></a>Adventures | List of `*.stars` collected"
+            + " while wandering through the enchanted forest; see bedtime song below.<br><br>Song:"
+            + " <pre><code>sleepy_bear(&#10; name = \"honey_pot\",&#10; dreams = [&#10;"
+            + " \"butterfly\",&#10; \"rainbow\",&#10; ],&#10;)&#10;wake_up(&#10; name ="
+            + " \"morning_sun\",&#10; friend = \":little_bunny\",&#10; hugs = [&#10;"
+            + " \":warm_hug\",&#10; \":gentle_smile\",&#10; ],&#10;)</code></pre> | <a"
+            + " href=\"https://example.com/forest\">Enchanted forest</a> | Sunny | `[]` |\n"
+            + "| <a id=\"little_bear-basket\"></a>Picnic Basket | Name of the `picnic`"
+            + " basket.<br><br>Default to `<name>/berries.basket` if not set. | String | Sweet |"
+            + " `\"\"` |\n"
+            + "| <a id=\"little_bear-storybook\"></a>Storybook | A magic book of bedtime"
+            + " tales.<br><br>Read before bedtime with warm milk. | <a"
+            + " href=\"https://example.com/books\">Book</a> | Cozy | `None` |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<a name=\"little_bear-name\"></a>Little Bear");
+    assertThat(html).contains("<a name=\"little_bear-adventures\"></a>Adventures");
+    assertThat(html).contains("<pre class=\"code\">sleepy_bear(\n name = &quot;honey_pot&quot;,");
+    assertThat(html).contains("wake_up(\n name = &quot;morning_sun&quot;,");
+    assertThat(html).contains("</pre>");
+    assertThat(html).contains("<code class=\"code\">*.stars</code>");
+    assertThat(html).contains("<code class=\"code\">[]</code>");
+  }
+
+  @Test
+  public void testTableCodeBlockSimple() {
+    String md = "| col |\n| --- |\n| <pre><code>hello world</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">hello world</pre>");
+  }
+
+  @Test
+  public void testTableCodeBlockWithoutCodeTag() {
+    String md = "| col |\n| --- |\n| <pre>hello world</pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">hello world</pre>");
+  }
+
+  @Test
+  public void testTableCodeBlockWithBr() {
+    String md = "| col |\n| --- |\n| <pre><code>line 1<br>line 2</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">line 1\nline 2</pre>");
+  }
+
+  @Test
+  public void testTableCodeBlockWithLanguage() {
+    String md = "| col |\n| --- |\n| <pre><code class=\"lang-c\">int x = 0;</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">");
+    assertThat(html).contains("int");
+    assertThat(html).contains("x");
+  }
+
+  @Test
+  public void testTableMultipleCodeBlocksInCell() {
+    String md =
+        "| col |\n| --- |\n| <pre><code>code1</code></pre> and <pre><code>code2</code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).contains("<pre class=\"code\">code1</pre>");
+    assertThat(html).contains(" and ");
+    assertThat(html).contains("<pre class=\"code\">code2</pre>");
+  }
+
+  @Test
+  public void testAnchorWithId() {
+    String md = "<a id=\"foo\"></a>line1<br>line2\n";
+    String html = render(md, false);
+    assertThat(html).contains("<a name=\"foo\"></a>line1<br />line2");
+  }
+
+  @Test
+  public void testTableCodeBlockXssPrevention() {
+    String md = "| col |\n| --- |\n| <pre><code><script>alert(1)</script></code></pre> |\n";
+    String html = render(md, false);
+    assertThat(html).doesNotContain("<script>");
+    assertThat(html).contains("&lt;script&gt;alert(1)&lt;/script&gt;");
+  }
 }
