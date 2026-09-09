@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00459205_9bcd6566",
+        "filename": "java/com/google/gitiles/doc/GitilesHtmlExtension.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2026-09-09T11:29:09Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by autoreview issue finding: The escape sequence `\\s` inside a string literal resolves to a literal space character ` ` in newer versions of Java (or causes a compilation error in older versions). To use the regex whitespace character class, this should be escaped as `\\\\s+`. \n\nPlease also fix this on lines 63, 73, and 75.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "92e52842795db2303261fc2a35a1986f7df356ff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
