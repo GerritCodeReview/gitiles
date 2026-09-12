@@ -18,6 +18,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -100,6 +101,8 @@ public abstract class Renderer {
           .put("gitiles.FAVICON_32_URL", "favicon-32x32.png")
           .put("gitiles.FAVICON_16_URL", "favicon-16x16.png")
           .put("gitiles.APPLE_TOUCH_ICON_URL", "apple-touch-icon.png")
+          .put("gitiles.FILE_SEARCH_JS_URL", "file-search.js")
+          .put("gitiles.FILE_SEARCH_WORKER_JS_URL", "file-search-worker.js")
           .buildOrThrow();
 
   protected static Function<String, URL> fileUrlMapper() {
@@ -263,7 +266,50 @@ public abstract class Renderer {
     if (nonce.isPresent()) {
       ij.put("csp_nonce", nonce.get());
     }
+    Optional<String> searchTreeUrl = req.flatMap(Renderer::fileSearchTreeUrl);
+    if (searchTreeUrl.isPresent()) {
+      ij.put("SEARCH_TREE_URL", searchTreeUrl.get());
+    }
     return getSauce().renderTemplate(templateName).setIj(ij.buildOrThrow());
+  }
+
+  /**
+   * URL of the complete blob path listing for the tree this request is viewing, or empty if the
+   * request does not address a revision that has one.
+   *
+   * <p>The URL is pinned to the resolved commit SHA rather than to whatever name the user typed.
+   * {@link BaseServlet#setCacheHeaders} only marks a response cacheable when the revision is named
+   * by object ID; a branch-named URL is served {@code no-store} and would therefore be re-fetched
+   * on every use. Content addressing additionally means a new commit produces a new URL, so a
+   * client's copy is invalidated without a revalidation roundtrip.
+   *
+   * <p>Note the empty path part: a {@code PATH} view renders as {@code /+/<rev>/}, and the trailing
+   * slash is what distinguishes the root tree from the revision itself.
+   */
+  private static Optional<String> fileSearchTreeUrl(HttpServletRequest req) {
+    GitilesView view = ViewFilter.getView(req);
+    if (view == null) {
+      return Optional.empty();
+    }
+    Revision rev = view.getRevision();
+    if (rev == null || Revision.isNull(rev) || rev.getId() == null) {
+      return Optional.empty();
+    }
+    // A tag that peels to something other than a commit has no tree to list.
+    if (rev.getPeeledType() != OBJ_COMMIT) {
+      return Optional.empty();
+    }
+    return Optional.of(
+        GitilesView.path()
+            .setHostName(view.getHostName())
+            .setServletPath(view.getServletPath())
+            .setRepositoryName(view.getRepositoryName())
+            .setRevision(rev.getId().name())
+            .setPathPart("")
+            .putParam("format", "JSON")
+            .putParam("recursive", "1")
+            .putParam("paths_only", "1")
+            .toUrl());
   }
 
   protected abstract SoySauce getSauce();

@@ -74,10 +74,12 @@
         {/for}
         {sp}
       {/if}
+      {call fileSearchTrigger /}
       {call themeToggle /}
       </div>
     </div>
   </header>
+  {call fileSearch /}
 
   <div class="Site-content">
     <div class="Container {if $containerClass}{$containerClass}{/if}">
@@ -113,6 +115,52 @@
   <span class="Header-themeLabel">Theme</span>
 </button>
 <script>{$THEME_TOGGLE_SCRIPT}</script>
+{/template}
+
+/**
+ * Trigger for the file finder, shown in the header menu.
+ *
+ * Renders nothing unless the request resolved to a revision with a tree, which
+ * is what SEARCH_TREE_URL being present signals.
+ */
+{template fileSearchTrigger}
+  {@inject? SEARCH_TREE_URL: string|null}
+{if $SEARCH_TREE_URL}
+<button class="Header-menuItem FileSearch-trigger" type="button" title="Find file (press /)" aria-label="Find file">
+  <span class="FileSearch-triggerKey" aria-hidden="true">/</span>
+  <span class="FileSearch-triggerLabel">Find file</span>
+</button>
+{/if}
+{/template}
+
+/**
+ * File finder overlay.
+ *
+ * The markup is inert until file-search.js runs; the index itself is fetched on
+ * first open rather than on page load, so a reader who never searches costs the
+ * server nothing.
+ *
+ * This template is strict-html, unlike {@code header}, so that Soy's content
+ * security policy pass annotates the script tag with the request nonce.
+ */
+{template fileSearch}
+  {@inject? SEARCH_TREE_URL: string|null}
+  {@inject staticUrls: ?}
+{if $SEARCH_TREE_URL}
+<div id="file-search" class="FileSearch" hidden
+     data-tree-url="{$SEARCH_TREE_URL}"
+     data-worker-url="{$staticUrls.FILE_SEARCH_WORKER_JS_URL}">
+  <div class="FileSearch-backdrop"></div>
+  <div class="FileSearch-modal" role="dialog" aria-modal="true" aria-label="Find file">
+    <input class="FileSearch-input" type="text" autocomplete="off" autocorrect="off"
+           autocapitalize="off" spellcheck="false" placeholder="Find a file by path"
+           aria-label="Find a file by path" aria-controls="file-search-results">
+    <div class="FileSearch-status" role="status" aria-live="polite"></div>
+    <ul class="FileSearch-results" id="file-search-results" role="listbox"></ul>
+  </div>
+</div>
+<script src="{$staticUrls.FILE_SEARCH_JS_URL}" defer></script>
+{/if}
 {/template}
 
 /**
