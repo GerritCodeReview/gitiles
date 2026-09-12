@@ -261,6 +261,17 @@ public class PathServlet extends BaseServlet {
             && (recursiveStr.isEmpty()
                 || Boolean.TRUE.equals(StringUtils.toBooleanOrNull(recursiveStr)));
 
+    String pathsOnlyStr = req.getParameter("paths_only");
+    boolean pathsOnly =
+        (pathsOnlyStr != null)
+            && (pathsOnlyStr.isEmpty()
+                || Boolean.TRUE.equals(StringUtils.toBooleanOrNull(pathsOnlyStr)));
+
+    if (pathsOnly && !recursive) {
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER)
+          .withPublicErrorMessage("paths_only requires recursive");
+    }
+
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view, recursive)) {
       if (wr == null) {
@@ -276,11 +287,16 @@ public class PathServlet extends BaseServlet {
               FileJsonData.File.class);
           break;
         case TREE:
-          renderJson(
-              req,
-              res,
-              TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
-              TreeJsonData.Tree.class);
+          if (pathsOnly) {
+            renderJson(
+                req, res, TreeJsonData.toPathsJsonData(wr.id, wr.tw), TreeJsonData.PathList.class);
+          } else {
+            renderJson(
+                req,
+                res,
+                TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
+                TreeJsonData.Tree.class);
+          }
           break;
         case GITLINK:
           renderJson(

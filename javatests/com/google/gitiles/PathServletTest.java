@@ -16,15 +16,20 @@ package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.common.io.BaseEncoding;
 import com.google.common.net.HttpHeaders;
 import com.google.gitiles.FileJsonData.File;
 import com.google.gitiles.GitlinkJsonData.Gitlink;
+import com.google.gitiles.TreeJsonData.PathList;
 import com.google.gitiles.TreeJsonData.Tree;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
@@ -507,6 +512,129 @@ public class PathServletTest extends ServletTest {
     assertThat(data).containsEntry("type", "SYMLINK");
     assertThat(getBlobData(data)).containsEntry("target", linkContent);
     assertThat(getBlobData(data)).containsEntry("targetUrl", "/b/repo/+/master/" + linkTarget);
+  }
+
+  @Test
+  public void pathsOnlyJsonListsBlobPaths() throws Exception {
+    RevCommit c =
+        repo.parseBody(
+            repo.branch("master")
+                .commit()
+                .add("foo/baz/bar/a", "bar contents")
+                .add("foo/baz/bar/b", "bar contents")
+                .add("baz", "baz contents")
+                .create());
+
+    PathList pl = buildJson(PathList.class, "/repo/+/master/", "recursive=1&paths_only=1");
+
+    assertThat(pl.id).isEqualTo(c.getTree().name());
+    assertThat(pl.paths).containsExactly("baz", "foo/baz/bar/a", "foo/baz/bar/b").inOrder();
+  }
+
+  @Test
+  public void pathsOnlyJsonScopesToSubdirectory() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("foo/baz/bar/a", "bar contents")
+        .add("foo/baz/bar/b", "bar contents")
+        .add("baz", "baz contents")
+        .create();
+
+    PathList pl = buildJson(PathList.class, "/repo/+/master/foo/baz", "recursive=1&paths_only=1");
+
+    assertThat(pl.paths).containsExactly("bar/a", "bar/b").inOrder();
+  }
+
+  @Test
+  public void pathsOnlyJsonOmitsPerEntryMetadata() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+/master/", "format=JSON&recursive=1&paths_only=1", SC_OK);
+    String body = res.getActualBodyString();
+
+    assertThat(body).contains("\"foo\"");
+    assertThat(body).doesNotContain("\"mode\"");
+    assertThat(body).doesNotContain("\"entries\"");
+  }
+
+  @Test
+  public void pathsOnlyRequiresRecursive() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+
+    buildResponse("/repo/+/master/", "format=JSON&paths_only=1", SC_BAD_REQUEST);
+  }
+
+  /**
+   * A recursive listing of a non-tree is already {@code 404} today, because {@code
+   * WalkResult.recursivePath} returns null for it. {@code paths_only} inherits that, so it needs
+   * no separate type check of its own.
+   */
+  @Test
+  public void pathsOnlyOnBlobIsNotFound() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+
+    buildResponse("/repo/+/master/foo", "format=JSON&recursive=1&paths_only=1", SC_NOT_FOUND);
+  }
+
+  /**
+   * The listing must be exhaustive. A caller cannot distinguish a path that was omitted from a path
+   * that does not exist, so a partial listing is a correctness bug rather than a load mitigation.
+   * There is deliberately no configurable bound.
+   */
+  @Test
+  public void pathsOnlyListingIsComplete() throws Exception {
+    int n = 500;
+    var commit = repo.branch("master").commit();
+    List<String> expected = new ArrayList<>(n);
+    for (int i = 0; i < n; i++) {
+      String path = String.format("d%02d/f%04d.txt", i % 20, i);
+      commit.add(path, "contents");
+      expected.add(path);
+    }
+    commit.create();
+    Collections.sort(expected);
+
+    PathList pl = buildJson(PathList.class, "/repo/+/master/", "recursive=1&paths_only=1");
+
+    assertThat(pl.paths).containsExactlyElementsIn(expected).inOrder();
+  }
+
+  /**
+   * The file finder pins its fetch URL to a resolved SHA precisely so that {@link
+   * BaseServlet#setCacheHeaders} takes its cacheable branch. Serving the same listing under a
+   * branch name yields {@code no-store}, which would defeat client caching entirely.
+   */
+  @Test
+  public void pathsOnlyBySha1IsCacheableButByBranchIsNot() throws Exception {
+    RevCommit c = repo.branch("master").commit().add("foo", "contents").create();
+
+    FakeHttpServletResponse bySha =
+        buildResponse(
+            "/repo/+/" + c.name() + "/", "format=JSON&recursive=1&paths_only=1", SC_OK);
+    assertThat(bySha.getHeader(HttpHeaders.CACHE_CONTROL)).contains("max-age=7200");
+
+    FakeHttpServletResponse byBranch =
+        buildResponse("/repo/+/master/", "format=JSON&recursive=1&paths_only=1", SC_OK);
+    assertThat(byBranch.getHeader(HttpHeaders.CACHE_CONTROL)).contains("no-store");
+  }
+
+  /**
+   * {@code /repo/+/<rev>} without a trailing slash parses to a REVISION view and is served by
+   * {@link RevisionServlet}, not {@link PathServlet}. Clients building the listing URL must keep
+   * the trailing slash.
+   */
+  @Test
+  public void pathsOnlyNeedsTrailingSlashToReachTheTree() throws Exception {
+    RevCommit c = repo.branch("master").commit().add("foo", "contents").create();
+    String query = "format=JSON&recursive=1&paths_only=1";
+
+    FakeHttpServletResponse withSlash =
+        buildResponse("/repo/+/" + c.name() + "/", query, SC_OK);
+    assertThat(withSlash.getActualBodyString()).contains("\"paths\"");
+
+    FakeHttpServletResponse withoutSlash = buildResponse("/repo/+/" + c.name(), query, SC_OK);
+    assertThat(withoutSlash.getActualBodyString()).doesNotContain("\"paths\"");
   }
 
   private Map<String, ?> getBlobData(Map<String, ?> data) {

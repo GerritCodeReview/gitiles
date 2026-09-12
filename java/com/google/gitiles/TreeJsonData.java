@@ -41,6 +41,18 @@ class TreeJsonData {
     @Nullable Long size;
   }
 
+  /**
+   * Flat list of blob paths under a tree.
+   *
+   * <p>Unlike {@link Tree} this omits per-entry mode, type and object ID, which shrinks the
+   * response by roughly 3x for large trees. Intended for clients that only need path names, such
+   * as a file finder.
+   */
+  static class PathList {
+    String id;
+    List<String> paths;
+  }
+
   static Tree toJsonData(ObjectId id, TreeWalk tw, boolean includeSizes, boolean recursive)
       throws IOException {
     Tree tree = new Tree();
@@ -65,6 +77,27 @@ class TreeJsonData {
       tree.entries.add(e);
     }
     return tree;
+  }
+
+  /**
+   * Collect every blob path from an already-recursive {@link TreeWalk}.
+   *
+   * <p>The listing is always complete. A partial listing would be indistinguishable to a caller
+   * from a path that does not exist, so there is no bound on the number of paths returned. This is
+   * strictly cheaper than the full recursive listing produced by {@link #toJsonData}, which is
+   * itself unbounded.
+   *
+   * @param id object ID of the tree being walked.
+   * @param tw recursive tree walk, positioned before the first entry.
+   */
+  static PathList toPathsJsonData(ObjectId id, TreeWalk tw) throws IOException {
+    PathList result = new PathList();
+    result.id = id.name();
+    result.paths = Lists.newArrayList();
+    while (tw.next()) {
+      result.paths.add(tw.getPathString());
+    }
+    return result;
   }
 
   private TreeJsonData() {}
