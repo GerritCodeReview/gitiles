@@ -13,12 +13,16 @@
 // limitations under the License.
 
 /**
- * File finder UI. Press "/" to open, type to filter, Enter to go.
+ * Finder UI. Press "/" to open, type to filter, Enter to go.
+ *
+ * One palette, two sources. A page that addresses a tree finds files, matching
+ * against an index fetched on first open -- not on page load, so a reader who
+ * never searches costs the server nothing. A host index finds repositories,
+ * which that page already lists, so nothing is fetched at all.
  *
  * All matching happens in a Worker (file-search-worker.js); this file only
  * moves text in and paints rows out, so the input never stutters regardless of
- * repository size. The index is fetched on first open, not on page load, so a
- * user who never searches costs the server nothing.
+ * how much there is to search.
  */
 (function () {
   'use strict';
@@ -34,15 +38,64 @@
     return;
   }
 
-  var treeUrl = root.getAttribute('data-tree-url');
   var workerUrl = root.getAttribute('data-worker-url');
-  if (!treeUrl || !workerUrl) {
+  var treeUrl = root.getAttribute('data-tree-url');
+  var repoMode = root.getAttribute('data-kind') === 'repositories';
+  if (!workerUrl || (!repoMode && !treeUrl)) {
     return;
   }
 
-  // Base for result links: the listing URL without its query string. It ends
-  // in a slash, so appending an encoded path yields the file's page.
-  var fileBase = treeUrl.split('?')[0];
+  /** What is being searched, for the reader-facing copy. */
+  var NOUN = repoMode ? 'repositories' : 'files';
+  var NOUN_ONE = repoMode ? 'repository' : 'file';
+
+  /**
+   * The repositories this page lists: their names, links and descriptions.
+   *
+   * The host index renders every repository it knows about, so reading them
+   * back out of the document is both cheaper than asking the server for the
+   * same list again -- that response carries no revision and is therefore
+   * served no-store, so it would be re-fetched on every page load -- and
+   * exactly consistent with what the reader can see. Nothing can be missing
+   * from the finder that is present on the page, because they are the same
+   * list. The contract is the RepoList markup in HostIndex.soy.
+   *
+   * Names are used as keys, so the maps have no prototype: a repository may
+   * legitimately be called "constructor".
+   */
+  function collectRepositories() {
+    var names = [];
+    var hrefs = Object.create(null);
+    var descs = Object.create(null);
+    var items = document.querySelectorAll('.RepoList .RepoList-item[href]');
+    for (var i = 0; i < items.length; i++) {
+      var nameEl = items[i].querySelector('.RepoList-itemName');
+      var name = nameEl ? nameEl.textContent.trim() : '';
+      if (!name || hrefs[name] !== undefined) {
+        continue;
+      }
+      names.push(name);
+      hrefs[name] = items[i].getAttribute('href');
+      var descEl = items[i].querySelector('.RepoList-itemDescription');
+      var desc = descEl ? descEl.textContent.trim() : '';
+      if (desc) {
+        descs[name] = desc;
+      }
+    }
+    return {names: names, hrefs: hrefs, descs: descs};
+  }
+
+  var repos = repoMode ? collectRepositories() : null;
+  if (repoMode && !repos.names.length) {
+    // A host index with nothing on it. Offering an empty palette would be
+    // worse than offering none.
+    return;
+  }
+
+  // Base for file result links: the listing URL without its query string. It
+  // ends in a slash, so appending an encoded path yields the file's page.
+  // Repository links come from the page and need no base.
+  var fileBase = repoMode ? null : treeUrl.split('?')[0];
 
   var input = root.querySelector('.FileSearch-input');
   var status = root.querySelector('.FileSearch-status');
@@ -61,28 +114,32 @@
   // -------------------------------------------------------------- frecency
 
   /**
-   * Files this reader has opened from the finder, most useful first.
+   * What this reader has opened from the finder, most useful first.
    *
-   * With an empty box there is nothing to match on, and listing the repository
-   * alphabetically is useless -- on chromium/src it offers ".gn". What a reader
-   * wants is the handful of files they keep coming back to.
+   * With an empty box there is nothing to match on, and listing alphabetically
+   * is useless -- on chromium/src that offers ".gn", and on a host index the
+   * first repository nobody has heard of. What a reader wants is the handful
+   * of entries they keep coming back to.
    *
    * The score is an exponentially decayed visit count. On each visit
    *
    *     s <- s * 2^(-dt / HALF_LIFE) + 1
    *
-   * which expands to the sum over past visits of 2^(-age / HALF_LIFE). So a
-   * file's weight halves for every week it goes untouched, frequent files
-   * outrank once-opened ones, and a file abandoned months ago falls away
-   * without ever needing a visit history: one number and one timestamp per
-   * file suffice, and updating is O(1).
+   * which expands to the sum over past visits of 2^(-age / HALF_LIFE). So an
+   * entry's weight halves for every week it goes untouched, frequent entries
+   * outrank once-opened ones, and one abandoned months ago falls away without
+   * ever needing a visit history: one number and one timestamp per entry
+   * suffice, and updating is O(1).
    *
-   * Storage is per-repository, because paths are meaningless across
-   * repositories, and is capped so a long-lived browser cannot accumulate
-   * unbounded history. It records only what the reader opened *through the
-   * finder*, never pages merely visited.
+   * Storage is scoped to the listing it describes -- a repository for paths, a
+   * host index for repository names, since a prefixed index lists them
+   * relative to that prefix -- and is capped so a long-lived browser cannot
+   * accumulate unbounded history. It records only what the reader opened
+   * *through the finder*, never pages merely visited.
    */
-  var RECENT_KEY = 'gitiles.file-finder.recent.' + fileBase.split('/+/')[0];
+  var RECENT_KEY =
+    'gitiles.file-finder.recent.' +
+    (repoMode ? 'repositories:' + location.pathname : fileBase.split('/+/')[0]);
   var RECENT_MAX = 200;
   var RECENT_HALF_LIFE_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -200,7 +257,9 @@
    */
   function paint(row, item) {
     var a = row.a;
-    a.href = fileBase + encodePath(item.path);
+    // A repository's link is whatever the page linked to; a file's is composed
+    // from the listing it was indexed from.
+    a.href = repoMode ? repos.hrefs[item.path] : fileBase + encodePath(item.path);
     row.path = item.path;
     while (a.firstChild) {
       a.removeChild(a.firstChild);
@@ -221,6 +280,14 @@
     }
     if (at < path.length) {
       a.appendChild(document.createTextNode(path.substring(at)));
+    }
+    if (repoMode && repos.descs[path]) {
+      // Repository names alone are often not enough to choose between: the
+      // page shows the description beside the name, so the finder does too.
+      var desc = document.createElement('span');
+      desc.className = 'FileSearch-rowDesc';
+      desc.textContent = repos.descs[path];
+      a.appendChild(desc);
     }
     row.li.hidden = false;
   }
@@ -243,13 +310,13 @@
 
     if (!items.length) {
       // The scan is exhaustive, so this is trustworthy rather than a hedge.
-      setStatus(input.value ? 'No matching files' : '');
+      setStatus(input.value ? 'No matching ' + NOUN : '');
       return;
     }
     if (showingRecent) {
-      // A count of remembered files is not a match count, and calling it one
+      // A count of remembered entries is not a match count, and calling it one
       // would be a lie the reader can check.
-      setStatus(items.length === 1 ? 'Recently opened' : 'Recently opened files');
+      setStatus(items.length === 1 ? 'Recently opened' : 'Recently opened ' + NOUN);
       return;
     }
     // A trailing "+" means the search stopped once the best tier filled the
@@ -285,13 +352,13 @@
       return;
     }
     state = 'loading';
-    setStatus('Loading file index\u2026');
+    setStatus('Loading ' + NOUN_ONE + ' index\u2026');
     worker = new Worker(workerUrl);
     worker.onmessage = function (ev) {
       var msg = ev.data;
       if (msg.type === 'ready') {
         state = 'ready';
-        setStatus(msg.total.toLocaleString() + ' files');
+        setStatus(msg.total.toLocaleString() + ' ' + NOUN);
         query();
       } else if (msg.type === 'results') {
         // Ignore responses overtaken by later keystrokes.
@@ -300,14 +367,16 @@
         }
       } else if (msg.type === 'error') {
         state = 'error';
-        setStatus('Could not load file index: ' + msg.message);
+        setStatus('Could not load ' + NOUN_ONE + ' index: ' + msg.message);
       }
     };
     worker.onerror = function () {
       state = 'error';
-      setStatus('Could not load file index');
+      setStatus('Could not load ' + NOUN_ONE + ' index');
     };
-    worker.postMessage({type: 'load', url: treeUrl});
+    worker.postMessage(
+      repoMode ? {type: 'load', names: repos.names} : {type: 'load', url: treeUrl},
+    );
   }
 
   function query() {
@@ -391,7 +460,8 @@
    *
    * This is only worth doing because result links are SHA-pinned and therefore
    * carry a real max-age; warming a no-store URL would be discarded and the
-   * request wasted.
+   * request wasted. That is exactly why repository results are never warmed: a
+   * repository index page names no revision, so it is served no-store.
    *
    * Where the Speculation Rules API is available the warm is expressed as a
    * one-URL prefetch rule, which is the mechanism built for exactly this:
@@ -516,7 +586,7 @@
 
   /** Queues a warm of whatever is selected once the selection settles. */
   function schedulePrefetch() {
-    if (!useRules && typeof fetch !== 'function') {
+    if (repoMode || (!useRules && typeof fetch !== 'function')) {
       return;
     }
     if (prefetchTimer !== null) {

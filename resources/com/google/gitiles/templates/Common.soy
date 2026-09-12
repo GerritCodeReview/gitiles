@@ -118,43 +118,52 @@
 {/template}
 
 /**
- * Trigger for the file finder, shown in the header menu.
+ * Trigger for the finder, shown in the header menu.
  *
- * Renders nothing unless the request resolved to a revision with a tree, which
- * is what SEARCH_TREE_URL being present signals.
+ * Renders nothing unless there is something to find: a revision with a tree,
+ * which SEARCH_TREE_URL being present signals, or a host index, which lists
+ * repositories instead.
  */
 {template fileSearchTrigger}
   {@inject? SEARCH_TREE_URL: string|null}
-{if $SEARCH_TREE_URL}
-<button class="Header-menuItem FileSearch-trigger" type="button" title="Find file (press /)" aria-label="Find file">
+  {@inject? SEARCH_REPOSITORIES: bool|null}
+{if $SEARCH_TREE_URL or $SEARCH_REPOSITORIES}
+  {let $label: $SEARCH_REPOSITORIES ? 'Find repository' : 'Find file' /}
+<button class="Header-menuItem FileSearch-trigger" type="button" title="{$label} (press /)" aria-label="{$label}">
   <span class="FileSearch-triggerKey" aria-hidden="true">/</span>
-  <span class="FileSearch-triggerLabel">Find file</span>
+  <span class="FileSearch-triggerLabel">{$label}</span>
 </button>
 {/if}
 {/template}
 
 /**
- * File finder overlay.
+ * Finder overlay.
  *
- * The markup is inert until file-search.js runs; the index itself is fetched on
- * first open rather than on page load, so a reader who never searches costs the
- * server nothing.
+ * The markup is inert until file-search.js runs. In file mode the index is
+ * fetched on first open rather than on page load, so a reader who never
+ * searches costs the server nothing. In repository mode nothing is fetched at
+ * all: the host index page already lists every repository, and the script
+ * reads them out of the document.
  *
  * This template is strict-html, unlike {@code header}, so that Soy's content
  * security policy pass annotates the script tag with the request nonce.
  */
 {template fileSearch}
   {@inject? SEARCH_TREE_URL: string|null}
+  {@inject? SEARCH_REPOSITORIES: bool|null}
   {@inject staticUrls: ?}
-{if $SEARCH_TREE_URL}
+{if $SEARCH_TREE_URL or $SEARCH_REPOSITORIES}
+  {let $dialogLabel: $SEARCH_TREE_URL ? 'Find file' : 'Find repository' /}
+  {let $inputLabel: $SEARCH_TREE_URL ? 'Find a file by path' : 'Find a repository by name' /}
 <div id="file-search" class="FileSearch" hidden
-     data-tree-url="{$SEARCH_TREE_URL}"
+     data-kind="{if $SEARCH_TREE_URL}files{else}repositories{/if}"
+     {if $SEARCH_TREE_URL}data-tree-url="{$SEARCH_TREE_URL}"{/if}
      data-worker-url="{$staticUrls.FILE_SEARCH_WORKER_JS_URL}">
   <div class="FileSearch-backdrop"></div>
-  <div class="FileSearch-modal" role="dialog" aria-modal="true" aria-label="Find file">
+  <div class="FileSearch-modal" role="dialog" aria-modal="true" aria-label="{$dialogLabel}">
     <input class="FileSearch-input" type="text" autocomplete="off" autocorrect="off"
-           autocapitalize="off" spellcheck="false" placeholder="Find a file by path"
-           aria-label="Find a file by path" aria-controls="file-search-results">
+           autocapitalize="off" spellcheck="false" placeholder="{$inputLabel}"
+           aria-label="{$inputLabel}" aria-controls="file-search-results">
     <div class="FileSearch-status" role="status" aria-live="polite"></div>
     <ul class="FileSearch-results" id="file-search-results" role="listbox"></ul>
   </div>
