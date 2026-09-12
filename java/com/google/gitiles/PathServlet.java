@@ -29,6 +29,7 @@ import com.google.common.collect.Maps;
 import com.google.common.io.BaseEncoding;
 import com.google.common.primitives.Bytes;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -261,6 +262,21 @@ public class PathServlet extends BaseServlet {
             && (recursiveStr.isEmpty()
                 || Boolean.TRUE.equals(StringUtils.toBooleanOrNull(recursiveStr)));
 
+    String pathsOnlyStr = req.getParameter("paths_only");
+    boolean pathsOnly =
+        (pathsOnlyStr != null)
+            && (pathsOnlyStr.isEmpty()
+                || Boolean.TRUE.equals(StringUtils.toBooleanOrNull(pathsOnlyStr)));
+
+    if (pathsOnly && !recursive) {
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER)
+          .withPublicErrorMessage("paths_only requires recursive");
+    }
+    if (pathsOnly && includeSizes) {
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER)
+          .withPublicErrorMessage("paths_only cannot be combined with long");
+    }
+
     try (RevWalk rw = new RevWalk(repo);
         WalkResult wr = WalkResult.forPath(rw, view, recursive)) {
       if (wr == null) {
@@ -276,11 +292,19 @@ public class PathServlet extends BaseServlet {
               FileJsonData.File.class);
           break;
         case TREE:
-          renderJson(
-              req,
-              res,
-              TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
-              TreeJsonData.Tree.class);
+          if (pathsOnly) {
+            renderJson(
+                req,
+                res,
+                new TreeJsonData.PathList.Source(wr.id, wr.tw),
+                TreeJsonData.PathList.Source.class);
+          } else {
+            renderJson(
+                req,
+                res,
+                TreeJsonData.toJsonData(wr.id, wr.tw, includeSizes, recursive),
+                TreeJsonData.Tree.class);
+          }
           break;
         case GITLINK:
           renderJson(
@@ -301,6 +325,13 @@ public class PathServlet extends BaseServlet {
     } catch (LargeObjectException e) {
       throw new GitilesRequestFailureException(FailureReason.OBJECT_TOO_LARGE, e);
     }
+  }
+
+  @Override
+  protected GsonBuilder newGsonBuilder(HttpServletRequest req) throws IOException {
+    return super.newGsonBuilder(req)
+        .registerTypeAdapter(
+            TreeJsonData.PathList.Source.class, TreeJsonData.PathList.SOURCE_ADAPTER);
   }
 
   private static @Nullable RevTree getRoot(GitilesView view, RevWalk rw) throws IOException {
@@ -394,6 +425,7 @@ public class PathServlet extends BaseServlet {
       RevTree root = getRoot(view, rw);
       String path = view.getPathPart();
 
+      ObjectId treeId;
       TreeWalk tw;
       if (!path.isEmpty()) {
         try (TreeWalk toRoot = TreeWalk.forPath(rw.getObjectReader(), path, root)) {
@@ -401,23 +433,24 @@ public class PathServlet extends BaseServlet {
             return null;
           }
 
-          ObjectId treeSHA = toRoot.getObjectId(0);
+          treeId = toRoot.getObjectId(0);
 
-          ObjectLoader treeLoader = rw.getObjectReader().open(treeSHA);
+          ObjectLoader treeLoader = rw.getObjectReader().open(treeId);
           if (treeLoader.getType() != Constants.OBJ_TREE) {
             return null;
           }
 
           tw = new TreeWalk(rw.getObjectReader());
-          tw.addTree(treeSHA);
+          tw.addTree(treeId);
         }
       } else {
+        treeId = root;
         tw = new TreeWalk(rw.getObjectReader());
         tw.addTree(root);
       }
 
       tw.setRecursive(true);
-      return new WalkResult(tw, path, root, root, FileType.TREE, ImmutableList.<Boolean>of());
+      return new WalkResult(tw, path, root, treeId, FileType.TREE, ImmutableList.<Boolean>of());
     }
 
     private static @Nullable WalkResult forPath(RevWalk rw, GitilesView view, boolean recursive)

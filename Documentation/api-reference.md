@@ -53,6 +53,38 @@ A file or directory path may be supplied after the revision to limit the search.
 The search is a case-sensitive literal substring search. Binary files and
 blobs larger than 1 MiB are skipped. Results are limited to 1000 matches.
 
+#### **`paths_only`**
+`https://gerrit.googlesource.com/a/gitiles/+/refs/heads/master/?format=JSON&recursive=1&paths_only=1`
+
+A compact projection of the recursive tree listing that returns only blob path
+names, omitting the per-entry mode, type and object ID.
+
+```json
+{
+  "id": "<tree sha>",
+  "paths": ["Documentation/api-reference.md", "java/com/google/gitiles/PathServlet.java"]
+}
+```
+
+* Requires `recursive=1` and cannot be combined with `long=1`; violating either
+  fails with `400`. As with any recursive listing, a target that is not a tree
+  fails with `404`.
+* The listing is always complete. There is no bound on the number of paths
+  returned and no truncation flag, so an absent path means the path does not
+  exist at that revision.
+
+The projection is substantially cheaper than the full recursive listing it is
+derived from. For `chromium/src` at 506,237 blobs, `?recursive=1` transfers
+17.1 MB gzipped while `?recursive=1&paths_only=1` transfers 3.4 MB.
+
+> Note the trailing slash after the revision. `+/<revision>` without it
+> addresses the revision itself rather than its root tree.
+
+Requesting this by resolved commit SHA rather than by branch name makes the
+response cacheable, since Gitiles only sends caching headers for revisions
+named by object ID.
+
+
 #### **`+show`**
 `https://gerrit.googlesource.com/a/gitiles/+show/refs/heads/master/?format=JSON`
 
