@@ -780,18 +780,59 @@ function search(ix) {
   return {total: matches.length, exact: true, items};
 }
 
+/**
+ * Orders `names` by their UTF-8 bytes.
+ *
+ * The order an `Index` is built from is not cosmetic. `indexOfPath` binary
+ * searches it, so an unsorted index silently fails to find paths that are
+ * present -- measured on a real host index, 2,828 of 2,838 lookups. The
+ * directory-run compression also assumes runs of paths sharing a directory sit
+ * next to each other; scrambled input still answers correctly but loses the
+ * compression that makes the full-path channel fast.
+ *
+ * A recursive git tree listing already arrives in byte order. A caller-supplied
+ * list comes from whatever the page had and cannot be assumed to be in any
+ * order at all, so it is sorted here, with the code that depends on it, rather
+ * than trusted.
+ *
+ * The default `Array#sort` compares UTF-16 code units, which agrees with UTF-8
+ * byte order for ASCII but not above it, so the bytes are compared directly.
+ */
+function sortByBytes(names) {
+  const enc = new TextEncoder();
+  const keyed = names.map((s) => ({s, b: enc.encode(s)}));
+  keyed.sort((x, y) => {
+    const a = x.b;
+    const b = y.b;
+    const n = a.length < b.length ? a.length : b.length;
+    for (let i = 0; i < n; i++) {
+      if (a[i] !== b[i]) return a[i] - b[i];
+    }
+    return a.length - b.length;
+  });
+  return keyed.map((e) => e.s);
+}
+
 // --------------------------------------------------------------- messages
 
 self.onmessage = async (ev) => {
   const msg = ev.data;
   try {
     if (msg.type === 'load') {
-      const res = await fetch(msg.url, {credentials: 'same-origin'});
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const text = await res.text();
-      // Gitiles prefixes JSON responses with an anti-XSSI guard.
-      const body = JSON.parse(text.replace(/^\)\]\}'\n/, ''));
-      index = new Index(body.paths || []);
+      // Two sources, one index: a URL to fetch a listing from, or a list the
+      // page already had and so need not be asked for again.
+      let names;
+      if (msg.names) {
+        names = sortByBytes(msg.names);
+      } else {
+        const res = await fetch(msg.url, {credentials: 'same-origin'});
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const text = await res.text();
+        // Gitiles prefixes JSON responses with an anti-XSSI guard.
+        const body = JSON.parse(text.replace(/^\)\]\}'\n/, ''));
+        names = body.paths || [];
+      }
+      index = new Index(names);
       self.postMessage({type: 'ready', total: index.n});
       return;
     }
