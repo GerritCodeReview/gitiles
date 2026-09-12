@@ -124,12 +124,30 @@ public class FileSearchTest extends ServletTest {
     assertThat(buildHtml("/" + REPO_NAME + "/+log/master", false)).contains("id=\"file-search\"");
   }
 
-  /** No repository means no paths; the host index would need a different index entirely. */
+  /**
+   * A host index addresses no revision, so there are no paths to find, but it is a listing all the
+   * same and {@code /} should search it. No listing URL accompanies it: the page already contains
+   * every repository it lists, so the finder reads them from the document instead of fetching the
+   * same names again -- which matters because a host index response names no revision and is
+   * therefore served {@code no-store}.
+   */
   @Test
-  public void hostIndexRendersNoFileSearch() throws Exception {
+  public void hostIndexRendersRepositorySearch() throws Exception {
     String html = buildHtml("/", false);
-    assertThat(html).doesNotContain("id=\"file-search\"");
-    assertThat(html).doesNotContain("FileSearch-trigger");
+    assertThat(html).contains("id=\"file-search\"");
+    assertThat(html).contains("data-kind=\"repositories\"");
+    assertThat(html).doesNotContain("data-tree-url");
+    assertThat(html).contains("Find repository");
+  }
+
+  /** The attribute that tells the two sources apart; the script keys all its behaviour off it. */
+  @Test
+  public void treeViewRendersFileKind() throws Exception {
+    repo.branch("master").commit().add("file.txt", "contents").create();
+    String html = buildHtml("/" + REPO_NAME + "/+/master/", false);
+    assertThat(html).contains("data-kind=\"files\"");
+    assertThat(html).contains("Find file");
+    assertThat(html).doesNotContain("Find repository");
   }
 
   /** An empty repository has an unborn HEAD and nothing to find. */
