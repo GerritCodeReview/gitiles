@@ -354,11 +354,13 @@
     }
     root.hidden = true;
     document.body.classList.remove('FileSearch-open');
-    // A selection the user has abandoned is not worth a request.
+    // A selection the user has abandoned is not worth a request, and a closed
+    // palette should leave no standing speculation behind it.
     if (prefetchTimer !== null) {
       clearTimeout(prefetchTimer);
       prefetchTimer = null;
     }
+    removeRule();
     if (restoreFocus && restoreFocus.focus) {
       restoreFocus.focus();
     }
@@ -391,38 +393,67 @@
    * carry a real max-age; warming a no-store URL would be discarded and the
    * request wasted.
    *
-   * A same-origin `fetch` is used rather than `<link rel=prefetch>`. Measured
-   * in Chrome against a 506k-path repository, a link element works for the
-   * first destination on a page and is then cancelled with ERR_ABORTED for
-   * every subsequent one, which is precisely the case here: the selection
-   * changes constantly and the page never reloads. A cancelled speculative
-   * load warms nothing, so it is all cost and no benefit. Low-priority fetches
-   * complete every time and leave the destination in the HTTP cache, which is
-   * what the following navigation reads.
+   * Where the Speculation Rules API is available the warm is expressed as a
+   * one-URL prefetch rule, which is the mechanism built for exactly this:
+   * the request is labelled `Sec-Purpose: prefetch`, so an operator can see
+   * speculative traffic in the logs and rate-limit or refuse it, and the
+   * result lands in the prefetch cache the following navigation reads.
+   * Elsewhere a low-priority same-origin `fetch` leaves an ordinary HTTP
+   * cache entry instead, which the navigation also reads but which the server
+   * cannot tell apart from a real request.
    *
-   * Note this means the server cannot distinguish a speculative request from a
-   * real one: `fetch` may not set `Sec-Purpose`, and a query parameter would
-   * change the URL and so miss the cache entry the navigation needs.
+   * `<link rel=prefetch>` is deliberately not used. Measured in Chrome
+   * against a 506k-path repository, a link element warms some destinations
+   * and cancels others with ERR_ABORTED under this access pattern -- many
+   * warms on one page, no reload in between -- so it is unreliable precisely
+   * where the finder needs it.
    *
    * Three limits keep it from being rude: a debounce, so typing a path does
    * not fire one request per keystroke and only a selection the user rests on
-   * is fetched; a dedupe set, so arrowing down and back up re-requests
-   * nothing; and a cap, so a long session cannot fan out without bound.
-   * Failures are ignored by construction -- a warm that does not happen costs
-   * a cache miss, nothing more.
+   * is warmed; a cap on distinct destinations, so a long session cannot fan
+   * out without bound; and, on the fetch path, a dedupe set. Failures are
+   * ignored by construction -- a warm that does not happen costs a cache
+   * miss, nothing more.
    */
   var PREFETCH_DELAY_MS = 120;
   var PREFETCH_MAX = 32;
+  var RULE_ID = 'file-search-speculation';
+  var useRules = !!(
+    window.HTMLScriptElement &&
+    HTMLScriptElement.supports &&
+    HTMLScriptElement.supports('speculationrules')
+  );
   var prefetched = {};
   var prefetchCount = 0;
   var prefetchTimer = null;
 
-  function prefetch(href) {
-    if (prefetchCount >= PREFETCH_MAX || prefetched[href]) {
-      return;
+  /**
+   * Replaces the finder's speculation rule set with one naming `href`.
+   *
+   * The old script is removed rather than amended: a growing rule list would
+   * ask the browser to hold every destination the selection has ever passed
+   * over, and the cap below only bounds how many are named in total, not how
+   * many are live at once.
+   */
+  function installRule(href) {
+    removeRule();
+    var script = document.createElement('script');
+    script.id = RULE_ID;
+    script.type = 'speculationrules';
+    script.textContent = JSON.stringify({
+      prefetch: [{source: 'list', urls: [href]}],
+    });
+    document.head.appendChild(script);
+  }
+
+  function removeRule() {
+    var script = document.getElementById(RULE_ID);
+    if (script) {
+      script.remove();
     }
-    prefetched[href] = true;
-    prefetchCount++;
+  }
+
+  function fetchWarm(href) {
     // The body is read and dropped: the point is the cache entry it leaves
     // behind, not the text.
     fetch(href, {credentials: 'same-origin', priority: 'low'})
@@ -434,9 +465,29 @@
       });
   }
 
+  function prefetch(href) {
+    if (!prefetched[href]) {
+      if (prefetchCount >= PREFETCH_MAX) {
+        return;
+      }
+      prefetched[href] = true;
+      prefetchCount++;
+    } else if (!useRules) {
+      // The HTTP cache still holds it, so arrowing back costs nothing.
+      return;
+    }
+    // A rule set that is swapped out may take its prefetch with it, so a
+    // destination revisited later has to be named again.
+    if (useRules) {
+      installRule(href);
+    } else {
+      fetchWarm(href);
+    }
+  }
+
   /** Queues a warm of whatever is selected once the selection settles. */
   function schedulePrefetch() {
-    if (typeof fetch !== 'function') {
+    if (!useRules && typeof fetch !== 'function') {
       return;
     }
     if (prefetchTimer !== null) {
