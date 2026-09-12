@@ -140,6 +140,22 @@ Default: `true`.
 redirectGitweb = false
 ```
 
+### File finder
+
+Serve the keyboard-driven file finder, opened with `/` on any page that names a
+repository. Default: `true`.
+
+The finder is inert until a reader presses `/`; nothing is fetched and no index
+is built before that. When it is opened, the browser downloads the revision's
+complete path listing and builds an index over it, both linear in the number of
+paths and deliberately uncapped, so that a file which exists is always findable.
+Set this to `false` if that trade is wrong for your repositories.
+
+```
+[gitiles]
+fileSearch = false
+```
+
 ## Markdown
 
 ### Disabling markdown
