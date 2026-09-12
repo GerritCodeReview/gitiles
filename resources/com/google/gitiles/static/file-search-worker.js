@@ -68,6 +68,9 @@ SEP[0x20] = 1;
 
 const SLASH = 0x2f;
 
+/** Stand-in for "no query", so an empty box allocates nothing. */
+const EMPTY = new Uint8Array(0);
+
 function isUpper(b) {
   return b >= 0x41 && b <= 0x5a;
 }
@@ -220,6 +223,12 @@ class Index {
   reset() {
     /** Query as lowercase UTF-8 bytes. */
     this.q = [];
+    /**
+     * The same query, exactly as typed. The index is ordered by raw bytes, so
+     * the literal prefix range has to be searched for in those terms, not in
+     * folded ones.
+     */
+    this.qRaw = EMPTY;
     this.qmask = 0;
     // cand[t] holds files whose basename contains the first t query bytes as a
     // subsequence. cand[0] is null, meaning "everything".
@@ -312,6 +321,7 @@ class Index {
    */
   setQuery(text) {
     const next = new TextEncoder().encode(text);
+    this.qRaw = next;
     let keep = 0;
     while (keep < next.length && keep < this.q.length && LOW[next[keep]] === this.q[keep]) {
       keep++;
@@ -368,16 +378,7 @@ class Index {
     const pathLen = dirLen === 0 ? be - bs : dirLen + 1 + (be - bs);
     const n = bytes.length < pathLen ? bytes.length : pathLen;
     for (let k = 0; k < n; k++) {
-      let c;
-      if (dirLen === 0) {
-        c = this.baseBuf[bs + k];
-      } else if (k < dirLen) {
-        c = this.dirBuf[ds + k];
-      } else if (k === dirLen) {
-        c = SLASH;
-      } else {
-        c = this.baseBuf[bs + k - dirLen - 1];
-      }
+      const c = this.byteAt(i, k, ds, bs, dirLen);
       if (bytes[k] !== c) return bytes[k] - c;
     }
     return bytes.length - pathLen;
@@ -402,6 +403,78 @@ class Index {
       else lo = mid + 1;
     }
     return -1;
+  }
+
+  /**
+   * Orders the path at `i` against `bytes` read as a prefix: negative if the
+   * path sorts before it, zero if the path starts with it, positive after.
+   *
+   * Note the sign convention is path-minus-query, matching {@link cmpPrefix},
+   * which does the same job for basenames -- and the opposite of {@link
+   * cmpPathAt}, which answers a different question.
+   */
+  pathStartsCmp(i, bytes) {
+    const d = this.dirId[i];
+    const ds = this.dirOff[d];
+    const de = this.dirOff[d + 1];
+    const bs = this.baseOff[i];
+    const dirLen = de - ds;
+    const pathLen = dirLen === 0 ? this.baseOff[i + 1] - bs : dirLen + 1 + (this.baseOff[i + 1] - bs);
+    // A path shorter than the query cannot start with it, and sorts before it.
+    if (pathLen < bytes.length) {
+      const n = pathLen;
+      for (let k = 0; k < n; k++) {
+        const c = this.byteAt(i, k, ds, bs, dirLen);
+        if (c !== bytes[k]) return c - bytes[k];
+      }
+      return -1;
+    }
+    for (let k = 0; k < bytes.length; k++) {
+      const c = this.byteAt(i, k, ds, bs, dirLen);
+      if (c !== bytes[k]) return c - bytes[k];
+    }
+    return 0;
+  }
+
+  /** Byte `k` of path `i`, reading the stored directory and basename in place. */
+  byteAt(i, k, ds, bs, dirLen) {
+    if (dirLen === 0) return this.baseBuf[bs + k];
+    if (k < dirLen) return this.dirBuf[ds + k];
+    if (k === dirLen) return SLASH;
+    return this.baseBuf[bs + k - dirLen - 1];
+  }
+
+  /**
+   * Half-open range of the index whose full paths literally start with the
+   * query as typed.
+   *
+   * Sound because the index is in byte order, so those paths are contiguous --
+   * the same property {@link indexOfPath} relies on, and the reason a
+   * caller-supplied list is sorted on the way in.
+   *
+   * Deliberately case-sensitive: the order is over raw bytes, and a
+   * case-folded range would not be contiguous. Callers must therefore use this
+   * only to promote, never to filter, so that a reader who types the wrong
+   * case loses the promotion and not the result.
+   */
+  pathPrefixRange() {
+    const bytes = this.qRaw;
+    if (bytes.length === 0) return [0, 0];
+    let lo = 0;
+    let hi = this.n;
+    while (lo < hi) {
+      const m = (lo + hi) >> 1;
+      if (this.pathStartsCmp(m, bytes) < 0) lo = m + 1;
+      else hi = m;
+    }
+    const start = lo;
+    hi = this.n;
+    while (lo < hi) {
+      const m = (lo + hi) >> 1;
+      if (this.pathStartsCmp(m, bytes) <= 0) lo = m + 1;
+      else hi = m;
+    }
+    return [start, lo];
   }
 }
 
@@ -695,17 +768,27 @@ function narrowD(ix, dm) {
 /**
  * Runs the ranked channels in cost order.
  *
- *   B  exact and prefix on the basename -- two binary searches
- *   C  subsequence on the basename      -- scan of the narrowed candidate set
- *   D  subsequence on the full path     -- dir-memoised, monotonically narrowed
+ *   A  literal prefix of the whole path  -- two binary searches
+ *   B  exact and prefix on the basename  -- two binary searches
+ *   C  subsequence on the basename       -- scan of the narrowed candidate set
+ *   D  subsequence on the full path      -- dir-memoised, monotonically narrowed
  *
  * A channel is skipped only when a cheaper one already filled the display.
  * That is exact rather than heuristic, because the ranking policy is a strict
- * tiering: a prefix match always outranks a non-prefix match, and a basename
- * match always outranks a match that needed the directory. Nothing a later
- * channel could produce is capable of displacing what an earlier one found.
+ * tiering: a path the reader has literally spelled the start of outranks
+ * everything, then a basename prefix outranks a non-prefix, and a basename
+ * match outranks a match that needed the directory. Nothing a later channel
+ * produces can displace what an earlier one found.
  *
- * D is a superset of C, so when D runs its count is the authoritative total.
+ * A exists because B, C and D all score the *basename* alone. When the
+ * directory has already absorbed the whole query -- which is exactly what
+ * happens for "base/task" or "device/" -- scoreBasename returns 0, so a
+ * perfect prefix match scored zero and sank below any path where the basename
+ * happened to contribute. Typing a path got monotonically worse results the
+ * more of it you spelled, which is the opposite of what a finder is for.
+ *
+ * D is a superset of both A and C, so when D runs its count is the
+ * authoritative total.
  */
 function search(ix) {
   const q = ix.q;
@@ -720,63 +803,98 @@ function search(ix) {
     };
   }
 
+  // ---- channel A
+  const [as, ae] = ix.pathPrefixRange();
+  const pathPrefixCount = ae - as;
+  const headroom = LIMIT - pathPrefixCount;
+  const head = [];
+  if (pathPrefixCount > 0) {
+    const top = new TopK(pathPrefixCount < LIMIT ? pathPrefixCount : LIMIT);
+    for (let i = as; i < ae; i++) top.offer(ix.staticRank[i], i);
+    for (const id of top.ids()) {
+      head.push({path: ix.pathOf(id), ranges: [[0, ix.qRaw.length]]});
+    }
+    if (headroom <= 0) {
+      // The count is a lower bound: other paths may match without starting
+      // with the query. The display says so with a trailing "+".
+      return {total: pathPrefixCount, exact: false, items: head};
+    }
+  }
+
+  // Anything already promoted must not appear twice. Membership is a range
+  // test because the index is in byte order.
+  const promoted = (i) => i >= as && i < ae;
+
   // ---- channel B
+  //
+  // The gate allows for every promoted path also turning up here, so the
+  // channel can never be chosen and then come up short of a full display.
+  // Being conservative only costs a fall-through to C or D, which are
+  // supersets of it.
   const [ps, pe] = ix.prefixRange(q);
   const prefixCount = pe - ps;
-  if (prefixCount >= LIMIT) {
-    const top = new TopK(LIMIT);
+  if (prefixCount >= headroom + pathPrefixCount) {
+    const top = new TopK(headroom);
     for (let m = ps; m < pe; m++) {
       const i = ix.byBase[m];
+      if (promoted(i)) continue;
       const exact = ix.baseOff[i + 1] - ix.baseOff[i] === q.length;
       top.offer(ix.staticRank[i] + (exact ? 1 << 20 : 0), i);
     }
-    return {
-      total: prefixCount,
-      exact: false,
-      items: top.ids().map((id) => ({
+    const items = head.concat(
+      top.ids().map((id) => ({
         path: ix.pathOf(id),
         ranges: [[ix.shiftOf(id), q.length]],
       })),
-    };
+    );
+    return {total: Math.max(prefixCount, items.length), exact: false, items};
   }
 
   // ---- channel C
   const cand = ix.cand[ix.cand.length - 1];
   const count = cand === null ? ix.n : cand.length;
-  if (count >= LIMIT) {
-    const top = new TopK(LIMIT);
+  if (count >= headroom + pathPrefixCount) {
+    const top = new TopK(headroom);
     for (let x = 0; x < count; x++) {
       const i = cand === null ? x : cand[x];
+      if (promoted(i)) continue;
       const sc = scoreBasename(ix, i, 0);
       if (sc < 0) continue;
       top.offer(sc * 64 + (ix.staticRank[i] >> 4), i);
     }
-    const items = top.ids().map((id) => {
-      scoreBasename(ix, id, 0);
-      return {path: ix.pathOf(id), ranges: rangesOf(ix.shiftOf(id))};
-    });
-    return {total: count, exact: false, items};
+    const items = head.concat(
+      top.ids().map((id) => {
+        scoreBasename(ix, id, 0);
+        return {path: ix.pathOf(id), ranges: rangesOf(ix.shiftOf(id))};
+      }),
+    );
+    return {total: Math.max(count, items.length), exact: false, items};
   }
 
   // ---- channel D
   //
-  // Reached when the basename channels cannot fill the display, which is the
+  // Reached when the cheaper channels cannot fill the display, which is the
   // normal case for a path-directed query such as "base/task/thread". Without
   // it the finder would report no matches for files that plainly exist.
   const dm = dirPrefixLens(ix);
   const matches = narrowD(ix, dm);
-  const top = new TopK(LIMIT);
+  const top = new TopK(headroom);
   for (let x = 0; x < matches.length; x++) {
     const i = matches[x];
+    if (promoted(i)) continue;
     const from = dm[ix.dirId[i]];
     const sc = scoreBasename(ix, i, from);
     // A match that needed the directory ranks below any basename-only match.
     top.offer(sc * 64 + (ix.staticRank[i] >> 4) - (from > 0 ? 1 << 18 : 0), i);
   }
-  const items = top.ids().map((id) => {
-    scoreBasename(ix, id, dm[ix.dirId[id]]);
-    return {path: ix.pathOf(id), ranges: rangesOf(ix.shiftOf(id))};
-  });
+  const items = head.concat(
+    top.ids().map((id) => {
+      scoreBasename(ix, id, dm[ix.dirId[id]]);
+      return {path: ix.pathOf(id), ranges: rangesOf(ix.shiftOf(id))};
+    }),
+  );
+  // Every path that starts with the query also contains it as a subsequence,
+  // so D has already counted what A promoted.
   return {total: matches.length, exact: true, items};
 }
 
