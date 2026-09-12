@@ -160,10 +160,43 @@ class Index {
     for (let i = 0; i < n; i++) {
       this.baseMask[i] = maskOf(baseBuf, baseOff[i], baseOff[i + 1]);
     }
-    this.dirMask = new Int32Array(nd);
-    for (let d = 0; d < nd; d++) {
-      this.dirMask[d] = maskOf(dirBuf, this.dirOff[d], this.dirOff[d + 1]);
+
+    // Files are contiguous within a directory run, so a run is an index range.
+    // Knowing it lets the full-path channel accept a whole directory at once
+    // when the directory alone already satisfies the query.
+    this.dirEnd = new Int32Array(nd);
+    for (let i = 0; i < n; i++) {
+      this.dirEnd[dirId[i]] = i + 1;
     }
+
+    // Byte-length of the prefix each directory shares with its predecessor.
+    // Paths arrive sorted, so adjacent directory runs such as .../core/html
+    // and .../core/svg usually differ only in their tails; the greedy query
+    // match over the shared head is identical and can be resumed rather than
+    // recomputed. This is what makes the per-directory pass cheap.
+    //
+    // Note the run list itself is not sorted and may repeat: a/x, a/b/y, a/z
+    // yields runs a, a/b, a. Nothing here relies on ordering, only on this
+    // being the literal shared prefix of two adjacent entries, so repeats are
+    // harmless (they simply produce a large lcp and no work at all).
+    this.dirLcp = new Int32Array(nd);
+    let maxDirLen = 0;
+    for (let d = 0; d < nd; d++) {
+      const s = this.dirOff[d];
+      const e = this.dirOff[d + 1];
+      if (e - s > maxDirLen) maxDirLen = e - s;
+      if (d === 0) continue;
+      const ps = this.dirOff[d - 1];
+      const limit = Math.min(s - ps, e - s);
+      let l = 0;
+      while (l < limit && dirBuf[ps + l] === dirBuf[s + l]) l++;
+      this.dirLcp[d] = l;
+    }
+
+    /** Greedy match state at each byte offset of the directory being scanned. */
+    this.kAt = new Int32Array(maxDirLen + 1);
+    /** Per-directory query consumption, reused across keystrokes. */
+    this.dmScratch = new Int32Array(nd);
 
     // Static rank: shallower and shorter wins. Breaks ties between equally
     // good matches, and makes the prefix channel's top-K an integer compare.
@@ -477,22 +510,52 @@ class TopK {
  * and only if `q[dm[dir]..]` is a subsequence of its basename. Computing this
  * once per directory rather than once per file is the whole reason the
  * full-path channel is affordable.
+ *
+ * Each directory shares `lcp` bytes with the one before it, and the greedy
+ * state after those bytes is by definition identical, so `kAt` records the
+ * state at every offset of the directory just scanned and the next directory
+ * resumes from its own shared length. Only differing tails are examined.
+ *
+ * The one wrinkle is saturation. A scan that consumes the whole query stops
+ * early and leaves `kAt` unwritten past that point, so `sat` records where
+ * that happened and any resume at or beyond it is saturated by definition.
+ * Crucially `sat` must then be left alone: such a resume writes no `kAt` at
+ * all, and since the directory agrees with its predecessor for `lcp >= sat`
+ * bytes it saturates at the very same offset. Advancing `sat` to `lcp` would
+ * claim a range of `kAt` as valid that no scan has written since, and a later
+ * directory with a smaller `lcp` would resume from a stale state and
+ * under-count its match. Holding `sat` fixed keeps it equal to the highest
+ * offset `kAt` is valid at, so every read is either a written entry or a
+ * saturated one.
  */
 function dirPrefixLens(ix) {
   const q = ix.q;
   const ql = q.length;
-  const dm = new Int32Array(ix.d);
+  const dm = ix.dmScratch;
+  const kAt = ix.kAt;
   const buf = ix.dirBuf;
   const off = ix.dirOff;
-  for (let d = 0; d < ix.d; d++) {
+  const lcp = ix.dirLcp;
+  const nd = ix.d;
+  let sat = 0x7fffffff;
+  kAt[0] = 0;
+  for (let d = 0; d < nd; d++) {
     const s = off[d];
-    const e = off[d + 1];
-    let k = 0;
-    for (let j = s; j < e && k < ql; j++) {
-      if (LOW[buf[j]] === q[k]) k++;
+    const len = off[d + 1] - s;
+    const l = lcp[d];
+    let k;
+    if (l >= sat) {
+      k = ql;
+    } else {
+      k = kAt[l];
+      let j = l;
+      for (; j < len && k < ql; j++) {
+        if (LOW[buf[s + j]] === q[k]) k++;
+        kAt[j + 1] = k;
+      }
+      sat = k === ql ? j : 0x7fffffff;
     }
-    if (e > s && k < ql && q[k] === SLASH) k++;
-    dm[d] = k;
+    dm[d] = len > 0 && k < ql && q[k] === SLASH ? k + 1 : k;
   }
   return dm;
 }
@@ -523,30 +586,53 @@ function rangesOf(shift) {
  * valid for the same reason: matches of the longer query are a subset.
  */
 function narrowD(ix, dm) {
-  const ql = ix.q.length;
+  const q = ix.q;
+  const ql = q.length;
   let t = ql;
   while (t > 0 && ix.dcand[t] === undefined) t--;
   const start = ix.dcand[t];
 
+  // sufMask[k] is the 1-gram mask of q[k..]. A file can only match if its
+  // basename *alone* contains every character the directory failed to consume.
+  // That is strictly sharper than asking whether the directory and basename
+  // together contain the whole query, because directory characters cannot
+  // discharge an obligation that falls on the basename: on "base/task/thread"
+  // it cuts the files needing a subsequence scan from 239,228 to 553.
+  const sufMask = new Int32Array(ql + 1);
+  for (let k = ql - 1; k >= 0; k--) {
+    sufMask[k] = sufMask[k + 1] | (1 << CLS[q[k]]);
+  }
+
   const out = ix.scratch;
-  const dirMask = ix.dirMask;
   const baseMask = ix.baseMask;
-  const qmask = ix.qmask;
   const dirId = ix.dirId;
   let n = 0;
 
   if (start === null || start === undefined) {
-    for (let i = 0; i < ix.n; i++) {
-      const d = dirId[i];
-      if ((qmask & ~(baseMask[i] | dirMask[d])) !== 0) continue;
-      if (ix.baseMatchesFrom(i, dm[d])) out[n++] = i;
+    const dirEnd = ix.dirEnd;
+    const nd = ix.d;
+    let i = 0;
+    for (let d = 0; d < nd; d++) {
+      const end = dirEnd[d];
+      const from = dm[d];
+      if (from >= ql) {
+        // The directory alone consumed the query, so every file beneath it
+        // matches and none of them needs testing.
+        while (i < end) out[n++] = i++;
+        continue;
+      }
+      const need = sufMask[from];
+      while (i < end) {
+        if ((need & ~baseMask[i]) === 0 && ix.baseMatchesFrom(i, from)) out[n++] = i;
+        i++;
+      }
     }
   } else {
     for (let x = 0; x < start.length; x++) {
       const i = start[x];
-      const d = dirId[i];
-      if ((qmask & ~(baseMask[i] | dirMask[d])) !== 0) continue;
-      if (ix.baseMatchesFrom(i, dm[d])) out[n++] = i;
+      const from = dm[dirId[i]];
+      if ((sufMask[from] & ~baseMask[i]) !== 0) continue;
+      if (ix.baseMatchesFrom(i, from)) out[n++] = i;
     }
   }
   const result = out.slice(0, n);
