@@ -862,6 +862,13 @@ a {
   color: var(--link-color);
   font-weight: bold;
 }
+/* Secondary text on a result row. The row already clips with an ellipsis and
+   the name is painted first, so a long description truncates rather than
+   pushing the name out of view. */
+.FileSearch-rowDesc {
+  color: var(--muted-text-color);
+  margin-left: 1.5em;
+}
 body.FileSearch-open {
   overflow: hidden;
 }
