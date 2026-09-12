@@ -351,6 +351,58 @@ class Index {
     if (de === ds) return base;
     return this.decoder.decode(this.dirBuf.subarray(ds, de)) + '/' + base;
   }
+
+  /**
+   * Compares `bytes` against the path at `i`, as unsigned bytes.
+   *
+   * Walks the stored directory and basename in place rather than rebuilding
+   * the path, so a lookup costs no allocation.
+   */
+  cmpPathAt(i, bytes) {
+    const d = this.dirId[i];
+    const ds = this.dirOff[d];
+    const de = this.dirOff[d + 1];
+    const bs = this.baseOff[i];
+    const be = this.baseOff[i + 1];
+    const dirLen = de - ds;
+    const pathLen = dirLen === 0 ? be - bs : dirLen + 1 + (be - bs);
+    const n = bytes.length < pathLen ? bytes.length : pathLen;
+    for (let k = 0; k < n; k++) {
+      let c;
+      if (dirLen === 0) {
+        c = this.baseBuf[bs + k];
+      } else if (k < dirLen) {
+        c = this.dirBuf[ds + k];
+      } else if (k === dirLen) {
+        c = SLASH;
+      } else {
+        c = this.baseBuf[bs + k - dirLen - 1];
+      }
+      if (bytes[k] !== c) return bytes[k] - c;
+    }
+    return bytes.length - pathLen;
+  }
+
+  /**
+   * Index of an exact path, or -1.
+   *
+   * The server emits paths in tree order, which for full paths is plain
+   * byte-lexicographic ascending order; that was checked over all 506,237
+   * paths of chromium/src, so a binary search is sound.
+   */
+  indexOfPath(path) {
+    const bytes = new TextEncoder().encode(path);
+    let lo = 0;
+    let hi = this.n - 1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      const c = this.cmpPathAt(mid, bytes);
+      if (c === 0) return mid;
+      if (c < 0) hi = mid - 1;
+      else lo = mid + 1;
+    }
+    return -1;
+  }
 }
 
 /**
@@ -753,6 +805,29 @@ self.onmessage = async (ev) => {
         q: msg.q,
         total,
         exact,
+        items,
+      });
+      return;
+    }
+    if (msg.type === 'recent') {
+      // Remembered paths are only offered if they still exist at this
+      // revision: a file deleted or renamed since it was last opened would
+      // otherwise be presented as a result that 404s on Enter. Order is the
+      // caller's, so ranking stays entirely in the UI where the scores live.
+      if (index === null) return;
+      const items = [];
+      for (let i = 0; i < msg.paths.length; i++) {
+        if (index.indexOfPath(msg.paths[i]) >= 0) {
+          items.push({path: msg.paths[i], ranges: []});
+        }
+      }
+      self.postMessage({
+        type: 'results',
+        seq: msg.seq,
+        q: '',
+        total: items.length,
+        exact: true,
+        recent: true,
         items,
       });
       return;

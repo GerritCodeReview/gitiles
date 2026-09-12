@@ -56,6 +56,119 @@
   var rows = [];
   var composing = false;
   var restoreFocus = null;
+  var showingRecent = false;
+
+  // -------------------------------------------------------------- frecency
+
+  /**
+   * Files this reader has opened from the finder, most useful first.
+   *
+   * With an empty box there is nothing to match on, and listing the repository
+   * alphabetically is useless -- on chromium/src it offers ".gn". What a reader
+   * wants is the handful of files they keep coming back to.
+   *
+   * The score is an exponentially decayed visit count. On each visit
+   *
+   *     s <- s * 2^(-dt / HALF_LIFE) + 1
+   *
+   * which expands to the sum over past visits of 2^(-age / HALF_LIFE). So a
+   * file's weight halves for every week it goes untouched, frequent files
+   * outrank once-opened ones, and a file abandoned months ago falls away
+   * without ever needing a visit history: one number and one timestamp per
+   * file suffice, and updating is O(1).
+   *
+   * Storage is per-repository, because paths are meaningless across
+   * repositories, and is capped so a long-lived browser cannot accumulate
+   * unbounded history. It records only what the reader opened *through the
+   * finder*, never pages merely visited.
+   */
+  var RECENT_KEY = 'gitiles.file-finder.recent.' + fileBase.split('/+/')[0];
+  var RECENT_MAX = 200;
+  var RECENT_HALF_LIFE_MS = 7 * 24 * 60 * 60 * 1000;
+
+  /** Reads the store, tolerating absence, denial, and corruption alike. */
+  function loadRecent() {
+    var raw;
+    try {
+      raw = window.localStorage.getItem(RECENT_KEY);
+    } catch (e) {
+      // Storage can be disabled outright; the finder still works without it.
+      return [];
+    }
+    if (!raw) {
+      return [];
+    }
+    var parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e) {
+      return [];
+    }
+    if (!parsed || !parsed.length) {
+      return [];
+    }
+    var out = [];
+    for (var i = 0; i < parsed.length; i++) {
+      var e = parsed[i];
+      if (e && typeof e.p === 'string' && isFinite(e.s) && isFinite(e.t)) {
+        out.push({p: e.p, s: e.s, t: e.t});
+      }
+    }
+    return out;
+  }
+
+  function saveRecent(entries) {
+    try {
+      window.localStorage.setItem(RECENT_KEY, JSON.stringify(entries));
+    } catch (e) {
+      // A full or read-only store is not worth reporting to the reader.
+    }
+  }
+
+  /** Score of `e` decayed to `now`. */
+  function decayed(e, now) {
+    return e.s * Math.pow(2, -(now - e.t) / RECENT_HALF_LIFE_MS);
+  }
+
+  /** Records that the reader opened `path` from the finder. */
+  function recordVisit(path) {
+    var now = Date.now();
+    var entries = loadRecent();
+    var found = null;
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].p === path) {
+        found = entries[i];
+        break;
+      }
+    }
+    if (found) {
+      found.s = decayed(found, now) + 1;
+      found.t = now;
+    } else {
+      entries.push({p: path, s: 1, t: now});
+    }
+    if (entries.length > RECENT_MAX) {
+      entries.sort(function (a, b) {
+        return decayed(b, now) - decayed(a, now);
+      });
+      entries.length = RECENT_MAX;
+    }
+    saveRecent(entries);
+  }
+
+  /** Remembered paths, best first. */
+  function recentPaths() {
+    var now = Date.now();
+    var entries = loadRecent();
+    entries.sort(function (a, b) {
+      return decayed(b, now) - decayed(a, now);
+    });
+    var out = [];
+    for (var i = 0; i < entries.length && i < RECENT_MAX; i++) {
+      out.push(entries[i].p);
+    }
+    return out;
+  }
 
   // ------------------------------------------------------------- rendering
 
@@ -67,7 +180,7 @@
     a.className = 'FileSearch-link';
     li.appendChild(a);
     list.appendChild(li);
-    return {li: li, a: a};
+    return {li: li, a: a, path: null};
   }
 
   for (var i = 0; i < LIMIT; i++) {
@@ -88,6 +201,7 @@
   function paint(row, item) {
     var a = row.a;
     a.href = fileBase + encodePath(item.path);
+    row.path = item.path;
     while (a.firstChild) {
       a.removeChild(a.firstChild);
     }
@@ -118,6 +232,7 @@
       } else {
         rows[i].li.hidden = true;
         rows[i].a.removeAttribute('href');
+        rows[i].path = null;
       }
     }
     lastRendered = items.length;
@@ -129,6 +244,12 @@
     if (!items.length) {
       // The scan is exhaustive, so this is trustworthy rather than a hedge.
       setStatus(input.value ? 'No matching files' : '');
+      return;
+    }
+    if (showingRecent) {
+      // A count of remembered files is not a match count, and calling it one
+      // would be a lie the reader can check.
+      setStatus(items.length === 1 ? 'Recently opened' : 'Recently opened files');
       return;
     }
     // A trailing "+" means the search stopped once the best tier filled the
@@ -194,6 +315,18 @@
       return;
     }
     seq++;
+    // An empty box has nothing to match on, so offer what the reader keeps
+    // coming back to. Falls through to the ordinary listing when there is
+    // nothing remembered yet, which is every reader's first visit.
+    if (!input.value) {
+      var paths = recentPaths();
+      if (paths.length) {
+        showingRecent = true;
+        worker.postMessage({type: 'recent', seq: seq, paths: paths});
+        return;
+      }
+    }
+    showingRecent = false;
     worker.postMessage({type: 'query', seq: seq, q: input.value});
   }
 
@@ -233,9 +366,13 @@
   }
 
   function navigate(ev) {
-    var a = rows[selected] && rows[selected].a;
-    if (!a || !a.href || rows[selected].li.hidden) {
+    var row = rows[selected];
+    var a = row && row.a;
+    if (!a || !a.href || row.li.hidden) {
       return;
+    }
+    if (row.path) {
+      recordVisit(row.path);
     }
     if (ev && (ev.metaKey || ev.ctrlKey)) {
       window.open(a.href, '_blank');
@@ -372,6 +509,22 @@
     } else if (ev.key === 'Enter') {
       ev.preventDefault();
       navigate(ev);
+    }
+  });
+
+  // A row is an anchor, so a click navigates on its own without going through
+  // navigate(). Record it here or clicking would be remembered differently
+  // from pressing Enter on the same row.
+  list.addEventListener('click', function (ev) {
+    var li = ev.target.closest ? ev.target.closest('.FileSearch-row') : null;
+    if (!li) {
+      return;
+    }
+    for (var i = 0; i < LIMIT; i++) {
+      if (rows[i].li === li && rows[i].path) {
+        recordVisit(rows[i].path);
+        return;
+      }
     }
   });
 
