@@ -154,6 +154,7 @@
         rows[i].li.scrollIntoView({block: 'nearest'});
       }
     }
+    schedulePrefetch();
   }
 
   // ---------------------------------------------------------------- worker
@@ -220,6 +221,11 @@
     }
     root.hidden = true;
     document.body.classList.remove('FileSearch-open');
+    // A selection the user has abandoned is not worth a request.
+    if (prefetchTimer !== null) {
+      clearTimeout(prefetchTimer);
+      prefetchTimer = null;
+    }
     if (restoreFocus && restoreFocus.focus) {
       restoreFocus.focus();
     }
@@ -236,6 +242,76 @@
     } else {
       window.location.href = a.href;
     }
+  }
+
+  // --------------------------------------------------------------- prefetch
+
+  /**
+   * Warms the browser cache with the highlighted result, so Enter paints from
+   * cache instead of waiting on a round trip.
+   *
+   * This is only worth doing because result links are SHA-pinned and therefore
+   * carry a real max-age; warming a no-store URL would be discarded and the
+   * request wasted.
+   *
+   * A same-origin `fetch` is used rather than `<link rel=prefetch>`. Measured
+   * in Chrome against a 506k-path repository, a link element works for the
+   * first destination on a page and is then cancelled with ERR_ABORTED for
+   * every subsequent one, which is precisely the case here: the selection
+   * changes constantly and the page never reloads. A cancelled speculative
+   * load warms nothing, so it is all cost and no benefit. Low-priority fetches
+   * complete every time and leave the destination in the HTTP cache, which is
+   * what the following navigation reads.
+   *
+   * Note this means the server cannot distinguish a speculative request from a
+   * real one: `fetch` may not set `Sec-Purpose`, and a query parameter would
+   * change the URL and so miss the cache entry the navigation needs.
+   *
+   * Three limits keep it from being rude: a debounce, so typing a path does
+   * not fire one request per keystroke and only a selection the user rests on
+   * is fetched; a dedupe set, so arrowing down and back up re-requests
+   * nothing; and a cap, so a long session cannot fan out without bound.
+   * Failures are ignored by construction -- a warm that does not happen costs
+   * a cache miss, nothing more.
+   */
+  var PREFETCH_DELAY_MS = 120;
+  var PREFETCH_MAX = 32;
+  var prefetched = {};
+  var prefetchCount = 0;
+  var prefetchTimer = null;
+
+  function prefetch(href) {
+    if (prefetchCount >= PREFETCH_MAX || prefetched[href]) {
+      return;
+    }
+    prefetched[href] = true;
+    prefetchCount++;
+    // The body is read and dropped: the point is the cache entry it leaves
+    // behind, not the text.
+    fetch(href, {credentials: 'same-origin', priority: 'low'})
+      .then(function (response) {
+        return response.text();
+      })
+      .catch(function () {
+        // A failed warm is not an error the reader needs to know about.
+      });
+  }
+
+  /** Queues a warm of whatever is selected once the selection settles. */
+  function schedulePrefetch() {
+    if (typeof fetch !== 'function') {
+      return;
+    }
+    if (prefetchTimer !== null) {
+      clearTimeout(prefetchTimer);
+    }
+    prefetchTimer = setTimeout(function () {
+      prefetchTimer = null;
+      var row = rows[selected];
+      if (row && !row.li.hidden && row.a.href) {
+        prefetch(row.a.href);
+      }
+    }, PREFETCH_DELAY_MS);
   }
 
   // Leaving the page must not put an open palette into the back/forward cache:
