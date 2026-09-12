@@ -42,6 +42,10 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
     </h1>
   {/if}
 
+  // file-search.js reads this list to answer "/" on a host index, rather than
+  // fetching the same names a second time. It looks for RepoList-item anchors
+  // and their RepoList-itemName and RepoList-itemDescription children, so
+  // those class names are a contract, not just styling hooks.
   <div class="RepoList">
     <div class="RepoList-item RepoList-item--header">
       <span class="RepoList-itemName">
