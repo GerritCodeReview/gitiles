@@ -766,3 +766,102 @@ a {
 .Diff-change {
   color: var(--diff-change);
 }
+
+/* File finder overlay. Themed entirely through the custom properties above, so
+   it follows the light/dark toggle without a second set of rules. */
+.FileSearch-trigger {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font: inherit;
+  color: var(--toggle-btn-color);
+}
+.FileSearch-trigger:hover {
+  color: var(--toggle-btn-hover-color);
+  background: var(--toggle-btn-hover-bg);
+}
+.FileSearch-triggerKey {
+  border: 1px solid var(--toggle-btn-border);
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-right: 4px;
+  font-family: monospace;
+}
+.FileSearch[hidden] {
+  display: none;
+}
+.FileSearch {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+.FileSearch-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+.FileSearch-modal {
+  position: relative;
+  margin: 10vh auto 0;
+  max-width: 44rem;
+  width: 90%;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-subtle-color);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.FileSearch-input {
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: monospace;
+  font-size: 15px;
+  padding: 12px 14px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.FileSearch-status {
+  color: var(--muted-text-color);
+  font-size: 12px;
+  padding: 4px 14px;
+  border-bottom: 1px solid var(--border-color);
+  min-height: 1em;
+}
+.FileSearch-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+.FileSearch-row[hidden] {
+  display: none;
+}
+.FileSearch-row--selected {
+  background: var(--hover-bg);
+}
+.FileSearch-link {
+  display: block;
+  padding: 5px 14px;
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--text-color);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.FileSearch-link mark {
+  background: none;
+  color: var(--link-color);
+  font-weight: bold;
+}
+body.FileSearch-open {
+  overflow: hidden;
+}
