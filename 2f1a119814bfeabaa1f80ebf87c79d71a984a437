@@ -35,6 +35,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aa235ec_074bd458",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5152887
+      },
+      "writtenOn": "2026-09-13T20:27:11Z",
+      "side": 1,
+      "message": "Hi, sorry to necropost on this CL, but since this CL solved a feature request I submitted, is there someone who is able to mark that as resolved?\n\nThe issue request is available at https://issues.gerritcodereview.com/issues/405817976. If there\u0027s a way for me to mark it as resolved rather than a Googler having to do it for me, please let me know.\n\nThanks!",
+      "revId": "2f1a119814bfeabaa1f80ebf87c79d71a984a437",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "27ac3d3c_54902cee",
