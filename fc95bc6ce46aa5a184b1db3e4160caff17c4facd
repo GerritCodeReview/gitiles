@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f47b37c3_d22a7ded",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-09-14T17:53:14Z",
+      "side": 1,
+      "message": "This depends on this JGit change: https://review.gerrithub.io/c/eclipse-jgit/jgit/+/1249788.",
+      "revId": "fc95bc6ce46aa5a184b1db3e4160caff17c4facd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
