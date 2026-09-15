@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df57ac41_f00c7c24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3255163
+      },
+      "writtenOn": "2026-09-15T09:11:12Z",
+      "side": 1,
+      "message": "I ran a local benchmark using packed synthetic repositories with flat root trees. These are steady-state localhost timings: JVM and filesystem cache warm, with no sidebar/tree-data cache.\n\nFor a file page:\n```\n   Root entries    Sidebar off p50    Sidebar on p50    Added latency    Added response size\n  ━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━\n             1k              94 ms             99 ms             5 ms                179 KiB\n  ──────────────  ─────────────────  ────────────────  ───────────────  ─────────────────────\n            10k              91 ms            132 ms            41 ms               1.67 MiB\n  ──────────────  ─────────────────  ────────────────  ───────────────  ─────────────────────\n           100k              90 ms            439 ms           348 ms               16.9 MiB\n```",
+      "parentUuid": "b33ef9c8_e53bbc41",
+      "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65012a49_67cc0efc",
         "filename": "resources/com/google/gitiles/static/file-nav.js",
         "patchSetId": 3
