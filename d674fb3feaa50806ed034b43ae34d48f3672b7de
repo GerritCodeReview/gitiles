@@ -16,6 +16,23 @@
       "message": "Review run encountered repeated internal errors and failed to complete the review after multiple attempts. Removing myself from the attention set to unblock you.",
       "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3111cc_cc21e3e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-09-16T23:21:13Z",
+      "side": 1,
+      "message": "Go becky agent!",
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
