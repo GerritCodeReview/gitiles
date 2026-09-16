@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3456d254_26085dba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5167441
+      },
+      "writtenOn": "2026-09-16T22:50:28Z",
+      "side": 1,
+      "message": "Review run encountered repeated internal errors and failed to complete the review after multiple attempts. Removing myself from the attention set to unblock you.",
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
