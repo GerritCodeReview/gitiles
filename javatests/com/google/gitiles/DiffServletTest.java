@@ -49,6 +49,8 @@ public class DiffServletTest extends ServletTest {
                 + " href=\"/b/repo/+/%s/foo\">b/foo</a>",
             c1.name(), c2.name());
     assertThat(actual).contains(diffHeader);
+    assertThat(actual).contains("<span class=\"Diff-change\"> foo</span>");
+    assertThat(actual).contains("<span class=\"Diff-insert\">+contents</span>");
   }
 
   @Test

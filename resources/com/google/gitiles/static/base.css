@@ -48,7 +48,7 @@ html[data-theme="light"] {
   --diff-hunk: #00c;
   --diff-delete: #c00;
   --diff-insert: #080;
-  --diff-change: #960;
+  --diff-change: #666;
   --diff-action-add: #060;
   --diff-action-delete: #600;
   --diff-action-rename: #006;
@@ -99,7 +99,7 @@ html[data-theme="light"] {
     --diff-hunk: #8ab4f8;
     --diff-delete: #f28b82;
     --diff-insert: #81c995;
-    --diff-change: #fdd663;
+    --diff-change: #9aa0a6;
     --diff-action-add: #81c995;
     --diff-action-delete: #f28b82;
     --diff-action-rename: #8ab4f8;
@@ -142,7 +142,7 @@ html[data-theme="dark"] {
   --diff-hunk: #8ab4f8;
   --diff-delete: #f28b82;
   --diff-insert: #81c995;
-  --diff-change: #fdd663;
+  --diff-change: #9aa0a6;
   --diff-action-add: #81c995;
   --diff-action-delete: #f28b82;
   --diff-action-rename: #8ab4f8;

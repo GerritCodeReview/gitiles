@@ -15,8 +15,10 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
+import com.google.common.io.Resources;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
 import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
 import org.eclipse.jgit.junit.TestRepository;
@@ -128,6 +130,19 @@ public class ThemeTest extends ServletTest {
     FakeHttpServletResponse res = buildResponse("/" + REPO_NAME + "/+/nonexistent-ref", null, SC_NOT_FOUND);
     String html = res.getActualBodyString();
     assertThemeElementsPresent(html);
+  }
+
+  @Test
+  public void diffChangeColorIsGreyNotYellow() throws Exception {
+    String css =
+        Resources.toString(
+            Resources.getResource(Renderer.class, "static/base.css"), UTF_8);
+    // Unchanged lines in unified diffs are formatted with class Diff-change.
+    // Ensure --diff-change resolves to grey in both light and dark modes instead of yellow.
+    assertThat(css).contains("--diff-change: #666;");
+    assertThat(css).contains("--diff-change: #9aa0a6;");
+    assertThat(css).doesNotContain("--diff-change: #960;");
+    assertThat(css).doesNotContain("--diff-change: #fdd663;");
   }
 
   private static void assertThemeElementsPresent(String html) {
