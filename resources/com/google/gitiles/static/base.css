@@ -319,6 +319,8 @@ a {
 .Breadcrumbs {
   font-size: 18px;
   margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle-color);
 }
 .Breadcrumbs-sep::before, .Breadcrumbs-sep::after {
   content: " ";
@@ -329,6 +331,10 @@ a {
 }
 .Breadcrumbs-crumb {
   color: var(--link-color);
+  text-decoration: none;
+}
+.Breadcrumbs-crumb:hover {
+  text-decoration: underline;
 }
 .Breadcrumbs-crumb:last-child {
   color: var(--text-color);
@@ -625,10 +631,12 @@ a {
 .DiffSummary {}
 .TreeDetail-sha1,
 .BlobSha1 {
-  margin: 10px 0;
-  padding: 5px 10px;
+  margin: 16px 0;
+  padding: 8px 14px;
   background-color: var(--code-bg);
   color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 .FileList {
   border: 1px solid var(--border-color);
