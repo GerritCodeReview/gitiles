@@ -535,32 +535,56 @@ a {
   margin: 10px 0;
   text-align: center;
 }
-.CommitLog {}
+.CommitLog {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin: 15px 0;
+  overflow: hidden;
+}
 .CommitLog-item {
-  padding: 2px 0;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border-subtle-color);
+}
+.CommitLog-item:last-child {
+  border-bottom: none;
 }
 .CommitLog-item--oneline:hover {
   background: var(--hover-bg);
 }
 .CommitLog-item--full {
-  margin-bottom: 20px;
+  padding: 16px;
 }
 .CommitLog-item--empty {
-  padding: 10px 0;
+  padding: 16px;
   text-align: center;
   color: var(--muted-text-color);
 }
 .CommitLog-sha1 {
   background-color: var(--code-bg);
   color: var(--text-color);
-  border-radius: 3px;
+  border-radius: 4px;
   display: inline-block;
-  margin-right: 3px;
-  padding: 2px 4px;
+  margin-right: 6px;
+  padding: 2px 6px;
   text-align: center;
 }
 .CommitLog-time {
   color: var(--muted-text-color);
+}
+.CommitLog-branchLabel,
+.CommitLog-tagLabel {
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 0.85em;
+  line-height: 1.4;
+  padding: 0 8px;
+  text-decoration: none;
+}
+.CommitLog-branchLabel:hover,
+.CommitLog-tagLabel:hover {
+  text-decoration: none;
+  opacity: 0.8;
 }
 .CommitLog-branchLabel {
   color: var(--branch-label-color);
