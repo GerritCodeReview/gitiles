@@ -69,6 +69,72 @@
       "parentUuid": "1c38bc42_bc5b6353",
       "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6434cf52_44347913",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-09-18T15:22:26Z",
+      "side": 1,
+      "message": "Nit: Should `pathsOnly \u0026\u0026 includeSizes` (`?recursive\u003d1\u0026paths_only\u003d1\u0026long\u003d1`) also be rejected with `FailureReason.INCORRECT_PARAMETER`, since `long\u003d1` explicitly requests per-entry blob sizes/symlink targets that `paths_only\u003d1` omits?",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d78d34_4a768ffb",
+        "filename": "java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-09-18T15:22:26Z",
+      "side": 1,
+      "message": "In JGit, `TreeWalk.setRecursive(true)` only enters/skips `FileMode.TREE` (`0040000`) entries; `src.tw.next()` still yields `FileMode.GITLINK` (`0160000`, `Constants.OBJ_COMMIT`) entries for submodules.\n\nIn the full `?recursive\u003d1` response (`toJsonData`), entries carry `\"type\": \"commit\"` and `\"mode\": 57344` so callers can distinguish submodule gitlinks from blobs. Because `paths_only\u003d1` omits `type` and `mode` without filtering `src.tw`, repos with submodules (including `chromium/src`) will include submodule paths in `paths`, contradicting the Javadoc/API docs (\"Flat list of blob paths under a tree\" / \"returns only blob path names\") and potentially causing file-finder clients to treat submodule directories as blob files.\n\nShould this filter to blobs (e.g. `if (src.tw.getFileMode(0).getObjectType() \u003d\u003d Constants.OBJ_BLOB)`) and cover `FileMode.GITLINK` in `PathServletTest`, or is `paths` intended to include gitlinks as well?",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5177e58_5ef77f91",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-09-18T15:22:26Z",
+      "side": 1,
+      "message": "Note that in `WalkResult.recursivePath` (`PathServlet.java:447`), `new WalkResult(tw, path, root, root, ...)` passes `root` (the commit\u0027s root tree ID) as `wr.id` even when `!path.isEmpty()` and `tw` is walking `treeSHA` (the subdirectory tree).\n\nBecause of that, `pl.id` here is the root tree\u0027s SHA rather than the `foo/baz` subtree\u0027s SHA (unlike non-recursive `/repo/+/master/foo` in `treeJson()`, which sets `id` to the `foo` subtree SHA, and unlike `PathList.Source`\u0027s Javadoc `@param id object ID of the tree being walked`). If `WalkResult.recursivePath` passed `treeSHA` as the `objectId` argument when `!path.isEmpty()`, `pl.id` would match the walked subtree.",
+      "isAi": true,
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
