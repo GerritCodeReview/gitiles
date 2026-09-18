@@ -1,12 +1,13 @@
 {
   "checks": {
     "zuul-check:gitiles": {
-      "state": "RUNNING",
-      "message": "Jobs have started running",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/630081,8",
+      "state": "SUCCESSFUL",
+      "message": "Change passed all voting jobs",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/2aac6443fe324375bcbf6a598e3f8de2",
       "started": "2026-09-18T16:47:37Z",
+      "finished": "2026-09-18T16:57:55Z",
       "created": "2026-09-18T16:47:37Z",
-      "updated": "2026-09-18T16:47:50Z"
+      "updated": "2026-09-18T16:57:55Z"
     }
   }
 }
