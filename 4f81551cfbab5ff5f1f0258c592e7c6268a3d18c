@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffcd8255_0df0b435",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-09-18T16:56:48Z",
+      "side": 1,
+      "message": "Lost stamp! PTAL :)",
+      "revId": "4f81551cfbab5ff5f1f0258c592e7c6268a3d18c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
