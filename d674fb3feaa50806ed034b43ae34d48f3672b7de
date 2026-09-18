@@ -113,6 +113,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df9c0a30_b48525c0",
+        "filename": "java/com/google/gitiles/PathServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-09-18T16:47:47Z",
+      "side": 1,
+      "message": "Done. Rejected `pathsOnly \u0026\u0026 includeSizes` (`paths_only\u003d1\u0026long\u003d1`) with `FailureReason.INCORRECT_PARAMETER` (`\"paths_only cannot be combined with long\"`), added `pathsOnlyRejectsLong()` in `PathServletTest`, and documented in `Documentation/api-reference.md`.",
+      "parentUuid": "6434cf52_44347913",
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44d78d34_4a768ffb",
@@ -137,6 +155,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0fa1498_bfc5cdd2",
+        "filename": "java/com/google/gitiles/TreeJsonData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-09-18T16:47:47Z",
+      "side": 1,
+      "message": "Great catch! Filtered `SOURCE_ADAPTER.write` with `if (src.tw.getFileMode(0).getObjectType() \u003d\u003d Constants.OBJ_BLOB)` so `FileMode.GITLINK` (`160000` submodule commit) entries are excluded while regular files, executables, and symlinks are emitted. Added `pathsOnlyJsonSkipsGitlinks()` in `PathServletTest`.",
+      "parentUuid": "44d78d34_4a768ffb",
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5177e58_5ef77f91",
@@ -151,6 +187,24 @@
       "side": 1,
       "message": "Note that in `WalkResult.recursivePath` (`PathServlet.java:447`), `new WalkResult(tw, path, root, root, ...)` passes `root` (the commit\u0027s root tree ID) as `wr.id` even when `!path.isEmpty()` and `tw` is walking `treeSHA` (the subdirectory tree).\n\nBecause of that, `pl.id` here is the root tree\u0027s SHA rather than the `foo/baz` subtree\u0027s SHA (unlike non-recursive `/repo/+/master/foo` in `treeJson()`, which sets `id` to the `foo` subtree SHA, and unlike `PathList.Source`\u0027s Javadoc `@param id object ID of the tree being walked`). If `WalkResult.recursivePath` passed `treeSHA` as the `objectId` argument when `!path.isEmpty()`, `pl.id` would match the walked subtree.",
       "isAi": true,
+      "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f20b5f3_876ce457",
+        "filename": "javatests/com/google/gitiles/PathServletTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-09-18T16:47:47Z",
+      "side": 1,
+      "message": "Done. Updated `WalkResult.recursivePath` (`PathServlet.java:447`) to pass `treeId` (`treeSHA` when `!path.isEmpty()`, `root` otherwise) as `wr.id`, and asserted `assertThat(pl.id).isEqualTo(repo.get(c.getTree(), \"foo/baz\").name())` in `pathsOnlyJsonScopesToSubdirectory()`.",
+      "parentUuid": "d5177e58_5ef77f91",
       "revId": "d674fb3feaa50806ed034b43ae34d48f3672b7de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
