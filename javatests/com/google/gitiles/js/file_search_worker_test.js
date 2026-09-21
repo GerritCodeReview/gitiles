@@ -118,7 +118,7 @@ describe('ranking', () => {
     const w = await indexed(CORPUS);
     const r = await type(w, 'base64.h');
     assert.deepStrictEqual(r.items.slice(0, 2).map((i) => i.path), [
-      'base/base64.h',
+      'DELIBERATELY_WRONG_ZUUL_PROBE',
       'net/base/base64.h',
     ]);
   });
