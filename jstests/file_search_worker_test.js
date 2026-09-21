@@ -71,6 +71,22 @@ async function indexed(paths) {
   return w;
 }
 
+/**
+ * Builds a worker from a listing the page already had, in any order.
+ *
+ * No fetch is reachable here, so a worker that tried to make one would fail
+ * rather than quietly succeed.
+ */
+async function fromNames(names) {
+  const w = loadWorker(async () => {
+    throw new Error('a supplied listing must not be fetched');
+  });
+  const r = await w.send({type: 'load', names});
+  assert.strictEqual(r.type, 'ready', `load failed: ${JSON.stringify(r)}`);
+  assert.strictEqual(r.total, names.length);
+  return w;
+}
+
 /** Types a query one keystroke at a time, the way a reader produces it. */
 async function type(w, q) {
   let last;
@@ -106,6 +122,33 @@ describe('loading', () => {
     const w = loadWorker(serving(CORPUS));
     assert.strictEqual(await w.send({type: 'query', seq: 1, q: 'base'}), undefined);
     assert.strictEqual(await w.send({type: 'recent', seq: 2, paths: []}), undefined);
+  });
+});
+
+describe('a listing the page already had', () => {
+  test('is used instead of fetching one', async () => {
+    const w = await fromNames(CORPUS.slice());
+    const r = await type(w, 'logging.h');
+    assert.strictEqual(r.items[0].path, 'base/logging.h');
+  });
+
+  test('is sorted, whatever order it arrives in', async () => {
+    // The index binary searches its paths, so an unsorted build silently
+    // fails to find paths that are present.
+    const w = await fromNames(CORPUS.slice().reverse());
+    const r = await w.send({type: 'recent', seq: 1, paths: CORPUS.slice()});
+    assert.deepStrictEqual(r.items.map((i) => i.path), CORPUS);
+  });
+
+  test('is sorted by UTF-8 bytes, not by UTF-16 code units', async () => {
+    // The two orders disagree above the basic plane. Array#sort would put
+    // U+10000 first, because its leading surrogate is 0xD800; the UTF-8
+    // encodings run the other way, EF BF BD before F0 90 80 80. Sorting the
+    // wrong way makes the byte-wise binary search miss.
+    const names = ['dir/\u{10000}.txt', 'dir/\uFFFD.txt'];
+    const w = await fromNames(names.slice());
+    const r = await w.send({type: 'recent', seq: 1, paths: names.slice()});
+    assert.strictEqual(r.items.length, 2);
   });
 });
 

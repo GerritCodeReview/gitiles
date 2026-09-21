@@ -203,7 +203,7 @@ describe('the worker', () => {
     assert.doesNotThrow(() => env.globalKey('/'));
     assert.strictEqual(env.el.root.hidden, false);
     assert.strictEqual(env.doc.activeElement, env.el.input, 'the box must be typable');
-    assert.strictEqual(env.status(), 'File search is unavailable on this page');
+    assert.strictEqual(env.status(), 'Search is unavailable on this page');
     env.key('Escape');
     assert.strictEqual(env.el.root.hidden, true, 'and Escape must still work');
   });
@@ -225,7 +225,7 @@ describe('the worker', () => {
       },
     });
     env.globalKey('/');
-    assert.strictEqual(env.status(), 'File search is unavailable on this page');
+    assert.strictEqual(env.status(), 'Search is unavailable on this page');
     env.key('Escape');
     env.globalKey('/');
     assert.strictEqual(calls, 2, 'a one-off failure must not disable the finder for the page');
@@ -240,7 +240,7 @@ describe('the worker', () => {
     const env2 = opened();
     env2.type('x');
     env2.worker.reply({type: 'error', message: 'boom'});
-    assert.strictEqual(env2.status(), 'File search failed: boom');
+    assert.strictEqual(env2.status(), 'Search failed: boom');
   });
 
   test('results overtaken by later keystrokes are dropped', () => {
@@ -416,5 +416,78 @@ describe('dismissal', () => {
     const env = opened();
     for (const fn of env.sandbox.window.listeners['pagehide'] || []) fn({});
     assert.strictEqual(env.el.root.hidden, true);
+  });
+});
+
+describe('the host index', () => {
+  const REPOS = [
+    {name: 'platform/frameworks/base', href: '/platform/frameworks/base/', desc: 'The framework'},
+    {name: 'platform/build', href: '/platform/build/'},
+    // A repository may legitimately be called "constructor", so the name maps
+    // must have no prototype.
+    {name: 'constructor', href: '/constructor/', desc: 'Not a function'},
+  ];
+
+  function hostIndex(extra = {}) {
+    const env = load(Object.assign({kind: 'repositories', repos: REPOS}, extra));
+    env.globalKey('/');
+    env.worker.reply({type: 'ready', total: REPOS.length});
+    return env;
+  }
+
+  test('is read out of the page rather than fetched again', () => {
+    // The page already lists every repository, and that response carries no
+    // revision, so it is served no-store and would be re-fetched every load.
+    const env = hostIndex();
+    assert.deepStrictEqual(env.worker.sent[0], {
+      type: 'load',
+      names: REPOS.map((r) => r.name),
+    });
+    assert.strictEqual(env.fetches.length, 0);
+  });
+
+  test('links where the page links, and shows the description beside it', () => {
+    const env = hostIndex();
+    env.type('base');
+    respond(env, ['platform/frameworks/base']);
+    const a = env.el.list.children[0].children[0];
+    assert.strictEqual(a.href, '/platform/frameworks/base/');
+    const desc = a.children.find((c) => c.classList.contains('FileSearch-rowDesc'));
+    assert.strictEqual(desc.textContent, 'The framework');
+  });
+
+  test('handles a repository named after an Object property', () => {
+    const env = hostIndex();
+    env.type('cons');
+    respond(env, ['constructor']);
+    const a = env.el.list.children[0].children[0];
+    assert.strictEqual(a.href, '/constructor/');
+  });
+
+  test('never warms a repository page', () => {
+    // A repository index names no revision, so it is served no-store: a
+    // speculative fetch would be discarded and the request wasted.
+    const env = hostIndex();
+    env.type('base');
+    respond(env, ['platform/frameworks/base']);
+    env.clock.advance(1000);
+    assert.strictEqual(env.fetches.length, 0);
+  });
+
+  test('offers no palette at all when the index is empty', () => {
+    // An empty palette would be worse than none.
+    const env = load({kind: 'repositories', repos: []});
+    env.globalKey('/');
+    assert.strictEqual(env.el.root.hidden, true);
+    assert.strictEqual(env.workers.length, 0);
+  });
+
+  test('ignores a duplicate listing of the same repository', () => {
+    const env = load({
+      kind: 'repositories',
+      repos: [REPOS[1], REPOS[1], REPOS[0]],
+    });
+    env.globalKey('/');
+    assert.deepStrictEqual(lastSent(env).names, ['platform/build', 'platform/frameworks/base']);
   });
 });
