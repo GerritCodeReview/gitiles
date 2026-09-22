@@ -23,15 +23,26 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepository;
 import org.eclipse.jgit.lib.Config;
 
 /** Gitiles access for testing. */
 public class TestGitilesAccess implements GitilesAccess.Factory {
   private final DfsRepository repo;
+  private final Config overrides;
 
   public TestGitilesAccess(DfsRepository repo) {
+    this(repo, new Config());
+  }
+
+  /**
+   * @param overrides settings applied on top of the defaults, for tests that exercise
+   *     configuration-dependent behaviour.
+   */
+  public TestGitilesAccess(DfsRepository repo, Config overrides) {
     this.repo = checkNotNull(repo);
+    this.overrides = checkNotNull(overrides);
   }
 
   @Override
@@ -84,6 +95,15 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
         config.setBoolean("markdown", null, "smartquote", true);
         config.setStringList(
             "gitiles", null, "allowOriginRegex", ImmutableList.of("http://localhost"));
+        String extra = overrides.toText();
+        if (!extra.isEmpty()) {
+          // Config merges by re-parsing, and a later entry wins over an earlier one.
+          try {
+            config.fromText(config.toText() + extra);
+          } catch (ConfigInvalidException e) {
+            throw new IllegalStateException("invalid config override in test", e);
+          }
+        }
         return config;
       }
     };
