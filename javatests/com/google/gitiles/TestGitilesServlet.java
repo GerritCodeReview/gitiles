@@ -46,6 +46,18 @@ public class TestGitilesServlet {
   }
 
   /**
+   * Create a servlet whose {@link GitilesAccess} reports the given configuration.
+   *
+   * @param repo the test repo backing the servlet.
+   * @param config settings applied on top of the test defaults.
+   * @return a servlet.
+   */
+  public static GitilesServlet create(final TestRepository<DfsRepository> repo, Config config)
+      throws ServletException {
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirect(), config);
+  }
+
+  /**
    * Create a servlet backed by a single test repository.
    *
    * <p>The servlet uses the same filter lists as a real servlet, but only knows about a single
@@ -64,6 +76,15 @@ public class TestGitilesServlet {
       GitwebRedirectFilter gitwebRedirect,
       BranchRedirect branchRedirect)
       throws ServletException {
+    return create(repo, gitwebRedirect, branchRedirect, new Config());
+  }
+
+  private static GitilesServlet create(
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirect branchRedirect,
+      Config accessConfig)
+      throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
         new GitilesServlet(
@@ -71,7 +92,7 @@ public class TestGitilesServlet {
             new DefaultRenderer(
                 GitilesServlet.STATIC_PREFIX, ImmutableList.<URL>of(), repoName + " test site"),
             TestGitilesUrls.URLS,
-            new TestGitilesAccess(repo.getRepository()),
+            new TestGitilesAccess(repo.getRepository(), accessConfig),
             new RepositoryResolver<HttpServletRequest>() {
               @Override
               public Repository open(HttpServletRequest req, String name)
