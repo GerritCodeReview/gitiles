@@ -347,12 +347,13 @@ class FakeStorage {
  * children, plus the trigger. The real template carries a backdrop and
  * labelling this does not need.
  */
-function buildPalette(doc, {workerUrl, treeUrl}) {
+function buildPalette(doc, {workerUrl, treeUrl, kind}) {
   const root = doc.createElement('div');
   root.id = 'file-search';
   root.hidden = true;
   root.setAttribute('data-worker-url', workerUrl);
-  root.setAttribute('data-tree-url', treeUrl);
+  if (treeUrl) root.setAttribute('data-tree-url', treeUrl);
+  if (kind) root.setAttribute('data-kind', kind);
 
   const backdrop = doc.createElement('div');
   backdrop.className = 'FileSearch-backdrop';
@@ -380,10 +381,36 @@ function buildPalette(doc, {workerUrl, treeUrl}) {
   return {root, backdrop, input, status, list, trigger};
 }
 
+/** Builds the RepoList markup the host index renders. */
+function buildRepoList(doc, repos) {
+  const wrap = doc.createElement('div');
+  wrap.className = 'RepoList';
+  for (const r of repos) {
+    const item = doc.createElement('a');
+    item.className = 'RepoList-item';
+    item.setAttribute('href', r.href);
+    const name = doc.createElement('span');
+    name.className = 'RepoList-itemName';
+    name.textContent = r.name;
+    item.appendChild(name);
+    if (r.desc) {
+      const d = doc.createElement('span');
+      d.className = 'RepoList-itemDescription';
+      d.textContent = r.desc;
+      item.appendChild(d);
+    }
+    wrap.appendChild(item);
+  }
+  doc.body.appendChild(wrap);
+  return wrap;
+}
+
 /**
  * Loads file-search.js against a fresh fake document.
  *
  * Options:
+ *   kind          'files' (default) or 'repositories'
+ *   repos         [{name, href, desc}] for the host index
  *   workerFactory (url) => fake worker, or a function that throws to model a
  *                 constructor refused by policy
  *   noWorker      omit the Worker global entirely
@@ -393,10 +420,13 @@ function buildPalette(doc, {workerUrl, treeUrl}) {
 function load(options = {}) {
   const doc = new Document();
   const clock = new Clock();
+  const repoMode = options.kind === 'repositories';
   const el = buildPalette(doc, {
     workerUrl: '/+static/file-search-worker.js',
-    treeUrl: '/repo/+/HEAD/?format=JSON&paths_only=1',
+    treeUrl: repoMode ? null : '/repo/+/HEAD/?format=JSON&paths_only=1',
+    kind: repoMode ? 'repositories' : null,
   });
+  if (repoMode) buildRepoList(doc, options.repos || []);
 
   const workers = [];
   const navigations = [];

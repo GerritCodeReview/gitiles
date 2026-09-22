@@ -278,6 +278,8 @@ public abstract class Renderer {
       String searchTreeUrl = fileSearchTreeUrl(req.get());
       if (searchTreeUrl != null) {
         ij.put("SEARCH_TREE_URL", searchTreeUrl);
+      } else if (isHostIndex(req.get())) {
+        ij.put("SEARCH_REPOSITORIES", true);
       }
     }
     return getSauce().renderTemplate(templateName).setIj(ij.buildOrThrow());
@@ -301,6 +303,20 @@ public abstract class Renderer {
       return true;
     }
     return access.get().getConfig().getBoolean("gitiles", null, "fileSearch", true);
+  }
+
+  /**
+   * Whether this request renders a host index, the page that lists a host's repositories.
+   *
+   * <p>Such a page addresses no tree, so there are no file paths to find, but it is a listing all
+   * the same and the same keystroke should search it. No URL accompanies this signal because none
+   * is needed: the page already contains every repository it lists, so the finder reads them from
+   * the document rather than asking for them a second time. That also makes the finder's answers
+   * agree with the page by construction.
+   */
+  private static boolean isHostIndex(HttpServletRequest req) {
+    GitilesView view = ViewFilter.getView(req);
+    return view != null && view.getType() == GitilesView.Type.HOST_INDEX;
   }
 
   /**
