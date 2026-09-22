@@ -18,6 +18,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -45,8 +46,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 import java.util.zip.GZIPOutputStream;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevObject;
+import org.eclipse.jgit.revwalk.RevWalk;
 
 /**
  * Renderer for Soy templates used by Gitiles.
@@ -100,6 +108,8 @@ public abstract class Renderer {
           .put("gitiles.FAVICON_32_URL", "favicon-32x32.png")
           .put("gitiles.FAVICON_16_URL", "favicon-16x16.png")
           .put("gitiles.APPLE_TOUCH_ICON_URL", "apple-touch-icon.png")
+          .put("gitiles.FILE_SEARCH_JS_URL", "file-search.js")
+          .put("gitiles.FILE_SEARCH_WORKER_JS_URL", "file-search-worker.js")
           .buildOrThrow();
 
   protected static Function<String, URL> fileUrlMapper() {
@@ -242,11 +252,12 @@ public abstract class Renderer {
     };
   }
 
-  SoySauce.Renderer newRenderer(String templateName) {
+  SoySauce.Renderer newRenderer(String templateName) throws IOException {
     return newRenderer(templateName, Optional.empty());
   }
 
-  SoySauce.Renderer newRenderer(String templateName, Optional<HttpServletRequest> req) {
+  SoySauce.Renderer newRenderer(String templateName, Optional<HttpServletRequest> req)
+      throws IOException {
     ImmutableMap.Builder<String, Object> staticUrls = ImmutableMap.builder();
     for (String key : STATIC_URL_GLOBALS.keySet()) {
       staticUrls.put(
@@ -263,7 +274,106 @@ public abstract class Renderer {
     if (nonce.isPresent()) {
       ij.put("csp_nonce", nonce.get());
     }
+    if (req.isPresent() && fileSearchEnabled(req.get())) {
+      String searchTreeUrl = fileSearchTreeUrl(req.get());
+      if (searchTreeUrl != null) {
+        ij.put("SEARCH_TREE_URL", searchTreeUrl);
+      }
+    }
     return getSauce().renderTemplate(templateName).setIj(ij.buildOrThrow());
+  }
+
+  /**
+   * Whether this deployment serves the file finder, from {@code gitiles.fileSearch}.
+   *
+   * <p>Defaults to true. The finder costs a deployment nothing until a reader presses "/", but the
+   * index it then builds is linear in the number of paths in the revision and has deliberately no
+   * cap, so an administrator whose repositories are far larger than anything upstream has measured
+   * needs a way to decline it without patching.
+   *
+   * <p>Access is read rather than required: {@link BaseServlet} initializes it before rendering any
+   * HTML, so it is present on every page that could carry the finder, and a request that somehow
+   * arrives without one is left with the default rather than silently losing the feature.
+   */
+  private static boolean fileSearchEnabled(HttpServletRequest req) throws IOException {
+    Optional<GitilesAccess> access = GitilesAccess.getAccess(req);
+    if (!access.isPresent()) {
+      return true;
+    }
+    return access.get().getConfig().getBoolean("gitiles", null, "fileSearch", true);
+  }
+
+  /**
+   * URL of the complete blob path listing the file finder should index, or null if this request
+   * addresses no tree at all.
+   *
+   * <p>The URL is pinned to the resolved commit SHA rather than to whatever name the user typed.
+   * {@link BaseServlet#setCacheHeaders} only marks a response cacheable when the revision is named
+   * by object ID; a branch-named URL is served {@code no-store} and would therefore be re-fetched
+   * on every use. Content addressing additionally means a new commit produces a new URL, so a
+   * client's copy is invalidated without a revalidation roundtrip.
+   *
+   * <p>Note the empty path part: a {@code PATH} view renders as {@code /+/<rev>/}, and the trailing
+   * slash is what distinguishes the root tree from the revision itself.
+   */
+  @Nullable
+  private static String fileSearchTreeUrl(HttpServletRequest req) throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    if (view == null || view.getRepositoryName() == null) {
+      return null;
+    }
+    ObjectId commit = fileSearchCommit(req, view);
+    if (commit == null) {
+      return null;
+    }
+    return GitilesView.path()
+        .setHostName(view.getHostName())
+        .setServletPath(view.getServletPath())
+        .setRepositoryName(view.getRepositoryName())
+        .setRevision(commit.name())
+        .setPathPart("")
+        .putParam("format", "JSON")
+        .putParam("recursive", "1")
+        .putParam("paths_only", "1")
+        .toUrl();
+  }
+
+  /**
+   * The commit whose paths the finder should offer, or null if there is no sensible one.
+   *
+   * <p>Pages that address a revision use it, so the finder always searches what the reader is
+   * looking at. The repository index and the ref list address a repository but no revision, and
+   * skipping them would be the worst outcome for a keyboard shortcut: the repository index is where
+   * readers arrive, so {@code /} has to work there or it never becomes muscle memory. Those pages
+   * fall back to {@code HEAD}, which for the repository index is exactly the tree already on
+   * screen.
+   *
+   * <p>A revision that peels to something other than a commit deliberately does <em>not</em> fall
+   * back. Searching {@code HEAD} while the reader is looking at a tagged tree would silently answer
+   * about different content, and scoping the finder to what is displayed is a property worth more
+   * than one extra page's coverage.
+   */
+  @Nullable
+  private static ObjectId fileSearchCommit(HttpServletRequest req, GitilesView view)
+      throws IOException {
+    Revision rev = view.getRevision();
+    if (rev != null && !Revision.isNull(rev) && rev.getId() != null) {
+      return rev.getPeeledType() == OBJ_COMMIT ? rev.getId() : null;
+    }
+    Object attr = req.getAttribute(ServletUtils.ATTRIBUTE_REPOSITORY);
+    if (!(attr instanceof Repository)) {
+      return null;
+    }
+    Repository repo = (Repository) attr;
+    ObjectId headId = repo.resolve(Constants.HEAD);
+    if (headId == null) {
+      // Unborn HEAD: an empty repository has nothing to find.
+      return null;
+    }
+    try (RevWalk walk = new RevWalk(repo)) {
+      RevObject head = walk.peel(walk.parseAny(headId));
+      return head.getType() == OBJ_COMMIT ? head.copy() : null;
+    }
   }
 
   protected abstract SoySauce getSauce();
