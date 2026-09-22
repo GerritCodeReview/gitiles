@@ -124,6 +124,24 @@
       "parentUuid": "9dfe125b_29e10285",
       "revId": "484c1d2659df35980c97289b8df3d561899f9739",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988967a7_41b29c41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-09-22T18:07:13Z",
+      "side": 1,
+      "message": "Ah, sorry for not updating. We should abandon this change as Sam added server-side support for rendering Mermaid diagrams in 622281: Add server-side Mermaid flowchart diagram rendering to Markdown | https://gerrit-review.googlesource.com/c/gitiles/+/622281\n\nIt sounds like the dependency issue at Google isn\u0027t likely to be resolved anytime soon, so that was the best solution they had.",
+      "parentUuid": "d2e402eb_16d1c370",
+      "revId": "484c1d2659df35980c97289b8df3d561899f9739",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
