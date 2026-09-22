@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96ef0ade_578d935b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-09-22T19:16:13Z",
+      "side": 1,
+      "message": "Added \u003e Bug: 564987520",
+      "revId": "32df7c45b75ce3e1642407795f29e696640e8046",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
