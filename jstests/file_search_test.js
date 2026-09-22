@@ -522,3 +522,106 @@ describe('dismissal', () => {
     assert.strictEqual(env.el.root.hidden, true);
   });
 });
+
+describe('the host index', () => {
+  const REPOS = [
+    {
+      name: 'platform/frameworks/base',
+      href: '/b/platform/frameworks/base/',
+      desc: 'The framework',
+    },
+    {name: 'platform/build', href: '/b/platform/build/'},
+    // Repositories may legitimately be named after Object.prototype properties,
+    // both with and without descriptions, so both maps must have no prototype.
+    {name: 'constructor', href: '/b/constructor/', desc: 'Not a function'},
+    {name: 'toString', href: '/b/toString/'},
+  ];
+
+  function hostIndex(extra = {}) {
+    const env = load(Object.assign({kind: 'repositories', repos: REPOS}, extra));
+    env.globalKey('/');
+    env.worker.reply({type: 'ready', total: REPOS.length});
+    return env;
+  }
+
+  test('is read out of the page rather than fetched again', () => {
+    // The page already lists every repository, and that response carries no
+    // revision, so it is served no-store and would be re-fetched every load.
+    const env = hostIndex();
+    assert.deepStrictEqual(env.worker.sent[0], {
+      type: 'load',
+      names: REPOS.map((r) => r.name),
+    });
+    assert.strictEqual(env.fetches.length, 0);
+  });
+
+  test('links where the page links, and shows the description beside it', () => {
+    const env = hostIndex();
+    env.type('base');
+    respond(env, ['platform/frameworks/base']);
+    const a = env.el.list.children[0].children[0];
+    assert.strictEqual(a.href, '/b/platform/frameworks/base/');
+    const desc = a.children.find((c) => c.classList.contains('FileSearch-rowDesc'));
+    assert.strictEqual(desc.textContent, 'The framework');
+    assert.strictEqual(a.textContent, 'platform/frameworks/base The framework');
+  });
+
+  test('handles a repository named after an Object property', () => {
+    const env = hostIndex();
+    env.type('cons');
+    respond(env, ['constructor', 'toString']);
+    const a0 = env.el.list.children[0].children[0];
+    assert.strictEqual(a0.href, '/b/constructor/');
+    const a1 = env.el.list.children[1].children[0];
+    assert.strictEqual(a1.href, '/b/toString/');
+    assert.strictEqual(
+      a1.children.find((c) => c.classList.contains('FileSearch-rowDesc')),
+      undefined,
+      'an unpopulated description must not resolve Object.prototype.toString',
+    );
+  });
+
+  test('navigates on Enter and remembers the repository under the host index key', () => {
+    const env = hostIndex();
+    env.type('base');
+    respond(env, ['platform/frameworks/base']);
+    env.key('Enter');
+    assert.deepStrictEqual(env.navigations, ['/b/platform/frameworks/base/']);
+
+    const again = hostIndex({storageMap: env.storage.map});
+    assert.deepStrictEqual(lastSent(again), {
+      type: 'recent',
+      seq: 1,
+      paths: ['platform/frameworks/base'],
+    });
+  });
+
+  test('never warms a repository page', () => {
+    // A repository index names no revision, so it is served no-store: a
+    // speculative fetch would be discarded and the request wasted.
+    const env = hostIndex();
+    env.type('base');
+    respond(env, ['platform/frameworks/base']);
+    env.clock.advance(1000);
+    assert.strictEqual(env.fetches.length, 0);
+  });
+
+  test('offers no palette at all when the index is empty', () => {
+    // An empty palette would be worse than none, and the trigger button must
+    // be hidden so the header does not offer a dead control.
+    const env = load({kind: 'repositories', repos: []});
+    assert.strictEqual(env.el.trigger.hidden, true);
+    env.globalKey('/');
+    assert.strictEqual(env.el.root.hidden, true);
+    assert.strictEqual(env.workers.length, 0);
+  });
+
+  test('ignores a duplicate listing of the same repository', () => {
+    const env = load({
+      kind: 'repositories',
+      repos: [REPOS[1], REPOS[1], REPOS[0]],
+    });
+    env.globalKey('/');
+    assert.deepStrictEqual(lastSent(env).names, ['platform/build', 'platform/frameworks/base']);
+  });
+});
