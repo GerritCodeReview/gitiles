@@ -520,7 +520,11 @@ a {
   word-wrap: break-word;
 }
 .RefList-item {
-  padding: 2px 0;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+.RefList-item:hover {
+  background: var(--hover-bg);
 }
 @media (max-width: 550px) {
   .RefList--responsive .RefList-item {
@@ -531,8 +535,46 @@ a {
 
 /* GrepDetail.soy */
 
+.GrepSearch {
+  margin: 10px 0 16px;
+}
+.GrepSearch-input {
+  background: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-color);
+  padding: 6px 10px;
+  width: 320px;
+  max-width: 100%;
+}
+.GrepSearch-button {
+  background: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-color);
+  cursor: pointer;
+  margin-left: 6px;
+  padding: 6px 12px;
+}
+.GrepSearch-button:hover {
+  background: var(--hover-bg);
+}
+.GrepSearch-path {
+  color: var(--muted-text-color);
+}
 .GrepResults-item {
-  margin-bottom: 15px;
+  background: var(--clone-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  padding: 10px 14px;
+}
+.GrepResults-line {
+  margin: 6px 0 0;
+}
+.GrepResults-empty {
+  color: var(--muted-text-color);
 }
 
 /* LogDetail.soy */
@@ -608,7 +650,11 @@ a {
 /* ObjectDetail.soy */
 
 .Metadata {
+  background: var(--clone-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   margin-bottom: 15px;
+  padding: 14px 16px;
 }
 .Metadata-descriptionList {
   display: grid;
@@ -637,13 +683,17 @@ a {
 .MetadataMessage {
   background-color: var(--metadata-msg-bg);
   border: 1px solid var(--metadata-msg-border);
+  border-radius: 8px;
   color: var(--text-color);
   margin: 0;
-  padding: 12px;
+  padding: 12px 14px;
   white-space: pre-wrap;
 }
 .DiffTree {
   margin: 10px 0 5px;
+}
+.DiffTree > li {
+  padding: 2px 0;
 }
 .DiffTree-action {
   margin-left: .5em;
@@ -764,6 +814,12 @@ a {
 
 /* BlameDetail.soy */
 
+.BlameTable {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin: 10px auto;
+  overflow: hidden;
+}
 .Blame {
   border-collapse: collapse;
   font-size: 8pt;

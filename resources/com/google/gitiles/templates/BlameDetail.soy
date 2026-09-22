@@ -46,33 +46,35 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
 
   {call objDetail.blobHeader data="$data" /}
 
-  <table class="Blame">
-    {for $line, $i in $data.lines}
-      {let $region: $regions[$i] /}
-      <tr class="Blame-region {$region.class}">
-        {if $region.abbrevSha != null}
-          <td class="Blame-author">{$region.author.name}</td>
-          <td class="Blame-sha1"><a class="u-sha1 u-monospace Blame-sha1" href="{$region.commitUrl}">{$region.abbrevSha}</a></td>
-          <td class="Blame-time">{$region.author.time}</td>
-          <td class="Blame-regionLink">
-            [<a href="{$region.diffUrl}">{msg desc="text for diff URL"}diff{/msg}</a>]
-            [<a href="{$region.blameUrl}">{msg desc="text for blame URL"}{$region.blameText}{/msg}</a>]
+  <div class="BlameTable">
+    <table class="Blame">
+      {for $line, $i in $data.lines}
+        {let $region: $regions[$i] /}
+        <tr class="Blame-region {$region.class}">
+          {if $region.abbrevSha != null}
+            <td class="Blame-author">{$region.author.name}</td>
+            <td class="Blame-sha1"><a class="u-sha1 u-monospace Blame-sha1" href="{$region.commitUrl}">{$region.abbrevSha}</a></td>
+            <td class="Blame-time">{$region.author.time}</td>
+            <td class="Blame-regionLink">
+              [<a href="{$region.diffUrl}">{msg desc="text for diff URL"}diff{/msg}</a>]
+              [<a href="{$region.blameUrl}">{msg desc="text for blame URL"}{$region.blameText}{/msg}</a>]
+            </td>
+          {else}
+            <td colspan="4"></td>
+          {/if}
+          {let $n: $i + 1 /}
+          <td class="Blame-lineNum">
+            <a class="u-monospace u-lineNum" href="#{$n}" name="{$n}">{$n}</a>
           </td>
-        {else}
-          <td colspan="4"></td>
-        {/if}
-        {let $n: $i + 1 /}
-        <td class="Blame-lineNum">
-          <a class="u-monospace u-lineNum" href="#{$n}" name="{$n}">{$n}</a>
-        </td>
-        <td class="u-pre u-monospace Blame-lineContent">
-          {for $span in $line}
-            <span class="{$span.classes}">{$span.text}</span>
-          {/for}
-        </td>
-      </tr>
-    {/for}
-  </table>
+          <td class="u-pre u-monospace Blame-lineContent">
+            {for $span in $line}
+              <span class="{$span.classes}">{$span.text}</span>
+            {/for}
+          </td>
+        </tr>
+      {/for}
+    </table>
+  </div>
 {else}
   {call common.header data="all" /}
   {call objDetail.blobDetail data="$data" /}
