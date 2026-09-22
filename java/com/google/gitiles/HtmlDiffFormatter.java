@@ -41,7 +41,7 @@ final class HtmlDiffFormatter extends DiffFormatter {
   private static final byte[] DIFF_END = "</pre>".getBytes(UTF_8);
 
   private static final byte[] HUNK_BEGIN = "<span class=\"Diff-hunk\">".getBytes(UTF_8);
-  private static final byte[] HUNK_END = "</span>".getBytes(UTF_8);
+  private static final byte[] HUNK_END = "</span>\n".getBytes(UTF_8);
 
   private static final byte[] LINE_INSERT_BEGIN = "<span class=\"Diff-insert\">".getBytes(UTF_8);
   private static final byte[] LINE_DELETE_BEGIN = "<span class=\"Diff-delete\">".getBytes(UTF_8);

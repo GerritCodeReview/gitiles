@@ -49,6 +49,8 @@ html[data-theme="light"] {
   --diff-delete: #c00;
   --diff-insert: #080;
   --diff-change: #960;
+  --diff-delete-bg: #fce8e6;
+  --diff-insert-bg: #e6f4ea;
   --diff-action-add: #060;
   --diff-action-delete: #600;
   --diff-action-rename: #006;
@@ -100,6 +102,8 @@ html[data-theme="light"] {
     --diff-delete: #f28b82;
     --diff-insert: #81c995;
     --diff-change: #fdd663;
+    --diff-delete-bg: #3c2426;
+    --diff-insert-bg: #1e3b2d;
     --diff-action-add: #81c995;
     --diff-action-delete: #f28b82;
     --diff-action-rename: #8ab4f8;
@@ -143,6 +147,8 @@ html[data-theme="dark"] {
   --diff-delete: #f28b82;
   --diff-insert: #81c995;
   --diff-change: #fdd663;
+  --diff-delete-bg: #3c2426;
+  --diff-insert-bg: #1e3b2d;
   --diff-action-add: #81c995;
   --diff-action-delete: #f28b82;
   --diff-action-rename: #8ab4f8;
@@ -797,27 +803,50 @@ a {
 /* DiffDetail.soy */
 
 .Diff {
-  margin: 10px 0;
+  margin: 16px 0 0;
+  padding: 8px 14px;
+  background-color: var(--code-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px 8px 0 0;
 }
 .Diff-fileIndex {
   color: var(--diff-file-index);
   font-weight: bold;
 }
 .Diff-unified {
-  border-bottom: 1px solid var(--border-color);
-  border-top: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
   padding: 10px 0;
+  margin: 0 0 16px;
   color: var(--text-color);
+  overflow-x: auto;
 }
 .Diff-hunk {
   color: var(--diff-hunk);
+  font-weight: 600;
+  display: inline-block;
+  width: 100%;
+  padding: 2px 10px;
 }
 .Diff-delete {
   color: var(--diff-delete);
+  background: var(--diff-delete-bg);
+  display: inline-block;
+  width: 100%;
+  padding: 0 10px;
 }
 .Diff-insert {
   color: var(--diff-insert);
+  background: var(--diff-insert-bg);
+  display: inline-block;
+  width: 100%;
+  padding: 0 10px;
 }
 .Diff-change {
   color: var(--diff-change);
+  display: inline-block;
+  width: 100%;
+  padding: 0 10px;
 }
