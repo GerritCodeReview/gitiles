@@ -140,6 +140,28 @@ Default: `true`.
 redirectGitweb = false
 ```
 
+## Blame
+
+### Ignoring revisions
+
+Blame can skip revisions that only reformat code, such as bulk formatting
+changes, and attribute each line to the last commit that changed it in a
+meaningful way. Set `ignoreRevsFile` to the path of a file in the repository
+that lists the revisions to skip:
+
+```
+[blame]
+  ignoreRevsFile = .git-blame-ignore-revs
+```
+
+The file is read from the tree of the revision being blamed, so each repository
+maintains its own list. It uses the same format as git's `blame.ignoreRevsFile`
+option: one full commit SHA-1 per line, `#` starts a comment, and blank lines
+are ignored. Lines that do not start with a full SHA-1 are skipped. Files larger
+than 1 MiB are ignored, and at most 20,000 revisions are used.
+
+By default `ignoreRevsFile` is unset, and blame does not skip any revisions.
+
 ## Markdown
 
 ### Disabling markdown

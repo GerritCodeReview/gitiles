@@ -46,6 +46,29 @@ public class TestGitilesServlet {
   }
 
   /**
+   * Create GitilesServlet with custom access, @see #create(TestRepository, GitwebRedirectFilter,
+   * BranchRedirect, GitilesAccess.Factory)
+   */
+  public static GitilesServlet create(
+      final TestRepository<DfsRepository> repo, GitilesAccess.Factory accessFactory)
+      throws ServletException {
+    return create(repo, new GitwebRedirectFilter(), new BranchRedirect(), accessFactory);
+  }
+
+  /**
+   * Create GitilesServlet, @see #create(TestRepository, GitwebRedirectFilter, BranchRedirect,
+   * GitilesAccess.Factory)
+   */
+  public static GitilesServlet create(
+      final TestRepository<DfsRepository> repo,
+      GitwebRedirectFilter gitwebRedirect,
+      BranchRedirect branchRedirect)
+      throws ServletException {
+    return create(
+        repo, gitwebRedirect, branchRedirect, new TestGitilesAccess(repo.getRepository()));
+  }
+
+  /**
    * Create a servlet backed by a single test repository.
    *
    * <p>The servlet uses the same filter lists as a real servlet, but only knows about a single
@@ -57,12 +80,14 @@ public class TestGitilesServlet {
    * @param repo the test repo backing the servlet.
    * @param gitwebRedirect optional redirect filter for gitweb URLs.
    * @param branchRedirect branch redirect filter
+   * @param accessFactory access for requests to the servlet.
    * @return a servlet.
    */
   public static GitilesServlet create(
       final TestRepository<DfsRepository> repo,
       GitwebRedirectFilter gitwebRedirect,
-      BranchRedirect branchRedirect)
+      BranchRedirect branchRedirect,
+      GitilesAccess.Factory accessFactory)
       throws ServletException {
     final String repoName = repo.getRepository().getDescription().getRepositoryName();
     GitilesServlet servlet =
@@ -71,7 +96,7 @@ public class TestGitilesServlet {
             new DefaultRenderer(
                 GitilesServlet.STATIC_PREFIX, ImmutableList.<URL>of(), repoName + " test site"),
             TestGitilesUrls.URLS,
-            new TestGitilesAccess(repo.getRepository()),
+            accessFactory,
             new RepositoryResolver<HttpServletRequest>() {
               @Override
               public Repository open(HttpServletRequest req, String name)

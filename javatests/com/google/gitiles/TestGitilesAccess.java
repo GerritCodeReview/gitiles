@@ -29,9 +29,22 @@ import org.eclipse.jgit.lib.Config;
 /** Gitiles access for testing. */
 public class TestGitilesAccess implements GitilesAccess.Factory {
   private final DfsRepository repo;
+  private final Config baseConfig;
 
   public TestGitilesAccess(DfsRepository repo) {
+    this(repo, new Config());
+  }
+
+  /**
+   * Creates access to a test repository with additional configuration.
+   *
+   * @param repo the test repo.
+   * @param baseConfig configuration returned by {@link GitilesAccess#getConfig()} in addition to
+   *     the defaults for tests.
+   */
+  public TestGitilesAccess(DfsRepository repo, Config baseConfig) {
     this.repo = checkNotNull(repo);
+    this.baseConfig = checkNotNull(baseConfig);
   }
 
   @Override
@@ -77,7 +90,7 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
 
       @Override
       public Config getConfig() {
-        Config config = new Config();
+        Config config = new Config(baseConfig);
         config.setBoolean("markdown", null, "blocknote", true);
         config.setBoolean("markdown", null, "multicolumn", true);
         config.setBoolean("markdown", null, "namedanchor", true);
