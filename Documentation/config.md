@@ -140,6 +140,32 @@ Default: `true`.
 redirectGitweb = false
 ```
 
+## Blame
+
+### Ignoring revisions
+
+Blame can skip revisions that only reformat code, such as bulk formatting
+changes, and attribute each line to the last commit that changed it in a
+meaningful way.
+
+By default, Gitiles looks for `.git-blame-ignore-revs` at the root of the
+repository in the tree of the revision being blamed. The format matches the git
+`blame.ignoreRevsFile` option: one full commit SHA-1 per line, `#` starts a
+comment, and blank lines are ignored. Lines that do not start with a full SHA-1
+are skipped. Files larger than 1 MiB are ignored, and at most 20,000 revisions
+are used.
+
+To customize the file path or disable this behavior, set `ignoreRevsFile`:
+
+```
+[blame]
+  # Custom path:
+  ignoreRevsFile = build/ignore-revs
+
+  # Or disable revision skipping:
+  ignoreRevsFile = none
+```
+
 ## Markdown
 
 ### Disabling markdown

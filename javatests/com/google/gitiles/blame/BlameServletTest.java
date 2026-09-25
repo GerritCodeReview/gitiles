@@ -31,6 +31,7 @@ import org.junit.runners.JUnit4;
 public class BlameServletTest extends ServletTest {
   private static final String NAME = "J. Author";
   private static final String EMAIL = "jauthor@example.com";
+  private static final String IGNORE_REVS_FILE = ".git-blame-ignore-revs";
 
   private static class RegionJsonData {
     int start;
@@ -71,6 +72,160 @@ public class BlameServletTest extends ServletTest {
     assertThat(r2.author.name).isEqualTo(NAME);
     assertThat(r2.author.email).isEqualTo(EMAIL);
     assertThat(r2.author.time).isEqualTo(c2Time);
+  }
+
+  @Test
+  public void blameJsonHonorsIgnoreRevsFileByDefault() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    RevCommit c3 =
+        repo.update(
+            "master",
+            repo.commit()
+                .tick(10)
+                .parent(c2)
+                .add(IGNORE_REVS_FILE, "# Reformat foo\n" + c2.name() + "\n"));
+
+    // No config set; .git-blame-ignore-revs is honored by default.
+    List<RegionJsonData> regions =
+        getBlameJson("/repo/+blame/" + c3.name() + "/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).start).isEqualTo(1);
+    assertThat(regions.get(0).count).isEqualTo(2);
+    assertThat(regions.get(0).commit).isEqualTo(c1.name());
+  }
+
+  @Test
+  public void blameJsonWithDisabledIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    RevCommit c3 =
+        repo.update(
+            "master",
+            repo.commit()
+                .tick(10)
+                .parent(c2)
+                .add(IGNORE_REVS_FILE, "# Reformat foo\n" + c2.name() + "\n"));
+    setIgnoreRevsFile("none");
+
+    List<RegionJsonData> regions =
+        getBlameJson("/repo/+blame/" + c3.name() + "/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).commit).isEqualTo(c2.name());
+  }
+
+  @Test
+  public void blameJsonWithCustomIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    RevCommit c3 =
+        repo.update(
+            "master",
+            repo.commit()
+                .tick(10)
+                .parent(c2)
+                .add("build/custom-ignore-revs", "# Reformat foo\n" + c2.name() + "\n"));
+    setIgnoreRevsFile("build/custom-ignore-revs");
+
+    List<RegionJsonData> regions =
+        getBlameJson("/repo/+blame/" + c3.name() + "/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).start).isEqualTo(1);
+    assertThat(regions.get(0).count).isEqualTo(2);
+    assertThat(regions.get(0).commit).isEqualTo(c1.name());
+  }
+
+  @Test
+  public void blameJsonWithMissingIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+
+    List<RegionJsonData> regions =
+        getBlameJson("/repo/+blame/" + c2.name() + "/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).commit).isEqualTo(c2.name());
+  }
+
+  @Test
+  public void blameJsonWhenCommitPredatesIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    repo.update(
+        "master",
+        repo.commit()
+            .tick(10)
+            .parent(c2)
+            .add(IGNORE_REVS_FILE, "# Reformat foo\n" + c2.name() + "\n"));
+
+    // Blame at c2, which predates the commit that added IGNORE_REVS_FILE to master.
+    // The file is read from c2, so c2 is not ignored.
+    List<RegionJsonData> regions =
+        getBlameJson("/repo/+blame/" + c2.name() + "/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).commit).isEqualTo(c2.name());
+  }
+
+  @Test
+  public void blameJsonByBranchNameWithIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    repo.update(
+        "master",
+        repo.commit()
+            .tick(10)
+            .parent(c2)
+            .add(IGNORE_REVS_FILE, "# Reformat foo\n" + c2.name() + "\n"));
+
+    // Blame by branch name, which reads the file from the branch tip commit.
+    List<RegionJsonData> regions = getBlameJson("/repo/+blame/master/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).start).isEqualTo(1);
+    assertThat(regions.get(0).count).isEqualTo(2);
+    assertThat(regions.get(0).commit).isEqualTo(c1.name());
+  }
+
+  @Test
+  public void blameJsonWithOversizedIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    String oversized = (c2.name() + "\n").repeat(30_000);
+    repo.update(
+        "master",
+        repo.commit()
+            .tick(10)
+            .parent(c2)
+            .add(IGNORE_REVS_FILE, oversized));
+
+    // Oversized ignore file is skipped, so c2 is not ignored.
+    List<RegionJsonData> regions =
+        getBlameJson("/repo/+blame/master/foo").get("regions");
+    assertThat(regions).hasSize(1);
+    assertThat(regions.get(0).commit).isEqualTo(c2.name());
+  }
+
+  @Test
+  public void blameHtmlWithIgnoreRevsFile() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\nbar\n"));
+    RevCommit c2 =
+        repo.update("master", repo.commit().tick(10).parent(c1).add("foo", "Foo\nBar\n"));
+    RevCommit c3 =
+        repo.update(
+            "master", repo.commit().tick(10).parent(c2).add(IGNORE_REVS_FILE, c2.name() + "\n"));
+
+    String html = buildHtml("/repo/+blame/" + c3.name() + "/foo", false);
+    assertThat(html).contains(c1.name());
+    assertThat(html).doesNotContain(c2.name());
+  }
+
+  private void setIgnoreRevsFile(String path) {
+    repo.getRepository().getConfig().setString("blame", null, "ignoreRevsFile", path);
   }
 
   private Map<String, List<RegionJsonData>> getBlameJson(String path) throws Exception {
