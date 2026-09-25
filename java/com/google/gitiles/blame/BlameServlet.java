@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.gitiles.BaseServlet;
 import com.google.gitiles.BlobSoyData;
@@ -32,6 +33,7 @@ import com.google.gitiles.GitilesView;
 import com.google.gitiles.Renderer;
 import com.google.gitiles.ViewFilter;
 import com.google.gitiles.blame.cache.BlameCache;
+import com.google.gitiles.blame.cache.IgnoreRevsFile;
 import com.google.gitiles.blame.cache.Region;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -44,9 +46,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -177,11 +181,74 @@ public class BlameServlet extends BaseServlet {
       lastCommit = currCommit;
     }
 
-    List<Region> regions = cache.get(repo, lastCommit, view.getPathPart());
+    List<Region> regions =
+        cache.get(
+            repo,
+            lastCommit,
+            view.getPathPart(),
+            getIgnoreIds(access, repo, rw, view, currCommit));
     if (regions.isEmpty()) {
       throw new GitilesRequestFailureException(FailureReason.BLAME_REGION_NOT_FOUND);
     }
     return new RegionResult(regions, lastCommitBlobId);
+  }
+
+  /**
+   * Returns the revisions listed in the file named by {@code blame.ignoreRevsFile}.
+   *
+   * <p>When blaming a commit SHA directly, the file is resolved from {@code HEAD}, falling back to
+   * the blamed commit if not present at {@code HEAD}.
+   */
+  private static ImmutableSet<ObjectId> getIgnoreIds(
+      GitilesAccess access, Repository repo, RevWalk rw, GitilesView view, RevCommit commit)
+      throws IOException {
+    String path = access.getConfig().getString("blame", null, "ignoreRevsFile");
+    if (Strings.isNullOrEmpty(path)) {
+      return ImmutableSet.of();
+    }
+    IgnoreRevsFile file = null;
+    if (ObjectId.isId(view.getRevision().getName())) {
+      Ref headRef = repo.exactRef(Constants.HEAD);
+      if (headRef != null && headRef.getObjectId() != null) {
+        try {
+          file = IgnoreRevsFile.read(rw, headRef.getObjectId(), path);
+        } catch (IOException e) {
+          log.warn(
+              "Cannot read {} at HEAD in repo {}, falling back to blamed commit",
+              path,
+              access.getRepositoryName(),
+              e);
+        }
+      }
+    }
+    if (file == null || !file.exists()) {
+      try {
+        file = IgnoreRevsFile.read(rw, commit, path);
+      } catch (IOException e) {
+        log.warn(
+            "Cannot read {} at {} in repo {}, not ignoring any revisions",
+            path,
+            commit.name(),
+            access.getRepositoryName(),
+            e);
+        return ImmutableSet.of();
+      }
+    }
+    if (file.isTooLarge()) {
+      log.warn(
+          "{} in repo {} is larger than {} bytes, not ignoring any revisions",
+          path,
+          access.getRepositoryName(),
+          IgnoreRevsFile.MAX_SIZE);
+      return ImmutableSet.of();
+    } else if (file.isTruncated()) {
+      log.warn(
+          "Ignoring only the first {} revisions listed in {} in repo {}",
+          IgnoreRevsFile.MAX_REVS,
+          path,
+          access.getRepositoryName());
+    }
+    return file.getIds();
   }
 
   private static @Nullable ObjectId resolveBlob(GitilesView view, RevWalk rw, ObjectId commitId)
