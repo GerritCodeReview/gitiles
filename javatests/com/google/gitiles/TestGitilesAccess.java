@@ -77,7 +77,7 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
 
       @Override
       public Config getConfig() {
-        Config config = new Config();
+        Config config = new Config(repo.getConfig());
         config.setBoolean("markdown", null, "blocknote", true);
         config.setBoolean("markdown", null, "multicolumn", true);
         config.setBoolean("markdown", null, "namedanchor", true);
