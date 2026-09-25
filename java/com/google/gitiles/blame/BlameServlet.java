@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.gitiles.BaseServlet;
 import com.google.gitiles.BlobSoyData;
@@ -32,6 +33,7 @@ import com.google.gitiles.GitilesView;
 import com.google.gitiles.Renderer;
 import com.google.gitiles.ViewFilter;
 import com.google.gitiles.blame.cache.BlameCache;
+import com.google.gitiles.blame.cache.IgnoreRevsFile;
 import com.google.gitiles.blame.cache.Region;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -177,11 +179,46 @@ public class BlameServlet extends BaseServlet {
       lastCommit = currCommit;
     }
 
-    List<Region> regions = cache.get(repo, lastCommit, view.getPathPart());
+    List<Region> regions =
+        cache.get(
+            repo,
+            lastCommit,
+            view.getPathPart(),
+            getIgnoreIds(rw, currCommit));
     if (regions.isEmpty()) {
       throw new GitilesRequestFailureException(FailureReason.BLAME_REGION_NOT_FOUND);
     }
     return new RegionResult(regions, lastCommitBlobId);
+  }
+
+  /**
+   * Returns the revisions listed in {@code .git-blame-ignore-revs}, read from the tree of the
+   * blamed commit.
+   */
+  private static ImmutableSet<ObjectId> getIgnoreIds(RevWalk rw, RevCommit commit)
+      throws IOException {
+    IgnoreRevsFile file;
+    try {
+      file = IgnoreRevsFile.read(rw, commit);
+    } catch (IOException e) {
+      log.warn("Cannot read {} at {}", IgnoreRevsFile.DEFAULT_PATH, commit.name(), e);
+      return ImmutableSet.of();
+    }
+    if (file.isTooLarge()) {
+      log.warn(
+          "{} at {} is larger than {} bytes, not ignoring any revisions",
+          IgnoreRevsFile.DEFAULT_PATH,
+          commit.name(),
+          IgnoreRevsFile.MAX_SIZE);
+      return ImmutableSet.of();
+    } else if (file.isTruncated()) {
+      log.info(
+          "Ignoring only the first {} revisions listed in {} at {}",
+          IgnoreRevsFile.MAX_REVS,
+          IgnoreRevsFile.DEFAULT_PATH,
+          commit.name());
+    }
+    return file.getIds();
   }
 
   private static @Nullable ObjectId resolveBlob(GitilesView view, RevWalk rw, ObjectId commitId)
