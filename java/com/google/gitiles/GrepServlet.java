@@ -61,16 +61,20 @@ public class GrepServlet extends BaseServlet {
         Strings.nullToEmpty(Iterables.getFirst(view.getParameters().get(SUBSTRING_PARAM), null));
 
     List<Map<String, Object>> matches = Lists.newArrayList();
+    boolean hasMore = false;
     if (!substring.isEmpty()) {
-      matches = toSoyMatches(view, grep(ServletUtils.getRepository(req), view, substring).matches);
+      GrepResult result = grep(ServletUtils.getRepository(req), view, substring);
+      matches = toSoyMatches(view, result.matches);
+      hasMore = result.hasMore;
     }
 
-    Map<String, Object> data = Maps.newHashMapWithExpectedSize(6);
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(7);
     data.put("title", "Grep - " + view.getRevision().getName());
     data.put("revision", view.getRevision().getName());
     data.put("path", Strings.nullToEmpty(view.getPathPart()));
     data.put("substring", substring);
     data.put("hasSearch", !substring.isEmpty());
+    data.put("hasMore", hasMore);
     data.put("matches", matches);
 
     renderHtml(req, res, "com.google.gitiles.templates.GrepDetail.grepDetail", data);
@@ -103,7 +107,11 @@ public class GrepServlet extends BaseServlet {
       }
     }
 
-    return new GrepResult(matches);
+    boolean hasMore = matches.size() > MAX_MATCHES;
+    if (hasMore) {
+      matches.remove(matches.size() - 1);
+    }
+    return new GrepResult(matches, hasMore);
   }
 
   private static List<Map<String, Object>> toSoyMatches(GitilesView view, List<Match> matches) {
@@ -153,7 +161,7 @@ public class GrepServlet extends BaseServlet {
   private static void grepTree(
       TreeWalk tw, String pathPrefix, String substring, List<Match> matches) throws IOException {
     while (tw.next()) {
-      if (matches.size() >= MAX_MATCHES) {
+      if (matches.size() > MAX_MATCHES) {
         return;
       }
       if (tw.getFileMode(0).getObjectType() != Constants.OBJ_BLOB) {
@@ -165,7 +173,7 @@ public class GrepServlet extends BaseServlet {
           pathPrefix + tw.getPathString(),
           substring,
           matches);
-      if (matches.size() >= MAX_MATCHES) {
+      if (matches.size() > MAX_MATCHES) {
         return;
       }
     }
@@ -191,14 +199,14 @@ public class GrepServlet extends BaseServlet {
 
     String[] lines = RawParseUtils.decode(raw).split("\n", -1);
     for (int i = 0; i < lines.length; i++) {
-      if (matches.size() >= MAX_MATCHES) {
+      if (matches.size() > MAX_MATCHES) {
         return;
       }
       String line =
           lines[i].endsWith("\r") ? lines[i].substring(0, lines[i].length() - 1) : lines[i];
       if (line.contains(substring)) {
         matches.add(new Match(path, i + 1, line));
-        if (matches.size() >= MAX_MATCHES) {
+        if (matches.size() > MAX_MATCHES) {
           return;
         }
       }
@@ -220,9 +228,11 @@ public class GrepServlet extends BaseServlet {
 
   static class GrepResult {
     List<Match> matches;
+    boolean hasMore;
 
-    GrepResult(List<Match> matches) {
+    GrepResult(List<Match> matches, boolean hasMore) {
       this.matches = matches;
+      this.hasMore = hasMore;
     }
   }
 

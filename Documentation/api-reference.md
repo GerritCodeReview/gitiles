@@ -51,7 +51,10 @@ Searches file contents at a revision.
 
 A file or directory path may be supplied after the revision to limit the search.
 The search is a case-sensitive literal substring search. Binary files and
-blobs larger than 1 MiB are skipped. Results are limited to 1000 matches.
+blobs larger than 1 MiB are skipped. Results are limited to 1000 matches. The
+JSON response sets `has_more` to `true`, and the HTML response shows a message,
+"More matches exist. Narrow the search path to see more specific results."
+when additional matches exist beyond that limit.
 
 #### **`paths_only`**
 `https://gerrit.googlesource.com/a/gitiles/+/refs/heads/master/?format=JSON&recursive=1&paths_only=1`

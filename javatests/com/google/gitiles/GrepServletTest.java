@@ -39,6 +39,7 @@ public class GrepServletTest extends ServletTest {
     assertThat(result.matches.get(0).lineNumber).isEqualTo(2);
     assertThat(result.matches.get(0).line).isEqualTo("needle here");
     assertThat(result.matches.get(1).path).isEqualTo("dir/b.txt");
+    assertThat(result.hasMore).isFalse();
   }
 
   @Test
@@ -80,6 +81,7 @@ public class GrepServletTest extends ServletTest {
     assertThat(res.getActualBodyString()).contains("2: needle here");
     assertThat(res.getActualBodyString()).contains("#2");
     assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
+    assertThat(res.getActualBodyString()).doesNotContain("More matches exist");
   }
 
   @Test
@@ -90,16 +92,43 @@ public class GrepServletTest extends ServletTest {
   }
 
   @Test
-  public void grepJsonLimitsMatches() throws Exception {
-    var commit = repo.branch("master").commit();
-    for (int i = 0; i < GrepServlet.MAX_MATCHES + 1; i++) {
-      commit.add(String.format("file%04d.txt", i), "needle\n");
-    }
-    commit.create();
+  public void grepJsonDoesNotReportMoreForExactLimit() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("matches.txt", "needle\n".repeat(GrepServlet.MAX_MATCHES))
+        .create();
 
     GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=needle");
 
     assertThat(result.matches).hasSize(GrepServlet.MAX_MATCHES);
+    assertThat(result.hasMore).isFalse();
+  }
+
+  @Test
+  public void grepJsonReportsAdditionalMatches() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("a.txt", "needle\n".repeat(GrepServlet.MAX_MATCHES))
+        .add("b.txt", "needle\n")
+        .create();
+
+    GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=needle");
+
+    assertThat(result.matches).hasSize(GrepServlet.MAX_MATCHES);
+    assertThat(result.hasMore).isTrue();
+  }
+
+  @Test
+  public void grepHtmlReportsAdditionalMatches() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("matches.txt", "needle\n".repeat(GrepServlet.MAX_MATCHES + 1))
+        .create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains("More matches exist");
   }
 
   @Test
@@ -111,6 +140,7 @@ public class GrepServletTest extends ServletTest {
 
   private static class GrepResult {
     List<Match> matches;
+    boolean hasMore;
   }
 
   private static class Match {
