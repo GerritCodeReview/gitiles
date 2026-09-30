@@ -53,7 +53,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 /** Serves an HTML page with detailed information about a ref. */
 public class RevisionServlet extends BaseServlet {
   private static final ImmutableSet<Field> COMMIT_SOY_FIELDS =
-      Field.setOf(CommitSoyData.DEFAULT_FIELDS, Field.DIFF_TREE);
+      Field.setOf(CommitTemplateData.DEFAULT_FIELDS, Field.DIFF_TREE);
   private static final ImmutableSet<Field> COMMIT_JSON_FIELDS =
       Field.setOf(CommitJsonData.DEFAULT_FIELDS, Field.DIFF_TREE);
 
@@ -91,16 +91,16 @@ public class RevisionServlet extends BaseServlet {
                       "type",
                       Constants.TYPE_COMMIT,
                       "data",
-                      new CommitSoyData()
+                      new CommitTemplateData()
                           .setLinkifier(linkifier)
                           .setArchiveFormat(getArchiveFormat(access))
-                          .toSoyData(req, walk, (RevCommit) obj, COMMIT_SOY_FIELDS, df)));
+                          .toTemplateData(req, walk, (RevCommit) obj, COMMIT_SOY_FIELDS, df)));
               break;
             case OBJ_TREE:
               Map<String, Object> tree =
-                  new TreeSoyData(
+                  new TreeData(
                           walk.getObjectReader(), view, cfg, (RevTree) obj, req.getRequestURI())
-                      .toSoyData(obj);
+                      .toTemplateData(obj);
               soyObjects.add(ImmutableMap.of("type", Constants.TYPE_TREE, "data", tree));
               hasReadme = tree.containsKey("readmeHtml");
               break;
@@ -110,7 +110,7 @@ public class RevisionServlet extends BaseServlet {
                       "type",
                       Constants.TYPE_BLOB,
                       "data",
-                      new BlobSoyData(walk.getObjectReader(), view).toSoyData(obj)));
+                      new BlobData(walk.getObjectReader(), view).toTemplateData(obj)));
               hasBlob = true;
               break;
             case OBJ_TAG:
@@ -119,7 +119,7 @@ public class RevisionServlet extends BaseServlet {
                       "type",
                       Constants.TYPE_TAG,
                       "data",
-                      new TagSoyData(linkifier, req).toSoyData(walk, (RevTag) obj, df)));
+                      new TagData(linkifier, req).toTemplateData(walk, (RevTag) obj, df)));
               break;
             default:
               throw new GitilesRequestFailureException(FailureReason.UNSUPPORTED_OBJECT_TYPE);

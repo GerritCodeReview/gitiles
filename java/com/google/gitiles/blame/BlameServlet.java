@@ -22,8 +22,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.gitiles.BaseServlet;
-import com.google.gitiles.BlobSoyData;
-import com.google.gitiles.CommitSoyData;
+import com.google.gitiles.BlobData;
+import com.google.gitiles.CommitTemplateData;
 import com.google.gitiles.DateFormatter;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gitiles.GitilesAccess;
@@ -84,7 +84,7 @@ public class BlameServlet extends BaseServlet {
 
       String title = "Blame - " + view.getPathPart();
       Map<String, ?> blobData =
-          new BlobSoyData(rw.getObjectReader(), view).toSoyData(view.getPathPart(), result.blobId);
+          new BlobData(rw.getObjectReader(), view).toTemplateData(view.getPathPart(), result.blobId);
       if (blobData.get("lines") != null) {
         DateFormatter df = new DateFormatter(access, Format.ISO);
         renderHtml(
@@ -99,7 +99,7 @@ public class BlameServlet extends BaseServlet {
                 "data",
                 blobData,
                 "regions",
-                toSoyData(view, rw.getObjectReader(), result.regions, df)));
+                toTemplateData(view, rw.getObjectReader(), result.regions, df)));
       } else {
         renderHtml(
             req,
@@ -251,7 +251,7 @@ public class BlameServlet extends BaseServlet {
     NULLS = nulls.build();
   }
 
-  private static List<ImmutableMap<String, Object>> toSoyData(
+  private static List<ImmutableMap<String, Object>> toTemplateData(
       GitilesView view, ObjectReader reader, List<Region> regions, DateFormatter df)
       throws IOException {
     Map<ObjectId, String> abbrevShas = Maps.newHashMap();
@@ -296,7 +296,7 @@ public class BlameServlet extends BaseServlet {
                 .setRevision(r.getSourceCommit().name())
                 .setPathPart(r.getSourcePath())
                 .toUrl());
-        e.put("author", CommitSoyData.toSoyData(r.getSourceAuthor(), df));
+        e.put("author", CommitTemplateData.toTemplateData(r.getSourceAuthor(), df));
         e.put("class", CLASSES.get(c));
         result.add(e.build());
       }

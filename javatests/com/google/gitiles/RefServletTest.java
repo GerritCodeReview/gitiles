@@ -230,8 +230,8 @@ public class RefServletTest extends ServletTest {
 
   @Test
   public void emptySoy() throws Exception {
-    assertThat(buildBranchesSoyData()).isEmpty();
-    assertThat(buildTagsSoyData()).isEmpty();
+    assertThat(buildBranchesTemplateData()).isEmpty();
+    assertThat(buildTagsTemplateData()).isEmpty();
   }
 
   @Test
@@ -241,11 +241,13 @@ public class RefServletTest extends ServletTest {
     repo.branch("refs/tags/baz").commit().create();
     repo.branch("refs/nope/quux").commit().create();
 
-    assertThat(buildBranchesSoyData())
+    assertThat(buildBranchesTemplateData())
         .containsExactly(
             ref("/b/test/+/refs/heads/bar", "bar"), ref("/b/test/+/refs/heads/foo", "foo"))
         .inOrder();
-    assertThat(buildTagsSoyData()).containsExactly(ref("/b/test/+/refs/tags/baz", "baz")).inOrder();
+    assertThat(buildTagsTemplateData())
+        .containsExactly(ref("/b/test/+/refs/tags/baz", "baz"))
+        .inOrder();
   }
 
   @Test
@@ -254,11 +256,13 @@ public class RefServletTest extends ServletTest {
     repo.branch("refs/heads/bar").commit().create();
     repo.branch("refs/tags/foo").commit().create();
 
-    assertThat(buildBranchesSoyData())
+    assertThat(buildBranchesTemplateData())
         .containsExactly(
             ref("/b/test/+/refs/heads/bar", "bar"), ref("/b/test/+/refs/heads/foo", "foo"))
         .inOrder();
-    assertThat(buildTagsSoyData()).containsExactly(ref("/b/test/+/refs/tags/foo", "foo")).inOrder();
+    assertThat(buildTagsTemplateData())
+        .containsExactly(ref("/b/test/+/refs/tags/foo", "foo"))
+        .inOrder();
   }
 
   @Test
@@ -267,10 +271,12 @@ public class RefServletTest extends ServletTest {
     repo.branch("refs/heads/foo").commit().create();
     repo.branch("refs/tags/foo").commit().create();
 
-    assertThat(buildBranchesSoyData())
+    assertThat(buildBranchesTemplateData())
         .containsExactly(ref("/b/test/+/refs/heads/foo", "foo"))
         .inOrder();
-    assertThat(buildTagsSoyData()).containsExactly(ref("/b/test/+/refs/tags/foo", "foo")).inOrder();
+    assertThat(buildTagsTemplateData())
+        .containsExactly(ref("/b/test/+/refs/tags/foo", "foo"))
+        .inOrder();
   }
 
   @Test
@@ -278,7 +284,7 @@ public class RefServletTest extends ServletTest {
     repo.branch("refs/heads/foo").commit().create();
     repo.branch("refs/heads/refs/heads/foo").commit().create();
 
-    assertThat(buildBranchesSoyData())
+    assertThat(buildBranchesTemplateData())
         .containsExactly(
             ref("/b/test/+/refs/heads/foo", "foo"),
             ref("/b/test/+/refs/heads/refs/heads/foo", "refs/heads/foo"))
@@ -297,13 +303,13 @@ public class RefServletTest extends ServletTest {
     return req;
   }
 
-  private List<?> buildBranchesSoyData() throws Exception {
-    return RefServlet.getBranchesSoyData(buildSoyRequest(), Integer.MAX_VALUE);
+  private List<?> buildBranchesTemplateData() throws Exception {
+    return RefServlet.getBranchesTemplateData(buildSoyRequest(), Integer.MAX_VALUE);
   }
 
-  private List<?> buildTagsSoyData() throws Exception {
+  private List<?> buildTagsTemplateData() throws Exception {
     try (RevWalk rw = new RevWalk(repo.getRepository())) {
-      return RefServlet.getTagsSoyData(
+      return RefServlet.getTagsTemplateData(
           buildSoyRequest(), new TimeCache(TimeCache.defaultBuilder()), rw, Integer.MAX_VALUE);
     }
   }

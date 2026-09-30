@@ -15,9 +15,9 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.gitiles.TreeSoyData.getTargetDisplayName;
-import static com.google.gitiles.TreeSoyData.resolveTargetUrl;
-import static com.google.gitiles.TreeSoyData.sortByTypeAlpha;
+import static com.google.gitiles.TreeData.getTargetDisplayName;
+import static com.google.gitiles.TreeData.resolveTargetUrl;
+import static com.google.gitiles.TreeData.sortByTypeAlpha;
 
 import com.google.common.base.Strings;
 import java.util.HashMap;
@@ -27,9 +27,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/** Tests for {@link TreeSoyData}. */
+/** Tests for {@link TreeData}. */
 @RunWith(JUnit4.class)
-public class TreeSoyDataTest {
+public class TreeDataTest {
   @Test
   public void getTargetDisplayNameReturnsDisplayName() throws Exception {
     assertThat(getTargetDisplayName("foo")).isEqualTo("foo");

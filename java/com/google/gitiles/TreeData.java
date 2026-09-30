@@ -34,8 +34,8 @@ import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.treewalk.TreeWalk;
 
-/** Soy data converter for git trees. */
-public class TreeSoyData {
+/** Template data converter for git trees. */
+public class TreeData {
   /**
    * Number of characters to display for a symlink target. Targets longer than this are abbreviated
    * for display in a tree listing.
@@ -99,7 +99,7 @@ public class TreeSoyData {
   private final String requestUri;
   private ArchiveFormat archiveFormat;
 
-  public TreeSoyData(
+  public TreeData(
       ObjectReader reader, GitilesView view, Config cfg, RevTree rootTree, String requestUri) {
     this.reader = reader;
     this.view = view;
@@ -108,12 +108,12 @@ public class TreeSoyData {
     this.requestUri = requestUri;
   }
 
-  public TreeSoyData setArchiveFormat(ArchiveFormat archiveFormat) {
+  public TreeData setArchiveFormat(ArchiveFormat archiveFormat) {
     this.archiveFormat = archiveFormat;
     return this;
   }
 
-  public Map<String, Object> toSoyData(ObjectId treeId, TreeWalk tw)
+  public Map<String, Object> toTemplateData(ObjectId treeId, TreeWalk tw)
       throws MissingObjectException, IOException {
     ReadmeHelper readme =
         new ReadmeHelper(reader, view, MarkdownConfig.get(cfg), rootTree, requestUri);
@@ -131,7 +131,7 @@ public class TreeSoyData {
         urlBuilder.setPathPart(name);
       } else {
         throw new IllegalStateException(
-            String.format("Cannot render TreeSoyData from %s view", viewType));
+            String.format("Cannot render TreeData from %s view", viewType));
       }
 
       String url = urlBuilder.toUrl();
@@ -156,7 +156,7 @@ public class TreeSoyData {
       entries.add(entry);
     }
 
-    entries.sort(TreeSoyData::sortByTypeAlpha);
+    entries.sort(TreeData::sortByTypeAlpha);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(3);
     data.put("sha", treeId.name());
@@ -184,10 +184,11 @@ public class TreeSoyData {
     return data;
   }
 
-  public Map<String, Object> toSoyData(ObjectId treeId) throws MissingObjectException, IOException {
+  public Map<String, Object> toTemplateData(ObjectId treeId)
+      throws MissingObjectException, IOException {
     TreeWalk tw = new TreeWalk(reader);
     tw.addTree(treeId);
     tw.setRecursive(false);
-    return toSoyData(treeId, tw);
+    return toTemplateData(treeId, tw);
   }
 }

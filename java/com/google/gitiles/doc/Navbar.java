@@ -67,7 +67,7 @@ class Navbar {
     return this;
   }
 
-  Map<String, Object> toSoyData() {
+  Map<String, Object> toTemplateData() {
     Map<String, Object> data = new HashMap<>();
     data.put("siteTitle", siteTitle);
     data.put("logoUrl", logo());

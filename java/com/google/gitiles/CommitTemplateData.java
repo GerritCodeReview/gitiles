@@ -26,7 +26,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gitiles.CommitData.DiffList;
 import com.google.gitiles.CommitData.Field;
-import com.google.template.soy.data.restricted.NullData;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,8 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.util.RelativeDateFormatter;
 
-/** Soy data converter for git commits. */
-public class CommitSoyData {
+/** Template data converter for git commits. */
+public class CommitTemplateData {
   static final ImmutableSet<Field> DEFAULT_FIELDS =
       Sets.immutableEnumSet(
           Field.AUTHOR,
@@ -65,17 +64,17 @@ public class CommitSoyData {
   private CommitData.Builder cdb;
   private ArchiveFormat archiveFormat;
 
-  CommitSoyData setLinkifier(@Nullable Linkifier linkifier) {
+  CommitTemplateData setLinkifier(@Nullable Linkifier linkifier) {
     this.linkifier = linkifier;
     return this;
   }
 
-  CommitSoyData setArchiveFormat(@Nullable ArchiveFormat archiveFormat) {
+  CommitTemplateData setArchiveFormat(@Nullable ArchiveFormat archiveFormat) {
     this.archiveFormat = archiveFormat;
     return this;
   }
 
-  Map<String, Object> toSoyData(
+  Map<String, Object> toTemplateData(
       HttpServletRequest req, RevWalk walk, RevCommit c, Set<Field> fs, DateFormatter df)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
@@ -87,10 +86,10 @@ public class CommitSoyData {
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(fs.size());
     if (cd.author != null) {
-      data.put("author", toSoyData(cd.author, df));
+      data.put("author", toTemplateData(cd.author, df));
     }
     if (cd.committer != null) {
-      data.put("committer", toSoyData(cd.committer, df));
+      data.put("committer", toTemplateData(cd.committer, df));
     }
     if (cd.sha != null) {
       data.put("sha", cd.sha.name());
@@ -117,16 +116,16 @@ public class CommitSoyData {
       data.put("treeUrl", cd.treeUrl);
     }
     if (cd.parents != null) {
-      data.put("parents", toSoyData(view, fs, cd.parents));
+      data.put("parents", toTemplateData(view, fs, cd.parents));
     }
     if (cd.shortMessage != null) {
       data.put("shortMessage", cd.shortMessage);
     }
     if (cd.branches != null) {
-      data.put("branches", toSoyData(view, cd.branches, Constants.R_HEADS));
+      data.put("branches", toTemplateData(view, cd.branches, Constants.R_HEADS));
     }
     if (cd.tags != null) {
-      data.put("tags", toSoyData(view, cd.tags, Constants.R_TAGS));
+      data.put("tags", toTemplateData(view, cd.tags, Constants.R_TAGS));
     }
     if (cd.message != null) {
       if (linkifier != null) {
@@ -136,7 +135,7 @@ public class CommitSoyData {
       }
     }
     if (cd.diffEntries != null) {
-      data.put("diffTree", toSoyData(view, cd.diffEntries));
+      data.put("diffTree", toTemplateData(view, cd.diffEntries));
     }
 
     int diffSetSize = Sets.difference(fs, NESTED_FIELDS).size();
@@ -155,13 +154,13 @@ public class CommitSoyData {
     return data;
   }
 
-  Map<String, Object> toSoyData(
+  Map<String, Object> toTemplateData(
       HttpServletRequest req, RevWalk walk, RevCommit commit, DateFormatter df) throws IOException {
-    return toSoyData(req, walk, commit, DEFAULT_FIELDS, df);
+    return toTemplateData(req, walk, commit, DEFAULT_FIELDS, df);
   }
 
   // TODO(dborowitz): Extract this.
-  public static Map<String, String> toSoyData(PersonIdent ident, DateFormatter df) {
+  public static Map<String, String> toTemplateData(PersonIdent ident, DateFormatter df) {
     return ImmutableMap.of(
         "name", ident.getName(),
         "email", ident.getEmailAddress(),
@@ -170,7 +169,7 @@ public class CommitSoyData {
         "relativeTime", RelativeDateFormatter.format(ident.getWhen()));
   }
 
-  private List<Map<String, String>> toSoyData(
+  private List<Map<String, String>> toTemplateData(
       GitilesView view, Set<Field> fs, List<RevCommit> parents) {
     List<Map<String, String>> result = Lists.newArrayListWithCapacity(parents.size());
     int i = 1;
@@ -207,9 +206,9 @@ public class CommitSoyData {
     return result;
   }
 
-  private static Object toSoyData(GitilesView view, DiffList dl) {
+  private static @Nullable Object toTemplateData(GitilesView view, DiffList dl) {
     if (dl.oldRevision == null) {
-      return NullData.INSTANCE;
+      return null;
     }
     GitilesView.Builder diffUrl =
         GitilesView.diff()
@@ -251,7 +250,7 @@ public class CommitSoyData {
     return result;
   }
 
-  private static List<Map<String, String>> toSoyData(
+  private static List<Map<String, String>> toTemplateData(
       GitilesView view, List<Ref> refs, String prefix) {
     List<Map<String, String>> result = Lists.newArrayListWithCapacity(refs.size());
     for (Ref ref : refs) {

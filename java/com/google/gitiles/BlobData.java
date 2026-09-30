@@ -20,13 +20,13 @@ import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.io.BaseEncoding;
-import com.google.template.soy.data.SoyListData;
-import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -43,9 +43,9 @@ import org.slf4j.LoggerFactory;
 import prettify.parser.Prettify;
 import syntaxhighlight.ParseResult;
 
-/** Soy data converter for git blobs. */
-public class BlobSoyData {
-  private static final Logger log = LoggerFactory.getLogger(BlobSoyData.class);
+/** Template data converter for git blobs. */
+public class BlobData {
+  private static final Logger log = LoggerFactory.getLogger(BlobData.class);
 
   /**
    * Maximum number of bytes to load from a supposed text file for display. Files larger than this
@@ -69,21 +69,22 @@ public class BlobSoyData {
   private final GitilesView view;
   private final ObjectReader reader;
 
-  public BlobSoyData(ObjectReader reader, GitilesView view) {
+  public BlobData(ObjectReader reader, GitilesView view) {
     this.reader = reader;
     this.view = view;
   }
 
-  public Map<String, Object> toSoyData(ObjectId blobId) throws MissingObjectException, IOException {
-    return toSoyData(null, blobId);
-  }
-
-  public Map<String, Object> toSoyData(String path, ObjectId blobId)
+  public Map<String, Object> toTemplateData(ObjectId blobId)
       throws MissingObjectException, IOException {
-    return toSoyData(path, blobId, null);
+    return toTemplateData(null, blobId);
   }
 
-  public Map<String, Object> toSoyData(String path, ObjectId blobId, @Nullable URI editUrl)
+  public Map<String, Object> toTemplateData(String path, ObjectId blobId)
+      throws MissingObjectException, IOException {
+    return toTemplateData(path, blobId, null);
+  }
+
+  public Map<String, Object> toTemplateData(String path, ObjectId blobId, @Nullable URI editUrl)
       throws MissingObjectException, IOException {
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
     data.put("sha", ObjectId.toString(blobId));
@@ -135,10 +136,10 @@ public class BlobSoyData {
     return data;
   }
 
-  private SoyListData prettify(String path, String content) {
+  private List<List<Map<String, String>>> prettify(String path, String content) {
     List<ParseResult> results = parse(path, content);
-    SoyListData lines = new SoyListData();
-    SoyListData line = new SoyListData();
+    List<List<Map<String, String>>> lines = new ArrayList<>();
+    List<Map<String, String>> line = new ArrayList<>();
     lines.add(line);
 
     int last = 0;
@@ -171,8 +172,9 @@ public class BlobSoyData {
     }
   }
 
-  private static void writeResult(SoyListData lines, String classes, String s, int start, int end) {
-    SoyListData line = lines.getListData(lines.length() - 1);
+  private static void writeResult(
+      List<List<Map<String, String>>> lines, String classes, String s, int start, int end) {
+    List<Map<String, String>> line = lines.get(lines.size() - 1);
     while (true) {
       int nl = nextLineBreak(s, start, end);
       if (nl < 0) {
@@ -184,18 +186,19 @@ public class BlobSoyData {
       if (start == s.length()) {
         return;
       }
-      line = new SoyListData();
+      line = new ArrayList<>();
       lines.add(line);
     }
     addSpan(line, classes, s, start, end);
   }
 
-  private static void addSpan(SoyListData line, String classes, String s, int start, int end) {
+  private static void addSpan(
+      List<Map<String, String>> line, String classes, String s, int start, int end) {
     if (end - start > 0) {
       if (Strings.isNullOrEmpty(classes)) {
         classes = Prettify.PR_PLAIN;
       }
-      line.add(new SoyMapData("classes", classes, "text", s.substring(start, end)));
+      line.add(ImmutableMap.of("classes", classes, "text", s.substring(start, end)));
     }
   }
 

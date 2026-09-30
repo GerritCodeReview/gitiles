@@ -20,7 +20,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.reflect.TypeToken;
-import com.google.template.soy.data.restricted.NullData;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
@@ -49,7 +48,7 @@ public class HostIndexServletTest extends ServletTest {
   public void rootHtml() throws Exception {
     Map<String, Object> data = buildData("/");
     assertThat(data).containsEntry("hostName", URLS.getHostName(null));
-    assertThat(data).containsEntry("breadcrumbs", NullData.INSTANCE);
+    assertThat(data).containsEntry("breadcrumbs", null);
     assertThat(data).containsEntry("prefix", "");
 
     ImmutableList<Map<String, Object>> repos =

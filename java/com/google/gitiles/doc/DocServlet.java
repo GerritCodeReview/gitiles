@@ -187,7 +187,7 @@ public class DocServlet extends BaseServlet {
       MarkdownFile srcFile)
       throws IOException {
     Map<String, Object> data = new HashMap<>();
-    data.putAll(navbar.toSoyData());
+    data.putAll(navbar.toTemplateData());
 
     MarkdownConfig cfg = navbar.getConfig();
     Node doc = GitilesMarkdown.parse(cfg, srcFile.consumeContent());

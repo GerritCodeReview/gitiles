@@ -16,7 +16,7 @@ package com.google.gitiles;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.gitiles.GitilesUrls.escapeName;
-import static com.google.gitiles.TreeSoyData.resolveTargetUrl;
+import static com.google.gitiles.TreeData.resolveTargetUrl;
 import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
@@ -558,9 +558,9 @@ public class PathServlet extends BaseServlet {
             "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
             "type", FileType.TREE.toString(),
             "data",
-                new TreeSoyData(wr.getObjectReader(), view, cfg, wr.root, req.getRequestURI())
+                new TreeData(wr.getObjectReader(), view, cfg, wr.root, req.getRequestURI())
                     .setArchiveFormat(getArchiveFormat(getAccess(req)))
-                    .toSoyData(wr.id, wr.tw)));
+                    .toTemplateData(wr.id, wr.tw)));
   }
 
   private @Nullable CanonicalTreeParser getOnlyChildSubtree(
@@ -599,8 +599,8 @@ public class PathServlet extends BaseServlet {
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
     Map<String, ?> data =
-        new BlobSoyData(wr.getObjectReader(), view)
-            .toSoyData(wr.path, wr.id, createEditUrl(req, view));
+        new BlobData(wr.getObjectReader(), view)
+            .toTemplateData(wr.path, wr.id, createEditUrl(req, view));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(
         req,
@@ -621,7 +621,7 @@ public class PathServlet extends BaseServlet {
     ObjectLoader loader = wr.getObjectReader().open(wr.id, OBJ_BLOB);
     String target;
     try {
-      target = RawParseUtils.decode(loader.getCachedBytes(TreeSoyData.MAX_SYMLINK_SIZE));
+      target = RawParseUtils.decode(loader.getCachedBytes(TreeData.MAX_SYMLINK_SIZE));
     } catch (LargeObjectException.OutOfMemory e) {
       throw e;
     } catch (LargeObjectException e) {

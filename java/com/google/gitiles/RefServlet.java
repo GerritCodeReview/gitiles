@@ -63,13 +63,13 @@ public class RefServlet extends BaseServlet {
     }
     List<Map<String, Object>> tags;
     try (RevWalk walk = new RevWalk(ServletUtils.getRepository(req))) {
-      tags = getTagsSoyData(req, timeCache, walk, 0);
+      tags = getTagsTemplateData(req, timeCache, walk, 0);
     }
     renderHtml(
         req,
         res,
         "com.google.gitiles.templates.RefList.refsDetail",
-        ImmutableMap.of("branches", getBranchesSoyData(req, 0), "tags", tags));
+        ImmutableMap.of("branches", getBranchesTemplateData(req, 0), "tags", tags));
   }
 
   @Override
@@ -94,12 +94,12 @@ public class RefServlet extends BaseServlet {
     renderJson(req, res, jsonRefs, new TypeToken<Map<String, RefJsonData>>() {}.getType());
   }
 
-  static List<Map<String, Object>> getBranchesSoyData(HttpServletRequest req, int limit)
+  static List<Map<String, Object>> getBranchesTemplateData(HttpServletRequest req, int limit)
       throws IOException {
     RefDatabase refdb = ServletUtils.getRepository(req).getRefDatabase();
     Ref head = refdb.exactRef(Constants.HEAD);
     Ref headLeaf = head != null && head.isSymbolic() ? head.getLeaf() : null;
-    return getRefsSoyData(
+    return getRefsTemplateData(
         refdb,
         ViewFilter.getView(req),
         Constants.R_HEADS,
@@ -127,9 +127,9 @@ public class RefServlet extends BaseServlet {
     }.compound(RefComparator.INSTANCE);
   }
 
-  static List<Map<String, Object>> getTagsSoyData(
+  static List<Map<String, Object>> getTagsTemplateData(
       HttpServletRequest req, TimeCache timeCache, RevWalk walk, int limit) throws IOException {
-    return getRefsSoyData(
+    return getRefsTemplateData(
         ServletUtils.getRepository(req).getRefDatabase(),
         ViewFilter.getView(req),
         Constants.R_TAGS,
@@ -153,7 +153,7 @@ public class RefServlet extends BaseServlet {
         .compound(RefComparator.INSTANCE);
   }
 
-  private static List<Map<String, Object>> getRefsSoyData(
+  private static List<Map<String, Object>> getRefsTemplateData(
       RefDatabase refdb,
       GitilesView view,
       String prefix,

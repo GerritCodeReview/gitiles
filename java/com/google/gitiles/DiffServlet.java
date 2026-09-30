@@ -86,7 +86,7 @@ public class DiffServlet extends BaseServlet {
       Map<String, Object> data = getData(req);
       data.put("title", "Diff - " + view.getRevisionRange());
       if (showCommit) {
-        Set<Field> fs = CommitSoyData.DEFAULT_FIELDS;
+        Set<Field> fs = CommitTemplateData.DEFAULT_FIELDS;
         if (isFile) {
           fs = Field.setOf(fs, Field.PARENT_BLAME_URL);
         }
@@ -94,10 +94,10 @@ public class DiffServlet extends BaseServlet {
         DateFormatter df = new DateFormatter(access, Format.DEFAULT);
         data.put(
             "commit",
-            new CommitSoyData()
+            new CommitTemplateData()
                 .setLinkifier(linkifier)
                 .setArchiveFormat(getArchiveFormat(access))
-                .toSoyData(req, walk, walk.parseCommit(view.getRevision().getId()), fs, df));
+                .toTemplateData(req, walk, walk.parseCommit(view.getRevision().getId()), fs, df));
       }
       if (!data.containsKey("repositoryName") && (view.getRepositoryName() != null)) {
         data.put("repositoryName", view.getRepositoryName());

@@ -19,10 +19,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gson.reflect.TypeToken;
-import com.google.template.soy.data.restricted.NullData;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collections;
@@ -126,19 +126,12 @@ public class HostIndexServlet extends BaseServlet {
       hostName = hostName + '/' + prefix;
       breadcrumbs = view.getBreadcrumbs();
     }
-    renderHtml(
-        req,
-        res,
-        "com.google.gitiles.templates.HostIndex.hostIndex",
-        ImmutableMap.of(
-            "hostName",
-            hostName,
-            "breadcrumbs",
-            breadcrumbs != null ? breadcrumbs : NullData.INSTANCE,
-            "prefix",
-            prefix != null ? prefix + '/' : "",
-            "repositories",
-            repos.build()));
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
+    data.put("hostName", hostName);
+    data.put("breadcrumbs", breadcrumbs);
+    data.put("prefix", prefix != null ? prefix + '/' : "");
+    data.put("repositories", repos.build());
+    renderHtml(req, res, "com.google.gitiles.templates.HostIndex.hostIndex", data);
   }
 
   @Override

@@ -91,7 +91,8 @@ public class RepositoryIndexServlet extends BaseServlet {
     try (RevWalk walk = new RevWalk(repo)) {
       Paginator paginator = null;
       Map<String, Object> data = Maps.newHashMapWithExpectedSize(7);
-      List<Map<String, Object>> tags = RefServlet.getTagsSoyData(req, timeCache, walk, REF_LIMIT);
+      List<Map<String, Object>> tags =
+          RefServlet.getTagsTemplateData(req, timeCache, walk, REF_LIMIT);
       ObjectId headId = repo.resolve(Constants.HEAD);
       if (headId != null) {
         RevObject head = walk.parseAny(headId);
@@ -111,7 +112,7 @@ public class RepositoryIndexServlet extends BaseServlet {
       if (!data.containsKey("entries")) {
         data.put("entries", ImmutableList.of());
       }
-      List<Map<String, Object>> branches = RefServlet.getBranchesSoyData(req, REF_LIMIT);
+      List<Map<String, Object>> branches = RefServlet.getBranchesTemplateData(req, REF_LIMIT);
 
       data.put("cloneUrl", desc.cloneUrl);
       data.put("mirroredFromUrl", Strings.nullToEmpty(desc.mirroredFromUrl));
@@ -133,9 +134,8 @@ public class RepositoryIndexServlet extends BaseServlet {
             startRenderStreamingHtml(
                 req, res, "com.google.gitiles.templates.RepositoryIndex.repositoryIndex", data)) {
           Writer w = newWriter(out, res);
-          new LogSoyData(req, access, "oneline")
-              .renderStreaming(
-                  paginator, "HEAD", renderer, w, df, LogSoyData.FooterBehavior.LOG_HEAD);
+          new LogData(req, access, "oneline")
+              .renderStreaming(paginator, "HEAD", renderer, w, df, LogData.FooterBehavior.LOG_HEAD);
           w.flush();
         }
       } else {

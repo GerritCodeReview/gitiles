@@ -23,24 +23,24 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevTag;
 import org.eclipse.jgit.revwalk.RevWalk;
 
-/** Soy data converter for git tags. */
-public class TagSoyData {
+/** Template data converter for git tags. */
+public class TagData {
   private final Linkifier linkifier;
   private final HttpServletRequest req;
 
-  public TagSoyData(Linkifier linkifier, HttpServletRequest req) {
+  public TagData(Linkifier linkifier, HttpServletRequest req) {
     this.linkifier = linkifier;
     this.req = req;
   }
 
-  public Map<String, Object> toSoyData(RevWalk walk, RevTag tag, DateFormatter df)
+  public Map<String, Object> toTemplateData(RevWalk walk, RevTag tag, DateFormatter df)
       throws MissingObjectException, IOException {
     walk.parseBody(tag);
 
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
     data.put("sha", ObjectId.toString(tag));
     if (tag.getTaggerIdent() != null) {
-      data.put("tagger", CommitSoyData.toSoyData(tag.getTaggerIdent(), df));
+      data.put("tagger", CommitTemplateData.toTemplateData(tag.getTaggerIdent(), df));
     }
     data.put("object", ObjectId.toString(tag.getObject()));
     data.put("message", linkifier.linkify(req, tag.getFullMessage()));

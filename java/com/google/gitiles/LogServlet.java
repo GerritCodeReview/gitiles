@@ -108,7 +108,8 @@ public class LogServlet extends BaseServlet {
         List<Map<String, Object>> tags = Lists.newArrayListWithExpectedSize(1);
         for (RevObject o : RevisionServlet.listObjects(paginator.getWalk(), view.getRevision())) {
           if (o instanceof RevTag) {
-            tags.add(new TagSoyData(linkifier, req).toSoyData(paginator.getWalk(), (RevTag) o, df));
+            tags.add(
+                new TagData(linkifier, req).toTemplateData(paginator.getWalk(), (RevTag) o, df));
           }
         }
         if (!tags.isEmpty()) {
@@ -129,8 +130,8 @@ public class LogServlet extends BaseServlet {
           startRenderStreamingHtml(
               req, res, "com.google.gitiles.templates.LogDetail.logDetail", data)) {
         Writer w = newWriter(out, res);
-        new LogSoyData(req, access, pretty)
-            .renderStreaming(paginator, null, renderer, w, df, LogSoyData.FooterBehavior.NEXT);
+        new LogData(req, access, pretty)
+            .renderStreaming(paginator, null, renderer, w, df, LogData.FooterBehavior.NEXT);
         w.flush();
       }
     } finally {

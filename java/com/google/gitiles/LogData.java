@@ -36,7 +36,7 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 
-public class LogSoyData {
+public class LogData {
   private static final ImmutableSet<Field> FIELDS =
       Sets.immutableEnumSet(
           Field.ABBREV_SHA,
@@ -63,9 +63,9 @@ public class LogSoyData {
   private final GitilesView view;
   private final Set<Field> fields;
   private final String variant;
-  private CommitSoyData csd;
+  private CommitTemplateData csd;
 
-  public LogSoyData(HttpServletRequest req, GitilesAccess access, String pretty)
+  public LogData(HttpServletRequest req, GitilesAccess access, String pretty)
       throws IOException {
     this.req = checkNotNull(req);
     this.view = checkNotNull(ViewFilter.getView(req));
@@ -95,7 +95,7 @@ public class LogSoyData {
     renderHtml(
         renderer
             .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesHeader")
-            .setData(toHeaderSoyData(paginator, revision)),
+            .setData(toHeaderTemplateData(paginator, revision)),
         writer);
 
     SoySauce.Renderer entryRenderer =
@@ -106,7 +106,7 @@ public class LogSoyData {
       if (!walk.isRetainBody()) {
         walk.parseBody(c);
       }
-      renderHtml(entryRenderer.setData(toEntrySoyData(paginator, c, df)), writer);
+      renderHtml(entryRenderer.setData(toEntryTemplateData(paginator, c, df)), writer);
       renderedEntries = true;
     }
     if (!renderedEntries) {
@@ -116,11 +116,11 @@ public class LogSoyData {
     renderHtml(
         renderer
             .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesFooter")
-            .setData(toFooterSoyData(paginator, revision, footerBehavior)),
+            .setData(toFooterTemplateData(paginator, revision, footerBehavior)),
         writer);
   }
 
-  private Map<String, Object> toHeaderSoyData(Paginator paginator, @Nullable String revision) {
+  private Map<String, Object> toHeaderTemplateData(Paginator paginator, @Nullable String revision) {
     Map<String, Object> data = Maps.newHashMapWithExpectedSize(1);
     ObjectId prev = paginator.getPreviousStart();
     if (prev != null) {
@@ -135,23 +135,23 @@ public class LogSoyData {
     return data;
   }
 
-  private Map<String, Object> toEntrySoyData(Paginator paginator, RevCommit c, DateFormatter df)
+  private Map<String, Object> toEntryTemplateData(Paginator paginator, RevCommit c, DateFormatter df)
       throws IOException {
     if (csd == null) {
-      csd = new CommitSoyData();
+      csd = new CommitTemplateData();
     }
 
-    Map<String, Object> entry = csd.toSoyData(req, paginator.getWalk(), c, fields, df);
+    Map<String, Object> entry = csd.toTemplateData(req, paginator.getWalk(), c, fields, df);
     DiffEntry rename = paginator.getRename(c);
     if (rename != null) {
-      entry.put("rename", toRenameSoyData(rename));
+      entry.put("rename", toRenameTemplateData(rename));
     }
     return ImmutableMap.of(
         "variant", variant,
         "entry", entry);
   }
 
-  private @Nullable Map<String, Object> toRenameSoyData(DiffEntry entry) {
+  private @Nullable Map<String, Object> toRenameTemplateData(DiffEntry entry) {
     if (entry == null) {
       return null;
     }
@@ -166,7 +166,7 @@ public class LogSoyData {
         "score", entry.getScore());
   }
 
-  private Map<String, Object> toFooterSoyData(
+  private Map<String, Object> toFooterTemplateData(
       Paginator paginator, @Nullable String revision, FooterBehavior behavior) {
     switch (behavior) {
       case NEXT:

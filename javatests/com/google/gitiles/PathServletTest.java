@@ -26,8 +26,6 @@ import com.google.gitiles.FileJsonData.File;
 import com.google.gitiles.GitlinkJsonData.Gitlink;
 import com.google.gitiles.TreeJsonData.PathList;
 import com.google.gitiles.TreeJsonData.Tree;
-import com.google.template.soy.data.SoyListData;
-import com.google.template.soy.data.restricted.StringData;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -115,18 +113,19 @@ public class PathServletTest extends ServletTest {
     Map<String, ?> data = buildData("/repo/+/master/foo");
     assertThat(data).containsEntry("type", "REGULAR_FILE");
 
-    SoyListData lines = (SoyListData) getBlobData(data).get("lines");
-    assertThat(lines.length()).isEqualTo(2);
+    List<List<Map<String, String>>> lines =
+        (List<List<Map<String, String>>>) getBlobData(data).get("lines");
+    assertThat(lines).hasSize(2);
 
-    SoyListData spans = lines.getListData(0);
-    assertThat(spans.length()).isEqualTo(1);
-    assertThat(spans.getMapData(0).get("classes")).isEqualTo(StringData.forValue("pln"));
-    assertThat(spans.getMapData(0).get("text")).isEqualTo(StringData.forValue("foo"));
+    List<Map<String, String>> spans = lines.get(0);
+    assertThat(spans).hasSize(1);
+    assertThat(spans.get(0)).containsEntry("classes", "pln");
+    assertThat(spans.get(0)).containsEntry("text", "foo");
 
-    spans = lines.getListData(1);
-    assertThat(spans.length()).isEqualTo(1);
-    assertThat(spans.getMapData(0).get("classes")).isEqualTo(StringData.forValue("pln"));
-    assertThat(spans.getMapData(0).get("text")).isEqualTo(StringData.forValue("contents"));
+    spans = lines.get(1);
+    assertThat(spans).hasSize(1);
+    assertThat(spans.get(0)).containsEntry("classes", "pln");
+    assertThat(spans.get(0)).containsEntry("text", "contents");
   }
 
   @Test
@@ -152,8 +151,9 @@ public class PathServletTest extends ServletTest {
     repo.branch("master").commit().add("bar", contentBuilder.toString()).create();
 
     Map<String, ?> data = buildData("/repo/+/master/bar");
-    SoyListData lines = (SoyListData) getBlobData(data).get("lines");
-    assertThat(lines.length()).isEqualTo(MAX_LINE_COUNT - 1);
+    List<List<Map<String, String>>> lines =
+        (List<List<Map<String, String>>>) getBlobData(data).get("lines");
+    assertThat(lines).hasSize(MAX_LINE_COUNT - 1);
   }
 
   @Test
@@ -166,13 +166,14 @@ public class PathServletTest extends ServletTest {
     repo.branch("master").commit().add("largebar", contentBuilder.toString()).create();
 
     Map<String, ?> data = buildData("/repo/+/master/largebar");
-    SoyListData lines = (SoyListData) getBlobData(data).get("lines");
+    List<List<Map<String, String>>> lines =
+        (List<List<Map<String, String>>>) getBlobData(data).get("lines");
     assertThat(lines).isNull();
   }
 
   @Test
   public void largeFileHtml() throws Exception {
-    int largeContentSize = BlobSoyData.MAX_FILE_SIZE + 1;
+    int largeContentSize = BlobData.MAX_FILE_SIZE + 1;
     repo.branch("master").commit().add("foo", generateContent(largeContentSize)).create();
 
     Map<String, ?> data = (Map<String, ?>) buildData("/repo/+/master/foo").get("data");
