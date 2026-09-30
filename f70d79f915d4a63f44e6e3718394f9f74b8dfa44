@@ -33,6 +33,23 @@
       "message": "1",
       "revId": "f70d79f915d4a63f44e6e3718394f9f74b8dfa44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98635083_b4cb3146",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4963880
+      },
+      "writtenOn": "2026-09-30T22:11:25Z",
+      "side": 1,
+      "message": "Submit requirements votes\nYou don\u0027t have permission to vote\nBecause this change has been merged, votes may not be decreased. You can still reply to comments without changing your vote.",
+      "revId": "f70d79f915d4a63f44e6e3718394f9f74b8dfa44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
