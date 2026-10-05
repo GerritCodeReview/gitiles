@@ -24,6 +24,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46035ed7_e1cbcb35",
+        "filename": "java/com/google/gitiles/blame/cache/IgnoreRevsFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-10-05T20:05:26Z",
+      "side": 1,
+      "message": "Done. Renamed the outer class to IgnoreRevFileReader and made IgnoreRevsFile an inner record.",
+      "parentUuid": "31bc84a5_0b27e8c1",
+      "revId": "ef99c19ad4c30c7cf9b64527e27e6db5674cf4b1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b993c4c_2f99ab2d",
@@ -69,6 +87,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5638b68c_1314d07b",
+        "filename": "java/com/google/gitiles/blame/cache/IgnoreRevsFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-10-05T20:05:26Z",
+      "side": 1,
+      "message": "Done. Replaced HEX_DIGIT with ObjectId.isId(name).",
+      "parentUuid": "2b993c4c_2f99ab2d",
+      "revId": "ef99c19ad4c30c7cf9b64527e27e6db5674cf4b1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0716570_78f2f211",
@@ -82,6 +118,24 @@
       "writtenOn": "2026-10-05T17:12:47Z",
       "side": 1,
       "message": "No need to check contains. \"add\" will return true if the element was already in the set.",
+      "revId": "ef99c19ad4c30c7cf9b64527e27e6db5674cf4b1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa3c727_b2676ab2",
+        "filename": "java/com/google/gitiles/blame/cache/IgnoreRevsFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1028847
+      },
+      "writtenOn": "2026-10-05T20:05:26Z",
+      "side": 1,
+      "message": "Done. Used ids.add(id) directly instead of checking contains().",
+      "parentUuid": "a0716570_78f2f211",
       "revId": "ef99c19ad4c30c7cf9b64527e27e6db5674cf4b1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
