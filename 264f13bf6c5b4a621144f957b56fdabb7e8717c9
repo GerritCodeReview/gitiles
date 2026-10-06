@@ -1,0 +1,122 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b235234_199b0ea0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-10-06T17:53:34Z",
+      "side": 1,
+      "message": "Just a nit left",
+      "revId": "264f13bf6c5b4a621144f957b56fdabb7e8717c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb4e894_094d3e9d",
+        "filename": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-10-06T17:53:34Z",
+      "side": 1,
+      "message": "nit: tooLarge and truncated.",
+      "range": {
+        "startLine": 77,
+        "startChar": 58,
+        "endLine": 77,
+        "endChar": 68
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d6cc20ba_3138bddd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 65,
+                "startChar": 0,
+                "endLine": 66,
+                "endChar": 0
+              },
+              "replacement": "          ImmutableSet.of(), /* exists\u003d */ false, /* tooLarge\u003d */ false, /* truncated\u003d */ false);\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 72,
+                "startChar": 0,
+                "endLine": 73,
+                "endChar": 0
+              },
+              "replacement": "   * @param tooLarge whether the file was ignored because it is larger than {@link #MAX_SIZE}\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "   * @param truncated whether revisions after the first {@link #MAX_REVS} were dropped.\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 77,
+                "startChar": 0,
+                "endLine": 78,
+                "endChar": 0
+              },
+              "replacement": "      ImmutableSet\u003cObjectId\u003e ids, boolean exists, boolean tooLarge, boolean truncated) {}\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 143,
+                "startChar": 0,
+                "endLine": 144,
+                "endChar": 0
+              },
+              "replacement": "            ImmutableSet.of(), /* exists\u003d */ true, /* tooLarge\u003d */ true, /* truncated\u003d */ false);\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 167,
+                "startChar": 0,
+                "endLine": 169,
+                "endChar": 0
+              },
+              "replacement": "            /* tooLarge\u003d */ false,\n            /* truncated\u003d */ true);\n"
+            },
+            {
+              "path": "java/com/google/gitiles/blame/cache/IgnoreRevFileReader.java",
+              "range": {
+                "startLine": 174,
+                "startChar": 0,
+                "endLine": 176,
+                "endChar": 0
+              },
+              "replacement": "        /* tooLarge\u003d */ false,\n        /* truncated\u003d */ false);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "264f13bf6c5b4a621144f957b56fdabb7e8717c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
