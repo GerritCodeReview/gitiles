@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "342fba26_a4d94aa4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1102881
+      },
+      "writtenOn": "2026-10-08T23:01:55Z",
+      "side": 1,
+      "message": "Let\u0027s start here, the rese of the stack is just an example of the implementation following this design in case that is helpful to peek at.",
+      "revId": "1f2d9188fcfd5273846cde081b6c1bb3f2151b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
