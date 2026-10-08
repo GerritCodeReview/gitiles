@@ -1,0 +1,100 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfdc04a7_ada32be9",
+        "filename": "jstests/js_test_rule_test.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-08T22:41:59Z",
+      "side": 1,
+      "message": "Nit: The header comment notes that promise (1) verifies that the hermetic toolchain Node is used rather than a system `node`, but `major \u003e\u003d 20` will also pass on any modern system `node` (and if Node predated `node:test`, line 15\u0027s `require(\u0027node:test\u0027)` would throw before this callback runs). Asserting on `process.execPath` (e.g. that it resolves under the Bazel runfiles/execroot tree) would directly pin the hermetic toolchain resolution.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7353f5ff_3e62bd1b",
+        "filename": "tools/js_test.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-08T22:41:59Z",
+      "side": 1,
+      "message": "Consider forwarding `\"$@\"` to the `node --test` invocation (e.g., `exec \"./{node}\" --test \"$@\" {tests}`) so that Bazel\u0027s built-in `args` attribute on `js_test` and `bazel test --test_arg\u003d...` (such as `--test_arg\u003d--test-name-pattern\u003d...`) are passed through instead of silently ignored.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66656ded_317297a6",
+        "filename": "tools/js_test.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-08T22:41:59Z",
+      "side": 1,
+      "message": "`ctx.runfiles(files \u003d ...)` only includes the direct outputs of `srcs` and `data` plus the single `node` executable. Consider merging transitive `default_runfiles` from `ctx.attr.srcs + ctx.attr.data` (and using `nodeinfo.tool_files` instead of just `[node]`) so targets in `data` that carry their own runfiles work as expected.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5725595_a8ee3666",
+        "filename": "tools/js_test.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-08T22:41:59Z",
+      "side": 1,
+      "message": "Consider adding `allow_empty \u003d False` here. In Starlark, `mandatory \u003d True` on `attr.label_list` only requires the attribute to be specified, not non-empty (`srcs \u003d []` is still permitted). Because `node --test` with no file arguments falls back to recursively scanning the working directory (the Bazel runfiles tree) for matching test files, `allow_empty \u003d False` prevents accidentally running unintended files if `srcs \u003d []` is passed.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
