@@ -42,12 +42,16 @@ import javax.annotation.Nullable;
  */
 final class DiagramLayoutEngine {
 
-    // =========================================================================
+  private static final Pattern SAFE_COLOR_PATTERN =
+      Pattern.compile(
+          "^(#[0-9a-fA-F]{3,8}|[a-zA-Z]{2,25}|(?:rgb|rgba|hsl|hsla)\\([0-9.,%\\s]{3,30}\\))$");
+
+  // =========================================================================
   // Shared Base AST & Layout Model Classes
   // =========================================================================
 
   /** Base graph node with Sugiyama layer and coordinate properties. */
-  public static class BaseNode {
+  static class BaseNode {
     public final String id;
     public int layer = 0;
     public double relX;
@@ -69,7 +73,7 @@ final class DiagramLayoutEngine {
   }
 
   /** Base logical subgraph or cluster container with recursive hierarchy and layout bounds. */
-  public static class BaseSubgraph<N extends BaseNode, S extends BaseSubgraph<N, S>> {
+  static class BaseSubgraph<N extends BaseNode, S extends BaseSubgraph<N, S>> {
     public final String id;
     @Nullable public String title;
     @Nullable public S parent;
@@ -120,12 +124,13 @@ final class DiagramLayoutEngine {
   }
 
   /** Base directed or undirected edge with virtual dummy node chain and label spacing hooks. */
-  public static class BaseEdge<N extends BaseNode> {
+  static class BaseEdge<N extends BaseNode> {
     public final String fromId;
     public final String toId;
     @Nullable public String label;
     public boolean isBackEdge = false;
-        public final List<N> virtualNodes = new ArrayList<>();
+    public boolean constraint = true;
+    public final List<N> virtualNodes = new ArrayList<>();
 
     protected BaseEdge(String fromId, String toId, @Nullable String label) {
       this.fromId = fromId;
@@ -188,7 +193,7 @@ final class DiagramLayoutEngine {
   }
 
   /** Base edge connecting two subgraphs directly. */
-  public static class BaseSubgraphEdge {
+  static class BaseSubgraphEdge {
     public final String fromSgId;
     public final String toSgId;
     @Nullable public final String label;
@@ -281,6 +286,79 @@ final class DiagramLayoutEngine {
     }
   }
 
+  /** Collision-free placement for an edge label badge. */
+  static final class BadgePlacement<E> {
+    final E edge;
+    double cx;
+    double cy;
+    final double width;
+    final double height;
+
+    BadgePlacement(E edge, double cx, double cy, double width, double height) {
+      this.edge = edge;
+      this.cx = cx;
+      this.cy = cy;
+      this.width = width;
+      this.height = height;
+    }
+  }
+
+  /** Configuration parameters for Sugiyama hierarchical DAG and compound layout. */
+  static final class SugiyamaConfig {
+    final double nodeSep;
+    final double rankSep;
+    final double minHorizontalLayerWidth;
+    final double unitVerticalBaseGap;
+    final double unitHorizontalBaseGap;
+    final boolean alignSingleNodeToParents;
+    final boolean reserveLoopSpaceInSubgraphs;
+    final List<List<String>> rankSameGroups;
+
+    private SugiyamaConfig(
+        double nodeSep,
+        double rankSep,
+        double minHorizontalLayerWidth,
+        double unitVerticalBaseGap,
+        double unitHorizontalBaseGap,
+        boolean alignSingleNodeToParents,
+        boolean reserveLoopSpaceInSubgraphs,
+        List<List<String>> rankSameGroups) {
+      this.nodeSep = nodeSep;
+      this.rankSep = rankSep;
+      this.minHorizontalLayerWidth = minHorizontalLayerWidth;
+      this.unitVerticalBaseGap = unitVerticalBaseGap;
+      this.unitHorizontalBaseGap = unitHorizontalBaseGap;
+      this.alignSingleNodeToParents = alignSingleNodeToParents;
+      this.reserveLoopSpaceInSubgraphs = reserveLoopSpaceInSubgraphs;
+      this.rankSameGroups = rankSameGroups;
+    }
+
+    static SugiyamaConfig forMermaid() {
+      return new SugiyamaConfig(
+          /* nodeSep= */ 32.0,
+          /* rankSep= */ 48.0,
+          /* minHorizontalLayerWidth= */ 120.0,
+          /* unitVerticalBaseGap= */ 45.0,
+          /* unitHorizontalBaseGap= */ 45.0,
+          /* alignSingleNodeToParents= */ true,
+          /* reserveLoopSpaceInSubgraphs= */ false,
+          Collections.emptyList());
+    }
+
+    static SugiyamaConfig forDot(
+        double nodeSep, double rankSep, List<List<String>> rankSameGroups) {
+      return new SugiyamaConfig(
+          nodeSep,
+          rankSep,
+          /* minHorizontalLayerWidth= */ 90.0,
+          /* unitVerticalBaseGap= */ Math.max(48.0, rankSep),
+          /* unitHorizontalBaseGap= */ Math.max(55.0, rankSep),
+          /* alignSingleNodeToParents= */ false,
+          /* reserveLoopSpaceInSubgraphs= */ true,
+          rankSameGroups);
+    }
+  }
+
   // =========================================================================
   // 1. Security, Color Validation & Dark-Mode Relative Luminance Contrast
   // =========================================================================
@@ -290,23 +368,16 @@ final class DiagramLayoutEngine {
     if (isNullOrEmpty(val)) {
       return false;
     }
-    String v = val.trim().toLowerCase(Locale.ROOT);
-    if (v.startsWith("javascript:")
-        || v.startsWith("data:")
-        || v.contains("url(")
-        || v.contains("\"")
-        || v.contains("'")
-        || v.contains("<")
-        || v.contains(">")) {
+    String c = val.trim();
+    if (!SAFE_COLOR_PATTERN.matcher(c).matches()) {
       return false;
     }
-    if (v.matches("^#[0-9a-f]{3,8}$")) {
-      return true;
-    }
-    if (v.matches("^[a-z]{3,20}$")) {
-      return true;
-    }
-    return v.matches("^(rgb|hsl)a?\\([0-9%,. ]+\\)$");
+    String lower = Ascii.toLowerCase(c);
+    // Check for "url(" (with opening parenthesis) rather than bare "url" so that standard CSS
+    // named colors containing the substring "url" (such as "burlywood") are not falsely rejected,
+    // while functional url(...) references remain blocked as defense-in-depth alongside
+    // SAFE_COLOR_PATTERN.
+    return !lower.contains("url(") && !lower.contains("expression");
   }
 
   /**
@@ -317,7 +388,7 @@ final class DiagramLayoutEngine {
     if (isNullOrEmpty(color)) {
       return true;
     }
-    String c = color.trim().toLowerCase(Locale.ROOT);
+    String c = Ascii.toLowerCase(color.trim());
     if (c.startsWith("#")) {
       try {
         String hex = c.substring(1);
@@ -335,22 +406,23 @@ final class DiagramLayoutEngine {
         } else {
           return true;
         }
-        return (0.299 * r + 0.587 * g + 0.114 * b) >= 128;
+        return (0.299 * r + 0.587 * g + 0.114 * b) >= 127.5;
       } catch (NumberFormatException e) {
         return true;
       }
     }
     if (c.startsWith("rgb")) {
-      int start = c.indexOf('(');
-      int end = c.indexOf(')');
-      if (start != -1 && end > start) {
-        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
+      int open = c.indexOf('(');
+      int close = c.indexOf(')');
+      if (open != -1 && close > open) {
+        List<String> parts =
+            Splitter.onPattern("[,\\s/]+").omitEmptyStrings().splitToList(c.substring(open + 1, close));
         if (parts.size() >= 3) {
           try {
             double r = parseColorComponent(parts.get(0));
             double g = parseColorComponent(parts.get(1));
             double b = parseColorComponent(parts.get(2));
-            return (0.299 * r + 0.587 * g + 0.114 * b) >= 128;
+            return (0.299 * r + 0.587 * g + 0.114 * b) >= 127.5;
           } catch (NumberFormatException e) {
             return true;
           }
@@ -358,10 +430,11 @@ final class DiagramLayoutEngine {
       }
     }
     if (c.startsWith("hsl")) {
-      int start = c.indexOf('(');
-      int end = c.indexOf(')');
-      if (start != -1 && end > start) {
-        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
+      int open = c.indexOf('(');
+      int close = c.indexOf(')');
+      if (open != -1 && close > open) {
+        List<String> parts =
+            Splitter.onPattern("[,\\s/]+").omitEmptyStrings().splitToList(c.substring(open + 1, close));
         if (parts.size() >= 3) {
           try {
             String lStr = parts.get(2).trim().replace("%", "");
@@ -373,37 +446,47 @@ final class DiagramLayoutEngine {
         }
       }
     }
-    switch (c) {
-      case "black":
-      case "navy":
-      case "darkblue":
-      case "mediumblue":
-      case "blue":
-      case "darkgreen":
-      case "green":
-      case "teal":
-      case "darkcyan":
-      case "darkred":
-      case "maroon":
-      case "purple":
-      case "indigo":
-      case "darkmagenta":
-      case "darkviolet":
-      case "darkslateblue":
-      case "saddlebrown":
-      case "sienna":
-      case "brown":
-      case "darkslategray":
-      case "darkslategrey":
-      case "midnightblue":
-      case "gray":
-      case "grey":
-      case "dimgray":
-      case "dimgrey":
-        return false;
-      default:
-        return true;
-    }
+    return switch (c) {
+      case "black",
+          "navy",
+          "darkblue",
+          "mediumblue",
+          "blue",
+          "darkgreen",
+          "green",
+          "teal",
+          "darkcyan",
+          "darkred",
+          "maroon",
+          "purple",
+          "indigo",
+          "darkmagenta",
+          "darkviolet",
+          "darkslateblue",
+          "saddlebrown",
+          "sienna",
+          "brown",
+          "darkslategray",
+          "darkslategrey",
+          "midnightblue",
+          "crimson",
+          "firebrick",
+          "royalblue",
+          "steelblue",
+          "forestgreen",
+          "seagreen",
+          "darkolivegreen",
+          "chocolate",
+          "slategray",
+          "slategrey",
+          "charcoal",
+          "gray",
+          "grey",
+          "dimgray",
+          "dimgrey" ->
+          false;
+      default -> true;
+    };
   }
 
   /** Parses an RGB channel value (0..255 or 0%..100%). */
@@ -610,18 +693,19 @@ final class DiagramLayoutEngine {
       double ty,
       double tw,
       double th,
-      boolean isHorizontal) {
+      boolean isHorizontal,
+      boolean isReversed) {
     if (!isHorizontal) {
       double x1 = sx + sw / 2.0;
-      double y1 = sy + sh;
+      double y1 = isReversed ? sy : sy + sh;
       double x2 = tx + tw / 2.0;
-      double y2 = ty;
+      double y2 = isReversed ? ty + th : ty;
       double dy = y2 - y1;
       return new double[] {x1, y1, x1, y1 + dy * 0.5, x2, y1 + dy * 0.5, x2, y2};
     } else {
-      double x1 = sx + sw;
+      double x1 = isReversed ? sx : sx + sw;
       double y1 = sy + sh / 2.0;
-      double x2 = tx;
+      double x2 = isReversed ? tx + tw : tx;
       double y2 = ty + th / 2.0;
       double dx = x2 - x1;
       return new double[] {x1, y1, x1 + dx * 0.5, y1, x1 + dx * 0.5, y2, x2, y2};
@@ -700,6 +784,98 @@ final class DiagramLayoutEngine {
     double rxCyl = width / 2.0;
     return String.format(
         Locale.ROOT, "M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0", x, y + ry, rxCyl, ry, width);
+  }
+
+  /**
+   * Finds a collision-free center coordinate for an edge label badge along or near its cubic
+   * Bézier curve, avoiding all node bounding boxes and previously placed badges.
+   */
+  static <N extends BaseNode, E> double[] findCollisionFreeBadgeCenter(
+      double initialX,
+      double initialY,
+      double x1,
+      double y1,
+      double cp1x,
+      double cp1y,
+      double cp2x,
+      double cp2y,
+      double x2,
+      double y2,
+      double bw,
+      double bh,
+      Collection<N> nodes,
+      List<BadgePlacement<E>> placedBadges) {
+    if (!overlapsAnyNodeOrBadge(initialX, initialY, bw, bh, nodes, placedBadges)) {
+      return new double[] {initialX, initialY};
+    }
+
+    double[] ts = {0.5, 0.65, 0.35, 0.75, 0.25, 0.84, 0.16, 0.90, 0.10};
+    for (double t : ts) {
+      double bx = evalCubicBezier(x1, cp1x, cp2x, x2, t);
+      double by = evalCubicBezier(y1, cp1y, cp2y, y2, t);
+      if (!overlapsAnyNodeOrBadge(bx, by, bw, bh, nodes, placedBadges)) {
+        return new double[] {bx, by};
+      }
+    }
+
+    double[] anchorTs = {0.5, 0.78, 0.22};
+    for (double t : anchorTs) {
+      double ax = evalCubicBezier(x1, cp1x, cp2x, x2, t);
+      double ay = evalCubicBezier(y1, cp1y, cp2y, y2, t);
+      for (int step = 1; step <= 20; step++) {
+        double dy = step * 14.0;
+        double dx = step * 22.0;
+        double[][] candidates = {
+          {ax, ay - dy},
+          {ax, ay + dy},
+          {ax + dx, ay},
+          {ax - dx, ay},
+          {ax + dx, ay - dy},
+          {ax + dx, ay + dy},
+          {ax - dx, ay - dy},
+          {ax - dx, ay + dy}
+        };
+        for (double[] c : candidates) {
+          if (!overlapsAnyNodeOrBadge(c[0], c[1], bw, bh, nodes, placedBadges)) {
+            return c;
+          }
+        }
+      }
+    }
+
+    return new double[] {initialX, initialY};
+  }
+
+  private static <N extends BaseNode, E> boolean overlapsAnyNodeOrBadge(
+      double cx,
+      double cy,
+      double bw,
+      double bh,
+      Collection<N> nodes,
+      List<BadgePlacement<E>> placedBadges) {
+    double bx = cx - bw / 2.0;
+    double by = cy - bh / 2.0;
+    double margin = 4.0;
+    for (N n : nodes) {
+      if (rectsOverlap(bx, by, bw, bh, n.x, n.y, n.width, n.height, margin)) {
+        return true;
+      }
+    }
+    for (BadgePlacement<E> bp : placedBadges) {
+      if (rectsOverlap(
+          bx,
+          by,
+          bw,
+          bh,
+          bp.cx - bp.width / 2.0,
+          bp.cy - bp.height / 2.0,
+          bp.width,
+          bp.height,
+          2.0)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // =========================================================================
@@ -909,7 +1085,9 @@ final class DiagramLayoutEngine {
 
   /** Performs Sugiyama hierarchical DAG layout on a flat set of nodes and edges. */
   static <N extends BaseNode, E extends BaseEdge<N>> void layoutBySugiyamaDag(
+      SugiyamaConfig config,
       boolean isHorizontal,
+      boolean isReversed,
       Map<String, N> allNodes,
       List<E> edges,
       Function<String, N> virtualNodeFactory) {
@@ -942,7 +1120,7 @@ final class DiagramLayoutEngine {
     while (changed && iter++ < maxIterations) {
       changed = false;
       for (E e : edges) {
-        if (!e.isBackEdge && !e.fromId.equals(e.toId)) {
+        if (!e.isBackEdge && !e.fromId.equals(e.toId) && e.constraint) {
           N src = allNodes.get(e.fromId);
           N dst = allNodes.get(e.toId);
           if (src != null && dst != null && dst.layer < src.layer + 1) {
@@ -958,7 +1136,7 @@ final class DiagramLayoutEngine {
       int inCount = 0;
       int minOutLayer = Integer.MAX_VALUE;
       for (E e : edges) {
-        if (!e.isBackEdge && !e.fromId.equals(e.toId)) {
+        if (!e.isBackEdge && !e.fromId.equals(e.toId) && e.constraint) {
           if (e.toId.equals(n.id)) {
             inCount++;
           }
@@ -975,7 +1153,68 @@ final class DiagramLayoutEngine {
       }
     }
 
-    // 2b. Virtual Dummy Node Insertion for Long Edges
+    // 2b. Apply rank=same groups and re-propagate downstream layers
+    if (!config.rankSameGroups.isEmpty()) {
+      boolean rankRaised = false;
+      for (List<String> group : config.rankSameGroups) {
+        int groupLayer = -1;
+        for (String id : group) {
+          N n = allNodes.get(id);
+          if (n != null) {
+            groupLayer = Math.max(groupLayer, n.layer);
+          }
+        }
+        if (groupLayer >= 0) {
+          for (String id : group) {
+            N n = allNodes.get(id);
+            if (n != null && n.layer < groupLayer) {
+              n.layer = groupLayer;
+              rankRaised = true;
+            }
+          }
+        }
+      }
+      if (rankRaised) {
+        boolean propChanged = true;
+        int propIter = 0;
+        while (propChanged && propIter++ < maxIterations) {
+          propChanged = false;
+          for (E e : edges) {
+            if (!e.isBackEdge
+                && !e.fromId.equals(e.toId)
+                && e.constraint
+                && !areInSameRankGroup(e.fromId, e.toId, config.rankSameGroups)) {
+              N src = allNodes.get(e.fromId);
+              N dst = allNodes.get(e.toId);
+              if (src != null && dst != null && dst.layer < src.layer + 1) {
+                dst.layer = src.layer + 1;
+                propChanged = true;
+              }
+            }
+          }
+          for (List<String> group : config.rankSameGroups) {
+            int groupLayer = -1;
+            for (String id : group) {
+              N n = allNodes.get(id);
+              if (n != null) {
+                groupLayer = Math.max(groupLayer, n.layer);
+              }
+            }
+            if (groupLayer >= 0) {
+              for (String id : group) {
+                N n = allNodes.get(id);
+                if (n != null && n.layer < groupLayer) {
+                  n.layer = groupLayer;
+                  propChanged = true;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 2c. Virtual Dummy Node Insertion for Long Edges
     for (E e : edges) {
       e.virtualNodes.clear();
       if (!e.isBackEdge && !e.fromId.equals(e.toId)) {
@@ -1060,6 +1299,9 @@ final class DiagramLayoutEngine {
     }
 
     List<Integer> orderedLayers = new ArrayList<>(layerMap.keySet());
+    if (isReversed) {
+      Collections.reverse(orderedLayers);
+    }
 
     // 4. Coordinate Assignment
     if (!isHorizontal) {
@@ -1073,7 +1315,7 @@ final class DiagramLayoutEngine {
         double maxH = 38;
         for (int i = 0; i < nodes.size(); i++) {
           N n = nodes.get(i);
-          totalW += n.width + (i < nodes.size() - 1 ? 32.0 : 0);
+          totalW += n.width + (i < nodes.size() - 1 ? config.nodeSep : 0);
           if (!n.isVirtual) {
             maxH = Math.max(maxH, n.height);
           }
@@ -1090,7 +1332,7 @@ final class DiagramLayoutEngine {
         double curX = (maxGraphWidth - w) / 2.0;
         double maxH = layerMaxHeights.get(l);
 
-        if (nodes.size() == 1 && l > 0) {
+        if (config.alignSingleNodeToParents && nodes.size() == 1 && l > 0) {
           N single = nodes.get(0);
           double parentAvgX = 0;
           int parentCount = 0;
@@ -1112,10 +1354,10 @@ final class DiagramLayoutEngine {
         for (N n : nodes) {
           n.x = curX;
           n.y = curY + (maxH - n.height) / 2.0;
-          curX += n.width + 32.0;
+          curX += n.width + config.nodeSep;
         }
 
-        double layerGap = 48.0;
+        double layerGap = config.rankSep;
         for (E e : edges) {
           N src = allNodes.get(e.fromId);
           N dst = allNodes.get(e.toId);
@@ -1136,7 +1378,7 @@ final class DiagramLayoutEngine {
       for (int l : orderedLayers) {
         List<N> nodes = layerMap.get(l);
         double totalH = 0;
-        double maxW = 120.0;
+        double maxW = config.minHorizontalLayerWidth;
         for (int i = 0; i < nodes.size(); i++) {
           N n = nodes.get(i);
           totalH += n.height + (i < nodes.size() - 1 ? 24 : 0);
@@ -1156,7 +1398,7 @@ final class DiagramLayoutEngine {
         double curY = (maxGraphHeight - h) / 2.0;
         double maxW = layerMaxWidths.get(l);
 
-        if (nodes.size() == 1 && l > 0) {
+        if (config.alignSingleNodeToParents && nodes.size() == 1 && l > 0) {
           N single = nodes.get(0);
           double parentAvgY = 0;
           int parentCount = 0;
@@ -1181,7 +1423,7 @@ final class DiagramLayoutEngine {
           curY += n.height + 24;
         }
 
-        double layerGap = 55.0;
+        double layerGap = Math.max(55.0, config.rankSep);
         for (E e : edges) {
           N src = allNodes.get(e.fromId);
           N dst = allNodes.get(e.toId);
@@ -1204,7 +1446,9 @@ final class DiagramLayoutEngine {
           S extends BaseSubgraph<N, S>,
           SE extends BaseSubgraphEdge>
       void layoutCompoundComponent(
+          SugiyamaConfig config,
           boolean compHorizontal,
+          boolean compReversed,
           GraphComponent<N, E, S> comp,
           List<SE> subgraphEdges) {
 
@@ -1220,8 +1464,11 @@ final class DiagramLayoutEngine {
           (rootSgs.size() == 1 && sg.hasDirectionOverride())
               ? sg.isDirectionHorizontal()
               : compHorizontal;
-      
-      computeSubgraphSizes(sg, sgHoriz, comp.edges, subgraphEdges);
+      boolean sgRev =
+          (rootSgs.size() == 1 && sg.hasDirectionOverride())
+              ? sg.isDirectionReversed()
+              : compReversed;
+      computeSubgraphSizes(config, sg, sgHoriz, sgRev, comp.edges, subgraphEdges);
     }
 
     // 2. Build LayoutUnits for root subgraphs and standalone nodes
@@ -1285,6 +1532,18 @@ final class DiagramLayoutEngine {
                   e.getUnitVerticalGap(),
                   e.getUnitHorizontalGap(),
                   e.usesInclusiveUnitLayerSpan()));
+        } else if (config.reserveLoopSpaceInSubgraphs && e.hasLabel()) {
+          for (UnitEdge existingUe : unitEdges) {
+            if (existingUe.fromId.equals(u1.id) && existingUe.toId.equals(u2.id)) {
+              if (existingUe.label == null || e.label.length() > existingUe.label.length()) {
+                existingUe.label = e.label;
+                existingUe.badgeWidth = e.getBadgeWidth();
+                existingUe.badgeHeight = e.getBadgeHeight();
+                existingUe.unitVerticalGap = e.getUnitVerticalGap();
+                existingUe.unitHorizontalGap = e.getUnitHorizontalGap();
+              }
+            }
+          }
         }
       }
     }
@@ -1315,7 +1574,7 @@ final class DiagramLayoutEngine {
     }
 
     // 5. Run Sugiyama Layout on Units
-    layoutUnits(compHorizontal, units, unitMap, nodeToUnit, unitEdges);
+    layoutUnits(config, compHorizontal, compReversed, units, unitMap, nodeToUnit, unitEdges);
 
     // 6. Assign Absolute Coordinates
     for (LayoutUnit<N, S> u : units) {
@@ -1337,16 +1596,19 @@ final class DiagramLayoutEngine {
           S extends BaseSubgraph<N, S>,
           SE extends BaseSubgraphEdge>
       void computeSubgraphSizes(
+          SugiyamaConfig config,
           S sg,
           boolean parentHorizontal,
+          boolean parentReversed,
           List<E> edges,
           List<SE> subgraphEdges) {
     boolean isHorizontal =
         sg.hasDirectionOverride() ? sg.isDirectionHorizontal() : parentHorizontal;
+    boolean isReversed = sg.hasDirectionOverride() ? sg.isDirectionReversed() : parentReversed;
 
     // 1. Recursively compute internal sizes of all child subgraphs
     for (S child : sg.children) {
-      computeSubgraphSizes(child, isHorizontal, edges, subgraphEdges);
+      computeSubgraphSizes(config, child, isHorizontal, isReversed, edges, subgraphEdges);
     }
 
     double padding = sg.getPadding();
@@ -1403,22 +1665,27 @@ final class DiagramLayoutEngine {
     // 4. Build Unit Edges (meta-graph) for edges where both endpoints are in sg
     List<UnitEdge> unitEdges = new ArrayList<>();
     Set<String> seenUnitEdges = new HashSet<>();
+    double extraRightForLoops = 0;
     for (E e : edges) {
       LayoutUnit<N, S> u1 = nodeToUnit.get(e.fromId);
       LayoutUnit<N, S> u2 = nodeToUnit.get(e.toId);
-      if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
-        String key = u1.id + "->" + u2.id;
-        if (seenUnitEdges.add(key)) {
-          unitEdges.add(
-              new UnitEdge(
-                  u1.id,
-                  u2.id,
-                  e.label,
-                  e.getBadgeWidth(),
-                  e.getBadgeHeight(),
-                  e.getUnitVerticalGap(),
-                  e.getUnitHorizontalGap(),
-                  e.usesInclusiveUnitLayerSpan()));
+      if (u1 != null && u2 != null) {
+        if (!u1.id.equals(u2.id)) {
+          String key = u1.id + "->" + u2.id;
+          if (seenUnitEdges.add(key)) {
+            unitEdges.add(
+                new UnitEdge(
+                    u1.id,
+                    u2.id,
+                    e.label,
+                    e.getBadgeWidth(),
+                    e.getBadgeHeight(),
+                    e.getUnitVerticalGap(),
+                    e.getUnitHorizontalGap(),
+                    e.usesInclusiveUnitLayerSpan()));
+          }
+        } else if (config.reserveLoopSpaceInSubgraphs && e.fromId.equals(e.toId)) {
+          extraRightForLoops = Math.max(extraRightForLoops, 42.0 + e.getBadgeWidth());
         }
       }
     }
@@ -1449,7 +1716,22 @@ final class DiagramLayoutEngine {
     }
 
     // 5. Run Sugiyama DAG layout on units
-    layoutUnits(isHorizontal, units, unitMap, nodeToUnit, unitEdges);
+    layoutUnits(config, isHorizontal, isReversed, units, unitMap, nodeToUnit, unitEdges);
+
+    if (config.reserveLoopSpaceInSubgraphs) {
+      for (UnitEdge ue : unitEdges) {
+        if (ue.isBackEdge) {
+          extraRightForLoops = Math.max(extraRightForLoops, 46.0 + ue.badgeWidth);
+        }
+      }
+      for (E e : edges) {
+        LayoutUnit<N, S> u1 = nodeToUnit.get(e.fromId);
+        LayoutUnit<N, S> u2 = nodeToUnit.get(e.toId);
+        if (u1 != null && u2 != null && !u1.id.equals(u2.id) && u1.layer > u2.layer) {
+          e.isBackEdge = true;
+        }
+      }
+    }
 
     // 6. Assign relative coordinates inside sg and compute sg dimensions
     double minX = Double.MAX_VALUE;
@@ -1463,7 +1745,7 @@ final class DiagramLayoutEngine {
       maxY = Math.max(maxY, u.y + u.height);
     }
 
-    double contentW = maxX - minX;
+    double contentW = (maxX - minX) + extraRightForLoops;
     double titleMinW = sg.getTitleMinWidth(padding);
     sg.width = Math.max(titleMinW, contentW + padding * 2);
     sg.height = (maxY - minY) + padding * 2 + headerH;
@@ -1484,7 +1766,9 @@ final class DiagramLayoutEngine {
 
   /** Runs Sugiyama DAG layout on a list of {@link LayoutUnit} super-nodes. */
   static <N extends BaseNode, S extends BaseSubgraph<N, S>> void layoutUnits(
+      SugiyamaConfig config,
       boolean isHorizontal,
+      boolean isReversed,
       List<LayoutUnit<N, S>> units,
       Map<String, LayoutUnit<N, S>> unitMap,
       Map<String, LayoutUnit<N, S>> nodeToUnit,
@@ -1552,6 +1836,69 @@ final class DiagramLayoutEngine {
       }
     }
 
+    // 2b. Apply rank=same groups for units in this scope and re-propagate downstream unit layers
+    if (!config.rankSameGroups.isEmpty()) {
+      boolean rankRaised = false;
+      for (List<String> group : config.rankSameGroups) {
+        int groupLayer = -1;
+        for (String nodeId : group) {
+          LayoutUnit<N, S> u = nodeToUnit.get(nodeId);
+          if (u != null && u.node != null) {
+            groupLayer = Math.max(groupLayer, u.layer);
+          }
+        }
+        if (groupLayer >= 0) {
+          for (String nodeId : group) {
+            LayoutUnit<N, S> u = nodeToUnit.get(nodeId);
+            if (u != null && u.node != null && u.layer < groupLayer) {
+              u.layer = groupLayer;
+              rankRaised = true;
+            }
+          }
+        }
+      }
+      if (rankRaised) {
+        boolean propChanged = true;
+        int propIter = 0;
+        while (propChanged && propIter++ < maxIter) {
+          propChanged = false;
+          for (UnitEdge ue : unitEdges) {
+            if (!ue.isBackEdge) {
+              LayoutUnit<N, S> src = unitMap.get(ue.fromId);
+              LayoutUnit<N, S> dst = unitMap.get(ue.toId);
+              if (src != null
+                  && dst != null
+                  && !(src.node != null
+                      && dst.node != null
+                      && areInSameRankGroup(src.node.id, dst.node.id, config.rankSameGroups))
+                  && dst.layer < src.layer + 1) {
+                dst.layer = src.layer + 1;
+                propChanged = true;
+              }
+            }
+          }
+          for (List<String> group : config.rankSameGroups) {
+            int groupLayer = -1;
+            for (String nodeId : group) {
+              LayoutUnit<N, S> u = nodeToUnit.get(nodeId);
+              if (u != null && u.node != null) {
+                groupLayer = Math.max(groupLayer, u.layer);
+              }
+            }
+            if (groupLayer >= 0) {
+              for (String nodeId : group) {
+                LayoutUnit<N, S> u = nodeToUnit.get(nodeId);
+                if (u != null && u.node != null && u.layer < groupLayer) {
+                  u.layer = groupLayer;
+                  propChanged = true;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     // 3. Layer Map & Barycentric Ordering
     Map<Integer, List<LayoutUnit<N, S>>> layerMap = new TreeMap<>();
     for (LayoutUnit<N, S> u : units) {
@@ -1587,7 +1934,9 @@ final class DiagramLayoutEngine {
     }
 
     List<Integer> orderedLayers = new ArrayList<>(layerMap.keySet());
-    
+    if (isReversed) {
+      Collections.reverse(orderedLayers);
+    }
 
     // 4. Coordinate Assignment
     if (!isHorizontal) {
@@ -1619,7 +1968,7 @@ final class DiagramLayoutEngine {
           u.y = curY + (mh - u.height) / 2.0;
           curX += u.width + 36;
         }
-        double layerGap = 45.0;
+        double layerGap = config.unitVerticalBaseGap;
         for (UnitEdge ue : unitEdges) {
           LayoutUnit<N, S> src = unitMap.get(ue.fromId);
           LayoutUnit<N, S> dst = unitMap.get(ue.toId);
@@ -1664,7 +2013,7 @@ final class DiagramLayoutEngine {
           u.y = curY;
           curY += u.height + 36;
         }
-        double layerGap = 45.0;
+        double layerGap = config.unitHorizontalBaseGap;
         for (UnitEdge ue : unitEdges) {
           LayoutUnit<N, S> src = unitMap.get(ue.fromId);
           LayoutUnit<N, S> dst = unitMap.get(ue.toId);
@@ -1848,6 +2197,16 @@ final class DiagramLayoutEngine {
       }
     }
     return null;
+  }
+
+  private static boolean areInSameRankGroup(
+      String id1, String id2, List<List<String>> rankSameGroups) {
+    for (List<String> group : rankSameGroups) {
+      if (group.contains(id1) && group.contains(id2)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private DiagramLayoutEngine() {}

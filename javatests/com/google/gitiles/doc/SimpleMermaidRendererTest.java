@@ -1689,4 +1689,107 @@ public class SimpleMermaidRendererTest {
     assertThat(defaultText).isNotNull();
     assertThat(defaultText.getAttribute("class")).isEqualTo("mermaid-node-text");
   }
+
+
+  @Test
+  public void testFlagShapeRightEdgeAttachmentInset() {
+    String code = "graph LR\n  F>Flag Node] --> B[Target]\n";
+    SvgDoc svg = SvgDoc.render(code);
+
+    List<Element> edgePaths = svg.getEdgePaths();
+    assertThat(edgePaths).hasSize(1);
+
+    String d = edgePaths.get(0).getAttribute("d");
+    List<String> parts = Splitter.on(' ').splitToList(d);
+    double startX = Double.parseDouble(parts.get(1));
+
+    Element flagPolygon = svg.findPolygonWithVertices(5);
+    assertThat(flagPolygon).isNotNull();
+    List<String> pointTokens = Splitter.on(' ').splitToList(flagPolygon.getAttribute("points"));
+    List<String> firstPoint = Splitter.on(',').splitToList(pointTokens.get(0));
+    List<String> secondPoint = Splitter.on(',').splitToList(pointTokens.get(1));
+    double fX = Double.parseDouble(firstPoint.get(0));
+    double fWidth = Double.parseDouble(secondPoint.get(0)) - fX;
+
+    assertThat(startX).isWithin(0.1).of(fX + fWidth - 12.0);
+  }
+
+  @Test
+  public void testEnhancedCssColorValidationAndSpaceSeparatedLuminance() {
+    assertThat(DiagramLayoutEngine.isValidCssColor("burlywood")).isTrue();
+    assertThat(DiagramLayoutEngine.isValidCssColor("url(https://evil.com)")).isFalse();
+    assertThat(DiagramLayoutEngine.isValidCssColor("expression(alert(1))")).isFalse();
+
+    assertThat(DiagramLayoutEngine.isLightColor("rgb(240 248 255)")).isTrue();
+    assertThat(DiagramLayoutEngine.isLightColor("rgb(15 23 42 / 90%)")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("hsl(210 50% 20%)")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("crimson")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("royalblue")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("charcoal")).isFalse();
+  }
+
+  @Test
+  public void testRankSameDownstreamLayerPropagationAndBadgeCollisionAvoidance() {
+    DiagramLayoutEngine.SugiyamaConfig config =
+        DiagramLayoutEngine.SugiyamaConfig.forDot(
+            32.0, 48.0, java.util.List.of(java.util.List.of("B", "C")));
+
+    java.util.Map<String, SimpleMermaidRenderer.Node> nodes = new java.util.LinkedHashMap<>();
+    for (String id : java.util.List.of("X", "A", "B", "C", "D")) {
+      SimpleMermaidRenderer.Node n = new SimpleMermaidRenderer.Node(id);
+      n.width = 60;
+      n.height = 36;
+      nodes.put(id, n);
+    }
+    List<SimpleMermaidRenderer.Edge> edges =
+        java.util.List.of(
+            new SimpleMermaidRenderer.Edge(
+                "X", "A", null, SimpleMermaidRenderer.EdgeStroke.SOLID, true),
+            new SimpleMermaidRenderer.Edge(
+                "A", "B", null, SimpleMermaidRenderer.EdgeStroke.SOLID, true),
+            new SimpleMermaidRenderer.Edge(
+                "X", "C", null, SimpleMermaidRenderer.EdgeStroke.SOLID, true),
+            new SimpleMermaidRenderer.Edge(
+                "C", "D", null, SimpleMermaidRenderer.EdgeStroke.SOLID, true));
+
+    DiagramLayoutEngine.layoutBySugiyamaDag(
+        config,
+        /* isHorizontal= */ false,
+        /* isReversed= */ false,
+        nodes,
+        edges,
+        SimpleMermaidRenderer.Node::new);
+
+    assertThat(nodes.get("B").layer).isEqualTo(2);
+    assertThat(nodes.get("C").layer).isEqualTo(2);
+    assertThat(nodes.get("D").layer).isGreaterThan(nodes.get("C").layer);
+
+    DiagramLayoutEngine.BaseNode node = new DiagramLayoutEngine.BaseNode("A");
+    node.x = 100;
+    node.y = 100;
+    node.width = 50;
+    node.height = 50;
+
+    double initialX = 125;
+    double initialY = 125;
+
+    double[] newCenter =
+        DiagramLayoutEngine.findCollisionFreeBadgeCenter(
+            initialX,
+            initialY,
+            100,
+            100,
+            110,
+            110,
+            120,
+            120,
+            150,
+            150,
+            20,
+            20,
+            java.util.List.of(node),
+            java.util.Collections.emptyList());
+
+    assertThat(newCenter[0] == initialX && newCenter[1] == initialY).isFalse();
+  }
 }
