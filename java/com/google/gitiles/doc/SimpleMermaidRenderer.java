@@ -19,22 +19,15 @@ import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.primitives.Doubles.max;
 
 import com.google.common.base.Ascii;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
@@ -42,9 +35,9 @@ import javax.annotation.Nullable;
 /**
  * Server-side AST parser, layout engine, and SVG renderer for Mermaid flowchart and graph diagrams.
  *
- * <p>Implements a pure streaming character-scanner AST parser without regex splits, hierarchical
- * Sugiyama DAG layout with cycle breaking, crossing reduction, arbitrary nested subgraphs, dynamic
- * edge clearances, bidirectional curved paths, and responsive SVG emission.
+ * <p>Implements a pure streaming character-scanner AST parser without regex splits, delegating
+ * hierarchical Sugiyama DAG layout, compound subgraph layout, and SVG/XML security utilities to
+ * {@link DiagramLayoutEngine}.
  */
 public final class SimpleMermaidRenderer {
 
@@ -82,27 +75,17 @@ public final class SimpleMermaidRenderer {
   // =========================================================================
 
   /** A node in the Mermaid diagram. */
-  public static class Node {
-    public final String id;
+  public static class Node extends DiagramLayoutEngine.BaseNode {
     public String label;
     public final List<String> labelLines = new ArrayList<>();
     public NodeShape shape = NodeShape.RECTANGLE;
-    public int layer = 0;
-    public double relX;
-    public double relY;
-    public double x;
-    public double y;
-    public double width = 160;
-    public double height = 44;
     public Subgraph parentSubgraph;
-    public double barycenter = 0;
-    public boolean isVirtual = false;
     @Nullable public String customFill;
     @Nullable public String customStroke;
     @Nullable public String customColor;
 
     public Node(String id) {
-      this.id = id;
+      super(id);
       setLabel(id);
     }
 
@@ -111,64 +94,53 @@ public final class SimpleMermaidRenderer {
       this.labelLines.clear();
       this.labelLines.addAll(parseLabelLines(this.label));
     }
+
+    @Override
+    public boolean hasParentSubgraph() {
+      return parentSubgraph != null;
+    }
   }
 
   /** A logical subgraph or cluster containing nodes and nested subgraphs. */
-  public static class Subgraph {
-    public final String id;
-    public String title;
+  public static class Subgraph extends DiagramLayoutEngine.BaseSubgraph<Node, Subgraph> {
     public Direction direction;
-    public Subgraph parent;
-    public final List<Subgraph> children = new ArrayList<>();
-    public final List<Node> nodes = new ArrayList<>();
-    public double relX;
-    public double relY;
-    public double x;
-    public double y;
-    public double width;
-    public double height;
-    @Nullable public String customFill;
-    @Nullable public String customStroke;
     @Nullable public String customColor;
 
     public Subgraph(String id, String title) {
-      this.id = id;
-      this.title = title;
+      super(id, title, null);
+    }
+
+    @Override
+    public boolean hasDirectionOverride() {
+      return direction != null;
+    }
+
+    @Override
+    public boolean isDirectionHorizontal() {
+      return direction == Direction.LR || direction == Direction.RL;
     }
   }
 
   /** A directional or bidirectional edge between nodes. */
-  public static class Edge {
-    public final String fromId;
-    public final String toId;
-    public final String label;
+  public static class Edge extends DiagramLayoutEngine.BaseEdge<Node> {
     public final EdgeStroke stroke;
     public final boolean arrow;
-    public boolean isBackEdge = false;
-    public final List<Node> virtualNodes = new ArrayList<>();
 
     public Edge(String fromId, String toId, String label, EdgeStroke stroke, boolean arrow) {
-      this.fromId = fromId;
-      this.toId = toId;
-      this.label = label;
+      super(fromId, toId, label);
       this.stroke = stroke;
       this.arrow = arrow;
     }
   }
 
   /** An edge between subgraphs. */
-  public static class SubgraphEdge {
-    public final String fromSgId;
-    public final String toSgId;
-    public final String label;
+  public static class SubgraphEdge extends DiagramLayoutEngine.BaseSubgraphEdge {
     public final EdgeStroke stroke;
     public final boolean arrow;
 
     public SubgraphEdge(
         String fromSgId, String toSgId, String label, EdgeStroke stroke, boolean arrow) {
-      this.fromSgId = fromSgId;
-      this.toSgId = toSgId;
-      this.label = label;
+      super(fromSgId, toSgId, label);
       this.stroke = stroke;
       this.arrow = arrow;
     }
@@ -176,10 +148,10 @@ public final class SimpleMermaidRenderer {
 
   /** Parsed Mermaid graph structure containing nodes, edges, and subgraphs. */
   public static class MermaidGraph {
+    public final List<Subgraph> rootSubgraphs = new ArrayList<>();
     public Direction direction = Direction.TD;
     public final Map<String, Node> nodes = new LinkedHashMap<>();
     public final Map<String, Subgraph> subgraphsMap = new LinkedHashMap<>();
-    public final List<Subgraph> rootSubgraphs = new ArrayList<>();
     public final List<Subgraph> allSubgraphs = new ArrayList<>();
     public final List<Edge> edges = new ArrayList<>();
     public final List<SubgraphEdge> subgraphEdges = new ArrayList<>();
@@ -639,13 +611,13 @@ public final class SimpleMermaidRenderer {
       p = nextSep + 1;
     }
 
-    if (fill != null && !isValidCssColor(fill)) {
+    if (fill != null && !DiagramLayoutEngine.isValidCssColor(fill)) {
       fill = null;
     }
-    if (stroke != null && !isValidCssColor(stroke)) {
+    if (stroke != null && !DiagramLayoutEngine.isValidCssColor(stroke)) {
       stroke = null;
     }
-    if (color != null && !isValidCssColor(color)) {
+    if (color != null && !DiagramLayoutEngine.isValidCssColor(color)) {
       color = null;
     }
 
@@ -673,132 +645,6 @@ public final class SimpleMermaidRenderer {
         n.customColor = color;
       }
     }
-  }
-
-  private static boolean isValidCssColor(@Nullable String val) {
-    if (isNullOrEmpty(val)) {
-      return false;
-    }
-    String v = val.trim().toLowerCase(Locale.ROOT);
-    if (v.startsWith("javascript:")
-        || v.startsWith("data:")
-        || v.contains("url(")
-        || v.contains("\"")
-        || v.contains("'")
-        || v.contains("<")
-        || v.contains(">")) {
-      return false;
-    }
-    if (v.matches("^#[0-9a-f]{3,8}$")) {
-      return true;
-    }
-    if (v.matches("^[a-z]{3,20}$")) {
-      return true;
-    }
-    return v.matches("^(rgb|hsl)a?\\([0-9%,. ]+\\)$");
-  }
-
-  private static boolean isLightColor(@Nullable String color) {
-    if (isNullOrEmpty(color)) {
-      return true;
-    }
-    String c = color.trim().toLowerCase(Locale.ROOT);
-    if (c.startsWith("#")) {
-      try {
-        String hex = c.substring(1);
-        int r;
-        int g;
-        int b;
-        if (hex.length() == 3 || hex.length() == 4) {
-          r = Integer.parseInt(hex.substring(0, 1) + hex.substring(0, 1), 16);
-          g = Integer.parseInt(hex.substring(1, 2) + hex.substring(1, 2), 16);
-          b = Integer.parseInt(hex.substring(2, 3) + hex.substring(2, 3), 16);
-        } else if (hex.length() >= 6) {
-          r = Integer.parseInt(hex.substring(0, 2), 16);
-          g = Integer.parseInt(hex.substring(2, 4), 16);
-          b = Integer.parseInt(hex.substring(4, 6), 16);
-        } else {
-          return true;
-        }
-        return (0.299 * r + 0.587 * g + 0.114 * b) >= 128;
-      } catch (NumberFormatException e) {
-        return true;
-      }
-    }
-    if (c.startsWith("rgb")) {
-      int start = c.indexOf('(');
-      int end = c.indexOf(')');
-      if (start != -1 && end > start) {
-        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
-        if (parts.size() >= 3) {
-          try {
-            double r = parseColorComponent(parts.get(0));
-            double g = parseColorComponent(parts.get(1));
-            double b = parseColorComponent(parts.get(2));
-            return (0.299 * r + 0.587 * g + 0.114 * b) >= 128;
-          } catch (NumberFormatException e) {
-            return true;
-          }
-        }
-      }
-    }
-    if (c.startsWith("hsl")) {
-      int start = c.indexOf('(');
-      int end = c.indexOf(')');
-      if (start != -1 && end > start) {
-        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
-        if (parts.size() >= 3) {
-          try {
-            String lStr = parts.get(2).trim().replace("%", "");
-            double l = Double.parseDouble(lStr);
-            return l >= 50.0;
-          } catch (NumberFormatException e) {
-            return true;
-          }
-        }
-      }
-    }
-    switch (c) {
-      case "black",
-          "navy",
-          "darkblue",
-          "mediumblue",
-          "blue",
-          "darkgreen",
-          "green",
-          "teal",
-          "darkcyan",
-          "darkred",
-          "maroon",
-          "purple",
-          "indigo",
-          "darkmagenta",
-          "darkviolet",
-          "darkslateblue",
-          "saddlebrown",
-          "sienna",
-          "brown",
-          "darkslategray",
-          "darkslategrey",
-          "midnightblue",
-          "gray",
-          "grey",
-          "dimgray",
-          "dimgrey" -> {
-        return false;
-      }
-      default -> {
-        return true;
-      }
-    }
-  }
-
-  private static double parseColorComponent(String part) {
-    String p = part.trim();
-    if (p.endsWith("%")) {
-      return Double.parseDouble(p.substring(0, p.length() - 1)) * 2.55;
-    }
-    return Double.parseDouble(p);
   }
 
   private static void parseStatement(
@@ -907,7 +753,7 @@ public final class SimpleMermaidRenderer {
 
   private static List<String> wrapDiamondLabel(String text) {
     List<String> result = new ArrayList<>();
-    String trimmed = (text != null) ? text.trim() : "";
+    String trimmed = text != null ? text.trim() : "";
     if (trimmed.length() <= 16 || !trimmed.contains(" ")) {
       result.add(trimmed);
       return result;
@@ -1157,11 +1003,11 @@ public final class SimpleMermaidRenderer {
   }
 
   // =========================================================================
-  // Layout Engine
+  // Layout Engine (Delegated to DiagramLayoutEngine)
   // =========================================================================
 
   private static String layoutAndRenderSvg(MermaidGraph graph) {
-    boolean isHorizontal = (graph.direction == Direction.LR || graph.direction == Direction.RL);
+    boolean isHorizontal = graph.direction == Direction.LR || graph.direction == Direction.RL;
 
     // Calculate node dimensions using structured AST labelLines
     for (Node n : graph.nodes.values()) {
@@ -1192,185 +1038,54 @@ public final class SimpleMermaidRenderer {
     }
 
     // 1. Partition graph into connected components
-    Map<String, String> parent = new HashMap<>();
-    for (String id : graph.nodes.keySet()) {
-      parent.put(id, id);
-    }
-    for (Edge e : graph.edges) {
-      if (parent.containsKey(e.fromId) && parent.containsKey(e.toId)) {
-        unionSets(parent, e.fromId, e.toId);
-      }
-    }
-    for (Subgraph sg : graph.allSubgraphs) {
-      String sampleId = getSubgraphSampleNodeId(sg);
-      if (sg.nodes.size() > 1) {
-        String firstId = sg.nodes.get(0).id;
-        for (int i = 1; i < sg.nodes.size(); i++) {
-          unionSets(parent, firstId, sg.nodes.get(i).id);
-        }
-      }
-      for (Subgraph child : sg.children) {
-        String childSample = getSubgraphSampleNodeId(child);
-        if (sampleId != null && childSample != null) {
-          unionSets(parent, sampleId, childSample);
-        }
-      }
-    }
+    Map<String, String> parent =
+        DiagramLayoutEngine.initUnionFind(graph.nodes, graph.edges, graph.allSubgraphs);
     for (SubgraphEdge se : graph.subgraphEdges) {
       Subgraph fromSg = graph.lookupSubgraph(se.fromSgId);
       Subgraph toSg = graph.lookupSubgraph(se.toSgId);
       if (fromSg != null && toSg != null) {
-        String fromSample = getSubgraphSampleNodeId(fromSg);
-        String toSample = getSubgraphSampleNodeId(toSg);
+        String fromSample = DiagramLayoutEngine.getSubgraphSampleNodeId(fromSg);
+        String toSample = DiagramLayoutEngine.getSubgraphSampleNodeId(toSg);
         if (fromSample != null && toSample != null) {
-          unionSets(parent, fromSample, toSample);
+          DiagramLayoutEngine.unionSets(parent, fromSample, toSample);
         }
       }
     }
 
-    Map<String, GraphComponent> compMap = new LinkedHashMap<>();
-    for (Node n : graph.nodes.values()) {
-      String root = findRoot(parent, n.id);
-      GraphComponent comp = compMap.computeIfAbsent(root, k -> new GraphComponent());
-      comp.nodes.put(n.id, n);
-    }
-
-    for (Edge e : graph.edges) {
-      String root = findRoot(parent, e.fromId);
-      GraphComponent comp = compMap.get(root);
-      if (comp != null && comp.nodes.containsKey(e.fromId) && comp.nodes.containsKey(e.toId)) {
-        comp.edges.add(e);
-      }
-    }
-
-    for (Subgraph sg : graph.allSubgraphs) {
-      String sampleId = getSubgraphSampleNodeId(sg);
-      if (sampleId != null) {
-        String root = findRoot(parent, sampleId);
-        GraphComponent comp = compMap.get(root);
-        if (comp != null && !comp.subgraphs.contains(sg)) {
-          comp.subgraphs.add(sg);
-        }
-      }
-    }
-
-    List<GraphComponent> components = new ArrayList<>(compMap.values());
-    components.sort((c1, c2) -> Boolean.compare(!c2.subgraphs.isEmpty(), !c1.subgraphs.isEmpty()));
-
-    for (GraphComponent comp : components) {
+    List<DiagramLayoutEngine.GraphComponent<Node, Edge, Subgraph>> components =
+        DiagramLayoutEngine.buildComponents(graph.nodes, graph.edges, graph.allSubgraphs, parent);
+    
+    for (DiagramLayoutEngine.GraphComponent<Node, Edge, Subgraph> comp : components) {
       if (!comp.subgraphs.isEmpty() && comp.edges.isEmpty() && graph.subgraphEdges.isEmpty()) {
-        layoutIsolatedSubgraphs(graph.direction, comp.subgraphs);
+        DiagramLayoutEngine.layoutIsolatedSubgraphs(isHorizontal, comp.subgraphs);
       } else if (!comp.subgraphs.isEmpty()) {
-        layoutCompoundComponent(graph, graph.direction, isHorizontal, comp);
+        DiagramLayoutEngine.layoutCompoundComponent(
+            isHorizontal, comp, graph.subgraphEdges);
       } else {
-        layoutBySugiyamaDag(isHorizontal, comp.nodes, comp.edges);
+        DiagramLayoutEngine.layoutBySugiyamaDag(
+            isHorizontal, comp.nodes, comp.edges, Node::new);
       }
-
-      double cMinX = Double.MAX_VALUE;
-      double cMinY = Double.MAX_VALUE;
-      double cMaxX = Double.MIN_VALUE;
-      double cMaxY = Double.MIN_VALUE;
-      for (Node n : comp.nodes.values()) {
-        cMinX = Math.min(cMinX, n.x);
-        cMinY = Math.min(cMinY, n.y);
-        cMaxX = Math.max(cMaxX, n.x + n.width);
-        cMaxY = Math.max(cMaxY, n.y + n.height);
-      }
-      for (Subgraph sg : comp.subgraphs) {
-        cMinX = Math.min(cMinX, sg.x);
-        cMinY = Math.min(cMinY, sg.y);
-        cMaxX = Math.max(cMaxX, sg.x + sg.width);
-        cMaxY = Math.max(cMaxY, sg.y + sg.height);
-      }
-
-      if (cMinX != Double.MAX_VALUE) {
-        comp.width = cMaxX - cMinX;
-        comp.height = cMaxY - cMinY;
-        for (Node n : comp.nodes.values()) {
-          n.x -= cMinX;
-          n.y -= cMinY;
-        }
-        for (Subgraph sg : comp.subgraphs) {
-          sg.x -= cMinX;
-          sg.y -= cMinY;
-        }
-        for (Edge e : comp.edges) {
-          for (Node v : e.virtualNodes) {
-            v.x -= cMinX;
-            v.y -= cMinY;
-          }
-        }
-      }
+      DiagramLayoutEngine.normalizeComponentBounds(comp);
     }
 
-    if (!isHorizontal) {
-      double curX = 0;
-      for (GraphComponent comp : components) {
-        for (Node n : comp.nodes.values()) {
-          n.x += curX;
-        }
-        for (Subgraph sg : comp.subgraphs) {
-          sg.x += curX;
-        }
-        for (Edge e : comp.edges) {
-          for (Node v : e.virtualNodes) {
-            v.x += curX;
-          }
-        }
-        curX += comp.width + 48;
-      }
-    } else {
-      double curY = 0;
-      for (GraphComponent comp : components) {
-        for (Node n : comp.nodes.values()) {
-          n.y += curY;
-        }
-        for (Subgraph sg : comp.subgraphs) {
-          sg.y += curY;
-        }
-        for (Edge e : comp.edges) {
-          for (Node v : e.virtualNodes) {
-            v.y += curY;
-          }
-        }
-        curY += comp.height + 48;
-      }
-    }
+    DiagramLayoutEngine.stackComponents(components, isHorizontal, 48.0);
 
     // Compute bounding box
-    double minX = Double.MAX_VALUE;
-    double minY = Double.MAX_VALUE;
-    double maxX = Double.MIN_VALUE;
-    double maxY = Double.MIN_VALUE;
-
-    for (Node n : graph.nodes.values()) {
-      minX = Math.min(minX, n.x);
-      minY = Math.min(minY, n.y);
-      maxX = Math.max(maxX, n.x + n.width);
-      maxY = Math.max(maxY, n.y + n.height);
-    }
-    for (Subgraph sg : graph.allSubgraphs) {
-      minX = Math.min(minX, sg.x);
-      minY = Math.min(minY, sg.y);
-      maxX = Math.max(maxX, sg.x + sg.width);
-      maxY = Math.max(maxY, sg.y + sg.height);
-    }
-    for (Edge e : graph.edges) {
-      for (Node v : e.virtualNodes) {
-        minX = Math.min(minX, v.x);
-        minY = Math.min(minY, v.y);
-        maxX = Math.max(maxX, v.x + v.width);
-        maxY = Math.max(maxY, v.y + v.height);
-      }
-    }
+    double[] bounds =
+        DiagramLayoutEngine.computeGraphBounds(
+            graph.nodes.values(), graph.allSubgraphs, graph.edges);
+    double minX = bounds[0];
+    double minY = bounds[1];
+    double maxX = bounds[2];
+    double maxY = bounds[3];
 
     for (Edge e : graph.edges) {
       Node src = graph.nodes.get(e.fromId);
       Node dst = graph.nodes.get(e.toId);
       if (src != null && dst != null) {
         double labelW =
-            (e.label != null && !e.label.trim().isEmpty()) ? (e.label.length() * 6.5 + 16) : 0;
-        if (e.isBackEdge || src.layer > dst.layer) {
+            e.label != null && !e.label.trim().isEmpty() ? e.label.length() * 6.5 + 16 : 0;
+        if (src.id.equals(dst.id) || e.isBackEdge || src.layer > dst.layer) {
           int minL = Math.min(src.layer, dst.layer);
           int maxL = Math.max(src.layer, dst.layer);
           if (!isHorizontal) {
@@ -1420,869 +1135,10 @@ public final class SimpleMermaidRenderer {
     double totalWidth = (maxX - minX) + padding * 2;
     double totalHeight = (maxY - minY) + padding * 2;
 
-    for (Node n : graph.nodes.values()) {
-      n.x += offsetX;
-      n.y += offsetY;
-    }
-    for (Subgraph sg : graph.allSubgraphs) {
-      sg.x += offsetX;
-      sg.y += offsetY;
-    }
-    for (Edge e : graph.edges) {
-      for (Node v : e.virtualNodes) {
-        v.x += offsetX;
-        v.y += offsetY;
-      }
-    }
+    DiagramLayoutEngine.translateGraph(
+        graph.nodes.values(), graph.allSubgraphs, graph.edges, offsetX, offsetY);
 
     return renderSvg(graph, isHorizontal, totalWidth, totalHeight);
-  }
-
-  private static void layoutBySugiyamaDag(
-      boolean isHorizontal, Map<String, Node> allNodes, List<Edge> edges) {
-
-    // 1. Cycle Breaking via DFS
-    Map<String, List<Edge>> adj = new HashMap<>();
-    for (String id : allNodes.keySet()) {
-      adj.put(id, new ArrayList<>());
-    }
-    for (Edge e : edges) {
-      if (adj.containsKey(e.fromId)) {
-        adj.get(e.fromId).add(e);
-      }
-    }
-
-    Map<String, Integer> color = new HashMap<>();
-    for (String id : allNodes.keySet()) {
-      if (color.getOrDefault(id, 0) == 0) {
-        findCyclesDfs(id, adj, color);
-      }
-    }
-
-    // 2. Layer Assignment (Longest Path in DAG)
-    for (Node n : allNodes.values()) {
-      n.layer = 0;
-    }
-    boolean changed = true;
-    int maxIterations = allNodes.size() + 1;
-    int iter = 0;
-    while (changed && iter++ < maxIterations) {
-      changed = false;
-      for (Edge e : edges) {
-        if (!e.isBackEdge) {
-          Node src = allNodes.get(e.fromId);
-          Node dst = allNodes.get(e.toId);
-          if (src != null && dst != null) {
-            if (dst.layer < src.layer + 1) {
-              dst.layer = src.layer + 1;
-              changed = true;
-            }
-          }
-        }
-      }
-    }
-
-    // 2a. Source Node Sinking / Compaction (ALAP for loose source nodes)
-    for (Node n : allNodes.values()) {
-      int inCount = 0;
-      int minOutLayer = Integer.MAX_VALUE;
-      for (Edge e : edges) {
-        if (!e.isBackEdge) {
-          if (e.toId.equals(n.id)) {
-            inCount++;
-          }
-          if (e.fromId.equals(n.id)) {
-            Node dst = allNodes.get(e.toId);
-            if (dst != null) {
-              minOutLayer = Math.min(minOutLayer, dst.layer);
-            }
-          }
-        }
-      }
-      if (inCount == 0 && minOutLayer != Integer.MAX_VALUE && minOutLayer - 1 > n.layer) {
-        n.layer = minOutLayer - 1;
-      }
-    }
-
-    // 2b. Virtual Dummy Node Insertion for Long Edges
-    for (Edge e : edges) {
-      e.virtualNodes.clear();
-      if (!e.isBackEdge) {
-        Node src = allNodes.get(e.fromId);
-        Node dst = allNodes.get(e.toId);
-        if (src != null && dst != null && dst.layer - src.layer > 1) {
-          for (int l = src.layer + 1; l < dst.layer; l++) {
-            Node dummy = new Node("__v_" + src.id + "_" + dst.id + "_" + l);
-            dummy.isVirtual = true;
-            dummy.layer = l;
-            if (e.label != null && !e.label.trim().isEmpty() && l == src.layer + 1) {
-              dummy.width = Math.max(e.label.trim().length() * 6.5 + 24, 60);
-              dummy.height = 20;
-            } else {
-              dummy.width = 24;
-              dummy.height = 20;
-            }
-            e.virtualNodes.add(dummy);
-          }
-        }
-      }
-    }
-
-    // 3. Layer Ordering & Barycentric Crossing Reduction
-    Map<Integer, List<Node>> layerMap = new TreeMap<>();
-    for (Node n : allNodes.values()) {
-      layerMap.computeIfAbsent(n.layer, k -> new ArrayList<>()).add(n);
-    }
-    for (Edge e : edges) {
-      for (Node v : e.virtualNodes) {
-        layerMap.computeIfAbsent(v.layer, k -> new ArrayList<>()).add(v);
-      }
-    }
-
-    int maxLayer = layerMap.isEmpty() ? 0 : Collections.max(layerMap.keySet());
-    for (int l = 1; l <= maxLayer; l++) {
-      List<Node> currentLayer = layerMap.get(l);
-      List<Node> prevLayer = layerMap.get(l - 1);
-      if (currentLayer == null) {
-        continue;
-      }
-      for (Node n : currentLayer) {
-        double sum = 0;
-        int count = 0;
-        if (prevLayer != null) {
-          if (n.isVirtual) {
-            for (Edge e : edges) {
-              int vIdx = e.virtualNodes.indexOf(n);
-              if (vIdx != -1) {
-                Node pred = vIdx == 0 ? allNodes.get(e.fromId) : e.virtualNodes.get(vIdx - 1);
-                if (pred != null) {
-                  int pos = prevLayer.indexOf(pred);
-                  if (pos != -1) {
-                    sum += pos;
-                    count++;
-                  }
-                }
-                break;
-              }
-            }
-          } else {
-            for (Edge e : edges) {
-              if (e.toId.equals(n.id) && !e.isBackEdge) {
-                Node pred;
-                if (!e.virtualNodes.isEmpty()) {
-                  pred = Iterables.getLast(e.virtualNodes);
-                } else {
-                  pred = allNodes.get(e.fromId);
-                }
-                if (pred != null && pred.layer == l - 1) {
-                  int pos = prevLayer.indexOf(pred);
-                  if (pos != -1) {
-                    sum += pos;
-                    count++;
-                  }
-                }
-              }
-            }
-          }
-        }
-        n.barycenter = count > 0 ? sum / count : currentLayer.indexOf(n);
-      }
-      currentLayer.sort(Comparator.comparingDouble(n -> n.barycenter));
-    }
-
-    // 4. Coordinate Assignment
-    if (!isHorizontal) {
-      // Top-Down
-      double maxGraphWidth = 0;
-      Map<Integer, Double> layerWidths = new HashMap<>();
-      Map<Integer, Double> layerMaxHeights = new HashMap<>();
-
-      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<Node> nodes = entry.getValue();
-        double totalW = 0;
-        double maxH = 38;
-        for (int i = 0; i < nodes.size(); i++) {
-          Node n = nodes.get(i);
-          totalW += n.width + (i < nodes.size() - 1 ? 32 : 0);
-          if (!n.isVirtual) {
-            maxH = Math.max(maxH, n.height);
-          }
-        }
-        layerWidths.put(l, totalW);
-        layerMaxHeights.put(l, maxH);
-        maxGraphWidth = Math.max(maxGraphWidth, totalW);
-      }
-
-      double curY = 0;
-      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<Node> nodes = entry.getValue();
-        double w = layerWidths.get(l);
-        double curX = (maxGraphWidth - w) / 2.0;
-        double maxH = layerMaxHeights.get(l);
-
-        if (nodes.size() == 1 && l > 0) {
-          Node single = nodes.get(0);
-          double parentAvgX = 0;
-          int parentCount = 0;
-          for (Edge e : edges) {
-            if (e.toId.equals(single.id)) {
-              Node p = allNodes.get(e.fromId);
-              if (p != null && p.layer == l - 1) {
-                parentAvgX += p.x + p.width / 2.0;
-                parentCount++;
-              }
-            }
-          }
-          if (parentCount > 0) {
-            double targetX = (parentAvgX / parentCount) - single.width / 2.0;
-            curX = Math.max(0, Math.min(targetX, maxGraphWidth - single.width));
-          }
-        }
-
-        for (Node n : nodes) {
-          n.x = curX;
-          n.y = curY + (maxH - n.height) / 2.0;
-          curX += n.width + 32;
-        }
-
-        double layerGap = 48;
-        for (Edge e : edges) {
-          Node src = allNodes.get(e.fromId);
-          Node dst = allNodes.get(e.toId);
-          if (src != null && dst != null) {
-            if ((e.virtualNodes.isEmpty() && src.layer == l && dst.layer == l + 1)
-                || (!e.virtualNodes.isEmpty() && src.layer <= l && l < dst.layer)) {
-              if (e.label != null && !e.label.trim().isEmpty()) {
-                layerGap = Math.max(layerGap, 60);
-              }
-            }
-          }
-        }
-        curY += maxH + layerGap;
-      }
-    } else {
-      // Left-to-Right
-      double maxGraphHeight = 0;
-      Map<Integer, Double> layerHeights = new HashMap<>();
-      Map<Integer, Double> layerMaxWidths = new HashMap<>();
-
-      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<Node> nodes = entry.getValue();
-        double totalH = 0;
-        double maxW = 120;
-        for (int i = 0; i < nodes.size(); i++) {
-          Node n = nodes.get(i);
-          totalH += n.height + (i < nodes.size() - 1 ? 24 : 0);
-          if (!n.isVirtual) {
-            maxW = Math.max(maxW, n.width);
-          }
-        }
-        layerHeights.put(l, totalH);
-        layerMaxWidths.put(l, maxW);
-        maxGraphHeight = Math.max(maxGraphHeight, totalH);
-      }
-
-      double curX = 0;
-      for (Map.Entry<Integer, List<Node>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<Node> nodes = entry.getValue();
-        double h = layerHeights.get(l);
-        double curY = (maxGraphHeight - h) / 2.0;
-        double maxW = layerMaxWidths.get(l);
-
-        if (nodes.size() == 1 && l > 0) {
-          Node single = nodes.get(0);
-          double parentAvgY = 0;
-          int parentCount = 0;
-          for (Edge e : edges) {
-            if (e.toId.equals(single.id)) {
-              Node p = allNodes.get(e.fromId);
-              if (p != null && p.layer == l - 1) {
-                parentAvgY += p.y + p.height / 2.0;
-                parentCount++;
-              }
-            }
-          }
-          if (parentCount > 0) {
-            double targetY = (parentAvgY / parentCount) - single.height / 2.0;
-            curY = Math.max(0, Math.min(targetY, maxGraphHeight - single.height));
-          }
-        }
-
-        for (Node n : nodes) {
-          n.x = curX + (maxW - n.width) / 2.0;
-          n.y = curY;
-          curY += n.height + 24;
-        }
-
-        double layerGap = 55;
-        for (Edge e : edges) {
-          Node src = allNodes.get(e.fromId);
-          Node dst = allNodes.get(e.toId);
-          if (src != null && dst != null) {
-            if ((e.virtualNodes.isEmpty() && src.layer == l && dst.layer == l + 1)
-                || (!e.virtualNodes.isEmpty() && src.layer <= l && l < dst.layer)) {
-              if (e.label != null && !e.label.trim().isEmpty()) {
-                double lw = e.label.trim().length() * 6.5 + 24;
-                layerGap = Math.max(layerGap, lw + 24);
-              }
-            }
-          }
-        }
-        curX += maxW + layerGap;
-      }
-    }
-  }
-
-  private static void findCyclesDfs(
-      String u, Map<String, List<Edge>> adj, Map<String, Integer> color) {
-    color.put(u, 1); // Gray
-    List<Edge> uEdges = adj.get(u);
-    if (uEdges != null) {
-      for (Edge e : uEdges) {
-        String v = e.toId;
-        int vColor = color.getOrDefault(v, 0);
-        if (vColor == 1) {
-          e.isBackEdge = true;
-        } else if (vColor == 0) {
-          findCyclesDfs(v, adj, color);
-        }
-      }
-    }
-    color.put(u, 2); // Black
-  }
-
-  @Nullable
-  private static String getSubgraphSampleNodeId(Subgraph sg) {
-    if (!sg.nodes.isEmpty()) {
-      return sg.nodes.get(0).id;
-    }
-    for (Subgraph child : sg.children) {
-      String id = getSubgraphSampleNodeId(child);
-      if (id != null) {
-        return id;
-      }
-    }
-    return null;
-  }
-
-  private static int getSubgraphDepth(Subgraph sg) {
-    int depth = 0;
-    Subgraph cur = sg.parent;
-    while (cur != null) {
-      depth++;
-      cur = cur.parent;
-    }
-    return depth;
-  }
-
-  private static class LayoutUnit {
-    final String id;
-    @Nullable final Subgraph subgraph;
-    @Nullable final Node node;
-    final double width;
-    final double height;
-    double x;
-    double y;
-    int layer = 0;
-    double barycenter = 0;
-
-    LayoutUnit(Subgraph sg) {
-      this.id = "sg_" + sg.id;
-      this.subgraph = sg;
-      this.node = null;
-      this.width = sg.width;
-      this.height = sg.height;
-    }
-
-    LayoutUnit(Node n) {
-      this.id = "n_" + n.id;
-      this.subgraph = null;
-      this.node = n;
-      this.width = n.width;
-      this.height = n.height;
-    }
-  }
-
-  private static void registerNodesToUnit(Subgraph sg, LayoutUnit u, Map<String, LayoutUnit> map) {
-    for (Node n : sg.nodes) {
-      map.put(n.id, u);
-    }
-    for (Subgraph child : sg.children) {
-      registerNodesToUnit(child, u, map);
-    }
-  }
-
-  private static void layoutUnits(
-      boolean isHorizontal,
-      List<LayoutUnit> units,
-      Map<String, LayoutUnit> unitMap,
-      List<Edge> unitEdges) {
-    if (units.size() <= 1) {
-      return;
-    }
-
-    // 1. Cycle Breaking
-    Map<String, List<Edge>> uAdj = new HashMap<>();
-    for (LayoutUnit u : units) {
-      uAdj.put(u.id, new ArrayList<>());
-    }
-    for (Edge ue : unitEdges) {
-      if (uAdj.containsKey(ue.fromId)) {
-        uAdj.get(ue.fromId).add(ue);
-      }
-    }
-    Map<String, Integer> uColor = new HashMap<>();
-    for (LayoutUnit u : units) {
-      if (uColor.getOrDefault(u.id, 0) == 0) {
-        findCyclesDfs(u.id, uAdj, uColor);
-      }
-    }
-
-    // 2. Layer Assignment
-    for (LayoutUnit u : units) {
-      u.layer = 0;
-    }
-    boolean changed = true;
-    int maxIter = units.size() + 1;
-    int iter = 0;
-    while (changed && iter++ < maxIter) {
-      changed = false;
-      for (Edge ue : unitEdges) {
-        if (!ue.isBackEdge) {
-          LayoutUnit src = unitMap.get(ue.fromId);
-          LayoutUnit dst = unitMap.get(ue.toId);
-          if (src != null && dst != null) {
-            if (dst.layer < src.layer + 1) {
-              dst.layer = src.layer + 1;
-              changed = true;
-            }
-          }
-        }
-      }
-    }
-
-    // 2a. Source Unit Sinking / Compaction
-    for (LayoutUnit u : units) {
-      int inCount = 0;
-      int minOutLayer = Integer.MAX_VALUE;
-      for (Edge ue : unitEdges) {
-        if (!ue.isBackEdge) {
-          LayoutUnit src = unitMap.get(ue.fromId);
-          LayoutUnit dst = unitMap.get(ue.toId);
-          if (dst != null && dst.id.equals(u.id) && (src == null || !src.id.equals(u.id))) {
-            inCount++;
-          }
-          if (src != null && src.id.equals(u.id) && dst != null && !dst.id.equals(u.id)) {
-            minOutLayer = Math.min(minOutLayer, dst.layer);
-          }
-        }
-      }
-      if (inCount == 0 && minOutLayer != Integer.MAX_VALUE && minOutLayer - 1 > u.layer) {
-        u.layer = minOutLayer - 1;
-      }
-    }
-
-    // 3. Layer Map & Barycentric Ordering
-    Map<Integer, List<LayoutUnit>> layerMap = new TreeMap<>();
-    for (LayoutUnit u : units) {
-      layerMap.computeIfAbsent(u.layer, k -> new ArrayList<>()).add(u);
-    }
-    int maxLayer = layerMap.isEmpty() ? 0 : Collections.max(layerMap.keySet());
-    for (int l = 1; l <= maxLayer; l++) {
-      List<LayoutUnit> currentLayer = layerMap.get(l);
-      List<LayoutUnit> prevLayer = layerMap.get(l - 1);
-      if (currentLayer == null) {
-        continue;
-      }
-      for (LayoutUnit u : currentLayer) {
-        double sum = 0;
-        int count = 0;
-        if (prevLayer != null) {
-          for (Edge ue : unitEdges) {
-            if (ue.toId.equals(u.id) && !ue.isBackEdge) {
-              LayoutUnit src = unitMap.get(ue.fromId);
-              if (src != null && src.layer == l - 1) {
-                int pos = prevLayer.indexOf(src);
-                if (pos != -1) {
-                  sum += pos;
-                  count++;
-                }
-              }
-            }
-          }
-        }
-        u.barycenter = count > 0 ? sum / count : currentLayer.indexOf(u);
-      }
-      currentLayer.sort(Comparator.comparingDouble(u -> u.barycenter));
-    }
-
-    // 4. Coordinate Assignment
-    if (!isHorizontal) {
-      // Top-Down
-      double maxW = 0;
-      Map<Integer, Double> layerWidths = new HashMap<>();
-      Map<Integer, Double> layerMaxHeights = new HashMap<>();
-      for (Map.Entry<Integer, List<LayoutUnit>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<LayoutUnit> lUnits = entry.getValue();
-        double tw = 0;
-        double mh = 0;
-        for (int i = 0; i < lUnits.size(); i++) {
-          LayoutUnit u = lUnits.get(i);
-          tw += u.width + (i < lUnits.size() - 1 ? 36 : 0);
-          mh = Math.max(mh, u.height);
-        }
-        layerWidths.put(l, tw);
-        layerMaxHeights.put(l, mh);
-        maxW = Math.max(maxW, tw);
-      }
-
-      double curY = 0;
-      for (Map.Entry<Integer, List<LayoutUnit>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<LayoutUnit> lUnits = entry.getValue();
-        double w = layerWidths.get(l);
-        double curX = (maxW - w) / 2.0;
-        double mh = layerMaxHeights.get(l);
-        for (LayoutUnit u : lUnits) {
-          u.x = curX;
-          u.y = curY + (mh - u.height) / 2.0;
-          curX += u.width + 36;
-        }
-        double layerGap = 45;
-        for (Edge ue : unitEdges) {
-          LayoutUnit src = unitMap.get(ue.fromId);
-          LayoutUnit dst = unitMap.get(ue.toId);
-          if (src != null && dst != null && src.layer <= l && l < dst.layer) {
-            if (ue.label != null && !ue.label.trim().isEmpty()) {
-              layerGap = Math.max(layerGap, 55);
-            }
-          }
-        }
-        curY += mh + layerGap;
-      }
-    } else {
-      // Left-to-Right
-      double maxH = 0;
-      Map<Integer, Double> layerHeights = new HashMap<>();
-      Map<Integer, Double> layerMaxWidths = new HashMap<>();
-      for (Map.Entry<Integer, List<LayoutUnit>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<LayoutUnit> lUnits = entry.getValue();
-        double th = 0;
-        double mw = 0;
-        for (int i = 0; i < lUnits.size(); i++) {
-          LayoutUnit u = lUnits.get(i);
-          th += u.height + (i < lUnits.size() - 1 ? 36 : 0);
-          mw = Math.max(mw, u.width);
-        }
-        layerHeights.put(l, th);
-        layerMaxWidths.put(l, mw);
-        maxH = Math.max(maxH, th);
-      }
-
-      double curX = 0;
-      for (Map.Entry<Integer, List<LayoutUnit>> entry : layerMap.entrySet()) {
-        int l = entry.getKey();
-        List<LayoutUnit> lUnits = entry.getValue();
-        double h = layerHeights.get(l);
-        double curY = (maxH - h) / 2.0;
-        double mw = layerMaxWidths.get(l);
-        for (LayoutUnit u : lUnits) {
-          u.x = curX + (mw - u.width) / 2.0;
-          u.y = curY;
-          curY += u.height + 36;
-        }
-
-        double layerGap = 45;
-        for (Edge ue : unitEdges) {
-          LayoutUnit src = unitMap.get(ue.fromId);
-          LayoutUnit dst = unitMap.get(ue.toId);
-          if (src != null && dst != null && src.layer <= l && l < dst.layer) {
-            if (ue.label != null && !ue.label.trim().isEmpty()) {
-              double lw = ue.label.trim().length() * 6.5 + 24;
-              layerGap = Math.max(layerGap, lw + 24);
-            }
-          }
-        }
-        curX += mw + layerGap;
-      }
-    }
-  }
-
-  private static void layoutCompoundComponent(
-      MermaidGraph graph, Direction compDir, boolean isHorizontal, GraphComponent comp) {
-
-    // 1. Find root subgraphs and recursively compute internal sizes
-    List<Subgraph> rootSgs = new ArrayList<>();
-    for (Subgraph sg : comp.subgraphs) {
-      if (sg.parent == null || !comp.subgraphs.contains(sg.parent)) {
-        rootSgs.add(sg);
-      }
-    }
-    for (Subgraph sg : rootSgs) {
-      computeSubgraphSizes(
-          sg,
-          rootSgs.size() == 1 && sg.direction != null ? sg.direction : compDir,
-          comp.edges,
-          graph.subgraphEdges,
-          comp.nodes);
-    }
-
-    // 2. Build LayoutUnits for root subgraphs and standalone nodes
-    List<LayoutUnit> units = new ArrayList<>();
-    Map<String, LayoutUnit> unitMap = new LinkedHashMap<>();
-
-    for (Subgraph sg : rootSgs) {
-      LayoutUnit u = new LayoutUnit(sg);
-      units.add(u);
-      unitMap.put(u.id, u);
-    }
-    for (Node n : comp.nodes.values()) {
-      if (n.parentSubgraph == null) {
-        LayoutUnit u = new LayoutUnit(n);
-        units.add(u);
-        unitMap.put(u.id, u);
-      }
-    }
-
-    if (units.size() == 1) {
-      LayoutUnit u = units.get(0);
-      u.x = 0;
-      u.y = 0;
-      if (u.subgraph != null) {
-        u.subgraph.x = 0;
-        u.subgraph.y = 0;
-        assignAbsoluteCoordinates(u.subgraph, 0, 0);
-      }
-      return;
-    }
-
-    // 3. Map each Node ID to its root LayoutUnit
-    Map<String, LayoutUnit> nodeToUnit = new HashMap<>();
-    for (LayoutUnit u : units) {
-      if (u.node != null) {
-        nodeToUnit.put(u.node.id, u);
-      } else if (u.subgraph != null) {
-        registerNodesToUnit(u.subgraph, u, nodeToUnit);
-      }
-    }
-
-    // 4. Build Unit Edges (meta-graph)
-    List<Edge> unitEdges = new ArrayList<>();
-    Set<String> seenUnitEdges = new HashSet<>();
-    for (Edge e : comp.edges) {
-      LayoutUnit u1 = nodeToUnit.get(e.fromId);
-      LayoutUnit u2 = nodeToUnit.get(e.toId);
-      if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
-        String key = u1.id + "->" + u2.id;
-        if (seenUnitEdges.add(key)) {
-          Edge ue = new Edge(u1.id, u2.id, e.label, e.stroke, e.arrow);
-          unitEdges.add(ue);
-        }
-      }
-    }
-    for (SubgraphEdge se : graph.subgraphEdges) {
-      Subgraph sg1 = graph.lookupSubgraph(se.fromSgId);
-      Subgraph sg2 = graph.lookupSubgraph(se.toSgId);
-      if (sg1 != null && sg2 != null) {
-        String s1Id = getSubgraphSampleNodeId(sg1);
-        String s2Id = getSubgraphSampleNodeId(sg2);
-        LayoutUnit u1 = s1Id != null ? nodeToUnit.get(s1Id) : unitMap.get("sg_" + sg1.id);
-        LayoutUnit u2 = s2Id != null ? nodeToUnit.get(s2Id) : unitMap.get("sg_" + sg2.id);
-        if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
-          String key = u1.id + "->" + u2.id;
-          if (seenUnitEdges.add(key)) {
-            Edge ue = new Edge(u1.id, u2.id, se.label, se.stroke, se.arrow);
-            unitEdges.add(ue);
-          }
-        }
-      }
-    }
-
-    // 5. Run Sugiyama Layout on Units
-    layoutUnits(isHorizontal, units, unitMap, unitEdges);
-
-    // 6. Assign Absolute Coordinates
-    for (LayoutUnit u : units) {
-      if (u.subgraph != null) {
-        u.subgraph.x = u.x;
-        u.subgraph.y = u.y;
-        assignAbsoluteCoordinates(u.subgraph, u.x, u.y);
-      } else if (u.node != null) {
-        u.node.x = u.x;
-        u.node.y = u.y;
-      }
-    }
-  }
-
-  private static void computeSubgraphSizes(
-      Subgraph sg,
-      Direction parentDirection,
-      List<Edge> edges,
-      List<SubgraphEdge> subgraphEdges,
-      Map<String, Node> allNodes) {
-    Direction dir = sg.direction != null ? sg.direction : parentDirection;
-    boolean isHorizontal = (dir == Direction.LR || dir == Direction.RL);
-
-    // 1. Recursively compute internal sizes of all child subgraphs
-    for (Subgraph child : sg.children) {
-      computeSubgraphSizes(child, dir, edges, subgraphEdges, allNodes);
-    }
-
-    double padding = 20;
-    double headerH = 28;
-
-    // 2. Build LayoutUnits for direct child subgraphs and direct child nodes
-    List<LayoutUnit> units = new ArrayList<>();
-    Map<String, LayoutUnit> unitMap = new LinkedHashMap<>();
-
-    for (Subgraph child : sg.children) {
-      LayoutUnit u = new LayoutUnit(child);
-      units.add(u);
-      unitMap.put(u.id, u);
-    }
-    for (Node n : sg.nodes) {
-      LayoutUnit u = new LayoutUnit(n);
-      units.add(u);
-      unitMap.put(u.id, u);
-    }
-
-    if (units.isEmpty()) {
-      sg.width = 100;
-      sg.height = 60;
-      return;
-    }
-
-    if (units.size() == 1) {
-      LayoutUnit u = units.get(0);
-      u.x = padding;
-      u.y = headerH + padding;
-      if (u.subgraph != null) {
-        u.subgraph.relX = u.x;
-        u.subgraph.relY = u.y;
-      } else if (u.node != null) {
-        u.node.relX = u.x;
-        u.node.relY = u.y;
-      }
-      sg.width = u.width + padding * 2;
-      sg.height = u.height + padding * 2 + headerH;
-      return;
-    }
-
-    // 3. Map each Node ID to its immediate LayoutUnit inside sg
-    Map<String, LayoutUnit> nodeToUnit = new HashMap<>();
-    for (LayoutUnit u : units) {
-      if (u.node != null) {
-        nodeToUnit.put(u.node.id, u);
-      } else if (u.subgraph != null) {
-        registerNodesToUnit(u.subgraph, u, nodeToUnit);
-      }
-    }
-
-    // 4. Build Unit Edges (meta-graph) for edges where both endpoints are in sg
-    List<Edge> unitEdges = new ArrayList<>();
-    Set<String> seenUnitEdges = new HashSet<>();
-    for (Edge e : edges) {
-      LayoutUnit u1 = nodeToUnit.get(e.fromId);
-      LayoutUnit u2 = nodeToUnit.get(e.toId);
-      if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
-        String key = u1.id + "->" + u2.id;
-        if (seenUnitEdges.add(key)) {
-          Edge ue = new Edge(u1.id, u2.id, e.label, e.stroke, e.arrow);
-          unitEdges.add(ue);
-        }
-      }
-    }
-    for (SubgraphEdge se : subgraphEdges) {
-      Subgraph sg1 = lookupSubgraphInTree(sg, se.fromSgId);
-      Subgraph sg2 = lookupSubgraphInTree(sg, se.toSgId);
-      if (sg1 != null && sg2 != null) {
-        String s1Id = getSubgraphSampleNodeId(sg1);
-        String s2Id = getSubgraphSampleNodeId(sg2);
-        LayoutUnit u1 = s1Id != null ? nodeToUnit.get(s1Id) : unitMap.get("sg_" + sg1.id);
-        LayoutUnit u2 = s2Id != null ? nodeToUnit.get(s2Id) : unitMap.get("sg_" + sg2.id);
-        if (u1 != null && u2 != null && !u1.id.equals(u2.id)) {
-          String key = u1.id + "->" + u2.id;
-          if (seenUnitEdges.add(key)) {
-            Edge ue = new Edge(u1.id, u2.id, se.label, se.stroke, se.arrow);
-            unitEdges.add(ue);
-          }
-        }
-      }
-    }
-
-    // 5. Run Sugiyama DAG layout on units
-    layoutUnits(isHorizontal, units, unitMap, unitEdges);
-
-    // 6. Assign relative coordinates inside sg and compute sg dimensions
-    double minX = Double.MAX_VALUE;
-    double minY = Double.MAX_VALUE;
-    double maxX = Double.MIN_VALUE;
-    double maxY = Double.MIN_VALUE;
-    for (LayoutUnit u : units) {
-      minX = Math.min(minX, u.x);
-      minY = Math.min(minY, u.y);
-      maxX = Math.max(maxX, u.x + u.width);
-      maxY = Math.max(maxY, u.y + u.height);
-    }
-
-    for (LayoutUnit u : units) {
-      double rx = padding + (u.x - minX);
-      double ry = headerH + padding + (u.y - minY);
-      if (u.subgraph != null) {
-        u.subgraph.relX = rx;
-        u.subgraph.relY = ry;
-      } else if (u.node != null) {
-        u.node.relX = rx;
-        u.node.relY = ry;
-      }
-    }
-
-    sg.width = (maxX - minX) + padding * 2;
-    sg.height = (maxY - minY) + padding * 2 + headerH;
-  }
-
-  @Nullable
-  private static Subgraph lookupSubgraphInTree(Subgraph root, String id) {
-    if (root.id.equals(id)) {
-      return root;
-    }
-    for (Subgraph child : root.children) {
-      Subgraph res = lookupSubgraphInTree(child, id);
-      if (res != null) {
-        return res;
-      }
-    }
-    return null;
-  }
-
-  private static void assignAbsoluteCoordinates(Subgraph sg, double parentAbsX, double parentAbsY) {
-    for (Subgraph child : sg.children) {
-      child.x = parentAbsX + child.relX;
-      child.y = parentAbsY + child.relY;
-      assignAbsoluteCoordinates(child, child.x, child.y);
-    }
-    for (Node n : sg.nodes) {
-      n.x = parentAbsX + n.relX;
-      n.y = parentAbsY + n.relY;
-    }
-  }
-
-  private static Direction getSubgraphEffectiveDirection(
-      @Nullable Subgraph sg, Direction fallback) {
-    Subgraph cur = sg;
-    while (cur != null) {
-      if (cur.direction != null) {
-        return cur.direction;
-      }
-      cur = cur.parent;
-    }
-    return fallback;
   }
 
   // =========================================================================
@@ -2293,33 +1149,20 @@ public final class SimpleMermaidRenderer {
       MermaidGraph graph, boolean isHorizontal, double width, double height) {
 
     StringBuilder svg = new StringBuilder(4096);
-    svg.append(
-        String.format(
-            Locale.ROOT,
-            "<svg class=\"mermaid-svg\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 %.0f"
-                + " %.0f\" style=\"max-width: %.0fpx; width: 100%%; height: auto;\">\n",
-            width,
-            height,
-            width));
-
-    svg.append("  <defs>\n");
-    svg.append(
-        "    <marker id=\"mermaid-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\""
-            + " markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">\n");
-    svg.append(
-        "      <path class=\"mermaid-arrow\" d=\"M 0 1.5 L 10 5 L 0 8.5 z\" fill=\"#64748b\" />\n");
-    svg.append("    </marker>\n");
-    svg.append(
-        "    <filter id=\"node-shadow\" x=\"-5%\" y=\"-5%\" width=\"115%\" height=\"120%\">\n");
-    svg.append(
-        "      <feDropShadow class=\"mermaid-shadow\" dx=\"0\" dy=\"1.5\" stdDeviation=\"2\""
-            + " flood-color=\"#0f172a\" flood-opacity=\"0.06\" />\n");
-    svg.append("    </filter>\n");
-    svg.append("  </defs>\n");
+    DiagramLayoutEngine.appendSvgHeaderAndDefs(
+        svg,
+        "mermaid-svg",
+        width,
+        height,
+        "mermaid-arrow",
+        "mermaid-arrow",
+        "#64748b",
+        "node-shadow",
+        "mermaid-shadow");
 
     // 1. Render Subgraphs (sorted by depth so parent containers render before child containers)
     List<Subgraph> sortedSubgraphs = new ArrayList<>(graph.allSubgraphs);
-    sortedSubgraphs.sort(Comparator.comparingInt(SimpleMermaidRenderer::getSubgraphDepth));
+    sortedSubgraphs.sort(Comparator.comparingInt(DiagramLayoutEngine::getSubgraphDepth));
     for (Subgraph sg : sortedSubgraphs) {
       renderSubgraph(svg, sg);
     }
@@ -2331,8 +1174,7 @@ public final class SimpleMermaidRenderer {
       if (sg1 != null && sg2 != null) {
         boolean sgEdgeHorizontal = isHorizontal;
         if (sg1.parent != null && sg1.parent.equals(sg2.parent)) {
-          Direction sgDir = getSubgraphEffectiveDirection(sg1.parent, graph.direction);
-          sgEdgeHorizontal = (sgDir == Direction.LR || sgDir == Direction.RL);
+          sgEdgeHorizontal = DiagramLayoutEngine.isEffectiveHorizontal(sg1.parent, isHorizontal);
         }
         renderSubgraphEdge(svg, sgEdgeHorizontal, graph, sg1, sg2, se);
       }
@@ -2345,8 +1187,8 @@ public final class SimpleMermaidRenderer {
       if (src != null && dst != null) {
         boolean edgeHorizontal = isHorizontal;
         if (src.parentSubgraph != null && src.parentSubgraph.equals(dst.parentSubgraph)) {
-          Direction sgDir = getSubgraphEffectiveDirection(src.parentSubgraph, graph.direction);
-          edgeHorizontal = (sgDir == Direction.LR || sgDir == Direction.RL);
+          edgeHorizontal =
+              DiagramLayoutEngine.isEffectiveHorizontal(src.parentSubgraph, isHorizontal);
         }
         renderEdge(svg, edgeHorizontal, graph, src, dst, e);
       }
@@ -2362,7 +1204,7 @@ public final class SimpleMermaidRenderer {
   }
 
   private static void renderSubgraph(StringBuilder svg, Subgraph sg) {
-    int depth = getSubgraphDepth(sg);
+    int depth = DiagramLayoutEngine.getSubgraphDepth(sg);
     String fill = sg.customFill != null ? sg.customFill : (depth % 2 == 0 ? "#fafafa" : "#f8fafc");
     String stroke = sg.customStroke != null ? sg.customStroke : "#cbd5e1";
     String sgClass =
@@ -2393,7 +1235,7 @@ public final class SimpleMermaidRenderer {
         titleColor = sg.customColor;
         titleClassAttr = "";
       } else if (sg.customFill != null) {
-        boolean light = isLightColor(sg.customFill);
+        boolean light = DiagramLayoutEngine.isLightColor(sg.customFill);
         titleColor = light ? "#334155" : "#bdc1c6";
         titleClassAttr = "";
       } else {
@@ -2409,7 +1251,7 @@ public final class SimpleMermaidRenderer {
               sg.x + 14,
               sg.y + 18,
               titleColor,
-              escapeXml(sg.title)));
+              DiagramLayoutEngine.escapeXml(sg.title)));
     }
   }
 
@@ -2430,8 +1272,7 @@ public final class SimpleMermaidRenderer {
                 ? "mermaid-node-fill"
                 : (n.customStroke == null ? "mermaid-node-stroke" : ""));
     String classAttr = nodeClass.isEmpty() ? "" : String.format(" class=\"%s\"", nodeClass);
-    String strokeClassAttr =
-        n.customStroke == null ? " class=\"mermaid-node-stroke\"" : "";
+    String strokeClassAttr = n.customStroke == null ? " class=\"mermaid-node-stroke\"" : "";
 
     // Shape Geometry
     switch (n.shape) {
@@ -2449,88 +1290,44 @@ public final class SimpleMermaidRenderer {
                 fill,
                 stroke));
       }
-      case NodeShape.DIAMOND -> {
-        double cx = n.x + n.width / 2.0;
-        double cy = n.y + n.height / 2.0;
-        svg.append(
-            String.format(
-                Locale.ROOT,
-                "  <polygon%s points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\" fill=\"%s\""
-                    + " stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
-                classAttr,
-                cx,
-                n.y,
-                n.x + n.width,
-                cy,
-                cx,
-                n.y + n.height,
-                n.x,
-                cy,
-                fill,
-                stroke));
-      }
-      case NodeShape.HEXAGON -> {
-        double h2 = n.height / 2.0;
-        double indent = 16;
-        svg.append(
-            String.format(
-                Locale.ROOT,
-                "  <polygon%s points=\"%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f\""
-                    + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\""
-                    + " />\n",
-                classAttr,
-                n.x + indent,
-                n.y,
-                n.x + n.width - indent,
-                n.y,
-                n.x + n.width,
-                n.y + h2,
-                n.x + n.width - indent,
-                n.y + n.height,
-                n.x + indent,
-                n.y + n.height,
-                n.x,
-                n.y + h2,
-                fill,
-                stroke));
-      }
+      case NodeShape.DIAMOND ->
+          svg.append(
+              String.format(
+                  Locale.ROOT,
+                  "  <polygon%s points=\"%s\" fill=\"%s\""
+                      + " stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
+                  classAttr,
+                  DiagramLayoutEngine.formatDiamondPoints(n.x, n.y, n.width, n.height),
+                  fill,
+                  stroke));
+      case NodeShape.HEXAGON ->
+          svg.append(
+              String.format(
+                  Locale.ROOT,
+                  "  <polygon%s points=\"%s\""
+                      + " fill=\"%s\" stroke=\"%s\" stroke-width=\"1.5\" filter=\"url(#node-shadow)\""
+                      + " />\n",
+                  classAttr,
+                  DiagramLayoutEngine.formatHexagonPoints(n.x, n.y, n.width, n.height, 16.0),
+                  fill,
+                  stroke));
       case NodeShape.CYLINDER -> {
         double ry = 7.0;
-        double rxCyl = n.width / 2.0;
-        double h = n.height;
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path%s d=\"M %.1f %.1f a %.1f,%.1f 0 1,0 %.1f,0 a %.1f,%.1f 0 1,0 -%.1f,0 l"
-                    + " 0,%.1f a %.1f,%.1f 0 0,0 %.1f,0 l 0,-%.1f Z\" fill=\"%s\" stroke=\"%s\""
+                "  <path%s d=\"%s\" fill=\"%s\" stroke=\"%s\""
                     + " stroke-width=\"1.5\" filter=\"url(#node-shadow)\" />\n",
                 classAttr,
-                n.x,
-                n.y + ry,
-                rxCyl,
-                ry,
-                n.width,
-                rxCyl,
-                ry,
-                n.width,
-                h - ry * 2,
-                rxCyl,
-                ry,
-                n.width,
-                h - ry * 2,
+                DiagramLayoutEngine.formatCylinderBodyPath(n.x, n.y, n.width, n.height, ry),
                 fill,
                 stroke));
         svg.append(
             String.format(
                 Locale.ROOT,
-                "  <path%s d=\"M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0\" fill=\"none\" stroke=\"%s\""
-                    + " stroke-width=\"1.5\" />\n",
+                "  <path%s d=\"%s\" fill=\"none\" stroke=\"%s\" stroke-width=\"1.5\" />\n",
                 strokeClassAttr,
-                n.x,
-                n.y + ry,
-                rxCyl,
-                ry,
-                n.width,
+                DiagramLayoutEngine.formatCylinderRimPath(n.x, n.y, n.width, ry),
                 stroke));
       }
       case NodeShape.FLAG -> {
@@ -2620,7 +1417,7 @@ public final class SimpleMermaidRenderer {
       primaryTextClass = "";
       subtextClass = "";
     } else if (n.customFill != null) {
-      boolean light = isLightColor(n.customFill);
+      boolean light = DiagramLayoutEngine.isLightColor(n.customFill);
       primaryTextColor = light ? "#0f172a" : "#e8eaed";
       subtextColor = light ? "#475569" : "#94a3b8";
       primaryTextClass = "";
@@ -2650,7 +1447,7 @@ public final class SimpleMermaidRenderer {
               cx,
               n.y + textYOffset + n.height / 2.0,
               primaryTextColor,
-              escapeXml(n.labelLines.get(0).trim())));
+              DiagramLayoutEngine.escapeXml(n.labelLines.get(0).trim())));
     } else {
       svg.append(
           String.format(
@@ -2676,7 +1473,7 @@ public final class SimpleMermaidRenderer {
                 fontSize,
                 weight,
                 textColor,
-                escapeXml(n.labelLines.get(i).trim())));
+                DiagramLayoutEngine.escapeXml(n.labelLines.get(i).trim())));
       }
       svg.append("  </text>\n");
     }
@@ -2720,7 +1517,7 @@ public final class SimpleMermaidRenderer {
 
       if (blocked) {
         double labelW =
-            (se.label != null && !se.label.trim().isEmpty())
+            se.label != null && !se.label.trim().isEmpty()
                 ? se.label.trim().length() * 6.5 + 12
                 : 20;
         double loopOffset = Math.max(35.0, labelW / 2.0 + 20.0);
@@ -2769,7 +1566,7 @@ public final class SimpleMermaidRenderer {
 
       if (blocked) {
         double labelW =
-            (se.label != null && !se.label.trim().isEmpty())
+            se.label != null && !se.label.trim().isEmpty()
                 ? se.label.trim().length() * 6.5 + 12
                 : 20;
         double loopOffset = Math.max(35.0, labelW / 2.0 + 20.0);
@@ -2825,6 +1622,55 @@ public final class SimpleMermaidRenderer {
     String strokeWidth = e.stroke == EdgeStroke.THICK ? "2.5" : "1.5";
     String marker = e.arrow ? "marker-end=\"url(#mermaid-arrow)\" " : "";
 
+    // Long forward edges spanning multiple ranks route through a chain of Sugiyama virtual dummy
+    // nodes as a multi-segment spline and return early here, before the single-segment cubic
+    // Bezier endpoint/control-point variables (x1..cp2y) are declared below.
+    if (!e.virtualNodes.isEmpty()
+        && !src.id.equals(dst.id)
+        && !e.isBackEdge
+        && src.layer <= dst.layer) {
+      List<Double> px = new ArrayList<>();
+      List<Double> py = new ArrayList<>();
+      if (!isHorizontal) {
+        px.add(src.x + src.width / 2.0);
+        py.add(src.y + src.height);
+        for (Node v : e.virtualNodes) {
+          px.add(v.x + v.width / 2.0);
+          py.add(v.y + v.height / 2.0);
+        }
+        px.add(dst.x + dst.width / 2.0);
+        py.add(dst.y);
+      } else {
+        px.add(src.x + src.width);
+        py.add(src.y + src.height / 2.0);
+        for (Node v : e.virtualNodes) {
+          px.add(v.x + v.width / 2.0);
+          py.add(v.y + v.height / 2.0);
+        }
+        px.add(dst.x);
+        py.add(dst.y + dst.height / 2.0);
+      }
+
+      String pathD = DiagramLayoutEngine.buildMultiSegmentBezierPath(px, py, isHorizontal);
+      svg.append(
+          String.format(
+              Locale.ROOT,
+              "  <path class=\"mermaid-edge\" d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
+              pathD,
+              strokeWidth,
+              strokeDash,
+              marker));
+
+      if (e.label != null && !e.label.trim().isEmpty()) {
+        Node firstV = e.virtualNodes.get(0);
+        renderEdgeLabelBadge(
+            svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
+      }
+      return;
+    }
+
+    // Single-segment cubic Bezier endpoints and control points for self-loops, back-edges, and
+    // single-rank forward edges.
     double x1;
     double y1;
     double x2;
@@ -2834,26 +1680,27 @@ public final class SimpleMermaidRenderer {
     double cp2x;
     double cp2y;
 
-    if (!isHorizontal) {
-      if (src.id.equals(dst.id)) {
-        // Self-loop
-        x1 = src.x + src.width;
-        y1 = src.y + src.height * 0.3;
-        x2 = src.x + src.width;
-        y2 = src.y + src.height * 0.7;
-        cp1x = x1 + 35;
-        cp1y = y1 - 20;
-        cp2x = x2 + 35;
-        cp2y = y2 + 20;
-      } else if (e.isBackEdge || src.layer > dst.layer) {
-        // Cycle back-edge loop
+    if (src.id.equals(dst.id)) {
+      double[] pts =
+          DiagramLayoutEngine.computeSelfLoopControlPoints(
+              src.x, src.y, src.width, src.height, isHorizontal, 35.0, 20.0);
+      x1 = pts[0];
+      y1 = pts[1];
+      cp1x = pts[2];
+      cp1y = pts[3];
+      cp2x = pts[4];
+      cp2y = pts[5];
+      x2 = pts[6];
+      y2 = pts[7];
+    } else if (e.isBackEdge || src.layer > dst.layer) {
+      int minL = Math.min(src.layer, dst.layer);
+      int maxL = Math.max(src.layer, dst.layer);
+      if (!isHorizontal) {
         x1 = src.x + src.width;
         y1 = src.y + src.height / 2.0;
         x2 = dst.x + dst.width;
         y2 = dst.y + dst.height / 2.0;
         double maxRight = Math.max(x1, x2);
-        int minL = Math.min(src.layer, dst.layer);
-        int maxL = Math.max(src.layer, dst.layer);
         for (Node n : graph.nodes.values()) {
           if (n.layer >= minL && n.layer <= maxL) {
             maxRight = Math.max(maxRight, n.x + n.width);
@@ -2867,92 +1714,19 @@ public final class SimpleMermaidRenderer {
           }
         }
         double labelW =
-            (e.label != null && !e.label.trim().isEmpty())
-                ? (e.label.trim().length() * 6.5 + 16)
-                : 0;
+            e.label != null && !e.label.trim().isEmpty() ? e.label.trim().length() * 6.5 + 16 : 0;
         double loopOffset =
             Math.max(45.0, labelW / 2.0 + 36.0) + (maxRight - Math.min(x1, x2)) * 0.4;
         cp1x = maxRight + loopOffset;
         cp1y = y1;
         cp2x = maxRight + loopOffset;
         cp2y = y2;
-      } else if (!e.virtualNodes.isEmpty()) {
-        List<Double> px = new ArrayList<>();
-        List<Double> py = new ArrayList<>();
-        px.add(src.x + src.width / 2.0);
-        py.add(src.y + src.height);
-        for (Node v : e.virtualNodes) {
-          px.add(v.x + v.width / 2.0);
-          py.add(v.y + v.height / 2.0);
-        }
-        px.add(dst.x + dst.width / 2.0);
-        py.add(dst.y);
-
-        StringBuilder pathD = new StringBuilder();
-        pathD.append(String.format(Locale.ROOT, "M %.1f %.1f", px.get(0), py.get(0)));
-        for (int i = 0; i < px.size() - 1; i++) {
-          double xA = px.get(i);
-          double yA = py.get(i);
-          double xB = px.get(i + 1);
-          double yB = py.get(i + 1);
-          double dy = yB - yA;
-          pathD.append(
-              String.format(
-                  Locale.ROOT,
-                  " C %.1f %.1f, %.1f %.1f, %.1f %.1f",
-                  xA,
-                  yA + dy * 0.5,
-                  xB,
-                  yB - dy * 0.5,
-                  xB,
-                  yB));
-        }
-        svg.append(
-            String.format(
-                Locale.ROOT,
-                "  <path class=\"mermaid-edge\" d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-                pathD,
-                strokeWidth,
-                strokeDash,
-                marker));
-
-        if (e.label != null && !e.label.trim().isEmpty()) {
-          Node firstV = e.virtualNodes.get(0);
-          renderEdgeLabelBadge(
-              svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
-        }
-        return;
       } else {
-        // Standard forward edge
-        x1 = src.x + src.width / 2.0;
-        y1 = src.y + src.height;
-        x2 = dst.x + dst.width / 2.0;
-        y2 = dst.y;
-        double dy = y2 - y1;
-        cp1x = x1;
-        cp1y = y1 + dy * 0.5;
-        cp2x = x2;
-        cp2y = y1 + dy * 0.5;
-      }
-    } else {
-      // Horizontal (LR)
-      if (src.id.equals(dst.id)) {
-        x1 = src.x + src.width * 0.3;
-        y1 = src.y;
-        x2 = src.x + src.width * 0.7;
-        y2 = src.y;
-        cp1x = x1 - 20;
-        cp1y = y1 - 35;
-        cp2x = x2 + 20;
-        cp2y = y2 - 35;
-      } else if (e.isBackEdge || src.layer > dst.layer) {
         x1 = src.x + src.width / 2.0;
         y1 = src.y;
         x2 = dst.x + dst.width / 2.0;
         y2 = dst.y;
         double minTop = Math.min(y1, y2);
-        int minL = Math.min(src.layer, dst.layer);
-        int maxL = Math.max(src.layer, dst.layer);
         for (Node n : graph.nodes.values()) {
           if (n.layer >= minL && n.layer <= maxL) {
             minTop = Math.min(minTop, n.y);
@@ -2971,63 +1745,28 @@ public final class SimpleMermaidRenderer {
         cp1y = minTop - loopOffset;
         cp2x = x2;
         cp2y = minTop - loopOffset;
-      } else if (!e.virtualNodes.isEmpty()) {
-        List<Double> px = new ArrayList<>();
-        List<Double> py = new ArrayList<>();
-        px.add(src.x + src.width);
-        py.add(src.y + src.height / 2.0);
-        for (Node v : e.virtualNodes) {
-          px.add(v.x + v.width / 2.0);
-          py.add(v.y + v.height / 2.0);
-        }
-        px.add(dst.x);
-        py.add(dst.y + dst.height / 2.0);
-
-        StringBuilder pathD = new StringBuilder();
-        pathD.append(String.format(Locale.ROOT, "M %.1f %.1f", px.get(0), py.get(0)));
-        for (int i = 0; i < px.size() - 1; i++) {
-          double xA = px.get(i);
-          double yA = py.get(i);
-          double xB = px.get(i + 1);
-          double yB = py.get(i + 1);
-          double dx = xB - xA;
-          pathD.append(
-              String.format(
-                  Locale.ROOT,
-                  " C %.1f %.1f, %.1f %.1f, %.1f %.1f",
-                  xA + dx * 0.5,
-                  yA,
-                  xB - dx * 0.5,
-                  yB,
-                  xB,
-                  yB));
-        }
-        svg.append(
-            String.format(
-                Locale.ROOT,
-                "  <path class=\"mermaid-edge\" d=\"%s\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"%s\" %s%s/>\n",
-                pathD,
-                strokeWidth,
-                strokeDash,
-                marker));
-
-        if (e.label != null && !e.label.trim().isEmpty()) {
-          Node firstV = e.virtualNodes.get(0);
-          renderEdgeLabelBadge(
-              svg, firstV.x + firstV.width / 2.0, firstV.y + firstV.height / 2.0, e.label.trim());
-        }
-        return;
-      } else {
-        x1 = src.x + src.width;
-        y1 = src.y + src.height / 2.0;
-        x2 = dst.x;
-        y2 = dst.y + dst.height / 2.0;
-        double dx = x2 - x1;
-        cp1x = x1 + dx * 0.5;
-        cp1y = y1;
-        cp2x = x1 + dx * 0.5;
-        cp2y = y2;
       }
+    } else {
+      double srcAttachW = isHorizontal ? src.width : src.width;
+      double[] pts =
+          DiagramLayoutEngine.computeForwardBezierControlPoints(
+              src.x,
+              src.y,
+              srcAttachW,
+              src.height,
+              dst.x,
+              dst.y,
+              dst.width,
+              dst.height,
+              isHorizontal);
+      x1 = pts[0];
+      y1 = pts[1];
+      cp1x = pts[2];
+      cp1y = pts[3];
+      cp2x = pts[4];
+      cp2y = pts[5];
+      x2 = pts[6];
+      y2 = pts[7];
     }
 
     svg.append(
@@ -3048,9 +1787,8 @@ public final class SimpleMermaidRenderer {
             marker));
 
     if (e.label != null && !e.label.trim().isEmpty()) {
-      // Evaluate Cubic Bézier midpoint at t = 0.5
-      double midX = 0.125 * x1 + 0.375 * cp1x + 0.375 * cp2x + 0.125 * x2;
-      double midY = 0.125 * y1 + 0.375 * cp1y + 0.375 * cp2y + 0.125 * y2;
+      double midX = DiagramLayoutEngine.evalCubicBezier(x1, cp1x, cp2x, x2, 0.5);
+      double midY = DiagramLayoutEngine.evalCubicBezier(y1, cp1y, cp2y, y2, 0.5);
       renderEdgeLabelBadge(svg, midX, midY, e.label.trim());
     }
   }
@@ -3076,100 +1814,9 @@ public final class SimpleMermaidRenderer {
                 + " text-anchor=\"middle\" dominant-baseline=\"central\">%s</text>\n",
             midX,
             midY,
-            escapeXml(label)));
+            DiagramLayoutEngine.escapeXml(label)));
   }
 
-  private static String escapeXml(String text) {
-    if (text == null) {
-      return "";
-    }
-    StringBuilder sb = new StringBuilder(text.length() + 16);
-    for (int i = 0; i < text.length(); i++) {
-      char c = text.charAt(i);
-      // Strip invalid XML 1.0 control characters (valid chars: 0x9, 0xA, 0xD, 0x20+)
-      if (c < 0x20 && c != '\t' && c != '\n' && c != '\r') {
-        continue;
-      }
-      switch (c) {
-        case '&' -> sb.append("&amp;");
-        case '<' -> sb.append("&lt;");
-        case '>' -> sb.append("&gt;");
-        case '"' -> sb.append("&quot;");
-        case '\'' -> sb.append("&apos;");
-        default -> sb.append(c);
-      }
-    }
-    return sb.toString();
-  }
-
-  private static class GraphComponent {
-    final Map<String, Node> nodes = new LinkedHashMap<>();
-    final List<Edge> edges = new ArrayList<>();
-    final List<Subgraph> subgraphs = new ArrayList<>();
-    double width = 0;
-    double height = 0;
-  }
-
-  private static String findRoot(Map<String, String> parent, String id) {
-    String p = parent.get(id);
-    if (p == null || p.equals(id)) {
-      return id;
-    }
-    String root = findRoot(parent, p);
-    parent.put(id, root);
-    return root;
-  }
-
-  private static void unionSets(Map<String, String> parent, String id1, String id2) {
-    String r1 = findRoot(parent, id1);
-    String r2 = findRoot(parent, id2);
-    if (!r1.equals(r2)) {
-      parent.put(r1, r2);
-    }
-  }
-
-  private static void layoutIsolatedSubgraphs(Direction dir, List<Subgraph> subgraphs) {
-    boolean isHorizontal = (dir == Direction.LR || dir == Direction.RL);
-    double padding = 20;
-    double headerH = 22;
-
-    for (Subgraph sg : subgraphs) {
-      if (sg.nodes.isEmpty()) {
-        continue;
-      }
-      if (!isHorizontal) {
-        double maxW = 0;
-        for (Node n : sg.nodes) {
-          maxW = Math.max(maxW, n.width);
-        }
-        double curY = headerH + padding;
-        for (Node n : sg.nodes) {
-          n.x = padding + (maxW - n.width) / 2.0;
-          n.y = curY;
-          curY += n.height + 24;
-        }
-        sg.x = 0;
-        sg.y = 0;
-        sg.width = maxW + padding * 2;
-        sg.height = curY + padding;
-      } else {
-        double maxH = 0;
-        for (Node n : sg.nodes) {
-          maxH = Math.max(maxH, n.height);
-        }
-        double curX = padding;
-        for (Node n : sg.nodes) {
-          n.x = curX;
-          n.y = headerH + padding + (maxH - n.height) / 2.0;
-          curX += n.width + 32;
-        }
-        sg.x = 0;
-        sg.y = 0;
-        sg.width = curX + padding;
-        sg.height = maxH + padding * 2 + headerH;
-      }
-    }
-  }
 
   private SimpleMermaidRenderer() {}
 }
