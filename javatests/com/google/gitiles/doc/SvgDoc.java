@@ -100,6 +100,27 @@ public class SvgDoc {
   }
 
   /**
+   * Renders the given Graphviz DOT diagram code and verifies all geometric and structural
+   * invariants.
+   */
+  public static SvgDoc renderDot(String dotCode) {
+    Optional<String> svgOpt = SimpleDotRenderer.renderToSvg(dotCode);
+    assertThat(svgOpt).isPresent();
+    SvgDoc doc = new SvgDoc(svgOpt.get());
+    doc.assertAllDotInvariants();
+    return doc;
+  }
+
+  /**
+   * Renders the given Graphviz DOT diagram code without asserting collision invariants.
+   */
+  public static SvgDoc renderDotRaw(String dotCode) {
+    Optional<String> svgOpt = SimpleDotRenderer.renderToSvg(dotCode);
+    assertThat(svgOpt).isPresent();
+    return new SvgDoc(svgOpt.get());
+  }
+
+  /**
    * Asserts root SVG structure, safe tags, and non-overlapping nodes, edge labels, and subgraphs.
    */
   public void assertAllInvariants() {
@@ -110,9 +131,29 @@ public class SvgDoc {
     assertSubgraphsDoNotOverlap();
   }
 
+  /**
+   * Asserts root Graphviz DOT SVG structure, safe tags, and non-overlapping nodes, edge labels, and
+   * subgraphs.
+   */
+  public void assertAllDotInvariants() {
+    assertRootDotSvg();
+    assertNoDangerousTags();
+    assertNoNodeOverlaps();
+    assertNoLabelNodeOverlaps();
+    assertSubgraphsDoNotOverlap();
+  }
+
   public void assertRootSvg() {
     assertThat(root.getTagName()).isEqualTo("svg");
     assertThat(root.getAttribute("class")).isEqualTo("mermaid-svg");
+    assertThat(root.getAttribute("xmlns")).isEqualTo("http://www.w3.org/2000/svg");
+    assertThat(root.getAttribute("viewBox")).matches("^0 0 \\d+ \\d+$");
+    assertThat(root.getAttribute("style")).contains("max-width:");
+  }
+
+  public void assertRootDotSvg() {
+    assertThat(root.getTagName()).isEqualTo("svg");
+    assertThat(root.getAttribute("class")).isEqualTo("graphviz-svg");
     assertThat(root.getAttribute("xmlns")).isEqualTo("http://www.w3.org/2000/svg");
     assertThat(root.getAttribute("viewBox")).matches("^0 0 \\d+ \\d+$");
     assertThat(root.getAttribute("style")).contains("max-width:");
@@ -131,6 +172,16 @@ public class SvgDoc {
     assertThat(filters.getLength()).isEqualTo(1);
     Element filter = (Element) filters.item(0);
     assertThat(filter.getAttribute("id")).isEqualTo("node-shadow");
+  }
+
+  public void assertDotDefs() {
+    List<Element> defs = getElementsByTag("defs");
+    assertThat(defs).hasSize(1);
+    Element def = defs.get(0);
+    NodeList markers = def.getElementsByTagName("marker");
+    assertThat(markers.getLength()).isAtLeast(1);
+    Element marker = (Element) markers.item(0);
+    assertThat(marker.getAttribute("id")).isEqualTo("graphviz-arrow");
   }
 
   public void assertNoDangerousTags() {
@@ -166,7 +217,12 @@ public class SvgDoc {
   public List<Element> findSubgraphRects() {
     List<Element> list = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
-      if (r.getAttribute("stroke-dasharray").equals("4,4")) {
+      String cls = r.getAttribute("class");
+      if (cls.contains("graphviz-node-shape")) {
+        continue;
+      }
+      if (r.getAttribute("stroke-dasharray").equals("4,4")
+          || cls.contains("graphviz-subgraph-box")) {
         list.add(r);
       }
     }
@@ -246,6 +302,10 @@ public class SvgDoc {
       return x + width / 2.0;
     }
 
+    public double centerY() {
+      return y + height / 2.0;
+    }
+
     public boolean overlaps(Rect2D other, double tolerance) {
       return (this.x + this.width - tolerance > other.x)
           && (other.x + other.width - tolerance > this.x)
@@ -268,10 +328,19 @@ public class SvgDoc {
 
   public List<Rect2D> getNodeBoundingBoxes() {
     List<Rect2D> list = new ArrayList<>();
+    List<Element> seenGraphvizNodeGroups = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
       String dash = r.getAttribute("stroke-dasharray");
       String opacity = r.getAttribute("fill-opacity");
-      if (dash.equals("4,4") || opacity.equals("0.95")) {
+      String cls = r.getAttribute("class");
+      if (cls.contains("graphviz-subgraph-box")
+          || cls.contains("graphviz-edge-label-bg")
+          || cls.contains("graphviz-node-tab")
+          || opacity.equals("0.95")
+          || (dash.equals("4,4") && !cls.contains("graphviz-node-shape"))) {
+        continue;
+      }
+      if (isSecondaryShapeInSameNodeGroup(r, seenGraphvizNodeGroups)) {
         continue;
       }
       double x = Double.parseDouble(r.getAttribute("x"));
@@ -280,13 +349,59 @@ public class SvgDoc {
       double h = Double.parseDouble(r.getAttribute("height"));
       list.add(new Rect2D(x, y, w, h, "NodeRect"));
     }
-    for (Element c : getElementsByTag("circle")) {
+    for (Element e : getElementsByTag("ellipse")) {
+      if (e.getAttribute("cx").isEmpty() || e.getAttribute("rx").isEmpty()) {
+        continue;
+      }
+      if (isSecondaryShapeInSameNodeGroup(e, seenGraphvizNodeGroups)) {
+        continue;
+      }
+      double cx = Double.parseDouble(e.getAttribute("cx"));
+      double cy = Double.parseDouble(e.getAttribute("cy"));
+      double rx = Double.parseDouble(e.getAttribute("rx"));
+      double ry = Double.parseDouble(e.getAttribute("ry"));
+      list.add(new Rect2D(cx - rx, cy - ry, rx * 2, ry * 2, "NodeEllipse"));
+    }
+    List<Element> circles = getElementsByTag("circle");
+    for (int i = 0; i < circles.size(); i++) {
+      Element c = circles.get(i);
+      if (c.getAttribute("class").contains("graphviz-node-inner-circle")) {
+        continue;
+      }
       double cx = Double.parseDouble(c.getAttribute("cx"));
       double cy = Double.parseDouble(c.getAttribute("cy"));
       double cr = Double.parseDouble(c.getAttribute("r"));
+      boolean isInnerConcentric = false;
+      for (int j = 0; j < circles.size(); j++) {
+        if (i == j) {
+          continue;
+        }
+        Element other = circles.get(j);
+        double ocx = Double.parseDouble(other.getAttribute("cx"));
+        double ocy = Double.parseDouble(other.getAttribute("cy"));
+        double ocr = Double.parseDouble(other.getAttribute("r"));
+        if (Math.abs(cx - ocx) < 1.0
+            && Math.abs(cy - ocy) < 1.0
+            && (cr < ocr || (cr == ocr && i > j))) {
+          isInnerConcentric = true;
+          break;
+        }
+      }
+      if (isInnerConcentric) {
+        continue;
+      }
+      if (isSecondaryShapeInSameNodeGroup(c, seenGraphvizNodeGroups)) {
+        continue;
+      }
       list.add(new Rect2D(cx - cr, cy - cr, cr * 2, cr * 2, "NodeCircle"));
     }
     for (Element p : getElementsByTag("polygon")) {
+      if (p.getParentNode() instanceof Element parent && parent.getTagName().equals("marker")) {
+        continue;
+      }
+      if (isSecondaryShapeInSameNodeGroup(p, seenGraphvizNodeGroups)) {
+        continue;
+      }
       String pts = p.getAttribute("points").trim();
       if (!pts.isEmpty()) {
         double minX = Double.MAX_VALUE;
@@ -312,10 +427,25 @@ public class SvgDoc {
     return list;
   }
 
+  private static boolean isSecondaryShapeInSameNodeGroup(
+      Element shape, List<Element> seenGraphvizNodeGroups) {
+    if (shape.getParentNode() instanceof Element parent
+        && parent.getTagName().equals("g")
+        && parent.getAttribute("class").contains("graphviz-node")
+        && parent.getElementsByTagName("text").getLength() <= 1) {
+      if (seenGraphvizNodeGroups.contains(parent)) {
+        return true;
+      }
+      seenGraphvizNodeGroups.add(parent);
+    }
+    return false;
+  }
+
   public List<Rect2D> getEdgeLabelBadgeBoundingBoxes() {
     List<Rect2D> list = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
-      if (r.getAttribute("fill-opacity").equals("0.95")) {
+      if (r.getAttribute("fill-opacity").equals("0.95")
+          || r.getAttribute("class").contains("graphviz-edge-label-bg")) {
         double x = Double.parseDouble(r.getAttribute("x"));
         double y = Double.parseDouble(r.getAttribute("y"));
         double w = Double.parseDouble(r.getAttribute("width"));
@@ -329,7 +459,12 @@ public class SvgDoc {
   public List<Rect2D> getSubgraphBoundingBoxes() {
     List<Rect2D> list = new ArrayList<>();
     for (Element r : getElementsByTag("rect")) {
-      if (r.getAttribute("stroke-dasharray").equals("4,4")) {
+      String cls = r.getAttribute("class");
+      if (cls.contains("graphviz-node-shape")) {
+        continue;
+      }
+      if (r.getAttribute("stroke-dasharray").equals("4,4")
+          || cls.contains("graphviz-subgraph-box")) {
         double x = Double.parseDouble(r.getAttribute("x"));
         double y = Double.parseDouble(r.getAttribute("y"));
         double w = Double.parseDouble(r.getAttribute("width"));

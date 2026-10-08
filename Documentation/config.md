@@ -193,6 +193,12 @@ section:
 * `ghthematicbreak`: accept `--` for `<hr>`, like GitHub Flavor
   Markdown.  Default follows `githubFlavor`.
 
+* `graphviz`: render fenced `dot` and `graphviz` code blocks as inline
+  SVG diagrams on the server. Default follows `githubFlavor`.
+
+* `mermaid`: render fenced `mermaid` code blocks as inline SVG diagrams
+  on the server. Default follows `githubFlavor`.
+
 * `multicolumn`: Gitiles extension to layout content in a 12 cell
    grid, delinated by section headers. Default false.
 

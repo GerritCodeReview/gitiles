@@ -676,6 +676,50 @@ Embedded source URLs must also be whitelisted by the Gitiles
 [`markdown.allowiframe`](config.md#IFrames) configuration
 variable.
 
+### Graphviz diagrams
+
+Requires `markdown.graphviz` to be true (default).
+
+Fenced code blocks tagged with `dot` or `graphviz` are rendered on the
+server into inline `<svg>` diagrams wrapped in `<div class="graphviz-container">`
+without requiring client-side JavaScript:
+
+````
+```dot
+digraph G {
+  rankdir=LR;
+  node [shape=box, style="filled,rounded"];
+
+  subgraph cluster_frontend {
+    label="Frontend";
+    A [label="Parser\n\n  * Tokenize\l  * Build AST\l"];
+  }
+
+  B [label="SVG Renderer", shape=component];
+  A -> B [label="AST"];
+}
+```
+````
+
+Supported Graphviz DOT features include:
+
+* Directed (`digraph` using `->`) and undirected (`graph` using `--`)
+  graphs, including `strict` edge deduplication.
+* Layout directions via `rankdir` (`TB`, `TD`, `BT`, `LR`, `RL`).
+* Scoped `graph [...]`, `node [...]`, and `edge [...]` default
+  attributes, nested `subgraph cluster_*` containers, and
+  `{ rank=same; ... }` rank constraints.
+* Common node shapes (`ellipse`, `oval`, `box`, `rect`, `rectangle`,
+  `square`, `circle`, `doublecircle`, `diamond`, `hexagon`, `cylinder`,
+  `note`, `tab`, `folder`, `component`, `record`, `Mrecord`,
+  `plaintext`, `none`).
+* Per-line label justification escapes: `\n` (centered), `\l`
+  (left-aligned), and `\r` (right-aligned).
+
+If `markdown.graphviz` is disabled or a block contains unsupported or
+invalid DOT syntax, Gitiles falls back to rendering the source inside a
+standard `<pre class="code">` block.
+
 ## Site layout
 
 Gitiles includes additional support to create functional documentation

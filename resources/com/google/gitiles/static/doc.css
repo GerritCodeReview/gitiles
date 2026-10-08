@@ -468,3 +468,65 @@ iframe.noborder {
   flood-color: var(--mermaid-shadow-color);
   flood-opacity: var(--mermaid-shadow-opacity);
 }
+
+.graphviz-container {
+  margin: 1.5em 0;
+  text-align: center;
+  overflow-x: auto;
+}
+.graphviz-container svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.graphviz-svg .graphviz-node,
+.graphviz-svg .graphviz-node-shape,
+.graphviz-svg .graphviz-node-fill {
+  fill: var(--mermaid-node-bg);
+}
+.graphviz-svg .graphviz-node,
+.graphviz-svg .graphviz-node-shape,
+.graphviz-svg .graphviz-node-stroke {
+  stroke: var(--mermaid-node-stroke);
+}
+.graphviz-svg .graphviz-node-label,
+.graphviz-svg .graphviz-node-text {
+  fill: var(--mermaid-node-text);
+  stroke: none;
+}
+.graphviz-svg .graphviz-node-subtext {
+  fill: var(--mermaid-node-subtext);
+  stroke: none;
+}
+.graphviz-svg .graphviz-edge {
+  stroke: var(--mermaid-edge);
+}
+.graphviz-svg .graphviz-arrow {
+  fill: var(--mermaid-edge);
+}
+.graphviz-svg .graphviz-edge-label-bg {
+  fill: var(--mermaid-edge-label-bg);
+}
+.graphviz-svg .graphviz-edge-label,
+.graphviz-svg .graphviz-edge-label-text {
+  fill: var(--mermaid-edge-label-text);
+  stroke: none;
+}
+.graphviz-svg .graphviz-subgraph,
+.graphviz-svg .graphviz-subgraph-box,
+.graphviz-svg .graphviz-subgraph-fill {
+  fill: var(--mermaid-subgraph-bg);
+  stroke: var(--mermaid-subgraph-stroke);
+}
+.graphviz-svg .graphviz-subgraph--alt,
+.graphviz-svg .graphviz-subgraph-fill--alt {
+  fill: var(--mermaid-subgraph-bg-alt);
+}
+.graphviz-svg .graphviz-subgraph-title {
+  fill: var(--mermaid-subgraph-text);
+  stroke: none;
+}
+.graphviz-svg .graphviz-shadow {
+  flood-color: var(--mermaid-shadow-color);
+  flood-opacity: var(--mermaid-shadow-opacity);
+}
