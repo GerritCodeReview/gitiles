@@ -119,6 +119,23 @@
       "message": "Disculpe seria amable de brindarme ayuda",
       "revId": "bcbf5b005af0c682b2e5f393324569dd2b3843ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4837bde0_bd74b20a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005573
+      },
+      "writtenOn": "2026-10-11T07:38:32Z",
+      "side": 1,
+      "message": "601581: Bazel: Move Gitiles off JGit servlet-4 via EE8 bridge | https://gerrit-review.googlesource.com/c/gitiles/+/601581",
+      "revId": "bcbf5b005af0c682b2e5f393324569dd2b3843ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
