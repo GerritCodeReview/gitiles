@@ -88,6 +88,24 @@
       "parentUuid": "526082c7_608b41a1",
       "revId": "82420cc5da6185891675b97b24c620522fe85c69",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4102419_5e9c1aa3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2026-10-15T13:52:51Z",
+      "side": 1,
+      "message": "There\u0027s also https://postimg.cc/2b6vNWGc and https://postimg.cc/ftp34rJy for the home view of the repo.\n\nAnd https://postimg.cc/Z9q0WSN8 and https://postimg.cc/GH12kYDM for the change log.\n\nAnyways this was to give ideas to modernise gitiles with some lick of paint and better functionality :)",
+      "parentUuid": "001a442f_8f03a938",
+      "revId": "82420cc5da6185891675b97b24c620522fe85c69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
