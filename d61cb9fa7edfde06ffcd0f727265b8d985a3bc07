@@ -36,6 +36,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fb5cd7b_4e53095f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3255163
+      },
+      "writtenOn": "2026-10-15T15:48:03Z",
+      "side": 1,
+      "message": "Reworked: each level is now capped at 500 entries (configurable), the current file is always kept, and a \u0027N more...\u0027 link goes to the tree page. At 100k entries it adds +23 ms and ~76 KiB, down from +348 ms and 16.9 MiB. Table is in the commit message.",
+      "parentUuid": "df57ac41_f00c7c24",
+      "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65012a49_67cc0efc",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "One concern: if you\u0027re viewing a file deeper than 2 levels it won\u0027t show in the sidebar at all, so no visual cue for where you are. If we always expand along the active path regardless of depth that fixes it, but then it ends up pretty close to what\u0027s already there. What\u0027s the main thing you wanted to change? Is it just the inline expand/collapse for other folders?",
       "parentUuid": "65012a49_67cc0efc",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 28
+      },
+      "revId": "d61cb9fa7edfde06ffcd0f727265b8d985a3bc07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb9cff9_75d6e509",
+        "filename": "resources/com/google/gitiles/static/file-nav.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3255163
+      },
+      "writtenOn": "2026-10-15T15:48:03Z",
+      "side": 1,
+      "message": "Done, server-side only: the root plus each directory on the path to the current file, so deep files stay visible. No other directories are expanded.",
+      "parentUuid": "4ae0958b_514c3e79",
       "range": {
         "startLine": 1,
         "startChar": 25,
