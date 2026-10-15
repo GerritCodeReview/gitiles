@@ -52,6 +52,24 @@
       "parentUuid": "9bacd555_15dcf68e",
       "revId": "82420cc5da6185891675b97b24c620522fe85c69",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "526082c7_608b41a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2026-10-15T12:15:23Z",
+      "side": 1,
+      "message": "There\u0027s also this proposed by AI https://postimg.cc/5YdttVNd for modernising when you\u0027re inside the repistory but it shows tags/branch/commits.\n\nAlso there\u0027s https://postimg.cc/Wt7Gq2FM for modernising when viewing a branch. The file listing.",
+      "parentUuid": "e44c8abd_ce29790e",
+      "revId": "82420cc5da6185891675b97b24c620522fe85c69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
