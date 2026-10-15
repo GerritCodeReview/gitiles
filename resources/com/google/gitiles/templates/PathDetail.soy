@@ -29,6 +29,9 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       org.eclipse.jgit.lib.FileMode. */
   {@param data: ?}  /** path data, matching the params for one of .treeDetail, .blobDetail,
       .symlinkDetail, or .gitlinkDetail as appropriate. */
+  {@param? navigation: ?}  /** optional file navigation data, matching the params for
+      .fileNavigation_. */
+  {@param? containerClass: ?}  /** optional class to append to the main container. */
   {@inject staticUrls: ?}
 {if $type == 'REGULAR_FILE' || $type == 'EXECUTABLE_FILE'}
   {call common.header data="all"}
@@ -42,6 +45,28 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {call common.header data="all" /}
 {/if}
 
+{if $navigation}
+  <div class="PathDetail">
+    {call fileNavigation_ data="$navigation" /}
+    <div class="PathDetail-main">
+      {call pathContent_ data="all" /}
+    </div>
+  </div>
+{else}
+  {call pathContent_ data="all" /}
+{/if}
+
+{call common.footer}
+  {param customVariant: $customVariant /}
+{/call}
+{/template}
+
+/**
+ * Main content of a path page.
+ */
+{template pathContent_}
+  {@param type: ?}  /** path type, as in .pathDetail. */
+  {@param data: ?}  /** path data, as in .pathDetail. */
 {switch $type}
   {case 'TREE'}
     {call objDetail.treeDetail data="$data" /}
@@ -58,10 +83,63 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       {msg desc="Error message for an unknown object type"}Object has unknown type.{/msg}
     </div>
 {/switch}
+{/template}
 
-{call common.footer}
-  {param customVariant: $customVariant /}
-{/call}
+/**
+ * Sidebar listing the root of the tree, expanded along the path to the current file.
+ */
+{template fileNavigation_}
+  {@param entries: ?}  /** root entries, matching the params for .fileNavigationList_. */
+  {@param? moreCount: ?}  /** number of root entries not listed. */
+  {@param? moreUrl: ?}  /** URL of the root tree, listing all entries. */
+<nav class="FileNav" aria-labelledby="FileNav-heading">
+  <details class="FileNav-details" open>
+    <summary class="FileNav-summary" id="FileNav-heading">
+      {msg desc="Heading for the list of files next to a file"}Files{/msg}
+    </summary>
+    {call fileNavigationList_ data="all" /}
+  </details>
+</nav>
+{/template}
+
+/**
+ * One directory level of the file navigation sidebar.
+ */
+{template fileNavigationList_}
+  {@param entries: ?}  /** list of entries, each with type, name, url, and optionally current or
+      children, the nested level for a directory on the current path. */
+  {@param? moreCount: ?}  /** number of entries not listed. */
+  {@param? moreUrl: ?}  /** URL of the tree page listing all entries. */
+<ul class="FileNav-list">
+  {for $entry in $entries}
+    <li class="FileNav-item{sp}
+        {switch $entry.type}
+          {case 'TREE'}FileNav-item--gitTree
+          {case 'SYMLINK'}FileNav-item--symlink
+          {case 'REGULAR_FILE'}FileNav-item--regularFile
+          {case 'EXECUTABLE_FILE'}FileNav-item--executableFile
+          {case 'GITLINK'}FileNav-item--gitlink
+          {default}FileNav-item--regularFile
+        {/switch}">
+      <a class="FileNav-link" href="{$entry.url}"
+          {if $entry.current}aria-current="page"{/if}>
+        {$entry.name}
+      </a>
+      {if $entry.children}
+        {call fileNavigationList_ data="$entry.children" /}
+      {/if}
+    </li>
+  {/for}
+  {if $moreCount}
+    <li class="FileNav-more">
+      <a href="{$moreUrl}">
+        {msg desc="Link to the full listing of a directory truncated in the sidebar"}
+          {$moreCount} more...
+        {/msg}
+      </a>
+    </li>
+  {/if}
+</ul>
 {/template}
 
 /**

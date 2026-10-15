@@ -602,15 +602,7 @@ public class PathServlet extends BaseServlet {
         new BlobSoyData(wr.getObjectReader(), view)
             .toSoyData(wr.path, wr.id, createEditUrl(req, view));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
-    renderHtml(
-        req,
-        res,
-        PATH_DETAIL,
-        ImmutableMap.of(
-            "title", ViewFilter.getView(req).getPathPart(),
-            "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-            "type", wr.type.toString(),
-            "data", data));
+    renderHtml(req, res, PATH_DETAIL, fileSoyData(req, wr, wr.type, data));
   }
 
   private void showSymlink(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
@@ -628,15 +620,7 @@ public class PathServlet extends BaseServlet {
       data.put("sha", ObjectId.toString(wr.id));
       data.put("data", null);
       data.put("size", Long.toString(loader.getSize()));
-      renderHtml(
-          req,
-          res,
-          PATH_DETAIL,
-          ImmutableMap.of(
-              "title", ViewFilter.getView(req).getPathPart(),
-              "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-              "type", FileType.REGULAR_FILE.toString(),
-              "data", data));
+      renderHtml(req, res, PATH_DETAIL, fileSoyData(req, wr, FileType.REGULAR_FILE, data));
       return;
     }
 
@@ -651,15 +635,29 @@ public class PathServlet extends BaseServlet {
     }
 
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
-    renderHtml(
-        req,
-        res,
-        PATH_DETAIL,
-        ImmutableMap.of(
-            "title", ViewFilter.getView(req).getPathPart(),
-            "breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree),
-            "type", FileType.SYMLINK.toString(),
-            "data", data));
+    renderHtml(req, res, PATH_DETAIL, fileSoyData(req, wr, FileType.SYMLINK, data));
+  }
+
+  /** Returns Soy data for a file page, with the file navigation sidebar if it is enabled. */
+  private Map<String, Object> fileSoyData(
+      HttpServletRequest req, WalkResult wr, FileType type, Map<String, ?> data)
+      throws IOException {
+    GitilesView view = ViewFilter.getView(req);
+    Map<String, Object> soyData = Maps.newHashMapWithExpectedSize(6);
+    soyData.put("title", view.getPathPart());
+    soyData.put("breadcrumbs", view.getBreadcrumbs(wr.hasSingleTree));
+    soyData.put("type", type.toString());
+    soyData.put("data", data);
+    Config cfg = getAccess(req).getConfig();
+    if (FileNavigationSoyData.isEnabled(cfg)) {
+      soyData.put(
+          "navigation",
+          new FileNavigationSoyData(
+                  wr.getObjectReader(), view, FileNavigationSoyData.getMaxEntries(cfg))
+              .toSoyData(wr.root));
+      soyData.put("containerClass", "Container--fullWidth");
+    }
+    return soyData;
   }
 
   private static String dirname(String path) {

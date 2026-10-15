@@ -79,15 +79,17 @@ public class TreeSoyData {
   }
 
   static int sortByTypeAlpha(Map<String, String> m1, Map<String, String> m2) {
-    int weightDiff = TYPE_WEIGHT.get(m1.get("type")).compareTo(TYPE_WEIGHT.get(m2.get("type")));
+    return compareByTypeAlpha(m1.get("type"), m1.get("name"), m2.get("type"), m2.get("name"));
+  }
+
+  static int compareByTypeAlpha(String type1, String name1, String type2, String name2) {
+    int weightDiff = TYPE_WEIGHT.get(type1).compareTo(TYPE_WEIGHT.get(type2));
     if (weightDiff == 0) {
-      String s1 = m1.get("name");
-      String s2 = m2.get("name");
-      if (m1.get("type").equals("TREE")) {
-        s1 = stripEndingSolidus(s1);
-        s2 = stripEndingSolidus(s2);
+      if (type1.equals("TREE")) {
+        name1 = stripEndingSolidus(name1);
+        name2 = stripEndingSolidus(name2);
       }
-      return s1.compareToIgnoreCase(s2);
+      return name1.compareToIgnoreCase(name2);
     }
     return weightDiff;
   }

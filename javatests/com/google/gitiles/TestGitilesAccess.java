@@ -29,9 +29,16 @@ import org.eclipse.jgit.lib.Config;
 /** Gitiles access for testing. */
 public class TestGitilesAccess implements GitilesAccess.Factory {
   private final DfsRepository repo;
+  private final Config extraConfig;
 
   public TestGitilesAccess(DfsRepository repo) {
+    this(repo, new Config());
+  }
+
+  /** @param extraConfig settings applied on top of the defaults returned by {@code getConfig}. */
+  public TestGitilesAccess(DfsRepository repo, Config extraConfig) {
     this.repo = checkNotNull(repo);
+    this.extraConfig = checkNotNull(extraConfig);
   }
 
   @Override
@@ -84,6 +91,15 @@ public class TestGitilesAccess implements GitilesAccess.Factory {
         config.setBoolean("markdown", null, "smartquote", true);
         config.setStringList(
             "gitiles", null, "allowOriginRegex", ImmutableList.of("http://localhost"));
+        for (String section : extraConfig.getSections()) {
+          for (String name : extraConfig.getNames(section)) {
+            config.setStringList(
+                section,
+                null,
+                name,
+                ImmutableList.copyOf(extraConfig.getStringList(section, null, name)));
+          }
+        }
         return config;
       }
     };

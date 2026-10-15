@@ -140,6 +140,21 @@ Default: `true`.
 redirectGitweb = false
 ```
 
+### File navigation sidebar
+
+Show a sidebar next to file pages listing the root of the tree, with each
+directory on the path to the file expanded. The sidebar is rendered on the
+server and needs no JavaScript. Directories with more than
+`fileNavigationMaxEntries` entries are cut short with a link to the full tree
+page; the entry on the current path is always listed.
+Default: `false` and `500`.
+
+```
+[gitiles]
+  fileNavigation = true
+  fileNavigationMaxEntries = 500
+```
+
 ## Markdown
 
 ### Disabling markdown
