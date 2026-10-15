@@ -504,6 +504,38 @@ a {
 
 /* GrepDetail.soy */
 
+.GrepSearch {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 15px;
+}
+.GrepSearch-input,
+.GrepSearch-button {
+  border: 1px solid var(--border-subtle-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  font: inherit;
+}
+.GrepSearch-input {
+  background: var(--bg-color);
+  max-width: 100%;
+  padding: 4px 8px;
+  width: 320px;
+}
+.GrepSearch-button {
+  background: var(--code-bg);
+  cursor: pointer;
+  padding: 4px 12px;
+}
+.GrepSearch-button:hover {
+  background: var(--hover-bg);
+}
+.GrepSearch-path {
+  margin-bottom: 15px;
+}
 .GrepResults-item {
   margin-bottom: 15px;
 }
