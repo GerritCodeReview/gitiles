@@ -358,14 +358,15 @@ a {
   display: inline-block;
   margin-left: 10px;
 }
+.RepoList {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
 .RepoList-item {
   display: -ms-flexbox;
   display: flex;
-  left: -10px;
-  padding: 5px 0 5px 10px;
-  position: relative;
+  padding: 5px 10px;
   white-space: nowrap;
-  width: calc(100% + 20px);
 }
 .RepoList-item:link,
 .RepoList-item:visited {
@@ -375,6 +376,7 @@ a {
   background: var(--hover-bg);
 }
 .RepoList-item--header {
+  border-bottom: 1px solid var(--border-color);
   font-weight: bold;
   margin: 0;
 }
@@ -413,6 +415,7 @@ a {
 }
 .CloneRepo {
   background: var(--clone-bg);
+  border-radius: 4px;
   margin-bottom: 20px;
   padding: 10px;
 }
@@ -616,7 +619,9 @@ a {
   color: var(--text-color);
 }
 .FileList {
-  margin-left: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 5px 10px 5px 35px;
 }
 .FileList-item {
   padding: 1px 0;
