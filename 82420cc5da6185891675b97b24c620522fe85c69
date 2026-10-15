@@ -34,6 +34,24 @@
       "parentUuid": "2caf6b14_6fd587f7",
       "revId": "82420cc5da6185891675b97b24c620522fe85c69",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44c8abd_ce29790e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2026-10-15T12:10:36Z",
+      "side": 1,
+      "message": "Awesome! Thank you for working on modernising gitiles! I had AI mock up a image for modernising the repository list. What about something like this https://postimg.cc/nXFBHqSM (obviously can be different, but looks nicer and has search and should paginate probably).",
+      "parentUuid": "9bacd555_15dcf68e",
+      "revId": "82420cc5da6185891675b97b24c620522fe85c69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
