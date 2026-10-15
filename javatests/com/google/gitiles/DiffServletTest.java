@@ -49,8 +49,20 @@ public class DiffServletTest extends ServletTest {
                 + " href=\"/b/repo/+/%s/foo\">b/foo</a>",
             c1.name(), c2.name());
     assertThat(actual).contains(diffHeader);
-    assertThat(actual).contains("<span class=\"Diff-change\"> foo</span>");
-    assertThat(actual).contains("<span class=\"Diff-insert\">+contents</span>");
+    assertThat(actual).contains("<span class=\"Diff-change\"> foo\n</span>");
+    assertThat(actual).contains("<span class=\"Diff-insert\">+contents\n</span>");
+  }
+
+  @Test
+  public void diffFileMissingNewlineHtml() throws Exception {
+    RevCommit c1 = repo.update("master", repo.commit().add("foo", "foo\n"));
+    RevCommit c2 = repo.update("master", repo.commit().parent(c1).add("foo", "foo\nbar"));
+
+    String actual = buildHtml("/repo/+diff/" + c2.name() + "^!/foo", false);
+
+    // No text may sit between line spans other than JGit's marker, which starts its own line.
+    assertThat(actual)
+        .contains("<span class=\"Diff-insert\">+bar\n</span>\\ No newline at end of file\n</pre>");
   }
 
   @Test

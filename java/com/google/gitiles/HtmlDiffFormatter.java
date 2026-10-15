@@ -46,7 +46,8 @@ final class HtmlDiffFormatter extends DiffFormatter {
   private static final byte[] LINE_INSERT_BEGIN = "<span class=\"Diff-insert\">".getBytes(UTF_8);
   private static final byte[] LINE_DELETE_BEGIN = "<span class=\"Diff-delete\">".getBytes(UTF_8);
   private static final byte[] LINE_CHANGE_BEGIN = "<span class=\"Diff-change\">".getBytes(UTF_8);
-  private static final byte[] LINE_END = "</span>\n".getBytes(UTF_8);
+  // Keep the newline inside the span, like the hunk header, so each line is one element.
+  private static final byte[] LINE_END = "\n</span>".getBytes(UTF_8);
 
   private final Renderer renderer;
   private final GitilesView view;
