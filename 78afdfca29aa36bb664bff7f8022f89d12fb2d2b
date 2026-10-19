@@ -16,6 +16,24 @@
       "message": "@milutin@google.com Could you give LC+1? This is actually removing a dependency and not adding something new. Thanks!",
       "revId": "78afdfca29aa36bb664bff7f8022f89d12fb2d2b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9cf55d_228b3dbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2026-10-19T18:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9876f4c9_60d6bb06",
+      "revId": "78afdfca29aa36bb664bff7f8022f89d12fb2d2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
