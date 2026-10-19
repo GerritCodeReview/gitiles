@@ -19,12 +19,6 @@ local_path_override(
 )
 
 # Toolchain setup.
-bazel_dep(name = "rbe_autoconfig")
-git_override(
-    module_name = "rbe_autoconfig",
-    commit = "eb944ce4fc29a1608eae9adf0b0e0df2f9e05e33",
-    remote = "https://github.com/davido/rbe_autoconfig.git",
-)
 
 register_toolchains("//tools:error_prone_warnings_toolchain_java25_definition")
 
