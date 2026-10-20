@@ -1,0 +1,69 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da1ff28d_5a307896",
+        "filename": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-10-20T16:39:29Z",
+      "side": 1,
+      "message": "Many of these inner classes change to package-private in the following change. Create them directly with the right visiblity in this change.",
+      "fixSuggestions": [
+        {
+          "fixId": "c18362de_e7963152",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+              "range": {
+                "startLine": 50,
+                "startChar": 0,
+                "endLine": 51,
+                "endChar": 0
+              },
+              "replacement": "  static class BaseNode {\n"
+            },
+            {
+              "path": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+              "range": {
+                "startLine": 72,
+                "startChar": 0,
+                "endLine": 73,
+                "endChar": 0
+              },
+              "replacement": "  static class BaseSubgraph\u003cN extends BaseNode, S extends BaseSubgraph\u003cN, S\u003e\u003e {\n"
+            },
+            {
+              "path": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+              "range": {
+                "startLine": 123,
+                "startChar": 0,
+                "endLine": 124,
+                "endChar": 0
+              },
+              "replacement": "  static class BaseEdge\u003cN extends BaseNode\u003e {\n"
+            },
+            {
+              "path": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+              "range": {
+                "startLine": 191,
+                "startChar": 0,
+                "endLine": 192,
+                "endChar": 0
+              },
+              "replacement": "  static class BaseSubgraphEdge {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "ea952385a531e044ef5e22f2f0cfef618f8959ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
