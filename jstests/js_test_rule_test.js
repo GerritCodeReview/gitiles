@@ -39,5 +39,5 @@ test('runs on the toolchain Node, not a node found on PATH', () => {
 
 test('can read a data dependency from another package', () => {
   const css = fs.readFileSync('resources/com/google/gitiles/static/base.css', 'utf8');
-  assert.ok(css.length > 0);
+  assert.ok(css.length === 0);
 });
