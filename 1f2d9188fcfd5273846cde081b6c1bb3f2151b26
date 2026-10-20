@@ -68,6 +68,24 @@
       "parentUuid": "8fc42bb1_f9a8d352",
       "revId": "1f2d9188fcfd5273846cde081b6c1bb3f2151b26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b680b0a_0bbfe1c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-10-20T16:29:24Z",
+      "side": 1,
+      "message": "The design looks good, and IIUC start refactoring mermaid renderer to extract the common parts.\n\nI would expect now changes doing that in reviewable-sized self-contained commits with proper descriptions. I\u0027ll take a look to the WIPs in this chain.",
+      "parentUuid": "6c9252de_a06bb50a",
+      "revId": "1f2d9188fcfd5273846cde081b6c1bb3f2151b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
