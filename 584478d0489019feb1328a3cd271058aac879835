@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80bfc85a_a37c500c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072453
+      },
+      "writtenOn": "2026-10-20T16:56:43Z",
+      "side": 1,
+      "message": "Couple nits:\n\nStart the title with \"doc:\", so git log shows the component where the change happens\n\nThe message should explain why this change is needed. I assume that this is because the dot renderer needs this features. If so, please mention it in the commit message.",
+      "revId": "584478d0489019feb1328a3cd271058aac879835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
