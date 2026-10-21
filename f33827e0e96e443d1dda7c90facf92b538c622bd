@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eac00b3_1b05e4d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1102881
+      },
+      "writtenOn": "2026-10-21T20:40:40Z",
+      "side": 1,
+      "message": "Thank you for looking at this CL stack!",
+      "revId": "f33827e0e96e443d1dda7c90facf92b538c622bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
