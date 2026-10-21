@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44543eb0_c6112d8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2026-10-21T18:08:56Z",
+      "side": 1,
+      "message": "Hi David, I used to do LC + 1, but I am not working 100% on Gerrit anymore so I will leave voting to current team - like Hari, Josh and Josie.",
+      "revId": "c6aa350acb774c7880683926f3cd4a41a673c9ff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
