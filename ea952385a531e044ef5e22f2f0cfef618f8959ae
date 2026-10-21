@@ -16,6 +16,24 @@
       "message": "I think this was a fast path to discard values without evaluating the regex. Can we keep it in the new code? (I assume it was useful).",
       "revId": "ea952385a531e044ef5e22f2f0cfef618f8959ae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160593b8_ef46898d",
+        "filename": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1102881
+      },
+      "writtenOn": "2026-10-21T20:40:07Z",
+      "side": 0,
+      "message": "Done. Restored the fast-path substring/character reject checks before evaluating SAFE_COLOR_PATTERN.",
+      "parentUuid": "257aa8cb_3a1d0c52",
+      "revId": "ea952385a531e044ef5e22f2f0cfef618f8959ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

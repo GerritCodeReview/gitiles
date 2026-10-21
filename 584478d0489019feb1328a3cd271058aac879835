@@ -16,6 +16,24 @@
       "message": "Couple nits:\n\nStart the title with \"doc:\", so git log shows the component where the change happens\n\nThe message should explain why this change is needed. I assume that this is because the dot renderer needs this features. If so, please mention it in the commit message.",
       "revId": "584478d0489019feb1328a3cd271058aac879835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aaf5da5_d688a162",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1102881
+      },
+      "writtenOn": "2026-10-21T20:40:07Z",
+      "side": 1,
+      "message": "Done. Prefixed the commit titles across the stack with \u0027doc: \u0027, moved all Graphviz-only layout changes into the Graphviz CL (#641706), and updated this commit message to explain the Mermaid shape, edge badge collision, and CSS color improvements.",
+      "parentUuid": "80bfc85a_a37c500c",
+      "revId": "584478d0489019feb1328a3cd271058aac879835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
