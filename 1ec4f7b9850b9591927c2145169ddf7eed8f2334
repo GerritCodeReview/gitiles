@@ -16,6 +16,78 @@
       "message": "Hey Becky! Mind taking a look (and sending your agent this way!).\n\nThanks!",
       "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9665f86_40b6a509",
+        "filename": "resources/com/google/gitiles/static/file-search-worker.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-21T21:13:11Z",
+      "side": 1,
+      "message": "Because basenames never contain `/`, `ix.baseMatchesFrom(i, 0)` is always `false` whenever the query contains a `/`. For any path-qualified query, `scoreFrom` therefore falls back to `dm[ix.dirId[i]]`, where greedy directory matching across deeper directory segments can consume the leading characters of the filename portion even when the basename carries the entire post-slash query on its own:\n\n- Querying `java/gitilesview` against `java/com/google/gitiles/{GitilesView,ViewFilter}.java`: the directory `java/com/google/gitiles` greedily consumes `java/gitiles` (`dm[d] \u003d 12`), leaving only `view` for `scoreBasename`. That matches at index `0` of `ViewFilter.java` (earning `BONUS_START \u003d 40`) vs. index `7` of `GitilesView.java`, ranking `ViewFilter.java` above `GitilesView.java`.\n- Querying `net/base64.h` against `net/base/{64.h,base64.h}`: the directory `net/base` consumes `net/base`, ranking `net/base/64.h` above `net/base/base64.h` and highlighting `net/base/base64.h` as `\u003cmark\u003enet/base\u003c/mark\u003e/base\u003cmark\u003e64.h\u003c/mark\u003e` instead of `\u003cmark\u003enet/\u003c/mark\u003ebase/\u003cmark\u003ebase64.h\u003c/mark\u003e`.\n- Querying `java/gitiles`: `java/com/google/gitiles/GitilesServlet.java` has all of `java/gitiles` consumed by its directory (`from \u003d 12 \u003d\u003d\u003d q.length`), giving it `scoreBasename \u003d 0` and ranking `BlameServlet.java` ahead of `GitilesServlet.java`.\n\nSince every candidate returned by `narrowD` already satisfies `dm[ix.dirId[i]] \u003e\u003d ix.q.lastIndexOf(SLASH) + 1`, checking whether the basename matches starting right after the last `/` (`0` when the query has no `/`) preserves the slash-free behavior while preventing deeper directories from stealing characters from a basename that matches the full filename portion of the query:\n\n```suggestion\nfunction scoreFrom(ix, dm, i) {\n  const minFrom \u003d ix.q.lastIndexOf(SLASH) + 1;\n  return ix.baseMatchesFrom(i, minFrom) ? minFrom : dm[ix.dirId[i]];\n}\n```\n\n_from potto_",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d07d57ad_179a62e4",
+        "filename": "resources/com/google/gitiles/static/file-search-worker.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-21T21:13:11Z",
+      "side": 1,
+      "message": "Nit: In Channels C (here) and D (line 991), shifting `ix.staticRank[i] \u003e\u003e 4` discards the low 4 bits of `staticRank`, collapsing path-length and depth differences of up to 15 points into the same bucket (where `TopK` ties fall back to lexicographic index order). For example, on a Channel C query like `lutil`, `a/b/logging_util.h` (`depth \u003d 2`, `staticRank \u003d -41`, `-41 \u003e\u003e 4 \u003d\u003d\u003d -3`) and `content/logging_util.h` (`depth \u003d 1`, `staticRank \u003d -33`, `-33 \u003e\u003e 4 \u003d\u003d\u003d -3`) tie and `a/b/logging_util.h` ranks first solely because `\"a/b\"` sorts before `\"content\"`.\n\nSince `TopK.score` is already a `Float64Array`, scaling `sc` by `1024` instead of right-shifting `staticRank` by `4` (and using `1 \u003c\u003c 24` for the directory penalty on line 991) keeps the exact same `1024:1` relative weight between `sc` and `staticRank` while preserving full tie-breaker precision:\n\n```suggestion\n      const sc \u003d scoreBasename(ix, i, 0);\n      top.offer(sc * 1024 + ix.staticRank[i], i);\n    }\n```\n\n_from potto_",
+      "range": {
+        "startLine": 965,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a7d66e0_233a05ee",
+        "filename": "resources/com/google/gitiles/static/file-search.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-21T21:13:11Z",
+      "side": 1,
+      "message": "When the user opens the finder (or clears the input) and `recentPaths()` is non-empty, `query()` sends `{type: \u0027recent\u0027, ...}` instead of `{type: \u0027query\u0027, q: \u0027\u0027}`. In the worker, the `recent` handler filters `msg.paths` against `index.indexOfPath(p)` so deleted or branch-specific files do not 404.\n\nHowever, if *none* of the remembered paths in `localStorage` exist at the currently viewed revision (for example, the user previously opened files on another branch/CL or files that have since been renamed/deleted), the worker responds with `{type: \u0027results\u0027, ..., recent: true, items: []}`, and `render([], 0, true)` leaves the palette completely blank (`0` visible rows and an empty status label) instead of falling back to the ordinary tree listing.\n\nIf a `recent` lookup resolves to zero existing files in the current tree, falling back to the normal empty-query search avoids showing an empty palette:\n\n```suggestion\n        // Ignore responses overtaken by later keystrokes.\n        if (msg.seq \u003d\u003d\u003d seq) {\n          if (showingRecent \u0026\u0026 !msg.items.length) {\n            showingRecent \u003d false;\n            seq++;\n            worker.postMessage({type: \u0027query\u0027, seq: seq, q: input.value});\n            return;\n          }\n          render(msg.items, msg.total, msg.exact);\n        }\n```\n\n_from potto_",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
