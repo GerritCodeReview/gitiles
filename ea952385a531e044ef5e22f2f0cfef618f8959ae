@@ -64,6 +64,24 @@
       ],
       "revId": "ea952385a531e044ef5e22f2f0cfef618f8959ae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d239a9_678ed1fe",
+        "filename": "java/com/google/gitiles/doc/DiagramLayoutEngine.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1102881
+      },
+      "writtenOn": "2026-10-21T20:38:27Z",
+      "side": 1,
+      "message": "Done. Changed BaseNode, BaseSubgraph, BaseEdge, and BaseSubgraphEdge directly to package-private in this change.",
+      "parentUuid": "da1ff28d_5a307896",
+      "revId": "ea952385a531e044ef5e22f2f0cfef618f8959ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
