@@ -396,4 +396,104 @@ public class GitilesMarkdownTest {
     assertThat(html).doesNotContain("<script>");
     assertThat(html).contains("&lt;script&gt;alert(1)&lt;/script&gt;");
   }
+
+  @Test
+  public void testGraphvizDotFencedCodeBlock() {
+    String md = "```dot\ndigraph G { A -> B; }\n```\n";
+    Config cfg = new Config();
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder().setConfig(mc).setFilePath("index.md").build().toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).contains("<div class=\"graphviz-container\"><svg class=\"graphviz-svg\"");
+    assertThat(htmlStr).contains(">A<");
+    assertThat(htmlStr).contains(">B<");
+  }
+
+  @Test
+  public void testGraphvizKeywordFencedCodeBlock() {
+    String md = "```graphviz\ngraph G { A -- B; }\n```\n";
+    Config cfg = new Config();
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder().setConfig(mc).setFilePath("index.md").build().toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).contains("<div class=\"graphviz-container\"><svg class=\"graphviz-svg\"");
+    assertThat(htmlStr).contains(">A<");
+    assertThat(htmlStr).contains(">B<");
+  }
+
+  @Test
+  public void testGraphvizDisabledInConfig() {
+    String md = "```dot\ndigraph G { A -> B; }\n```\n";
+    Config cfg = new Config();
+    cfg.setBoolean("markdown", null, "graphviz", false);
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder().setConfig(mc).setFilePath("index.md").build().toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).doesNotContain("class=\"graphviz-container\"");
+    assertThat(htmlStr).doesNotContain("<svg");
+    assertThat(htmlStr).contains("<pre class=\"code\">");
+    assertThat(htmlStr).contains("digraph G");
+  }
+
+  @Test
+  public void testGraphvizCopyWithExtensions() {
+    String md = "```dot\ndigraph G { A -> B; }\n```\n";
+    Config cfg = new Config();
+    MarkdownConfig defaultMc = new MarkdownConfig(cfg);
+
+    MarkdownConfig disabledMc =
+        defaultMc.copyWithExtensions(ImmutableSet.of(), ImmutableSet.of("graphviz"));
+    Node disabledNode = GitilesMarkdown.parse(disabledMc, md);
+    SafeHtml disabledHtml =
+        MarkdownToHtml.builder()
+            .setConfig(disabledMc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(disabledNode);
+    assertThat(disabledHtml).isNotNull();
+    String disabledStr = disabledHtml.getSafeHtmlString();
+    assertThat(disabledStr).doesNotContain("class=\"graphviz-container\"");
+    assertThat(disabledStr).contains("<pre class=\"code\">");
+
+    MarkdownConfig reenabledMc =
+        disabledMc.copyWithExtensions(ImmutableSet.of("graphviz"), ImmutableSet.of());
+    Node enabledNode = GitilesMarkdown.parse(reenabledMc, md);
+    SafeHtml enabledHtml =
+        MarkdownToHtml.builder()
+            .setConfig(reenabledMc)
+            .setFilePath("index.md")
+            .build()
+            .toSoyHtml(enabledNode);
+    assertThat(enabledHtml).isNotNull();
+    String enabledStr = enabledHtml.getSafeHtmlString();
+    assertThat(enabledStr)
+        .contains("<div class=\"graphviz-container\"><svg class=\"graphviz-svg\"");
+  }
+
+  @Test
+  public void testGraphvizFallbackOnInvalidSyntax() {
+    String md = "```dot\nnot a valid dot graph <script>alert(1)</script>\n```\n";
+    Config cfg = new Config();
+    MarkdownConfig mc = new MarkdownConfig(cfg);
+    Node node = GitilesMarkdown.parse(mc, md);
+    SafeHtml html =
+        MarkdownToHtml.builder().setConfig(mc).setFilePath("index.md").build().toSoyHtml(node);
+    assertThat(html).isNotNull();
+    String htmlStr = html.getSafeHtmlString();
+    assertThat(htmlStr).doesNotContain("class=\"graphviz-container\"");
+    assertThat(htmlStr).doesNotContain("<svg");
+    assertThat(htmlStr).doesNotContain("<script>");
+    assertThat(htmlStr).contains("<pre class=\"code\">");
+    assertThat(htmlStr).contains("a valid dot graph");
+    assertThat(htmlStr).contains("&lt;script&gt;");
+  }
 }

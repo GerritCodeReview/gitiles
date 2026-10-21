@@ -56,6 +56,7 @@ public class MarkdownConfig {
   final boolean tables;
   final boolean toc;
   final boolean mermaid;
+  final boolean graphviz;
 
   private final boolean allowAnyIFrame;
   private final ImmutableList<String> allowIFrame;
@@ -79,6 +80,7 @@ public class MarkdownConfig {
     tables = cfg.getBoolean("markdown", "tables", githubFlavor);
     toc = cfg.getBoolean("markdown", "toc", true);
     mermaid = cfg.getBoolean("markdown", "mermaid", githubFlavor);
+    graphviz = cfg.getBoolean("markdown", "graphviz", githubFlavor);
 
     String[] f = {};
     if (safeHtml) {
@@ -111,6 +113,7 @@ public class MarkdownConfig {
     tables = on("tables", p.tables, enable, disable);
     toc = on("toc", p.toc, enable, disable);
     mermaid = on("mermaid", p.mermaid, enable, disable);
+    graphviz = on("graphviz", p.graphviz, enable, disable);
 
     allowAnyIFrame = safeHtml && p.allowAnyIFrame;
     allowIFrame = safeHtml ? p.allowIFrame : ImmutableList.of();

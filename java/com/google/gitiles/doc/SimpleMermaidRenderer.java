@@ -1054,16 +1054,17 @@ public final class SimpleMermaidRenderer {
 
     List<DiagramLayoutEngine.GraphComponent<Node, Edge, Subgraph>> components =
         DiagramLayoutEngine.buildComponents(graph.nodes, graph.edges, graph.allSubgraphs, parent);
-    
+    DiagramLayoutEngine.SugiyamaConfig config = DiagramLayoutEngine.SugiyamaConfig.forMermaid();
+
     for (DiagramLayoutEngine.GraphComponent<Node, Edge, Subgraph> comp : components) {
       if (!comp.subgraphs.isEmpty() && comp.edges.isEmpty() && graph.subgraphEdges.isEmpty()) {
         DiagramLayoutEngine.layoutIsolatedSubgraphs(isHorizontal, comp.subgraphs);
       } else if (!comp.subgraphs.isEmpty()) {
         DiagramLayoutEngine.layoutCompoundComponent(
-            isHorizontal, comp, graph.subgraphEdges);
+            config, isHorizontal, /* compReversed= */ false, comp, graph.subgraphEdges);
       } else {
         DiagramLayoutEngine.layoutBySugiyamaDag(
-            isHorizontal, comp.nodes, comp.edges, Node::new);
+            config, isHorizontal, /* isReversed= */ false, comp.nodes, comp.edges, Node::new);
       }
       DiagramLayoutEngine.normalizeComponentBounds(comp);
     }
@@ -1765,7 +1766,8 @@ public final class SimpleMermaidRenderer {
               dst.y,
               dst.width,
               dst.height,
-              isHorizontal);
+              isHorizontal,
+              /* isReversed= */ false);
       x1 = pts[0];
       y1 = pts[1];
       cp1x = pts[2];

@@ -326,6 +326,15 @@ public class MarkdownToHtml implements Visitor {
         return;
       }
     }
+    if (config != null && config.graphviz && isGraphviz(node.getInfo())) {
+      Optional<String> svg = SimpleDotRenderer.renderToSvg(node.getLiteral());
+      if (svg.isPresent()) {
+        html.open("div").attribute("class", "graphviz-container");
+        html.append(LegacyConversions.riskilyAssumeSafeHtml(svg.get()));
+        html.close("div");
+        return;
+      }
+    }
     codeInPre(node.getInfo(), node.getLiteral());
   }
 
@@ -483,6 +492,16 @@ public class MarkdownToHtml implements Visitor {
 
   private static boolean isMermaid(@Nullable String info) {
     return info != null && Ascii.equalsIgnoreCase("mermaid", info.trim());
+  }
+
+  private static boolean isGraphviz(@Nullable String info) {
+    if (info == null) {
+      return false;
+    }
+    String trimmed = info.trim();
+    int spaceIdx = trimmed.indexOf(' ');
+    String lang = spaceIdx >= 0 ? trimmed.substring(0, spaceIdx) : trimmed;
+    return Ascii.equalsIgnoreCase("dot", lang) || Ascii.equalsIgnoreCase("graphviz", lang);
   }
 
   private void codeInPre(String lang, String text) {
