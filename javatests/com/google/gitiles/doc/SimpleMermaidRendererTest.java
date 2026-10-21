@@ -17,6 +17,7 @@ package com.google.gitiles.doc;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.base.Splitter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
@@ -1688,5 +1689,214 @@ public class SimpleMermaidRendererTest {
     Element defaultText = doc.findText("Default Box");
     assertThat(defaultText).isNotNull();
     assertThat(defaultText.getAttribute("class")).isEqualTo("mermaid-node-text");
+  }
+
+  @Test
+  public void testFlagShapeRightEdgeAttachmentInset() {
+    // 1. Horizontal forward edge (graph LR): attaches at right-side V-notch vertex (fX + fWidth - 12.0).
+    SvgDoc lrSvg = SvgDoc.render("graph LR\n  F>Flag Node] --> B[Target]\n");
+    List<Element> lrEdgePaths = lrSvg.getEdgePaths();
+    assertThat(lrEdgePaths).hasSize(1);
+    double lrStartX =
+        Double.parseDouble(Splitter.on(' ').splitToList(lrEdgePaths.get(0).getAttribute("d")).get(1));
+    Element lrFlagPolygon = lrSvg.findPolygonWithVertices(5);
+    assertThat(lrFlagPolygon).isNotNull();
+    List<String> lrPointTokens = Splitter.on(' ').splitToList(lrFlagPolygon.getAttribute("points"));
+    double lrFX = Double.parseDouble(Splitter.on(',').splitToList(lrPointTokens.get(0)).get(0));
+    double lrFWidth =
+        Double.parseDouble(Splitter.on(',').splitToList(lrPointTokens.get(1)).get(0)) - lrFX;
+    assertThat(lrStartX).isWithin(0.1).of(lrFX + lrFWidth - 12.0);
+
+    // 2. Vertical forward edge (graph TD): attaches at bottom horizontal center (fX + fWidth / 2.0).
+    SvgDoc tdForwardSvg = SvgDoc.render("graph TD\n  F>Flag Node] --> B[Target]\n");
+    List<Element> tdForwardPaths = tdForwardSvg.getEdgePaths();
+    assertThat(tdForwardPaths).hasSize(1);
+    double tdForwardStartX =
+        Double.parseDouble(
+            Splitter.on(' ').splitToList(tdForwardPaths.get(0).getAttribute("d")).get(1));
+    Element tdFlagPolygon = tdForwardSvg.findPolygonWithVertices(5);
+    assertThat(tdFlagPolygon).isNotNull();
+    List<String> tdPointTokens = Splitter.on(' ').splitToList(tdFlagPolygon.getAttribute("points"));
+    double tdFX = Double.parseDouble(Splitter.on(',').splitToList(tdPointTokens.get(0)).get(0));
+    double tdFWidth =
+        Double.parseDouble(Splitter.on(',').splitToList(tdPointTokens.get(1)).get(0)) - tdFX;
+    assertThat(tdForwardStartX).isWithin(0.1).of(tdFX + tdFWidth / 2.0);
+
+    // 3. Vertical self-loop and back-edge (graph TD): right-side loop attachments use rightAttachWidth.
+    SvgDoc tdLoopSvg = SvgDoc.render("graph TD\n  A[Top] --> F>Flag Node]\n  F --> A\n  F --> F\n");
+    Element loopFlagPolygon = tdLoopSvg.findPolygonWithVertices(5);
+    assertThat(loopFlagPolygon).isNotNull();
+    List<String> loopPointTokens =
+        Splitter.on(' ').splitToList(loopFlagPolygon.getAttribute("points"));
+    double loopFX = Double.parseDouble(Splitter.on(',').splitToList(loopPointTokens.get(0)).get(0));
+    double loopFWidth =
+        Double.parseDouble(Splitter.on(',').splitToList(loopPointTokens.get(1)).get(0)) - loopFX;
+    List<Element> tdLoopPaths = tdLoopSvg.getEdgePaths();
+    assertThat(tdLoopPaths).hasSize(3);
+    // Edges 1 (back-edge F --> A) and 2 (self-loop F --> F) both depart from the right side of F
+    double backEdgeStartX =
+        Double.parseDouble(
+            Splitter.on(' ').splitToList(tdLoopPaths.get(1).getAttribute("d")).get(1));
+    double selfLoopStartX =
+        Double.parseDouble(
+            Splitter.on(' ').splitToList(tdLoopPaths.get(2).getAttribute("d")).get(1));
+    assertThat(backEdgeStartX).isWithin(0.1).of(loopFX + loopFWidth - 12.0);
+    assertThat(selfLoopStartX).isWithin(0.1).of(loopFX + loopFWidth - 12.0);
+  }
+
+  @Test
+  public void testEnhancedCssColorValidationAndSpaceSeparatedLuminance() {
+    assertThat(DiagramLayoutEngine.isValidCssColor("burlywood")).isTrue();
+    assertThat(DiagramLayoutEngine.isValidCssColor("url(https://evil.com)")).isFalse();
+    assertThat(DiagramLayoutEngine.isValidCssColor("expression(alert(1))")).isFalse();
+
+    assertThat(DiagramLayoutEngine.isLightColor("rgb(240 248 255)")).isTrue();
+    assertThat(DiagramLayoutEngine.isLightColor("rgb(15 23 42 / 90%)")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("hsl(210 50% 20%)")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("crimson")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("royalblue")).isFalse();
+    assertThat(DiagramLayoutEngine.isLightColor("charcoal")).isFalse();
+  }
+
+  @Test
+  public void testBadgeCollisionAvoidanceNegativeAndPositiveCases() {
+    DiagramLayoutEngine.BaseNode midpointNode = new DiagramLayoutEngine.BaseNode("Mid");
+    midpointNode.x = 180;
+    midpointNode.y = 180;
+    midpointNode.width = 40;
+    midpointNode.height = 40;
+
+    // 1. Negative case: when initialX/initialY is in open space, it is returned unchanged.
+    double[] clearCenter =
+        DiagramLayoutEngine.findCollisionFreeBadgeCenter(
+            /* initialX= */ 50,
+            /* initialY= */ 50,
+            /* x1= */ 0,
+            /* y1= */ 0,
+            /* cp1x= */ 30,
+            /* cp1y= */ 30,
+            /* cp2x= */ 70,
+            /* cp2y= */ 70,
+            /* x2= */ 100,
+            /* y2= */ 100,
+            /* bw= */ 30,
+            /* bh= */ 18,
+            List.of(midpointNode),
+            Collections.emptyList());
+    assertThat(clearCenter[0]).isEqualTo(50.0);
+    assertThat(clearCenter[1]).isEqualTo(50.0);
+
+    // 2. Positive case (Stage 1 — curve t sampling): midpoint (200, 200) is blocked by
+    // midpointNode, but other t positions along the curve (100, 100) -> (300, 300) are clear.
+    double[] stage1Center =
+        DiagramLayoutEngine.findCollisionFreeBadgeCenter(
+            /* initialX= */ 200,
+            /* initialY= */ 200,
+            /* x1= */ 100,
+            /* y1= */ 100,
+            /* cp1x= */ 160,
+            /* cp1y= */ 160,
+            /* cp2x= */ 240,
+            /* cp2y= */ 240,
+            /* x2= */ 300,
+            /* y2= */ 300,
+            /* bw= */ 30,
+            /* bh= */ 18,
+            List.of(midpointNode),
+            Collections.emptyList());
+    assertThat(
+            DiagramLayoutEngine.rectsOverlap(
+                stage1Center[0] - 15,
+                stage1Center[1] - 9,
+                30,
+                18,
+                midpointNode.x,
+                midpointNode.y,
+                midpointNode.width,
+                midpointNode.height,
+                4.0))
+        .isFalse();
+    // Since the curve is the diagonal y = x, a Stage 1 point along the curve satisfies x == y.
+    assertThat(stage1Center[0]).isWithin(0.01).of(stage1Center[1]);
+
+    // 3. Positive case (Badge-to-badge collision): no nodes block (200, 200), but an existing
+    // badge is already placed at (200, 200).
+    DiagramLayoutEngine.BadgePlacement<String> existingBadge =
+        new DiagramLayoutEngine.BadgePlacement<>("edge1", 200, 200, 40, 18);
+    double[] secondBadgeCenter =
+        DiagramLayoutEngine.findCollisionFreeBadgeCenter(
+            /* initialX= */ 200,
+            /* initialY= */ 200,
+            /* x1= */ 100,
+            /* y1= */ 100,
+            /* cp1x= */ 160,
+            /* cp1y= */ 160,
+            /* cp2x= */ 240,
+            /* cp2y= */ 240,
+            /* x2= */ 300,
+            /* y2= */ 300,
+            /* bw= */ 40,
+            /* bh= */ 18,
+            Collections.emptyList(),
+            List.of(existingBadge));
+    assertThat(
+            DiagramLayoutEngine.rectsOverlap(
+                secondBadgeCenter[0] - 20,
+                secondBadgeCenter[1] - 9,
+                40,
+                18,
+                existingBadge.cx - 20,
+                existingBadge.cy - 9,
+                existingBadge.width,
+                existingBadge.height,
+                2.0))
+        .isFalse();
+
+    // 4. Positive case (Stage 2 — 2D grid offset fallback): a wide node covers the entire
+    // horizontal curve from x=80 to x=220 (y=90..110), blocking all Stage 1 curve t samples,
+    // so Stage 2 shifts the badge vertically outside y=90..110.
+    DiagramLayoutEngine.BaseNode fullCurveObstacle = new DiagramLayoutEngine.BaseNode("Wide");
+    fullCurveObstacle.x = 80;
+    fullCurveObstacle.y = 90;
+    fullCurveObstacle.width = 140;
+    fullCurveObstacle.height = 20;
+    double[] stage2Center =
+        DiagramLayoutEngine.findCollisionFreeBadgeCenter(
+            /* initialX= */ 150,
+            /* initialY= */ 100,
+            /* x1= */ 100,
+            /* y1= */ 100,
+            /* cp1x= */ 130,
+            /* cp1y= */ 100,
+            /* cp2x= */ 170,
+            /* cp2y= */ 100,
+            /* x2= */ 200,
+            /* y2= */ 100,
+            /* bw= */ 30,
+            /* bh= */ 18,
+            List.of(fullCurveObstacle),
+            Collections.emptyList());
+    assertThat(
+            DiagramLayoutEngine.rectsOverlap(
+                stage2Center[0] - 15,
+                stage2Center[1] - 9,
+                30,
+                18,
+                fullCurveObstacle.x,
+                fullCurveObstacle.y,
+                fullCurveObstacle.width,
+                fullCurveObstacle.height,
+                4.0))
+        .isFalse();
+
+    // 5. End-to-end Mermaid render with parallel labeled edges between the same pair of nodes:
+    // SvgDoc.render verifies zero label-node overlaps, and both badge rects must be disjoint.
+    SvgDoc parallelDoc =
+        SvgDoc.render("graph TD\n  A[Source] -->|First Label| B[Target]\n  A -->|Second Label| B\n");
+    assertThat(parallelDoc.findText("First Label")).isNotNull();
+    assertThat(parallelDoc.findText("Second Label")).isNotNull();
+    List<SvgDoc.Rect2D> badgeBoxes = parallelDoc.getEdgeLabelBadgeBoundingBoxes();
+    assertThat(badgeBoxes).hasSize(2);
+    assertThat(badgeBoxes.get(0).overlaps(badgeBoxes.get(1), 0.0)).isFalse();
   }
 }

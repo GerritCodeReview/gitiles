@@ -42,6 +42,14 @@ import javax.annotation.Nullable;
  */
 final class DiagramLayoutEngine {
 
+  private static final Pattern SAFE_COLOR_PATTERN =
+      Pattern.compile(
+          "^(#[0-9a-fA-F]{3,8}|[a-zA-Z]{2,25}|(?:rgb|rgba|hsl|hsla)\\([0-9.,%\\s]{3,30}\\))$");
+
+  /** Splits functional CSS color arguments separated by commas, whitespace, or alpha slashes. */
+  private static final Splitter COLOR_ARGS_SPLITTER =
+      Splitter.onPattern("[,\\s/]+").omitEmptyStrings();
+
   // =========================================================================
   // Shared Base AST & Layout Model Classes
   // =========================================================================
@@ -281,6 +289,23 @@ final class DiagramLayoutEngine {
     }
   }
 
+  /** Collision-free placement for an edge label badge. */
+  static final class BadgePlacement<E> {
+    final E edge;
+    double cx;
+    double cy;
+    final double width;
+    final double height;
+
+    BadgePlacement(E edge, double cx, double cy, double width, double height) {
+      this.edge = edge;
+      this.cx = cx;
+      this.cy = cy;
+      this.width = width;
+      this.height = height;
+    }
+  }
+
   // =========================================================================
   // 1. Security, Color Validation & Dark-Mode Relative Luminance Contrast
   // =========================================================================
@@ -290,23 +315,23 @@ final class DiagramLayoutEngine {
     if (isNullOrEmpty(val)) {
       return false;
     }
-    String v = val.trim().toLowerCase(Locale.ROOT);
+    String v = Ascii.toLowerCase(val.trim());
+    // Fast-path rejection of common injection prefixes/characters before regex evaluation.
+    // Check for "url(" (with opening parenthesis) rather than bare "url" so that standard CSS
+    // named colors containing the substring "url" (such as "burlywood") are not falsely rejected,
+    // while functional url(...) references remain blocked as defense-in-depth alongside
+    // SAFE_COLOR_PATTERN.
     if (v.startsWith("javascript:")
         || v.startsWith("data:")
         || v.contains("url(")
+        || v.contains("expression")
         || v.contains("\"")
         || v.contains("'")
         || v.contains("<")
         || v.contains(">")) {
       return false;
     }
-    if (v.matches("^#[0-9a-f]{3,8}$")) {
-      return true;
-    }
-    if (v.matches("^[a-z]{3,20}$")) {
-      return true;
-    }
-    return v.matches("^(rgb|hsl)a?\\([0-9%,. ]+\\)$");
+    return SAFE_COLOR_PATTERN.matcher(v).matches();
   }
 
   /**
@@ -317,7 +342,7 @@ final class DiagramLayoutEngine {
     if (isNullOrEmpty(color)) {
       return true;
     }
-    String c = color.trim().toLowerCase(Locale.ROOT);
+    String c = Ascii.toLowerCase(color.trim());
     if (c.startsWith("#")) {
       try {
         String hex = c.substring(1);
@@ -341,10 +366,10 @@ final class DiagramLayoutEngine {
       }
     }
     if (c.startsWith("rgb")) {
-      int start = c.indexOf('(');
-      int end = c.indexOf(')');
-      if (start != -1 && end > start) {
-        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
+      int open = c.indexOf('(');
+      int close = c.indexOf(')');
+      if (open != -1 && close > open) {
+        List<String> parts = COLOR_ARGS_SPLITTER.splitToList(c.substring(open + 1, close));
         if (parts.size() >= 3) {
           try {
             double r = parseColorComponent(parts.get(0));
@@ -358,10 +383,10 @@ final class DiagramLayoutEngine {
       }
     }
     if (c.startsWith("hsl")) {
-      int start = c.indexOf('(');
-      int end = c.indexOf(')');
-      if (start != -1 && end > start) {
-        List<String> parts = Splitter.on(',').splitToList(c.substring(start + 1, end));
+      int open = c.indexOf('(');
+      int close = c.indexOf(')');
+      if (open != -1 && close > open) {
+        List<String> parts = COLOR_ARGS_SPLITTER.splitToList(c.substring(open + 1, close));
         if (parts.size() >= 3) {
           try {
             String lStr = parts.get(2).trim().replace("%", "");
@@ -373,37 +398,47 @@ final class DiagramLayoutEngine {
         }
       }
     }
-    switch (c) {
-      case "black":
-      case "navy":
-      case "darkblue":
-      case "mediumblue":
-      case "blue":
-      case "darkgreen":
-      case "green":
-      case "teal":
-      case "darkcyan":
-      case "darkred":
-      case "maroon":
-      case "purple":
-      case "indigo":
-      case "darkmagenta":
-      case "darkviolet":
-      case "darkslateblue":
-      case "saddlebrown":
-      case "sienna":
-      case "brown":
-      case "darkslategray":
-      case "darkslategrey":
-      case "midnightblue":
-      case "gray":
-      case "grey":
-      case "dimgray":
-      case "dimgrey":
-        return false;
-      default:
-        return true;
-    }
+    return switch (c) {
+      case "black",
+          "navy",
+          "darkblue",
+          "mediumblue",
+          "blue",
+          "darkgreen",
+          "green",
+          "teal",
+          "darkcyan",
+          "darkred",
+          "maroon",
+          "purple",
+          "indigo",
+          "darkmagenta",
+          "darkviolet",
+          "darkslateblue",
+          "saddlebrown",
+          "sienna",
+          "brown",
+          "darkslategray",
+          "darkslategrey",
+          "midnightblue",
+          "crimson",
+          "firebrick",
+          "royalblue",
+          "steelblue",
+          "forestgreen",
+          "seagreen",
+          "darkolivegreen",
+          "chocolate",
+          "slategray",
+          "slategrey",
+          "charcoal",
+          "gray",
+          "grey",
+          "dimgray",
+          "dimgrey" ->
+          false;
+      default -> true;
+    };
   }
 
   /** Parses an RGB channel value (0..255 or 0%..100%). */
@@ -700,6 +735,108 @@ final class DiagramLayoutEngine {
     double rxCyl = width / 2.0;
     return String.format(
         Locale.ROOT, "M %.1f %.1f a %.1f,%.1f 0 0,0 %.1f,0", x, y + ry, rxCyl, ry, width);
+  }
+
+  /**
+   * Finds a collision-free center coordinate for an edge label badge along or near its cubic
+   * Bézier curve, avoiding all node bounding boxes and previously placed badges.
+   */
+  static <N extends BaseNode, E> double[] findCollisionFreeBadgeCenter(
+      double initialX,
+      double initialY,
+      double x1,
+      double y1,
+      double cp1x,
+      double cp1y,
+      double cp2x,
+      double cp2y,
+      double x2,
+      double y2,
+      double bw,
+      double bh,
+      Collection<N> nodes,
+      List<BadgePlacement<E>> placedBadges) {
+    if (!overlapsAnyNodeOrBadge(initialX, initialY, bw, bh, nodes, placedBadges)) {
+      return new double[] {initialX, initialY};
+    }
+
+    // Stage 1: Sample candidate positions along the cubic Bezier curve itself (parameter t in
+    // [0, 1]), starting at the midpoint (0.5) and alternating symmetrically outward toward the
+    // target (0.65, 0.75, 0.84, 0.90) and source (0.35, 0.25, 0.16, 0.10) endpoints. Sampling
+    // stops at 0.10/0.90 so badges stay clear of arrowhead markers and node borders.
+    double[] ts = {0.5, 0.65, 0.35, 0.75, 0.25, 0.84, 0.16, 0.90, 0.10};
+    for (double t : ts) {
+      double bx = evalCubicBezier(x1, cp1x, cp2x, x2, t);
+      double by = evalCubicBezier(y1, cp1y, cp2y, y2, t);
+      if (!overlapsAnyNodeOrBadge(bx, by, bw, bh, nodes, placedBadges)) {
+        return new double[] {bx, by};
+      }
+    }
+
+    // Stage 2: If every sampled point on the curve is blocked (e.g. a short edge or parallel
+    // multi-edges whose labels stack on top of each other), expand outward in 8 compass/diagonal
+    // directions around the curve midpoint (0.5) or near-endpoint anchors (0.78, 0.22) in steps
+    // of 14px vertically (just under one 18px badge height) and 22px horizontally (roughly 3-4
+    // label characters) up to 20 steps so stacked badges separate cleanly without drifting far
+    // from their edge.
+    double[] anchorTs = {0.5, 0.78, 0.22};
+    for (double t : anchorTs) {
+      double ax = evalCubicBezier(x1, cp1x, cp2x, x2, t);
+      double ay = evalCubicBezier(y1, cp1y, cp2y, y2, t);
+      for (int step = 1; step <= 20; step++) {
+        double dy = step * 14.0;
+        double dx = step * 22.0;
+        double[][] candidates = {
+          {ax, ay - dy},
+          {ax, ay + dy},
+          {ax + dx, ay},
+          {ax - dx, ay},
+          {ax + dx, ay - dy},
+          {ax + dx, ay + dy},
+          {ax - dx, ay - dy},
+          {ax - dx, ay + dy}
+        };
+        for (double[] c : candidates) {
+          if (!overlapsAnyNodeOrBadge(c[0], c[1], bw, bh, nodes, placedBadges)) {
+            return c;
+          }
+        }
+      }
+    }
+
+    return new double[] {initialX, initialY};
+  }
+
+  private static <N extends BaseNode, E> boolean overlapsAnyNodeOrBadge(
+      double cx,
+      double cy,
+      double bw,
+      double bh,
+      Collection<N> nodes,
+      List<BadgePlacement<E>> placedBadges) {
+    double bx = cx - bw / 2.0;
+    double by = cy - bh / 2.0;
+    double margin = 4.0;
+    for (N n : nodes) {
+      if (rectsOverlap(bx, by, bw, bh, n.x, n.y, n.width, n.height, margin)) {
+        return true;
+      }
+    }
+    for (BadgePlacement<E> bp : placedBadges) {
+      if (rectsOverlap(
+          bx,
+          by,
+          bw,
+          bh,
+          bp.cx - bp.width / 2.0,
+          bp.cy - bp.height / 2.0,
+          bp.width,
+          bp.height,
+          2.0)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // =========================================================================

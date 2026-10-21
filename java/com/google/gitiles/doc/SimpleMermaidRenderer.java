@@ -41,6 +41,9 @@ import javax.annotation.Nullable;
  */
 public final class SimpleMermaidRenderer {
 
+  /** Horizontal depth in pixels of the right-side inward V-notch on {@link NodeShape#FLAG}. */
+  private static final double FLAG_NOTCH_INDENT = 12.0;
+
   /** Graph layout flow direction. */
   public enum Direction {
     LR,
@@ -75,7 +78,7 @@ public final class SimpleMermaidRenderer {
   // =========================================================================
 
   /** A node in the Mermaid diagram. */
-  public static class Node extends DiagramLayoutEngine.BaseNode {
+  static class Node extends DiagramLayoutEngine.BaseNode {
     public String label;
     public final List<String> labelLines = new ArrayList<>();
     public NodeShape shape = NodeShape.RECTANGLE;
@@ -102,7 +105,7 @@ public final class SimpleMermaidRenderer {
   }
 
   /** A logical subgraph or cluster containing nodes and nested subgraphs. */
-  public static class Subgraph extends DiagramLayoutEngine.BaseSubgraph<Node, Subgraph> {
+  static class Subgraph extends DiagramLayoutEngine.BaseSubgraph<Node, Subgraph> {
     public Direction direction;
     @Nullable public String customColor;
 
@@ -122,7 +125,7 @@ public final class SimpleMermaidRenderer {
   }
 
   /** A directional or bidirectional edge between nodes. */
-  public static class Edge extends DiagramLayoutEngine.BaseEdge<Node> {
+  static class Edge extends DiagramLayoutEngine.BaseEdge<Node> {
     public final EdgeStroke stroke;
     public final boolean arrow;
 
@@ -134,7 +137,7 @@ public final class SimpleMermaidRenderer {
   }
 
   /** An edge between subgraphs. */
-  public static class SubgraphEdge extends DiagramLayoutEngine.BaseSubgraphEdge {
+  static class SubgraphEdge extends DiagramLayoutEngine.BaseSubgraphEdge {
     public final EdgeStroke stroke;
     public final boolean arrow;
 
@@ -147,8 +150,7 @@ public final class SimpleMermaidRenderer {
   }
 
   /** Parsed Mermaid graph structure containing nodes, edges, and subgraphs. */
-  public static class MermaidGraph {
-    public final List<Subgraph> rootSubgraphs = new ArrayList<>();
+  static class MermaidGraph {
     public Direction direction = Direction.TD;
     public final Map<String, Node> nodes = new LinkedHashMap<>();
     public final Map<String, Subgraph> subgraphsMap = new LinkedHashMap<>();
@@ -366,7 +368,7 @@ public final class SimpleMermaidRenderer {
   }
 
   /** Parses Mermaid source code into a {@link MermaidGraph} AST. */
-  public static Optional<MermaidGraph> parse(String mermaidCode) {
+  static Optional<MermaidGraph> parse(String mermaidCode) {
     CharScanner s = new CharScanner(mermaidCode);
     MermaidGraph graph = new MermaidGraph();
     boolean headerFound = false;
@@ -551,8 +553,6 @@ public final class SimpleMermaidRenderer {
       Subgraph parent = subgraphStack.peek();
       sg.parent = parent;
       parent.children.add(sg);
-    } else {
-      graph.rootSubgraphs.add(sg);
     }
     subgraphStack.push(sg);
     graph.subgraphsMap.put(sgId, sg);
@@ -1181,6 +1181,7 @@ public final class SimpleMermaidRenderer {
     }
 
     // 3. Render Node Edges
+    List<DiagramLayoutEngine.BadgePlacement<Edge>> placedBadges = new ArrayList<>();
     for (Edge e : graph.edges) {
       Node src = graph.nodes.get(e.fromId);
       Node dst = graph.nodes.get(e.toId);
@@ -1190,7 +1191,7 @@ public final class SimpleMermaidRenderer {
           edgeHorizontal =
               DiagramLayoutEngine.isEffectiveHorizontal(src.parentSubgraph, isHorizontal);
         }
-        renderEdge(svg, edgeHorizontal, graph, src, dst, e);
+        renderEdge(svg, edgeHorizontal, graph, src, dst, e, placedBadges);
       }
     }
 
@@ -1331,7 +1332,7 @@ public final class SimpleMermaidRenderer {
                 stroke));
       }
       case NodeShape.FLAG -> {
-        double notch = 12;
+        double notch = FLAG_NOTCH_INDENT;
         svg.append(
             String.format(
                 Locale.ROOT,
@@ -1616,7 +1617,13 @@ public final class SimpleMermaidRenderer {
   }
 
   private static void renderEdge(
-      StringBuilder svg, boolean isHorizontal, MermaidGraph graph, Node src, Node dst, Edge e) {
+      StringBuilder svg,
+      boolean isHorizontal,
+      MermaidGraph graph,
+      Node src,
+      Node dst,
+      Edge e,
+      List<DiagramLayoutEngine.BadgePlacement<Edge>> placedBadges) {
 
     String strokeDash = e.stroke == EdgeStroke.DASHED ? "stroke-dasharray=\"4,4\" " : "";
     String strokeWidth = e.stroke == EdgeStroke.THICK ? "2.5" : "1.5";
@@ -1641,7 +1648,7 @@ public final class SimpleMermaidRenderer {
         px.add(dst.x + dst.width / 2.0);
         py.add(dst.y);
       } else {
-        px.add(src.x + src.width);
+        px.add(src.x + rightAttachWidth(src));
         py.add(src.y + src.height / 2.0);
         for (Node v : e.virtualNodes) {
           px.add(v.x + v.width / 2.0);
@@ -1683,7 +1690,7 @@ public final class SimpleMermaidRenderer {
     if (src.id.equals(dst.id)) {
       double[] pts =
           DiagramLayoutEngine.computeSelfLoopControlPoints(
-              src.x, src.y, src.width, src.height, isHorizontal, 35.0, 20.0);
+              src.x, src.y, rightAttachWidth(src), src.height, isHorizontal, 35.0, 20.0);
       x1 = pts[0];
       y1 = pts[1];
       cp1x = pts[2];
@@ -1696,9 +1703,9 @@ public final class SimpleMermaidRenderer {
       int minL = Math.min(src.layer, dst.layer);
       int maxL = Math.max(src.layer, dst.layer);
       if (!isHorizontal) {
-        x1 = src.x + src.width;
+        x1 = src.x + rightAttachWidth(src);
         y1 = src.y + src.height / 2.0;
-        x2 = dst.x + dst.width;
+        x2 = dst.x + rightAttachWidth(dst);
         y2 = dst.y + dst.height / 2.0;
         double maxRight = Math.max(x1, x2);
         for (Node n : graph.nodes.values()) {
@@ -1747,7 +1754,7 @@ public final class SimpleMermaidRenderer {
         cp2y = minTop - loopOffset;
       }
     } else {
-      double srcAttachW = isHorizontal ? src.width : src.width;
+      double srcAttachW = isHorizontal ? rightAttachWidth(src) : src.width;
       double[] pts =
           DiagramLayoutEngine.computeForwardBezierControlPoints(
               src.x,
@@ -1787,9 +1794,30 @@ public final class SimpleMermaidRenderer {
             marker));
 
     if (e.label != null && !e.label.trim().isEmpty()) {
+      String trimmedLabel = e.label.trim();
+      double badgeW = trimmedLabel.length() * 6.5 + 12.0;
+      double badgeH = 18.0;
       double midX = DiagramLayoutEngine.evalCubicBezier(x1, cp1x, cp2x, x2, 0.5);
       double midY = DiagramLayoutEngine.evalCubicBezier(y1, cp1y, cp2y, y2, 0.5);
-      renderEdgeLabelBadge(svg, midX, midY, e.label.trim());
+      double[] center =
+          DiagramLayoutEngine.findCollisionFreeBadgeCenter(
+              midX,
+              midY,
+              x1,
+              y1,
+              cp1x,
+              cp1y,
+              cp2x,
+              cp2y,
+              x2,
+              y2,
+              badgeW,
+              badgeH,
+              graph.nodes.values(),
+              placedBadges);
+      placedBadges.add(
+          new DiagramLayoutEngine.BadgePlacement<>(e, center[0], center[1], badgeW, badgeH));
+      renderEdgeLabelBadge(svg, center[0], center[1], trimmedLabel);
     }
   }
 
@@ -1817,6 +1845,18 @@ public final class SimpleMermaidRenderer {
             DiagramLayoutEngine.escapeXml(label)));
   }
 
+  /**
+   * Returns the horizontal offset from {@code n.x} where right-side edges attach to {@code n}.
+   *
+   * <p>A {@link NodeShape#FLAG} node (`id>Label]`) is rendered as a 5-vertex polygon whose right
+   * edge has an inward V-notch indented by {@link #FLAG_NOTCH_INDENT} ({@code 12.0px}) at the
+   * vertical midpoint {@code y + height / 2}. Since horizontal edges attach at the vertical
+   * midpoint, insetting by {@link #FLAG_NOTCH_INDENT} connects the edge path flush with the notch
+   * vertex instead of floating in empty space to the right of the notch.
+   */
+  private static double rightAttachWidth(Node n) {
+    return n.shape == NodeShape.FLAG ? Math.max(0.0, n.width - FLAG_NOTCH_INDENT) : n.width;
+  }
 
   private SimpleMermaidRenderer() {}
 }
