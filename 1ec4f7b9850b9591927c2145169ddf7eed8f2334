@@ -42,6 +42,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e40441_d5c19082",
+        "filename": "resources/com/google/gitiles/static/file-search-worker.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-10-21T21:23:02Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c9665f86_40b6a509",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 9999
+      },
+      "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d07d57ad_179a62e4",
@@ -66,6 +90,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dbff226_7e96fa16",
+        "filename": "resources/com/google/gitiles/static/file-search-worker.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-10-21T21:23:02Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d07d57ad_179a62e4",
+      "range": {
+        "startLine": 965,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 9999
+      },
+      "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a7d66e0_233a05ee",
@@ -86,6 +134,30 @@
         "endChar": 9999
       },
       "isAi": true,
+      "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "154741b4_b61d202c",
+        "filename": "resources/com/google/gitiles/static/file-search.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-10-21T21:23:02Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9a7d66e0_233a05ee",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 9999
+      },
       "revId": "1ec4f7b9850b9591927c2145169ddf7eed8f2334",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
