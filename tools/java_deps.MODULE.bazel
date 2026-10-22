@@ -10,13 +10,13 @@ COMMONMARK_VERSION = "0.24.0"
 
 FLOGGER_VERSION = "0.8"
 
-SLF4J_VERSION = "2.0.18"
+SLF4J_VERSION = "2.0.20"
 
-JETTY_VERSION = "12.1.12"
+JETTY_VERSION = "12.1.13"
 
-OW2_ASM_VERSION = "9.9.1"
+OW2_ASM_VERSION = "9.10.1"
 
-BYTE_BUDDY_VERSION = "1.18.12"
+BYTE_BUDDY_VERSION = "1.18.14"
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
@@ -33,12 +33,12 @@ maven.install(
         "com.google.flogger:google-extensions:" + FLOGGER_VERSION,
         "com.google.guava:failureaccess:1.0.3",
         "com.google.guava:guava:33.5.0-jre",
-        "com.google.protobuf:protobuf-java:4.36.0",
+        "com.google.protobuf:protobuf-java:4.36.2",
         "com.google.template:soy:2024-01-30",
         "com.google.truth:truth:1.4.4",
         "com.googlecode.javaewah:JavaEWAH:1.2.3",
         "com.ibm.icu:icu4j:78.2",
-        "commons-codec:commons-codec:1.18.0",
+        "commons-codec:commons-codec:1.20.0",
         "commons-io:commons-io:2.22.0",
         "io.github.java-diff-utils:java-diff-utils:4.16",
         "javax.servlet:javax.servlet-api:4.0.1",
@@ -46,7 +46,7 @@ maven.install(
         "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
         "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
         "org.apache.commons:commons-compress:1.28.0",
-        "org.apache.commons:commons-lang3:3.18.0",
+        "org.apache.commons:commons-lang3:3.20.0",
         "org.apache.commons:commons-text:1.15.0",
         "org.commonmark:commonmark:" + COMMONMARK_VERSION,
         "org.commonmark:commonmark-ext-autolink:" + COMMONMARK_VERSION,
@@ -63,7 +63,7 @@ maven.install(
         "org.eclipse.jetty.ee8:jetty-ee8-security:" + JETTY_VERSION,
         "org.eclipse.jetty.ee8:jetty-ee8-servlet:" + JETTY_VERSION,
         "org.hamcrest:hamcrest:3.0",
-        "org.mockito:mockito-core:5.23.0",
+        "org.mockito:mockito-core:5.24.0",
         "org.nibor.autolink:autolink:0.11.0",
         "org.objenesis:objenesis:3.4",
         "org.ow2.asm:asm:" + OW2_ASM_VERSION,
