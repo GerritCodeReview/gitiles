@@ -49,6 +49,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce43d0d_6350581a",
+        "filename": "jstests/js_test_rule_test.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 4624548
+      },
+      "writtenOn": "2026-10-22T14:55:10Z",
+      "side": 1,
+      "message": "\u003e Agreed, the version check pinned nothing the require() didn\u0027t already. Replaced it in PS5.\n\u003e \n\u003e process.execPath doesn\u0027t resolve under runfiles, though. It\u0027s the resolved binary, and the runfiles entry symlinks out to wherever Bazel fetched Node. Locally that\u0027s the repository cache (~/.gerritcodereview/bazel-cache/repository/contents/...), so an under-runfiles assertion fails on a correct setup.\n\u003e \n\u003e The test now asserts that realpath(execPath) differs from every `node` reachable via PATH. If no system node exists, a launcher that fell back to a bare `node` wouldn\u0027t start at all, so both cases fail. I checked that the assertion fires by putting a symlink to the toolchain binary first on PATH (--test_env\u003dPATH\u003d...).",
+      "parentUuid": "04b60388_4e6313a3",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 9999
+      },
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7353f5ff_3e62bd1b",
@@ -87,6 +111,30 @@
       "side": 1,
       "message": "Done in both launcher branches. Checked with --test_arg\u003d--test-name-pattern\u003ddata (1 of 2 tests run, JUnit has 1 testcase), with an `args` attribute on a scratch target, and by running the launcher without XML_OUTPUT_FILE.",
       "parentUuid": "7353f5ff_3e62bd1b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 9999
+      },
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "852e9d76_60ca34c7",
+        "filename": "tools/js_test.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 4624548
+      },
+      "writtenOn": "2026-10-22T14:55:10Z",
+      "side": 1,
+      "message": "\u003e Done in both launcher branches. Checked with --test_arg\u003d--test-name-pattern\u003ddata (1 of 2 tests run, JUnit has 1 testcase), with an `args` attribute on a scratch target, and by running the launcher without XML_OUTPUT_FILE.",
+      "parentUuid": "e42602c7_98797aa4",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -145,6 +193,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4a02cf_6a48c3d9",
+        "filename": "tools/js_test.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4624548
+      },
+      "writtenOn": "2026-10-22T14:55:10Z",
+      "side": 1,
+      "message": "\u003e Done: default_runfiles from srcs + data are now merged. A scratch js_test whose data was a filegroup carrying //resources/com/google/gitiles in its own `data` failed on PS4 and passes now.\n\u003e \n\u003e I kept [node] and didn\u0027t switch to nodeinfo.tool_files. In rules_nodejs 6.7.5, nodejs/toolchain.bzl documents tool_files as \"(DEPRECATED) Alias for [node]\" and sets it to [ctx.file.node], so it adds nothing over [node].",
+      "parentUuid": "024225d8_ff716069",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 9999
+      },
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5725595_a8ee3666",
@@ -183,6 +255,30 @@
       "side": 1,
       "message": "Done. A scratch target with srcs \u003d [] now fails analysis with \"attribute must be non empty\".",
       "parentUuid": "d5725595_a8ee3666",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 9999
+      },
+      "revId": "5493f7a244b6edd6da0a58ae346bd39ebc40fd3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eea2070_e8ecbb2f",
+        "filename": "tools/js_test.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 4624548
+      },
+      "writtenOn": "2026-10-22T14:55:10Z",
+      "side": 1,
+      "message": "\u003e Done. A scratch target with srcs \u003d [] now fails analysis with \"attribute must be non empty\".",
+      "parentUuid": "cc85d403_19347cc4",
       "range": {
         "startLine": 45,
         "startChar": 0,
