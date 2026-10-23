@@ -16,6 +16,24 @@
       "message": "Hey Becky! Take a look at this one as well, since I\u0027d like to land this stack more or less at the same time to simplify deployment story (and copybara).",
       "revId": "650eaa1b744e38da04b7e9ee3afa71a3f5f97af9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825f6e98_7326850e",
+        "filename": "resources/com/google/gitiles/static/file-search.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-10-23T00:17:23Z",
+      "side": 1,
+      "message": "Gitiles serves the same host index view with or without a trailing slash on the URL path (for example, `/foo` and `/foo/`, or `/b` and `/b/` when mounted under a servlet context path), since `ViewFilter` and `GitilesView.setRepositoryPrefix` strip leading and trailing slashes without redirecting. Normalizing trailing slashes on `location.pathname` here (such as `location.pathname.replace(/\\/+$/, \u0027\u0027) || \u0027/\u0027`) would avoid splitting recent-repository history across two `localStorage` keys for the same index.\n\n_from potto_",
+      "isAi": true,
+      "revId": "650eaa1b744e38da04b7e9ee3afa71a3f5f97af9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
