@@ -34,6 +34,24 @@
       "isAi": true,
       "revId": "650eaa1b744e38da04b7e9ee3afa71a3f5f97af9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40871461_eda79001",
+        "filename": "resources/com/google/gitiles/static/file-search.js",
+        "patchSetId": 15
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1098470
+      },
+      "writtenOn": "2026-10-23T00:36:52Z",
+      "side": 1,
+      "message": "Done. The host-index history key now drops trailing slashes (`location.pathname.replace(/\\/+$/, \u0027\u0027) || \u0027/\u0027`), so `/b` and `/b/` share one history. Added a palette test that records a visit at `/b/` and recalls it at `/b`; it fails with the old raw-pathname key and passes with the fix.",
+      "parentUuid": "825f6e98_7326850e",
+      "revId": "650eaa1b744e38da04b7e9ee3afa71a3f5f97af9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
