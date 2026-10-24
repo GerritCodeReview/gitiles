@@ -94,4 +94,15 @@ maven.install(
     strict_visibility = True,
     version_conflict_policy = "pinned",
 )
+
+# flogger-log4j-backend pulls log4j:log4j 1.2.x transitively: end-of-life
+# log4j 1.x carrying multiple CVEs, including the CVE-2021-4104 RCE. reload4j,
+# the patched drop-in fork, is already a direct dependency above and provides
+# the same classes, so exclude the vulnerable log4j jar from the backend's
+# transitive closure, leaving reload4j as the sole log4j-1.x provider.
+maven.amend_artifact(
+    name = "external_deps",
+    coordinates = "com.google.flogger:flogger-log4j-backend:" + FLOGGER_VERSION,
+    exclusions = ["log4j:log4j"],
+)
 use_repo(maven, "external_deps")
