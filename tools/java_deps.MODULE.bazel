@@ -105,4 +105,14 @@ maven.amend_artifact(
     coordinates = "com.google.flogger:flogger-log4j-backend:" + FLOGGER_VERSION,
     exclusions = ["log4j:log4j"],
 )
+
+# Closure Templates (com.google.template:soy) pulls org.json:json 20230618 in
+# transitively (CVE-2023-5072, a parser-confusion OOM). Gitiles does not use
+# org.json in its own code, and Gerrit excludes it from the same soy version
+# and ships without it, so omit it here too rather than shipping the jar.
+maven.amend_artifact(
+    name = "external_deps",
+    coordinates = "com.google.template:soy:2024-01-30",
+    exclusions = ["org.json:json"],
+)
 use_repo(maven, "external_deps")
