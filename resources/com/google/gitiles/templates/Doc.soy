@@ -80,6 +80,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
         {if $homeUrl}</a>{/if}
       </div>
       <div class="Header-menu">
+        {call common.fileSearchTrigger /}
         {call common.themeToggle /}
       </div>
     </div>
@@ -89,6 +90,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
       </nav>
     {/if}
   </header>
+  {call common.fileSearch /}
   <div class="Site-content Site-Content--markdown">
     <div class="Container">
       <div class="doc">
