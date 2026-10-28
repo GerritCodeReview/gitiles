@@ -9,7 +9,7 @@
     "com.google.errorprone:error_prone_annotations": -1370395573,
     "com.google.errorprone:error_prone_type_annotations": -1223112919,
     "com.google.flogger:flogger": -38159395,
-    "com.google.flogger:flogger-log4j-backend": -1031492015,
+    "com.google.flogger:flogger-log4j-backend": -1461925314,
     "com.google.flogger:flogger-system-backend": 1831570954,
     "com.google.flogger:google-extensions": 1156659279,
     "com.google.guava:failureaccess": 892280507,
@@ -98,7 +98,7 @@
     "com.google.escapevelocity:escapevelocity": 888206709,
     "com.google.escapevelocity:escapevelocity:jar:sources": -256903009,
     "com.google.flogger:flogger": -1346444653,
-    "com.google.flogger:flogger-log4j-backend": -809488289,
+    "com.google.flogger:flogger-log4j-backend": 661355127,
     "com.google.flogger:flogger-log4j-backend:jar:sources": 1768481764,
     "com.google.flogger:flogger-system-backend": 1919472289,
     "com.google.flogger:flogger-system-backend:jar:sources": 2143617050,
@@ -126,8 +126,6 @@
     "com.googlecode.javaewah:JavaEWAH:jar:sources": 1003442530,
     "com.ibm.icu:icu4j": -1725310050,
     "com.ibm.icu:icu4j:jar:sources": 163265109,
-    "com.sun.jdmk:jmxtools": 2035346891,
-    "com.sun.jmx:jmxri": 2035346891,
     "commons-codec:commons-codec": -1332445711,
     "commons-codec:commons-codec:jar:sources": 1241814857,
     "commons-io:commons-io": 1072619124,
@@ -140,21 +138,14 @@
     "jakarta.inject:jakarta.inject-api:jar:sources": -1584622703,
     "jakarta.servlet:jakarta.servlet-api": -1421863120,
     "jakarta.servlet:jakarta.servlet-api:jar:sources": -2084357823,
-    "javax.activation:activation": -1387662613,
-    "javax.activation:activation:jar:sources": -848464236,
     "javax.annotation:jsr250-api": 847275234,
     "javax.annotation:jsr250-api:jar:sources": 1496215386,
     "javax.inject:javax.inject": 698155243,
     "javax.inject:javax.inject:jar:sources": 1222576539,
-    "javax.jms:jms": -1633916017,
-    "javax.mail:mail": -1332817445,
-    "javax.mail:mail:jar:sources": -1052603396,
     "javax.servlet:javax.servlet-api": 735808080,
     "javax.servlet:javax.servlet-api:jar:sources": -2015355058,
     "junit:junit": -1256429642,
     "junit:junit:jar:sources": 940567721,
-    "log4j:log4j": 1480359174,
-    "log4j:log4j:jar:sources": -1597124054,
     "net.bytebuddy:byte-buddy": -1914258003,
     "net.bytebuddy:byte-buddy-agent": 682658697,
     "net.bytebuddy:byte-buddy-agent:jar:sources": -1164352937,
@@ -440,18 +431,6 @@
       },
       "version": "78.2"
     },
-    "com.sun.jdmk:jmxtools": {
-      "shasums": {
-        "jar": null
-      },
-      "version": "1.2.1"
-    },
-    "com.sun.jmx:jmxri": {
-      "shasums": {
-        "jar": null
-      },
-      "version": "1.2.1"
-    },
     "commons-codec:commons-codec": {
       "shasums": {
         "jar": "6af66595f9f6a7bb58ce66518d6888d40b547c366d2262f06676eee19528ff66",
@@ -494,13 +473,6 @@
       },
       "version": "6.1.0"
     },
-    "javax.activation:activation": {
-      "shasums": {
-        "jar": "2881c79c9d6ef01c58e62beea13e9d1ac8b8baa16f2fc198ad6e6776defdcdd3",
-        "sources": "d1ce2ec5b4fa82d2424e38bb4efd75539f87b7e22e8c38c95cef541ef82fb037"
-      },
-      "version": "1.1"
-    },
     "javax.annotation:jsr250-api": {
       "shasums": {
         "jar": "a1a922d0d9b6d183ed3800dfac01d1e1eb159f0e8c6f94736931c1def54a941f",
@@ -515,19 +487,6 @@
       },
       "version": "1"
     },
-    "javax.jms:jms": {
-      "shasums": {
-        "jar": null
-      },
-      "version": "1.1"
-    },
-    "javax.mail:mail": {
-      "shasums": {
-        "jar": "96868f82264ebd9b7d41f04d78cbe87ab75d68a7bbf8edfb82416aabe9b54b6c",
-        "sources": "a20f7b4b98307424cb065ed4478dbce0a5831dfa48e1dea08d3d775632a9e1a6"
-      },
-      "version": "1.4"
-    },
     "javax.servlet:javax.servlet-api": {
       "shasums": {
         "jar": "83a03dd877d3674576f0da7b90755c8524af099ccf0607fc61aa971535ad7c60",
@@ -541,13 +500,6 @@
         "sources": "34181df6482d40ea4c046b063cb53c7ffae94bdf1b1d62695bdf3adf9dea7e3a"
       },
       "version": "4.13.2"
-    },
-    "log4j:log4j": {
-      "shasums": {
-        "jar": "9f5f5799707881451a39c1b2dd22b4e43b97a80698db7daf1c9697f545e24387",
-        "sources": "23f8fdedc16ab857767b981fd5881843a75655c284ae8ee00ef9ecbf6ae47b16"
-      },
-      "version": "1.2.15"
     },
     "net.bytebuddy:byte-buddy": {
       "shasums": {
@@ -976,8 +928,7 @@
     ],
     "com.google.flogger:flogger-log4j-backend": [
       "com.google.flogger:flogger",
-      "com.google.flogger:flogger-system-backend",
-      "log4j:log4j"
+      "com.google.flogger:flogger-system-backend"
     ],
     "com.google.flogger:flogger-system-backend": [
       "com.google.flogger:flogger",
@@ -1028,17 +979,8 @@
       "org.jspecify:jspecify",
       "org.ow2.asm:asm"
     ],
-    "javax.mail:mail": [
-      "javax.activation:activation"
-    ],
     "junit:junit": [
       "org.hamcrest:hamcrest-core"
-    ],
-    "log4j:log4j": [
-      "com.sun.jdmk:jmxtools",
-      "com.sun.jmx:jmxri",
-      "javax.jms:jms",
-      "javax.mail:mail"
     ],
     "net.java.dev.jna:jna-platform": [
       "net.java.dev.jna:jna"
@@ -1468,31 +1410,12 @@
       "jakarta.servlet.descriptor",
       "jakarta.servlet.http"
     ],
-    "javax.activation:activation": [
-      "com.sun.activation.registries",
-      "com.sun.activation.viewers",
-      "javax.activation"
-    ],
     "javax.annotation:jsr250-api": [
       "javax.annotation",
       "javax.annotation.security"
     ],
     "javax.inject:javax.inject": [
       "javax.inject"
-    ],
-    "javax.mail:mail": [
-      "com.sun.mail.handlers",
-      "com.sun.mail.iap",
-      "com.sun.mail.imap",
-      "com.sun.mail.imap.protocol",
-      "com.sun.mail.pop3",
-      "com.sun.mail.smtp",
-      "com.sun.mail.util",
-      "javax.mail",
-      "javax.mail.event",
-      "javax.mail.internet",
-      "javax.mail.search",
-      "javax.mail.util"
     ],
     "javax.servlet:javax.servlet-api": [
       "javax.servlet",
@@ -1533,27 +1456,6 @@
       "org.junit.runners.model",
       "org.junit.runners.parameterized",
       "org.junit.validator"
-    ],
-    "log4j:log4j": [
-      "org.apache.log4j",
-      "org.apache.log4j.chainsaw",
-      "org.apache.log4j.config",
-      "org.apache.log4j.helpers",
-      "org.apache.log4j.jdbc",
-      "org.apache.log4j.jmx",
-      "org.apache.log4j.lf5",
-      "org.apache.log4j.lf5.util",
-      "org.apache.log4j.lf5.viewer",
-      "org.apache.log4j.lf5.viewer.categoryexplorer",
-      "org.apache.log4j.lf5.viewer.configure",
-      "org.apache.log4j.net",
-      "org.apache.log4j.nt",
-      "org.apache.log4j.or",
-      "org.apache.log4j.or.jms",
-      "org.apache.log4j.or.sax",
-      "org.apache.log4j.spi",
-      "org.apache.log4j.varia",
-      "org.apache.log4j.xml"
     ],
     "net.bytebuddy:byte-buddy": [
       "net.bytebuddy",
@@ -2856,20 +2758,14 @@
       "jakarta.inject:jakarta.inject-api:jar:sources",
       "jakarta.servlet:jakarta.servlet-api",
       "jakarta.servlet:jakarta.servlet-api:jar:sources",
-      "javax.activation:activation",
-      "javax.activation:activation:jar:sources",
       "javax.annotation:jsr250-api",
       "javax.annotation:jsr250-api:jar:sources",
       "javax.inject:javax.inject",
       "javax.inject:javax.inject:jar:sources",
-      "javax.mail:mail",
-      "javax.mail:mail:jar:sources",
       "javax.servlet:javax.servlet-api",
       "javax.servlet:javax.servlet-api:jar:sources",
       "junit:junit",
       "junit:junit:jar:sources",
-      "log4j:log4j",
-      "log4j:log4j:jar:sources",
       "net.bytebuddy:byte-buddy",
       "net.bytebuddy:byte-buddy-agent",
       "net.bytebuddy:byte-buddy-agent:jar:sources",
@@ -3080,10 +2976,5 @@
       ]
     }
   },
-  "skipped": [
-    "com.sun.jdmk:jmxtools",
-    "com.sun.jmx:jmxri",
-    "javax.jms:jms"
-  ],
   "version": "3"
 }
