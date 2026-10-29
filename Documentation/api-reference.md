@@ -58,6 +58,11 @@ JSON response sets `has_more` to `true`, and the HTML response shows a message,
 "More matches exist. Narrow the search path to see more specific results."
 when additional matches exist beyond that limit.
 
+Lines longer than 500 characters are shortened to about 500 characters around
+the first match on the line, or to the match itself if the search text is
+longer. The JSON response sets `truncated` to `true` on those matches, and the
+HTML response marks the shortened ends with an ellipsis.
+
 #### **`paths_only`**
 `https://gerrit.googlesource.com/a/gitiles/+/refs/heads/master/?format=JSON&recursive=1&paths_only=1`
 
