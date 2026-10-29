@@ -53,7 +53,8 @@ Searches file contents at a revision.
 
 A file or directory path may be supplied after the revision to limit the search.
 The search is a case-sensitive literal substring search. Binary files and
-blobs larger than 1 MiB are skipped. Results are limited to 1000 matches. The
+blobs larger than 1 MiB are skipped, as are symbolic links and submodules.
+Results are limited to 1000 matches. The
 JSON response sets `has_more` to `true`, and the HTML response shows a message,
 "More matches exist. Narrow the search path to see more specific results."
 when additional matches exist beyond that limit.
