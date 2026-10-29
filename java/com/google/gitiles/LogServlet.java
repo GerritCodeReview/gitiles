@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.PatternSyntaxException;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -237,6 +238,7 @@ public class LogServlet extends BaseServlet {
 
   private static @Nullable RevWalk newWalk(Repository repo, GitilesView view, GitilesAccess access)
       throws MissingObjectException, IOException {
+    RevFilter revFilter = getRevFilter(view);
     RevWalk walk = new RevWalk(repo);
     if (isTrue(view, FIRST_PARENT_PARAM)) {
       walk.setFirstParent(true);
@@ -256,12 +258,14 @@ public class LogServlet extends BaseServlet {
       return null;
     }
     setTreeFilter(walk, view, access);
-    setRevFilter(walk, view);
+    if (revFilter != null) {
+      walk.setRevFilter(revFilter);
+    }
     walk.setRetainBody(false);
     return walk;
   }
 
-  private static void setRevFilter(RevWalk walk, GitilesView view) {
+  private static @Nullable RevFilter getRevFilter(GitilesView view) {
     List<RevFilter> filters = new ArrayList<>(4);
     if (isTrue(view, "no-merges")) {
       filters.add(RevFilter.NO_MERGES);
@@ -279,14 +283,20 @@ public class LogServlet extends BaseServlet {
 
     String grep = Iterables.getFirst(view.getParameters().get(GREP_PARAM), null);
     if (!Strings.isNullOrEmpty(grep)) {
-      filters.add(MessageRevFilter.create(grep));
+      try {
+        filters.add(MessageRevFilter.create(grep));
+      } catch (PatternSyntaxException e) {
+        throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER, e)
+            .withPublicErrorMessage("invalid grep pattern: %s", e.getDescription());
+      }
     }
 
     if (filters.size() > 1) {
-      walk.setRevFilter(AndRevFilter.create(filters));
+      return AndRevFilter.create(filters);
     } else if (filters.size() == 1) {
-      walk.setRevFilter(filters.get(0));
+      return filters.get(0);
     }
+    return null;
   }
 
   private static void setTreeFilter(RevWalk walk, GitilesView view, GitilesAccess access)

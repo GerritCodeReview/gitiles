@@ -29,7 +29,9 @@ Shows the commit log.
 ##### Filter parameters
 * `author=<name or email>`
 * `committer=<name or email>`
-* `grep=<pattern>`
+* `grep=<pattern>` to show only commits whose message matches `pattern`, a
+  case-insensitive Java regular expression. An invalid pattern is rejected with
+  HTTP 400.
 
 ##### Limit and Paging parameters
 * `n=<number>` to limit the number of commits returned.
