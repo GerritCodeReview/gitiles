@@ -22,6 +22,7 @@ import com.google.common.collect.Maps;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +51,7 @@ public class GrepServlet extends BaseServlet {
   @VisibleForTesting static final int MAX_MATCHES = 1000;
   private static final int MAX_BLOB_SIZE = 1 << 20; // 1 MB
   @VisibleForTesting static final int MAX_LINE_LENGTH = 500;
+  private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
 
   protected GrepServlet(GitilesAccess.Factory accessFactory, Renderer renderer) {
     super(renderer, accessFactory);
@@ -63,11 +65,13 @@ public class GrepServlet extends BaseServlet {
 
     List<Map<String, Object>> matches = Lists.newArrayList();
     boolean hasMore = false;
+    boolean timedOut = false;
     String jsonFormatUrl = "";
     if (!substring.isEmpty()) {
-      GrepResult result = grep(ServletUtils.getRepository(req), view, substring);
+      GrepResult result = grep(ServletUtils.getRepository(req), view, substring, getTimeout(req));
       matches = toSoyMatches(view, result.matches);
       hasMore = result.hasMore;
+      timedOut = result.timedOut;
       jsonFormatUrl =
           GitilesView.grep()
               .copyFrom(view)
@@ -75,13 +79,14 @@ public class GrepServlet extends BaseServlet {
               .toUrl();
     }
 
-    Map<String, Object> data = Maps.newHashMapWithExpectedSize(8);
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(9);
     data.put("title", "Grep - " + view.getRevision().getName());
     data.put("revision", view.getRevision().getName());
     data.put("path", Strings.nullToEmpty(view.getPathPart()));
     data.put("substring", substring);
     data.put("hasSearch", !substring.isEmpty());
     data.put("hasMore", hasMore);
+    data.put("timedOut", timedOut);
     data.put("jsonFormatUrl", jsonFormatUrl);
     data.put("matches", matches);
 
@@ -97,29 +102,37 @@ public class GrepServlet extends BaseServlet {
           .withPublicErrorMessage("missing s parameter");
     }
 
-    GrepResult result = grep(ServletUtils.getRepository(req), view, substring);
+    GrepResult result = grep(ServletUtils.getRepository(req), view, substring, getTimeout(req));
     renderJson(req, res, result, new TypeToken<GrepResult>() {}.getType());
   }
 
-  private static GrepResult grep(Repository repo, GitilesView view, String substring)
-      throws IOException {
+  private Duration getTimeout(HttpServletRequest req) throws IOException {
+    return ConfigUtil.getDuration(
+        getAccess(req).getConfig(), "grep", null, "timeout", DEFAULT_TIMEOUT);
+  }
+
+  private static GrepResult grep(
+      Repository repo, GitilesView view, String substring, Duration timeout) throws IOException {
     List<Match> matches = Lists.newArrayList();
+    long deadline = System.nanoTime() + timeout.toNanos();
+    boolean completed;
 
     try (RevWalk rw = new RevWalk(repo)) {
       RevTree root = getRoot(view, rw);
       String path = Strings.nullToEmpty(view.getPathPart());
       if (path.isEmpty()) {
-        grepTree(rw.getObjectReader(), root, "", substring, matches);
+        completed = grepTree(rw.getObjectReader(), root, "", substring, matches, deadline);
       } else {
-        grepPath(rw.getObjectReader(), root, path, substring, matches);
+        completed = grepPath(rw.getObjectReader(), root, path, substring, matches, deadline);
       }
     }
 
-    boolean hasMore = matches.size() > MAX_MATCHES;
-    if (hasMore) {
+    boolean overLimit = matches.size() > MAX_MATCHES;
+    if (overLimit) {
       matches.remove(matches.size() - 1);
     }
-    return new GrepResult(matches, hasMore);
+    boolean timedOut = !completed;
+    return new GrepResult(matches, overLimit || timedOut, timedOut);
   }
 
   private static List<Map<String, Object>> toSoyMatches(GitilesView view, List<Match> matches) {
@@ -130,8 +143,14 @@ public class GrepServlet extends BaseServlet {
     return data;
   }
 
-  private static void grepPath(
-      ObjectReader reader, RevTree root, String path, String substring, List<Match> matches)
+  /** Returns {@code false} if the search stopped because the deadline passed. */
+  private static boolean grepPath(
+      ObjectReader reader,
+      RevTree root,
+      String path,
+      String substring,
+      List<Match> matches,
+      long deadline)
       throws IOException {
     try (TreeWalk tw = TreeWalk.forPath(reader, path, root)) {
       if (tw == null) {
@@ -142,38 +161,48 @@ public class GrepServlet extends BaseServlet {
       ObjectId id = tw.getObjectId(0);
       if (isFile(mode)) {
         grepBlob(reader, id, path, substring, matches);
-        return;
+        return true;
       }
       if (mode.getObjectType() != Constants.OBJ_TREE) {
-        return;
+        return true;
       }
 
       try (TreeWalk subtree = new TreeWalk(reader)) {
         subtree.addTree(id);
         subtree.setRecursive(true);
-        grepTree(subtree, path + "/", substring, matches);
+        return grepTree(subtree, path + "/", substring, matches, deadline);
       }
     }
   }
 
-  private static void grepTree(
-      ObjectReader reader, RevTree root, String pathPrefix, String substring, List<Match> matches)
+  private static boolean grepTree(
+      ObjectReader reader,
+      RevTree root,
+      String pathPrefix,
+      String substring,
+      List<Match> matches,
+      long deadline)
       throws IOException {
     try (TreeWalk tw = new TreeWalk(reader)) {
       tw.addTree(root);
       tw.setRecursive(true);
-      grepTree(tw, pathPrefix, substring, matches);
+      return grepTree(tw, pathPrefix, substring, matches, deadline);
     }
   }
 
-  private static void grepTree(
-      TreeWalk tw, String pathPrefix, String substring, List<Match> matches) throws IOException {
+  /** Returns {@code false} if the search stopped because the deadline passed. */
+  private static boolean grepTree(
+      TreeWalk tw, String pathPrefix, String substring, List<Match> matches, long deadline)
+      throws IOException {
     while (tw.next()) {
       if (matches.size() > MAX_MATCHES) {
-        return;
+        return true;
       }
       if (!isFile(tw.getFileMode(0))) {
         continue;
+      }
+      if (System.nanoTime() - deadline >= 0) {
+        return false;
       }
       grepBlob(
           tw.getObjectReader(),
@@ -182,9 +211,10 @@ public class GrepServlet extends BaseServlet {
           substring,
           matches);
       if (matches.size() > MAX_MATCHES) {
-        return;
+        return true;
       }
     }
+    return true;
   }
 
   /**
@@ -246,10 +276,12 @@ public class GrepServlet extends BaseServlet {
   static class GrepResult {
     List<Match> matches;
     boolean hasMore;
+    boolean timedOut;
 
-    GrepResult(List<Match> matches, boolean hasMore) {
+    GrepResult(List<Match> matches, boolean hasMore, boolean timedOut) {
       this.matches = matches;
       this.hasMore = hasMore;
+      this.timedOut = timedOut;
     }
   }
 

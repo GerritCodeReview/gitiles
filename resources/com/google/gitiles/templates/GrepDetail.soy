@@ -29,6 +29,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   {@param substring: string}
   {@param hasSearch: bool}
   {@param hasMore: bool}
+  {@param timedOut: bool}
   {@param jsonFormatUrl: string}
   {@param matches: list<?>}
 
@@ -60,14 +61,18 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
         </li>
       {/for}
     </ol>
-    {if $hasMore}
-      <p class="GrepResults-more">
-        {msg desc="message shown when additional grep matches exist"}More matches exist. Narrow the search path to see more specific results.{/msg}
-      </p>
-    {/if}
-  {else}
+  {elseif not $timedOut}
     <p class="GrepResults-empty">
       {msg desc="message shown when grep search has no matches"}No matches.{/msg}
+    </p>
+  {/if}
+  {if $timedOut}
+    <p class="GrepResults-more">
+      {msg desc="message shown when grep search stops at its time limit"}Search stopped before finishing because it took too long. Narrow the search path to search fewer files.{/msg}
+    </p>
+  {elseif $hasMore}
+    <p class="GrepResults-more">
+      {msg desc="message shown when additional grep matches exist"}More matches exist. Narrow the search path to see more specific results.{/msg}
     </p>
   {/if}
 {/if}

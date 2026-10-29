@@ -59,6 +59,10 @@ JSON response sets `has_more` to `true`, and the HTML response shows a message,
 "More matches exist. Narrow the search path to see more specific results."
 when additional matches exist beyond that limit.
 
+A search stops after 5 seconds by default (see `grep.timeout` in
+[the configuration](config.md)). The JSON response then sets both `has_more`
+and `timed_out` to `true`, and the HTML response says the search stopped early.
+
 Lines longer than 500 characters are shortened to about 500 characters around
 the first match on the line, or to the match itself if the search text is
 longer. The JSON response sets `truncated` to `true` on those matches, and the
