@@ -29,6 +29,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   {@param substring: string}
   {@param hasSearch: bool}
   {@param hasMore: bool}
+  {@param jsonFormatUrl: string}
   {@param matches: list<?>}
 
 {call common.header data="all" /}
@@ -73,5 +74,8 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
 
 {call common.footer}
   {param customVariant: $customVariant /}
+  {param showTextFormat: false /}
+  {param showJsonFormat: $hasSearch /}
+  {param jsonFormatUrl: $jsonFormatUrl /}
 {/call}
 {/template}

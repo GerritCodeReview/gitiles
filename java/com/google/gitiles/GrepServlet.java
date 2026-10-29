@@ -62,19 +62,26 @@ public class GrepServlet extends BaseServlet {
 
     List<Map<String, Object>> matches = Lists.newArrayList();
     boolean hasMore = false;
+    String jsonFormatUrl = "";
     if (!substring.isEmpty()) {
       GrepResult result = grep(ServletUtils.getRepository(req), view, substring);
       matches = toSoyMatches(view, result.matches);
       hasMore = result.hasMore;
+      jsonFormatUrl =
+          GitilesView.grep()
+              .copyFrom(view)
+              .replaceParam("format", FormatType.JSON.toString())
+              .toUrl();
     }
 
-    Map<String, Object> data = Maps.newHashMapWithExpectedSize(7);
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(8);
     data.put("title", "Grep - " + view.getRevision().getName());
     data.put("revision", view.getRevision().getName());
     data.put("path", Strings.nullToEmpty(view.getPathPart()));
     data.put("substring", substring);
     data.put("hasSearch", !substring.isEmpty());
     data.put("hasMore", hasMore);
+    data.put("jsonFormatUrl", jsonFormatUrl);
     data.put("matches", matches);
 
     renderHtml(req, res, "com.google.gitiles.templates.GrepDetail.grepDetail", data);

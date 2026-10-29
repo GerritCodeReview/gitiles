@@ -59,14 +59,16 @@ public class PathServletTest extends ServletTest {
   }
 
   @Test
-  public void rootTreeHtmlHasGrepLink() throws Exception {
+  public void rootTreeHtmlHasNavigationLinks() throws Exception {
     repo.branch("master").commit().add("foo", "contents").create();
 
     FakeHttpServletResponse res =
         buildResponse("/repo/+/master/", "format=html", SC_OK);
 
-    assertThat(res.getActualBodyString())
-        .contains("href=\"/b/repo/+grep/master/\"");
+    String html = res.getActualBodyString();
+    assertThat(html).contains("href=\"/b/repo/+grep/master/\"");
+    assertThat(html).contains("href=\"?format=TEXT\"");
+    assertThat(html).contains("href=\"?format=JSON\"");
   }
 
   @Test
