@@ -62,8 +62,11 @@ public class GrepServletTest extends ServletTest {
 
     FakeHttpServletResponse res = buildResponse("/repo/+grep/master", "format=html", SC_OK);
 
-    assertThat(res.getActualBodyString()).contains("name=\"s\"");
-    assertThat(res.getActualBodyString()).contains("Search");
+    String html = res.getActualBodyString();
+    assertThat(html).contains("name=\"s\"");
+    assertThat(html).contains("Search");
+    assertThat(html).contains("href=\"?format=TEXT\"");
+    assertThat(html).contains("href=\"?format=JSON\"");
   }
 
   @Test
@@ -82,6 +85,19 @@ public class GrepServletTest extends ServletTest {
     assertThat(res.getActualBodyString()).contains("#2");
     assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
     assertThat(res.getActualBodyString()).doesNotContain("More matches exist");
+  }
+
+  @Test
+  public void grepHtmlJsonFormatLinkPreservesSearch() throws Exception {
+    repo.branch("master").commit().add("src/a.txt", "a&b\n").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master/src", "format=html&s=a%26b", SC_OK);
+
+    String html = res.getActualBodyString();
+    assertThat(html)
+        .contains("href=\"/b/repo/+grep/master/src?format=JSON&amp;s=a%26b\"");
+    assertThat(html).contains("href=\"?format=TEXT\"");
   }
 
   @Test

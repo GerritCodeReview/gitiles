@@ -216,10 +216,11 @@
  * You can use this in custom footers as well.
  */
 {template footerFormatBadge modifiable="true" legacydeltemplatenamespace="gitiles.footerFormatBadge"}
+  {@param? jsonFormatUrl: string|null}  /** JSON link, if the page needs more than ?format=JSON. */
 <span class="Footer-formats">
   <a class="u-monospace Footer-formatsItem" href="?format=TEXT">{msg desc="text format"}txt{/msg}</a>
     {sp}
-  <a class="u-monospace Footer-formatsItem" href="?format=JSON">{msg desc="JSON format"}json{/msg}</a>
+  <a class="u-monospace Footer-formatsItem" href="{$jsonFormatUrl ?? '?format=JSON'}">{msg desc="JSON format"}json{/msg}</a>
 </span>
 {/template}
 
@@ -227,11 +228,14 @@
  * Default Footer
  */
 {template customFooter modifiable="true" legacydeltemplatenamespace="gitiles.customFooter" usevarianttype="string"}
+  {@param? jsonFormatUrl: string|null}  /** JSON link, if the page needs more than ?format=JSON. */
 <!-- default customFooter -->
 <footer class="Site-footer">
   <div class="Footer">
     {call footerPoweredBy /}
-    {call footerFormatBadge /}
+    {call footerFormatBadge}
+      {param jsonFormatUrl: $jsonFormatUrl /}
+    {/call}
   </div>
 </footer>
 {/template}
@@ -244,9 +248,12 @@
  */
 {template footer stricthtml="false"}
   {@param? customVariant: ?}  /** variant name for custom styling. */
+  {@param? jsonFormatUrl: string|null}  /** JSON link, if the page needs more than ?format=JSON. */
     </div> <!-- Container -->
   </div> <!-- Site-content -->
-  {call customFooter variant="'' + ($customVariant ?? '')" /}
+  {call customFooter variant="'' + ($customVariant ?? '')"}
+    {param jsonFormatUrl: $jsonFormatUrl /}
+  {/call}
 </body>
 </html>
 {/template}
