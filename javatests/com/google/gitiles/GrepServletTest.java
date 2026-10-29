@@ -38,6 +38,7 @@ public class GrepServletTest extends ServletTest {
     assertThat(result.matches.get(0).path).isEqualTo("dir/a.txt");
     assertThat(result.matches.get(0).lineNumber).isEqualTo(2);
     assertThat(result.matches.get(0).line).isEqualTo("needle here");
+    assertThat(result.matches.get(0).truncated).isFalse();
     assertThat(result.matches.get(1).path).isEqualTo("dir/b.txt");
     assertThat(result.hasMore).isFalse();
   }
@@ -148,6 +149,47 @@ public class GrepServletTest extends ServletTest {
   }
 
   @Test
+  public void grepJsonShortensLongLines() throws Exception {
+    String line = "a".repeat(2000) + "needle" + "b".repeat(2000);
+    repo.branch("master").commit().add("min.js", line + "\n").create();
+
+    GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=needle");
+
+    assertThat(result.matches).hasSize(1);
+    Match match = result.matches.get(0);
+    assertThat(match.line).hasLength(GrepServlet.MAX_LINE_LENGTH);
+    assertThat(match.line).contains("needle");
+    assertThat(match.truncated).isTrue();
+  }
+
+  @Test
+  public void grepJsonKeepsWholeMatchLongerThanLineLimit() throws Exception {
+    String needle = "needle".repeat(100);
+    assertThat(needle.length()).isGreaterThan(GrepServlet.MAX_LINE_LENGTH);
+    String line = "a".repeat(1000) + needle + "b".repeat(1000);
+    repo.branch("master").commit().add("min.js", line + "\n").create();
+
+    GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=" + needle);
+
+    assertThat(result.matches).hasSize(1);
+    Match match = result.matches.get(0);
+    assertThat(match.line).isEqualTo(needle);
+    assertThat(match.truncated).isTrue();
+  }
+
+  @Test
+  public void grepHtmlMarksShortenedLines() throws Exception {
+    repo.branch("master").commit().add("min.js", "needle" + "b".repeat(2000) + "\n").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
+
+    String html = res.getActualBodyString();
+    assertThat(html).contains("1: needle");
+    assertThat(html).contains("b&hellip;</code>");
+  }
+
+  @Test
   public void grepJsonRequiresSubstring() throws Exception {
     repo.branch("master").commit().add("foo", "contents").create();
 
@@ -163,5 +205,6 @@ public class GrepServletTest extends ServletTest {
     String path;
     int lineNumber;
     String line;
+    boolean truncated;
   }
 }

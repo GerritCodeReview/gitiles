@@ -49,6 +49,7 @@ public class GrepServlet extends BaseServlet {
   private static final String SUBSTRING_PARAM = "s";
   @VisibleForTesting static final int MAX_MATCHES = 1000;
   private static final int MAX_BLOB_SIZE = 1 << 20; // 1 MB
+  @VisibleForTesting static final int MAX_LINE_LENGTH = 500;
 
   protected GrepServlet(GitilesAccess.Factory accessFactory, Renderer renderer) {
     super(renderer, accessFactory);
@@ -211,8 +212,9 @@ public class GrepServlet extends BaseServlet {
       }
       String line =
           lines[i].endsWith("\r") ? lines[i].substring(0, lines[i].length() - 1) : lines[i];
-      if (line.contains(substring)) {
-        matches.add(new Match(path, i + 1, line));
+      int matchStart = line.indexOf(substring);
+      if (matchStart >= 0) {
+        matches.add(Match.forLine(path, i + 1, line, matchStart, substring.length()));
         if (matches.size() > MAX_MATCHES) {
           return;
         }
@@ -247,18 +249,54 @@ public class GrepServlet extends BaseServlet {
     String path;
     int lineNumber;
     String line;
+    boolean truncated;
+    transient boolean truncatedStart;
+    transient boolean truncatedEnd;
 
-    Match(String path, int lineNumber, String line) {
+    Match(String path, int lineNumber, String line, boolean truncatedStart, boolean truncatedEnd) {
       this.path = path;
       this.lineNumber = lineNumber;
       this.line = line;
+      this.truncated = truncatedStart || truncatedEnd;
+      this.truncatedStart = truncatedStart;
+      this.truncatedEnd = truncatedEnd;
+    }
+
+    /**
+     * Creates a match for {@code line}, keeping about {@link #MAX_LINE_LENGTH} characters around
+     * the first match so that very long lines, such as minified files, stay small in the response.
+     *
+     * <p>The kept text grows to the whole match when the search text is longer than {@link
+     * #MAX_LINE_LENGTH}, so a match is never cut, and by one character at an edge that would
+     * otherwise split a surrogate pair.
+     */
+    static Match forLine(
+        String path, int lineNumber, String line, int matchStart, int matchLength) {
+      if (line.length() <= MAX_LINE_LENGTH) {
+        return new Match(path, lineNumber, line, false, false);
+      }
+      int size = Math.max(MAX_LINE_LENGTH, matchLength);
+      int start = Math.max(0, matchStart - (size - matchLength) / 2);
+      start = Math.min(start, line.length() - size);
+      int end = start + size;
+      // Do not split a surrogate pair at either edge.
+      if (start > 0 && Character.isLowSurrogate(line.charAt(start))) {
+        start--;
+      }
+      if (end < line.length() && Character.isLowSurrogate(line.charAt(end))) {
+        end++;
+      }
+      return new Match(
+          path, lineNumber, line.substring(start, end), start > 0, end < line.length());
     }
 
     Map<String, Object> toSoyData(GitilesView view) {
-      Map<String, Object> data = Maps.newHashMapWithExpectedSize(4);
+      Map<String, Object> data = Maps.newHashMapWithExpectedSize(6);
       data.put("path", path);
       data.put("lineNumber", lineNumber);
       data.put("line", line);
+      data.put("truncatedStart", truncatedStart);
+      data.put("truncatedEnd", truncatedEnd);
       data.put(
           "url", GitilesView.path().copyFrom(view).setPathPart(path).toUrl() + "#" + lineNumber);
       return data;
