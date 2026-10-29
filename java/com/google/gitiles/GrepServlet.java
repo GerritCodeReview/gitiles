@@ -140,7 +140,7 @@ public class GrepServlet extends BaseServlet {
 
       FileMode mode = tw.getFileMode(0);
       ObjectId id = tw.getObjectId(0);
-      if (mode.getObjectType() == Constants.OBJ_BLOB) {
+      if (isFile(mode)) {
         grepBlob(reader, id, path, substring, matches);
         return;
       }
@@ -172,7 +172,7 @@ public class GrepServlet extends BaseServlet {
       if (matches.size() > MAX_MATCHES) {
         return;
       }
-      if (tw.getFileMode(0).getObjectType() != Constants.OBJ_BLOB) {
+      if (!isFile(tw.getFileMode(0))) {
         continue;
       }
       grepBlob(
@@ -185,6 +185,14 @@ public class GrepServlet extends BaseServlet {
         return;
       }
     }
+  }
+
+  /**
+   * Returns whether {@code mode} is a regular or executable file. Symlinks are also stored as
+   * blobs, but their content is the link target rather than file text, so they are not searched.
+   */
+  private static boolean isFile(FileMode mode) {
+    return (mode.getBits() & FileMode.TYPE_MASK) == FileMode.TYPE_FILE;
   }
 
   private static void grepBlob(

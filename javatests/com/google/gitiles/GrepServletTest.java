@@ -20,6 +20,10 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import java.util.List;
+import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
+import org.eclipse.jgit.dircache.DirCacheEntry;
+import org.eclipse.jgit.lib.FileMode;
+import org.eclipse.jgit.revwalk.RevBlob;
 import org.junit.Test;
 
 public class GrepServletTest extends ServletTest {
@@ -189,10 +193,45 @@ public class GrepServletTest extends ServletTest {
   }
 
   @Test
+  public void grepJsonSkipsSymlinks() throws Exception {
+    addFileAndSymlink();
+
+    GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=target");
+
+    assertThat(result.matches).hasSize(1);
+    assertThat(result.matches.get(0).path).isEqualTo("a.txt");
+  }
+
+  @Test
+  public void grepJsonSkipsSymlinkPath() throws Exception {
+    addFileAndSymlink();
+
+    GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master/link", "s=target");
+
+    assertThat(result.matches).isEmpty();
+  }
+
+  @Test
   public void grepJsonRequiresSubstring() throws Exception {
     repo.branch("master").commit().add("foo", "contents").create();
 
     buildResponse("/repo/+grep/master", "format=JSON", SC_BAD_REQUEST);
+  }
+
+  private void addFileAndSymlink() throws Exception {
+    RevBlob target = repo.blob("target/file.txt");
+    repo.branch("master")
+        .commit()
+        .add("a.txt", "target\n")
+        .edit(
+            new PathEdit("link") {
+              @Override
+              public void apply(DirCacheEntry ent) {
+                ent.setFileMode(FileMode.SYMLINK);
+                ent.setObjectId(target);
+              }
+            })
+        .create();
   }
 
   private static class GrepResult {
