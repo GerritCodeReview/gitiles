@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gitiles.CommitJsonData.Commit;
@@ -218,6 +219,31 @@ public class LogServletTest extends ServletTest {
             "author=" + matchingAuthor.getEmailAddress() + "&grep=target");
     assertThat(response.log).hasSize(1);
     verifyJsonCommit(response.log.get(0), c1);
+  }
+
+  @Test
+  public void grepFilterAcceptsRegex() throws Exception {
+    RevCommit c1 =
+        repo.branch("master")
+            .commit()
+            .message("Fix Search crash\n")
+            .add("foo", "one")
+            .create();
+    repo.branch("master").commit().message("Fix search\n").add("foo", "two").create();
+
+    Log response = buildJson(LOG, "/repo/+log/master", "grep=fix%20search.*crash");
+    assertThat(response.log).hasSize(1);
+    verifyJsonCommit(response.log.get(0), c1);
+  }
+
+  @Test
+  public void grepFilterRejectsInvalidPattern() throws Exception {
+    repo.branch("master").commit().message("Add search\n").add("foo", "one").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+log/master", "format=JSON&grep=%28", SC_BAD_REQUEST);
+    assertThat(res.getHeader(DefaultErrorHandlingFilter.GITILES_ERROR))
+        .isEqualTo("INCORRECT_PARAMETER");
   }
 
   private void verifyJsonCommit(Commit jsonCommit, RevCommit commit) throws Exception {
