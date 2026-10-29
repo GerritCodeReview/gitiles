@@ -22,6 +22,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
 import java.util.List;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.revwalk.RevBlob;
 import org.junit.Test;
@@ -45,6 +46,7 @@ public class GrepServletTest extends ServletTest {
     assertThat(result.matches.get(0).truncated).isFalse();
     assertThat(result.matches.get(1).path).isEqualTo("dir/b.txt");
     assertThat(result.hasMore).isFalse();
+    assertThat(result.timedOut).isFalse();
   }
 
   @Test
@@ -212,10 +214,42 @@ public class GrepServletTest extends ServletTest {
   }
 
   @Test
+  public void grepJsonReportsTimeout() throws Exception {
+    repo.branch("master").commit().add("a.txt", "needle\n").create();
+    useGrepTimeout("0");
+
+    GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=needle");
+
+    assertThat(result.matches).isEmpty();
+    assertThat(result.hasMore).isTrue();
+    assertThat(result.timedOut).isTrue();
+  }
+
+  @Test
+  public void grepHtmlReportsTimeout() throws Exception {
+    repo.branch("master").commit().add("a.txt", "needle\n").create();
+    useGrepTimeout("0");
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
+
+    String html = res.getActualBodyString();
+    assertThat(html).contains("Search stopped before finishing");
+    assertThat(html).doesNotContain("No matches.");
+    assertThat(html).doesNotContain("More matches exist");
+  }
+
+  @Test
   public void grepJsonRequiresSubstring() throws Exception {
     repo.branch("master").commit().add("foo", "contents").create();
 
     buildResponse("/repo/+grep/master", "format=JSON", SC_BAD_REQUEST);
+  }
+
+  private void useGrepTimeout(String timeout) throws Exception {
+    Config config = new Config();
+    config.setString("grep", null, "timeout", timeout);
+    servlet = TestGitilesServlet.create(repo, config);
   }
 
   private void addFileAndSymlink() throws Exception {
@@ -237,6 +271,7 @@ public class GrepServletTest extends ServletTest {
   private static class GrepResult {
     List<Match> matches;
     boolean hasMore;
+    boolean timedOut;
   }
 
   private static class Match {

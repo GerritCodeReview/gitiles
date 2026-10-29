@@ -158,6 +158,16 @@ both.
 fileSearch = false
 ```
 
+### Content search time limit
+
+Stop a `+grep` content search after this much time and return the matches found
+so far, marked as incomplete. Default: `5 s`.
+
+```
+[grep]
+  timeout = 10 s
+```
+
 ## Markdown
 
 ### Disabling markdown
