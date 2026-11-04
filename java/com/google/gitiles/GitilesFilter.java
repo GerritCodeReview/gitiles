@@ -336,7 +336,8 @@ class GitilesFilter extends MetaFilter {
               Arrays.stream(config.getStringList("gitiles", null, "customTemplates"))
                   .map(fileUrlMapper())
                   .collect(toList()),
-              firstNonNull(config.getString("gitiles", null, "siteTitle"), "Gitiles"));
+              firstNonNull(config.getString("gitiles", null, "siteTitle"), "Gitiles"),
+              config.getString("gitiles", null, "renderer"));
     }
   }
 

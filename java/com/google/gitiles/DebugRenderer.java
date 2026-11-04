@@ -14,49 +14,79 @@
 
 package com.google.gitiles;
 
-import static com.google.common.base.Preconditions.checkState;
-import static java.util.stream.Collectors.toList;
-
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Streams;
 import com.google.common.hash.HashCode;
-import com.google.template.soy.SoyFileSet;
-import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Supplier;
+import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 
-/** Renderer that reloads Soy templates from the filesystem on every request. */
+/**
+ * Renderer that reloads templates from the filesystem on every request using the template engine
+ * selected via {@link RendererFactory}.
+ */
 public class DebugRenderer extends Renderer {
+  private final Renderer delegate;
+
   public DebugRenderer(
       String staticPrefix,
       Iterable<String> customTemplatesFilenames,
-      final String soyTemplatesRoot,
+      final String templatesRoot,
       String siteTitle) {
+    this(
+        staticPrefix,
+        customTemplatesFilenames,
+        templatesRoot,
+        siteTitle,
+        RendererFactory.DEFAULT_RENDERER);
+  }
+
+  public DebugRenderer(
+      String staticPrefix,
+      Iterable<String> customTemplatesFilenames,
+      final String templatesRoot,
+      String siteTitle,
+      @Nullable String rendererType) {
+    this(staticPrefix, customTemplatesFilenames, templatesRoot, siteTitle, () -> rendererType);
+  }
+
+  public DebugRenderer(
+      String staticPrefix,
+      Iterable<String> customTemplatesFilenames,
+      final String templatesRoot,
+      String siteTitle,
+      Supplier<String> rendererTypeSupplier) {
     super(
-        fileUrlMapper(soyTemplatesRoot + File.separator),
+        fileUrlMapper(templatesRoot + File.separator),
         ImmutableMap.<String, String>of(),
         staticPrefix,
-        Streams.stream(customTemplatesFilenames).map(fileUrlMapper()).collect(toList()),
+        ImmutableList.of(),
         siteTitle);
+    this.delegate =
+        RendererFactory.createDebugRenderer(
+            rendererTypeSupplier.get(),
+            staticPrefix,
+            customTemplatesFilenames,
+            templatesRoot,
+            siteTitle);
   }
 
   @Override
-  public HashCode getTemplateHash(String soyFile) {
-    return computeTemplateHash(soyFile);
+  public HashCode getTemplateHash(String templateFile) {
+    return delegate.getTemplateHash(templateFile);
   }
 
   @Override
-  protected SoySauce getSauce() {
-    SoyFileSet.Builder builder = SoyFileSet.builder();
-    for (URL template : templates.values()) {
-      try {
-        checkState(new File(template.toURI()).exists(), "Missing Soy template %s", template);
-      } catch (URISyntaxException e) {
-        throw new IllegalStateException(e);
-      }
-      builder.add(template, toSoySrcPath(template));
-    }
-    return builder.build().compileTemplates();
+  public void render(Appendable out, String templateName, Map<String, ?> data) throws IOException {
+    delegate.render(out, templateName, data);
+  }
+
+  @Override
+  public String render(String templateName, Optional<HttpServletRequest> req, Map<String, ?> data) {
+    return delegate.render(templateName, req, data);
   }
 }

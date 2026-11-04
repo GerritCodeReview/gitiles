@@ -15,6 +15,7 @@
 package com.google.gitiles;
 
 import static com.google.common.truth.Truth.assertThat;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertThrows;
 
 import com.google.common.collect.ImmutableList;
@@ -22,15 +23,21 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Resources;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class RendererFactoryTest {
+  @Rule public final TemporaryFolder tempFolder = new TemporaryFolder();
+
   @Test
   public void createsSoyRendererByDefault() {
     Renderer renderer =
@@ -120,16 +127,55 @@ public class RendererFactoryTest {
               }
             });
 
-    Renderer defaultCreated =
-        RendererFactory.createDefaultRenderer(
-            "custom-test-engine", ImmutableMap.of(), "/static/", ImmutableList.of(), "Gitiles");
-    assertThat(defaultCreated.render("MyTemplate", ImmutableMap.of()))
+    DefaultRenderer defaultRenderer =
+        new DefaultRenderer(
+            ImmutableMap.of(),
+            "/static/",
+            ImmutableList.of(),
+            "Gitiles",
+            () -> "custom-test-engine");
+    assertThat(defaultRenderer.render("MyTemplate", ImmutableMap.of()))
         .isEqualTo("CUSTOM_DEFAULT:MyTemplate");
 
-    Renderer debugCreated =
-        RendererFactory.createDebugRenderer(
-            "custom-test-engine", "/static/", ImmutableList.of(), "/tmp", "Gitiles");
-    assertThat(debugCreated.render("MyTemplate", ImmutableMap.of()))
+    DebugRenderer debugRenderer =
+        new DebugRenderer(
+            "/static/", ImmutableList.of(), "/tmp", "Gitiles", () -> "custom-test-engine");
+    assertThat(debugRenderer.render("MyTemplate", ImmutableMap.of()))
         .isEqualTo("CUSTOM_DEBUG:MyTemplate");
+  }
+
+  @Test
+  public void defaultAndDebugRendererDelegateByTypeAndSupplier() throws Exception {
+    Path root = tempFolder.newFolder("templates").toPath();
+    Files.writeString(
+        root.resolve("Error.html"),
+        "<!DOCTYPE html><html xmlns:th=\"http://www.thymeleaf.org\"><body>"
+            + "<h1 th:text=\"'THYMELEAF_DEBUG:' + ${title}\"></h1></body></html>",
+        UTF_8);
+
+    DefaultRenderer soyDefault =
+        new DefaultRenderer(
+            ImmutableMap.of(),
+            "/static/",
+            ImmutableList.of(),
+            "Gitiles",
+            () -> RendererFactory.RENDERER_SOY);
+    assertThat((Object) soyDefault).isNotInstanceOf(SoyRenderer.class);
+    assertThat((Object) soyDefault).isNotInstanceOf(ThymeleafRenderer.class);
+
+    ImmutableMap<String, Object> data = ImmutableMap.of("title", "404 Not Found");
+    String soyHtml = soyDefault.render("com.google.gitiles.templates.Error.error", data);
+    assertThat(soyHtml).contains("404 Not Found");
+    assertThat(soyDefault.getTemplateHash("Common.soy")).isNotNull();
+
+    DebugRenderer thymeleafDebug =
+        new DebugRenderer(
+            "/static/",
+            ImmutableList.of(),
+            root.toString(),
+            "Gitiles",
+            RendererFactory.RENDERER_THYMELEAF);
+    String debugHtml = thymeleafDebug.render("Error.html", data);
+    assertThat(debugHtml).contains("THYMELEAF_DEBUG:404 Not Found");
   }
 }

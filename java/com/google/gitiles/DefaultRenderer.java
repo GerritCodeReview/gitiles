@@ -16,15 +16,22 @@ package com.google.gitiles;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.hash.HashCode;
 import com.google.common.io.Resources;
-import com.google.template.soy.SoyFileSet;
-import com.google.template.soy.jbcsrc.api.SoySauce;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Supplier;
+import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 
-/** Renderer that precompiles Soy and uses static precompiled CSS. */
+/**
+ * Renderer that precompiles templates from classpath resources using the template engine selected
+ * via {@link RendererFactory}.
+ */
 public class DefaultRenderer extends Renderer {
-  private final SoySauce sauce;
+  private final Renderer delegate;
 
   DefaultRenderer() {
     this("", ImmutableList.<URL>of(), "");
@@ -35,25 +42,59 @@ public class DefaultRenderer extends Renderer {
   }
 
   public DefaultRenderer(
+      String staticPrefix,
+      Iterable<URL> customTemplates,
+      String siteTitle,
+      @Nullable String rendererType) {
+    this(ImmutableMap.of(), staticPrefix, customTemplates, siteTitle, rendererType);
+  }
+
+  public DefaultRenderer(
       Map<String, String> globals,
       String staticPrefix,
       Iterable<URL> customTemplates,
       String siteTitle) {
+    this(globals, staticPrefix, customTemplates, siteTitle, RendererFactory.DEFAULT_RENDERER);
+  }
+
+  public DefaultRenderer(
+      Map<String, String> globals,
+      String staticPrefix,
+      Iterable<URL> customTemplates,
+      String siteTitle,
+      @Nullable String rendererType) {
+    this(globals, staticPrefix, customTemplates, siteTitle, () -> rendererType);
+  }
+
+  public DefaultRenderer(
+      Map<String, String> globals,
+      String staticPrefix,
+      Iterable<URL> customTemplates,
+      String siteTitle,
+      Supplier<String> rendererTypeSupplier) {
     super(
         r -> Resources.getResource(Renderer.class, "templates/" + r),
         globals,
         staticPrefix,
-        customTemplates,
+        ImmutableList.of(),
         siteTitle);
-    SoyFileSet.Builder builder = SoyFileSet.builder();
-    for (URL template : templates.values()) {
-      builder.add(template, toSoySrcPath(template));
-    }
-    sauce = builder.build().compileTemplates();
+    this.delegate =
+        RendererFactory.createDefaultRenderer(
+            rendererTypeSupplier.get(), globals, staticPrefix, customTemplates, siteTitle);
   }
 
   @Override
-  protected SoySauce getSauce() {
-    return sauce;
+  public HashCode getTemplateHash(String templateFile) {
+    return delegate.getTemplateHash(templateFile);
+  }
+
+  @Override
+  public void render(Appendable out, String templateName, Map<String, ?> data) throws IOException {
+    delegate.render(out, templateName, data);
+  }
+
+  @Override
+  public String render(String templateName, Optional<HttpServletRequest> req, Map<String, ?> data) {
+    return delegate.render(templateName, req, data);
   }
 }

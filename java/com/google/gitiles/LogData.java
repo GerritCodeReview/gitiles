@@ -22,7 +22,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gitiles.CommitData.Field;
-import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -78,12 +77,6 @@ public class LogData {
     variant = firstNonNull(config.getString("logFormat", pretty, "variant"), pretty);
   }
 
-  private void renderHtml(SoySauce.Renderer renderer, Appendable out) throws IOException {
-    if (!renderer.renderHtml(out).result().isDone()) {
-      throw new IOException("failed to render HTML");
-    }
-  }
-
   public void renderStreaming(
       Paginator paginator,
       @Nullable String revision,
@@ -92,32 +85,32 @@ public class LogData {
       DateFormatter df,
       FooterBehavior footerBehavior)
       throws IOException {
-    renderHtml(
-        renderer
-            .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesHeader")
-            .setData(toHeaderTemplateData(paginator, revision)),
-        writer);
+    renderer.render(
+        writer,
+        "com.google.gitiles.templates.LogDetail.logEntriesHeader",
+        toHeaderTemplateData(paginator, revision));
 
-    SoySauce.Renderer entryRenderer =
-        renderer.newRenderer("com.google.gitiles.templates.LogDetail.logEntryWrapper");
     boolean renderedEntries = false;
     for (RevCommit c : paginator) {
       RevWalk walk = paginator.getWalk();
       if (!walk.isRetainBody()) {
         walk.parseBody(c);
       }
-      renderHtml(entryRenderer.setData(toEntryTemplateData(paginator, c, df)), writer);
+      renderer.render(
+          writer,
+          "com.google.gitiles.templates.LogDetail.logEntryWrapper",
+          toEntryTemplateData(paginator, c, df));
       renderedEntries = true;
     }
     if (!renderedEntries) {
-      renderHtml(renderer.newRenderer("com.google.gitiles.templates.LogDetail.emptyLog"), writer);
+      renderer.render(
+          writer, "com.google.gitiles.templates.LogDetail.emptyLog", ImmutableMap.of());
     }
 
-    renderHtml(
-        renderer
-            .newRenderer("com.google.gitiles.templates.LogDetail.logEntriesFooter")
-            .setData(toFooterTemplateData(paginator, revision, footerBehavior)),
-        writer);
+    renderer.render(
+        writer,
+        "com.google.gitiles.templates.LogDetail.logEntriesFooter",
+        toFooterTemplateData(paginator, revision, footerBehavior));
   }
 
   private Map<String, Object> toHeaderTemplateData(Paginator paginator, @Nullable String revision) {

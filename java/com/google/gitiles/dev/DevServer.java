@@ -131,7 +131,8 @@ class DevServer {
             STATIC_PREFIX,
             Arrays.asList(cfg.getStringList("gitiles", null, "customTemplates")),
             sourceRoot.resolve("resources/com/google/gitiles/templates").toString(),
-            firstNonNull(cfg.getString("gitiles", null, "siteTitle"), "Gitiles"));
+            firstNonNull(cfg.getString("gitiles", null, "siteTitle"), "Gitiles"),
+            cfg.getString("gitiles", null, "renderer"));
 
     String docRoot = cfg.getString("gitiles", null, "docroot");
     Servlet servlet;

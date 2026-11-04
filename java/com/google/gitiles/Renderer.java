@@ -27,14 +27,9 @@ import com.google.common.hash.Funnels;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
-import com.google.common.html.types.LegacyConversions;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Resources;
 import com.google.common.net.HttpHeaders;
-import com.google.template.soy.data.SanitizedContent;
-import com.google.template.soy.data.SanitizedContent.ContentKind;
-import com.google.template.soy.data.SanitizedContents;
-import com.google.template.soy.jbcsrc.api.SoySauce;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +53,7 @@ import org.eclipse.jgit.revwalk.RevObject;
 import org.eclipse.jgit.revwalk.RevWalk;
 
 /**
- * Renderer for Soy templates used by Gitiles.
+ * Renderer for templates used by Gitiles.
  *
  * <p>Most callers should not use the methods in this class directly, and instead use one of the
  * HTML methods in {@link BaseServlet}.
@@ -67,19 +62,11 @@ public abstract class Renderer {
   // Must match .streamingPlaceholder.
   private static final String PLACEHOLDER = "id=\"STREAMED-OUTPUT-BLOCK\"";
 
-  private static final SanitizedContent THEME_INIT_SCRIPT;
-  private static final SanitizedContent THEME_TOGGLE_SCRIPT;
   protected static final String THEME_INIT_SCRIPT_STRING;
   protected static final String THEME_TOGGLE_SCRIPT_STRING;
 
   static {
     try {
-      THEME_INIT_SCRIPT =
-          SanitizedContents.fromResource(
-              Renderer.class, "static/theme-init.js", UTF_8, ContentKind.JS);
-      THEME_TOGGLE_SCRIPT =
-          SanitizedContents.fromResource(
-              Renderer.class, "static/theme-toggle.js", UTF_8, ContentKind.JS);
       THEME_INIT_SCRIPT_STRING =
           Resources.toString(Resources.getResource(Renderer.class, "static/theme-init.js"), UTF_8);
       THEME_TOGGLE_SCRIPT_STRING =
@@ -170,56 +157,43 @@ public abstract class Renderer {
     this.siteTitle = siteTitle;
   }
 
-  public HashCode getTemplateHash(String soyFile) {
-    return hashes.computeIfAbsent(soyFile, this::computeTemplateHash);
+  public HashCode getTemplateHash(String templateFile) {
+    return hashes.computeIfAbsent(templateFile, this::computeTemplateHash);
   }
 
-  HashCode computeTemplateHash(String soyFile) {
-    URL u = templates.get(soyFile);
-    checkState(u != null, "Missing Soy template %s", soyFile);
+  HashCode computeTemplateHash(String templateFile) {
+    URL u = templates.get(templateFile);
+    checkState(u != null, "Missing template %s", templateFile);
 
     Hasher h = Hashing.murmur3_128().newHasher();
     try (InputStream is = u.openStream();
         OutputStream os = Funnels.asOutputStream(h)) {
       ByteStreams.copy(is, os);
     } catch (IOException e) {
-      throw new IllegalStateException("Missing Soy template " + soyFile, e);
+      throw new IllegalStateException("Missing template " + templateFile, e);
     }
     return h.hash();
   }
 
-  public void render(Appendable out, String templateName, Map<String, ?> data) throws IOException {
-    SoySauce.Renderer r = newRenderer(templateName).setData(data);
-    if (!r.renderHtml(out).result().isDone()) {
-      throw new IOException("failed to render HTML");
-    }
-  }
+  public abstract void render(Appendable out, String templateName, Map<String, ?> data)
+      throws IOException;
 
   public String render(String templateName, Map<String, ?> data) {
     return render(templateName, Optional.empty(), data);
   }
 
-  public String render(
-      String templateName, Optional<HttpServletRequest> req, Map<String, ?> data) {
-    try {
-      return newRenderer(templateName, req).setData(data).renderHtml().get().toString();
-    } catch (IOException e) {
-      throw new java.io.UncheckedIOException(e);
-    }
-  }
+  public abstract String render(
+      String templateName, Optional<HttpServletRequest> req, Map<String, ?> data);
 
   void renderHtml(
-      HttpServletRequest req, HttpServletResponse res, String templateName, Map<String, ?> soyData)
+      HttpServletRequest req,
+      HttpServletResponse res,
+      String templateName,
+      Map<String, ?> templateData)
       throws IOException {
     res.setContentType("text/html");
     res.setCharacterEncoding("UTF-8");
-    byte[] data =
-        newRenderer(templateName, Optional.of(req))
-            .setData(soyData)
-            .renderHtml()
-            .get()
-            .toString()
-            .getBytes(UTF_8);
+    byte[] data = render(templateName, Optional.of(req), templateData).getBytes(UTF_8);
     if (BaseServlet.acceptsGzipEncoding(req)) {
       res.addHeader(HttpHeaders.VARY, HttpHeaders.ACCEPT_ENCODING);
       res.setHeader(HttpHeaders.CONTENT_ENCODING, "gzip");
@@ -230,9 +204,12 @@ public abstract class Renderer {
   }
 
   OutputStream renderHtmlStreaming(
-      HttpServletRequest req, HttpServletResponse res, String templateName, Map<String, ?> soyData)
+      HttpServletRequest req,
+      HttpServletResponse res,
+      String templateName,
+      Map<String, ?> templateData)
       throws IOException {
-    return renderHtmlStreaming(req, res, false, templateName, soyData);
+    return renderHtmlStreaming(req, res, false, templateName, templateData);
   }
 
   OutputStream renderHtmlStreaming(
@@ -240,10 +217,9 @@ public abstract class Renderer {
       HttpServletResponse res,
       boolean gzip,
       String templateName,
-      Map<String, ?> soyData)
+      Map<String, ?> templateData)
       throws IOException {
-    String html =
-        newRenderer(templateName, Optional.of(req)).setData(soyData).renderHtml().get().toString();
+    String html = render(templateName, Optional.of(req), templateData);
     int id = html.indexOf(PLACEHOLDER);
     checkArgument(id >= 0, "Template must contain %s", PLACEHOLDER);
 
@@ -278,39 +254,6 @@ public abstract class Renderer {
         }
       }
     };
-  }
-
-  SoySauce.Renderer newRenderer(String templateName) throws IOException {
-    return newRenderer(templateName, Optional.empty());
-  }
-
-  SoySauce.Renderer newRenderer(String templateName, Optional<HttpServletRequest> req)
-      throws IOException {
-    ImmutableMap.Builder<String, Object> staticUrls = ImmutableMap.builder();
-    for (String key : STATIC_URL_GLOBALS.keySet()) {
-      staticUrls.put(
-          key.replaceFirst("^gitiles\\.", ""),
-          LegacyConversions.riskilyAssumeTrustedResourceUrl(globals.get(key)));
-    }
-    ImmutableMap.Builder<String, Object> ij =
-        ImmutableMap.<String, Object>builder()
-            .put("staticUrls", staticUrls.buildOrThrow())
-            .put("SITE_TITLE", siteTitle)
-            .put("THEME_INIT_SCRIPT", THEME_INIT_SCRIPT)
-            .put("THEME_TOGGLE_SCRIPT", THEME_TOGGLE_SCRIPT);
-    Optional<String> nonce = req.map((r) -> (String) r.getAttribute("nonce"));
-    if (nonce.isPresent()) {
-      ij.put("csp_nonce", nonce.get());
-    }
-    if (req.isPresent() && fileSearchEnabled(req.get())) {
-      String searchTreeUrl = fileSearchTreeUrl(req.get());
-      if (searchTreeUrl != null) {
-        ij.put("SEARCH_TREE_URL", searchTreeUrl);
-      } else if (isHostIndex(req.get())) {
-        ij.put("SEARCH_REPOSITORIES", true);
-      }
-    }
-    return getSauce().renderTemplate(templateName).setIj(ij.buildOrThrow());
   }
 
   /**
@@ -417,19 +360,5 @@ public abstract class Renderer {
       RevObject head = walk.peel(walk.parseAny(headId));
       return head.getType() == OBJ_COMMIT ? head.copy() : null;
     }
-  }
-
-  protected SoySauce getSauce() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * Give a resource URL of a soy template file, returns the import path for use in a Soy import
-   * statement.
-   */
-  protected String toSoySrcPath(URL templateUrl) {
-    String filePath = templateUrl.getPath();
-    String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
-    return "com/google/gitiles/templates/" + fileName;
   }
 }
