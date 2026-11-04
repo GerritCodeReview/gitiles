@@ -9,6 +9,7 @@ DEPS = [
     "//lib:jgit-servlet",
     "//lib/flogger",
     "//lib/soy",
+    "//lib/thymeleaf",
 ]
 
 java_library(

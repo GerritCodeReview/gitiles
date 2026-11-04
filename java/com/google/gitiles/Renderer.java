@@ -29,6 +29,7 @@ import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import com.google.common.html.types.LegacyConversions;
 import com.google.common.io.ByteStreams;
+import com.google.common.io.Resources;
 import com.google.common.net.HttpHeaders;
 import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.data.SanitizedContent.ContentKind;
@@ -68,6 +69,8 @@ public abstract class Renderer {
 
   private static final SanitizedContent THEME_INIT_SCRIPT;
   private static final SanitizedContent THEME_TOGGLE_SCRIPT;
+  protected static final String THEME_INIT_SCRIPT_STRING;
+  protected static final String THEME_TOGGLE_SCRIPT_STRING;
 
   static {
     try {
@@ -77,6 +80,11 @@ public abstract class Renderer {
       THEME_TOGGLE_SCRIPT =
           SanitizedContents.fromResource(
               Renderer.class, "static/theme-toggle.js", UTF_8, ContentKind.JS);
+      THEME_INIT_SCRIPT_STRING =
+          Resources.toString(Resources.getResource(Renderer.class, "static/theme-init.js"), UTF_8);
+      THEME_TOGGLE_SCRIPT_STRING =
+          Resources.toString(
+              Resources.getResource(Renderer.class, "static/theme-toggle.js"), UTF_8);
     } catch (IOException e) {
       throw new ExceptionInInitializerError(e);
     }
@@ -178,6 +186,26 @@ public abstract class Renderer {
       throw new IllegalStateException("Missing Soy template " + soyFile, e);
     }
     return h.hash();
+  }
+
+  public void render(Appendable out, String templateName, Map<String, ?> data) throws IOException {
+    SoySauce.Renderer r = newRenderer(templateName).setData(data);
+    if (!r.renderHtml(out).result().isDone()) {
+      throw new IOException("failed to render HTML");
+    }
+  }
+
+  public String render(String templateName, Map<String, ?> data) {
+    return render(templateName, Optional.empty(), data);
+  }
+
+  public String render(
+      String templateName, Optional<HttpServletRequest> req, Map<String, ?> data) {
+    try {
+      return newRenderer(templateName, req).setData(data).renderHtml().get().toString();
+    } catch (IOException e) {
+      throw new java.io.UncheckedIOException(e);
+    }
   }
 
   void renderHtml(
@@ -297,7 +325,7 @@ public abstract class Renderer {
    * HTML, so it is present on every page that could carry the finder, and a request that somehow
    * arrives without one is left with the default rather than silently losing the feature.
    */
-  private static boolean fileSearchEnabled(HttpServletRequest req) throws IOException {
+  protected static boolean fileSearchEnabled(HttpServletRequest req) throws IOException {
     Optional<GitilesAccess> access = GitilesAccess.getAccess(req);
     if (access.isEmpty()) {
       return true;
@@ -314,7 +342,7 @@ public abstract class Renderer {
    * the document rather than asking for them a second time. That also makes the finder's answers
    * agree with the page by construction.
    */
-  private static boolean isHostIndex(HttpServletRequest req) {
+  protected static boolean isHostIndex(HttpServletRequest req) {
     GitilesView view = ViewFilter.getView(req);
     return view != null && view.getType() == GitilesView.Type.HOST_INDEX;
   }
@@ -333,7 +361,7 @@ public abstract class Renderer {
    * slash is what distinguishes the root tree from the revision itself.
    */
   @Nullable
-  private static String fileSearchTreeUrl(HttpServletRequest req) throws IOException {
+  protected static String fileSearchTreeUrl(HttpServletRequest req) throws IOException {
     GitilesView view = ViewFilter.getView(req);
     if (view == null || view.getRepositoryName() == null) {
       return null;
@@ -391,7 +419,9 @@ public abstract class Renderer {
     }
   }
 
-  protected abstract SoySauce getSauce();
+  protected SoySauce getSauce() {
+    throw new UnsupportedOperationException();
+  }
 
   /**
    * Give a resource URL of a soy template file, returns the import path for use in a Soy import

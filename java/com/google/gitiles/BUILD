@@ -24,6 +24,7 @@ DEPS = [
     "//lib:prettify",
     "//lib:slf4j-api",
     "//lib/soy",
+    "//lib/thymeleaf",
 ]
 
 DEPS_ALL = DEPS + [
