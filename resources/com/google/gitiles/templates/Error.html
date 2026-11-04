@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${title}, repositoryName=null, css=null, customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <h1 th:text="${title}"></h1>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+</body>
+</html>

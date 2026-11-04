@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${repositoryName}, repositoryName=null, css=(${readmeHtml != null} ? ${ {staticUrls['DOC_CSS_URL'], staticUrls['PRETTIFY_CSS_URL']} } : null), customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <h2 th:if="${description != null and description != ''}" class="RepoDescription" th:text="${description}"></h2>
+      <div th:if="${mirroredFromUrl != null and mirroredFromUrl != ''}" class="RepoMirroredFrom">
+        Mirrored from <a th:href="${mirroredFromUrl}" th:text="${mirroredFromUrl}"></a>
+      </div>
+      <div class="CloneRepo">
+        <div class="CloneRepo-title">Clone this repo:</div>
+        <input id="clone-repo-input" type="text" class="u-monospace CloneRepo-command"
+               readonly="readonly" th:value="'git clone ' + ${cloneUrl}">
+      </div>
+
+      <th:block th:if="${hasLog and ((branches != null and !branches.isEmpty()) or (tags != null and !tags.isEmpty()))}">
+        <div class="RepoShortlog">
+          <div class="RepoShortlog-refs">
+            <th:block th:if="${branches != null and !branches.isEmpty()}">
+              <div th:replace="~{RefList :: refList(type='Branches', refs=${branches}, variant='responsive')}"></div>
+              <a th:if="${moreBranchesUrl != null and moreBranchesUrl != ''}" th:href="${moreBranchesUrl}">More...</a>
+            </th:block>
+            <th:block th:if="${tags != null and !tags.isEmpty()}">
+              <div th:replace="~{RefList :: refList(type='Tags', refs=${tags}, variant='responsive')}"></div>
+              <a th:if="${moreTagsUrl != null and moreTagsUrl != ''}" th:href="${moreTagsUrl}">More...</a>
+            </th:block>
+          </div>
+          <div class="RepoShortlog-log">
+            <th:block th:replace="~{Common :: streamingPlaceholder}"></th:block>
+            <div th:if="${readmeHtml != null}" class="doc RepoIndexDoc" th:utext="${readmeHtml}"></div>
+          </div>
+        </div>
+      </th:block>
+      <th:block th:if="${hasLog and (branches == null or branches.isEmpty()) and (tags == null or tags.isEmpty())}">
+        <th:block th:replace="~{Common :: streamingPlaceholder}"></th:block>
+      </th:block>
+      <th:block th:if="${!hasLog and ((branches != null and !branches.isEmpty()) or (tags != null and !tags.isEmpty()))}">
+        <th:block th:if="${branches != null and !branches.isEmpty()}">
+          <div th:replace="~{RefList :: refList(type='Branches', refs=${branches}, variant='responsive')}"></div>
+          <a th:if="${moreBranchesUrl != null and moreBranchesUrl != ''}" th:href="${moreBranchesUrl}">More...</a>
+        </th:block>
+        <th:block th:if="${tags != null and !tags.isEmpty()}">
+          <div th:replace="~{RefList :: refList(type='Tags', refs=${tags}, variant='responsive')}"></div>
+          <a th:if="${moreTagsUrl != null and moreTagsUrl != ''}" th:href="${moreTagsUrl}">More...</a>
+        </th:block>
+      </th:block>
+      <th:block th:if="${!hasLog and (branches == null or branches.isEmpty()) and (tags == null or tags.isEmpty())}">
+        <h1 class="EmptyRepo-header">Empty Repository</h1>
+        <p class="EmptyRepo-description">This repository is empty. Push to it to show branches and history.</p>
+      </th:block>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+
+  <script th:attr="nonce=${csp_nonce}">
+    {
+      let f = document.getElementById("clone-repo-input");
+      f.onclick = () => {
+        f.focus();
+        if (f.selectionStart === f.selectionEnd) {
+            f.select();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

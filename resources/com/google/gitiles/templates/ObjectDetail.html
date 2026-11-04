@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="commitDetail(author, committer, sha, tree, treeUrl, parents, message, notes, diffTree, logUrl, archiveUrl, archiveType)">
+    <div class="u-monospace Metadata">
+      <dl class="Metadata-descriptionList">
+        <div class="Metadata-row">
+          <dt class="Metadata-title">commit</dt>
+          <dd class="Metadata-description">
+            <div class="Metadata-descriptionCell" th:text="${sha}"></div>
+            <div class="Metadata-descriptionCell">
+              <span>[<a th:href="${logUrl}">log</a>]</span>
+              <span th:if="${archiveUrl != null and archiveUrl != ''}"> [<a th:href="${archiveUrl}" th:text="${archiveType}"></a>]</span>
+            </div>
+          </dd>
+        </div>
+        <div class="Metadata-row">
+          <dt class="Metadata-title">author</dt>
+          <dd class="Metadata-description">
+            <div class="Metadata-descriptionCell">
+              <th:block th:if="${author != null}"><th:block th:replace="~{ObjectDetail :: person(name=(${author != null ? author['name'] : ''}), email=(${author != null ? author['email'] : ''}))}"></th:block></th:block>
+            </div>
+            <div class="Metadata-descriptionCell" th:text="${author != null ? author['time'] : ''}"></div>
+          </dd>
+        </div>
+        <div class="Metadata-row">
+          <dt class="Metadata-title">committer</dt>
+          <dd class="Metadata-description">
+            <div class="Metadata-descriptionCell">
+              <th:block th:if="${committer != null}"><th:block th:replace="~{ObjectDetail :: person(name=(${committer != null ? committer['name'] : ''}), email=(${committer != null ? committer['email'] : ''}))}"></th:block></th:block>
+            </div>
+            <div class="Metadata-descriptionCell" th:text="${committer != null ? committer['time'] : ''}"></div>
+          </dd>
+        </div>
+        <div class="Metadata-row">
+          <dt class="Metadata-title">tree</dt>
+          <dd class="Metadata-description">
+            <div class="Metadata-descriptionCell">
+              <a th:href="${treeUrl}" th:text="${tree}"></a>
+            </div>
+          </dd>
+        </div>
+        <div th:if="${parents != null}" th:each="parent : ${parents}" class="Metadata-row">
+          <dt class="Metadata-title">parent</dt>
+          <dd class="Metadata-description">
+            <div class="Metadata-descriptionCell">
+              <a th:href="${parent['url']}" th:text="${parent['sha']}"></a>
+              <span>[<a th:href="${parent['diffUrl']}">diff</a>]<th:block th:if="${parent['blameUrl'] != null}"> [<a th:href="${parent['blameUrl']}">blame</a>]</th:block></span>
+            </div>
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <th:block th:replace="~{ObjectDetail :: message(className='u-pre u-monospace MetadataMessage', message=${message})}"></th:block>
+    <th:block th:if="${notes != null and notes != ''}">
+      <h4>Notes:</h4>
+      <div class="MetadataMessage"><span th:text="${notes}"></span></div>
+    </th:block>
+    <th:block th:if="${diffTree != null and !diffTree.isEmpty()}">
+      <ul class="DiffTree">
+        <li th:each="entry : ${diffTree}"><a th:href="${entry['url']}" th:text="${entry['path']}"></a><span th:if="${entry['changeType'] == 'ADD'}" class="DiffTree-action DiffTree-action--add">[Added - <a th:href="${entry['diffUrl']}">diff</a>]</span><span th:if="${entry['changeType'] == 'MODIFY'}" class="DiffTree-action DiffTree-action--modify">[<a th:href="${entry['diffUrl']}">diff</a>]</span><span th:if="${entry['changeType'] == 'DELETE'}" class="DiffTree-action DiffTree-action--delete">[Deleted - <a th:href="${entry['diffUrl']}">diff</a>]</span><span th:if="${entry['changeType'] == 'RENAME'}" class="DiffTree-action DiffTree-action--rename">[Renamed from <th:block th:text="${entry['oldPath']}"></th:block> - <a th:href="${entry['diffUrl']}">diff</a>]</span><span th:if="${entry['changeType'] == 'COPY'}" class="DiffTree-action DiffTree-action--copy">[Copied from <th:block th:text="${entry['oldPath']}"></th:block> - <a th:href="${entry['diffUrl']}">diff</a>]</span></li>
+      </ul>
+      <div class="DiffSummary" th:text="${diffTree.size() == 1 ? '1 file changed' : diffTree.size() + ' files changed'}"></div>
+    </th:block>
+  </th:block>
+
+  <div th:fragment="treeDetail(sha, logUrl, grepUrl, archiveUrl, archiveType, entries, readmePath, readmeHtml)" class="TreeDetail">
+    <div class="u-sha1 u-monospace TreeDetail-sha1"><th:block th:text="'tree: ' + ${sha}"></th:block><th:block th:if="${logUrl != null and logUrl != ''}"> [<a th:href="${logUrl}">path history</a>]</th:block><th:block th:if="${grepUrl != null and grepUrl != ''}"> [<a th:href="${grepUrl}">search</a>]</th:block><th:block th:if="${archiveUrl != null and archiveUrl != ''}"> <span>[<a th:href="${archiveUrl}" th:text="${archiveType}"></a>]</span></th:block></div>
+    <ol th:if="${entries != null and !entries.isEmpty()}" class="FileList">
+      <th:block th:each="entry : ${entries}" th:switch="${entry.type}">
+        <li th:case="'REGULAR_FILE'" class="FileList-item FileList-item--regularFile" th:title="'Regular file - ' + ${entry.name}">
+          <a class="FileList-itemLink" th:href="${entry.url}" th:text="${entry.name}"></a>
+        </li>
+        <li th:case="'TREE'" class="FileList-item FileList-item--gitTree" th:title="'Tree - ' + ${entry.name}">
+          <a class="FileList-itemLink" th:href="${entry.url}" th:text="${entry.name}"></a>
+        </li>
+        <li th:case="'EXECUTABLE_FILE'" class="FileList-item FileList-item--executableFile" th:title="'Executable file - ' + ${entry.name}">
+          <a class="FileList-itemLink" th:href="${entry.url}" th:text="${entry.name}"></a>
+        </li>
+        <li th:case="'SYMLINK'" class="FileList-item FileList-item--symlink" th:title="'Symlink - ' + ${entry.name}">
+          <a class="FileList-itemLink" th:href="${entry.url}" th:text="${entry.name}"></a>
+          &#x21e8;
+          <a th:if="${entry.targetUrl != null and entry.targetUrl != ''}" th:href="${entry.targetUrl}" th:text="${entry.targetName}"></a>
+          <th:block th:unless="${entry.targetUrl != null and entry.targetUrl != ''}" th:text="${entry.targetName}"></th:block>
+        </li>
+        <li th:case="'GITLINK'" class="FileList-item gitlink" th:title="'Git submodule link - ' + ${entry.name}">
+          <a class="FileList-itemLink" th:href="${entry.url}" th:text="${entry.name}"></a>
+        </li>
+        <li th:case="*" class="FileList-item regular-file" th:title="'Other - ' + ${entry.name}">
+          <a class="FileList-itemLink" th:href="${entry.url}" th:text="${entry.name}"></a>
+        </li>
+      </th:block>
+    </ol>
+    <p th:if="${entries == null or entries.isEmpty()}">This tree is empty.</p>
+    <div th:if="${readmeHtml != null}" class="InlineReadme">
+      <div class="InlineReadme-path" th:text="${readmePath}"></div>
+      <div class="doc" th:utext="${readmeHtml}"></div>
+    </div>
+  </div>
+
+  <div th:fragment="blobHeader(sha, fileUrl, logUrl, blameUrl, docUrl, editUrl)" class="u-sha1 u-monospace BlobSha1"><th:block th:text="'blob: ' + ${sha}"></th:block><th:block th:if="${fileUrl != null and fileUrl != ''}"> [<a th:href="${fileUrl}">file</a>]</th:block><th:block th:if="${logUrl != null and logUrl != ''}"> [<a th:href="${logUrl}">log</a>]</th:block><th:block th:if="${blameUrl != null and blameUrl != ''}"> [<a th:href="${blameUrl}">blame</a>]</th:block><th:block th:if="${docUrl != null and docUrl != ''}"> [<a th:href="${docUrl}">view</a>]</th:block><th:block th:if="${editUrl != null and editUrl != ''}"> [<a th:href="${editUrl}">edit</a>]</th:block></div>
+
+  <th:block th:fragment="blobDetail(sha, fileUrl, logUrl, blameUrl, docUrl, editUrl, imgBlob, lines, size)">
+    <div th:replace="~{ObjectDetail :: blobHeader(sha=${sha}, fileUrl=${fileUrl}, logUrl=${logUrl}, blameUrl=${blameUrl}, docUrl=${docUrl}, editUrl=${editUrl})}"></div>
+    <th:block th:if="${lines != null}">
+      <th:block th:if="${!lines.isEmpty()}">
+        <table class="FileContents">
+          <tr th:each="line, stat : ${lines}" class="u-pre u-monospace FileContents-line">
+            <td class="u-lineNum u-noSelect FileContents-lineNum" th:data-line-number="${stat.count}"></td>
+            <td class="FileContents-lineContents" th:id="${stat.count}"><span th:each="span : ${line}" th:class="${span.classes}" th:text="${span.text}"></span></td>
+          </tr>
+        </table>
+        <script th:attr="nonce=${csp_nonce}">
+          for (let lineNumEl of document.querySelectorAll('td.u-lineNum')) {
+            lineNumEl.onclick = () => {
+              window.location.hash =
+                  `#${lineNumEl.getAttribute('data-line-number')}`;
+            };
+          }
+        </script>
+      </th:block>
+      <div th:if="${lines.isEmpty()}" class="FileContents-empty">Empty file</div>
+    </th:block>
+    <div th:if="${lines == null}" class="FileContents-binary">
+      <img th:if="${imgBlob != null and imgBlob != ''}" th:src="${imgBlob}"/>
+      <th:block th:unless="${imgBlob != null and imgBlob != ''}" th:text="${size} + '-byte binary file'"></th:block>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="tagDetail(sha, tagger, object, message)">
+    <div class="u-monospace Metadata">
+      <dl class="Metadata-descriptionList">
+        <div class="Metadata-row">
+          <dt class="Metadata-title">tag</dt>
+          <dd class="Metadata-description">
+            <div class="sha Metadata-descriptionCell" th:text="${sha}"></div>
+            <div class="Metadata-descriptionCell"> </div>
+          </dd>
+        </div>
+        <div th:if="${tagger != null}" class="Metadata-row">
+          <dt class="Metadata-title">tagger</dt>
+          <dd class="Metadata-description">
+            <div class="Metadata-descriptionCell">
+              <th:block th:replace="~{ObjectDetail :: person(name=(${tagger != null ? tagger['name'] : ''}), email=(${tagger != null ? tagger['email'] : ''}))}"></th:block>
+            </div>
+            <div class="Metadata-descriptionCell" th:text="${tagger != null ? tagger['time'] : ''}"></div>
+          </dd>
+        </div>
+        <div class="Metadata-row">
+          <dt class="Metadata-title">object</dt>
+          <dd class="Metadata-description">
+            <div class="sha Metadata-descriptionCell" th:text="${object}"></div>
+            <div class="Metadata-descriptionCell"> </div>
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <th:block th:if="${message != null and !message.isEmpty()}">
+      <th:block th:replace="~{ObjectDetail :: message(className='u-pre u-monospace MetadataMessage', message=${message})}"></th:block>
+    </th:block>
+  </th:block>
+
+  <div th:fragment="symlinkDetail(target, targetUrl)" class="symlink-detail">
+    Symbolic link to <a th:if="${targetUrl != null and targetUrl != ''}" th:href="${targetUrl}" th:text="${target}"></a><th:block th:unless="${targetUrl != null and targetUrl != ''}" th:text="${target}"></th:block>
+  </div>
+
+  <div th:fragment="gitlinkDetail(sha, remoteUrl, httpUrl)" class="gitlink-detail">
+    Submodule link to <th:block th:text="${sha}"></th:block> of
+    <th:block th:if="${remoteUrl != null and remoteUrl != ''}">
+      <a th:if="${httpUrl != null and httpUrl != ''}" th:href="${httpUrl}" th:text="${remoteUrl}"></a>
+      <th:block th:unless="${httpUrl != null and httpUrl != ''}" th:text="${remoteUrl}"></th:block>
+    </th:block>
+    <th:block th:unless="${remoteUrl != null and remoteUrl != ''}"> a submodule with an unknown URL</th:block>
+  </div>
+
+  <th:block th:fragment="person(name, email)"><th:block th:text="${name}"></th:block><th:block th:if="${email != null and email != ''}"> &lt;<th:block th:text="${email}"></th:block>&gt;</th:block></th:block>
+
+  <pre th:fragment="message(className, message)" th:class="${className}"><th:block th:if="${message != null}"><th:block th:if="${message instanceof java.lang.String}" th:text="${message}"></th:block><th:block th:unless="${message instanceof java.lang.String}" th:each="part : ${message}"><a th:if="${part['url'] != null and part['url'] != ''}" th:href="${part['url']}" th:text="${part['text']}"></a><th:block th:unless="${part['url'] != null and part['url'] != ''}" th:text="${part['text']}"></th:block></th:block></th:block></pre>
+</body>
+</html>

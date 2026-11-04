@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title='Refs', repositoryName=${repositoryName}, css=null, customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <div class="Refs">
+        <th:block th:if="${branches != null and !branches.isEmpty()}">
+          <div th:replace="~{RefList :: refList(type='Branches', refs=${branches}, variant='column')}"></div>
+        </th:block>
+        <th:block th:if="${tags != null and !tags.isEmpty()}">
+          <div th:replace="~{RefList :: refList(type='Tags', refs=${tags}, variant='column')}"></div>
+        </th:block>
+      </div>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+
+  <th:block th:if="${false}">
+    <div th:fragment="refList(type, refs, variant)" th:class="'RefList RefList--' + (${variant != null and variant != ''} ? ${variant} : 'column')">
+      <h3 class="RefList-title" th:text="${type}"></h3>
+      <ul class="RefList-items">
+        <li th:each="ref : ${refs}" class="RefList-item">
+          <a th:href="${ref.url}" th:text="${ref.name}"></a>
+        </li>
+      </ul>
+    </div>
+  </th:block>
+</body>
+</html>

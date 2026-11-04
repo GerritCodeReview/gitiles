@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title, repositoryName, css, customVariant)">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="(${title} != null ? ${title} : '') + (${repositoryName != null and repositoryName != ''} ? ' - ' + ${repositoryName} : '') + ' - ' + (${SITE_TITLE} != null ? ${SITE_TITLE} : 'Gitiles')"></title>
+
+  <link rel="icon" th:href="${staticUrls['FAVICON_ICO_URL']}" sizes="any">
+  <link rel="icon" type="image/svg+xml" th:href="${staticUrls['FAVICON_SVG_URL']}">
+  <link rel="icon" type="image/png" sizes="32x32" th:href="${staticUrls['FAVICON_32_URL']}">
+  <link rel="icon" type="image/png" sizes="16x16" th:href="${staticUrls['FAVICON_16_URL']}">
+  <link rel="apple-touch-icon" sizes="180x180" th:href="${staticUrls['APPLE_TOUCH_ICON_URL']}">
+  <link rel="stylesheet" th:attr="type='text/css'" th:href="${staticUrls['BASE_CSS_URL']}">
+  <th:block th:if="${css != null and !css.isEmpty()}">
+    <link th:each="url : ${css}" rel="stylesheet" th:attr="type='text/css'" th:href="${url}">
+  </th:block>
+  <th:block th:replace="~{Common :: customHeadTagPart(customVariant=${customVariant})}"></th:block>
+  <th:block th:replace="~{Common :: themeScript}"></th:block>
+</head>
+<body class="Site">
+  <th:block th:fragment="siteHeader(menuEntries, customVariant)">
+    <header class="Site-header">
+      <div class="Header">
+        <th:block th:replace="~{Common :: customHeader(customVariant=${customVariant})}"></th:block>
+
+        <div class="Header-menu">
+          <th:block th:if="${menuEntries != null and !menuEntries.isEmpty()}" th:each="entry : ${menuEntries}">
+            <a th:if="${entry.url != null and entry.url != ''}" class="Header-menuItem" th:href="${entry.url}" th:text="${entry.text}"></a>
+            <span th:unless="${entry.url != null and entry.url != ''}" class="Header-menuItem Header-menuItem--noAction" th:text="${entry.text}"></span>
+          </th:block>
+          <th:block th:replace="~{Common :: fileSearchTrigger}"></th:block>
+          <th:block th:replace="~{Common :: themeToggle}"></th:block>
+        </div>
+      </div>
+    </header>
+    <th:block th:replace="~{Common :: fileSearch}"></th:block>
+  </th:block>
+
+  <th:block th:fragment="breadcrumbs(breadcrumbs)">
+    <div th:if="${breadcrumbs != null and !breadcrumbs.isEmpty()}" class="Breadcrumbs"><th:block th:each="entry, stat : ${breadcrumbs}"><span th:if="${stat.index > 0}" class="Breadcrumbs-sep">/</span><a th:if="${stat.index < stat.size - 1}" class="Breadcrumbs-crumb" th:href="${entry.url}" th:text="${entry.text}"></a><span th:if="${stat.index == stat.size - 1}" class="Breadcrumbs-crumb" th:text="${entry.text}"></span></th:block></div>
+  </th:block>
+
+  <th:block th:fragment="themeScript">
+    <script th:attr="nonce=${csp_nonce}" th:utext="${THEME_INIT_SCRIPT}"></script>
+  </th:block>
+
+  <th:block th:fragment="themeToggle">
+    <button class="Header-menuItem Header-themeToggle" id="gitiles-theme-toggle" type="button" title="Toggle theme (Auto / Dark / Light)" aria-label="Toggle theme">
+      <span class="Header-themeIcon" aria-hidden="true">&#9681;</span>
+      <span class="Header-themeLabel">Theme</span>
+    </button>
+    <script th:attr="nonce=${csp_nonce}" th:utext="${THEME_TOGGLE_SCRIPT}"></script>
+  </th:block>
+
+  <th:block th:fragment="fileSearchTrigger">
+    <button th:if="${SEARCH_TREE_URL != null or SEARCH_REPOSITORIES == true}"
+        th:with="label=${SEARCH_REPOSITORIES == true ? 'Find repository' : 'Find file'}"
+        class="Header-menuItem FileSearch-trigger" type="button"
+        th:title="${label + ' (press /)'}" th:attr="aria-label=${label}">
+      <span class="FileSearch-triggerKey" aria-hidden="true">/</span>
+      <span class="FileSearch-triggerLabel" th:text="${label}"></span>
+    </button>
+  </th:block>
+
+  <th:block th:fragment="fileSearch">
+    <th:block th:if="${SEARCH_TREE_URL != null or SEARCH_REPOSITORIES == true}"
+        th:with="dialogLabel=${SEARCH_TREE_URL != null ? 'Find file' : 'Find repository'}, inputLabel=${SEARCH_TREE_URL != null ? 'Find a file by path' : 'Find a repository by name'}">
+      <div id="file-search" class="FileSearch" hidden
+           th:attr="data-kind=${SEARCH_TREE_URL != null ? 'files' : 'repositories'}, data-tree-url=${SEARCH_TREE_URL}, data-worker-url=${staticUrls['FILE_SEARCH_WORKER_JS_URL']}">
+        <div class="FileSearch-backdrop"></div>
+        <div class="FileSearch-modal" role="dialog" aria-modal="true" th:attr="aria-label=${dialogLabel}">
+          <input class="FileSearch-input" type="text" role="combobox" aria-expanded="true"
+                 aria-autocomplete="list" autocomplete="off" autocorrect="off"
+                 autocapitalize="off" spellcheck="false" th:placeholder="${inputLabel}"
+                 th:attr="aria-label=${inputLabel}" aria-controls="file-search-results">
+          <div class="FileSearch-status" role="status" aria-live="polite"></div>
+          <ul class="FileSearch-results" id="file-search-results" role="listbox"
+              th:attr="aria-label=${dialogLabel}"></ul>
+        </div>
+      </div>
+      <script th:attr="nonce=${csp_nonce}" th:src="${staticUrls['FILE_SEARCH_JS_URL']}" defer></script>
+    </th:block>
+  </th:block>
+
+  <th:block th:fragment="customHeadTagPart(customVariant)">
+    <th:block th:if="${customVariant != null and customVariant != '' and hasCustomHeadTagPart == true}">
+      <th:block th:replace="~{CustomTemplates :: customHeadTagPart}"></th:block>
+    </th:block>
+    <th:block th:unless="${customVariant != null and customVariant != '' and hasCustomHeadTagPart == true}">
+      <!-- default customHeadTagPart -->
+    </th:block>
+  </th:block>
+
+  <th:block th:fragment="customHeader(customVariant)">
+    <th:block th:if="${customVariant != null and customVariant != '' and hasCustomHeader == true}">
+      <th:block th:replace="~{CustomTemplates :: customHeader}"></th:block>
+    </th:block>
+    <th:block th:unless="${customVariant != null and customVariant != '' and hasCustomHeader == true}">
+      <!-- default customHeader -->
+      <div class="Header-title" th:text="${SITE_TITLE}">Gitiles</div>
+    </th:block>
+  </th:block>
+
+  <span class="Footer-poweredBy" th:fragment="footerPoweredBy">Powered by <a href="https://gerrit.googlesource.com/gitiles/">Gitiles</a></span>
+
+  <span class="Footer-formats" th:fragment="footerFormatBadge"><a class="u-monospace Footer-formatsItem" href="?format=TEXT">txt</a> <a class="u-monospace Footer-formatsItem" href="?format=JSON">json</a></span>
+
+  <th:block th:fragment="customFooter(customVariant)">
+    <th:block th:if="${customVariant != null and customVariant != '' and hasCustomFooter == true}">
+      <footer th:replace="~{CustomTemplates :: customFooter}"></footer>
+    </th:block>
+    <footer class="Site-footer" th:unless="${customVariant != null and customVariant != '' and hasCustomFooter == true}">
+      <!-- default customFooter -->
+      <div class="Footer">
+        <th:block th:replace="~{Common :: footerPoweredBy}"></th:block>
+        <th:block th:replace="~{Common :: footerFormatBadge}"></th:block>
+      </div>
+    </footer>
+  </th:block>
+
+  <th:block th:fragment="streamingPlaceholder"><br id="STREAMED-OUTPUT-BLOCK"></th:block>
+</body>
+</html>

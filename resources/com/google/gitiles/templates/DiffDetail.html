@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${title}, repositoryName=${repositoryName}, css=null, customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <th:block th:if="${commit != null}"><th:block th:replace="~{ObjectDetail :: commitDetail(author=${commit['author']}, committer=${commit['committer']}, sha=${commit['sha']}, tree=${commit['tree']}, treeUrl=${commit['treeUrl']}, parents=${commit['parents']}, message=${commit['message']}, notes=${commit['notes']}, diffTree=null, logUrl=${commit['logUrl']}, archiveUrl=${commit['archiveUrl']}, archiveType=${commit['archiveType']})}"></th:block></th:block>
+      <th:block th:replace="~{Common :: streamingPlaceholder}"></th:block>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+
+  <th:block th:if="${false}">
+    <pre th:fragment="diffHeader(firstParts, rest, fileIndex)" class="u-pre u-monospace Diff"><a th:name="'F' + ${fileIndex}" class="Diff-fileIndex"></a><th:block th:each="part, stat : ${firstParts}"><th:block th:if="${stat.index > 0}"> </th:block><a th:if="${part['url'] != null and part['url'] != ''}" th:href="${part['url']}" th:text="${part['text']}"></a><th:block th:unless="${part['url'] != null and part['url'] != ''}" th:text="${part['text']}"></th:block></th:block>
+<th:block th:text="${rest}"></th:block></pre>
+  </th:block>
+</body>
+</html>

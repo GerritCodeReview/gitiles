@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${title}, repositoryName=${repositoryName}, css=(${hasBlob} ? ${ {staticUrls['PRETTIFY_CSS_URL']} } : (${hasReadme} ? ${ {staticUrls['DOC_CSS_URL'], staticUrls['PRETTIFY_CSS_URL']} } : null)), customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <th:block th:each="object : ${objects}">
+        <th:block th:if="${object.type == 'commit'}"><th:block th:replace="~{ObjectDetail :: commitDetail(author=${object.data.author}, committer=${object.data.committer}, sha=${object.data.sha}, tree=${object.data.tree}, treeUrl=${object.data.treeUrl}, parents=${object.data.parents}, message=${object.data.message}, notes=${object.data.notes}, diffTree=${object.data.diffTree}, logUrl=${object.data.logUrl}, archiveUrl=${object.data.archiveUrl}, archiveType=${object.data.archiveType})}"></th:block></th:block>
+        <th:block th:if="${object.type == 'tree'}"><th:block th:replace="~{ObjectDetail :: treeDetail(sha=${object.data.sha}, logUrl=${object.data.logUrl}, grepUrl=${object.data.grepUrl}, archiveUrl=${object.data.archiveUrl}, archiveType=${object.data.archiveType}, entries=${object.data.entries}, readmePath=${object.data.readmePath}, readmeHtml=${object.data.readmeHtml})}"></th:block></th:block>
+        <th:block th:if="${object.type == 'blob'}"><th:block th:replace="~{ObjectDetail :: blobDetail(sha=${object.data.sha}, fileUrl=${object.data.fileUrl}, logUrl=${object.data.logUrl}, blameUrl=${object.data.blameUrl}, docUrl=${object.data.docUrl}, editUrl=${object.data.editUrl}, imgBlob=${object.data.imgBlob}, lines=${object.data.lines}, size=${object.data['size']})}"></th:block></th:block>
+        <th:block th:if="${object.type == 'tag'}"><th:block th:replace="~{ObjectDetail :: tagDetail(sha=${object.data.sha}, tagger=${object.data.tagger}, object=${object.data.object}, message=${object.data.message})}"></th:block></th:block>
+        <div th:unless="${object.type == 'commit' or object.type == 'tree' or object.type == 'blob' or object.type == 'tag'}" class="error">Object has unknown type.</div>
+      </th:block>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${title}, repositoryName=${repositoryName}, css=(${regions != null} ? ${ {staticUrls['PRETTIFY_CSS_URL']} } : null), customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div th:class="${regions != null} ? 'Container Container--fullWidth' : 'Container'">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <th:block th:if="${regions != null}">
+        <div th:replace="~{ObjectDetail :: blobHeader(sha=${data.sha}, fileUrl=${data.fileUrl}, logUrl=${data.logUrl}, blameUrl=${data.blameUrl}, docUrl=${data.docUrl}, editUrl=${data.editUrl})}"></div>
+        <table class="Blame">
+          <tr th:each="line, stat : ${data.lines}" th:with="region=${regions[stat.index]}" th:class="'Blame-region ' + (${region['class'] != null} ? ${region['class']} : '')">
+            <th:block th:if="${region.abbrevSha != null}">
+              <td class="Blame-author" th:text="${region.author.name}"></td>
+              <td class="Blame-sha1"><a class="u-sha1 u-monospace Blame-sha1" th:href="${region.commitUrl}" th:text="${region.abbrevSha}"></a></td>
+              <td class="Blame-time" th:text="${region.author.time}"></td>
+              <td class="Blame-regionLink">
+                [<a th:href="${region.diffUrl}">diff</a>]
+                [<a th:href="${region.blameUrl}" th:text="${region.blameText}"></a>]
+              </td>
+            </th:block>
+            <td th:unless="${region.abbrevSha != null}" colspan="4"></td>
+            <td class="Blame-lineNum">
+              <a class="u-monospace u-lineNum" th:href="'#' + (${stat.index + 1})" th:name="${stat.index + 1}" th:text="${stat.index + 1}"></a>
+            </td>
+            <td class="u-pre u-monospace Blame-lineContent"><span th:each="span : ${line}" th:class="${span.classes}" th:text="${span.text}"></span></td>
+          </tr>
+        </table>
+      </th:block>
+      <th:block th:unless="${regions != null}">
+        <div th:replace="~{ObjectDetail :: blobDetail(sha=${data.sha}, fileUrl=${data.fileUrl}, logUrl=${data.logUrl}, blameUrl=${data.blameUrl}, docUrl=${data.docUrl}, editUrl=${data.editUrl}, imgBlob=${data.imgBlob}, lines=${data.lines}, size=${data['size']})}"></div>
+        <div class="FileContents-binary">No blame information available</div>
+      </th:block>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+</body>
+</html>

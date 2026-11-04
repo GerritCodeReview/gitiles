@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${title}, repositoryName=${repositoryName}, css=null, customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <th:block th:if="${tags != null and !tags.isEmpty()}" th:each="tag : ${tags}">
+        <div th:replace="~{ObjectDetail :: tagDetail(sha=${tag['sha']}, tagger=${tag['tagger']}, object=${tag['object']}, message=${tag['message']})}"></div>
+      </th:block>
+      <th:block th:replace="~{Common :: streamingPlaceholder}"></th:block>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+
+  <th:block th:if="${false}">
+    <th:block th:fragment="logEntriesHeader(previousUrl)">
+      <nav th:if="${previousUrl != null and previousUrl != ''}" class="LogNav">
+        <a class="LogNav-prev" th:href="${previousUrl}">&laquo; Previous</a>
+      </nav>
+      <ol class="CommitLog">
+    </th:block>
+
+    <li th:fragment="logEntryWrapper(variant, entry)" th:class="'CommitLog-item CommitLog-item--' + ${variant}"><th:block th:replace="~{LogDetail :: logEntry(variant=${variant}, entry=${entry})}"></th:block></li>
+
+    <th:block th:fragment="logEntriesFooter(nextUrl, nextText)">
+      </ol>
+      <nav th:if="${nextUrl != null and nextUrl != ''}" class="LogNav">
+        <a class="LogNav-next" th:href="${nextUrl}"><th:block th:text="${nextText}"></th:block> &raquo;</a>
+      </nav>
+    </th:block>
+
+    <li th:fragment="emptyLog" class="CommitLog-item CommitLog-item--empty">No commits.</li>
+
+    <th:block th:fragment="logEntry(variant, entry)">
+      <th:block th:if="${variant == 'committeroneline'}">
+        <a class="u-sha1 u-monospace CommitLog-sha1" th:href="${entry['url']}" th:text="${entry['abbrevSha']}"></a> <a th:href="${entry['url']}" th:text="${entry['shortMessage']}"></a> <span th:if="${entry['author'] != null}" class="CommitLog-author" th:title="${entry['author']['email']}" th:text="'by ' + ${entry['author']['name']}"></span> <span th:if="${entry['committer'] != null}" class="CommitLog-time" th:title="${entry['committer']['time']}" th:text="'· ' + ${entry['committer']['relativeTime']}"></span><th:block th:if="${entry['branches'] != null and !entry['branches'].isEmpty()}"><th:block th:each="branch : ${entry['branches']}"> <a class="CommitLog-branchLabel" th:href="${branch['url']}" th:text="${branch['name']}"></a></th:block></th:block><th:block th:if="${entry['tags'] != null and !entry['tags'].isEmpty()}"><th:block th:each="tag : ${entry['tags']}"> <a class="CommitLog-tagLabel" th:href="${tag['url']}" th:text="${tag['name']}"></a></th:block></th:block>
+        <span th:if="${entry['rename'] != null}" class="CommitLog-rename">
+          [<th:block th:text="${entry['rename']['changeType'] == 'RENAME' ? 'Renamed' : 'Copied'}"></th:block><th:block th:if="${entry['rename']['score'] != 100}" th:text="' (' + ${entry['rename']['score']} + '%)'"></th:block> from <th:block th:text="${entry['rename']['oldPath']}"></th:block>]
+        </span>
+      </th:block>
+      <th:block th:if="${variant == 'full'}">
+        <div class="u-monospace Metadata">
+          <dl class="Metadata-descriptionList">
+            <div class="Metadata-row">
+              <dt class="Metadata-title">commit</dt>
+              <dd class="Metadata-description">
+                <div class="sha1 Metadata-descriptionCell">
+                  <a th:href="${entry['url']}" th:text="${entry['sha']}"></a>
+                </div>
+                <div class="Metadata-descriptionCell"><th:block th:if="${entry['branches'] != null and !entry['branches'].isEmpty()}"><th:block th:each="branch : ${entry['branches']}"> <a th:href="${branch['url']}" class="branch-label" th:text="${branch['name']}"></a></th:block></th:block><th:block th:if="${entry['tags'] != null and !entry['tags'].isEmpty()}"><th:block th:each="tag : ${entry['tags']}"> <a th:href="${tag['url']}" class="tag-label" th:text="${tag['name']}"></a></th:block></th:block><th:block th:unless="${entry['tags'] != null and !entry['tags'].isEmpty()}"> </th:block></div>
+              </dd>
+            </div>
+            <div class="Metadata-row">
+              <dt class="Metadata-title">author</dt>
+              <dd class="Metadata-description">
+                <div class="Metadata-descriptionCell">
+                  <th:block th:if="${entry['author'] != null}"><th:block th:replace="~{ObjectDetail :: person(name=${entry['author']['name']}, email=${entry['author']['email']})}"></th:block></th:block>
+                </div>
+                <div class="Metadata-descriptionCell" th:text="${entry['author'] != null ? entry['author']['time'] : ''}"></div>
+              </dd>
+            </div>
+            <div class="Metadata-row">
+              <dt class="Metadata-title">committer</dt>
+              <dd class="Metadata-description">
+                <div class="Metadata-descriptionCell">
+                  <th:block th:if="${entry['committer'] != null}"><th:block th:replace="~{ObjectDetail :: person(name=${entry['committer']['name']}, email=${entry['committer']['email']})}"></th:block></th:block>
+                </div>
+                <div class="Metadata-descriptionCell" th:text="${entry['committer'] != null ? entry['committer']['time'] : ''}"></div>
+              </dd>
+            </div>
+          </dl>
+          <span th:if="${entry['rename'] != null}" class="CommitLog-rename">
+            [<th:block th:text="${entry['rename']['changeType'] == 'RENAME' ? 'Renamed' : 'Copied'}"></th:block><th:block th:if="${entry['rename']['score'] != 100}" th:text="' (' + ${entry['rename']['score']} + '%)'"></th:block> from <th:block th:text="${entry['rename']['oldPath']}"></th:block>]
+          </span>
+        </div>
+        <pre class="u-pre u-monospace MetadataMessage" th:text="${entry['message']}"></pre>
+      </th:block>
+      <th:block th:if="${variant == 'fuller'}">
+        <div th:replace="~{LogDetail :: logEntry(variant='full', entry=${entry})}"></div>
+        <th:block th:if="${entry['diffTree'] != null and !entry['diffTree'].isEmpty()}">
+          <ul class="DiffTree">
+            <li th:each="diffEntry : ${entry['diffTree']}"><a th:href="${diffEntry['url']}" th:text="${diffEntry['path']}"></a><span th:if="${diffEntry['changeType'] == 'ADD'}" class="DiffTree-action DiffTree-action--add">[Added - <a th:href="${diffEntry['diffUrl']}">diff</a>]</span><span th:if="${diffEntry['changeType'] == 'MODIFY'}" class="DiffTree-action DiffTree-action--modify">[<a th:href="${diffEntry['diffUrl']}">diff</a>]</span><span th:if="${diffEntry['changeType'] == 'DELETE'}" class="DiffTree-action DiffTree-action--delete">[Deleted - <a th:href="${diffEntry['diffUrl']}">diff</a>]</span><span th:if="${diffEntry['changeType'] == 'RENAME'}" class="DiffTree-action DiffTree-action--rename">[Renamed from <th:block th:text="${diffEntry['oldPath']}"></th:block> - <a th:href="${diffEntry['diffUrl']}">diff</a>]</span><span th:if="${diffEntry['changeType'] == 'COPY'}" class="DiffTree-action DiffTree-action--copy">[Copied from <th:block th:text="${diffEntry['oldPath']}"></th:block> - <a th:href="${diffEntry['diffUrl']}">diff</a>]</span></li>
+          </ul>
+        </th:block>
+      </th:block>
+      <th:block th:if="${variant != 'committeroneline' and variant != 'full' and variant != 'fuller'}">
+        <a class="u-sha1 u-monospace CommitLog-sha1" th:href="${entry['url']}" th:text="${entry['abbrevSha']}"></a> <a th:href="${entry['url']}" th:text="${entry['shortMessage']}"></a> <span th:if="${entry['author'] != null}" class="CommitLog-author" th:title="${entry['author']['email']}" th:text="'by ' + ${entry['author']['name']}"></span> <span th:if="${entry['author'] != null}" class="CommitLog-time" th:title="${entry['author']['time']}" th:text="'· ' + ${entry['author']['relativeTime']}"></span><th:block th:if="${entry['branches'] != null and !entry['branches'].isEmpty()}"><th:block th:each="branch : ${entry['branches']}"> <a class="CommitLog-branchLabel" th:href="${branch['url']}" th:text="${branch['name']}"></a></th:block></th:block><th:block th:if="${entry['tags'] != null and !entry['tags'].isEmpty()}"><th:block th:each="tag : ${entry['tags']}"> <a class="CommitLog-tagLabel" th:href="${tag['url']}" th:text="${tag['name']}"></a></th:block></th:block>
+        <span th:if="${entry['rename'] != null}" class="CommitLog-rename">
+          [<th:block th:text="${entry['rename']['changeType'] == 'RENAME' ? 'Renamed' : 'Copied'}"></th:block><th:block th:if="${entry['rename']['score'] != 100}" th:text="' (' + ${entry['rename']['score']} + '%)'"></th:block> from <th:block th:text="${entry['rename']['oldPath']}"></th:block>]
+        </span>
+      </th:block>
+    </th:block>
+  </th:block>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="(${siteTitle != null and siteTitle != ''} ? ${siteTitle} + ' - ' : '') + ${pageTitle}"></title>
+  <link rel="icon" th:href="${staticUrls['FAVICON_ICO_URL']}" sizes="any"/>
+  <link rel="icon" type="image/svg+xml" th:href="${staticUrls['FAVICON_SVG_URL']}"/>
+  <link rel="icon" type="image/png" sizes="32x32" th:href="${staticUrls['FAVICON_32_URL']}"/>
+  <link rel="icon" type="image/png" sizes="16x16" th:href="${staticUrls['FAVICON_16_URL']}"/>
+  <link rel="apple-touch-icon" sizes="180x180" th:href="${staticUrls['APPLE_TOUCH_ICON_URL']}"/>
+  <link rel="stylesheet" type="text/css" th:href="${staticUrls['BASE_CSS_URL']}"/>
+  <link rel="stylesheet" type="text/css" th:href="${staticUrls['DOC_CSS_URL']}"/>
+  <link rel="stylesheet" type="text/css" th:href="${staticUrls['PRETTIFY_CSS_URL']}"/>
+  <th:block th:replace="~{Common :: customHeadTagPart(customVariant=${customVariant})}"></th:block>
+  <th:block th:replace="~{Common :: themeScript}"></th:block>
+</head>
+<body class="Site">
+  <header th:class="'Site-header ' + (${navbarHtml != null and navbarHtml != ''} ? 'Site-header--withNavbar' : '')"><div class="Header"><div class="Header-title"><th:block th:if="${homeUrl != null and homeUrl != ''}"><a class="Header-anchor" th:href="${homeUrl}"><img th:if="${logoUrl != null and logoUrl != ''}" class="Header-anchorLogo" th:src="${logoUrl}" alt="project logo" /><span th:if="${siteTitle != null and siteTitle != ''}" class="Header-anchorTitle" th:text="${siteTitle}"></span></a></th:block><th:block th:unless="${homeUrl != null and homeUrl != ''}"><img th:if="${logoUrl != null and logoUrl != ''}" class="Header-anchorLogo" th:src="${logoUrl}" alt="project logo" /><span th:if="${siteTitle != null and siteTitle != ''}" class="Header-anchorTitle" th:text="${siteTitle}"></span></th:block></div><div class="Header-menu"><th:block th:replace="~{Common :: fileSearchTrigger}"></th:block><th:block th:replace="~{Common :: themeToggle}"></th:block></div></div><nav th:if="${navbarHtml != null and navbarHtml != ''}" class="Header-nav" role="navigation" th:utext="${navbarHtml}"></nav></header>
+  <th:block th:replace="~{Common :: fileSearch}"></th:block>
+  <div class="Site-content Site-Content--markdown">
+    <div class="Container">
+      <div class="doc"><th:block th:replace="~{Common :: streamingPlaceholder}"></th:block></div>
+    </div>
+  </div>
+  <th:block th:if="${customVariant != null and customVariant != '' and hasCustomDocFooter == true}">
+    <footer th:replace="~{CustomTemplates :: customDocFooter(sourceUrl=${sourceUrl}, logUrl=${logUrl}, blameUrl=${blameUrl})}"></footer>
+  </th:block>
+  <th:block th:unless="${customVariant != null and customVariant != '' and hasCustomDocFooter == true}">
+    <!-- default customDocFooter -->
+    <footer class="Site-footer" th:fragment="customDocFooter(sourceUrl, logUrl, blameUrl)">
+      <div class="Footer">
+        <th:block th:replace="~{Common :: footerPoweredBy}"></th:block>
+        <div class="Footer-links"><th:block th:if="${sourceUrl != null and sourceUrl != ''}"><a class="Footer-link" th:href="${sourceUrl}">source</a></th:block><th:block th:if="${logUrl != null and logUrl != ''}"><a class="Footer-link" th:href="${logUrl}">log</a></th:block><th:block th:if="${blameUrl != null and blameUrl != ''}"><a class="Footer-link" th:href="${blameUrl}">blame</a></th:block></div>
+      </div>
+    </footer>
+  </th:block>
+  <script th:if="${analyticsId != null and analyticsId != ''}" th:attr="nonce=${csp_nonce}" th:inline="javascript">
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', /*[[${analyticsId}]]*/ '', 'auto');
+    ga('send', 'pageview', {title: /*[[${pageTitle}]]*/ ''});
+  </script>
+  <script th:if="${analyticsId != null and analyticsId != ''}" th:attr="nonce=${csp_nonce}" async src="https://www.google-analytics.com/analytics.js"></script>
+</body>
+</html>

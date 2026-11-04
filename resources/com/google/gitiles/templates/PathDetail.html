@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=${title}, repositoryName=${repositoryName}, css=(${type == 'REGULAR_FILE' or type == 'EXECUTABLE_FILE'} ? ${ {staticUrls['PRETTIFY_CSS_URL']} } : (${data != null and data.readmeHtml != null} ? ${ {staticUrls['DOC_CSS_URL'], staticUrls['PRETTIFY_CSS_URL']} } : null)), customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <th:block th:if="${type == 'TREE'}"><th:block th:replace="~{ObjectDetail :: treeDetail(sha=${data.sha}, logUrl=${data.logUrl}, grepUrl=${data.grepUrl}, archiveUrl=${data.archiveUrl}, archiveType=${data.archiveType}, entries=${data.entries}, readmePath=${data.readmePath}, readmeHtml=${data.readmeHtml})}"></th:block></th:block>
+      <th:block th:if="${type == 'SYMLINK'}"><th:block th:replace="~{ObjectDetail :: symlinkDetail(target=${data.target}, targetUrl=${data.targetUrl})}"></th:block></th:block>
+      <th:block th:if="${type == 'REGULAR_FILE' or type == 'EXECUTABLE_FILE'}"><th:block th:replace="~{ObjectDetail :: blobDetail(sha=${data.sha}, fileUrl=${data.fileUrl}, logUrl=${data.logUrl}, blameUrl=${data.blameUrl}, docUrl=${data.docUrl}, editUrl=${data.editUrl}, imgBlob=${data.imgBlob}, lines=${data.lines}, size=${data['size']})}"></th:block></th:block>
+      <th:block th:if="${type == 'GITLINK'}"><th:block th:replace="~{ObjectDetail :: gitlinkDetail(sha=${data.sha}, remoteUrl=${data.remoteUrl}, httpUrl=${data.httpUrl})}"></th:block></th:block>
+      <div th:unless="${type == 'TREE' or type == 'SYMLINK' or type == 'REGULAR_FILE' or type == 'EXECUTABLE_FILE' or type == 'GITLINK'}" class="error">Object has unknown type.</div>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+
+  <th:block th:if="${false}">
+    <div th:fragment="symlinkDetail(target, targetUrl)" class="symlink-detail">
+      Symbolic link to <a th:if="${targetUrl != null and targetUrl != ''}" th:href="${targetUrl}" th:text="${target}"></a><th:block th:unless="${targetUrl != null and targetUrl != ''}" th:text="${target}"></th:block>
+    </div>
+
+    <div th:fragment="gitlinkDetail(sha, remoteUrl, httpUrl)" class="gitlink-detail">
+      Submodule link to <th:block th:text="${sha}"></th:block> of
+      <th:block th:if="${remoteUrl != null and remoteUrl != ''}">
+        <a th:if="${httpUrl != null and httpUrl != ''}" th:href="${httpUrl}" th:text="${remoteUrl}"></a>
+        <th:block th:unless="${httpUrl != null and httpUrl != ''}" th:text="${remoteUrl}"></th:block>
+      </th:block>
+      <th:block th:unless="${remoteUrl != null and remoteUrl != ''}"> a submodule with an unknown URL</th:block>
+    </div>
+  </th:block>
+</body>
+</html>

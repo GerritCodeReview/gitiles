@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Common :: head(title=(${prefix != null and prefix != ''} ? ${prefix} : (${hostName != null and hostName != ''} ? ${hostName} + ' Git repositories' : 'Git repositories')), repositoryName=null, css=null, customVariant=${customVariant})}">
+</head>
+<body class="Site">
+  <header th:replace="~{Common :: siteHeader(menuEntries=${menuEntries}, customVariant=${customVariant})}"></header>
+  <div class="Site-content">
+    <div class="Container">
+      <div th:replace="~{Common :: breadcrumbs(breadcrumbs=${breadcrumbs})}"></div>
+      <th:block th:if="${repositories != null and !repositories.isEmpty()}">
+        <h1 th:if="${breadcrumbs == null or breadcrumbs.isEmpty()}" th:text="'Git repositories on ' + ${hostName}">Git repositories</h1>
+        <div class="RepoList">
+          <div class="RepoList-item RepoList-item--header"><span class="RepoList-itemName">Name</span><span class="RepoList-itemDescription">Description</span></div>
+          <a th:each="repo : ${repositories}" class="RepoList-item" th:href="${repo.url}"><span class="RepoList-itemName" th:text="${repo.name}"></span><span class="RepoList-itemDescription" th:text="${repo.description}"></span></a>
+        </div>
+      </th:block>
+    </div>
+  </div>
+  <footer th:replace="~{Common :: customFooter(customVariant=${customVariant})}"></footer>
+</body>
+</html>
