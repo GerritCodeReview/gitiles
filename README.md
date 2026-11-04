@@ -12,7 +12,9 @@ for details.
 
 Gitiles is configurable in a git-style configuration file named
 `gitiles.config`. Refer to the [configuration documentation](/Documentation/config.md)
-for details.
+for details, including how to select between the [Thymeleaf and Soy template
+engines](/Documentation/config.md#Template-engine) and
+configure [custom templates and styling](/Documentation/config.md#Custom-templating).
 
 ## Bugs
 

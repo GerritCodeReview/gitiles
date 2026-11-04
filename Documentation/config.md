@@ -66,22 +66,196 @@ Default: `false`, repositories need to be explicitly marked for export.
 exportAll = true
 ```
 
-### Custom templating
+### Template engine
 
-The web views are defined via Soy templates, you inject your own version which
-will be passed to the renderer. See `.soy` files in the source code for
-available templates
+Gitiles supports two HTML template engines:
+
+* `thymeleaf`: [Thymeleaf 3.1](https://www.thymeleaf.org/) HTML5 templates
+  (`resources/com/google/gitiles/templates/*.html`). **Recommended.** Google is
+  discontinuing open-source maintenance of Closure Templates (Soy), and
+  Thymeleaf is the actively maintained replacement engine.
+* `soy`: [Closure Templates (Soy)](https://github.com/google/closure-templates)
+  (`resources/com/google/gitiles/templates/*.soy`). **Default** for backward
+  compatibility, but deprecated and may be removed in a future release.
+
+Set `renderer` under `[gitiles]` in `gitiles.config` to choose the default
+template engine:
 
 ```
 [gitiles]
-customTemplates = path/to/somefile.soy
-customTemplates = path/to/another.soy
+  renderer = thymeleaf
+```
+
+To explicitly keep the legacy Soy template engine:
+
+```
+[gitiles]
+  renderer = soy
+```
+
+#### Programmatic configuration (Java API & plugins)
+
+Applications and Gerrit plugins embedding Gitiles can configure or register
+template engines via `DefaultRenderer`, `DebugRenderer`, or `RendererFactory`:
+
+1. **Using `DefaultRenderer` / `DebugRenderer` with a renderer type (`String`)
+   or selector (`Supplier<String>`):**
+
+   ```java
+   // Select engine from gitiles.config ([gitiles] renderer = thymeleaf | soy):
+   Renderer renderer =
+       new DefaultRenderer(
+           staticPrefix,
+           customTemplates,
+           siteTitle,
+           config.getString("gitiles", null, "renderer"));
+
+   // Or supply globals and a renderer type selector:
+   Renderer renderer =
+       new DefaultRenderer(
+           globals, staticPrefix, customTemplates, siteTitle, () -> "thymeleaf");
+   ```
+
+2. **Direct factory instantiation or registering a custom `Renderer`
+   implementation (`RendererFactory`):**
+
+   ```java
+   // Instantiate the configured renderer via RendererFactory:
+   Renderer renderer =
+       RendererFactory.createDefaultRenderer(
+           config.getString("gitiles", null, "renderer"),
+           globals,
+           staticPrefix,
+           customTemplates,
+           siteTitle);
+
+   // Register an additional Renderer implementation (e.g. from a plugin):
+   RendererFactory.register(
+       "custom-engine",
+       (globals, staticPrefix, customTemplates, siteTitle) -> ...,
+       (staticPrefix, customTemplatesFilenames, templatesRoot, siteTitle) -> ...);
+   ```
+
+### Custom templating
+
+Gitiles allows injecting custom template files via `customTemplates` and
+activating them with `[template] customVariant`.
+
+#### Thymeleaf custom templates (`.html`)
+
+When using `renderer = thymeleaf`, provide one or more HTML template files
+containing Thymeleaf `th:fragment` definitions:
+
+```
+[gitiles]
+  renderer = thymeleaf
+  customTemplates = path/to/custom.html
+[template]
+  customVariant = custom
+```
+
+> **Migration tip:** If `customTemplates` in `gitiles.config` points to a
+> `.soy` file (e.g. `path/to/custom.soy`), `ThymeleafRenderer` automatically
+> looks for a sibling `.html` file at the same path (`path/to/custom.html`).
+> This allows you to keep a single `gitiles.config` while testing both engines
+> side by side.
+
+The following Thymeleaf fragments can be defined in your custom `.html` file
+(referenced via the `CustomTemplates` template namespace when `customVariant`
+is set):
+
+* `th:fragment="customHeadTagPart"` &mdash; injected inside `<head>` on both
+  repository views (`Common.html`) and Markdown documentation pages
+  (`Doc.html`).
+* `th:fragment="customHeader"` &mdash; replaces the default `<div
+  class="Header-title">` site header in `Common.html`.
+* `th:fragment="customFooter"` &mdash; replaces the default `<footer
+  class="Site-footer">` on repository views in `Common.html`.
+* `th:fragment="customDocFooter(sourceUrl, logUrl, blameUrl)"` &mdash; replaces
+  the default `<footer class="Site-footer">` on Markdown documentation pages
+  (`Doc.html`).
+
+Example `custom.html`:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="customHeadTagPart">
+    <link rel="stylesheet" type="text/css" href="/static/custom.css">
+  </th:block>
+
+  <div th:fragment="customHeader" class="Header-title">
+    <a href="/" th:text="${SITE_TITLE}">Acme Git</a>
+  </div>
+
+  <footer th:fragment="customFooter" class="Site-footer">
+    <div class="Footer">
+      <th:block th:replace="~{Common :: footerPoweredBy}"></th:block>
+      <th:block th:replace="~{Common :: footerFormatBadge}"></th:block>
+    </div>
+  </footer>
+
+  <footer th:fragment="customDocFooter(sourceUrl, logUrl, blameUrl)" class="Site-footer">
+    <div class="Footer">
+      <th:block th:replace="~{Common :: footerPoweredBy}"></th:block>
+      <div class="Footer-links">
+        <a th:if="${sourceUrl != null and sourceUrl != ''}" class="Footer-link" th:href="${sourceUrl}">source</a>
+        <a th:if="${logUrl != null and logUrl != ''}" class="Footer-link" th:href="${logUrl}">log</a>
+        <a th:if="${blameUrl != null and blameUrl != ''}" class="Footer-link" th:href="${blameUrl}">blame</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+```
+
+#### Soy custom templates (`.soy`, deprecated)
+
+When using `renderer = soy`, web views are defined via Soy `{deltemplate}`
+overrides. See `.soy` files in `resources/com/google/gitiles/templates/` for
+available delegate templates:
+
+```
+[gitiles]
+  renderer = soy
+  customTemplates = path/to/somefile.soy
+  customTemplates = path/to/another.soy
 ```
 
 ### Custom styling
 
-It's possible to inject custom styles within the template. To do this add
-the following to `gitiles.config`:
+It's possible to inject custom styles within the template using
+`customHeadTagPart`.
+
+#### With Thymeleaf (`renderer = thymeleaf`)
+
+Add the following to `gitiles.config`:
+
+```
+[gitiles]
+  renderer = thymeleaf
+  customTemplates = path/to/custom.html
+[template]
+  customVariant = aVariant
+```
+
+Then define `custom.html` as follows:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="customHeadTagPart">
+    <link rel="stylesheet" type="text/css" href="/static/file.css">
+  </th:block>
+</body>
+</html>
+```
+
+#### With Soy (`renderer = soy`)
+
+Add the following to `gitiles.config`:
 ```
 [gitiles]
     customTemplates = path/to/afile.soy
