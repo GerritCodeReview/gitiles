@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d9db42_c814103b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5141810
+      },
+      "writtenOn": "2026-11-05T13:01:47Z",
+      "side": 1,
+      "message": "Acces blocked. Pin.",
+      "revId": "bcb875966dd0cceff9fd1e5c09b268f5ba49d19f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
