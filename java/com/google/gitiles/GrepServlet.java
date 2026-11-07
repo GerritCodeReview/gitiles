@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jgit.diff.RawText;
@@ -48,6 +49,7 @@ public class GrepServlet extends BaseServlet {
   private static final long serialVersionUID = 1L;
 
   private static final String SUBSTRING_PARAM = "s";
+  private static final String START_PARAM = "start";
   @VisibleForTesting static final int MAX_MATCHES = 1000;
   private static final int MAX_BLOB_SIZE = 1 << 20; // 1 MB
   @VisibleForTesting static final int MAX_LINE_LENGTH = 500;
@@ -66,12 +68,24 @@ public class GrepServlet extends BaseServlet {
     List<Map<String, Object>> matches = Lists.newArrayList();
     boolean hasMore = false;
     boolean timedOut = false;
+    String continueUrl = "";
     String jsonFormatUrl = "";
     if (!substring.isEmpty()) {
       GrepResult result = grep(ServletUtils.getRepository(req), view, substring, getTimeout(req));
       matches = toSoyMatches(view, result.matches);
       hasMore = result.hasMore;
       timedOut = result.timedOut;
+      if (result.next != null) {
+        // Continue at the commit that was searched, not the branch, so that every page searches
+        // the same snapshot even if the branch moves.
+        ObjectId searched = ObjectId.fromString(result.revision);
+        continueUrl =
+            GitilesView.grep()
+                .copyFrom(view)
+                .setRevision(Revision.unpeeled(searched.name(), searched))
+                .replaceParam(START_PARAM, result.next)
+                .toUrl();
+      }
       jsonFormatUrl =
           GitilesView.grep()
               .copyFrom(view)
@@ -79,7 +93,7 @@ public class GrepServlet extends BaseServlet {
               .toUrl();
     }
 
-    Map<String, Object> data = Maps.newHashMapWithExpectedSize(9);
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(10);
     data.put("title", "Grep - " + view.getRevision().getName());
     data.put("revision", view.getRevision().getName());
     data.put("path", Strings.nullToEmpty(view.getPathPart()));
@@ -87,6 +101,7 @@ public class GrepServlet extends BaseServlet {
     data.put("hasSearch", !substring.isEmpty());
     data.put("hasMore", hasMore);
     data.put("timedOut", timedOut);
+    data.put("continueUrl", continueUrl);
     data.put("jsonFormatUrl", jsonFormatUrl);
     data.put("matches", matches);
 
@@ -113,26 +128,34 @@ public class GrepServlet extends BaseServlet {
 
   private static GrepResult grep(
       Repository repo, GitilesView view, String substring, Duration timeout) throws IOException {
+    String startParam = Iterables.getFirst(view.getParameters().get(START_PARAM), null);
+    Position start = startParam != null ? Position.parse(startParam) : null;
     List<Match> matches = Lists.newArrayList();
     long deadline = System.nanoTime() + timeout.toNanos();
-    boolean completed;
+    String revision;
+    Position stoppedAt;
 
     try (RevWalk rw = new RevWalk(repo)) {
-      RevTree root = getRoot(view, rw);
+      RevObject obj = rw.peel(rw.parseAny(view.getRevision().getId()));
+      revision = obj.name();
+      RevTree root = getRoot(obj);
       String path = Strings.nullToEmpty(view.getPathPart());
       if (path.isEmpty()) {
-        completed = grepTree(rw.getObjectReader(), root, "", substring, matches, deadline);
+        stoppedAt = grepTree(rw.getObjectReader(), root, "", substring, matches, start, deadline);
       } else {
-        completed = grepPath(rw.getObjectReader(), root, path, substring, matches, deadline);
+        stoppedAt =
+            grepPath(rw.getObjectReader(), root, path, substring, matches, start, deadline);
       }
     }
 
-    boolean overLimit = matches.size() > MAX_MATCHES;
-    if (overLimit) {
-      matches.remove(matches.size() - 1);
+    Position next = stoppedAt;
+    if (matches.size() > MAX_MATCHES) {
+      // The extra match was found only to know that more exist; continue from its line.
+      Match extra = matches.remove(MAX_MATCHES);
+      next = new Position(extra.path, extra.lineNumber - 1);
     }
-    boolean timedOut = !completed;
-    return new GrepResult(matches, overLimit || timedOut, timedOut);
+    return new GrepResult(
+        matches, next != null, stoppedAt != null, revision, next != null ? next.toString() : null);
   }
 
   private static List<Map<String, Object>> toSoyMatches(GitilesView view, List<Match> matches) {
@@ -143,13 +166,14 @@ public class GrepServlet extends BaseServlet {
     return data;
   }
 
-  /** Returns {@code false} if the search stopped because the deadline passed. */
-  private static boolean grepPath(
+  /** Returns where to continue if the search stopped because the deadline passed, or null. */
+  private static @Nullable Position grepPath(
       ObjectReader reader,
       RevTree root,
       String path,
       String substring,
       List<Match> matches,
+      @Nullable Position start,
       long deadline)
       throws IOException {
     try (TreeWalk tw = TreeWalk.forPath(reader, path, root)) {
@@ -160,61 +184,87 @@ public class GrepServlet extends BaseServlet {
       FileMode mode = tw.getFileMode(0);
       ObjectId id = tw.getObjectId(0);
       if (isFile(mode)) {
-        grepBlob(reader, id, path, substring, matches);
-        return true;
+        if (start != null && !start.path.equals(path)) {
+          throw Position.notFound();
+        }
+        grepBlob(reader, id, path, substring, matches, start != null ? start.lastSearchedLine : 0);
+        return null;
       }
       if (mode.getObjectType() != Constants.OBJ_TREE) {
-        return true;
+        return null;
       }
 
       try (TreeWalk subtree = new TreeWalk(reader)) {
         subtree.addTree(id);
         subtree.setRecursive(true);
-        return grepTree(subtree, path + "/", substring, matches, deadline);
+        return grepTree(subtree, path + "/", substring, matches, start, deadline);
       }
     }
   }
 
-  private static boolean grepTree(
+  private static @Nullable Position grepTree(
       ObjectReader reader,
       RevTree root,
       String pathPrefix,
       String substring,
       List<Match> matches,
+      @Nullable Position start,
       long deadline)
       throws IOException {
     try (TreeWalk tw = new TreeWalk(reader)) {
       tw.addTree(root);
       tw.setRecursive(true);
-      return grepTree(tw, pathPrefix, substring, matches, deadline);
+      return grepTree(tw, pathPrefix, substring, matches, start, deadline);
     }
   }
 
-  /** Returns {@code false} if the search stopped because the deadline passed. */
-  private static boolean grepTree(
-      TreeWalk tw, String pathPrefix, String substring, List<Match> matches, long deadline)
+  /**
+   * Searches files in tree order, beginning after {@code start} if set.
+   *
+   * <p>At least one file is searched before the deadline is checked, so that continuing a search
+   * always makes progress.
+   *
+   * @return where to continue if the search stopped because the deadline passed, or null.
+   */
+  private static @Nullable Position grepTree(
+      TreeWalk tw,
+      String pathPrefix,
+      String substring,
+      List<Match> matches,
+      @Nullable Position start,
+      long deadline)
       throws IOException {
+    boolean skipping = start != null;
+    boolean searchedAny = false;
     while (tw.next()) {
       if (matches.size() > MAX_MATCHES) {
-        return true;
+        return null;
       }
       if (!isFile(tw.getFileMode(0))) {
         continue;
       }
-      if (System.nanoTime() - deadline >= 0) {
-        return false;
+      String path = pathPrefix + tw.getPathString();
+      int afterLine = 0;
+      if (skipping) {
+        if (!path.equals(start.path)) {
+          continue;
+        }
+        skipping = false;
+        afterLine = start.lastSearchedLine;
       }
-      grepBlob(
-          tw.getObjectReader(),
-          tw.getObjectId(0),
-          pathPrefix + tw.getPathString(),
-          substring,
-          matches);
+      if (searchedAny && System.nanoTime() - deadline >= 0) {
+        return new Position(path, afterLine);
+      }
+      grepBlob(tw.getObjectReader(), tw.getObjectId(0), path, substring, matches, afterLine);
+      searchedAny = true;
       if (matches.size() > MAX_MATCHES) {
-        return true;
+        return null;
       }
     }
-    return true;
+    if (skipping) {
+      throw Position.notFound();
+    }
+    return null;
   }
 
   /**
@@ -225,8 +275,14 @@ public class GrepServlet extends BaseServlet {
     return (mode.getBits() & FileMode.TYPE_MASK) == FileMode.TYPE_FILE;
   }
 
+  /** Searches the lines of a blob after line {@code afterLine}. */
   private static void grepBlob(
-      ObjectReader reader, ObjectId id, String path, String substring, List<Match> matches)
+      ObjectReader reader,
+      ObjectId id,
+      String path,
+      String substring,
+      List<Match> matches,
+      int afterLine)
       throws IOException {
     ObjectLoader loader = reader.open(id, Constants.OBJ_BLOB);
     if (loader.getSize() > MAX_BLOB_SIZE) {
@@ -244,7 +300,8 @@ public class GrepServlet extends BaseServlet {
     }
 
     String[] lines = RawParseUtils.decode(raw).split("\n", -1);
-    for (int i = 0; i < lines.length; i++) {
+    // i is 0-based, so the first line searched is line afterLine + 1.
+    for (int i = afterLine; i < lines.length; i++) {
       if (matches.size() > MAX_MATCHES) {
         return;
       }
@@ -260,8 +317,7 @@ public class GrepServlet extends BaseServlet {
     }
   }
 
-  private static RevTree getRoot(GitilesView view, RevWalk rw) throws IOException {
-    RevObject obj = rw.peel(rw.parseAny(view.getRevision().getId()));
+  private static RevTree getRoot(RevObject obj) {
     switch (obj.getType()) {
       case Constants.OBJ_COMMIT:
         return ((RevCommit) obj).getTree();
@@ -277,11 +333,61 @@ public class GrepServlet extends BaseServlet {
     List<Match> matches;
     boolean hasMore;
     boolean timedOut;
+    String revision;
+    @Nullable String next;
 
-    GrepResult(List<Match> matches, boolean hasMore, boolean timedOut) {
+    GrepResult(
+        List<Match> matches,
+        boolean hasMore,
+        boolean timedOut,
+        String revision,
+        @Nullable String next) {
       this.matches = matches;
       this.hasMore = hasMore;
       this.timedOut = timedOut;
+      this.revision = revision;
+      this.next = next;
+    }
+  }
+
+  /**
+   * A point to continue a search from: a file path, and the last line already searched in it.
+   *
+   * <p>Written as {@code <line>:<path>}, with the line first because paths may contain colons.
+   */
+  static class Position {
+    final String path;
+    final int lastSearchedLine;
+
+    Position(String path, int lastSearchedLine) {
+      this.path = path;
+      this.lastSearchedLine = lastSearchedLine;
+    }
+
+    static Position parse(String value) {
+      int colon = value.indexOf(':');
+      if (colon > 0 && colon < value.length() - 1) {
+        try {
+          int lastSearchedLine = Integer.parseInt(value.substring(0, colon));
+          if (lastSearchedLine >= 0) {
+            return new Position(value.substring(colon + 1), lastSearchedLine);
+          }
+        } catch (NumberFormatException e) {
+          // Fall through to the error below.
+        }
+      }
+      throw new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER)
+          .withPublicErrorMessage("invalid start parameter");
+    }
+
+    static GitilesRequestFailureException notFound() {
+      return new GitilesRequestFailureException(FailureReason.INCORRECT_PARAMETER)
+          .withPublicErrorMessage("start path not found in search");
+    }
+
+    @Override
+    public String toString() {
+      return lastSearchedLine + ":" + path;
     }
   }
 
