@@ -50,6 +50,8 @@ Searches file contents at a revision.
 * `s=<text>` lists matches containing the case-sensitive literal substring
   `<text>`. No search-syntax escaping is required. When constructing the URL
   directly, the value must use standard URL encoding.
+* `start=<line>:<path>` continues a search that stopped early, after line
+  `<line>` of the file `<path>`. Use the `next` value of the previous response.
 
 A file or directory path may be supplied after the revision to limit the search.
 The search is a case-sensitive literal substring search. Binary files and
@@ -62,6 +64,12 @@ when additional matches exist beyond that limit.
 A search stops after 5 seconds by default (see `grep.timeout` in
 [the configuration](config.md)). The JSON response then sets both `has_more`
 and `timed_out` to `true`, and the HTML response says the search stopped early.
+
+When a search stops early, the JSON response sets `next`. To continue, repeat
+the search at the commit given in `revision`, with `start` set to `next`, so
+that every page searches the same snapshot even if the branch moves. The HTML
+response links to the next page with "Continue search". Each request searches
+at least one file.
 
 Lines longer than 500 characters are shortened to about 500 characters around
 the first match on the line, or to the match itself if the search text is

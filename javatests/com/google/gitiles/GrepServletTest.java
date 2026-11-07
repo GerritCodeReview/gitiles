@@ -25,6 +25,7 @@ import org.eclipse.jgit.dircache.DirCacheEntry;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.revwalk.RevBlob;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Test;
 
 public class GrepServletTest extends ServletTest {
@@ -139,6 +140,7 @@ public class GrepServletTest extends ServletTest {
 
     assertThat(result.matches).hasSize(GrepServlet.MAX_MATCHES);
     assertThat(result.hasMore).isTrue();
+    assertThat(result.next).isEqualTo("0:b.txt");
   }
 
   @Test
@@ -216,19 +218,77 @@ public class GrepServletTest extends ServletTest {
 
   @Test
   public void grepJsonReportsTimeout() throws Exception {
-    repo.branch("master").commit().add("a.txt", "needle\n").create();
+    repo.branch("master").commit().add("a.txt", "needle\n").add("b.txt", "needle\n").create();
     useGrepTimeout("0");
 
     GrepResult result = buildJson(GrepResult.class, "/repo/+grep/master", "s=needle");
 
-    assertThat(result.matches).isEmpty();
+    // One file is always searched, so that continuing makes progress.
+    assertThat(result.matches).hasSize(1);
+    assertThat(result.matches.get(0).path).isEqualTo("a.txt");
     assertThat(result.hasMore).isTrue();
     assertThat(result.timedOut).isTrue();
+    assertThat(result.next).isEqualTo("0:b.txt");
+  }
+
+  @Test
+  public void grepJsonContinuesAfterTimeout() throws Exception {
+    RevCommit c =
+        repo.branch("master")
+            .commit()
+            .add("a.txt", "needle\n")
+            .add("b.txt", "needle\n")
+            .create();
+    useGrepTimeout("0");
+
+    GrepResult result =
+        buildJson(GrepResult.class, "/repo/+grep/" + c.name(), "s=needle&start=0%3Ab.txt");
+
+    assertThat(result.matches).hasSize(1);
+    assertThat(result.matches.get(0).path).isEqualTo("b.txt");
+    assertThat(result.hasMore).isFalse();
+    assertThat(result.timedOut).isFalse();
+    assertThat(result.next).isNull();
+  }
+
+  @Test
+  public void grepJsonContinuesWithinFile() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("a.txt", "needle\n".repeat(GrepServlet.MAX_MATCHES + 1))
+        .create();
+
+    GrepResult first = buildJson(GrepResult.class, "/repo/+grep/master", "s=needle");
+    assertThat(first.next).isEqualTo(GrepServlet.MAX_MATCHES + ":a.txt");
+
+    GrepResult second =
+        buildJson(
+            GrepResult.class,
+            "/repo/+grep/" + first.revision,
+            "s=needle&start=" + GrepServlet.MAX_MATCHES + "%3Aa.txt");
+    assertThat(second.matches).hasSize(1);
+    assertThat(second.matches.get(0).lineNumber).isEqualTo(GrepServlet.MAX_MATCHES + 1);
+    assertThat(second.hasMore).isFalse();
+  }
+
+  @Test
+  public void grepJsonRejectsInvalidStart() throws Exception {
+    repo.branch("master").commit().add("a.txt", "needle\n").create();
+
+    buildResponse("/repo/+grep/master", "format=JSON&s=needle&start=abc", SC_BAD_REQUEST);
+    buildResponse("/repo/+grep/master", "format=JSON&s=needle&start=-1%3Aa.txt", SC_BAD_REQUEST);
+    buildResponse(
+        "/repo/+grep/master", "format=JSON&s=needle&start=0%3Amissing.txt", SC_BAD_REQUEST);
   }
 
   @Test
   public void grepHtmlReportsTimeout() throws Exception {
-    repo.branch("master").commit().add("a.txt", "needle\n").create();
+    RevCommit c =
+        repo.branch("master")
+            .commit()
+            .add("a.txt", "needle\n")
+            .add("b.txt", "needle\n")
+            .create();
     useGrepTimeout("0");
 
     FakeHttpServletResponse res =
@@ -238,6 +298,10 @@ public class GrepServletTest extends ServletTest {
     assertThat(html).contains("Search stopped before finishing");
     assertThat(html).doesNotContain("No matches.");
     assertThat(html).doesNotContain("More matches exist");
+    // The continue link names the searched commit rather than the branch.
+    assertThat(html).contains("/b/repo/+grep/" + c.name());
+    assertThat(html).contains("start=0%3Ab.txt");
+    assertThat(html).contains("Continue search");
   }
 
   @Test
@@ -273,6 +337,8 @@ public class GrepServletTest extends ServletTest {
     List<Match> matches;
     boolean hasMore;
     boolean timedOut;
+    String revision;
+    String next;
   }
 
   private static class Match {
