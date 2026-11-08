@@ -66,6 +66,7 @@ public class GrepServlet extends BaseServlet {
         Strings.nullToEmpty(Iterables.getFirst(view.getParameters().get(SUBSTRING_PARAM), null));
 
     List<Map<String, Object>> matches = Lists.newArrayList();
+    int fileCount = 0;
     boolean hasMore = false;
     boolean timedOut = false;
     String continueUrl = "";
@@ -73,6 +74,7 @@ public class GrepServlet extends BaseServlet {
     if (!substring.isEmpty()) {
       GrepResult result = grep(ServletUtils.getRepository(req), view, substring, getTimeout(req));
       matches = toSoyMatches(view, result.matches);
+      fileCount = (int) result.matches.stream().map(m -> m.path).distinct().count();
       hasMore = result.hasMore;
       timedOut = result.timedOut;
       if (result.next != null) {
@@ -93,7 +95,7 @@ public class GrepServlet extends BaseServlet {
               .toUrl();
     }
 
-    Map<String, Object> data = Maps.newHashMapWithExpectedSize(10);
+    Map<String, Object> data = Maps.newHashMapWithExpectedSize(12);
     data.put("title", "Grep - " + view.getRevision().getName());
     data.put("revision", view.getRevision().getName());
     data.put("path", Strings.nullToEmpty(view.getPathPart()));
@@ -104,6 +106,8 @@ public class GrepServlet extends BaseServlet {
     data.put("continueUrl", continueUrl);
     data.put("jsonFormatUrl", jsonFormatUrl);
     data.put("matches", matches);
+    data.put("matchCount", matches.size());
+    data.put("fileCount", fileCount);
 
     renderHtml(req, res, "com.google.gitiles.templates.GrepDetail.grepDetail", data);
   }

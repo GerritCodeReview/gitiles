@@ -73,6 +73,8 @@ public class GrepServletTest extends ServletTest {
     String html = res.getActualBodyString();
     assertThat(html).contains("name=\"s\"");
     assertThat(html).contains("Search");
+    assertThat(html).contains("placeholder=\"Search file contents\"");
+    assertThat(html).contains("autofocus");
     assertThat(html).doesNotContain("Footer-formats");
   }
 
@@ -92,6 +94,23 @@ public class GrepServletTest extends ServletTest {
     assertThat(res.getActualBodyString()).contains("#2");
     assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
     assertThat(res.getActualBodyString()).doesNotContain("More matches exist");
+    assertThat(res.getActualBodyString()).contains("1 match in 1 file");
+    assertThat(res.getActualBodyString()).doesNotContain("Showing");
+    assertThat(res.getActualBodyString()).doesNotContain("autofocus");
+  }
+
+  @Test
+  public void grepHtmlCountsMatchesAndFiles() throws Exception {
+    repo.branch("master")
+        .commit()
+        .add("a.txt", "needle\nneedle\n")
+        .add("b.txt", "needle\n")
+        .create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
+
+    assertThat(res.getActualBodyString()).contains("3 matches in 2 files");
   }
 
   @Test
@@ -153,6 +172,8 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     assertThat(res.getActualBodyString()).contains("More matches exist");
+    assertThat(res.getActualBodyString())
+        .contains("Showing " + GrepServlet.MAX_MATCHES + " matches in 1 file");
   }
 
   @Test
