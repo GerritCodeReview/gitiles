@@ -504,8 +504,51 @@ a {
 
 /* GrepDetail.soy */
 
+.GrepSearch {
+  display: flex;
+  gap: 8px;
+  margin: 15px 0;
+  max-width: 640px;
+}
+.GrepSearch-input {
+  flex: 1;
+  border: 1px solid var(--border-subtle-color);
+  border-radius: 4px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: monospace;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.GrepSearch-button {
+  border: 1px solid var(--border-subtle-color);
+  border-radius: 4px;
+  background: var(--header-bg);
+  color: var(--text-color);
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.GrepSearch-button:hover {
+  background: var(--hover-bg);
+}
+.GrepSearch-path,
+.GrepResults-summary,
+.GrepResults-empty,
+.GrepResults-more {
+  color: var(--muted-text-color);
+}
+.GrepResults {
+  list-style: none;
+  padding-left: 0;
+}
 .GrepResults-item {
   margin-bottom: 15px;
+}
+.GrepResults-line {
+  background: var(--code-bg);
+  margin: 4px 0 0;
+  overflow-x: auto;
+  padding: 6px 10px;
 }
 
 /* LogDetail.soy */
