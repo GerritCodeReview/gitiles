@@ -241,6 +241,30 @@
 {/template}
 
 /**
+ * Search box that searches file contents with +grep.
+ */
+{template grepSearchBox}
+  {@param url: string}  /** +grep URL to submit the search to. */
+  {@param? path: string|null}  /** directory searched; empty or null for the whole repository. */
+  {let $placeholder kind="text"}
+    {if $path}
+      {msg desc="placeholder for the search box on a directory page"}Search in {$path}/{/msg}
+    {else}
+      {msg desc="placeholder for the search box covering a whole repository"}
+        Search this repository
+      {/msg}
+    {/if}
+  {/let}
+  <form method="GET" action="{$url}" class="GrepSearch">
+    <input type="search" name="s" class="GrepSearch-input"
+           placeholder="{$placeholder}" aria-label="{$placeholder}" required>
+    <button type="submit" class="GrepSearch-button">
+      {msg desc="button text for grep search"}Search{/msg}
+    </button>
+  </form>
+{/template}
+
+/**
  * Main footer.
  *
  * The footer tag part can be customized by creating a customFooter

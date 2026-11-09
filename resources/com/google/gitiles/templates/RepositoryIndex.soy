@@ -32,6 +32,7 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
   {@param tags: ?}  /** list of tag objects with url and name keys. */
   {@param? moreTagsUrl: ?}  /** URL to show more branches, if necessary. */
   {@param hasLog: ?}  /** whether a log should be shown for HEAD. */
+  {@param? grepUrl: ?}  /** optional URL to search file contents at HEAD. */
   {@param? readmeHtml: ?}  /** optional rendered README.md contents. */
   {@inject staticUrls: ?}
 {if $readmeHtml}
@@ -70,6 +71,12 @@ import * as refList from 'com/google/gitiles/templates/RefList.soy';
   <input id="clone-repo-input" type="text" class="u-monospace CloneRepo-command"
          readonly="readonly" value="git clone {$cloneUrl}">
 </div>
+
+{if $grepUrl}
+  {call common.grepSearchBox}
+    {param url: $grepUrl /}
+  {/call}
+{/if}
 
 {if $hasLog && (length($branches) || length($tags))}
   <div class="RepoShortlog">
