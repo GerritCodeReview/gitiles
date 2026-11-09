@@ -103,6 +103,9 @@ public class RepositoryIndexServlet extends BaseServlet {
         }
         // TODO(dborowitz): Handle non-commit or missing HEAD?
         if (head.getType() == Constants.OBJ_COMMIT) {
+          data.put(
+              "grepUrl",
+              GitilesView.grep().copyFrom(view).setRevision(Revision.HEAD).toUrl());
           walk.reset();
           walk.markStart((RevCommit) head);
           paginator = new Paginator(walk, limit, null);

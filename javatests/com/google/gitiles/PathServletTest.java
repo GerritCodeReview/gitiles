@@ -66,20 +66,34 @@ public class PathServletTest extends ServletTest {
         buildResponse("/repo/+/master/", "format=html", SC_OK);
 
     String html = res.getActualBodyString();
-    assertThat(html).contains("href=\"/b/repo/+grep/master/\"");
+    assertThat(html).contains("action=\"/b/repo/+grep/master/\"");
+    assertThat(html).contains("placeholder=\"Search this repository\"");
     assertThat(html).contains("href=\"?format=TEXT\"");
     assertThat(html).contains("href=\"?format=JSON\"");
   }
 
   @Test
-  public void subTreeHtmlHasPathScopedGrepLink() throws Exception {
+  public void subTreeHtmlHasPathScopedSearchBox() throws Exception {
     repo.branch("master").commit().add("src/a.txt", "contents").create();
 
     FakeHttpServletResponse res =
         buildResponse("/repo/+/master/src", "format=html", SC_OK);
 
-    assertThat(res.getActualBodyString())
-        .contains("href=\"/b/repo/+grep/master/src\"");
+    String html = res.getActualBodyString();
+    assertThat(html).contains("action=\"/b/repo/+grep/master/src\"");
+    assertThat(html).contains("placeholder=\"Search in src/\"");
+  }
+
+  @Test
+  public void revisionHtmlHasSearchBox() throws Exception {
+    repo.branch("master").commit().add("foo", "contents").create();
+
+    FakeHttpServletResponse res = buildResponse("/repo/+/master", "format=html", SC_OK);
+
+    String html = res.getActualBodyString();
+    assertThat(html).contains("action=\"/b/repo/+grep/master\"");
+    assertThat(html).contains("placeholder=\"Search this repository\"");
+    assertThat(html).doesNotContain("path history");
   }
 
   @Test

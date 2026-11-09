@@ -162,10 +162,16 @@ public class TreeSoyData {
     data.put("sha", treeId.name());
     data.put("entries", entries);
 
-    if (view.getType() == GitilesView.Type.PATH
-        && view.getRevision().getPeeledType() == OBJ_COMMIT) {
-      data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
+    boolean isCommit = view.getRevision().getPeeledType() == OBJ_COMMIT;
+    if (isCommit
+        && (view.getType() == GitilesView.Type.PATH
+            || view.getType() == GitilesView.Type.REVISION)) {
+      // Commit pages list the commit's files too, so they can be searched from there.
       data.put("grepUrl", GitilesView.grep().copyFrom(view).toUrl());
+      data.put("grepPath", Strings.nullToEmpty(view.getPathPart()));
+    }
+    if (view.getType() == GitilesView.Type.PATH && isCommit) {
+      data.put("logUrl", GitilesView.log().copyFrom(view).toUrl());
       data.put(
           "archiveUrl",
           GitilesView.archive()
