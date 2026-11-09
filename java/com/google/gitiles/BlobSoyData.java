@@ -204,7 +204,8 @@ public class BlobSoyData {
     return n < end ? n : -1;
   }
 
-  private static @Nullable String extension(String path, String content) {
+  /** Returns the prettify language for a file, from its contents or its path's extension. */
+  static @Nullable String extension(String path, String content) {
     if (content.startsWith("#!/bin/sh") || content.startsWith("#!/bin/bash")) {
       return "sh";
     } else if (content.startsWith("#!/usr/bin/perl")) {

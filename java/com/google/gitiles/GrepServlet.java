@@ -16,6 +16,7 @@ package com.google.gitiles;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -23,6 +24,7 @@ import com.google.gitiles.GitilesRequestFailureException.FailureReason;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -43,6 +45,8 @@ import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.RawParseUtils;
+import prettify.parser.Prettify;
+import syntaxhighlight.ParseResult;
 
 /** Serves file-content search results for a repository tree. */
 public class GrepServlet extends BaseServlet {
@@ -171,11 +175,13 @@ public class GrepServlet extends BaseServlet {
     List<Map<String, Object>> files = Lists.newArrayList();
     String currentPath = null;
     String fileUrl = null;
+    String lang = null;
     List<Map<String, Object>> lines = null;
     for (Match match : matches) {
       if (!match.path.equals(currentPath)) {
         currentPath = match.path;
         fileUrl = GitilesView.path().copyFrom(view).setPathPart(match.path).toUrl();
+        lang = BlobSoyData.extension(match.path, "");
         lines = Lists.newArrayList();
         Map<String, Object> file = Maps.newHashMapWithExpectedSize(3);
         file.put("path", match.path);
@@ -183,7 +189,7 @@ public class GrepServlet extends BaseServlet {
         file.put("lines", lines);
         files.add(file);
       }
-      lines.add(match.toSoyData(fileUrl, substring));
+      lines.add(match.toSoyData(fileUrl, substring, lang));
     }
     return files;
   }
@@ -373,32 +379,89 @@ public class GrepServlet extends BaseServlet {
   }
 
   /**
-   * Splits {@code line} into pieces of plain and matching text, so that the HTML view can highlight
-   * every occurrence of {@code substring}.
+   * Splits {@code line} into pieces for the HTML view. Each piece has the prettify classes that
+   * color it like the file view, and whether it is part of a match of {@code substring}, so that
+   * every match is highlighted. Lines are colored on their own, so a line inside a multi-line
+   * comment or string may be colored as code.
    */
   @VisibleForTesting
-  static List<Map<String, Object>> splitMatches(String line, String substring) {
+  static List<Map<String, Object>> toPieces(
+      String line, String substring, @Nullable String lang) {
+    List<int[]> matches = matchRanges(line, substring);
     List<Map<String, Object>> pieces = Lists.newArrayList();
-    int from = 0;
-    int start;
-    while ((start = line.indexOf(substring, from)) >= 0) {
-      if (start > from) {
-        pieces.add(piece(line.substring(from, start), false));
+    int last = 0;
+    for (ParseResult r : prettify(lang, line)) {
+      int start = Math.max(r.getOffset(), last);
+      int end = Math.min(r.getOffset() + r.getLength(), line.length());
+      if (start > last) {
+        addPieces(pieces, line, last, start, Prettify.PR_PLAIN, matches);
       }
-      from = start + substring.length();
-      pieces.add(piece(line.substring(start, from), true));
+      if (end > start) {
+        String classes = r.getStyleKeysString();
+        addPieces(
+            pieces, line, start, end, Strings.isNullOrEmpty(classes) ? Prettify.PR_PLAIN : classes,
+            matches);
+        last = end;
+      }
     }
-    if (from < line.length()) {
-      pieces.add(piece(line.substring(from), false));
+    if (last < line.length()) {
+      addPieces(pieces, line, last, line.length(), Prettify.PR_PLAIN, matches);
     }
     return pieces;
   }
 
-  private static Map<String, Object> piece(String text, boolean match) {
-    Map<String, Object> piece = Maps.newHashMapWithExpectedSize(2);
-    piece.put("text", text);
-    piece.put("match", match);
-    return piece;
+  /** Returns the start and end of every occurrence of {@code substring}, without overlaps. */
+  private static List<int[]> matchRanges(String line, String substring) {
+    List<int[]> ranges = new ArrayList<>();
+    int from = 0;
+    int start;
+    while ((start = line.indexOf(substring, from)) >= 0) {
+      from = start + substring.length();
+      ranges.add(new int[] {start, from});
+    }
+    return ranges;
+  }
+
+  private static List<ParseResult> prettify(@Nullable String lang, String line) {
+    try {
+      return ThreadSafePrettifyParser.INSTANCE.parse(lang, line);
+    } catch (StackOverflowError e) {
+      // Same fallback as the file view: show the line without colors.
+      return ImmutableList.of();
+    }
+  }
+
+  /** Adds the text from {@code start} to {@code end}, split where matches begin and end. */
+  private static void addPieces(
+      List<Map<String, Object>> pieces,
+      String line,
+      int start,
+      int end,
+      String classes,
+      List<int[]> matches) {
+    int pos = start;
+    while (pos < end) {
+      boolean inMatch = false;
+      int next = end;
+      for (int[] m : matches) {
+        if (m[1] <= pos) {
+          continue;
+        }
+        if (m[0] <= pos) {
+          inMatch = true;
+          next = Math.min(end, m[1]);
+        } else {
+          next = Math.min(end, m[0]);
+        }
+        break;
+      }
+      Map<String, Object> piece = Maps.newHashMapWithExpectedSize(3);
+      piece.put("text", line.substring(pos, next));
+      piece.put("classes", classes);
+      piece.put("match", inMatch);
+      pieces.add(piece);
+      pos = next;
+    }
   }
 
   /**
@@ -487,10 +550,10 @@ public class GrepServlet extends BaseServlet {
           path, lineNumber, line.substring(start, end), start > 0, end < line.length());
     }
 
-    Map<String, Object> toSoyData(String fileUrl, String substring) {
+    Map<String, Object> toSoyData(String fileUrl, String substring, @Nullable String lang) {
       Map<String, Object> data = Maps.newHashMapWithExpectedSize(5);
       data.put("lineNumber", lineNumber);
-      data.put("pieces", splitMatches(line, substring));
+      data.put("pieces", toPieces(line, substring, lang));
       data.put("truncatedStart", truncatedStart);
       data.put("truncatedEnd", truncatedEnd);
       data.put("url", fileUrl + "#" + lineNumber);

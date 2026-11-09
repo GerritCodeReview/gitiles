@@ -20,6 +20,7 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
  */
 {template grepDetail stricthtml="false"}
   {@param title: ?}
+  {@inject staticUrls: ?}
   {@param repositoryName: ?}
   {@param? menuEntries: ?}
   {@param? customVariant: ?}
@@ -36,7 +37,9 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
   {@param matchCount: int}
   {@param fileCount: int}
 
-{call common.header data="all" /}
+{call common.header data="all"}
+  {param css: [$staticUrls.PRETTIFY_CSS_URL] /}
+{/call}
 
 {let $placeholder kind="text"}
   {msg desc="placeholder and accessible label for the grep search box"}Search file contents{/msg}
@@ -84,9 +87,11 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
                   {if $line.truncatedStart}&hellip;{/if}
                   {for $piece in $line.pieces}
                     {if $piece.match}
-                      <mark class="GrepResults-match">{$piece.text}</mark>
+                      <mark class="GrepResults-match">
+                        <span class="{$piece.classes}">{$piece.text}</span>
+                      </mark>
                     {else}
-                      {$piece.text}
+                      <span class="{$piece.classes}">{$piece.text}</span>
                     {/if}
                   {/for}
                   {if $line.truncatedEnd}&hellip;{/if}

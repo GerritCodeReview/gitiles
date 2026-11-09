@@ -95,8 +95,8 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     assertThat(res.getActualBodyString()).contains("dir/a.txt");
-    assertThat(res.getActualBodyString())
-        .contains("dir/a.txt#2\">2</a> <code>" + MARK + "needle</mark> here</code>");
+    assertThat(res.getActualBodyString()).contains("dir/a.txt#2\">2</a> <code>" + MARK);
+    assertThat(res.getActualBodyString()).contains(">needle</span></mark>");
     assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
     assertThat(res.getActualBodyString()).doesNotContain("More matches exist");
     assertThat(res.getActualBodyString()).contains("1 match in 1 file");
@@ -225,8 +225,9 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     String html = res.getActualBodyString();
-    assertThat(html).contains(">1</a> <code>" + MARK + "needle</mark>b");
-    assertThat(html).contains("b&hellip;</code>");
+    assertThat(html).contains(">1</a> <code>" + MARK);
+    assertThat(html).contains(">needle</span></mark>");
+    assertThat(html).contains("b</span>&hellip;</code>");
   }
 
   @Test
@@ -343,30 +344,57 @@ public class GrepServletTest extends ServletTest {
     FakeHttpServletResponse res =
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
-    assertThat(res.getActualBodyString())
-        .contains(
-            "<code>a " + MARK + "needle</mark> and a " + MARK + "needle</mark></code>");
+    String html = res.getActualBodyString();
+    assertThat(html.split(MARK, -1)).hasLength(3);
+    assertThat(html).contains("prettify.css");
   }
 
   @Test
-  public void splitMatchesFindsEveryOccurrence() {
-    assertThat(pieceTexts(GrepServlet.splitMatches("a needle and needle", "needle")))
-        .containsExactly("a ", "[needle]", " and ", "[needle]")
-        .inOrder();
-    assertThat(pieceTexts(GrepServlet.splitMatches("needle", "needle")))
-        .containsExactly("[needle]");
+  public void toPiecesMarksEveryMatch() {
+    List<Map<String, Object>> pieces = GrepServlet.toPieces("a needle and needle", "needle", null);
+    assertThat(joinText(pieces)).isEqualTo("a needle and needle");
+    assertThat(matchedTexts(pieces)).containsExactly("needle", "needle");
+
     // Occurrences do not overlap.
-    assertThat(pieceTexts(GrepServlet.splitMatches("aaa", "aa")))
-        .containsExactly("[aa]", "a")
-        .inOrder();
+    assertThat(matchedTexts(GrepServlet.toPieces("aaa", "aa", null))).containsExactly("aa");
   }
 
-  /** Returns each piece's text, with matching pieces in brackets. */
-  private static List<String> pieceTexts(List<Map<String, Object>> pieces) {
-    List<String> texts = new ArrayList<>();
+  @Test
+  public void toPiecesColorsLikeFileView() {
+    List<Map<String, Object>> pieces = GrepServlet.toPieces("int grep = 1;", "grep", "java");
+
+    assertThat(joinText(pieces)).isEqualTo("int grep = 1;");
+    assertThat(matchedTexts(pieces)).containsExactly("grep");
+    Map<String, Object> first = pieces.get(0);
+    assertThat(first.get("text")).isEqualTo("int");
+    assertThat(first.get("classes")).isEqualTo("kwd");
+  }
+
+  private static String joinText(List<Map<String, Object>> pieces) {
+    StringBuilder b = new StringBuilder();
     for (Map<String, Object> piece : pieces) {
-      String text = (String) piece.get("text");
-      texts.add((Boolean) piece.get("match") ? "[" + text + "]" : text);
+      b.append(piece.get("text"));
+    }
+    return b.toString();
+  }
+
+  /** Returns the text of matching pieces, joining pieces of one match that colors split. */
+  private static List<String> matchedTexts(List<Map<String, Object>> pieces) {
+    List<String> texts = new ArrayList<>();
+    StringBuilder current = null;
+    for (Map<String, Object> piece : pieces) {
+      if ((Boolean) piece.get("match")) {
+        if (current == null) {
+          current = new StringBuilder();
+        }
+        current.append(piece.get("text"));
+      } else if (current != null) {
+        texts.add(current.toString());
+        current = null;
+      }
+    }
+    if (current != null) {
+      texts.add(current.toString());
     }
     return texts;
   }
