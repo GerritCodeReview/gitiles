@@ -73,7 +73,7 @@ public class GrepServlet extends BaseServlet {
     String jsonFormatUrl = "";
     if (!substring.isEmpty()) {
       GrepResult result = grep(ServletUtils.getRepository(req), view, substring, getTimeout(req));
-      files = toSoyFiles(view, result.matches);
+      files = toSoyFiles(view, result.matches, substring);
       matchCount = result.matches.size();
       hasMore = result.hasMore;
       timedOut = result.timedOut;
@@ -166,7 +166,8 @@ public class GrepServlet extends BaseServlet {
    * Groups matches by file for the HTML view. Matches are found in tree order, so all matches in
    * one file are consecutive.
    */
-  private static List<Map<String, Object>> toSoyFiles(GitilesView view, List<Match> matches) {
+  private static List<Map<String, Object>> toSoyFiles(
+      GitilesView view, List<Match> matches, String substring) {
     List<Map<String, Object>> files = Lists.newArrayList();
     String currentPath = null;
     String fileUrl = null;
@@ -182,7 +183,7 @@ public class GrepServlet extends BaseServlet {
         file.put("lines", lines);
         files.add(file);
       }
-      lines.add(match.toSoyData(fileUrl));
+      lines.add(match.toSoyData(fileUrl, substring));
     }
     return files;
   }
@@ -372,6 +373,35 @@ public class GrepServlet extends BaseServlet {
   }
 
   /**
+   * Splits {@code line} into pieces of plain and matching text, so that the HTML view can highlight
+   * every occurrence of {@code substring}.
+   */
+  @VisibleForTesting
+  static List<Map<String, Object>> splitMatches(String line, String substring) {
+    List<Map<String, Object>> pieces = Lists.newArrayList();
+    int from = 0;
+    int start;
+    while ((start = line.indexOf(substring, from)) >= 0) {
+      if (start > from) {
+        pieces.add(piece(line.substring(from, start), false));
+      }
+      from = start + substring.length();
+      pieces.add(piece(line.substring(start, from), true));
+    }
+    if (from < line.length()) {
+      pieces.add(piece(line.substring(from), false));
+    }
+    return pieces;
+  }
+
+  private static Map<String, Object> piece(String text, boolean match) {
+    Map<String, Object> piece = Maps.newHashMapWithExpectedSize(2);
+    piece.put("text", text);
+    piece.put("match", match);
+    return piece;
+  }
+
+  /**
    * A point to continue a search from: a file path, and the last line already searched in it.
    *
    * <p>Written as {@code <line>:<path>}, with the line first because paths may contain colons.
@@ -457,10 +487,10 @@ public class GrepServlet extends BaseServlet {
           path, lineNumber, line.substring(start, end), start > 0, end < line.length());
     }
 
-    Map<String, Object> toSoyData(String fileUrl) {
+    Map<String, Object> toSoyData(String fileUrl, String substring) {
       Map<String, Object> data = Maps.newHashMapWithExpectedSize(5);
       data.put("lineNumber", lineNumber);
-      data.put("line", line);
+      data.put("pieces", splitMatches(line, substring));
       data.put("truncatedStart", truncatedStart);
       data.put("truncatedEnd", truncatedEnd);
       data.put("url", fileUrl + "#" + lineNumber);

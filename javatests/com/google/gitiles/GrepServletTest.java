@@ -19,7 +19,9 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
 import org.eclipse.jgit.lib.Config;
@@ -29,6 +31,8 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Test;
 
 public class GrepServletTest extends ServletTest {
+  private static final String MARK = "<mark class=\"GrepResults-match\">";
+
   @Test
   public void grepJsonSearchesRepositoryRoot() throws Exception {
     repo.branch("master")
@@ -90,7 +94,8 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     assertThat(res.getActualBodyString()).contains("dir/a.txt");
-    assertThat(res.getActualBodyString()).contains("dir/a.txt#2\">2</a> <code>needle here</code>");
+    assertThat(res.getActualBodyString())
+        .contains("dir/a.txt#2\">2</a> <code>" + MARK + "needle</mark> here</code>");
     assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
     assertThat(res.getActualBodyString()).doesNotContain("More matches exist");
     assertThat(res.getActualBodyString()).contains("1 match in 1 file");
@@ -219,7 +224,7 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     String html = res.getActualBodyString();
-    assertThat(html).contains(">1</a> <code>needle");
+    assertThat(html).contains(">1</a> <code>" + MARK + "needle</mark>b");
     assertThat(html).contains("b&hellip;</code>");
   }
 
@@ -328,6 +333,41 @@ public class GrepServletTest extends ServletTest {
     assertThat(html).contains("/b/repo/+grep/" + c.name());
     assertThat(html).contains("start=0%3Ab.txt");
     assertThat(html).contains("Continue search");
+  }
+
+  @Test
+  public void grepHtmlHighlightsEveryMatchInLine() throws Exception {
+    repo.branch("master").commit().add("a.txt", "a needle and a needle\n").create();
+
+    FakeHttpServletResponse res =
+        buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
+
+    assertThat(res.getActualBodyString())
+        .contains(
+            "<code>a " + MARK + "needle</mark> and a " + MARK + "needle</mark></code>");
+  }
+
+  @Test
+  public void splitMatchesFindsEveryOccurrence() {
+    assertThat(pieceTexts(GrepServlet.splitMatches("a needle and needle", "needle")))
+        .containsExactly("a ", "[needle]", " and ", "[needle]")
+        .inOrder();
+    assertThat(pieceTexts(GrepServlet.splitMatches("needle", "needle")))
+        .containsExactly("[needle]");
+    // Occurrences do not overlap.
+    assertThat(pieceTexts(GrepServlet.splitMatches("aaa", "aa")))
+        .containsExactly("[aa]", "a")
+        .inOrder();
+  }
+
+  /** Returns each piece's text, with matching pieces in brackets. */
+  private static List<String> pieceTexts(List<Map<String, Object>> pieces) {
+    List<String> texts = new ArrayList<>();
+    for (Map<String, Object> piece : pieces) {
+      String text = (String) piece.get("text");
+      texts.add((Boolean) piece.get("match") ? "[" + text + "]" : text);
+    }
+    return texts;
   }
 
   @Test
