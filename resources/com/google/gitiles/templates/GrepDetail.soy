@@ -81,7 +81,15 @@ import * as common from 'com/google/gitiles/templates/Common.soy';
               <li class="u-monospace GrepResults-line">
                 <a class="GrepResults-lineNumber" href="{$line.url}">{$line.lineNumber}</a>
                 {sp}<code>
-                  {if $line.truncatedStart}&hellip;{/if}{$line.line}{if $line.truncatedEnd}&hellip;{/if}
+                  {if $line.truncatedStart}&hellip;{/if}
+                  {for $piece in $line.pieces}
+                    {if $piece.match}
+                      <mark class="GrepResults-match">{$piece.text}</mark>
+                    {else}
+                      {$piece.text}
+                    {/if}
+                  {/for}
+                  {if $line.truncatedEnd}&hellip;{/if}
                 </code>
               </li>
             {/for}

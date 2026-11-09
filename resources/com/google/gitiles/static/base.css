@@ -38,6 +38,7 @@ html[data-theme="light"] {
   --line-num-border: #f1f2f3;
   --line-num-attr-color: #aaa;
   --target-line-bg: #cfd8dc;
+  --match-bg: #fff1a8;
   --clone-bg: #eee;
   --clone-border: #ccc;
   --metadata-msg-bg: #fafafa;
@@ -89,6 +90,7 @@ html[data-theme="light"] {
     --line-num-border: #3c4043;
     --line-num-attr-color: #80868b;
     --target-line-bg: #174ea6;
+    --match-bg: #5c4b00;
     --clone-bg: #292a2d;
     --clone-border: #5f6368;
     --metadata-msg-bg: #292a2d;
@@ -132,6 +134,7 @@ html[data-theme="dark"] {
   --line-num-border: #3c4043;
   --line-num-attr-color: #80868b;
   --target-line-bg: #174ea6;
+  --match-bg: #5c4b00;
   --clone-bg: #292a2d;
   --clone-border: #5f6368;
   --metadata-msg-bg: #292a2d;
@@ -563,6 +566,11 @@ a {
 }
 .GrepResults-line code {
   white-space: pre;
+}
+.GrepResults-match {
+  background: var(--match-bg);
+  border-radius: 2px;
+  color: inherit;
 }
 .GrepResults-lineNumber {
   margin-right: 0.5em;
