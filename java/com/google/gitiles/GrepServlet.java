@@ -65,16 +65,16 @@ public class GrepServlet extends BaseServlet {
     String substring =
         Strings.nullToEmpty(Iterables.getFirst(view.getParameters().get(SUBSTRING_PARAM), null));
 
-    List<Map<String, Object>> matches = Lists.newArrayList();
-    int fileCount = 0;
+    List<Map<String, Object>> files = Lists.newArrayList();
+    int matchCount = 0;
     boolean hasMore = false;
     boolean timedOut = false;
     String continueUrl = "";
     String jsonFormatUrl = "";
     if (!substring.isEmpty()) {
       GrepResult result = grep(ServletUtils.getRepository(req), view, substring, getTimeout(req));
-      matches = toSoyMatches(view, result.matches);
-      fileCount = (int) result.matches.stream().map(m -> m.path).distinct().count();
+      files = toSoyFiles(view, result.matches);
+      matchCount = result.matches.size();
       hasMore = result.hasMore;
       timedOut = result.timedOut;
       if (result.next != null) {
@@ -105,9 +105,9 @@ public class GrepServlet extends BaseServlet {
     data.put("timedOut", timedOut);
     data.put("continueUrl", continueUrl);
     data.put("jsonFormatUrl", jsonFormatUrl);
-    data.put("matches", matches);
-    data.put("matchCount", matches.size());
-    data.put("fileCount", fileCount);
+    data.put("files", files);
+    data.put("matchCount", matchCount);
+    data.put("fileCount", files.size());
 
     renderHtml(req, res, "com.google.gitiles.templates.GrepDetail.grepDetail", data);
   }
@@ -162,12 +162,29 @@ public class GrepServlet extends BaseServlet {
         matches, next != null, stoppedAt != null, revision, next != null ? next.toString() : null);
   }
 
-  private static List<Map<String, Object>> toSoyMatches(GitilesView view, List<Match> matches) {
-    List<Map<String, Object>> data = Lists.newArrayListWithCapacity(matches.size());
+  /**
+   * Groups matches by file for the HTML view. Matches are found in tree order, so all matches in
+   * one file are consecutive.
+   */
+  private static List<Map<String, Object>> toSoyFiles(GitilesView view, List<Match> matches) {
+    List<Map<String, Object>> files = Lists.newArrayList();
+    String currentPath = null;
+    String fileUrl = null;
+    List<Map<String, Object>> lines = null;
     for (Match match : matches) {
-      data.add(match.toSoyData(view));
+      if (!match.path.equals(currentPath)) {
+        currentPath = match.path;
+        fileUrl = GitilesView.path().copyFrom(view).setPathPart(match.path).toUrl();
+        lines = Lists.newArrayList();
+        Map<String, Object> file = Maps.newHashMapWithExpectedSize(3);
+        file.put("path", match.path);
+        file.put("url", fileUrl);
+        file.put("lines", lines);
+        files.add(file);
+      }
+      lines.add(match.toSoyData(fileUrl));
     }
-    return data;
+    return files;
   }
 
   /** Returns where to continue if the search stopped because the deadline passed, or null. */
@@ -440,15 +457,13 @@ public class GrepServlet extends BaseServlet {
           path, lineNumber, line.substring(start, end), start > 0, end < line.length());
     }
 
-    Map<String, Object> toSoyData(GitilesView view) {
-      Map<String, Object> data = Maps.newHashMapWithExpectedSize(6);
-      data.put("path", path);
+    Map<String, Object> toSoyData(String fileUrl) {
+      Map<String, Object> data = Maps.newHashMapWithExpectedSize(5);
       data.put("lineNumber", lineNumber);
       data.put("line", line);
       data.put("truncatedStart", truncatedStart);
       data.put("truncatedEnd", truncatedEnd);
-      data.put(
-          "url", GitilesView.path().copyFrom(view).setPathPart(path).toUrl() + "#" + lineNumber);
+      data.put("url", fileUrl + "#" + lineNumber);
       return data;
     }
   }

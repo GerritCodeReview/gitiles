@@ -90,8 +90,7 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     assertThat(res.getActualBodyString()).contains("dir/a.txt");
-    assertThat(res.getActualBodyString()).contains("2: needle here");
-    assertThat(res.getActualBodyString()).contains("#2");
+    assertThat(res.getActualBodyString()).contains("dir/a.txt#2\">2</a> <code>needle here</code>");
     assertThat(res.getActualBodyString()).doesNotContain("dir/b.txt");
     assertThat(res.getActualBodyString()).doesNotContain("More matches exist");
     assertThat(res.getActualBodyString()).contains("1 match in 1 file");
@@ -110,7 +109,14 @@ public class GrepServletTest extends ServletTest {
     FakeHttpServletResponse res =
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
-    assertThat(res.getActualBodyString()).contains("3 matches in 2 files");
+    String html = res.getActualBodyString();
+    assertThat(html).contains("3 matches in 2 files");
+    // Each file is listed once, with its matching lines under it.
+    assertThat(html.indexOf(">a.txt</a>")).isEqualTo(html.lastIndexOf(">a.txt</a>"));
+    assertThat(html).contains(">a.txt</a> <span class=\"GrepResults-count\">(2)</span>");
+    assertThat(html).contains(">b.txt</a> <span class=\"GrepResults-count\">(1)</span>");
+    assertThat(html).contains("a.txt#1\">1</a>");
+    assertThat(html).contains("a.txt#2\">2</a>");
   }
 
   @Test
@@ -213,7 +219,7 @@ public class GrepServletTest extends ServletTest {
         buildResponse("/repo/+grep/master", "format=html&s=needle", SC_OK);
 
     String html = res.getActualBodyString();
-    assertThat(html).contains("1: needle");
+    assertThat(html).contains(">1</a> <code>needle");
     assertThat(html).contains("b&hellip;</code>");
   }
 

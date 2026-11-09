@@ -544,11 +544,28 @@ a {
 .GrepResults-item {
   margin-bottom: 15px;
 }
+.GrepResults-count {
+  color: var(--muted-text-color);
+}
+.GrepResults-lines {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
 .GrepResults-line {
   background: var(--code-bg);
-  margin: 4px 0 0;
+  margin-bottom: 4px;
   overflow-x: auto;
   padding: 6px 10px;
+}
+.GrepResults-line:hover {
+  background: var(--target-line-bg);
+}
+.GrepResults-line code {
+  white-space: pre;
+}
+.GrepResults-lineNumber {
+  margin-right: 0.5em;
 }
 
 /* LogDetail.soy */
