@@ -2,6 +2,7 @@ load(
     "@com_googlesource_gerrit_bazlets//tools:genrule2.bzl",
     "genrule2",
 )
+load("//tools:jar.bzl", "JAR_CREATE", "JAR_SETUP", "JAR_TOOLCHAINS")
 
 filegroup(
     name = "gitiles",
@@ -17,6 +18,7 @@ genrule2(
     srcs = [":gitiles"],
     outs = ["webassets.zip"],
     cmd = " && ".join([
+        JAR_SETUP,
         "o=$$PWD/$@",
         "mkdir -p $$TMP/com/google/gitiles",
         "for f in $(SRCS); do " +
@@ -26,7 +28,8 @@ genrule2(
         "done",
         "cd $$TMP/com/google/gitiles/",
         "mv static +static",
-        "zip -qr $$o .",
+        JAR_CREATE + " --file $$o .",
     ]),
+    toolchains = JAR_TOOLCHAINS,
     visibility = ["//visibility:public"],
 )
