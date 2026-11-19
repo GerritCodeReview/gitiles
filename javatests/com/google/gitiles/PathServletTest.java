@@ -26,6 +26,7 @@ import com.google.gitiles.FileJsonData.File;
 import com.google.gitiles.GitlinkJsonData.Gitlink;
 import com.google.gitiles.TreeJsonData.PathList;
 import com.google.gitiles.TreeJsonData.Tree;
+import com.google.gitiles.lean.LeanRendering;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.restricted.StringData;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
 import org.eclipse.jgit.dircache.DirCacheEntry;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevBlob;
@@ -667,6 +669,147 @@ public class PathServletTest extends ServletTest {
 
     FakeHttpServletResponse withoutSlash = buildResponse("/repo/+/" + c.name(), query, SC_OK);
     assertThat(withoutSlash.getActualBodyString()).doesNotContain("\"paths\"");
+  }
+
+  @Test
+  public void leanFileRendersRichBlobViewByDefault() throws Exception {
+    String leanSource =
+        """
+        /-!
+        # Example Module
+        -/
+
+        /-- Adds zero on the right. -/
+        theorem add_zero_eq (n : Nat) : n + 0 = n := by
+          sorry
+        """;
+    repo.branch("master").commit().add("Math/Basic.lean", leanSource).create();
+
+    String html = buildHtml("/repo/+/master/Math/Basic.lean", false);
+    assertThat(html).contains("lean.css");
+    assertThat(html).contains("doc.css");
+    assertThat(html).contains("class=\"LeanView\"");
+    assertThat(html).contains("class=\"LeanSummary\"");
+    assertThat(html).contains("LeanDecl-name\">add_zero_eq</span>");
+    assertThat(html).contains("href=\"#5\"");
+    assertThat(html).contains(">1 sorry</a>");
+    assertThat(html).contains("href=\"/b/repo/+/master/Math/Basic.lean?lean=0\"");
+    assertThat(html).contains("id=\"6\"");
+    assertThat(html).contains("href=\"#6\"");
+    assertThat(html).doesNotContain("<table class=\"FileContents\">");
+
+    // Raw lines remain in Soy data as a fallback for templates that ignore leanHtml.
+    Map<String, ?> data = buildData("/repo/+/master/Math/Basic.lean");
+    assertThat(getBlobData(data).get("lines")).isNotNull();
+    assertThat(getBlobData(data).get("leanHtml")).isNotNull();
+  }
+
+  @Test
+  public void leanFileWithLeanZeroShowsStandardSourceView() throws Exception {
+    repo.branch("master").commit().add("Main.lean", "theorem t : True := by\n  trivial\n").create();
+
+    FakeHttpServletResponse res = buildResponse("/repo/+/master/Main.lean", "lean=0", SC_OK);
+    String html = res.getActualBodyString();
+    assertThat(html).contains("<table class=\"FileContents\">");
+    assertThat(html).doesNotContain("class=\"LeanView\"");
+    assertThat(html).doesNotContain("lean.css");
+    assertThat(html).doesNotContain("doc.css");
+  }
+
+  @Test
+  public void leanFileTextAndJsonFormatsRemainUnchanged() throws Exception {
+    String leanSource = "theorem t : True := by trivial\n";
+    RevBlob blob = repo.blob(leanSource);
+    repo.branch("master").commit().add("Main.lean", blob).create();
+
+    assertThat(buildBlob("/repo/+/master/Main.lean", "100644")).isEqualTo(leanSource);
+
+    File file = buildJson(File.class, "/repo/+/master/Main.lean");
+    assertThat(file.id).isEqualTo(blob.name());
+    assertThat(file.repo).isEqualTo("repo");
+    assertThat(file.revision).isEqualTo("master");
+    assertThat(file.path).isEqualTo("Main.lean");
+  }
+
+  @Test
+  public void leanRenderingDisabledByConfigShowsStandardSourceView() throws Exception {
+    Config config = new Config();
+    config.setBoolean("gitiles", null, "leanRendering", false);
+    servlet = TestGitilesServlet.create(repo, config);
+    repo.branch("master").commit().add("Main.lean", "theorem t : True := by trivial\n").create();
+
+    String html = buildHtml("/repo/+/master/Main.lean", false);
+    assertThat(html).contains("<table class=\"FileContents\">");
+    assertThat(html).doesNotContain("class=\"LeanView\"");
+    assertThat(html).doesNotContain("lean.css");
+  }
+
+  @Test
+  public void leanOversizeFileFallsBackToStandardSourceView() throws Exception {
+    String overLineCap = "def x := 1\n".repeat(LeanRendering.MAX_LINES + 1);
+    repo.branch("master").commit().add("Huge.lean", overLineCap).create();
+
+    String html = buildHtml("/repo/+/master/Huge.lean", false);
+    assertThat(html).contains("<table class=\"FileContents\">");
+    assertThat(html).doesNotContain("class=\"LeanView\"");
+    assertThat(html).doesNotContain("lean.css");
+
+    String overByteCap = "-- " + "a".repeat(LeanRendering.MAX_BYTES) + "\n";
+    repo.branch("bytes").commit().add("HugeBytes.lean", overByteCap).create();
+    String byteHtml = buildHtml("/repo/+/bytes/HugeBytes.lean", false);
+    assertThat(byteHtml).contains("<table class=\"FileContents\">");
+    assertThat(byteHtml).doesNotContain("class=\"LeanView\"");
+    assertThat(byteHtml).doesNotContain("lean.css");
+  }
+
+  @Test
+  public void leanMalformedAndLean3FilesDegradeGracefully() throws Exception {
+    String lean3AndMalformed =
+        """
+        /-! Lean 3 style file -/
+        meta def tactic.my_tac : tactic unit := `[exact trivial]
+        constant MyConst : Type
+        lemma old_style : true :=
+        begin
+          trivial,
+        end
+        def unclosed_str := "never closed
+        /- unclosed block comment
+        """;
+    repo.branch("master").commit().add("Legacy.lean", lean3AndMalformed).create();
+
+    String html = buildHtml("/repo/+/master/Legacy.lean", false);
+    assertThat(html).contains("class=\"LeanView\"");
+    assertThat(html).contains("LeanDecl-name\">old_style</span>");
+    assertThat(html).contains("id=\"1\"");
+    assertThat(html).contains("id=\"3\"");
+  }
+
+  @Test
+  public void blameOnLeanFileIsUnaffected() throws Exception {
+    repo.branch("master").commit().add("Main.lean", "theorem t : True := by\n  trivial\n").create();
+
+    String html = buildHtml("/repo/+blame/master/Main.lean", false);
+    assertThat(html).contains("class=\"Blame\"");
+    assertThat(html).doesNotContain("class=\"LeanView\"");
+    assertThat(html).doesNotContain("lean.css");
+  }
+
+  @Test
+  public void leanBlobFallsBackToPlainSourceOnRenderingRuntimeException() throws Exception {
+    Config invalidMarkdownConfig = new Config();
+    invalidMarkdownConfig.setString("markdown", null, "render", "not_a_boolean");
+    servlet = TestGitilesServlet.create(repo, invalidMarkdownConfig);
+    repo.branch("master").commit().add("Main.lean", "theorem ok : True := by trivial\n").create();
+
+    String html = buildHtml("/repo/+/master/Main.lean", false);
+    assertThat(html).contains("<table class=\"FileContents\">");
+    assertThat(html).doesNotContain("class=\"LeanView\"");
+    assertThat(html).doesNotContain("lean.css");
+
+    Map<String, ?> data = buildData("/repo/+/master/Main.lean");
+    assertThat(getBlobData(data).get("lines")).isNotNull();
+    assertThat(getBlobData(data)).doesNotContainKey("leanHtml");
   }
 
   private Map<String, ?> getBlobData(Map<String, ?> data) {

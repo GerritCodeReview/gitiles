@@ -29,6 +29,7 @@ import com.google.common.collect.Maps;
 import com.google.common.io.BaseEncoding;
 import com.google.common.primitives.Bytes;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
+import com.google.gitiles.lean.LeanRendering;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -598,9 +599,12 @@ public class PathServlet extends BaseServlet {
   private void showFile(HttpServletRequest req, HttpServletResponse res, WalkResult wr)
       throws IOException {
     GitilesView view = ViewFilter.getView(req);
-    Map<String, ?> data =
-        new BlobSoyData(wr.getObjectReader(), view)
-            .toSoyData(wr.path, wr.id, createEditUrl(req, view));
+    Config config = getAccess(req).getConfig();
+    BlobSoyData blobSoyData = new BlobSoyData(wr.getObjectReader(), view);
+    if (LeanRendering.isEnabled(config, view) && LeanRendering.isLeanPath(wr.path)) {
+      blobSoyData.setLeanConfig(config, req.getRequestURI());
+    }
+    Map<String, ?> data = blobSoyData.toSoyData(wr.path, wr.id, createEditUrl(req, view));
     // TODO(sop): Allow caching files by SHA-1 when no S cookie is sent.
     renderHtml(
         req,

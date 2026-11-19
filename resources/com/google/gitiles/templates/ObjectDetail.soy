@@ -279,12 +279,15 @@
   {@param? logUrl: ?}  /** optional URL to a log for this file. */
   {@param? imgBlob: ?}  /** optional image blob to render. */
   {@param? blameUrl: ?}  /** optional URL to a blame for this file. */
+  {@param? leanHtml: ?}  /** optional richly rendered Lean 4 contents. */
   {@param lines: ?}  /** lines (may be empty), or null for a binary file. Each line is a list of
       entries with "classes" and "text" fields for pretty-printed spans. */
   {@param? size: ?}  /** for binary files only, size in bytes. */
   {call blobHeader data="all" /}
 
-  {if $lines != null}
+  {if $leanHtml}
+    {$leanHtml}
+  {elseif $lines != null}
     {if $lines}
       <table class="FileContents">
         {for $line, $index in $lines}

@@ -22,7 +22,11 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import com.google.common.html.types.SafeHtml;
 import com.google.common.io.BaseEncoding;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.gitiles.lean.LeanHtml;
+import com.google.gitiles.lean.LeanRendering;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import java.io.IOException;
@@ -33,6 +37,7 @@ import javax.annotation.Nullable;
 import org.eclipse.jgit.diff.RawText;
 import org.eclipse.jgit.errors.LargeObjectException;
 import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -68,10 +73,20 @@ public class BlobSoyData {
 
   private final GitilesView view;
   private final ObjectReader reader;
+  private @Nullable Config leanConfig;
+  private @Nullable String leanRequestUri;
 
   public BlobSoyData(ObjectReader reader, GitilesView view) {
     this.reader = reader;
     this.view = view;
+  }
+
+  /** Enables rich Lean 4 rendering for {@code .lean} blobs using {@code config}. */
+  @CanIgnoreReturnValue
+  public BlobSoyData setLeanConfig(Config config, @Nullable String requestUri) {
+    this.leanConfig = config;
+    this.leanRequestUri = requestUri;
+    return this;
   }
 
   public Map<String, Object> toSoyData(ObjectId blobId) throws MissingObjectException, IOException {
@@ -91,8 +106,10 @@ public class BlobSoyData {
     ObjectLoader loader = reader.open(blobId, Constants.OBJ_BLOB);
     String content;
     String imageBlob;
+    int rawBytes = -1;
     try {
       byte[] raw = loader.getCachedBytes(MAX_FILE_SIZE);
+      rawBytes = raw.length;
 
       String type = MimeTypes.getMimeType(path);
       if (ALLOWED_IMAGE_TYPES.contains(type) && raw.length < MAX_FILE_SIZE) {
@@ -114,6 +131,19 @@ public class BlobSoyData {
 
     if (content != null) {
       data.put("lines", prettify(path, content));
+      if (leanConfig != null
+          && LeanRendering.isLeanPath(path)
+          && LeanRendering.withinInputCaps(rawBytes, content)) {
+        try {
+          SafeHtml leanHtml =
+              LeanHtml.renderBlob(rawBytes, content, leanConfig, view, leanRequestUri, path);
+          if (leanHtml != null) {
+            data.put("leanHtml", leanHtml);
+          }
+        } catch (RuntimeException e) {
+          log.warn("Error rendering Lean blob {}", view != null ? view.toUrl() : path, e);
+        }
+      }
       if (path != null && path.endsWith(".md")) {
         data.put("docUrl", GitilesView.doc().copyFrom(view).toUrl());
       }
