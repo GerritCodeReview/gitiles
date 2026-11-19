@@ -261,6 +261,8 @@
   {@param? blameUrl: ?}  /** optional URL to a blame for this file. */
   {@param? docUrl: ?}  /** optional URL to view rendered file. */
   {@param? editUrl: ?} /** optional URL to create a change in Gerrit. */
+  {@param? leanPlainTextUrl: ?}  /** optional URL to switch from rendered Lean 4 to plain text. */
+  {@param? leanRenderedUrl: ?}  /** optional URL to switch from plain text to rendered Lean 4. */
 <div class="u-sha1 u-monospace BlobSha1">
   {msg desc="SHA-1 for the file's blob"}blob: {$sha}{/msg}
   {if $fileUrl}{sp}[<a href="{$fileUrl}">{msg desc="detail view of a file"}file{/msg}</a>]{/if}
@@ -268,6 +270,14 @@
   {if $blameUrl}{sp}[<a href="{$blameUrl}">{msg desc="blame for a file"}blame{/msg}</a>]{/if}
   {if $docUrl}{sp}[<a href="{$docUrl}">{msg desc="view rendered file"}view{/msg}</a>]{/if}
   {if $editUrl}{sp}[<a href="{$editUrl}">{msg desc="edit file in Gerrit"}edit{/msg}</a>]{/if}
+  {if $leanPlainTextUrl}
+    {sp}[{msg desc="current state label for richly rendered Lean file"}Rendered{/msg} |{sp}
+    <a href="{$leanPlainTextUrl}">{msg desc="view plain text Lean file"}Plain text{/msg}</a>]
+  {/if}
+  {if $leanRenderedUrl}
+    {sp}[<a href="{$leanRenderedUrl}">{msg desc="view richly rendered Lean file"}Rendered{/msg}</a>
+    {sp}| {msg desc="current state label for plain text Lean file"}Plain text{/msg}]
+  {/if}
 </div>
 {/template}
 
@@ -279,12 +289,15 @@
   {@param? logUrl: ?}  /** optional URL to a log for this file. */
   {@param? imgBlob: ?}  /** optional image blob to render. */
   {@param? blameUrl: ?}  /** optional URL to a blame for this file. */
+  {@param? leanHtml: ?}  /** optional richly rendered Lean 4 contents. */
   {@param lines: ?}  /** lines (may be empty), or null for a binary file. Each line is a list of
       entries with "classes" and "text" fields for pretty-printed spans. */
   {@param? size: ?}  /** for binary files only, size in bytes. */
   {call blobHeader data="all" /}
 
-  {if $lines != null}
+  {if $leanHtml}
+    {$leanHtml}
+  {elseif $lines != null}
     {if $lines}
       <table class="FileContents">
         {for $line, $index in $lines}

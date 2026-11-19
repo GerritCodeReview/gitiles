@@ -1,0 +1,939 @@
+/**
+ * Copyright 2026 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Rich Lean 4 blob styles. */
+
+:root,
+html[data-theme="light"] {
+  --lean-bg: #ffffff;
+  --lean-bg-secondary: #f8f9fa;
+  --lean-bg-tertiary: #eceff1;
+  --lean-text: #202124;
+  --lean-muted: #5f6368;
+  --lean-border: #e0e0e0;
+  --lean-border-strong: #dadce0;
+  --lean-link: #1a73e8;
+  --lean-hover-bg: rgba(161, 194, 250, 0.14);
+  --lean-target-bg: #cfd8dc;
+  --lean-info-bg: #e8f0fe;
+  --lean-info-fg: #174ea6;
+  --lean-success-bg: #e6f4ea;
+  --lean-success-fg: #137333;
+  --lean-error-bg: #fce8e6;
+  --lean-error-fg: #c5221f;
+  --lean-warning-bg: #fef7e0;
+  --lean-warning-fg: #b06000;
+  --lean-neutral-bg: rgba(95, 99, 104, 0.12);
+  --lean-type-bg: rgba(158, 0, 105, 0.12);
+  --lean-type-fg: #9e0069;
+  --lean-decl-theorem-border: #1a73e8;
+  --lean-decl-alert-border: #d93025;
+  --lean-card-shadow: rgba(0, 0, 0, 0.04);
+  --lean-md-code-bg: #f1f3f4;
+  --lean-md-quote-border: #d0d7de;
+  --lean-tok-keyword: #9e0069;
+  --lean-tok-tactic: #00599b;
+  --lean-tok-type: #6d4c41;
+  --lean-tok-comment: #3f7f5f;
+  --lean-tok-string: #219161;
+  --lean-tok-number: #164;
+  --lean-tok-literal: #219161;
+  --lean-tok-attribute: #219;
+  --lean-tok-operator: #6d4c41;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lean-bg: #202124;
+    --lean-bg-secondary: #292a2d;
+    --lean-bg-tertiary: #35363a;
+    --lean-text: #e8eaed;
+    --lean-muted: #9aa0a6;
+    --lean-border: #3c4043;
+    --lean-border-strong: #5f6368;
+    --lean-link: #8ab4f8;
+    --lean-hover-bg: rgba(138, 180, 248, 0.12);
+    --lean-target-bg: #174ea6;
+    --lean-info-bg: rgba(138, 180, 248, 0.16);
+    --lean-info-fg: #8ab4f8;
+    --lean-success-bg: rgba(129, 201, 149, 0.16);
+    --lean-success-fg: #81c995;
+    --lean-error-bg: rgba(242, 139, 130, 0.16);
+    --lean-error-fg: #f28b82;
+    --lean-warning-bg: rgba(253, 214, 99, 0.16);
+    --lean-warning-fg: #fdd663;
+    --lean-neutral-bg: rgba(154, 160, 166, 0.18);
+    --lean-type-bg: rgba(244, 143, 177, 0.16);
+    --lean-type-fg: #f48fb1;
+    --lean-decl-theorem-border: #8ab4f8;
+    --lean-decl-alert-border: #f28b82;
+    --lean-card-shadow: rgba(0, 0, 0, 0.28);
+    --lean-md-code-bg: #2d3035;
+    --lean-md-quote-border: #5f6368;
+    --lean-tok-keyword: #f48fb1;
+    --lean-tok-tactic: #8ab4f8;
+    --lean-tok-type: #e6b89c;
+    --lean-tok-comment: #7ec699;
+    --lean-tok-string: #81c995;
+    --lean-tok-number: #78d9ec;
+    --lean-tok-literal: #81c995;
+    --lean-tok-attribute: #c58af9;
+    --lean-tok-operator: #d7ccc8;
+  }
+}
+
+html[data-theme="dark"] {
+  --lean-bg: #202124;
+  --lean-bg-secondary: #292a2d;
+  --lean-bg-tertiary: #35363a;
+  --lean-text: #e8eaed;
+  --lean-muted: #9aa0a6;
+  --lean-border: #3c4043;
+  --lean-border-strong: #5f6368;
+  --lean-link: #8ab4f8;
+  --lean-hover-bg: rgba(138, 180, 248, 0.12);
+  --lean-target-bg: #174ea6;
+  --lean-info-bg: rgba(138, 180, 248, 0.16);
+  --lean-info-fg: #8ab4f8;
+  --lean-success-bg: rgba(129, 201, 149, 0.16);
+  --lean-success-fg: #81c995;
+  --lean-error-bg: rgba(242, 139, 130, 0.16);
+  --lean-error-fg: #f28b82;
+  --lean-warning-bg: rgba(253, 214, 99, 0.16);
+  --lean-warning-fg: #fdd663;
+  --lean-neutral-bg: rgba(154, 160, 166, 0.18);
+  --lean-type-bg: rgba(244, 143, 177, 0.16);
+  --lean-type-fg: #f48fb1;
+  --lean-decl-theorem-border: #8ab4f8;
+  --lean-decl-alert-border: #f28b82;
+  --lean-card-shadow: rgba(0, 0, 0, 0.28);
+  --lean-md-code-bg: #2d3035;
+  --lean-md-quote-border: #5f6368;
+  --lean-tok-keyword: #f48fb1;
+  --lean-tok-tactic: #8ab4f8;
+  --lean-tok-type: #e6b89c;
+  --lean-tok-comment: #7ec699;
+  --lean-tok-string: #81c995;
+  --lean-tok-number: #78d9ec;
+  --lean-tok-literal: #81c995;
+  --lean-tok-attribute: #c58af9;
+  --lean-tok-operator: #d7ccc8;
+}
+
+.LeanView {
+  color: var(--lean-text);
+  margin: 10px 0;
+}
+
+.LeanView-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+/* Summary & soundness hygiene toolbar */
+
+.LeanSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--lean-bg-secondary);
+  border: 1px solid var(--lean-border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.LeanSummary-left,
+.LeanSummary-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.LeanSummary-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: var(--lean-info-bg);
+  color: var(--lean-info-fg);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.LeanSummary-stats {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--lean-muted);
+}
+
+.LeanSummary-statSep {
+  opacity: 0.5;
+}
+
+.LeanSummary-source {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  color: var(--lean-muted);
+}
+
+.LeanPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.LeanPill:hover {
+  text-decoration: underline;
+}
+
+.LeanPill a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.LeanPill--error {
+  background-color: var(--lean-error-bg);
+  color: var(--lean-error-fg);
+}
+
+.LeanPill--warning {
+  background-color: var(--lean-warning-bg);
+  color: var(--lean-warning-fg);
+}
+
+.LeanPill--neutral {
+  background-color: var(--lean-neutral-bg);
+  color: var(--lean-muted);
+}
+
+/* Trojan Source and invisible Unicode warning banner and character markers */
+
+.LeanTrojanBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--lean-error-fg);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background-color: var(--lean-warning-bg);
+  color: var(--lean-warning-fg);
+  font-size: 13px;
+  line-height: 1.45;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanTrojanBanner-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background-color: var(--lean-error-bg);
+  color: var(--lean-error-fg);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.LeanTrojanChar {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 0 4px;
+  border: 1px solid var(--lean-error-fg);
+  border-radius: 3px;
+  background-color: var(--lean-error-bg);
+  color: var(--lean-error-fg);
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  vertical-align: baseline;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Isolate strong RTL runs inside Lean code and identifiers so UAX #9 cannot
+ * visually reorder adjacent operators, delimiters, or operands. */
+.LeanBidiIsolate {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Module docstring card */
+
+.LeanModuleDoc {
+  background-color: var(--lean-bg);
+  border: 1px solid var(--lean-border);
+  border-left: 3px solid var(--lean-link);
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+
+.LeanModuleDoc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--lean-muted);
+}
+
+/* Section banner */
+
+.LeanBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px;
+  margin-top: 4px;
+  border-bottom: 2px solid var(--lean-border-strong);
+}
+
+.LeanBanner-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--lean-text);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Imports, directives, comments */
+
+.LeanStrip {
+  background-color: var(--lean-bg);
+  border: 1px solid var(--lean-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.LeanStrip--comment {
+  background-color: var(--lean-bg-secondary);
+  border-style: dashed;
+}
+
+.LeanStrip--license {
+  opacity: 0.82;
+  font-size: 11px;
+}
+
+/* Declaration card */
+
+.LeanDecl {
+  background-color: var(--lean-bg);
+  border: 1px solid var(--lean-border-strong);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px var(--lean-card-shadow);
+}
+
+.LeanDecl--theorem {
+  border-top: 2px solid var(--lean-decl-theorem-border);
+}
+
+.LeanDecl--type {
+  border-top: 2px solid var(--lean-tok-keyword);
+}
+
+.LeanDecl--def {
+  border-top: 2px solid var(--lean-muted);
+}
+
+.LeanDecl--instance {
+  border-top: 2px solid var(--lean-success-fg);
+}
+
+.LeanDecl--axiom {
+  border-top: 2px solid var(--lean-error-fg);
+}
+
+.LeanDecl--hygieneAlert {
+  border-color: var(--lean-decl-alert-border);
+}
+
+.LeanDecl--compact {
+  border-top-width: 1px;
+  box-shadow: none;
+  padding: 2px 0;
+}
+
+.LeanDecl-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: var(--lean-bg-secondary);
+  border-bottom: 1px solid var(--lean-border);
+}
+
+.LeanDecl-headerMain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.LeanDecl-headerMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.LeanDecl-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.1px;
+}
+
+.LeanDecl-kind--theorem {
+  background-color: var(--lean-info-bg);
+  color: var(--lean-info-fg);
+}
+
+.LeanDecl-kind--type {
+  background-color: var(--lean-type-bg);
+  color: var(--lean-type-fg);
+}
+
+.LeanDecl-kind--def {
+  background-color: var(--lean-bg-tertiary);
+  color: var(--lean-text);
+}
+
+.LeanDecl-kind--instance {
+  background-color: var(--lean-success-bg);
+  color: var(--lean-success-fg);
+}
+
+.LeanDecl-kind--axiom {
+  background-color: var(--lean-error-bg);
+  color: var(--lean-error-fg);
+}
+
+.LeanDecl-name {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lean-text);
+  word-break: break-word;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanDecl-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  line-height: 17px;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanDecl-chip--meta {
+  background-color: var(--lean-bg-tertiary);
+  color: var(--lean-muted);
+}
+
+.LeanDecl-chip--attr {
+  background-color: var(--lean-bg);
+  border: 1px solid var(--lean-border-strong);
+  color: var(--lean-tok-attribute);
+}
+
+.LeanDecl-chip--strategy {
+  background-color: var(--lean-bg);
+  border: 1px solid var(--lean-border-strong);
+  color: var(--lean-muted);
+}
+
+.LeanDecl-chip--decide {
+  background-color: var(--lean-success-bg);
+  border-color: transparent;
+  color: var(--lean-success-fg);
+}
+
+.LeanDecl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.LeanDecl-badge--error {
+  background-color: var(--lean-error-bg);
+  color: var(--lean-error-fg);
+}
+
+.LeanDecl-badge--warning {
+  background-color: var(--lean-warning-bg);
+  color: var(--lean-warning-fg);
+}
+
+.LeanLineRange {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  color: var(--lean-muted);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+a.LeanLineRange:hover {
+  color: var(--lean-link);
+  text-decoration: underline;
+}
+
+.LeanDecl-doc {
+  padding: 8px 12px;
+  background-color: var(--lean-bg);
+  border-bottom: 1px solid var(--lean-border);
+  font-size: 13px;
+  color: var(--lean-text);
+}
+
+.LeanDecl-doc > *:last-child {
+  margin-bottom: 0;
+}
+
+.LeanDecl-signature {
+  padding: 4px 0;
+  background-color: var(--lean-bg);
+}
+
+.LeanDecl-signature--hasBody {
+  border-bottom: 1px solid var(--lean-border);
+}
+
+.LeanDecl-body {
+  padding: 4px 0;
+  background-color: var(--lean-bg);
+}
+
+.LeanDecl-deriving {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background-color: var(--lean-bg-secondary);
+  border-top: 1px solid var(--lean-border);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+}
+
+.LeanDecl-derivingLabel {
+  color: var(--lean-tok-keyword);
+  font-weight: 600;
+}
+
+.LeanDecl-derivingChip {
+  padding: 0 6px;
+  border-radius: 4px;
+  background-color: var(--lean-bg);
+  border: 1px solid var(--lean-border-strong);
+  color: var(--lean-tok-type);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Code lines & line numbers */
+
+.LeanCode {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  line-height: 1.48;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanCode-line {
+  display: grid;
+  grid-template-columns: minmax(44px, auto) minmax(0, 1fr);
+  align-items: baseline;
+  min-height: 19px;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanCode-line:hover {
+  background-color: var(--lean-hover-bg);
+}
+
+.LeanCode-line:target {
+  background-color: var(--lean-target-bg);
+}
+
+.LeanCode-lineNum {
+  color: var(--lean-muted);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  text-align: right;
+  padding: 0 8px 0 4px;
+  text-decoration: none;
+  user-select: none;
+  opacity: 0.72;
+  line-height: inherit;
+}
+
+.LeanCode-lineNum:hover {
+  opacity: 1;
+  color: var(--lean-link);
+  text-decoration: underline;
+}
+
+.LeanCode-text {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  padding: 0 10px 0 4px;
+  min-width: 0;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Structure fields & inductive constructors tables */
+
+.LeanTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 12px;
+}
+
+.LeanTable th {
+  background-color: var(--lean-bg-secondary);
+  color: var(--lean-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 4px 8px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid var(--lean-border);
+  text-align: left;
+}
+
+.LeanTable td {
+  padding: 4px 8px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid var(--lean-border);
+  vertical-align: top;
+}
+
+.LeanTable tr:last-child td {
+  border-bottom: none;
+}
+
+.LeanTable tr:target td {
+  background-color: var(--lean-target-bg);
+}
+
+.LeanTable-lineCol {
+  width: 36px;
+  padding-left: 2px;
+  padding-right: 4px;
+  text-align: right;
+}
+
+.LeanTable-name {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600;
+  color: var(--lean-text);
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanTable-type {
+  font-family: 'Source Code Pro', monospace;
+  white-space: normal;
+  overflow-wrap: break-word;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanTable-default {
+  color: var(--lean-muted);
+}
+
+.LeanTable-notes {
+  font-size: 12px;
+  color: var(--lean-muted);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanTable-notes p {
+  margin: 0;
+}
+
+/* Syntax tokens (one LeanTok--<kind> per LeanTokenKind, plus LeanTok--unicodeOp) */
+
+.LeanTok--plain,
+.LeanTok--comment,
+.LeanTok--string,
+.LeanTok--keyword,
+.LeanTok--tactic,
+.LeanTok--sorry,
+.LeanTok--type,
+.LeanTok--operator,
+.LeanTok--unicodeOp,
+.LeanTok--bullet,
+.LeanTok--attribute,
+.LeanTok--number,
+.LeanTok--literal {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanTok--plain {
+  color: var(--lean-text);
+}
+
+.LeanTok--comment {
+  color: var(--lean-tok-comment);
+  font-style: italic;
+}
+
+.LeanTok--string {
+  color: var(--lean-tok-string);
+}
+
+.LeanTok--keyword {
+  color: var(--lean-tok-keyword);
+  font-weight: 500;
+}
+
+.LeanTok--tactic {
+  color: var(--lean-tok-tactic);
+}
+
+.LeanTok--sorry {
+  color: var(--lean-error-fg);
+  background-color: var(--lean-error-bg);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-weight: 700;
+}
+
+.LeanTok--type {
+  color: var(--lean-tok-type);
+}
+
+.LeanTok--operator {
+  color: var(--lean-tok-operator);
+}
+
+/* Lock fallback Unicode math operators to a single monospace cell so
+ * OS-dependent fallback glyph advance widths cannot shift column alignment. */
+.LeanTok--unicodeOp {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+}
+
+.LeanTok--bullet {
+  color: var(--lean-link);
+  font-weight: 700;
+}
+
+.LeanTok--attribute {
+  color: var(--lean-tok-attribute);
+}
+
+.LeanTok--number {
+  color: var(--lean-tok-number);
+}
+
+.LeanTok--literal {
+  color: var(--lean-tok-literal);
+}
+
+/* Markdown typography for module docs & docstrings */
+
+.LeanMd {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanMd h1,
+.LeanMd h2,
+.LeanMd h3,
+.LeanMd h4,
+.LeanMd h5,
+.LeanMd h6 {
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: var(--lean-text);
+  font-weight: 600;
+}
+
+.LeanMd h1 {
+  font-size: 1.35em;
+  border-bottom: 1px solid var(--lean-border);
+  padding-bottom: 3px;
+}
+
+.LeanMd h2 {
+  font-size: 1.18em;
+}
+
+.LeanMd h3 {
+  font-size: 1.05em;
+}
+
+.LeanMd p {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.LeanMd p:last-child {
+  margin-bottom: 0;
+}
+
+.LeanMd a {
+  color: var(--lean-link);
+  text-decoration: underline;
+}
+
+.LeanMd a.h {
+  display: none;
+}
+
+.LeanMd code,
+.LeanBanner code,
+.LeanTable-notes code {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  background-color: var(--lean-md-code-bg);
+  color: var(--lean-text);
+  padding: 1px 4px;
+  border-radius: 3px;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanMd pre {
+  background-color: var(--lean-bg-secondary);
+  border: 1px solid var(--lean-border);
+  border-radius: 4px;
+  padding: 8px;
+  overflow-x: auto;
+  margin: 4px 0;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.LeanMd pre code {
+  background-color: transparent;
+  padding: 0;
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.LeanMd ul,
+.LeanMd ol {
+  margin-top: 0;
+  margin-bottom: 6px;
+  padding-left: 24px;
+}
+
+.LeanMd ul {
+  list-style-type: disc;
+}
+
+.LeanMd ol {
+  list-style-type: decimal;
+}
+
+.LeanMd blockquote {
+  border-left: 3px solid var(--lean-md-quote-border);
+  margin: 0 0 6px 0;
+  padding: 0 12px;
+  color: var(--lean-muted);
+}
+
+.LeanMd table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.LeanMd th,
+.LeanMd td {
+  border: 1px solid var(--lean-border);
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.LeanMd th {
+  background-color: var(--lean-bg-secondary);
+  font-weight: 600;
+}
+
+.LeanMd hr {
+  border: none;
+  border-top: 1px solid var(--lean-border);
+  margin: 8px 0;
+}
+
+.LeanMd em {
+  font-style: italic;
+}
+
+.LeanMd strong {
+  font-weight: 700;
+}

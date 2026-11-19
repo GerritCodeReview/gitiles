@@ -102,6 +102,7 @@ public abstract class Renderer {
       ImmutableMap.<String, String>builder()
           .put("gitiles.BASE_CSS_URL", "base.css")
           .put("gitiles.DOC_CSS_URL", "doc.css")
+          .put("gitiles.LEAN_CSS_URL", "lean.css")
           .put("gitiles.PRETTIFY_CSS_URL", "prettify/prettify.css")
           .put("gitiles.FAVICON_ICO_URL", "favicon.ico")
           .put("gitiles.FAVICON_SVG_URL", "favicon.svg")
