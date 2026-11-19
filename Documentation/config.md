@@ -160,14 +160,14 @@ fileSearch = false
 
 ### Lean rendering
 
-Render `.lean` (Lean 4) source files richly on blob pages, showing summary
-counts, soundness hygiene badges, rendered Markdown docstrings, and
-syntax-highlighted declarations. Default: `true`.
+Render `.lean` (Lean 4) source files richly on blob pages and semantically in
+diffs, showing summary counts, soundness hygiene badges, rendered Markdown
+docstrings, and syntax-highlighted declarations. Default: `true`.
 
 Readers can bypass rich rendering on any request with `?lean=0` to view the
-plain source. Files exceeding the input or output size caps also fall back to
-the standard view automatically. Set this to `false` to disable rich Lean
-rendering site-wide.
+plain source or raw unified diff. Files exceeding the input or output size caps
+also fall back to the standard view automatically. Set this to `false` to
+disable rich Lean rendering site-wide.
 
 ```
 [gitiles]

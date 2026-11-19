@@ -20,6 +20,7 @@ import com.google.common.io.BaseEncoding;
 import com.google.gitiles.CommitData.Field;
 import com.google.gitiles.DateFormatter.Format;
 import com.google.gitiles.GitilesRequestFailureException.FailureReason;
+import com.google.gitiles.lean.LeanRendering;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -33,6 +34,7 @@ import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.http.server.ServletUtils;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
@@ -83,14 +85,19 @@ public class DiffServlet extends BaseServlet {
         throw new GitilesRequestFailureException(FailureReason.INCORRECT_OBJECT_TYPE, e);
       }
 
+      GitilesAccess access = getAccess(req);
+      Config config = access.getConfig();
       Map<String, Object> data = getData(req);
       data.put("title", "Diff - " + view.getRevisionRange());
+      if (LeanRendering.isEnabled(config, view)
+          && (!isFile || LeanRendering.isLeanPath(view.getPathPart()))) {
+        data.put("leanCss", Boolean.TRUE);
+      }
       if (showCommit) {
         Set<Field> fs = CommitSoyData.DEFAULT_FIELDS;
         if (isFile) {
           fs = Field.setOf(fs, Field.PARENT_BLAME_URL);
         }
-        GitilesAccess access = getAccess(req);
         DateFormatter df = new DateFormatter(access, Format.DEFAULT);
         data.put(
             "commit",
@@ -110,7 +117,8 @@ public class DiffServlet extends BaseServlet {
       try (OutputStream out =
               startRenderStreamingHtml(
                   req, res, "com.google.gitiles.templates.DiffDetail.diffDetail", data);
-          DiffFormatter diff = new HtmlDiffFormatter(renderer, view, out)) {
+          DiffFormatter diff =
+              new HtmlDiffFormatter(renderer, view, out, config, req.getRequestURI())) {
         formatDiff(repo, oldTree, newTree, view.getPathPart(), diff);
       }
     }

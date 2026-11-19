@@ -27,20 +27,36 @@ import com.google.gitiles.doc.html.SoyHtmlBuilder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.eclipse.jgit.lib.Config;
 
-/** Server-side HTML renderer for Lean 4 blobs using {@link SoyHtmlBuilder}. */
+/** Server-side HTML renderer for Lean 4 blobs and diffs using {@link SoyHtmlBuilder}. */
 public final class LeanHtml {
   private static final String CLASS_VIEW = "LeanView";
   private static final String CLASS_VIEW_BLOCKS = "LeanView-blocks";
+  private static final String CLASS_DIFF = "LeanDiff";
+  private static final String CLASS_DIFF_BLOCKS = "LeanDiff-blocks";
+  private static final String CLASS_DIFF_BLOCK = "LeanDiff-block";
+  private static final String CLASS_DIFF_BLOCK_ADDED = "LeanDiff-block--added";
+  private static final String CLASS_DIFF_BLOCK_DELETED = "LeanDiff-block--deleted";
+  private static final String CLASS_DIFF_COLLAPSED = "LeanDiff-collapsed";
+  private static final String CLASS_DIFF_SUBROW = "LeanDiff-subrow";
+  private static final String CLASS_DIFF_SUBROW_ADDED = "LeanDiff-subrow--added";
+  private static final String CLASS_DIFF_SUBROW_DELETED = "LeanDiff-subrow--deleted";
+  private static final String CLASS_DIFF_INLINE_ADD = "LeanDiff-inlineAdd";
+  private static final String CLASS_DIFF_INLINE_DEL = "LeanDiff-inlineDel";
   private static final String CLASS_SUMMARY = "LeanSummary";
   private static final String CLASS_SUMMARY_LEFT = "LeanSummary-left";
   private static final String CLASS_SUMMARY_RIGHT = "LeanSummary-right";
   private static final String CLASS_SUMMARY_LANG = "LeanSummary-lang";
   private static final String CLASS_SUMMARY_STATS = "LeanSummary-stats";
   private static final String CLASS_SUMMARY_STAT_SEP = "LeanSummary-statSep";
+  private static final String CLASS_SUMMARY_DELTAS = "LeanSummary-deltas";
+  private static final String CLASS_SUMMARY_DELTA_ADD = "LeanSummary-delta--add";
+  private static final String CLASS_SUMMARY_DELTA_DEL = "LeanSummary-delta--del";
+  private static final String CLASS_SUMMARY_DELTA_MOD = "LeanSummary-delta--mod";
   private static final String CLASS_SUMMARY_SOURCE = "LeanSummary-source";
   private static final String CLASS_PILL = "LeanPill";
   private static final String CLASS_PILL_VERIFIED = "LeanPill--verified";
@@ -79,9 +95,13 @@ public final class LeanHtml {
   private static final String CLASS_LINE_RANGE = "LeanLineRange";
   private static final String CLASS_CODE = "LeanCode";
   private static final String CLASS_CODE_LINE = "LeanCode-line";
+  private static final String CLASS_CODE_LINE_ADDED = "LeanCode-line--added";
+  private static final String CLASS_CODE_LINE_DELETED = "LeanCode-line--deleted";
   private static final String CLASS_CODE_LINE_NUM = "LeanCode-lineNum";
   private static final String CLASS_CODE_TEXT = "LeanCode-text";
   private static final String CLASS_TABLE = "LeanTable";
+  private static final String CLASS_TABLE_ROW_ADDED = "LeanTable-row--added";
+  private static final String CLASS_TABLE_ROW_DELETED = "LeanTable-row--deleted";
   private static final String CLASS_TABLE_LINE_COL = "LeanTable-lineCol";
   private static final String CLASS_TABLE_NAME = "LeanTable-name";
   private static final String CLASS_TABLE_TYPE = "LeanTable-type";
@@ -156,6 +176,71 @@ public final class LeanHtml {
     return LeanRendering.withinOutputCap(result.getSafeHtmlString().length()) ? result : null;
   }
 
+  /**
+   * Renders a unified semantic Lean 4 diff as sanitized {@link SafeHtml}, or {@code null} if either
+   * input is null/oversize, both sides contain no Lean blocks, or the output exceeds bounds.
+   */
+  public static @Nullable SafeHtml renderDiff(
+      @Nullable String leftSource,
+      @Nullable String rightSource,
+      @Nullable Config config,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath) {
+    if (leftSource == null || rightSource == null) {
+      return null;
+    }
+    return renderDiff(
+        utf8ByteLength(leftSource),
+        leftSource,
+        utf8ByteLength(rightSource),
+        rightSource,
+        config,
+        view,
+        requestUri,
+        filePath);
+  }
+
+  /**
+   * Renders a unified semantic Lean 4 diff as sanitized {@link SafeHtml}, or {@code null} if either
+   * input is null/oversize, both sides contain no Lean blocks, or the output exceeds bounds.
+   */
+  public static @Nullable SafeHtml renderDiff(
+      int leftByteLength,
+      @Nullable String leftSource,
+      int rightByteLength,
+      @Nullable String rightSource,
+      @Nullable Config config,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath) {
+    if (!LeanRendering.withinInputCaps(leftByteLength, leftSource)
+        || !LeanRendering.withinInputCaps(rightByteLength, rightSource)) {
+      return null;
+    }
+    MarkdownConfig markdownConfig = MarkdownConfig.get(config != null ? config : new Config());
+    ImmutableList<LeanBlock> blocksA = LeanParser.parse(leftSource);
+    ImmutableList<LeanBlock> blocksB = LeanParser.parse(rightSource);
+    if (blocksA.isEmpty() && blocksB.isEmpty()) {
+      return null;
+    }
+
+    ImmutableList<AlignedLeanRow> alignedRows = LeanDiffEngine.alignLeanBlocks(blocksA, blocksB);
+    if (alignedRows.isEmpty()) {
+      return null;
+    }
+    LeanDiffSummary summary = LeanDiffEngine.computeLeanSummary(blocksA, blocksB, alignedRows);
+
+    SoyHtmlBuilder html = new SoyHtmlBuilder();
+    html.open("div").attribute("class", CLASS_DIFF);
+    renderDiffSummaryBar(html, summary, view);
+    renderDiffBlocks(html, alignedRows, markdownConfig, view, requestUri, filePath);
+    html.close("div");
+
+    SafeHtml result = html.toSoy();
+    return LeanRendering.withinOutputCap(result.getSafeHtmlString().length()) ? result : null;
+  }
+
   private static void renderBlobSummaryBar(
       HtmlBuilder html, LeanFileCounts counts, List<LeanBlock> blocks, @Nullable GitilesView view) {
     HazardLines hazards = collectHazardLines(blocks);
@@ -207,6 +292,96 @@ public final class LeanHtml {
           html, CLASS_PILL_ERROR, counts.unsafeCount() + " unsafe", hazards.unsafeLines);
     }
 
+    renderSummaryStats(html, counts);
+    html.close("div");
+
+    renderSummaryLink(html, view, "View plain source", "source");
+    html.close("div");
+  }
+
+  private static void renderDiffSummaryBar(
+      HtmlBuilder html, LeanDiffSummary summary, @Nullable GitilesView view) {
+    LeanFileCounts counts = summary.hasRevision() ? summary.revision() : summary.base();
+    int sorryTotal = counts.sorryCount() + counts.admitCount();
+    boolean isClean =
+        sorryTotal == 0
+            && counts.axioms() == 0
+            && counts.unsafeCount() == 0
+            && counts.nativeDecideCount() == 0
+            && counts.partialCount() == 0
+            && counts.theorems() > 0;
+
+    html.open("div").attribute("class", CLASS_SUMMARY).attribute("role", "status");
+    html.open("div").attribute("class", CLASS_SUMMARY_LEFT);
+    html.open("span")
+        .attribute("class", CLASS_SUMMARY_LANG)
+        .appendAndEscape("Lean 4")
+        .close("span");
+
+    if (isClean) {
+      renderStaticSummaryPill(html, CLASS_PILL_VERIFIED, "0 sorry");
+    }
+    if (sorryTotal > 0) {
+      renderStaticSummaryPill(html, CLASS_PILL_ERROR, sorryTotal + " sorry");
+    }
+    if (counts.axioms() > 0) {
+      renderStaticSummaryPill(
+          html, CLASS_PILL_WARNING, formatPlural(counts.axioms(), "axiom", "axioms"));
+    }
+    if (counts.nativeDecideCount() > 0) {
+      renderStaticSummaryPill(
+          html, CLASS_PILL_WARNING, counts.nativeDecideCount() + " native_decide");
+    }
+    if (counts.partialCount() > 0) {
+      renderStaticSummaryPill(html, CLASS_PILL_WARNING, counts.partialCount() + " partial");
+    }
+    if (counts.unsafeCount() > 0) {
+      renderStaticSummaryPill(html, CLASS_PILL_ERROR, counts.unsafeCount() + " unsafe");
+    }
+
+    renderSummaryStats(html, counts);
+
+    if (summary.hasBase()
+        && summary.hasRevision()
+        && (summary.addedDeclarations() > 0
+            || summary.modifiedDeclarations() > 0
+            || summary.deletedDeclarations() > 0)) {
+      html.open("span").attribute("class", CLASS_SUMMARY_DELTAS);
+      if (summary.addedDeclarations() > 0) {
+        html.open("span")
+            .attribute("class", CLASS_SUMMARY_DELTA_ADD)
+            .appendAndEscape("+" + summary.addedDeclarations())
+            .close("span");
+      }
+      if (summary.modifiedDeclarations() > 0) {
+        html.open("span")
+            .attribute("class", CLASS_SUMMARY_DELTA_MOD)
+            .appendAndEscape("~" + summary.modifiedDeclarations())
+            .close("span");
+      }
+      if (summary.deletedDeclarations() > 0) {
+        html.open("span")
+            .attribute("class", CLASS_SUMMARY_DELTA_DEL)
+            .appendAndEscape("-" + summary.deletedDeclarations())
+            .close("span");
+      }
+      html.close("span");
+    }
+    html.close("div");
+
+    renderSummaryLink(html, view, "View raw unified diff", "raw diff");
+    html.close("div");
+  }
+
+  private static void renderStaticSummaryPill(
+      HtmlBuilder html, String modifierClass, String label) {
+    html.open("span")
+        .attribute("class", CLASS_PILL + " " + modifierClass)
+        .appendAndEscape(label)
+        .close("span");
+  }
+
+  private static void renderSummaryStats(HtmlBuilder html, LeanFileCounts counts) {
     List<String> stats = buildSummaryStats(counts);
     if (!stats.isEmpty()) {
       html.open("span").attribute("class", CLASS_SUMMARY_STATS);
@@ -221,20 +396,20 @@ public final class LeanHtml {
       }
       html.close("span");
     }
-    html.close("div");
+  }
 
+  private static void renderSummaryLink(
+      HtmlBuilder html, @Nullable GitilesView view, String title, String label) {
     html.open("div").attribute("class", CLASS_SUMMARY_RIGHT);
     html.open("span").attribute("class", CLASS_SUMMARY_SOURCE);
     html.appendAndEscape("[");
     html.open("a")
         .attribute("href", sourceViewUrl(view))
-        .attribute("title", "View plain source")
-        .appendAndEscape("source")
+        .attribute("title", title)
+        .appendAndEscape(label)
         .close("a");
     html.appendAndEscape("]");
     html.close("span");
-    html.close("div");
-
     html.close("div");
   }
 
@@ -291,6 +466,188 @@ public final class LeanHtml {
         .toUrl();
   }
 
+  private static void renderDiffBlocks(
+      HtmlBuilder html,
+      List<AlignedLeanRow> rows,
+      MarkdownConfig markdownConfig,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath) {
+    html.open("div").attribute("class", CLASS_DIFF_BLOCKS);
+    int i = 0;
+    while (i < rows.size()) {
+      AlignedLeanRow row = rows.get(i);
+      if (row.status() == DiffBlockStatus.UNCHANGED) {
+        int j = i;
+        int declCount = 0;
+        while (j < rows.size() && rows.get(j).status() == DiffBlockStatus.UNCHANGED) {
+          AlignedLeanRow unchanged = rows.get(j);
+          LeanBlock blk =
+              unchanged.rightBlock() != null ? unchanged.rightBlock() : unchanged.leftBlock();
+          if (blk != null && blk.type() == LeanBlockType.DECLARATION) {
+            declCount++;
+          }
+          j++;
+        }
+        int totalCount = j - i;
+        html.open("div")
+            .attribute("class", CLASS_DIFF_COLLAPSED)
+            .appendAndEscape(formatCollapsedLabel(declCount, totalCount))
+            .close("div");
+        i = j;
+        continue;
+      }
+
+      switch (row.status()) {
+        case ADDED -> {
+          if (row.rightBlock() != null) {
+            html.open("div").attribute("class", CLASS_DIFF_BLOCK + " " + CLASS_DIFF_BLOCK_ADDED);
+            renderBlock(html, row.rightBlock(), markdownConfig, view, requestUri, filePath, null);
+            html.close("div");
+          }
+        }
+        case DELETED -> {
+          if (row.leftBlock() != null) {
+            html.open("div").attribute("class", CLASS_DIFF_BLOCK + " " + CLASS_DIFF_BLOCK_DELETED);
+            renderBlock(html, row.leftBlock(), markdownConfig, view, requestUri, filePath, null);
+            html.close("div");
+          }
+        }
+        case MODIFIED -> renderModifiedRow(html, row, markdownConfig, view, requestUri, filePath);
+        case UNCHANGED -> {}
+      }
+      i++;
+    }
+    html.close("div");
+  }
+
+  private static String formatCollapsedLabel(int declCount, int blockCount) {
+    if (declCount == blockCount) {
+      return formatPlural(declCount, "unchanged declaration", "unchanged declarations");
+    }
+    if (declCount == 0) {
+      return formatPlural(blockCount, "unchanged block", "unchanged blocks");
+    }
+    int otherCount = blockCount - declCount;
+    return formatPlural(declCount, "unchanged declaration", "unchanged declarations")
+        + " \u00b7 "
+        + formatPlural(otherCount, "other unchanged block", "other unchanged blocks");
+  }
+
+  private static void renderModifiedRow(
+      HtmlBuilder html,
+      AlignedLeanRow row,
+      MarkdownConfig markdownConfig,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath) {
+    LeanBlock left = row.leftBlock();
+    LeanBlock right = row.rightBlock();
+
+    if (row.moduleDocDiff() != null && right != null) {
+      TextDiffData docDiff = row.moduleDocDiff();
+      html.open("div").attribute("class", CLASS_DIFF_BLOCK);
+      html.open("div").attribute("class", CLASS_MODULE_DOC + " " + CLASS_MD);
+      html.open("div").attribute("class", CLASS_MODULE_DOC_HEADER);
+      html.open("span").appendAndEscape("Module Documentation").close("span");
+      renderLineRange(html, right.startLine(), right.endLine(), null);
+      html.close("div");
+      if (docDiff.changed()) {
+        if (!docDiff.leftText().isEmpty()) {
+          html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_DELETED);
+          renderMarkdownBlock(html, docDiff.leftText(), markdownConfig, view, requestUri, filePath);
+          html.close("div");
+        }
+        if (!docDiff.rightText().isEmpty()) {
+          html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_ADDED);
+          renderMarkdownBlock(
+              html, docDiff.rightText(), markdownConfig, view, requestUri, filePath);
+          html.close("div");
+        }
+      } else {
+        renderMarkdownBlock(html, docDiff.rightText(), markdownConfig, view, requestUri, filePath);
+      }
+      html.close("div");
+      html.close("div");
+      return;
+    }
+
+    if (row.bannerDiff() != null && right != null) {
+      TextDiffData bannerDiff = row.bannerDiff();
+      html.open("div").attribute("class", CLASS_DIFF_BLOCK);
+      html.open("div").attribute("class", CLASS_BANNER);
+      if (bannerDiff.changed()) {
+        html.open("div");
+        if (!bannerDiff.leftText().isEmpty()) {
+          html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_DELETED);
+          html.open("h3")
+              .attribute("class", CLASS_BANNER_TITLE)
+              .appendAndEscape(bannerDiff.leftText())
+              .close("h3");
+          html.close("div");
+        }
+        if (!bannerDiff.rightText().isEmpty()) {
+          html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_ADDED);
+          html.open("h3")
+              .attribute("class", CLASS_BANNER_TITLE)
+              .appendAndEscape(bannerDiff.rightText())
+              .close("h3");
+          html.close("div");
+        }
+        html.close("div");
+      } else {
+        html.open("h3")
+            .attribute("class", CLASS_BANNER_TITLE)
+            .appendAndEscape(bannerDiff.rightText())
+            .close("h3");
+      }
+      renderLineRange(html, right.startLine(), right.endLine(), null);
+      html.close("div");
+      html.close("div");
+      return;
+    }
+
+    if (row.lineDiff() != null) {
+      LeanBlock active = right != null ? right : left;
+      boolean isComment = active != null && active.type() == LeanBlockType.COMMENT;
+      boolean isLicense =
+          (right != null && right.isLicenseHeader()) || (left != null && left.isLicenseHeader());
+      html.open("div").attribute("class", CLASS_DIFF_BLOCK);
+      html.open("div").attribute("class", stripClass(isComment, isLicense));
+      renderAlignedCodeLines(html, row.lineDiff());
+      html.close("div");
+      html.close("div");
+      return;
+    }
+
+    if (row.declDiff() != null && right != null && right.decl() != null) {
+      html.open("div").attribute("class", CLASS_DIFF_BLOCK);
+      renderDiffDeclarationCard(
+          html,
+          left,
+          right,
+          right.decl(),
+          row.declDiff(),
+          markdownConfig,
+          view,
+          requestUri,
+          filePath);
+      html.close("div");
+      return;
+    }
+
+    if (left != null) {
+      html.open("div").attribute("class", CLASS_DIFF_BLOCK + " " + CLASS_DIFF_BLOCK_DELETED);
+      renderBlock(html, left, markdownConfig, view, requestUri, filePath, null);
+      html.close("div");
+    }
+    if (right != null) {
+      html.open("div").attribute("class", CLASS_DIFF_BLOCK + " " + CLASS_DIFF_BLOCK_ADDED);
+      renderBlock(html, right, markdownConfig, view, requestUri, filePath, null);
+      html.close("div");
+    }
+  }
+
   private static void renderBlock(
       HtmlBuilder html,
       LeanBlock block,
@@ -298,7 +655,7 @@ public final class LeanHtml {
       @Nullable GitilesView view,
       @Nullable String requestUri,
       @Nullable String filePath,
-      Set<Integer> emittedLineIds) {
+      @Nullable Set<Integer> emittedLineIds) {
     switch (block.type()) {
       case MODULE_DOC ->
           renderModuleDoc(html, block, markdownConfig, view, requestUri, filePath, emittedLineIds);
@@ -332,12 +689,12 @@ public final class LeanHtml {
       @Nullable GitilesView view,
       @Nullable String requestUri,
       @Nullable String filePath,
-      Set<Integer> emittedLineIds) {
+      @Nullable Set<Integer> emittedLineIds) {
     html.open("div").attribute("class", CLASS_MODULE_DOC + " " + CLASS_MD);
     emitLineIdIfNew(html, emittedLineIds, block.startLine());
     html.open("div").attribute("class", CLASS_MODULE_DOC_HEADER);
     html.open("span").appendAndEscape("Module Documentation").close("span");
-    renderLineRangeLink(html, block.startLine(), block.endLine());
+    renderLineRange(html, block.startLine(), block.endLine(), emittedLineIds);
     html.close("div");
     renderMarkdownBlock(
         html,
@@ -350,23 +707,18 @@ public final class LeanHtml {
   }
 
   private static void renderSectionBanner(
-      HtmlBuilder html, LeanBlock block, Set<Integer> emittedLineIds) {
+      HtmlBuilder html, LeanBlock block, @Nullable Set<Integer> emittedLineIds) {
     html.open("div").attribute("class", CLASS_BANNER);
     emitLineIdIfNew(html, emittedLineIds, block.startLine());
     html.open("h3")
         .attribute("class", CLASS_BANNER_TITLE)
         .appendAndEscape(Strings.nullToEmpty(block.markdownContent()))
         .close("h3");
-    renderLineRangeLink(html, block.startLine(), block.endLine());
+    renderLineRange(html, block.startLine(), block.endLine(), emittedLineIds);
     html.close("div");
   }
 
-  private static void renderStripBlock(
-      HtmlBuilder html,
-      List<LeanCodeLine> lines,
-      boolean isComment,
-      boolean isLicenseHeader,
-      Set<Integer> emittedLineIds) {
+  private static String stripClass(boolean isComment, boolean isLicenseHeader) {
     StringBuilder cls = new StringBuilder(CLASS_STRIP);
     if (isComment) {
       cls.append(' ').append(CLASS_STRIP_COMMENT);
@@ -374,9 +726,29 @@ public final class LeanHtml {
     if (isLicenseHeader) {
       cls.append(' ').append(CLASS_STRIP_LICENSE);
     }
-    html.open("div").attribute("class", cls.toString());
+    return cls.toString();
+  }
+
+  private static void renderStripBlock(
+      HtmlBuilder html,
+      List<LeanCodeLine> lines,
+      boolean isComment,
+      boolean isLicenseHeader,
+      @Nullable Set<Integer> emittedLineIds) {
+    html.open("div").attribute("class", stripClass(isComment, isLicenseHeader));
     renderStaticCodeLines(html, lines, false, 0, isComment, emittedLineIds);
     html.close("div");
+  }
+
+  private static String declCardClass(LeanDeclaration decl, String declCatClass) {
+    LeanDeclHygiene hygiene = decl.hygiene();
+    boolean hasHygieneAlert =
+        hygiene.hasSorry() || hygiene.hasAdmit() || hygiene.isAxiom() || hygiene.isUnsafe();
+    StringBuilder cardCls = new StringBuilder(CLASS_DECL).append(' ').append(declCatClass);
+    if (hasHygieneAlert) {
+      cardCls.append(' ').append(CLASS_DECL_HYGIENE_ALERT);
+    }
+    return cardCls.toString();
   }
 
   private static void renderDeclarationCard(
@@ -387,7 +759,7 @@ public final class LeanHtml {
       @Nullable GitilesView view,
       @Nullable String requestUri,
       @Nullable String filePath,
-      Set<Integer> emittedLineIds) {
+      @Nullable Set<Integer> emittedLineIds) {
     String category = declCategory(decl.kind());
     String declCatClass = CLASS_DECL + "--" + category;
 
@@ -405,14 +777,6 @@ public final class LeanHtml {
       return;
     }
 
-    LeanDeclHygiene hygiene = decl.hygiene();
-    boolean hasHygieneAlert =
-        hygiene.hasSorry() || hygiene.hasAdmit() || hygiene.isAxiom() || hygiene.isUnsafe();
-    StringBuilder cardCls = new StringBuilder(CLASS_DECL).append(' ').append(declCatClass);
-    if (hasHygieneAlert) {
-      cardCls.append(' ').append(CLASS_DECL_HYGIENE_ALERT);
-    }
-
     int firstSigLine =
         decl.signatureLines().isEmpty() ? -1 : decl.signatureLines().get(0).lineNum();
     Integer docStartLine = decl.docStartLine();
@@ -421,12 +785,148 @@ public final class LeanHtml {
             && block.startLine() != firstSigLine
             && (docStartLine == null || block.startLine() != docStartLine);
 
-    html.open("div").attribute("class", cardCls.toString());
+    html.open("div").attribute("class", declCardClass(decl, declCatClass));
     if (emitStartOnCard) {
       emitLineIdIfNew(html, emittedLineIds, block.startLine());
     }
 
-    // Header
+    renderDeclHeader(html, block, decl, category, emittedLineIds);
+
+    // Docstring
+    if (decl.docComment() != null) {
+      html.open("div").attribute("class", CLASS_DECL_DOC + " " + CLASS_MD);
+      if (docStartLine != null && docStartLine != firstSigLine) {
+        emitLineIdIfNew(html, emittedLineIds, docStartLine);
+      }
+      renderMarkdownBlock(html, decl.docComment(), markdownConfig, view, requestUri, filePath);
+      html.close("div");
+    }
+
+    ImmutableList<LeanStructureField> fields = decl.fields();
+    ImmutableList<LeanInductiveCtor> ctors = decl.constructors();
+    boolean hasFields = fields != null && !fields.isEmpty();
+    boolean hasCtors = ctors != null && !ctors.isEmpty();
+    boolean hasCodeBody = !hasFields && !hasCtors && !decl.bodyLines().isEmpty();
+    boolean hasBody = hasFields || hasCtors || hasCodeBody;
+
+    // Signature
+    html.open("div")
+        .attribute(
+            "class", hasBody ? CLASS_DECL_SIG + " " + CLASS_DECL_SIG_HAS_BODY : CLASS_DECL_SIG);
+    renderStaticCodeLines(html, decl.signatureLines(), false, 0, false, emittedLineIds);
+    html.close("div");
+
+    // Body
+    if (hasFields) {
+      html.open("div").attribute("class", CLASS_DECL_BODY);
+      renderStaticFieldsTable(
+          html, fields, markdownConfig, view, requestUri, filePath, emittedLineIds);
+      html.close("div");
+    } else if (hasCtors) {
+      html.open("div").attribute("class", CLASS_DECL_BODY);
+      renderStaticConstructorsTable(
+          html, ctors, markdownConfig, view, requestUri, filePath, emittedLineIds);
+      html.close("div");
+    } else if (hasCodeBody) {
+      int sigFinalDepth = LeanHighlighter.computeFinalBlockCommentDepth(decl.signatureLines(), 0);
+      html.open("div").attribute("class", CLASS_DECL_BODY);
+      renderStaticCodeLines(
+          html, decl.bodyLines(), decl.isTacticProof(), sigFinalDepth, false, emittedLineIds);
+      html.close("div");
+    }
+
+    renderDerivingClause(html, block.endLine(), decl.derivingClause(), emittedLineIds);
+    html.close("div");
+  }
+
+  private static void renderDiffDeclarationCard(
+      HtmlBuilder html,
+      @Nullable LeanBlock leftBlock,
+      LeanBlock rightBlock,
+      LeanDeclaration rightDecl,
+      LeanDeclarationDiffData declDiff,
+      MarkdownConfig markdownConfig,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath) {
+    String category = declCategory(rightDecl.kind());
+    String declCatClass = CLASS_DECL + "--" + category;
+
+    html.open("div").attribute("class", declCardClass(rightDecl, declCatClass));
+    renderDeclHeader(html, rightBlock, rightDecl, category, null);
+
+    // Docstring diff
+    if (declDiff.docChanged()) {
+      if (declDiff.leftDoc() != null || declDiff.rightDoc() != null) {
+        html.open("div").attribute("class", CLASS_DECL_DOC + " " + CLASS_MD);
+        if (declDiff.leftDoc() != null) {
+          html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_DELETED);
+          renderMarkdownBlock(html, declDiff.leftDoc(), markdownConfig, view, requestUri, filePath);
+          html.close("div");
+        }
+        if (declDiff.rightDoc() != null) {
+          html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_ADDED);
+          renderMarkdownBlock(
+              html, declDiff.rightDoc(), markdownConfig, view, requestUri, filePath);
+          html.close("div");
+        }
+        html.close("div");
+      }
+    } else if (declDiff.rightDoc() != null) {
+      html.open("div").attribute("class", CLASS_DECL_DOC + " " + CLASS_MD);
+      renderMarkdownBlock(html, declDiff.rightDoc(), markdownConfig, view, requestUri, filePath);
+      html.close("div");
+    }
+
+    ImmutableList<LeanAlignedField> alignedFields = declDiff.fields();
+    boolean hasFields = alignedFields != null && !alignedFields.isEmpty();
+    boolean hasCodeBody = !hasFields && !declDiff.bodyLines().isEmpty();
+    boolean hasBody = hasFields || hasCodeBody;
+
+    html.open("div")
+        .attribute(
+            "class", hasBody ? CLASS_DECL_SIG + " " + CLASS_DECL_SIG_HAS_BODY : CLASS_DECL_SIG);
+    renderAlignedCodeLines(html, declDiff.signatureLines());
+    html.close("div");
+
+    if (hasFields) {
+      html.open("div").attribute("class", CLASS_DECL_BODY);
+      renderAlignedFieldsTable(html, alignedFields, markdownConfig, view, requestUri, filePath);
+      html.close("div");
+    } else if (hasCodeBody) {
+      html.open("div").attribute("class", CLASS_DECL_BODY);
+      renderAlignedCodeLines(html, declDiff.bodyLines());
+      html.close("div");
+    }
+
+    @Nullable
+    ImmutableList<String> leftDeriving =
+        leftBlock != null && leftBlock.decl() != null ? leftBlock.decl().derivingClause() : null;
+    @Nullable ImmutableList<String> rightDeriving = rightDecl.derivingClause();
+    if (Objects.equals(leftDeriving, rightDeriving)) {
+      renderDerivingClause(html, rightBlock.endLine(), rightDeriving, null);
+    } else {
+      if (leftDeriving != null && !leftDeriving.isEmpty()) {
+        html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_DELETED);
+        renderDerivingClause(html, leftBlock != null ? leftBlock.endLine() : 0, leftDeriving, null);
+        html.close("div");
+      }
+      if (rightDeriving != null && !rightDeriving.isEmpty()) {
+        html.open("div").attribute("class", CLASS_DIFF_SUBROW + " " + CLASS_DIFF_SUBROW_ADDED);
+        renderDerivingClause(html, rightBlock.endLine(), rightDeriving, null);
+        html.close("div");
+      }
+    }
+    html.close("div");
+  }
+
+  private static void renderDeclHeader(
+      HtmlBuilder html,
+      LeanBlock block,
+      LeanDeclaration decl,
+      String category,
+      @Nullable Set<Integer> emittedLineIds) {
+    LeanDeclHygiene hygiene = decl.hygiene();
     html.open("div").attribute("class", CLASS_DECL_HEADER);
     html.open("div").attribute("class", CLASS_DECL_HEADER_MAIN);
     html.open("span")
@@ -485,78 +985,34 @@ public final class LeanHtml {
     html.close("div");
 
     html.open("div").attribute("class", CLASS_DECL_HEADER_META);
-    renderLineRangeLink(html, block.startLine(), block.endLine());
+    renderLineRange(html, block.startLine(), block.endLine(), emittedLineIds);
     html.close("div");
     html.close("div");
+  }
 
-    // Docstring
-    if (decl.docComment() != null) {
-      html.open("div").attribute("class", CLASS_DECL_DOC + " " + CLASS_MD);
-      if (docStartLine != null && docStartLine != firstSigLine) {
-        emitLineIdIfNew(html, emittedLineIds, docStartLine);
-      }
-      renderMarkdownBlock(html, decl.docComment(), markdownConfig, view, requestUri, filePath);
-      html.close("div");
+  private static void renderDerivingClause(
+      HtmlBuilder html,
+      int endLine,
+      @Nullable ImmutableList<String> derivingClause,
+      @Nullable Set<Integer> emittedLineIds) {
+    if (derivingClause == null || derivingClause.isEmpty()) {
+      return;
     }
-
-    ImmutableList<LeanStructureField> fields = decl.fields();
-    ImmutableList<LeanInductiveCtor> ctors = decl.constructors();
-    boolean hasFields = fields != null && !fields.isEmpty();
-    boolean hasCtors = ctors != null && !ctors.isEmpty();
-    boolean hasCodeBody = !hasFields && !hasCtors && !decl.bodyLines().isEmpty();
-    boolean hasBody = hasFields || hasCtors || hasCodeBody;
-
-    // Signature
-    html.open("div")
-        .attribute(
-            "class", hasBody ? CLASS_DECL_SIG + " " + CLASS_DECL_SIG_HAS_BODY : CLASS_DECL_SIG);
-    renderStaticCodeLines(html, decl.signatureLines(), false, 0, false, emittedLineIds);
-    html.close("div");
-
-    // Body
-    if (hasFields) {
-      html.open("div").attribute("class", CLASS_DECL_BODY);
-      renderStaticFieldsTable(
-          html, fields, markdownConfig, view, requestUri, filePath, emittedLineIds);
-      html.close("div");
-    } else if (hasCtors) {
-      html.open("div").attribute("class", CLASS_DECL_BODY);
-      renderStaticConstructorsTable(
-          html, ctors, markdownConfig, view, requestUri, filePath, emittedLineIds);
-      html.close("div");
-    } else if (hasCodeBody) {
-      int sigFinalDepth = LeanHighlighter.computeFinalBlockCommentDepth(decl.signatureLines(), 0);
-      html.open("div").attribute("class", CLASS_DECL_BODY);
-      renderStaticCodeLines(
-          html, decl.bodyLines(), decl.isTacticProof(), sigFinalDepth, false, emittedLineIds);
-      html.close("div");
+    html.open("div").attribute("class", CLASS_DECL_DERIVING);
+    emitLineIdIfNew(html, emittedLineIds, endLine);
+    if (endLine > 0) {
+      renderLineNumberCell(html, emittedLineIds, endLine);
     }
-
-    // Deriving clause
-    ImmutableList<String> derivingClause = decl.derivingClause();
-    if (derivingClause != null && !derivingClause.isEmpty()) {
-      html.open("div").attribute("class", CLASS_DECL_DERIVING);
-      emitLineIdIfNew(html, emittedLineIds, block.endLine());
-      if (block.endLine() > 0) {
-        html.open("a")
-            .attribute("class", CLASS_CODE_LINE_NUM)
-            .attribute("href", "#" + block.endLine())
-            .appendAndEscape(Integer.toString(block.endLine()))
-            .close("a");
-      }
+    html.open("span")
+        .attribute("class", CLASS_DECL_DERIVING_LABEL)
+        .appendAndEscape("deriving")
+        .close("span");
+    for (String cls : derivingClause) {
       html.open("span")
-          .attribute("class", CLASS_DECL_DERIVING_LABEL)
-          .appendAndEscape("deriving")
+          .attribute("class", CLASS_DECL_DERIVING_CHIP)
+          .appendAndEscape(cls)
           .close("span");
-      for (String cls : derivingClause) {
-        html.open("span")
-            .attribute("class", CLASS_DECL_DERIVING_CHIP)
-            .appendAndEscape(cls)
-            .close("span");
-      }
-      html.close("div");
     }
-
     html.close("div");
   }
 
@@ -573,7 +1029,7 @@ public final class LeanHtml {
       boolean inTacticContext,
       int initialBlockCommentDepth,
       boolean forceComment,
-      Set<Integer> emittedLineIds) {
+      @Nullable Set<Integer> emittedLineIds) {
     int[] depths =
         forceComment
             ? null
@@ -584,17 +1040,119 @@ public final class LeanHtml {
       int lineNum = line.lineNum();
       html.open("div").attribute("class", CLASS_CODE_LINE);
       emitLineIdIfNew(html, emittedLineIds, lineNum);
-      html.open("a")
-          .attribute("class", CLASS_CODE_LINE_NUM)
-          .attribute("href", "#" + lineNum)
-          .appendAndEscape(Integer.toString(lineNum))
-          .close("a");
+      renderLineNumberCell(html, emittedLineIds, lineNum);
       html.open("span").attribute("class", CLASS_CODE_TEXT);
       int depth = depths != null ? depths[i] : 0;
       renderHighlightedLine(html, line.text(), inTacticContext, depth, forceComment);
       html.close("span");
       html.close("div");
     }
+    html.close("div");
+  }
+
+  private static void renderAlignedCodeLines(
+      HtmlBuilder html, List<LeanAlignedCodeLine> alignedLines) {
+    html.open("div").attribute("class", CLASS_CODE);
+    for (LeanAlignedCodeLine line : alignedLines) {
+      switch (line.status()) {
+        case UNCHANGED -> {
+          LeanCodeLine right = line.rightLine();
+          if (right != null) {
+            renderDiffCodeLine(
+                html,
+                CLASS_CODE_LINE,
+                right.lineNum(),
+                right.text(),
+                null,
+                null,
+                line.inTacticContext(),
+                line.rightBlockCommentDepth(),
+                line.forceComment());
+          }
+        }
+        case DELETED -> {
+          LeanCodeLine left = line.leftLine();
+          if (left != null) {
+            renderDiffCodeLine(
+                html,
+                CLASS_CODE_LINE + " " + CLASS_CODE_LINE_DELETED,
+                left.lineNum(),
+                left.text(),
+                null,
+                null,
+                line.inTacticContext(),
+                line.leftBlockCommentDepth(),
+                line.forceComment());
+          }
+        }
+        case ADDED -> {
+          LeanCodeLine right = line.rightLine();
+          if (right != null) {
+            renderDiffCodeLine(
+                html,
+                CLASS_CODE_LINE + " " + CLASS_CODE_LINE_ADDED,
+                right.lineNum(),
+                right.text(),
+                null,
+                null,
+                line.inTacticContext(),
+                line.rightBlockCommentDepth(),
+                line.forceComment());
+          }
+        }
+        case MODIFIED -> {
+          LeanCodeLine left = line.leftLine();
+          if (left != null) {
+            renderDiffCodeLine(
+                html,
+                CLASS_CODE_LINE + " " + CLASS_CODE_LINE_DELETED,
+                left.lineNum(),
+                left.text(),
+                line.leftSegments(),
+                CLASS_DIFF_INLINE_DEL,
+                line.inTacticContext(),
+                line.leftBlockCommentDepth(),
+                line.forceComment());
+          }
+          LeanCodeLine right = line.rightLine();
+          if (right != null) {
+            renderDiffCodeLine(
+                html,
+                CLASS_CODE_LINE + " " + CLASS_CODE_LINE_ADDED,
+                right.lineNum(),
+                right.text(),
+                line.rightSegments(),
+                CLASS_DIFF_INLINE_ADD,
+                line.inTacticContext(),
+                line.rightBlockCommentDepth(),
+                line.forceComment());
+          }
+        }
+      }
+    }
+    html.close("div");
+  }
+
+  private static void renderDiffCodeLine(
+      HtmlBuilder html,
+      String lineClass,
+      int lineNum,
+      String text,
+      @Nullable List<InlineEditSegment> segments,
+      @Nullable String inlineClass,
+      boolean inTacticContext,
+      int blockCommentDepth,
+      boolean forceComment) {
+    html.open("div").attribute("class", lineClass);
+    renderLineNumberCell(html, null, lineNum);
+    html.open("span").attribute("class", CLASS_CODE_TEXT);
+    if (segments != null && inlineClass != null) {
+      renderHighlightedSegments(
+          html, text, segments, inlineClass, inTacticContext, blockCommentDepth, forceComment);
+    } else {
+      renderHighlightedLine(html, text, inTacticContext, blockCommentDepth, forceComment);
+    }
+    html.close("span");
     html.close("div");
   }
 
@@ -605,7 +1163,7 @@ public final class LeanHtml {
       @Nullable GitilesView view,
       @Nullable String requestUri,
       @Nullable String filePath,
-      Set<Integer> emittedLineIds) {
+      @Nullable Set<Integer> emittedLineIds) {
     boolean hasNotes = false;
     for (LeanStructureField f : fields) {
       if (!Strings.isNullOrEmpty(f.comment())) {
@@ -613,51 +1171,185 @@ public final class LeanHtml {
         break;
       }
     }
+    openFieldTableHeader(html, "Field", "Type", hasNotes);
+
+    html.open("tbody");
+    for (LeanStructureField field : fields) {
+      renderFieldTableRow(
+          html,
+          null,
+          field,
+          null,
+          null,
+          hasNotes,
+          markdownConfig,
+          view,
+          requestUri,
+          filePath,
+          emittedLineIds);
+    }
+    html.close("tbody").close("table");
+  }
+
+  private static void renderAlignedFieldsTable(
+      HtmlBuilder html,
+      List<LeanAlignedField> alignedFields,
+      MarkdownConfig markdownConfig,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath) {
+    boolean hasNotes = false;
+    for (LeanAlignedField af : alignedFields) {
+      if ((af.leftField() != null && !Strings.isNullOrEmpty(af.leftField().comment()))
+          || (af.rightField() != null && !Strings.isNullOrEmpty(af.rightField().comment()))) {
+        hasNotes = true;
+        break;
+      }
+    }
+    openFieldTableHeader(html, "Field", "Type", hasNotes);
+
+    html.open("tbody");
+    for (LeanAlignedField af : alignedFields) {
+      switch (af.status()) {
+        case UNCHANGED -> {
+          if (af.rightField() != null) {
+            renderFieldTableRow(
+                html,
+                null,
+                af.rightField(),
+                null,
+                null,
+                hasNotes,
+                markdownConfig,
+                view,
+                requestUri,
+                filePath,
+                null);
+          }
+        }
+        case DELETED -> {
+          if (af.leftField() != null) {
+            renderFieldTableRow(
+                html,
+                CLASS_TABLE_ROW_DELETED,
+                af.leftField(),
+                null,
+                null,
+                hasNotes,
+                markdownConfig,
+                view,
+                requestUri,
+                filePath,
+                null);
+          }
+        }
+        case ADDED -> {
+          if (af.rightField() != null) {
+            renderFieldTableRow(
+                html,
+                CLASS_TABLE_ROW_ADDED,
+                af.rightField(),
+                null,
+                null,
+                hasNotes,
+                markdownConfig,
+                view,
+                requestUri,
+                filePath,
+                null);
+          }
+        }
+        case MODIFIED -> {
+          if (af.leftField() != null) {
+            renderFieldTableRow(
+                html,
+                CLASS_TABLE_ROW_DELETED,
+                af.leftField(),
+                af.leftTypeSegments(),
+                CLASS_DIFF_INLINE_DEL,
+                hasNotes,
+                markdownConfig,
+                view,
+                requestUri,
+                filePath,
+                null);
+          }
+          if (af.rightField() != null) {
+            renderFieldTableRow(
+                html,
+                CLASS_TABLE_ROW_ADDED,
+                af.rightField(),
+                af.rightTypeSegments(),
+                CLASS_DIFF_INLINE_ADD,
+                hasNotes,
+                markdownConfig,
+                view,
+                requestUri,
+                filePath,
+                null);
+          }
+        }
+      }
+    }
+    html.close("tbody").close("table");
+  }
+
+  private static void openFieldTableHeader(
+      HtmlBuilder html, String col1, String col2, boolean hasNotes) {
     html.open("table").attribute("class", CLASS_TABLE);
     html.open("thead").open("tr");
     html.open("th").attribute("class", CLASS_TABLE_LINE_COL).appendAndEscape("#").close("th");
-    html.open("th").appendAndEscape("Field").close("th");
-    html.open("th").appendAndEscape("Type").close("th");
+    html.open("th").appendAndEscape(col1).close("th");
+    html.open("th").appendAndEscape(col2).close("th");
     if (hasNotes) {
       html.open("th").appendAndEscape("Notes").close("th");
     }
     html.close("tr").close("thead");
+  }
 
-    html.open("tbody");
-    for (LeanStructureField field : fields) {
-      int lineNum = field.lineNum();
-      html.open("tr");
-      emitLineIdIfNew(html, emittedLineIds, lineNum);
-      html.open("td").attribute("class", CLASS_TABLE_LINE_COL);
-      html.open("a")
-          .attribute("class", CLASS_CODE_LINE_NUM)
-          .attribute("href", "#" + lineNum)
-          .appendAndEscape(Integer.toString(lineNum))
-          .close("a");
-      html.close("td");
-      html.open("td")
-          .attribute("class", CLASS_TABLE_NAME)
-          .appendAndEscape(field.name())
-          .close("td");
-      html.open("td").attribute("class", CLASS_TABLE_TYPE);
-      renderHighlightedLine(html, field.typeText(), false, 0, false);
-      if (field.defaultValue() != null) {
-        html.open("span").attribute("class", CLASS_TABLE_DEFAULT);
-        html.appendAndEscape(" := ");
-        renderHighlightedLine(html, field.defaultValue(), false, 0, false);
-        html.close("span");
-      }
-      html.close("td");
-      if (hasNotes) {
-        html.open("td").attribute("class", CLASS_TABLE_NOTES + " " + CLASS_MD);
-        if (!Strings.isNullOrEmpty(field.comment())) {
-          renderMarkdownBlock(html, field.comment(), markdownConfig, view, requestUri, filePath);
-        }
-        html.close("td");
-      }
-      html.close("tr");
+  private static void renderFieldTableRow(
+      HtmlBuilder html,
+      @Nullable String rowClass,
+      LeanStructureField field,
+      @Nullable List<InlineEditSegment> typeSegments,
+      @Nullable String inlineClass,
+      boolean hasNotes,
+      MarkdownConfig markdownConfig,
+      @Nullable GitilesView view,
+      @Nullable String requestUri,
+      @Nullable String filePath,
+      @Nullable Set<Integer> emittedLineIds) {
+    int lineNum = field.lineNum();
+    html.open("tr");
+    if (rowClass != null) {
+      html.attribute("class", rowClass);
     }
-    html.close("tbody").close("table");
+    emitLineIdIfNew(html, emittedLineIds, lineNum);
+    html.open("td").attribute("class", CLASS_TABLE_LINE_COL);
+    renderLineNumberCell(html, emittedLineIds, lineNum);
+    html.close("td");
+    html.open("td").attribute("class", CLASS_TABLE_NAME).appendAndEscape(field.name()).close("td");
+    html.open("td").attribute("class", CLASS_TABLE_TYPE);
+    if (typeSegments != null && inlineClass != null) {
+      renderHighlightedSegments(html, field.typeText(), typeSegments, inlineClass, false, 0, false);
+    } else {
+      renderHighlightedLine(html, field.typeText(), false, 0, false);
+    }
+    if (field.defaultValue() != null) {
+      html.open("span").attribute("class", CLASS_TABLE_DEFAULT);
+      html.appendAndEscape(" := ");
+      renderHighlightedLine(html, field.defaultValue(), false, 0, false);
+      html.close("span");
+    }
+    html.close("td");
+    if (hasNotes) {
+      html.open("td").attribute("class", CLASS_TABLE_NOTES + " " + CLASS_MD);
+      if (!Strings.isNullOrEmpty(field.comment())) {
+        renderMarkdownBlock(html, field.comment(), markdownConfig, view, requestUri, filePath);
+      }
+      html.close("td");
+    }
+    html.close("tr");
   }
 
   private static void renderStaticConstructorsTable(
@@ -667,7 +1359,7 @@ public final class LeanHtml {
       @Nullable GitilesView view,
       @Nullable String requestUri,
       @Nullable String filePath,
-      Set<Integer> emittedLineIds) {
+      @Nullable Set<Integer> emittedLineIds) {
     boolean hasNotes = false;
     for (LeanInductiveCtor c : ctors) {
       if (!Strings.isNullOrEmpty(c.comment())) {
@@ -675,15 +1367,7 @@ public final class LeanHtml {
         break;
       }
     }
-    html.open("table").attribute("class", CLASS_TABLE);
-    html.open("thead").open("tr");
-    html.open("th").attribute("class", CLASS_TABLE_LINE_COL).appendAndEscape("#").close("th");
-    html.open("th").appendAndEscape("Constructor").close("th");
-    html.open("th").appendAndEscape("Signature").close("th");
-    if (hasNotes) {
-      html.open("th").appendAndEscape("Notes").close("th");
-    }
-    html.close("tr").close("thead");
+    openFieldTableHeader(html, "Constructor", "Signature", hasNotes);
 
     html.open("tbody");
     for (LeanInductiveCtor ctor : ctors) {
@@ -691,11 +1375,7 @@ public final class LeanHtml {
       html.open("tr");
       emitLineIdIfNew(html, emittedLineIds, lineNum);
       html.open("td").attribute("class", CLASS_TABLE_LINE_COL);
-      html.open("a")
-          .attribute("class", CLASS_CODE_LINE_NUM)
-          .attribute("href", "#" + lineNum)
-          .appendAndEscape(Integer.toString(lineNum))
-          .close("a");
+      renderLineNumberCell(html, emittedLineIds, lineNum);
       html.close("td");
       html.open("td")
           .attribute("class", CLASS_TABLE_NAME)
@@ -734,19 +1414,104 @@ public final class LeanHtml {
     ImmutableList<LeanToken> tokens =
         LeanHighlighter.tokenizeLine(line, inTacticContext, initialBlockCommentDepth);
     for (LeanToken token : tokens) {
-      renderToken(html, token);
+      renderTokenPiece(html, token.kind(), token.text(), token.text());
     }
   }
 
-  private static void renderToken(HtmlBuilder html, LeanToken token) {
-    LeanTokenKind kind = token.kind();
-    String text = token.text();
-    if (kind == LeanTokenKind.PLAIN) {
-      html.appendAndEscape(text);
+  private static void renderHighlightedSegments(
+      HtmlBuilder html,
+      String line,
+      List<InlineEditSegment> segments,
+      String inlineClass,
+      boolean inTacticContext,
+      int initialBlockCommentDepth,
+      boolean forceComment) {
+    if (line.isEmpty()) {
       return;
     }
-    String cls = tokenClass(kind, text);
-    html.open("span").attribute("class", cls).appendAndEscape(text).close("span");
+    int segTotal = 0;
+    boolean anyEdited = false;
+    for (InlineEditSegment seg : segments) {
+      segTotal += seg.text().length();
+      if (seg.edited()) {
+        anyEdited = true;
+      }
+    }
+    if (!anyEdited || segTotal != line.length()) {
+      renderHighlightedLine(html, line, inTacticContext, initialBlockCommentDepth, forceComment);
+      return;
+    }
+
+    List<LeanToken> tokens =
+        forceComment
+            ? ImmutableList.of(new LeanToken(line, LeanTokenKind.COMMENT))
+            : LeanHighlighter.tokenizeLine(line, inTacticContext, initialBlockCommentDepth);
+    int tokTotal = 0;
+    for (LeanToken tok : tokens) {
+      tokTotal += tok.text().length();
+    }
+    if (tokTotal != line.length()) {
+      for (InlineEditSegment seg : segments) {
+        if (seg.text().isEmpty()) {
+          continue;
+        }
+        if (seg.edited()) {
+          html.open("span")
+              .attribute("class", inlineClass)
+              .appendAndEscape(seg.text())
+              .close("span");
+        } else {
+          html.appendAndEscape(seg.text());
+        }
+      }
+      return;
+    }
+
+    int tokIdx = 0;
+    int tokOffset = 0;
+    for (InlineEditSegment seg : segments) {
+      String segText = seg.text();
+      if (segText.isEmpty()) {
+        continue;
+      }
+      if (seg.edited()) {
+        html.open("span").attribute("class", inlineClass);
+      }
+      int segOffset = 0;
+      int segLen = segText.length();
+      while (segOffset < segLen && tokIdx < tokens.size()) {
+        LeanToken tok = tokens.get(tokIdx);
+        int tokRemaining = tok.text().length() - tokOffset;
+        int segRemaining = segLen - segOffset;
+        int take = Math.min(tokRemaining, segRemaining);
+        if (take > 0) {
+          String piece = tok.text().substring(tokOffset, tokOffset + take);
+          renderTokenPiece(html, tok.kind(), tok.text(), piece);
+          tokOffset += take;
+          segOffset += take;
+        }
+        if (tokOffset >= tok.text().length()) {
+          tokIdx++;
+          tokOffset = 0;
+        }
+      }
+      if (seg.edited()) {
+        html.close("span");
+      }
+    }
+  }
+
+  private static void renderTokenPiece(
+      HtmlBuilder html, LeanTokenKind kind, String fullTokenText, String piece) {
+    if (piece.isEmpty()) {
+      return;
+    }
+    if (kind == LeanTokenKind.PLAIN) {
+      html.appendAndEscape(piece);
+      return;
+    }
+    String cls = tokenClass(kind, fullTokenText);
+    html.open("span").attribute("class", cls).appendAndEscape(piece).close("span");
   }
 
   private static String tokenClass(LeanTokenKind kind, String text) {
@@ -796,17 +1561,38 @@ public final class LeanHtml {
     html.open("pre").open("code").appendAndEscape(markdown).close("code").close("pre");
   }
 
-  private static void renderLineRangeLink(HtmlBuilder html, int startLine, int endLine) {
+  private static void renderLineRange(
+      HtmlBuilder html, int startLine, int endLine, @Nullable Set<Integer> emittedLineIds) {
     if (startLine <= 0) {
       return;
     }
     String label = formatLineRange(startLine, endLine);
-    html.open("a")
-        .attribute("class", CLASS_LINE_RANGE)
-        .attribute("href", "#" + startLine)
-        .attribute("title", "Jump to line " + startLine)
-        .appendAndEscape(label)
-        .close("a");
+    if (emittedLineIds != null) {
+      html.open("a")
+          .attribute("class", CLASS_LINE_RANGE)
+          .attribute("href", "#" + startLine)
+          .attribute("title", "Jump to line " + startLine)
+          .appendAndEscape(label)
+          .close("a");
+    } else {
+      html.open("span").attribute("class", CLASS_LINE_RANGE).appendAndEscape(label).close("span");
+    }
+  }
+
+  private static void renderLineNumberCell(
+      HtmlBuilder html, @Nullable Set<Integer> emittedLineIds, int lineNum) {
+    if (emittedLineIds != null) {
+      html.open("a")
+          .attribute("class", CLASS_CODE_LINE_NUM)
+          .attribute("href", "#" + lineNum)
+          .appendAndEscape(Integer.toString(lineNum))
+          .close("a");
+    } else {
+      html.open("span")
+          .attribute("class", CLASS_CODE_LINE_NUM)
+          .appendAndEscape(Integer.toString(lineNum))
+          .close("span");
+    }
   }
 
   private static String formatLineRange(int startLine, int endLine) {
@@ -816,8 +1602,9 @@ public final class LeanHtml {
     return "L" + startLine + "\u2013L" + endLine;
   }
 
-  private static void emitLineIdIfNew(HtmlBuilder html, Set<Integer> emittedLineIds, int lineNum) {
-    if (lineNum > 0 && emittedLineIds.add(lineNum)) {
+  private static void emitLineIdIfNew(
+      HtmlBuilder html, @Nullable Set<Integer> emittedLineIds, int lineNum) {
+    if (emittedLineIds != null && lineNum > 0 && emittedLineIds.add(lineNum)) {
       html.attribute("id", Integer.toString(lineNum));
     }
   }

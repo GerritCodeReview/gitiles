@@ -329,6 +329,59 @@ public class LeanHtmlSecurityTest {
     assertSafeLeanHtml(deepNested.toString());
   }
 
+  @Test
+  public void renderDiffSanitizesXssVectorsAcrossLeftAndRightSides() {
+    ImmutableList<String> payloads =
+        ImmutableList.of(
+            "<script>alert(1)</script>",
+            "<img src=x onerror=alert(1)>",
+            "<svg onload=alert(1)>",
+            "<iframe src=\"javascript:alert(1)\"></iframe>",
+            "<details open ontoggle=alert(1)><summary>x</summary></details>",
+            "[click](javascript:alert(1))",
+            "![img](javascript:alert(2))",
+            "<div style=\"position:fixed\" data-x=\"1\" aria-label=\"a\">x</div>");
+    StringBuilder left = new StringBuilder("/-!\n");
+    StringBuilder right = new StringBuilder("/-!\n");
+    for (String payload : payloads) {
+      left.append(payload).append("\n");
+      right.append("updated ").append(payload).append("\n");
+    }
+    left.append("-/\n-- ==== <script>alert(1)</script> ====\n");
+    right.append("-/\n-- ==== <img src=x onerror=alert(2)> ====\n");
+    left.append(
+        """
+        /-- [click](javascript:alert(1)) <script>alert('leftDoc')</script> -/
+        structure S where
+          x : Nat -- <img src=x onerror=alert(3)>
+        def «<script>alert(4)</script>» : Nat := 1
+        """);
+    right.append(
+        """
+        /-- ![bad](javascript:alert(2)) <iframe src=x></iframe> -/
+        structure S where
+          x : Int -- <svg onload=alert(5)>
+        def «<img src=x onerror=alert(6)>» : Nat := 2
+        """);
+
+    SafeHtml safe =
+        LeanHtml.renderDiff(
+            left.toString(), right.toString(), new Config(), null, null, "Xss.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+    assertStrictAllowlist(html);
+    assertThat(html.toLowerCase(Locale.ROOT)).contains("about:invalid#zsoyz");
+    assertThat(html.toLowerCase(Locale.ROOT)).contains("data:image/gif;base64,zsoyz");
+
+    Config mdDisabled = new Config();
+    mdDisabled.setBoolean("markdown", null, "render", false);
+    SafeHtml noMd =
+        LeanHtml.renderDiff(left.toString(), right.toString(), mdDisabled, null, null, "Xss.lean");
+    assertThat(noMd).isNotNull();
+    assertStrictAllowlist(noMd.getSafeHtmlString());
+    assertThat(noMd.getSafeHtmlString()).contains("&lt;script&gt;");
+  }
+
   private static void assertSafeLeanHtml(String leanSource) {
     assertThat(renderAndAssertSafeLeanHtml(leanSource)).isNotEmpty();
   }

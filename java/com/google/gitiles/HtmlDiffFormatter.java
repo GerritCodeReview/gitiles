@@ -20,22 +20,32 @@ import static org.eclipse.jgit.util.QuotedString.GIT_PATH;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.html.types.SafeHtml;
+import com.google.gitiles.lean.LeanHtml;
+import com.google.gitiles.lean.LeanRendering;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.apache.commons.text.StringEscapeUtils;
 import org.eclipse.jgit.diff.DiffDriver;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.RawText;
+import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.FileHeader.PatchType;
 import org.eclipse.jgit.util.RawParseUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Formats a unified format patch as UTF-8 encoded HTML. */
 final class HtmlDiffFormatter extends DiffFormatter {
+  private static final Logger log = LoggerFactory.getLogger(HtmlDiffFormatter.class);
+
   private static final byte[] DIFF_BEGIN =
       "<pre class=\"u-pre u-monospace Diff-unified\">".getBytes(UTF_8);
   private static final byte[] DIFF_END = "</pre>".getBytes(UTF_8);
@@ -50,13 +60,26 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
   private final Renderer renderer;
   private final GitilesView view;
+  private final @Nullable Config config;
+  private final @Nullable String requestUri;
   private int fileIndex;
   private DiffEntry entry;
 
   HtmlDiffFormatter(Renderer renderer, GitilesView view, OutputStream out) {
+    this(renderer, view, out, null, null);
+  }
+
+  HtmlDiffFormatter(
+      Renderer renderer,
+      GitilesView view,
+      OutputStream out,
+      @Nullable Config config,
+      @Nullable String requestUri) {
     super(out);
     this.renderer = checkNotNull(renderer, "renderer");
     this.view = checkNotNull(view, "view");
+    this.config = config;
+    this.requestUri = requestUri;
   }
 
   @Override
@@ -82,11 +105,73 @@ final class HtmlDiffFormatter extends DiffFormatter {
     }
     renderHeader(RawParseUtils.decode(hdr.getBuffer(), start, end));
 
+    String leanPath = eligibleLeanPath(hdr, a, b);
+    if (leanPath != null) {
+      byte[] aBytes = a.getRawContent();
+      byte[] bBytes = b.getRawContent();
+      String leftSource = a.size() == 0 && aBytes.length == 0 ? "" : RawParseUtils.decode(aBytes);
+      String rightSource = b.size() == 0 && bBytes.length == 0 ? "" : RawParseUtils.decode(bBytes);
+      try {
+        SafeHtml rendered =
+            LeanHtml.renderDiff(
+                aBytes.length,
+                leftSource,
+                bBytes.length,
+                rightSource,
+                config,
+                view,
+                requestUri,
+                leanPath);
+        if (rendered != null) {
+          getOutputStream().write(rendered.getSafeHtmlString().getBytes(UTF_8));
+          return;
+        }
+      } catch (RuntimeException e) {
+        log.warn("Error rendering Lean diff {}", leanPath, e);
+      }
+    }
+
     if (hdr.getPatchType() == PatchType.UNIFIED) {
       getOutputStream().write(DIFF_BEGIN);
       format(hdr.toEditList(), a, b, diffDriver);
       getOutputStream().write(DIFF_END);
     }
+  }
+
+  private @Nullable String eligibleLeanPath(
+      FileHeader hdr, @Nullable RawText a, @Nullable RawText b) {
+    if (!LeanRendering.isEnabled(config, view)) {
+      return null;
+    }
+    if (hdr.getPatchType() != PatchType.UNIFIED || a == null || b == null) {
+      return null;
+    }
+    if (FileMode.GITLINK.equals(hdr.getOldMode()) || FileMode.GITLINK.equals(hdr.getNewMode())) {
+      return null;
+    }
+    if (entry != null
+        && (FileMode.GITLINK.equals(entry.getOldMode())
+            || FileMode.GITLINK.equals(entry.getNewMode()))) {
+      return null;
+    }
+    String path = resolveDiffPath(hdr, entry);
+    if (!LeanRendering.isLeanPath(path)) {
+      return null;
+    }
+    if (hdr.getHunks().isEmpty() || hdr.toEditList().isEmpty()) {
+      return null;
+    }
+    if (!LeanRendering.withinInputCaps(a) || !LeanRendering.withinInputCaps(b)) {
+      return null;
+    }
+    return path;
+  }
+
+  private static @Nullable String resolveDiffPath(FileHeader hdr, @Nullable DiffEntry entry) {
+    if (entry != null) {
+      return entry.getChangeType() == ChangeType.DELETE ? entry.getOldPath() : entry.getNewPath();
+    }
+    return hdr.getChangeType() == ChangeType.DELETE ? hdr.getOldPath() : hdr.getNewPath();
   }
 
   private void renderHeader(String header) throws IOException {

@@ -27,7 +27,11 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {@param breadcrumbs: ?}  /** breadcrumbs for this page. */
   {@param? commit: ?}  /** optional commit for which diffs are displayed, with keys corresponding to
       the gitiles.commitDetail template (minus "diffTree"). */
-  {call common.header data="all" /}
+  {@param? leanCss: ?}  /** optional flag to include Lean 4 styles in the header. */
+  {@inject staticUrls: ?}
+  {call common.header data="all"}
+    {param css: $leanCss ? [$staticUrls.LEAN_CSS_URL] : null /}
+  {/call}
 
 {if $commit}
   {call objDetail.commitDetail data="$commit" /}
