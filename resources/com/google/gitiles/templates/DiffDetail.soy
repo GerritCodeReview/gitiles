@@ -27,7 +27,11 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {@param breadcrumbs: ?}  /** breadcrumbs for this page. */
   {@param? commit: ?}  /** optional commit for which diffs are displayed, with keys corresponding to
       the gitiles.commitDetail template (minus "diffTree"). */
-  {call common.header data="all" /}
+  {@param? leanCss: ?}  /** optional flag to include Lean 4 styles in the header. */
+  {@inject staticUrls: ?}
+  {call common.header data="all"}
+    {param css: $leanCss ? [$staticUrls.LEAN_CSS_URL] : null /}
+  {/call}
 
 {if $commit}
   {call objDetail.commitDetail data="$commit" /}
@@ -47,6 +51,8 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
       fields. */
   {@param rest: ?}  /** remaining lines of the header, if any. */
   {@param fileIndex: ?}  /** position of the file within the difference. */
+  {@param? leanPlainTextUrl: ?}  /** optional URL to switch from rendered Lean 4 diff to plain text. */
+  {@param? leanRenderedUrl: ?}  /** optional URL to switch from plain text diff to rendered Lean 4. */
 <pre class="u-pre u-monospace Diff">
   <a name="F{$fileIndex}" class="Diff-fileIndex"></a>
   {for $part, $index in $firstParts}
@@ -56,7 +62,14 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
     {else}
       {$part.text}
     {/if}
-  {/for}{\n}
+  {/for}
+  {if $leanPlainTextUrl}
+    {sp}[{msg desc="current state label for richly rendered Lean diff"}Rendered{/msg} |{sp}
+    <a href="{$leanPlainTextUrl}">{msg desc="view raw unified Lean diff"}Plain text{/msg}</a>]
+  {elseif $leanRenderedUrl}
+    {sp}[<a href="{$leanRenderedUrl}">{msg desc="view semantic Lean diff"}Rendered{/msg}</a>
+    {sp}| {msg desc="current state label for raw unified Lean diff"}Plain text{/msg}]
+  {/if}{\n}
   {$rest}
 </pre>
 {/template}
