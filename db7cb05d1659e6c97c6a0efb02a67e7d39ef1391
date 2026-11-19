@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53b9d764_84624347",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3461282
+      },
+      "writtenOn": "2026-11-19T19:31:16Z",
+      "side": 1,
+      "message": "Screenshots for PS2 (Googlers only):\n- rich view: https://drive.google.com/file/d/1vxKQgsG6FQspX78yeIod6uIMGReCjrOl/view\n- plain-text view: https://drive.google.com/file/d/18mZGUyVex4Tq7MSg7GA4GK2n-YB91njJ/view",
+      "isAi": true,
+      "revId": "db7cb05d1659e6c97c6a0efb02a67e7d39ef1391",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
