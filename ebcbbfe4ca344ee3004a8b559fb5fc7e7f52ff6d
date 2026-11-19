@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ed3ab2a_981d8c97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3461282
+      },
+      "writtenOn": "2026-11-19T19:31:13Z",
+      "side": 1,
+      "message": "**Security, vulnerability and DoS testing (PS2, 658563–658568)**\n\nThreat model: an attacker controls repository content (file contents, paths, commit metadata, the number and size of files) and request URLs/params. The targets are viewers (XSS, spoofing, hidden changes) and the server (CPU and memory).\n\nHow it was tested:\n- Adversarial review across 8 attack classes: HTML/JS injection, rendering integrity, Trojan Source, CPU per stage, request amplification, memory, gate bypass, and robustness.\n- Coverage-guided fuzzing with Jazzer: 6 targets, including HTML output allowlist checks. 593,907 runs, with 0 crashes, timeouts, OOMs or allowlist escapes.\n- Property and differential fuzzers, about 34M runs: no hidden changes versus the unified diff, agreement between lexer and hygiene counts, bounded CPU.\n- Parser-based HTML allowlist tests over XSS payload corpora, plus an AI security scan.\n- Load tests on a local server at concurrency 1 and 32, comparing rich rendering with `?lean\u003d0`.\n\nFound and fixed in PS2: 24 issues. Each has a regression test in the new `*AdversarialTest` classes.\n- **DoS:** there were quadratic paths in the lexer, parser and diff engine. Examples: 20k comment lines took 7.5 s, now about 20 ms. Near-duplicate declarations took 9.4 s, now about 0.14 s. Asymmetric diffs took 10.2 s, now about 15 ms. What keeps it bounded now: linear passes, per-file DP budgets, a 64 KiB line cap, and a per-request budget (4 MiB input, 16 MiB HTML, 50 files, 750 ms CPU) that falls back to plain. A 500-file commit diff now costs about the same CPU as `?lean\u003d0`.\n- **Hidden changes:** some whitespace, comment and CRLF-only edits didn\u0027t show in the rich diff. Now any raw change without a visible semantic change shows a raw line diff or falls back to the plain diff, and cards keep comments and whitespace.\n- **Hygiene evasion:** where our lexer disagreed with Lean, a `sorry` could be hidden. The cases were raw strings, `#`, code after an `import` on the same line, and interpolation in `throwError`/`dbg_trace`. Lexing now follows the Lean 4 v4.33.0 tokenizer.\n- **Spoofing and injection:** bidi and invisible characters now render as visible `U+XXXX` markers with a warning banner. Lean doc Markdown ignores the host\u0027s iframe/mermaid settings and caps nesting; deep nesting used to throw StackOverflowError. Logged paths are escaped.\n\nKnown limits: hygiene counts are lexical, so things like macros are invisible to them. That\u0027s why the summary says \"no sorry found (lexical scan)\" and flags unterminated strings and comments. Files over the caps render plain.\n\nSeparate, pre-existing, and not part of this chain: the existing plain blob view\u0027s server-side highlighting takes about 50 s of CPU on some 2 MiB single-line files.\n\nFull report (Googlers only): https://docs.google.com/document/d/1VRVL-Cy00AhZEZYhAs040R5wXRA62X4bO5ROot97sd4/edit?resourcekey\u003d0-xQIaU7JisByaKoBy4nRnrg",
+      "isAi": true,
+      "revId": "ebcbbfe4ca344ee3004a8b559fb5fc7e7f52ff6d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

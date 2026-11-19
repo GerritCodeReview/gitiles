@@ -16,6 +16,25 @@
       "message": "we will want a \"plain text\" toggle mode when this renders so someone can view the plain text",
       "revId": "fb64ff0116dfd4e5242f18f0c3856bd1ad882e68",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65354bb5_d1d27aae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3461282
+      },
+      "writtenOn": "2026-11-19T19:31:13Z",
+      "side": 1,
+      "message": "Done in PS2. Each Lean file\u0027s diff header now has a two-way `[Rendered | Plain text]` toggle. It\u0027s a plain link with no JS, and the plain view links back to Rendered. The blob header in 658566 has the same toggle.\n\nScreenshots (Googlers only):\n- rich diff: https://drive.google.com/file/d/1MEIBxNgYb0kS5n-COmnU69TDdbSSrvk_/view\n- commit diff: https://drive.google.com/file/d/1PvDPLgwA6OYgm6oq8TrWJzpFEqMhT-ZC/view\n- plain diff: https://drive.google.com/file/d/1sR8pHAiR4Qg6AJOY9xRQD-OVocPbSeHh/view",
+      "parentUuid": "3053c268_c22ae339",
+      "isAi": true,
+      "revId": "fb64ff0116dfd4e5242f18f0c3856bd1ad882e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
