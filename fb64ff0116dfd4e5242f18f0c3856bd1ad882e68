@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3053c268_c22ae339",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1023872
+      },
+      "writtenOn": "2026-11-19T15:14:15Z",
+      "side": 1,
+      "message": "we will want a \"plain text\" toggle mode when this renders so someone can view the plain text",
+      "revId": "fb64ff0116dfd4e5242f18f0c3856bd1ad882e68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
