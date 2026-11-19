@@ -18,6 +18,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.html.types.SafeHtml;
 import com.google.gitiles.GitilesView;
+import com.google.gitiles.Revision;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -398,6 +399,246 @@ public class LeanHtmlTest {
         .isNull();
   }
 
+  private static GitilesView newDiffView(String path) {
+    return GitilesView.diff()
+        .setHostName("host")
+        .setServletPath("/b")
+        .setRepositoryName("repo")
+        .setOldRevision(Revision.named("HEAD~1"))
+        .setRevision(Revision.named("HEAD"))
+        .setPathPart(path)
+        .build();
+  }
+
+  @Test
+  public void renderDiffCollapsesUnchangedDeclarationsAndHighlightsEdits() {
+    String left =
+        """
+        /-! Module A -/
+        import Mathlib.Init
+
+        theorem first_unchanged : 1 = 1 := by
+          rfl
+
+        theorem second_unchanged : 2 = 2 := by
+          rfl
+
+        /-- Old doc with *markdown*. -/
+        theorem target_proof (n : Nat) : n + 0 = n := by
+          exact Nat.add_zero n
+
+        structure Config where
+          timeout : Nat
+          retries : Nat := 3 -- max retries
+        deriving Repr
+
+        theorem tail_unchanged : True := by
+          trivial
+        """;
+
+    String right =
+        """
+        /-! Module A -/
+        import Mathlib.Init
+
+        theorem first_unchanged : 1 = 1 := by
+          rfl
+
+        theorem second_unchanged : 2 = 2 := by
+          rfl
+
+        /-- New doc with **bold**. -/
+        theorem target_proof (n : Nat) : n + 0 = n := by
+          sorry
+
+        structure Config where
+          timeout : Int
+          retries : Nat := 3 -- retry limit
+        deriving Repr, DecidableEq
+
+        theorem added_helper : 3 = 3 := by
+          rfl
+
+        theorem tail_unchanged : True := by
+          trivial
+        """;
+
+    SafeHtml safe =
+        LeanHtml.renderDiff(
+            left,
+            right,
+            new Config(),
+            newDiffView("Main.lean"),
+            "/b/repo/+diff/HEAD^!/Main.lean",
+            "Main.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+
+    assertThat(html).contains("class=\"LeanDiff\"");
+    assertThat(html).contains("class=\"LeanSummary\"");
+    assertThat(html).contains("1 sorry");
+    assertThat(html).contains("LeanSummary-deltas");
+    assertThat(html).contains("+1");
+    assertThat(html).contains("~2");
+    assertThat(html).doesNotContain(">raw diff</a>");
+    assertThat(html).doesNotContain("?lean=0");
+
+    // Consecutive unchanged blocks collapse cleanly and do not leak unchanged theorem bodies.
+    assertThat(html).contains("2 unchanged declarations");
+    assertThat(html).contains("1 unchanged declaration");
+    assertThat(html).doesNotContain("first_unchanged");
+    assertThat(html).doesNotContain("second_unchanged");
+    assertThat(html).doesNotContain("tail_unchanged");
+
+    // Modified declaration preserves inline deltas, docstring diff, field diff, and deriving diff.
+    assertThat(html).contains("LeanDecl-name\">target_proof</span>");
+    assertThat(html).contains("LeanCode-line--deleted");
+    assertThat(html).contains("LeanCode-line--added");
+    assertThat(html).contains("LeanDiff-subrow--deleted");
+    assertThat(html).contains("LeanDiff-subrow--added");
+    assertThat(html).contains("<em>markdown</em>");
+    assertThat(html).contains("<strong>bold</strong>");
+    assertThat(html).contains("LeanDiff-inlineDel");
+    assertThat(html).contains("LeanDiff-inlineAdd");
+    assertThat(html).contains("LeanTable-row--deleted");
+    assertThat(html).contains("LeanTable-row--added");
+    assertThat(html).contains("DecidableEq");
+    assertThat(html).contains("LeanDiff-block--added");
+    assertThat(html).contains("added_helper");
+
+    // Diff output emits no line anchor ids so multiple files on one page never collide.
+    assertThat(ID_ATTR.matcher(html).find()).isFalse();
+  }
+
+  @Test
+  public void renderDiffHandlesModifiedModuleDocBannerStripsAndMarkdownDisabled() {
+    String left =
+        """
+        /-!
+        # Old Header
+        -/
+        -- ========================================
+        -- Old Section
+        -- ========================================
+        import Std.Data
+        """;
+    String right =
+        """
+        /-!
+        # New Header
+        -/
+        -- ========================================
+        -- New Section
+        -- ========================================
+        import Std.Data
+        import Mathlib.Init
+        """;
+
+    Config mdDisabled = new Config();
+    mdDisabled.setBoolean("markdown", null, "render", false);
+
+    SafeHtml safe = LeanHtml.renderDiff(left, right, mdDisabled, null, null, "Doc.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+    assertThat(html).contains("LeanModuleDoc");
+    assertThat(html).contains("<pre><code># Old Header</code></pre>");
+    assertThat(html).contains("<pre><code># New Header</code></pre>");
+    assertThat(html).contains("LeanBanner-title\">Old Section</h3>");
+    assertThat(html).contains("LeanBanner-title\">New Section</h3>");
+    assertThat(html).contains("LeanCode-line--added");
+    assertThat(ID_ATTR.matcher(html).find()).isFalse();
+  }
+
+  @Test
+  public void renderDiffHighlightsInlineTokenEditsOnModifiedCodeLines() {
+    String left =
+        """
+        theorem helper (a b : Nat) : a + b = b + a := by
+          exact Nat.add_comm a b
+        """;
+    String right =
+        """
+        theorem helper (a b : Nat) : a + b = b + a := by
+          exact Nat.mul_comm a b
+        """;
+    SafeHtml safe = LeanHtml.renderDiff(left, right, new Config(), null, null, "Inline.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+    assertThat(html).contains("<span class=\"LeanDiff-inlineDel\">add_comm</span>");
+    assertThat(html).contains("<span class=\"LeanDiff-inlineAdd\">mul_comm</span>");
+  }
+
+  @Test
+  public void renderDiffHandlesEmptyWhitespaceNullOversizeCrlfAndSurrogates() {
+    assertThat(LeanHtml.renderDiff(null, "def x := 1", new Config(), null, null, "A.lean"))
+        .isNull();
+    assertThat(LeanHtml.renderDiff("def x := 1", null, new Config(), null, null, "A.lean"))
+        .isNull();
+    assertThat(LeanHtml.renderDiff("   \n", "\n\n", new Config(), null, null, "Blank.lean"))
+        .isNull();
+
+    assertThat(
+            LeanHtml.renderDiff(
+                LeanRendering.MAX_BYTES + 1,
+                "def x := 1",
+                10,
+                "def x := 2",
+                new Config(),
+                null,
+                null,
+                "BigA.lean"))
+        .isNull();
+    assertThat(
+            LeanHtml.renderDiff(
+                10,
+                "def x := 1",
+                LeanRendering.MAX_BYTES + 1,
+                "def x := 2",
+                new Config(),
+                null,
+                null,
+                "BigB.lean"))
+        .isNull();
+
+    String tooManyLines = "def x := 1\n".repeat(LeanRendering.MAX_LINES + 1);
+    assertThat(
+            LeanHtml.renderDiff("def x := 1", tooManyLines, new Config(), null, null, "Lines.lean"))
+        .isNull();
+
+    String dense = "1+".repeat(500) + "\n";
+    LeanRequestBudget denseBudget =
+        LeanRequestBudget.forTesting(
+            LeanRequestBudget.MAX_REQUEST_INPUT_BYTES, 4_000, 50, 750_000_000L, () -> 0L);
+    assertThat(
+            LeanHtml.renderDiff(
+                0, "", dense.length(), dense, new Config(), null, null, "Dense.lean", denseBudget))
+        .isNull();
+
+    String exactLineChars = "a".repeat(LeanRendering.MAX_LINE_CHARS);
+    assertThat(
+            LeanHtml.renderDiff(
+                "def x := 1", exactLineChars, new Config(), null, null, "ExactLine.lean"))
+        .isNotNull();
+    String overLineChars = "a".repeat(LeanRendering.MAX_LINE_CHARS + 1);
+    assertThat(
+            LeanHtml.renderDiff(
+                "def x := 1", overLineChars, new Config(), null, null, "OverLine.lean"))
+        .isNull();
+    assertThat(
+            LeanHtml.renderDiff(
+                overLineChars, "def x := 1", new Config(), null, null, "OverLeftLine.lean"))
+        .isNull();
+
+    String left = "\uFEFF-- old 𝔸\r\ntheorem t (α : Type) : α → α := id\r\n";
+    String right = "\uFEFF-- new 𝔹\r\ntheorem t (α : Type) : α → α := fun x => x\r\n";
+    SafeHtml safe = LeanHtml.renderDiff(left, right, new Config(), null, null, "Unicode.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+    assertThat(html).contains("𝔸");
+    assertThat(html).contains("𝔹");
+    assertThat(html).contains("LeanTok--operator LeanTok--unicodeOp");
+  }
+
   @Test
   public void renderBlobShowsUnterminatedWarningAndSuppressesNoSorryPill() {
     String unclosedString =
@@ -425,5 +666,163 @@ public class LeanHtmlTest {
     assertThat(closedSafe).isNotNull();
     assertThat(closedSafe.getSafeHtmlString()).contains("no sorry found (lexical scan)");
     assertThat(closedSafe.getSafeHtmlString()).doesNotContain("unterminated string/comment");
+  }
+
+  @Test
+  public void renderDiffShowsUnterminatedWarningOnActiveRevisionAndDelete() {
+    String clean = "theorem ok : True := by trivial\n";
+    String broken =
+        """
+        theorem ok : True := by trivial
+        def bad : String := "unclosed
+        theorem hidden : True := by sorry
+        """;
+
+    SafeHtml introduced =
+        LeanHtml.renderDiff(clean, broken, new Config(), null, null, "Broken.lean");
+    assertThat(introduced).isNotNull();
+    String introducedHtml = introduced.getSafeHtmlString();
+    assertThat(introducedHtml).contains("LeanPill--neutral");
+    assertThat(introducedHtml)
+        .contains("unterminated string/comment \u2014 counts may be incomplete");
+    assertThat(introducedHtml).doesNotContain("no sorry found");
+
+    SafeHtml deleted =
+        LeanHtml.renderDiff(
+            "theorem ok : True := by trivial\n/- unclosed\n",
+            "",
+            new Config(),
+            null,
+            null,
+            "Deleted.lean");
+    assertThat(deleted).isNotNull();
+    assertThat(deleted.getSafeHtmlString())
+        .contains("unterminated string/comment \u2014 counts may be incomplete");
+    assertThat(deleted.getSafeHtmlString()).doesNotContain("no sorry found");
+
+    SafeHtml fixed = LeanHtml.renderDiff(broken, clean, new Config(), null, null, "Fixed.lean");
+    assertThat(fixed).isNotNull();
+    assertThat(fixed.getSafeHtmlString()).contains("no sorry found (lexical scan)");
+    assertThat(fixed.getSafeHtmlString()).doesNotContain("unterminated string/comment");
+  }
+
+  @Test
+  public void renderDiffReflowedMarkdownAndHtmlCommentsNeverEmitIdenticalSubrows() {
+    String leftReflow =
+        """
+        /-!
+        First
+        second
+        -/
+        /-- Doc
+        wrap. -/
+        def f : Nat := 1
+        """;
+    String rightReflow =
+        """
+        /-!
+        First second
+        -/
+        /-- Doc wrap. -/
+        def f : Nat := 1
+        """;
+    SafeHtml reflowSafe =
+        LeanHtml.renderDiff(leftReflow, rightReflow, new Config(), null, null, "Reflow.lean");
+    assertThat(reflowSafe).isNotNull();
+    String reflowHtml = reflowSafe.getSafeHtmlString();
+    assertThat(reflowHtml)
+        .doesNotContain("<div class=\"LeanDiff-subrow LeanDiff-subrow--deleted\"><p>");
+    assertThat(reflowHtml).contains("First");
+    assertThat(reflowHtml).contains("second");
+    assertThat(reflowHtml).contains("<pre><code> Doc\nwrap. </code></pre>");
+    assertThat(reflowHtml).contains("<pre><code>Doc wrap.</code></pre>");
+
+    String leftOpaque =
+        """
+        /-!
+        <!-- old comment -->
+        Inline <span id="a">x</span>
+
+        [ref]: https://old.example
+        -/
+        /-- <!-- decl old --> -/
+        def g : Nat := 1
+        """;
+    String rightOpaque =
+        """
+        /-!
+        <!-- new comment -->
+        Inline <span id="b">x</span>
+
+        [ref]: https://new.example
+        -/
+        /-- <!-- decl new --> -/
+        def g : Nat := 1
+        """;
+    SafeHtml opaqueSafe =
+        LeanHtml.renderDiff(leftOpaque, rightOpaque, new Config(), null, null, "Opaque.lean");
+    assertThat(opaqueSafe).isNotNull();
+    String opaqueHtml = opaqueSafe.getSafeHtmlString();
+    assertThat(opaqueHtml).contains("&lt;!-- old comment --&gt;");
+    assertThat(opaqueHtml).contains("&lt;!-- new comment --&gt;");
+    assertThat(opaqueHtml).contains("&lt;span id=&quot;a&quot;&gt;x&lt;/span&gt;");
+    assertThat(opaqueHtml).contains("&lt;span id=&quot;b&quot;&gt;x&lt;/span&gt;");
+    assertThat(opaqueHtml).contains("[ref]: https://old.example");
+    assertThat(opaqueHtml).contains("[ref]: https://new.example");
+    assertThat(opaqueHtml).contains("&lt;!-- decl old --&gt;");
+    assertThat(opaqueHtml).contains("&lt;!-- decl new --&gt;");
+  }
+
+  @Test
+  public void renderDiffHighlightsMultilineAndInterpolatedStringsAcrossAlignedAndRawBlocks() {
+    String left =
+        """
+        def f : IO Unit := do
+          let msg := "start
+          /- old inside string
+          sorry
+        "
+          trivial
+
+        #eval IO.println "d1
+          /- dir old
+        "
+
+        #eval IO.println "raw1
+          /- raw line
+        "
+        """;
+    String right =
+        """
+        def f : IO Unit := do
+          let msg := "start
+          /- new inside string
+          sorry
+        "
+          sorry
+
+        #eval IO.println "d2
+          /- dir new
+        "
+
+        #eval  IO.println "raw1
+          /- raw line
+        "
+        """;
+    SafeHtml safe = LeanHtml.renderDiff(left, right, new Config(), null, null, "StrDiff.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+    assertThat(html).contains("<span class=\"LeanTok--string\">  /- </span>");
+    assertThat(html)
+        .contains(
+            "<span class=\"LeanDiff-inlineDel\"><span class=\"LeanTok--string\">old</span></span>");
+    assertThat(html)
+        .contains(
+            "<span class=\"LeanDiff-inlineAdd\"><span class=\"LeanTok--string\">new</span></span>");
+    assertThat(html).contains("<span class=\"LeanTok--string\">  sorry</span>");
+    assertThat(html).contains("<span class=\"LeanTok--sorry\">sorry</span>");
+    assertThat(html).contains("<span class=\"LeanTok--string\">  /- dir </span>");
+    assertThat(html).contains("<span class=\"LeanTok--string\">  /- raw line</span>");
+    assertThat(html).doesNotContain("LeanTok--comment");
   }
 }

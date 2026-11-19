@@ -18,24 +18,36 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.eclipse.jgit.util.QuotedString.GIT_PATH;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.html.types.SafeHtml;
+import com.google.gitiles.lean.LeanHtml;
+import com.google.gitiles.lean.LeanRendering;
+import com.google.gitiles.lean.LeanRequestBudget;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.apache.commons.text.StringEscapeUtils;
 import org.eclipse.jgit.diff.DiffDriver;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.RawText;
+import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.FileHeader.PatchType;
 import org.eclipse.jgit.util.RawParseUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Formats a unified format patch as UTF-8 encoded HTML. */
 final class HtmlDiffFormatter extends DiffFormatter {
+  private static final Logger log = LoggerFactory.getLogger(HtmlDiffFormatter.class);
+
   private static final byte[] DIFF_BEGIN =
       "<pre class=\"u-pre u-monospace Diff-unified\">".getBytes(UTF_8);
   private static final byte[] DIFF_END = "</pre>".getBytes(UTF_8);
@@ -50,13 +62,39 @@ final class HtmlDiffFormatter extends DiffFormatter {
 
   private final Renderer renderer;
   private final GitilesView view;
+  private final @Nullable Config config;
+  private final @Nullable String requestUri;
+  private final LeanRequestBudget leanBudget;
   private int fileIndex;
   private DiffEntry entry;
 
   HtmlDiffFormatter(Renderer renderer, GitilesView view, OutputStream out) {
+    this(renderer, view, out, null, null);
+  }
+
+  HtmlDiffFormatter(
+      Renderer renderer,
+      GitilesView view,
+      OutputStream out,
+      @Nullable Config config,
+      @Nullable String requestUri) {
+    this(renderer, view, out, config, requestUri, LeanRequestBudget.forRequest());
+  }
+
+  @VisibleForTesting
+  HtmlDiffFormatter(
+      Renderer renderer,
+      GitilesView view,
+      OutputStream out,
+      @Nullable Config config,
+      @Nullable String requestUri,
+      LeanRequestBudget leanBudget) {
     super(out);
     this.renderer = checkNotNull(renderer, "renderer");
     this.view = checkNotNull(view, "view");
+    this.config = config;
+    this.requestUri = requestUri;
+    this.leanBudget = checkNotNull(leanBudget, "leanBudget");
   }
 
   @Override
@@ -80,7 +118,58 @@ final class HtmlDiffFormatter extends DiffFormatter {
     if (!hdr.getHunks().isEmpty()) {
       end = hdr.getHunks().get(0).getStartOffset();
     }
-    renderHeader(RawParseUtils.decode(hdr.getBuffer(), start, end));
+
+    String leanPlainTextUrl = null;
+    String leanRenderedUrl = null;
+    SafeHtml leanRendered = null;
+    try {
+      String leanPath = eligibleLeanPathPrefix(hdr, a, b);
+      if (leanPath != null) {
+        byte[] aBytes = a.getRawContent();
+        byte[] bBytes = b.getRawContent();
+        if (passesLeanInputGuards(a, b, aBytes, bBytes)) {
+          if (LeanRendering.isRequested(view)) {
+            String leftSource =
+                a.size() == 0 && aBytes.length == 0 ? "" : RawParseUtils.decode(aBytes);
+            String rightSource =
+                b.size() == 0 && bBytes.length == 0 ? "" : RawParseUtils.decode(bBytes);
+            leanRendered =
+                LeanHtml.renderDiff(
+                    aBytes.length,
+                    leftSource,
+                    bBytes.length,
+                    rightSource,
+                    config,
+                    view,
+                    requestUri,
+                    leanPath,
+                    leanBudget);
+            if (leanRendered != null) {
+              leanPlainTextUrl = LeanRendering.plainTextUrl(view);
+            }
+          } else {
+            leanBudget.recordToggleLink(aBytes.length, bBytes.length);
+            leanRenderedUrl = LeanRendering.renderedUrl(view);
+          }
+        }
+      }
+    } catch (RuntimeException | StackOverflowError e) {
+      leanRendered = null;
+      leanPlainTextUrl = null;
+      leanRenderedUrl = null;
+      log.warn(
+          "Error rendering Lean diff {} ({})",
+          LeanRendering.sanitizeForLog(resolveDiffPath(hdr, entry)),
+          e.getClass().getSimpleName());
+    }
+
+    renderHeader(
+        RawParseUtils.decode(hdr.getBuffer(), start, end), leanPlainTextUrl, leanRenderedUrl);
+
+    if (leanRendered != null) {
+      getOutputStream().write(leanRendered.getSafeHtmlString().getBytes(UTF_8));
+      return;
+    }
 
     if (hdr.getPatchType() == PatchType.UNIFIED) {
       getOutputStream().write(DIFF_BEGIN);
@@ -89,7 +178,66 @@ final class HtmlDiffFormatter extends DiffFormatter {
     }
   }
 
-  private void renderHeader(String header) throws IOException {
+  private boolean passesLeanInputGuards(RawText a, RawText b, byte[] aBytes, byte[] bBytes) {
+    if (aBytes.length > LeanRendering.MAX_BYTES || bBytes.length > LeanRendering.MAX_BYTES) {
+      return false;
+    }
+    if (!leanBudget.canAttempt(aBytes.length, bBytes.length)
+        || !leanBudget.beginInputCheck(aBytes.length, bBytes.length)) {
+      return false;
+    }
+    try {
+      return LeanRendering.withinInputCaps(a)
+          && LeanRendering.withinInputCaps(b)
+          && LeanRendering.isValidLeanTextBytes(aBytes)
+          && LeanRendering.isValidLeanTextBytes(bBytes);
+    } finally {
+      leanBudget.endInputCheck(aBytes.length, bBytes.length);
+    }
+  }
+
+  private @Nullable String eligibleLeanPathPrefix(
+      FileHeader hdr, @Nullable RawText a, @Nullable RawText b) {
+    if (!LeanRendering.isEnabled(config)) {
+      return null;
+    }
+    if (hdr.getPatchType() != PatchType.UNIFIED || a == null || b == null) {
+      return null;
+    }
+    if (isIneligibleMode(hdr.getOldMode()) || isIneligibleMode(hdr.getNewMode())) {
+      return null;
+    }
+    if (entry != null
+        && (isIneligibleMode(entry.getOldMode()) || isIneligibleMode(entry.getNewMode()))) {
+      return null;
+    }
+    String path = resolveDiffPath(hdr, entry);
+    if (!LeanRendering.isLeanPath(path)) {
+      return null;
+    }
+    if (hdr.getHunks().isEmpty() || hdr.toEditList().isEmpty()) {
+      return null;
+    }
+    return path;
+  }
+
+  private static boolean isIneligibleMode(@Nullable FileMode mode) {
+    return mode != null
+        && !FileMode.MISSING.equals(mode)
+        && !FileMode.REGULAR_FILE.equals(mode)
+        && !FileMode.EXECUTABLE_FILE.equals(mode);
+  }
+
+  private static @Nullable String resolveDiffPath(FileHeader hdr, @Nullable DiffEntry entry) {
+    if (entry != null) {
+      return entry.getChangeType() == ChangeType.DELETE ? entry.getOldPath() : entry.getNewPath();
+    }
+    return hdr.getChangeType() == ChangeType.DELETE ? hdr.getOldPath() : hdr.getNewPath();
+  }
+
+  private void renderHeader(
+      String header, @Nullable String leanPlainTextUrl, @Nullable String leanRenderedUrl)
+      throws IOException {
     int lf = header.indexOf('\n');
     String rest = 0 <= lf ? header.substring(lf + 1) : "";
 
@@ -113,11 +261,22 @@ final class HtmlDiffFormatter extends DiffFormatter {
       parts.add(ImmutableMap.of("text", GIT_PATH.quote(getNewPrefix() + entry.getOldPath())));
     }
 
+    ImmutableMap.Builder<String, Object> data =
+        ImmutableMap.<String, Object>builder()
+            .put("firstParts", parts)
+            .put("rest", rest)
+            .put("fileIndex", fileIndex);
+    if (leanPlainTextUrl != null) {
+      data.put("leanPlainTextUrl", leanPlainTextUrl);
+    } else if (leanRenderedUrl != null) {
+      data.put("leanRenderedUrl", leanRenderedUrl);
+    }
+
     getOutputStream()
         .write(
             renderer
                 .newRenderer("com.google.gitiles.templates.DiffDetail.diffHeader")
-                .setData(ImmutableMap.of("firstParts", parts, "rest", rest, "fileIndex", fileIndex))
+                .setData(data.buildOrThrow())
                 .renderHtml()
                 .get()
                 .toString()

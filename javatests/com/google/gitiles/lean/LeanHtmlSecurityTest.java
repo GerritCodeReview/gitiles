@@ -481,6 +481,197 @@ public class LeanHtmlSecurityTest {
   }
 
   @Test
+  public void renderDiffSanitizesXssVectorsAcrossLeftAndRightSides() {
+    ImmutableList<String> payloads =
+        ImmutableList.of(
+            "<script>alert(1)</script>",
+            "<img src=x onerror=alert(1)>",
+            "<svg onload=alert(1)>",
+            "<iframe src=\"javascript:alert(1)\"></iframe>",
+            "<details open ontoggle=alert(1)><summary>x</summary></details>",
+            "[click](javascript:alert(1))",
+            "![img](javascript:alert(2))",
+            "<div style=\"position:fixed\" data-x=\"1\" aria-label=\"a\">x</div>");
+    StringBuilder left = new StringBuilder("/-!\n");
+    StringBuilder right = new StringBuilder("/-!\n");
+    for (String payload : payloads) {
+      left.append(payload).append("\n");
+      right.append("updated ").append(payload).append("\n");
+    }
+    left.append("-/\n-- ==== <script>alert(1)</script> ====\n");
+    right.append("-/\n-- ==== <img src=x onerror=alert(2)> ====\n");
+    left.append(
+        """
+        /-- [click](javascript:alert(1)) <script>alert('leftDoc')</script> -/
+        structure S where
+          x : Nat -- <img src=x onerror=alert(3)>
+        def «<script>alert(4)</script>» : Nat := 1
+        """);
+    right.append(
+        """
+        /-- ![bad](javascript:alert(2)) <iframe src=x></iframe> -/
+        structure S where
+          x : Int -- <svg onload=alert(5)>
+        def «<img src=x onerror=alert(6)>» : Nat := 2
+        """);
+
+    SafeHtml safe =
+        LeanHtml.renderDiff(
+            left.toString(), right.toString(), new Config(), null, null, "Xss.lean");
+    assertThat(safe).isNotNull();
+    String html = safe.getSafeHtmlString();
+    assertStrictAllowlist(html);
+    assertThat(html.toLowerCase(Locale.ROOT)).contains("about:invalid#zsoyz");
+    assertThat(html.toLowerCase(Locale.ROOT)).contains("data:image/gif;base64,zsoyz");
+
+    Config mdDisabled = new Config();
+    mdDisabled.setBoolean("markdown", null, "render", false);
+    SafeHtml noMd =
+        LeanHtml.renderDiff(left.toString(), right.toString(), mdDisabled, null, null, "Xss.lean");
+    assertThat(noMd).isNotNull();
+    assertStrictAllowlist(noMd.getSafeHtmlString());
+    assertThat(noMd.getSafeHtmlString()).contains("&lt;script&gt;");
+  }
+
+  @Test
+  public void renderDiffHardensVariationHomoglyphRtlAndProtoLinks() {
+    String variationSource =
+        """
+        /-!
+        Verify check&#xFE00;name and supp&#xE0100;name and khmer&#x17B4;mark
+        -/
+        def «check» : Nat := 1
+        def «check\uFE00» : Nat := 2
+        def «check\uDB40\uDD00» : Nat := 3
+        def «khmer\u17B4\u180B» : Nat := 4
+        def «braille\u2800blank» : Nat := 5
+        """;
+    SafeHtml variationDiff =
+        LeanHtml.renderDiff(
+            "def «check» : Nat := 1\n",
+            variationSource,
+            new Config(),
+            null,
+            null,
+            "Variation.lean");
+    assertThat(variationDiff).isNotNull();
+    String variationHtml = variationDiff.getSafeHtmlString();
+    assertStrictAllowlist(variationHtml);
+    assertThat(variationHtml).contains("<div class=\"LeanTrojanBanner\" role=\"alert\">");
+    assertThat(variationHtml).contains("<span class=\"LeanTrojanChar\">U+FE00</span>");
+    assertThat(variationHtml).contains("<span class=\"LeanTrojanChar\">U+E0100</span>");
+    assertThat(LeanSecurity.containsHiddenOrSurrogate(variationHtml)).isFalse();
+
+    String nonDeclHomoglyphs =
+        """
+        structure User where
+          is_v\u0430lid : Bool
+        inductive Auth where
+          | v\u0430lid
+        theorem sound_proof : my_f\u0430lse := by
+          exact proof_v\u0430r
+        def compact_param (x_\u0430 : Nat) : Nat := x_\u0430
+        """;
+    SafeHtml nonDeclDiff =
+        LeanHtml.renderDiff(
+            "structure User where\n  is_valid : Bool\n",
+            nonDeclHomoglyphs,
+            new Config(),
+            null,
+            null,
+            "NonDeclHomoglyph.lean");
+    assertThat(nonDeclDiff).isNotNull();
+    String nonDeclHtml = nonDeclDiff.getSafeHtmlString();
+    assertStrictAllowlist(nonDeclHtml);
+    assertThat(nonDeclHtml).contains("<div class=\"LeanTrojanBanner\" role=\"alert\">");
+    assertThat(nonDeclHtml).contains("LeanDecl-badge--warning\">homoglyph");
+
+    SafeHtml fixedDiff =
+        LeanHtml.renderDiff(
+            "def dup : Nat := a_\u0430\n",
+            "def dup : Nat := a\n",
+            new Config(),
+            null,
+            null,
+            "FixedHomoglyph.lean");
+    assertThat(fixedDiff).isNotNull();
+    String fixedHtml = fixedDiff.getSafeHtmlString();
+    assertStrictAllowlist(fixedHtml);
+    assertThat(fixedHtml).contains("<div class=\"LeanTrojanBanner\" role=\"alert\">");
+    assertThat(fixedHtml).doesNotContain("LeanDecl-badge--warning\">homoglyph");
+
+    String rtl =
+        """
+        /-!
+        Inline `"\u05D0" == "\u05D1"` and `-- \u05E9\u05DC\u05D5\u05DD := 1 ; \u05D0\u05DE\u05EA := 0`
+        Para (\u05D0 : Nat) -> \u05D0 = \u05D1
+
+        ```lean
+        def md_eq := "\u05D0" == "\u05D1"
+        -- \u05E9\u05DC\u05D5\u05DD := 1 ; \u05D0\u05DE\u05EA := 0
+        ```
+        -/
+        /-- Doc `"\u05D0" == "\u05D1"` -/
+        def check_eq : Bool := "\u05D0" == "\u05D1"
+        theorem t (\u05D0 : Nat) (\u05D1 : Nat) : \u05D0 = \u05D1 := by
+          -- \u05E9\u05DC\u05D5\u05DD := 1 ; \u05D0\u05DE\u05EA := 0
+          rfl
+        """;
+    SafeHtml rtlDiff =
+        LeanHtml.renderDiff(
+            "def check_eq : Bool := false\n", rtl, new Config(), null, null, "RtlDiff.lean");
+    assertThat(rtlDiff).isNotNull();
+    String rtlHtml = rtlDiff.getSafeHtmlString();
+    assertStrictAllowlist(rtlHtml);
+    assertThat(rtlHtml).contains("<span class=\"LeanBidiIsolate\">\u05D0</span>");
+    assertThat(rtlHtml).contains("<span class=\"LeanBidiIsolate\">\u05D1</span>");
+    assertThat(rtlHtml)
+        .contains("<code class=\"code\">&quot;<span class=\"LeanBidiIsolate\">\u05D0</span>&quot;");
+    assertThat(rtlHtml)
+        .contains("<span class=\"str\">&quot;<span class=\"LeanBidiIsolate\">\u05D0</span>&quot;");
+    assertThat(rtlHtml)
+        .contains("Para (<span class=\"LeanBidiIsolate\">\u05D0</span> : Nat) -&gt; ");
+
+    GitilesView diffView =
+        GitilesView.path()
+            .setHostName("host")
+            .setServletPath("/b")
+            .setRepositoryName("repo")
+            .setRevision("main")
+            .setPathPart("Test.lean")
+            .build();
+    String protoMarkdown =
+        """
+        /-!
+        # F1
+        # 1
+        [proto-rel](//evil.example/phish)
+        ![img-proto](//evil.example/pixel.png)
+        -/
+        /--
+        # F2
+        -/
+        def x : Nat := 1
+        """;
+    SafeHtml protoDiff =
+        LeanHtml.renderDiff(
+            "def x : Nat := 0\n",
+            protoMarkdown,
+            new Config(),
+            diffView,
+            "/b/repo/+diff/c^!/",
+            "Test.lean");
+    assertThat(protoDiff).isNotNull();
+    String protoHtml = protoDiff.getSafeHtmlString();
+    assertStrictAllowlist(protoHtml);
+    assertThat(protoHtml).doesNotContain("href=\"//");
+    assertThat(protoHtml).doesNotContain("src=\"//");
+    assertThat(protoHtml).doesNotContain("<a class=\"h\"");
+    assertThat(protoHtml).doesNotContain("name=\"F1\"");
+    assertThat(protoHtml).doesNotContain("name=\"F2\"");
+  }
+
+  @Test
   public void blobVisibleTextPreservesLineNumbersAndSourceTextAcrossConstructs() {
     String source =
         """

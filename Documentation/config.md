@@ -160,15 +160,15 @@ fileSearch = false
 
 ### Lean rendering
 
-Render `.lean` (Lean 4) source files richly on blob pages, showing summary
-counts, lexical hygiene badges, rendered Markdown docstrings, and
-syntax-highlighted declarations. Default: `true`.
+Render `.lean` (Lean 4) source files richly on blob pages and semantically in
+diffs, showing summary counts, lexical hygiene badges, rendered Markdown
+docstrings, and syntax-highlighted declarations. Default: `true`.
 
 Readers can switch between the `Rendered` and `Plain text` views on any
-eligible `.lean` blob page using the header toggle (which sets `?lean=0` for
-plain source). Files exceeding the input, output, or rendering budget caps fall
-back to the standard view automatically. Set this to `false` to disable rich
-Lean rendering site-wide.
+eligible `.lean` blob or diff page using the header toggle (which sets `?lean=0`
+for plain source or raw unified diff). Files or multi-file diffs exceeding the
+size or rendering budget caps fall back to the standard view automatically. Set
+this to `false` to disable rich Lean rendering site-wide.
 
 Note: Summary counts and hygiene badges (`no sorry found (lexical scan)`,
 `axiom`, `native_decide`, `partial`, `unsafe`) come from a lexical syntax scan
