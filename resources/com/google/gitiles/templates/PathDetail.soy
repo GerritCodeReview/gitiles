@@ -32,7 +32,9 @@ import * as objDetail from 'com/google/gitiles/templates/ObjectDetail.soy';
   {@inject staticUrls: ?}
 {if $type == 'REGULAR_FILE' || $type == 'EXECUTABLE_FILE'}
   {call common.header data="all"}
-    {param css: [$staticUrls.PRETTIFY_CSS_URL] /}
+    {param css: $data.leanHtml
+        ? [$staticUrls.LEAN_CSS_URL, $staticUrls.DOC_CSS_URL, $staticUrls.PRETTIFY_CSS_URL]
+        : [$staticUrls.PRETTIFY_CSS_URL] /}
   {/call}
 {elseif $data.readmeHtml}
   {call common.header data="all"}
