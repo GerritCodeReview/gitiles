@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* Rich Lean 4 blob styles. */
+/* Rich Lean 4 blob and semantic diff styles. */
 
 :root,
 html[data-theme="light"] {
@@ -42,6 +42,17 @@ html[data-theme="light"] {
   --lean-decl-theorem-border: #1a73e8;
   --lean-decl-alert-border: #d93025;
   --lean-card-shadow: rgba(0, 0, 0, 0.04);
+  --lean-diff-add-border: #2da44e;
+  --lean-diff-add-bg: #e6ffec;
+  --lean-diff-add-line-bg: #d8fed8;
+  --lean-diff-add-inline: #aaf2aa;
+  --lean-diff-del-border: #cf222e;
+  --lean-diff-del-bg: #ffebe9;
+  --lean-diff-del-line-bg: #ffebee;
+  --lean-diff-del-inline: #ffcdd2;
+  --lean-diff-delta-add: #188038;
+  --lean-diff-delta-del: #d93025;
+  --lean-diff-placeholder-bg: rgba(0, 0, 0, 0.03);
   --lean-md-code-bg: #f1f3f4;
   --lean-md-quote-border: #d0d7de;
   --lean-tok-keyword: #9e0069;
@@ -81,6 +92,17 @@ html[data-theme="light"] {
     --lean-decl-theorem-border: #8ab4f8;
     --lean-decl-alert-border: #f28b82;
     --lean-card-shadow: rgba(0, 0, 0, 0.28);
+    --lean-diff-add-border: #3fb950;
+    --lean-diff-add-bg: rgba(46, 160, 67, 0.16);
+    --lean-diff-add-line-bg: rgba(46, 160, 67, 0.22);
+    --lean-diff-add-inline: rgba(63, 185, 80, 0.38);
+    --lean-diff-del-border: #f28b82;
+    --lean-diff-del-bg: rgba(248, 81, 73, 0.16);
+    --lean-diff-del-line-bg: rgba(248, 81, 73, 0.22);
+    --lean-diff-del-inline: rgba(248, 81, 73, 0.38);
+    --lean-diff-delta-add: #81c995;
+    --lean-diff-delta-del: #f28b82;
+    --lean-diff-placeholder-bg: rgba(255, 255, 255, 0.04);
     --lean-md-code-bg: #2d3035;
     --lean-md-quote-border: #5f6368;
     --lean-tok-keyword: #f48fb1;
@@ -120,6 +142,17 @@ html[data-theme="dark"] {
   --lean-decl-theorem-border: #8ab4f8;
   --lean-decl-alert-border: #f28b82;
   --lean-card-shadow: rgba(0, 0, 0, 0.28);
+  --lean-diff-add-border: #3fb950;
+  --lean-diff-add-bg: rgba(46, 160, 67, 0.16);
+  --lean-diff-add-line-bg: rgba(46, 160, 67, 0.22);
+  --lean-diff-add-inline: rgba(63, 185, 80, 0.38);
+  --lean-diff-del-border: #f28b82;
+  --lean-diff-del-bg: rgba(248, 81, 73, 0.16);
+  --lean-diff-del-line-bg: rgba(248, 81, 73, 0.22);
+  --lean-diff-del-inline: rgba(248, 81, 73, 0.38);
+  --lean-diff-delta-add: #81c995;
+  --lean-diff-delta-del: #f28b82;
+  --lean-diff-placeholder-bg: rgba(255, 255, 255, 0.04);
   --lean-md-code-bg: #2d3035;
   --lean-md-quote-border: #5f6368;
   --lean-tok-keyword: #f48fb1;
@@ -190,6 +223,29 @@ html[data-theme="dark"] {
 
 .LeanSummary-statSep {
   opacity: 0.5;
+}
+
+.LeanSummary-deltas {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+}
+
+.LeanSummary-delta--add {
+  color: var(--lean-diff-delta-add);
+  font-weight: 600;
+}
+
+.LeanSummary-delta--del {
+  color: var(--lean-diff-delta-del);
+  font-weight: 600;
+}
+
+.LeanSummary-delta--mod {
+  color: var(--lean-link);
+  font-weight: 600;
 }
 
 .LeanSummary-source {
@@ -589,6 +645,19 @@ a.LeanLineRange:hover {
   background-color: var(--lean-target-bg);
 }
 
+.LeanCode-line--added {
+  background-color: var(--lean-diff-add-line-bg);
+}
+
+.LeanCode-line--deleted {
+  background-color: var(--lean-diff-del-line-bg);
+}
+
+.LeanCode-line--placeholder {
+  background-color: var(--lean-diff-placeholder-bg);
+  user-select: none;
+}
+
 .LeanCode-lineNum {
   color: var(--lean-muted);
   font-family: 'Source Code Pro', monospace;
@@ -605,6 +674,10 @@ a.LeanLineRange:hover {
   opacity: 1;
   color: var(--lean-link);
   text-decoration: underline;
+}
+
+.LeanCode-lineNum--placeholder {
+  pointer-events: none;
 }
 
 .LeanCode-text {
@@ -653,6 +726,19 @@ a.LeanLineRange:hover {
 
 .LeanTable tr:target td {
   background-color: var(--lean-target-bg);
+}
+
+.LeanTable-row--added td {
+  background-color: var(--lean-diff-add-line-bg);
+}
+
+.LeanTable-row--deleted td {
+  background-color: var(--lean-diff-del-line-bg);
+}
+
+.LeanTable-row--placeholder td {
+  background-color: var(--lean-diff-placeholder-bg);
+  user-select: none;
 }
 
 .LeanTable-lineCol {
@@ -751,6 +837,84 @@ a.LeanLineRange:hover {
 
 .LeanTok--literal {
   color: var(--lean-tok-literal);
+}
+
+/* Unified diff blocks & intra-line delta highlights */
+
+.LeanDiff {
+  color: var(--lean-text);
+  margin-bottom: 16px;
+}
+
+.LeanDiff-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.LeanDiff-block {
+  position: relative;
+  border-left: 3px solid transparent;
+  padding: 4px 8px;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+}
+
+.LeanDiff-block--added {
+  border-left-color: var(--lean-diff-add-border);
+  background-color: var(--lean-diff-add-bg);
+  border-radius: 0 6px 6px 0;
+}
+
+.LeanDiff-block--deleted {
+  border-left-color: var(--lean-diff-del-border);
+  background-color: var(--lean-diff-del-bg);
+  border-radius: 0 6px 6px 0;
+}
+
+.LeanDiff-block--unchanged {
+  border-left-color: transparent;
+}
+
+.LeanDiff-collapsed {
+  padding: 6px 12px;
+  border: 1px dashed var(--lean-border-strong);
+  border-radius: 6px;
+  background-color: var(--lean-bg-secondary);
+  color: var(--lean-muted);
+  font-size: 12px;
+}
+
+.LeanDiff-subrow + .LeanDiff-subrow {
+  margin-top: 6px;
+}
+
+.LeanDiff-subrow--added {
+  background-color: var(--lean-diff-add-line-bg);
+  border-radius: 3px;
+  padding: 2px 4px;
+}
+
+.LeanDiff-subrow--deleted {
+  background-color: var(--lean-diff-del-line-bg);
+  border-radius: 3px;
+  padding: 2px 4px;
+}
+
+.LeanDiff-inlineAdd {
+  background-color: var(--lean-diff-add-inline);
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+.LeanDiff-inlineDel {
+  background-color: var(--lean-diff-del-inline);
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 0 2px;
 }
 
 /* Markdown typography for module docs & docstrings */
