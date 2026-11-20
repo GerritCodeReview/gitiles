@@ -1,13 +1,9 @@
 {
   "checks": {
     "zuul-check:gitiles": {
-      "state": "FAILED",
-      "message": "Change failed",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/bf0091af926240768a8767307aef92a9",
-      "started": "2026-05-19T07:36:25Z",
-      "finished": "2026-05-19T07:36:32Z",
+      "state": "NOT_STARTED",
       "created": "2026-05-19T06:44:57Z",
-      "updated": "2026-05-19T07:36:37Z"
+      "updated": "2026-11-20T23:21:42Z"
     }
   }
 }
