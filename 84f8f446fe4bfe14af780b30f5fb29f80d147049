@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69207220_2a5e6d1e",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5220446
+      },
+      "writtenOn": "2026-11-23T19:28:48Z",
+      "side": 1,
+      "message": "When `maskOutput` is true and `startCp` is a non-identifier supplementary Unicode code point (`startLen \u003d\u003d 2`, e.g., an emoji or supplementary math symbol inside `dbg_trace \"{😀}\"`), this appends only one space while advancing `i` by `startLen`, shrinking the output and breaking the 1:1 UTF-16 offset invariant. Please use `appendSpaces(out, startLen)` instead of `out.append(\u0027 \u0027)` when `ch !\u003d \u0027\\n\u0027`.",
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
