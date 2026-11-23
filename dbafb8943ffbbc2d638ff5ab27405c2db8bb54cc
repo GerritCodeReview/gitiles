@@ -1,0 +1,244 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8867508b_91654880",
+        "filename": "java/com/google/gitiles/lean/LeanHtml.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "This new package-private 5-argument `tryRenderMarkdownSafeHtml` overload passes unbounded `Integer.MAX_VALUE` and a `null` budget, has no callers in this change, and is deleted in child change 658568. Please remove it so all Markdown rendering goes through the bounded overload.",
+      "range": {
+        "startLine": 879,
+        "startChar": 0,
+        "endLine": 887,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5281c5fb_addba25d",
+        "filename": "java/com/google/gitiles/lean/LeanRequestBudget.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "Setting `exhausted \u003d true` whenever `blockCount \u003e MAX_REQUEST_BLOCKS - blocksUsed` permanently exhausts the request budget on a single oversized file, unlike `canAttempt`, `beginInputCheck`, `tryConsumeMarkdown`, and `tryConsumePrettify`. In child change 658568 (`HtmlDiffFormatter` and `LeanHtml.renderDiff`), a single large diff file exceeding the remaining block budget will then suppress rich rendering and toggle links for all remaining small files in the request. Remove `exhausted \u003d true;` here since `isCpuDeadlineExceeded()` already marks the budget exhausted on CPU expiry.",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85ab047c_461b8e9e",
+        "filename": "java/com/google/gitiles/lean/LeanSecurity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "`leanMarkdownConfig` inherits host `markdown.frontmatter`, `markdown.multicolumn`, and `markdown.blocknote` settings through `new Config(base)`. On hosts where those extensions are enabled, `YamlFrontMatterBlock` and overflowing `MultiColumnBlock.Column` blocks (`span \u003d\u003d 0`) are silently dropped from rendered HTML (hiding docstring content), and nested `BlockNote` containers bypass `exceedsMarkdownNestingLimit`. Please force `frontmatter`, `multicolumn`, and `blocknote` to `false` here alongside `toc` and `safehtml`.",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf520f8_604a15b9",
+        "filename": "java/com/google/gitiles/lean/LeanSecurity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "Returning `null` when `budget.isCpuDeadlineExceeded()` at lines 408 and 420 makes `BoundedMarkdownWriter.finish()`\u0027s CPU check unreachable and causes `LeanHtml.tryRenderMarkdownSafeHtml` (lines 919-935) to treat CPU expiry as a normal Markdown fallback, rendering `\u003cpre\u003e\u003ccode\u003e` and continuing for up to 63 more blocks instead of aborting immediately. Throw `OutputLimitExceeded.INSTANCE` at line 408 (and remove the duplicate `return null` check at lines 419-421 so `writer.finish()` throws directly), and also throw `OutputLimitExceeded.INSTANCE` in `LeanHtml.tryRenderMarkdownSafeHtml` if CPU expires when `tryConsumeMarkdown` returns `false`.",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55877133_e85906e6",
+        "filename": "java/com/google/gitiles/lean/LeanSecurity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "Now that PS 4 scans identifiers across all declaration bodies, signatures, imports, and directives, `0x1D00..0x1DBF` (excluding only `0x1D62..0x1D6A`) flags Unicode `MODIFIER_LETTER` superscripts (`0x1D2C..0x1D61` and `0x1D9B..0x1DBF`) used throughout standard Lean 4 and Mathlib notation (such as `sᶜ`, `Cᵒᵖ`, `Rᵐᵒᵖ`, `Aᵀ`, `Aᴴ`, and `Gᵃᵇ`), and standalone `ν` (U+03BD) and `ℓ` (U+2113) are also ubiquitous Mathlib variables. This triggers widespread false-positive `LeanTrojanBanner` alerts, per-declaration `homoglyph` badges, and loss of compact cards across thousands of legitimate `.lean` files. Please exclude `Character.getType(cp) \u003d\u003d Character.MODIFIER_LETTER` from the `0x1D00..0x1DBF` range, and avoid flagging standalone `ν` and `ℓ` unless mixed with Latin in the same identifier.",
+      "range": {
+        "startLine": 731,
+        "startChar": 0,
+        "endLine": 752,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ba1ebf2_4beb17eb",
+        "filename": "java/com/google/gitiles/lean/LeanSecurity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "`LeanParser.parse` also populates `block.markdownContent()` on regular `COMMENT` and `SECTION_BANNER` blocks, which `LeanHtml` renders as escaped plain text rather than Markdown. Because this check does not filter to `LeanBlockType.MODULE_DOC`, plain-ASCII comments or section banners mentioning literal entities like `\u0026rlm;`, `\u0026shy;`, or `\u0026it;` trigger a false-positive `LeanTrojanBanner`. Please gate this branch on `block.type() \u003d\u003d LeanBlockType.MODULE_DOC \u0026\u0026 block.markdownContent() !\u003d null`.",
+      "range": {
+        "startLine": 880,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "678c2dd6_ad0e53c2",
+        "filename": "java/com/google/gitiles/lean/LeanSecurity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1352,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "`scanGuillemetHomoglyphs` reimplements Lean 4 lexing separately from `LeanLexer` and diverges in several ways: it lacks `InterpCmdState` (so guillemet homoglyphs inside `println!`, `dbg_trace`, and `throwError` interpolations are skipped as plain strings while `stripLeanCommentsAndStringsForHygiene` masks them), `isInterpPrefixAt` omits `!LeanLexer.hasIdentPartBefore` and hardcodes `s/m/f/v` instead of `LeanSyntax.LEAN_INTERP_STRING_PREFIXES`, block comments advance 2 chars instead of `LeanLexer.matchBlockCommentOpenerLen` (misclosing doc-comment openers followed immediately by `/`), interpolation depth silently stops at 64, and `matchRawClose` duplicates `LeanLexer.matchRawStringCloseAt`. Existing tests also only place guillemet homoglyphs in `decl.name()`, leaving `scanGuillemetHomoglyphs` unexercised. Please share lexing logic with `LeanLexer` and add `LeanHtmlSecurityTest` cases covering non-declaration guillemets in expressions, `s!` and `println!` interpolations, and comments/strings.",
+      "range": {
+        "startLine": 1194,
+        "startChar": 0,
+        "endLine": 1352,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f54b821_891612f5",
+        "filename": "java/com/google/gitiles/lean/LeanSecurity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "`exceedsMarkdownNestingLimit` has three bypasses that defeat the new Markdown DoS caps. First, a container-scoped fence like `\u003e ```\\n` or `- ```\\n` (or an indented list fence) sets `inFence \u003d true` and never clears it when the blockquote or list ends, skipping every nesting, heading, pipe, and delimiter check for the rest of a 128 KiB docstring. Second, `\u003e` opens a blockquote unconditionally in CommonMark without trailing whitespace or another `\u003e`, so `\"\u003e- \".repeat(2000)` exits `atLineStart` with depth 0 (staying under 8,192 AST nodes) and `\u003e# ...` skips ATX heading counting. Third, `leadingSpaces` is never reset after container markers (so `   \u003e # ...` and `\u003e \u003e \u003e \u003e # ...` fail `leadingSpaces \u003c\u003d 3`), Setext checks only charge `prevLineLen` rather than full paragraph length, and `isSetextHeadingUnderline` misses quoted underlines (`\u003e \u003d\u003d\u003d`), letting nested headings blow up `TocFormatter.setRoot` (which `MarkdownToHtml.renderToHtml` runs unconditionally). Please enter `inFence` only at top level (`lineQuoteOrListDepth \u003d\u003d 0` and `leadingSpaces \u003d\u003d 0`), handle `c \u003d\u003d \u0027\u003e\u0027` unconditionally while resetting `leadingSpaces \u003d 0` after container markers, and enforce heading count and total heading-text caps on the parsed AST in `LeanHtml.rewriteOpaqueMarkdownNodes` before rendering.",
+      "range": {
+        "startLine": 1645,
+        "startChar": 0,
+        "endLine": 1706,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5631d8b6_95d7eb7b",
+        "filename": "javatests/com/google/gitiles/lean/LeanHtmlSecurityTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "Both of these new tests miss their intended code paths: at lines 735-739, 150 `# h` headings exceed `MAX_MARKDOWN_HEADINGS` (128) in `exceedsMarkdownNestingLimit` before Markdown parsing runs, so `markdown.toc \u003d false` is never exercised on a rendered docstring; and at lines 745-756, the `\u003cpre\u003e\u003ccode\u003e` fallback plus summary bar and `def o :\u003d 1` card exceed 2,200 chars (~2,454 chars), so `tinyOutRes` is always `null` and the assertions inside `if (tinyOutRes !\u003d null)` never execute. Please add a small `[TOC]` test with a host config setting `markdown.toc \u003d true` that asserts `\u003ch1\u003e` renders without `class\u003d\"toc\"`, and raise `tinyOut`\u0027s `maxOutputChars` (for example to 2,700) while removing the `if (tinyOutRes !\u003d null)` guard so `assertThat(tinyOutRes).isNotNull()` and `contains(\"\u003cpre\u003e\u003ccode\u003e\")` run unconditionally.",
+      "range": {
+        "startLine": 734,
+        "startChar": 0,
+        "endLine": 756,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad411188_26f08821",
+        "filename": "javatests/com/google/gitiles/lean/LeanRenderingTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:54Z",
+      "side": 1,
+      "message": "Lines 394-398 note that a rejected scan does not exhaust smaller checks, but `scanBytesUsed` is already saturated at 2,048 before `beginInputCheck(0, 1)` fails and `budget.isExhausted()` is never asserted false. In addition, core `LeanRequestBudget` and 7-argument `LeanHtml.renderBlob` paths still lack direct test coverage in this change (CPU deadline abort inside `renderBlob` and `BoundedMarkdownWriter`, `tryConsumeBlocks`, cumulative Markdown and Prettify char caps, throwing or negative `readClock()`, zero-cap initialization, and `recordOutcome`). Please test partial-cap non-exhaustion here (rejecting an oversized scan while capacity remains, asserting `!budget.isExhausted()`, then succeeding on a smaller scan) and add unit tests using `LeanRequestBudget.forTesting` covering those remaining budget and `renderBlob` abort paths.",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "dbafb8943ffbbc2d638ff5ab27405c2db8bb54cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
