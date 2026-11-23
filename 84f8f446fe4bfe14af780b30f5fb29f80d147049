@@ -3,6 +3,126 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf554e62_d53222ae",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "Consider replacing the 13 outer int constants (INTERP_*) with a private nested enum on InterpCmdState, renaming traceBracketDepth to delimDepth, and dispatching onPunct/onIdent/onNewline via switch expressions. That makes InterpCmdState self-contained and lets the compiler catch omitted states like INTERP_EXPECT_TRACE_OPEN in onNewline().",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e177ca_6a2e25ff",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "InterpCmdState.onPunct resets INTERP_EXPECT_TERM_THEN_QUOTE and INTERP_EXPECT_TERM_THEN_IDENT to INITIAL on `.`, which breaks Lean 4 dot-identifier refs like `throwErrorAt .missing \"{\u0027\\\"\u0027}\"` and `throwNamedErrorAt .missing id \"{\u0027\\\"\u0027}\"`. Accepting `ch \u003d\u003d \u0027.\u0027` alongside whitespace and backtick here is safe because both states have expectsQuote() \u003d\u003d false.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d222b60e_ca9af740",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "After scanning an open interpolated string brace like `s!\"hi {`, inInterpString is cleared and brace stays 0 while interpBraceTop is 1, so both hasOpenLiteralOrComment() and hasOpenDelimiters() return false. Every hasOpenLiteralOrComment caller in the stack already ORs in hasOpenInterpBrace(), while LeanParser (change 658564) calls hasOpenDelimiters(lexState) without checking hasOpenInterpBrace(), allowing a `where` inside a multi-line `s!\"...{\\n ... where ...\\n}\"` to enter inWhereBlock prematurely. Include interpBraceTop \u003e 0 in both predicates (and update LeanLexerTest.java:293-294).",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f178f71_0ebcfdb2",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "hasIdentPartBefore returns true on the first isIdentStart code point encountered while scanning backward, so it still misclassifies scientific/radix/underscore numbers (1e3, 0x1, 0xff, 0b1, 0o7, 1_000) and char literals (\u0027a\u0027) as identifier prefixes. That breaks public matchRawStringOpen(\"1e3r#\\\"\\\"\\\"#\", 3), matchCharLiteral(\"0x1\u0027\\\"\u0027\", 3), matchNumberLiteral(\"\u0027a\u0027123\", 3), and downstream sequential callers in LeanParser and LeanHighlighter. Walk back to the start of the contiguous isIdentPart run and scan forward over leading number or char literals to check if the token ending at i is an identifier, and consider making matchCharLiteralAt/matchRawStringOpenAt/matchNumberLiteralAt package-private so LeanParser and LeanHighlighter can avoid lookback altogether.",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "392dc4b1_fb077b6c",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "Entering `{` from inInterpString (lines 791-805 and 1299-1305) does not save or reset state.interpCmd, and `{` / `}` while interpBraceTop \u003e 0 unconditionally reset it to INITIAL (here and at lines 1360-1385). That breaks both braced terms inside interpolations (like `s!\"{throwErrorAt { a :\u003d 1 } \"{\u0027\\\"\u0027}\"}\"`) and interpolated strings inside command refs (like `throwErrorAt (← mkRef s!\"{x}\") \"bad {sorry}\"`), flipping quote parity and hiding sorry in hygiene mode. Save and reset interpCmd on a parallel stack when entering `{` from inInterpString, forward inner `{` and non-closing `}` (nextDepth \u003e 0) to advanceInterpCmdOnPunct, and restore the saved state when returning to inInterpString.",
+      "range": {
+        "startLine": 843,
+        "startChar": 0,
+        "endLine": 873,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69207220_2a5e6d1e",
         "filename": "java/com/google/gitiles/lean/LeanLexer.java",
         "patchSetId": 3
@@ -14,6 +134,150 @@
       "writtenOn": "2026-11-23T19:28:48Z",
       "side": 1,
       "message": "When `maskOutput` is true and `startCp` is a non-identifier supplementary Unicode code point (`startLen \u003d\u003d 2`, e.g., an emoji or supplementary math symbol inside `dbg_trace \"{😀}\"`), this appends only one space while advancing `i` by `startLen`, shrinking the output and breaking the 1:1 UTF-16 offset invariant. Please use `appendSpaces(out, startLen)` instead of `out.append(\u0027 \u0027)` when `ch !\u003d \u0027\\n\u0027`.",
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a54724c_1055012e",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "Hardcoding `state.bracket \u003c\u003d 1` at line 1487 closes early when an interpolated string sits inside a nested attribute bracket (`@[foo [bar, s!\"{ ] }\"]]`, where state.bracket is 2 inside the interpolation). Conversely, an unclosed `[` inside `{ [ }` leaks past closing `}` at line 1374, causing findMatchingBracket(`@[foo s!\"{ [ }\"]`, 1) to return -1 and findMultiLineAttributeEnd to overrun. Store a parallel bracket-floor stack alongside interpBraceDepths, ignore `]` in stopOnBracketZero mode when state.bracket \u003c\u003d floor, and restore state.bracket \u003d floor when returning to inInterpString.",
+      "range": {
+        "startLine": 1484,
+        "startChar": 0,
+        "endLine": 1495,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1623d9f2_ac6a6ade",
+        "filename": "java/com/google/gitiles/lean/LeanLexer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "advanceLeanLexStateCore only calls state.advanceInterpCmdOnNewline() on line comments (line 1347), never at normal end-of-line. Because advanceLeanLexState, hasUnterminatedLiteralOrComment, findMultiLineAttributeEnd, and LeanParser split on newlines before calling this method, multi-line forms like `throwNamedErrorAt stx\\nmyErr \"{\u0027\\\"\u0027}\"` or `trace[a\\n] \"{\"` diverge from stripLeanCommentsAndStrings and corrupt quote parity. Call advanceInterpCmdOnNewline() before returning -1 whenever outside a comment or literal body (and also add INTERP_EXPECT_TRACE_OPEN to InterpCmdState.onNewline(), or have onNewline() delegate to onPunct(\u0027\\n\u0027), so it matches line 216).",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1507,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efd9daad_6ed1259b",
+        "filename": "java/com/google/gitiles/lean/LeanSyntax.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "Since LeanSyntax is a new public API and every caller across the stack (plus the exhaustive oracle test at LeanSyntaxTest.java:153) manually excludes `#`, keeping `codePoint \u003d\u003d \u0027#\u0027` here only adds boilerplate and conflicts with the commit message claim of Lean 4 isIdFirst parity across 0..0x10FFFF. Separately, the String overloads of isIdentStart and isIdentPart (lines 395-407 and 426-438) have no production callers across the stack and return true if any code point in the string matches (such as isIdentStart(\"0a\")). Please remove `#` from isIdentStart(int) and drop or restrict the String overloads to single-code-point inputs.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a68db3ec_3eab0935",
+        "filename": "javatests/com/google/gitiles/lean/LeanLexerAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "This test name and comment still state that `{...}` inside any `\"...\"` string is exposed in hygiene mode, contradicting PS 3\u0027s command-only interpolation design, and line 102 tests `\\{` on a plain string (`def esc :\u003d \"\\{sorry}\"`) that is always masked regardless of escaping. Please update the test to exercise `\\{` on an interpolated command or prefixed string (like `dbg_trace \"\\{sorry}\"`) alongside a plain-string check, and strip the internal audit labels (S-B-*, S-D-*, R2-*) from both LeanLexerAdversarialTest.java and LeanSyntaxTest.java:125 before upstreaming.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114ba747_696a02ed",
+        "filename": "javatests/com/google/gitiles/lean/LeanLexerAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "A few assertions in this block can pass even when the code under test breaks: lines 230-236, 243-249, and 253-263 check only one trailing .contains(...) where quote-parity cancellation hides failures in earlier declarations (ok1, ok2, swallow1), and line 226 passes `\"!\\\"\"` whose index 1 is `\"` rather than `\u0027`. Also, lines 193-200 still omit closing quotes and negative assertions verifying sorry inside comments or nested strings stays masked, and the new maskedBraceBase reset, interpCmdStack nesting (such as `dbg_trace \"{s!\"{sorry}\"} {sorry}\"` or `s!\"{dbg_trace \"{sorry}\"} {ok}\"`), and `«sorryAx»` masking inside dbg_trace under stripLeanCommentsAndStrings are not yet tested. Please assert each case independently and add those regression cases.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "609daeef_b63e3703",
+        "filename": "javatests/com/google/gitiles/lean/LeanLexerAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:37Z",
+      "side": 1,
+      "message": "Line 480 passes `\"x} hidden\\\"\"`, which contains `\"`, so hasNoCommentsOrLiterals already returns false and the `!state.hasOpenInterpBrace()` guard at LeanLexer.java:1212 is never exercised. On line 484, `/-` swallows `\"r`, leaving 6 of 10 LeanLexState fields (including interpCmd) unpolluted before reset(), and rawSt on lines 486-487 is unused. Switching line 480 to a quote-free `\"x} hidden\"`, deleting rawSt, polluting each mutually exclusive state (including interpCmd via `\"dbg_trace\"`) before reset(), and testing BOM/CR fast-path rejection on quote-free inputs will make this test cover all branches.",
+      "range": {
+        "startLine": 477,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 9999
+      },
+      "isAi": true,
       "revId": "84f8f446fe4bfe14af780b30f5fb29f80d147049",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
