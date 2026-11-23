@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1b6ecc_bef7fda9",
+        "filename": "java/com/google/gitiles/lean/LeanParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "shouldBreakDeclOnCommand (line 2284) and startsNewTopLevelCommandInDeclBody (line 2310) recognize imports at any leading offset via parseImportLine(line, leadingPos), but top-level import parsing here gates on colOffset \u003d\u003d 0 and hardcodes startPos \u003d 0. As a result, same-line imports after a block comment, back-to-back imports on one line (\"import A import B theorem bad : False :\u003d sorry\"), or indented imports fall through to a fallback code directive and swallow trailing declarations instead of splitting them out. Parsing from startCol even when colOffset \u003e 0 (and slicing from colOffset on the first line) keeps top-level splitting consistent with declaration boundary detection.",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0326ce46_df7b29c0",
+        "filename": "java/com/google/gitiles/lean/LeanParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "Stripping fullLine from column 0 instead of colOffset regresses from lean-diff-util.ts when a closed multi-line block comment or multi-line attribute ends on the same line as a scoping directive like \"open ... in\" or \"set_option ... in\". If anything before colOffset on that closing line opens a line comment or string literal (such as a multi-line attribute closing a string before \"] open Nat in theorem bad : False :\u003d by sorry\"), stripLeanCommentsAndStrings blanks the rest of the line, so findStandaloneInEnd returns -1 and swallows the trailing declaration into the directive. Caching cachedStrippedStartCol alongside cachedStrippedRow and stripping from colOffset on cache miss preserves O(N) runtime, eliminates bomShift (currently unexercised by bomEveryLine), and restores parity; please also add a regression test for this case.",
+      "range": {
+        "startLine": 892,
+        "startChar": 0,
+        "endLine": 903,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c91d46b0_7b635b70",
+        "filename": "java/com/google/gitiles/lean/LeanParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "When count \u003d\u003d 0 (for example, a trailing \"deriving ,\" line with a trailing line comment), this still strips the last line via lines.subList(0, lines.size() - 1) while returning derivingClause \u003d null, so that line and its comment vanish from both bodyLines and rendered output. Return new DerivingSplit(lines, null) early when count \u003d\u003d 0 so unparsed deriving lines stay in bodyLines.",
+      "range": {
+        "startLine": 1576,
+        "startChar": 0,
+        "endLine": 1580,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c92dbe_49027fbb",
+        "filename": "java/com/google/gitiles/lean/LeanParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "parseStructureFields (here) and parseInductiveConstructors (lines 1738 to 1741) advance LeanLexer across each line, discard its 1:1 offset-preserving stripped output, and still call the naive boolean-inString scanners (findTopLevelAssign, splitLineComment, and splitTopLevelPipes). Because those guards only bail out when a literal, comment, or interpolation brace stays open at EOL, a closed same-line interpolated string containing a char quote or nested string (for example, an inductive constructor with s!\"{ \u0027\"\u0027 }) | fake : E\" or a structure field with s!\"{ \u0027\"\u0027 }\" before a trailing line comment) passes advanceLeanLexState cleanly and then inverts inString, splitting fake constructors out of strings or truncating field values and comments. Please derive top-level comment, assignment, and pipe positions from the stripped line returned by advanceLeanLexState (or fall back to raw bodyLines on interpolated strings), and add tests covering both same-line and multi-line interpolated strings inside structure and inductive bodies.",
+      "range": {
+        "startLine": 1593,
+        "startChar": 0,
+        "endLine": 1596,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26449a44_f77b7f1c",
+        "filename": "java/com/google/gitiles/lean/LeanParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2287,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "LeanLexer.isDividerCommentLine(line) on line 2287 is unreachable because line 2274 returns false whenever startsNewTopLevelCommandInDeclBody returns false, and startsNewTopLevelCommandInDeclBody always returns false for line comments. Please either check isDividerCommentLine before line 2274 (if indented divider comments should terminate declarations) or remove the dead clause.",
+      "range": {
+        "startLine": 2274,
+        "startChar": 0,
+        "endLine": 2287,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d016877a_a0e9fbb3",
+        "filename": "javatests/com/google/gitiles/lean/LeanHygieneAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "Asserting the 6-way OR on lines 329 to 336 does not verify which flag each hazard token sets, leaving scanHazardMask\u0027s partial bit (LeanHygiene.java:107-109) unverified across the suite because all other partial tests pass \"partial\" via modifiers. In addition, despite the test name, every call here uses single-line codeLines with empty pendingAttrs, leaving the pendingAttrs-only fast path (LeanHygiene.java:151-152), hazards inside pendingAttrs, directive fail-closed detection for axiom / partial / ofReduceBool / unprefixed \"{sorry}\" (LeanHygiene.java:233-252), and hasOpenInterpBrace() via hasUnterminatedLiteralOrComment (LeanHygiene.java:284) uncovered. Please assert exact LeanDeclHygiene equality per hazard token and add targeted cases for those branches.",
+      "range": {
+        "startLine": 296,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a894f2c_4b5f396d",
+        "filename": "javatests/com/google/gitiles/lean/LeanParserAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "String.strip() uses Character.isWhitespace(), so this loop skips line-coverage verification for non-Lean Unicode and control whitespace (U+2028, U+2029, U+2003 on lines 192 to 199, and U+000B/U+000C on line 211), which are the exact characters these tests assert must never be dropped as blank. Please check Lean whitespace (space, tab, CR, LF) directly here so dropped non-Lean whitespace lines fail the invariant check.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d67017_9656222f",
+        "filename": "javatests/com/google/gitiles/lean/LeanParserAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "Please strip the internal review/audit tracking tags from comments before landing in public upstream Gitiles, keeping just the self-contained descriptions of each invariant. This applies to lines 86 to 396 here (S-B-1, S-B-3 (#92 rule 6), S-B-4, CODE-12/CODE-13, CODE-15, CODE-22, R2-CHAOS-3, R2-INT-4 plus unexplained 1525.lean, R2-INT-7, S-D-1, S-D-2) and lines 40 to 213 in LeanHygieneAdversarialTest.java (S-B-1, S-B-7, S-B-8, #92 rule 2/4, CODE-22, R2-INT-1, R2-INT-2 Part A, R2-INT-3, R2-INT-10, R2-INT-11). Also note that LeanHygieneAdversarialTest.java line 193 says Cyrillic \"а\" is tested in unicodeLetterlikeDesync, but no U+0430 case appears in lines 195 to 208.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4320e41d_35449dc3",
+        "filename": "javatests/com/google/gitiles/lean/LeanParserAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:22Z",
+      "side": 1,
+      "message": "Every declaration in reusedDeclLexStateDoesNotLeakAcrossDeclarations finishes with balanced delimiters, closed literals/comments, and InterpCmdState.INITIAL, so deleting lexState.reset() at LeanParser.java:590 still passes this test and the entire suite. Please start with a declaration that terminates with dirty lexical state (such as an unclosed \"(\" or unclosed \"throwErrorAt (\") followed by a clean declaration and a subsequent column-0 non-declaration line so leaking declLexState fails the test.",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "654afc2ef0aed887da43f3359c94f4ae529afe72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
