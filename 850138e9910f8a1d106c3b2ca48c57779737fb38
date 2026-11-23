@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9422be9_cd7e8863",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "`HighlightState` exposes a public 5-argument constructor and 5 getters while hiding package-private `interpCmd`, which still participates in `equals()` and `hashCode()` (lines 160 and 166), so states after commands like `dbg_trace` match `HighlightState.INITIAL` on every public getter yet are not equal to it and cannot round-trip through the constructor. The constructor also accepts `interpBraceDepths.size() \u003e MAX_INTERP_NESTING` (silently truncated at line 280 on non-empty lines but kept on empty lines) and allows `blockCommentDepth \u003e 0` alongside `inString`, `inGuillemet`, or `rawStringHashes \u003e\u003d 0`. Since no caller in the stack calls `new HighlightState(...)`, consider making the 5-argument constructor package-private (or removing it) and enforcing both invariants in the package-private constructor.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba397e7_3a0bb71a",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "TokenAccumulator still coalesces consecutive OPERATOR tokens, merging adjacent Lean operators like `⟨⟩`, `⟨⟨a, b⟩⟩`, `¬∃`, `¬∀`, `¬¬p`, `λ⟨x, y⟩`, or `:\u003d¬` into multi-character strings. Because `isUnicodeOperator` (via `LeanSyntax.UNICODE_OPERATORS`) only matches single-character strings, merged tokens return `false` and lose Unicode operator styling in `LeanHtml.tokenClass` (in changes 658566 and 658568). Skipping coalescing when `kind \u003d\u003d LeanTokenKind.OPERATOR` (or emitting Unicode operators unmerged) keeps every Unicode operator standalone; please also add an adjacent-operator case in `LeanHighlighterTest`.",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05e33f0_be07403c",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "Opening an interpolated string shares a single unstacked `interpCmd` across frames, and lines 515 and 524 unconditionally reset `interpCmd` to `INITIAL` on `{` and `}` inside `inInterpExpr`. This breaks command interpolations such as `throwErrorAt (mkIdent s!\"foo_{i}\") \"{ \u0027\"\u0027 }\"`, `s!\"{ throwErrorAt { a :\u003d 1 } \"{ \u0027\"\u0027 }\" }\"`, and `throwErrorAt (f s!\"{ dbg_trace \"{ \u0027\"\u0027 }\" }\") \"ok\"`, causing `\"{ \u0027\"\u0027 }\"` to tokenize as a plain string and leak `inString \u003d true` onto subsequent lines (hiding `sorry`). Stack `interpCmd` alongside `interpStack` (saving and resetting on opening an interpolated string, restoring on closing `\"`) and route inner `{`/`}` through `interpCmd.onPunct(...)`, with the matching fix in `LeanLexer` (change 658563) so highlighter and hygiene stay aligned.",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07349b10_0e7ebaeb",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "When `@[...` is unclosed on a line, `LeanLexer.findMatchingBracket` discards its local `LeanLexState` when returning `-1`, dropping any open `blockCommentDepth`, `inString`, `rawStringHashes`, `inGuillemet`, or `interpBraceDepths` (for example, `@[deprecated \"use bar\\n/-\\ninstead\"]` or `@[simp /- note` corrupts continuation lines and can hide subsequent `sorry` tokens). In addition, running this shortcut when `inInterpExpr` is true lets `s!\"{ @[foo }\"` swallow `}` and `\"` to EOL and leak `interpBraceDepths \u003d [1]` across following lines. Skip the `@[` shortcut inside `inInterpExpr`, and outside `inInterpExpr` fall through to normal token scanning when `closeIdx \u003c 0` (using a per-line boolean guard so repeated unclosed `@[` cannot rescan quadratically).",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 567,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a01786_96836489",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "Calling `interpCmd.onNewline()` unconditionally at EOL (and via `HighlightState.withNewline()` on empty lines at lines 126 and 267) mutates or resets `interpCmd` while inside open multi-line block comments, guillemets, or strings, causing inputs like `trace[Meta /-\\n-/ .debug] \"{ \u0027\"\u0027 }\"`, `throwErrorAt stx/-\\n-/.lhs \"{ \u0027\"\u0027 }\"`, and `throwErrorAt «foo\\nbar».lhs \"{ \u0027\"\u0027 }\"` to parse `\"{ \u0027\"\u0027 }\"` as a plain string and leak `inString \u003d true` (diverging from `LeanLexer.stripLeanCommentsAndStrings`). Separately, `InterpCmdState.onNewline()` preserves `INTERP_EXPECT_TRACE_OPEN` whereas `onPunct(\u0027\\n\u0027)` resets it, so `def x :\u003d trace\\n[1] \"open {\"` falsely enters interpolation and leaks `inString \u003d true`. Only apply the newline transition to `interpCmd` when not inside an open comment or literal, and use `interpCmd.onPunct(\u0027\\n\u0027)` (or also reset `INTERP_EXPECT_TRACE_OPEN` in `InterpCmdState.onNewline()` in change 658563).",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 647,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "948a5f4a_c1340cc3",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "Gating literals on `LeanLexer.hasIdentPartBefore` via `prevWasNumOrChar` breaks adjacent-token boundaries and diverges from `LeanLexer`: line 578 calls `LeanLexer.matchNumberLiteral` without bypassing `hasIdentPartBefore` (so `\u0027a\u002742` highlights `42` as `PLAIN` and `\u0027a\u00270r#\"\"\"# + sorry` fails to match both `0` and `r#\"\"\"#`, leaking `inString \u003d true`), and line 375 clears `prevWasNumOrChar` across `!` or `?` (so `1e3!\u0027\"\u0027 + sorry`, `\u0027a\u0027!\u0027\"\u0027 + sorry`, `1e3!r#\"\"\"# + sorry`, and `1e3!s!\"{ \u0027\"\u0027 }\" + sorry` walk back into `e`/`a` and leak `inString \u003d true` hiding `sorry`). Because the identifier loop at lines 590 to 608 already consumes complete identifiers atomically, index `i` can never sit mid-identifier when matching literals. Expose package-private `checkIdentBefore \u003d false` helpers on `LeanLexer` (in change 658563) for `matchRawStringOpenAt`, `matchCharLiteralAt`, and `matchNumberLiteralAt`, match `LEAN_INTERP_STRING_PREFIXES` in the identifier branch like `LeanLexer`, and drop `prevWasNumOrChar`, `matchRawStringAt`, and the 8-char `substring` slice in `matchCharLiteralAt`.",
+      "range": {
+        "startLine": 762,
+        "startChar": 0,
+        "endLine": 807,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72577dc9_e2579753",
+        "filename": "java/com/google/gitiles/lean/LeanHighlighter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "`matchMultiCharOperator` returns the first prefix match in `LeanSyntax.MULTI_CHAR_OPERATORS`, where `\"\u003c-\"` appears before `\"\u003c-\u003e\"` (`LeanSyntax.java:374` in change 658563). Because `\"\u003c-\u003e\".startsWith(\"\u003c-\")` is true, `\u003c-\u003e` is unreachable and always splits into `OPERATOR(\"\u003c-\")` followed by `PLAIN(\"\u003e\")`. Selecting the longest matching operator here (or ordering `\"\u003c-\u003e\"` before `\"\u003c-\"` in `LeanSyntax.MULTI_CHAR_OPERATORS`) and adding a `\u003c-\u003e` test case fixes it.",
+      "range": {
+        "startLine": 829,
+        "startChar": 0,
+        "endLine": 836,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc448f19_79f2a185",
+        "filename": "javatests/com/google/gitiles/lean/LeanHighlighterAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "`LineResult`\u0027s compact constructor already throws `IllegalArgumentException` if `blockCommentDepth \u003c 0`, so `isAtLeast(0)` is tautological and would still pass if depth reset to `0` instead of saturating. Please assert `assertThat(openThenNested.blockCommentDepth()).isEqualTo(Integer.MAX_VALUE)` (and verify `joinTokens(openThenNested.tokens())` equals `\"a /- /- nested\"`) so this checks saturation directly.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39ccbcc3_008a61e8",
+        "filename": "javatests/com/google/gitiles/lean/LeanHighlighterAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "Please drop the internal review-round tracking prefixes (`R2-INT-1`, `R2-INT-2`, `R2-INT-3`, `R2-INT-4`, `R2-INT-5`, `R2-INT-9`, `R2-INT-10` here and on lines 211, 285, 365, 374, and 389) from comments before landing upstream in Gitiles, keeping the descriptive behavior notes.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91903f8e_690333b2",
+        "filename": "javatests/com/google/gitiles/lean/LeanHighlighterAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "Several new PS 3 hardening paths and APIs are not exercised by tests yet: `MAX_INTERP_NESTING` (256) overflow falling back to `inString \u003d true` (lines 466 to 468 and 485 to 487 of `LeanHighlighter.java`), multi-line 0-hash `r\"...\"` raw strings (`rawStringHashes \u003d\u003d 0` at lines 310 and 745), guillemets inside interpolation expressions (`s!\"{ «}» }\"` despite the comment at line 532), and `computeFinalHighlightState` (plus `HighlightState` validation, non-identity `equals`/`hashCode`, and empty lines under active `HighlightState`). Please add tests covering these paths.",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af243b9_5d51e7f4",
+        "filename": "javatests/com/google/gitiles/lean/LeanHighlighterAdversarialTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:54:46Z",
+      "side": 1,
+      "message": "This negative test is tautological: `def tpl :\u003d \"{ sorry }\"` would pass both assertions even if plain strings entered interpolation mode, because `LeanHighlighter.java:601-602` also emits `sorry` as `STRING` inside `{...}` and balanced braces return to `HighlightState.INITIAL` either way (and `IO.println` from the comment is not tested). Assert cases whose exit state diverges between plain and interpolated strings, such as `IO.println \"{ \u0027\"\u0027 }\"` exiting with `inString() \u003d\u003d true` and `def tpl :\u003d \"{\"` exiting in `HighlightState.INITIAL`.",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "850138e9910f8a1d106c3b2ca48c57779737fb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
