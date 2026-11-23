@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aac17ed_a53fefd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3461282
+      },
+      "writtenOn": "2026-11-23T15:09:32Z",
+      "side": 1,
+      "message": "**Round 2: memory, compute, gigantic-file guardrails and red team (PS4, 658563–658568)**\n\n**Memory and compute.** Measured on 26,393 real Lean 4 files: Lean core, batteries, aesop and others.\n- All of them render richly. Per file, the median cost is 1.2 ms of CPU and 0.4 MiB allocated, the p95 is 12 ms and 5.1 MiB, and the worst case is 203 ms and 95 MiB.\n- In total that\u0027s 1.76x less CPU than the existing plain-view highlighter, which also throws StackOverflowError on 12% of these files.\n- From 1 KiB to 2 MiB, cost grows linearly. Realistic single-file edits cost about 20–100 ms. The worst near-cap inputs are cut off by the 750 ms per-request budget and fall back to plain.\n- Load: 0 errors at concurrency 1, 8, 32 and 64. The worst near-cap pages at 64 concurrent requests peak at 4.4–5.5 GiB of heap.\n- A 10-minute mixed soak (94k requests) finished with retained heap flat (+1.6 MiB) and no full GCs.\n\n**Gigantic files.** Size, line-count and line-length checks run before any decoding. The tested cases were files from 2 MiB to 1 GiB, 10M-line files, a single 100 MiB line, and 1,000-file commits. Compared with the plain view, they add zero memory from the Lean code path. Two budget gaps were found and fixed: late-failing files in huge commits weren\u0027t charged to the budget (930 ms dropped to 25 ms), and `?lean\u003d0` skipped the budget entirely.\n\n**Red team.** Four agents attacked the user-generated content and found 31 issues. All are fixed, each with a regression test.\n- **XSS and spoofing (7):** no script ever executed; this was checked in Chrome. Fixed:\n  - invisible variation selectors;\n  - homoglyph detection gaps;\n  - implicit right-to-left reordering (now isolated);\n  - protocol-relative links and images in Lean docs;\n  - heading anchors colliding with diff anchors;\n  - HTML5 invisible entities.\n- **Misleading rendering (12):** these were mostly lexer disagreements with Lean that could hide a `sorry`. Identifiers now follow Lean 4\u0027s `isLetterLike`/`isIdFirst`/`isIdRest` exactly, checked over every Unicode code point. Also fixed: command interpolation, doc-comment edge cases, and highlighting of multiline strings.\n- **Availability (8):** the worst were an O(n²) entity scan (48 s on 1.9 MB), a Markdown `[TOC]` that could OOM the server, and expensive Markdown fences and tables. All are now bounded by the per-request budget: under about 0.8 s of CPU, with 0 HTTP 500s and 0 full GCs at 64 concurrent requests.\n- **Weird inputs (4):** symlinks named `.lean`, binary data after 8 KiB, UTF-16 files, and control characters dropped by `trim()`.\n\nPre-existing upstream issues noticed, not part of this chain:\n- the plain-view highlighter overflows the stack on some Lean files;\n- breadcrumbs render bidi controls raw;\n- tag-to-blob URLs throw an NPE (`RevisionServlet.java:113`);\n- `.md` Markdown allows protocol-relative links.\n\nFull report (Googlers only): https://docs.google.com/document/d/1qwrPQ7flyxalm3FFJ66SBJJITAauQ1My1rl5uJEa_Vw/edit?resourcekey\u003d0-OblDnOQKXtbAXGq8lweisQ",
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
