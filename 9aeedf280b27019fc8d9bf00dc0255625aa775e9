@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e89d7fd8_cc9d7059",
+        "filename": "java/com/google/gitiles/lean/LeanDiffEngine.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "Both public alignLeanCodeLines overloads (lines 224 and 239) pass null for budget, leaving direct callers without FILE_INLINE_DIFF_CELL_BUDGET so computeSequenceDiff at line 369 can run up to MAX_SEQUENCE_DIFF_CELLS per modified line across thousands of lines. Have the int-depth overload delegate to the HighlightState overload and pass new DiffBudget(null) there to match alignLeanBlocks, and either add a direct unit test for the new public HighlightState overload or remove it if no external caller needs it.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6854a693_928a3c16",
+        "filename": "java/com/google/gitiles/lean/LeanDiffEngine.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "alignStructureFieldsForTesting (line 653) and 5-arg blockPairScore (line 861) have no callers in this change or downstream, and scoreIntervalPair (lines 1501-1516) duplicates the type-mismatch and declaration-identity fast paths from blockPairScore (lines 889-906). Please remove those two unused helpers, deduplicate the fast-path checks, and annotate test-only 2-arg buildDeclarationDiffData (line 658) and 2-arg buildPairedRow (line 721) with @VisibleForTesting (matching LeanRequestBudget).",
+      "range": {
+        "startLine": 653,
+        "startChar": 0,
+        "endLine": 661,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61000d9f_24132d1a",
+        "filename": "java/com/google/gitiles/lean/LeanDiffEngine.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "Four new raw-fallback paths here do not yet have test coverage: empty leftText or rightText in shouldFallbackTextBlock (line 1085, plus no SECTION_BANNER control-char test), empty docComment() in emptyDocChanged (lines 1110-1115, which might also be clearer named hasEmptyDocComment since it fires even on unchanged empty doc comments), adding or deleting a plain blank line between structure fields via !omittedA.equals(omittedB) (line 1128; LeanDiffEngineAdversarialTest only tests an unchanged blank line), and hiddenCharsPreservedInLines in alignCodeBlockWithRawFallback (lines 1301-1302). Please add targeted regression tests in LeanDiffEngineAdversarialTest covering these paths.",
+      "range": {
+        "startLine": 1085,
+        "startChar": 0,
+        "endLine": 1130,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47213c63_ad6d9373",
+        "filename": "java/com/google/gitiles/lean/LeanDiffEngine.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "LeanParser places inline @[...] attributes in both decl.attributes() and decl.signatureLines(), so scanning both here counts hidden or control characters inside an inline attribute twice. That triggers spurious raw lineDiff fallbacks on intact inline attributes, and can mask a dropped hidden character elsewhere in the declaration (for example, a trimmed doc-comment edge control char or malformed deriving line) when the duplicate count cancels out the missing character. Only scan standalone attributes not already present in signatureLines() (or drop the decl.attributes() loop so standalone attributes with hidden chars fall back to raw lineDiff).",
+      "range": {
+        "startLine": 1197,
+        "startChar": 0,
+        "endLine": 1203,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a0d055d_ad73a2d4",
+        "filename": "java/com/google/gitiles/lean/SequenceAligner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "The prefix and suffix trimming loops at lines 414-423 run without calling tickAbort(abort) or deducting from HomologousBudget, and still execute even after both remainingEditCells and remainingOverlapWork hit zero. On a 100x100 interval of lines or blocks with long shared prefixes, this allows tens of millions of unbudgeted String.equals comparisons while charging minimal or zero edit cells. Consider calling tickAbort(abort) inside both loops, short-circuiting to 1.0 when budgets are already exhausted for a GapEditScorer interval, and accounting for prefix/suffix comparison work against the homologous budget.",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c0d58ec_b6d80d1e",
+        "filename": "javatests/com/google/gitiles/lean/LeanDiffEngineAdversarialTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "Shrinking this test to 6 declarations x 60 lines x 60 shared trailing tokens causes it to cross zero per-diff DP budgets: it uses 21,600 of 40,000 pair cells, 191,520 of 1,500,000 edit cells (suffix trimming collapses the shared tail before DP), and 360 of 2,000,000 inline diff cells. Increase the declaration count to at least 12 x 60 lines (43,200 \u003e 40,000) to exceed FILE_HOMOLOGOUS_PAIR_CELL_BUDGET, and append differing trailing tokens per line so suffix trimming does not collapse the shared middle and FILE_HOMOLOGOUS_EDIT_CELL_BUDGET and FILE_INLINE_DIFF_CELL_BUDGET are actually exercised.",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d415a6b_ee5475b7",
+        "filename": "javatests/com/google/gitiles/lean/LeanDiffEngineAdversarialTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "Please remove internal review, gate, and test-harness tags across this file before landing in public upstream Gitiles (verifier S-D-3 at line 211, g3gate S-D-5 here, #194 at line 351, diff_struct_ctrl at line 362, R2-CHAOS-4: diff_doc_body at line 382, R2-CHAOS-4: diff_moddoc_edit at line 401, R2-INT-3 at line 546, and R2-INT-5 at line 563) and describe the workloads directly instead. While updating this comment, note that forward and reverse DIRECTIVE diffs use maxDistance \u003d 0.6 and prune via length ratio before GapEditScorer, and the 20k-token MODULE_DOC case runs 74 LCS DPs before exhausting the edit-cell budget and entering GapEditScorer.",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c15835f4_6a535dc1",
+        "filename": "javatests/com/google/gitiles/lean/LeanDiffEngineAdversarialTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "Asserting a 50 ms wall-clock threshold via System.nanoTime() at line 345 can flake under GC pauses or CI load, while assertThat(polls[0]).isEqualTo(5) already deterministically verifies prompt termination. In addition, poll 5 fires during interval tokenization before homologous alignment, inline sequence diffing, or Patience anchoring run, so consider replacing the timing check with deterministic abort cases covering those later loops as well.",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d9006e_2fdacc60",
+        "filename": "javatests/com/google/gitiles/lean/SequenceAlignerAdversarialTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:02Z",
+      "side": 1,
+      "message": "Even with 2,500 x 20,000 tokens, calling the 2-arg alignHomologousItems uses the default maxDistance \u003d 0.6 and short-circuits via length-ratio pruning at SequenceAligner.java:404-411 (20_000 \u003e 4 * 5 and maxPossibleDice \u003e 0.6) before GapEditScorer.overlap is ever invoked, leaving Arrays.binarySearch in GapEditScorer.overlapBinarySearch unexecuted across all tests. Pass maxDistance \u003d 1.0 (or keep the length ratio within 5x with midA * midB \u003e MAX_EDIT_DISTANCE_CELLS and lenL \u003e 4 * lenS) with overlapping mid-vocabulary tokens, and assert pairing plus binary-search hits, misses, and overlap-budget exhaustion. Also update the line 212 comment to cite MAX_ALIGN_ITEMS_CELLS (10k) rather than 40k.",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "9aeedf280b27019fc8d9bf00dc0255625aa775e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
