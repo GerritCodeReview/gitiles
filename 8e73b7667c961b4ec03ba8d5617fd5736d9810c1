@@ -1,6 +1,54 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2120ba34_63f79d54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "Minor accuracy note: \"invalid-UTF-8/BOM inputs\" suggests UTF-8 BOMs are rejected, whereas LeanRendering.isValidLeanTextBytes accepts UTF-8 BOM (0xEF 0xBB 0xBF) and LeanHtmlTest renders UTF-8 BOM diffs richly. Consider clarifying this to \"invalid-UTF-8/UTF-16-BOM inputs\".",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acea7bc0_5918dba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "Since this change lands in the public upstream gitiles repository and the screenshot links are already posted on the review thread, could we drop the Screenshots (Googlers only) block from the commit message so internal Drive links are not baked into public Git history?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9aac17ed_a53fefd7",
@@ -14,6 +62,174 @@
       "writtenOn": "2026-11-23T15:09:32Z",
       "side": 1,
       "message": "**Round 2: memory, compute, gigantic-file guardrails and red team (PS4, 658563–658568)**\n\n**Memory and compute.** Measured on 26,393 real Lean 4 files: Lean core, batteries, aesop and others.\n- All of them render richly. Per file, the median cost is 1.2 ms of CPU and 0.4 MiB allocated, the p95 is 12 ms and 5.1 MiB, and the worst case is 203 ms and 95 MiB.\n- In total that\u0027s 1.76x less CPU than the existing plain-view highlighter, which also throws StackOverflowError on 12% of these files.\n- From 1 KiB to 2 MiB, cost grows linearly. Realistic single-file edits cost about 20–100 ms. The worst near-cap inputs are cut off by the 750 ms per-request budget and fall back to plain.\n- Load: 0 errors at concurrency 1, 8, 32 and 64. The worst near-cap pages at 64 concurrent requests peak at 4.4–5.5 GiB of heap.\n- A 10-minute mixed soak (94k requests) finished with retained heap flat (+1.6 MiB) and no full GCs.\n\n**Gigantic files.** Size, line-count and line-length checks run before any decoding. The tested cases were files from 2 MiB to 1 GiB, 10M-line files, a single 100 MiB line, and 1,000-file commits. Compared with the plain view, they add zero memory from the Lean code path. Two budget gaps were found and fixed: late-failing files in huge commits weren\u0027t charged to the budget (930 ms dropped to 25 ms), and `?lean\u003d0` skipped the budget entirely.\n\n**Red team.** Four agents attacked the user-generated content and found 31 issues. All are fixed, each with a regression test.\n- **XSS and spoofing (7):** no script ever executed; this was checked in Chrome. Fixed:\n  - invisible variation selectors;\n  - homoglyph detection gaps;\n  - implicit right-to-left reordering (now isolated);\n  - protocol-relative links and images in Lean docs;\n  - heading anchors colliding with diff anchors;\n  - HTML5 invisible entities.\n- **Misleading rendering (12):** these were mostly lexer disagreements with Lean that could hide a `sorry`. Identifiers now follow Lean 4\u0027s `isLetterLike`/`isIdFirst`/`isIdRest` exactly, checked over every Unicode code point. Also fixed: command interpolation, doc-comment edge cases, and highlighting of multiline strings.\n- **Availability (8):** the worst were an O(n²) entity scan (48 s on 1.9 MB), a Markdown `[TOC]` that could OOM the server, and expensive Markdown fences and tables. All are now bounded by the per-request budget: under about 0.8 s of CPU, with 0 HTTP 500s and 0 full GCs at 64 concurrent requests.\n- **Weird inputs (4):** symlinks named `.lean`, binary data after 8 KiB, UTF-16 files, and control characters dropped by `trim()`.\n\nPre-existing upstream issues noticed, not part of this chain:\n- the plain-view highlighter overflows the stack on some Lean files;\n- breadcrumbs render bidi controls raw;\n- tag-to-blob URLs throw an NPE (`RevisionServlet.java:113`);\n- `.md` Markdown allows protocol-relative links.\n\nFull report (Googlers only): https://docs.google.com/document/d/1qwrPQ7flyxalm3FFJ66SBJJITAauQ1My1rl5uJEa_Vw/edit?resourcekey\u003d0-OblDnOQKXtbAXGq8lweisQ",
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1495f813_b2519f15",
+        "filename": "java/com/google/gitiles/HtmlDiffFormatter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "Returning inside the try block evaluates true before finally runs leanBudget.endInputCheck(...). If endInputCheck hits maxCpuNanos and marks the budget exhausted, ?lean\u003d0 still emits a Rendered link after recordToggleLink no-ops on exhausted, and rendered mode still decodes and rescans both sides before LeanHtml.renderDiff rejects it. Capture the boolean result and return passed \u0026\u0026 !leanBudget.isExhausted() after finally.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6020452d_9b968960",
+        "filename": "java/com/google/gitiles/lean/LeanHtml.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "Checking blocksA.size() \u003e MAX_RENDER_BLOCKS (and blocksB.size() \u003e MAX_RENDER_BLOCKS on line 319) before activeBudget.tryConsumeBlocks(...) short-circuits cumulative block accounting on oversize-block files. Because rendered stays false in recordOutcome, a multi-file commit of small micro-block files (\u003e25k blocks each) leaves blocksUsed at 0 and exhausted false, bypassing the 32,000-block request cap until hitting the scan or CPU limit. Call !activeBudget.tryConsumeBlocks(...) first on both sides so oversize-block files are still charged against the request budget.",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b01fce_e998ba86",
+        "filename": "java/com/google/gitiles/lean/LeanHtml.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1615,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "LeanParser.splitLineComment returns null when no line comment is present and \"\" for an empty trailing line comment, so Objects.equals(l.comment(), r.comment()) returns false when adding or removing an empty comment. Because renderAlignedFieldsTable and renderFieldTableRow treat null and \"\" identically via !Strings.isNullOrEmpty, those edits skip raw-line fallback and render visually identical deleted and added table rows without a Notes column. Compare Strings.nullToEmpty(l.comment()).equals(Strings.nullToEmpty(r.comment())) (matching LeanDiffEngine.buildModifiedField) and add a test in LeanDiffAdversarialTest covering whitespace-only and empty-comment field edits (which also currently leaves lines 1470 to 1546 untested).",
+      "range": {
+        "startLine": 1615,
+        "startChar": 0,
+        "endLine": 1615,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c49b3d6b_7212345c",
+        "filename": "javatests/com/google/gitiles/DiffServletTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "Every ineligible-mode fixture in this test (Sub.lean, SymEdit.lean, SymAdd.lean, and the added symlink half of FileToSym.lean) has an ineligible newMode, so deleting the new oldMode checks at HtmlDiffFormatter.java lines 207 and 211 still passes all tests. Please add a deleted symlink (SYMLINK to MISSING) or symlink-to-regular-file case to cover oldMode eligibility, and verify that FileToSym.lean renders old_file in LeanDiff and Main.lean in Diff-unified rather than checking counts alone.",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cae03ec_05402025",
+        "filename": "javatests/com/google/gitiles/DiffServletTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "The comment on lines 555 to 556 says the \u003e8 KB LF prefix bypasses JGit binary sniffing so bare-CR lines exercise LeanRendering.withinInputCaps(RawText) against MAX_LINES, but line 570 asserts \"Binary files differ\" because JGit RawText.load scans the full blob for bare CR and classifies it as PatchType.BINARY (exiting eligibleLeanPathPrefix at line 204 before passesLeanInputGuards runs). Now that Big.lean (line 326) is 33 lines over MAX_BYTES rather than MAX_LINES + 1 lines, the MAX_LINES check in passesLeanInputGuards is uncovered in DiffServletTest. Please update this comment to reflect JGit binary classification (or test bare CR directly via HtmlDiffFormatter) and add an LF-only file exceeding MAX_LINES within MAX_BYTES.",
+      "range": {
+        "startLine": 555,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6554a4c1_6b0458cd",
+        "filename": "javatests/com/google/gitiles/lean/LeanHtmlTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "Despite the test name, this method has no interpolated string literals (such as s!\"...\") and the third #eval block changes line 1 of directiveLines(), so allLinesUnchanged(row.lineDiff()) is false and it routes through renderAlignedCodeLines rather than renderRawCodeStripDiff/renderRawLinesWithClass. Because renderDiffReflowedMarkdownAndHtmlCommentsNeverEmitIdenticalSubrows does not assert token classes either, the new HighlightState propagation in LeanHtml.renderRawLinesWithClass (lines 875 to 877) is currently uncovered. Please add a multiline interpolated string case and cover renderRawLinesWithClass (for example, asserting comment token highlighting on reflowed module docs or adding a block whose parsed lines match while raw() differs).",
+      "range": {
+        "startLine": 777,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 9999
+      },
+      "isAi": true,
+      "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbcbcb17_b5cab35e",
+        "filename": "resources/com/google/gitiles/templates/DiffDetail.soy",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1030207
+      },
+      "writtenOn": "2026-11-23T20:55:09Z",
+      "side": 1,
+      "message": "PathDetail.soy loads [$staticUrls.LEAN_CSS_URL, $staticUrls.DOC_CSS_URL, $staticUrls.PRETTIFY_CSS_URL] for Lean blobs, whereas DiffDetail.soy only loads $staticUrls.LEAN_CSS_URL. Because LeanHtml.renderDiff uses the same MarkdownToHtml pipeline for Lean docstrings, Prettify fenced-code spans (.kwd, .str, .com) and doc.css Markdown blocks (.note, .promo, .aside, .cols) lose their styling in diff views unless DOC_CSS_URL and PRETTIFY_CSS_URL are included here too.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 9999
+      },
       "isAi": true,
       "revId": "8e73b7667c961b4ec03ba8d5617fd5736d9810c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
