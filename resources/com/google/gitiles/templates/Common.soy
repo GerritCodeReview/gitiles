@@ -127,7 +127,7 @@
 {template fileSearchTrigger}
   {@inject? SEARCH_TREE_URL: string|null}
   {@inject? SEARCH_REPOSITORIES: bool|null}
-{if $SEARCH_TREE_URL or $SEARCH_REPOSITORIES}
+{if $SEARCH_TREE_URL || $SEARCH_REPOSITORIES}
   {let $label: $SEARCH_REPOSITORIES ? 'Find repository' : 'Find file' /}
 <button class="Header-menuItem FileSearch-trigger" type="button" title="{$label} (press /)" aria-label="{$label}">
   <span class="FileSearch-triggerKey" aria-hidden="true">/</span>
@@ -154,7 +154,7 @@
   {@inject? SEARCH_TREE_URL: string|null}
   {@inject? SEARCH_REPOSITORIES: bool|null}
   {@inject staticUrls: ?}
-{if $SEARCH_TREE_URL or $SEARCH_REPOSITORIES}
+{if $SEARCH_TREE_URL || $SEARCH_REPOSITORIES}
   {let $dialogLabel: $SEARCH_TREE_URL ? 'Find file' : 'Find repository' /}
   {let $inputLabel: $SEARCH_TREE_URL ? 'Find a file by path' : 'Find a repository by name' /}
 <div id="file-search" class="FileSearch" hidden
